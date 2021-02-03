@@ -1,0 +1,34 @@
+<h1 id="description">–description–</h1>
+<p>Besides GET, there is another common HTTP verb, it is POST. POST is the default method used to send client data with HTML forms. In REST convention, POST is used to send data to create new items in the database (a new user, or a new blog post). You don’t have a database in this project, but you are going to learn how to handle POST requests anyway.</p>
+<p>In these kind of requests, the data doesn’t appear in the URL, it is hidden in the request body. The body is a part of the HTTP request, also called the payload. Even though the data is not visible in the URL, this does not mean that it is private. To see why, look at the raw content of an HTTP POST request:</p>
+<pre class="http"><code>POST /path/subpath HTTP/1.0
+From: john@example.com
+User-Agent: someBrowser/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 20
+name=John+Doe&amp;age=25</code></pre>
+<p>As you can see, the body is encoded like the query string. This is the default format used by HTML forms. With Ajax, you can also use JSON to handle data having a more complex structure. There is also another type of encoding: multipart/form-data. This one is used to upload binary files. In this exercise, you will use a urlencoded body. To parse the data coming from POST requests, you have to install the <code>body-parser</code> package. This package allows you to use a series of middleware, which can decode data in different formats.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Install the <code>body-parser</code> module in your <code>package.json</code>. Then, <code>require</code> it at the top of the file. Store it in a variable named <code>bodyParser</code>. The middleware to handle urlencoded data is returned by <code>bodyParser.urlencoded({extended: false})</code>. Pass to <code>app.use()</code> the function returned by the previous method call. As usual, the middleware must be mounted before all the routes which need it.</p>
+<p><strong>Note:</strong> <code>extended=false</code> is a configuration option that tells the parser to use the classic encoding. When using it, values can be only strings or arrays. The extended version allows more data flexibility, but it is outmatched by JSON.</p>
+<h1 id="hints">–hints–</h1>
+<p>The ‘body-parser’ middleware should be mounted</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/add-body-parser&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="va">assert</span>.<span class="at">isAbove</span>(</a>
+<a class="sourceLine" id="cb2-5" title="5">        <span class="va">data</span>.<span class="at">mountedAt</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-6" title="6">        <span class="dv">0</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-7" title="7">        <span class="st">&#39;&quot;body-parser&quot; is not mounted correctly&#39;</span></a>
+<a class="sourceLine" id="cb2-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">*/</span></a></code></pre></div>

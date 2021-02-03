@@ -1,0 +1,14 @@
+.body {
+    display: grid;
+    height: calc(100vh - var(--app-bar-height));
+    grid-template-columns: var(--drawer-width) 1fr;
+}
+
+
+
+
+@media (max-width: 1024px) {
+    .body {
+        grid-template-columns: 1fr;
+    }
+}

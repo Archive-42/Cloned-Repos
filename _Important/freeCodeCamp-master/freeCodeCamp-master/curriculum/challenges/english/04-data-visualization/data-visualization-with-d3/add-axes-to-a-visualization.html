@@ -1,0 +1,156 @@
+<h1 id="description">–description–</h1>
+<p>Another way to improve the scatter plot is to add an x-axis and a y-axis.</p>
+<p>D3 has two methods, <code>axisLeft()</code> and <code>axisBottom()</code>, to render the y-axis and x-axis, respectively. Here’s an example to create the x-axis based on the <code>xScale</code> in the previous challenges:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">const</span> xAxis <span class="op">=</span> <span class="va">d3</span>.<span class="at">axisBottom</span>(xScale)<span class="op">;</span></a></code></pre></div>
+<p>The next step is to render the axis on the SVG canvas. To do so, you can use a general SVG component, the <code>g</code> element. The <code>g</code> stands for group. Unlike <code>rect</code>, <code>circle</code>, and <code>text</code>, an axis is just a straight line when it’s rendered. Because it is a simple shape, using <code>g</code> works. The last step is to apply a <code>transform</code> attribute to position the axis on the SVG canvas in the right place. Otherwise, the line would render along the border of SVG canvas and wouldn’t be visible. SVG supports different types of <code>transforms</code>, but positioning an axis needs <code>translate</code>. When it’s applied to the <code>g</code> element, it moves the whole group over and down by the given amounts. Here’s an example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">const</span> xAxis <span class="op">=</span> <span class="va">d3</span>.<span class="at">axisBottom</span>(xScale)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="va">svg</span>.<span class="at">append</span>(<span class="st">&quot;g&quot;</span>)</a>
+<a class="sourceLine" id="cb2-4" title="4">   .<span class="at">attr</span>(<span class="st">&quot;transform&quot;</span><span class="op">,</span> <span class="st">&quot;translate(0, &quot;</span> <span class="op">+</span> (h <span class="op">-</span> padding) <span class="op">+</span> <span class="st">&quot;)&quot;</span>)</a>
+<a class="sourceLine" id="cb2-5" title="5">   .<span class="at">call</span>(xAxis)<span class="op">;</span></a></code></pre></div>
+<p>The above code places the x-axis at the bottom of the SVG canvas. Then it’s passed as an argument to the <code>call()</code> method. The y-axis works in the same way, except the <code>translate</code> argument is in the form (x, 0). Because <code>translate</code> is a string in the <code>attr()</code> method above, you can use concatenation to include variable values for its arguments.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>The scatter plot now has an x-axis. Create a y-axis in a variable named <code>yAxis</code> using the <code>axisLeft()</code> method. Then render the axis using a <code>g</code> element. Make sure to use a <code>transform</code> attribute to translate the axis by the amount of padding units right, and 0 units down. Remember to <code>call()</code> the axis.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should use the <code>axisLeft()</code> method with <code>yScale</code> passed as the argument.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/</span><span class="sc">\.</span><span class="ss">axisLeft</span><span class="sc">\(</span><span class="ss">yScale</span><span class="sc">\)</span><span class="ss">/g</span>))<span class="op">;</span></a></code></pre></div>
+<p>The y-axis <code>g</code> element should have a <code>transform</code> attribute to translate the axis by (60, 0).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="at">$</span>(<span class="st">&#39;g&#39;</span>)</a>
+<a class="sourceLine" id="cb4-3" title="3">    .<span class="at">eq</span>(<span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb4-4" title="4">    .<span class="at">attr</span>(<span class="st">&#39;transform&#39;</span>)</a>
+<a class="sourceLine" id="cb4-5" title="5">    .<span class="at">match</span>(<span class="ss">/translate</span><span class="sc">\(</span><span class="ss">60</span><span class="sc">\s*?</span><span class="ss">,</span><span class="sc">\s*?</span><span class="ss">0</span><span class="sc">\)</span><span class="ss">/g</span>)</a>
+<a class="sourceLine" id="cb4-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>Your code should call the <code>yAxis</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/</span><span class="sc">\.</span><span class="ss">call</span><span class="sc">\(\s*</span><span class="ss">yAxis</span><span class="sc">\s*\)</span><span class="ss">/g</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="kw">&lt;script&gt;</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">const</span> dataset <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb6-4" title="4">                  [ <span class="dv">34</span><span class="op">,</span>     <span class="dv">78</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-5" title="5">                  [ <span class="dv">109</span><span class="op">,</span>   <span class="dv">280</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-6" title="6">                  [ <span class="dv">310</span><span class="op">,</span>   <span class="dv">120</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-7" title="7">                  [ <span class="dv">79</span><span class="op">,</span>   <span class="dv">411</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-8" title="8">                  [ <span class="dv">420</span><span class="op">,</span>   <span class="dv">220</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-9" title="9">                  [ <span class="dv">233</span><span class="op">,</span>   <span class="dv">145</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-10" title="10">                  [ <span class="dv">333</span><span class="op">,</span>   <span class="dv">96</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-11" title="11">                  [ <span class="dv">222</span><span class="op">,</span>    <span class="dv">333</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-12" title="12">                  [ <span class="dv">78</span><span class="op">,</span>    <span class="dv">320</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-13" title="13">                  [ <span class="dv">21</span><span class="op">,</span>   <span class="dv">123</span> ]</a>
+<a class="sourceLine" id="cb6-14" title="14">                ]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-15" title="15"></a>
+<a class="sourceLine" id="cb6-16" title="16">    <span class="kw">const</span> w <span class="op">=</span> <span class="dv">500</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-17" title="17">    <span class="kw">const</span> h <span class="op">=</span> <span class="dv">500</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-18" title="18">    <span class="kw">const</span> padding <span class="op">=</span> <span class="dv">60</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-19" title="19"></a>
+<a class="sourceLine" id="cb6-20" title="20">    <span class="kw">const</span> xScale <span class="op">=</span> <span class="va">d3</span>.<span class="at">scaleLinear</span>()</a>
+<a class="sourceLine" id="cb6-21" title="21">                     .<span class="at">domain</span>([<span class="dv">0</span><span class="op">,</span> <span class="va">d3</span>.<span class="at">max</span>(dataset<span class="op">,</span> (d) <span class="kw">=&gt;</span> d[<span class="dv">0</span>])])</a>
+<a class="sourceLine" id="cb6-22" title="22">                     .<span class="at">range</span>([padding<span class="op">,</span> w <span class="op">-</span> padding])<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-23" title="23"></a>
+<a class="sourceLine" id="cb6-24" title="24">    <span class="kw">const</span> yScale <span class="op">=</span> <span class="va">d3</span>.<span class="at">scaleLinear</span>()</a>
+<a class="sourceLine" id="cb6-25" title="25">                     .<span class="at">domain</span>([<span class="dv">0</span><span class="op">,</span> <span class="va">d3</span>.<span class="at">max</span>(dataset<span class="op">,</span> (d) <span class="kw">=&gt;</span> d[<span class="dv">1</span>])])</a>
+<a class="sourceLine" id="cb6-26" title="26">                     .<span class="at">range</span>([h <span class="op">-</span> padding<span class="op">,</span> padding])<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-27" title="27"></a>
+<a class="sourceLine" id="cb6-28" title="28">    <span class="kw">const</span> svg <span class="op">=</span> <span class="va">d3</span>.<span class="at">select</span>(<span class="st">&quot;body&quot;</span>)</a>
+<a class="sourceLine" id="cb6-29" title="29">                  .<span class="at">append</span>(<span class="st">&quot;svg&quot;</span>)</a>
+<a class="sourceLine" id="cb6-30" title="30">                  .<span class="at">attr</span>(<span class="st">&quot;width&quot;</span><span class="op">,</span> w)</a>
+<a class="sourceLine" id="cb6-31" title="31">                  .<span class="at">attr</span>(<span class="st">&quot;height&quot;</span><span class="op">,</span> h)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-32" title="32"></a>
+<a class="sourceLine" id="cb6-33" title="33">    <span class="va">svg</span>.<span class="at">selectAll</span>(<span class="st">&quot;circle&quot;</span>)</a>
+<a class="sourceLine" id="cb6-34" title="34">       .<span class="at">data</span>(dataset)</a>
+<a class="sourceLine" id="cb6-35" title="35">       .<span class="at">enter</span>()</a>
+<a class="sourceLine" id="cb6-36" title="36">       .<span class="at">append</span>(<span class="st">&quot;circle&quot;</span>)</a>
+<a class="sourceLine" id="cb6-37" title="37">       .<span class="at">attr</span>(<span class="st">&quot;cx&quot;</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> <span class="at">xScale</span>(d[<span class="dv">0</span>]))</a>
+<a class="sourceLine" id="cb6-38" title="38">       .<span class="at">attr</span>(<span class="st">&quot;cy&quot;</span><span class="op">,</span>(d) <span class="kw">=&gt;</span> <span class="at">yScale</span>(d[<span class="dv">1</span>]))</a>
+<a class="sourceLine" id="cb6-39" title="39">       .<span class="at">attr</span>(<span class="st">&quot;r&quot;</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> <span class="dv">5</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-40" title="40"></a>
+<a class="sourceLine" id="cb6-41" title="41">    <span class="va">svg</span>.<span class="at">selectAll</span>(<span class="st">&quot;text&quot;</span>)</a>
+<a class="sourceLine" id="cb6-42" title="42">       .<span class="at">data</span>(dataset)</a>
+<a class="sourceLine" id="cb6-43" title="43">       .<span class="at">enter</span>()</a>
+<a class="sourceLine" id="cb6-44" title="44">       .<span class="at">append</span>(<span class="st">&quot;text&quot;</span>)</a>
+<a class="sourceLine" id="cb6-45" title="45">       .<span class="at">text</span>((d) <span class="kw">=&gt;</span>  (d[<span class="dv">0</span>] <span class="op">+</span> <span class="st">&quot;,&quot;</span> <span class="op">+</span> d[<span class="dv">1</span>]))</a>
+<a class="sourceLine" id="cb6-46" title="46">       .<span class="at">attr</span>(<span class="st">&quot;x&quot;</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> <span class="at">xScale</span>(d[<span class="dv">0</span>] <span class="op">+</span> <span class="dv">10</span>))</a>
+<a class="sourceLine" id="cb6-47" title="47">       .<span class="at">attr</span>(<span class="st">&quot;y&quot;</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> <span class="at">yScale</span>(d[<span class="dv">1</span>]))</a>
+<a class="sourceLine" id="cb6-48" title="48"></a>
+<a class="sourceLine" id="cb6-49" title="49">    <span class="kw">const</span> xAxis <span class="op">=</span> <span class="va">d3</span>.<span class="at">axisBottom</span>(xScale)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-50" title="50">    <span class="co">// Add your code below this line</span></a>
+<a class="sourceLine" id="cb6-51" title="51">    <span class="kw">const</span> yAxis <span class="op">=</span> <span class="kw">undefined</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-52" title="52">    <span class="co">// Add your code above this line</span></a>
+<a class="sourceLine" id="cb6-53" title="53"></a>
+<a class="sourceLine" id="cb6-54" title="54">    <span class="va">svg</span>.<span class="at">append</span>(<span class="st">&quot;g&quot;</span>)</a>
+<a class="sourceLine" id="cb6-55" title="55">       .<span class="at">attr</span>(<span class="st">&quot;transform&quot;</span><span class="op">,</span> <span class="st">&quot;translate(0,&quot;</span> <span class="op">+</span> (h <span class="op">-</span> padding) <span class="op">+</span> <span class="st">&quot;)&quot;</span>)</a>
+<a class="sourceLine" id="cb6-56" title="56">       .<span class="at">call</span>(xAxis)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-57" title="57"></a>
+<a class="sourceLine" id="cb6-58" title="58">    <span class="co">// Add your code below this line</span></a>
+<a class="sourceLine" id="cb6-59" title="59"></a>
+<a class="sourceLine" id="cb6-60" title="60"></a>
+<a class="sourceLine" id="cb6-61" title="61"></a>
+<a class="sourceLine" id="cb6-62" title="62">    <span class="co">// Add your code above this line</span></a>
+<a class="sourceLine" id="cb6-63" title="63"></a>
+<a class="sourceLine" id="cb6-64" title="64">  <span class="kw">&lt;/script&gt;</span></a>
+<a class="sourceLine" id="cb6-65" title="65"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="kw">&lt;script&gt;</span></a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="kw">const</span> dataset <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb7-4" title="4">                  [ <span class="dv">34</span><span class="op">,</span>     <span class="dv">78</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-5" title="5">                  [ <span class="dv">109</span><span class="op">,</span>   <span class="dv">280</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-6" title="6">                  [ <span class="dv">310</span><span class="op">,</span>   <span class="dv">120</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-7" title="7">                  [ <span class="dv">79</span><span class="op">,</span>   <span class="dv">411</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-8" title="8">                  [ <span class="dv">420</span><span class="op">,</span>   <span class="dv">220</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-9" title="9">                  [ <span class="dv">233</span><span class="op">,</span>   <span class="dv">145</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-10" title="10">                  [ <span class="dv">333</span><span class="op">,</span>   <span class="dv">96</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-11" title="11">                  [ <span class="dv">222</span><span class="op">,</span>    <span class="dv">333</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-12" title="12">                  [ <span class="dv">78</span><span class="op">,</span>    <span class="dv">320</span> ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-13" title="13">                  [ <span class="dv">21</span><span class="op">,</span>   <span class="dv">123</span> ]</a>
+<a class="sourceLine" id="cb7-14" title="14">                ]<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-15" title="15"></a>
+<a class="sourceLine" id="cb7-16" title="16">    <span class="kw">const</span> w <span class="op">=</span> <span class="dv">500</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-17" title="17">    <span class="kw">const</span> h <span class="op">=</span> <span class="dv">500</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-18" title="18">    <span class="kw">const</span> padding <span class="op">=</span> <span class="dv">60</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-19" title="19"></a>
+<a class="sourceLine" id="cb7-20" title="20">    <span class="kw">const</span> xScale <span class="op">=</span> <span class="va">d3</span>.<span class="at">scaleLinear</span>()</a>
+<a class="sourceLine" id="cb7-21" title="21">                     .<span class="at">domain</span>([<span class="dv">0</span><span class="op">,</span> <span class="va">d3</span>.<span class="at">max</span>(dataset<span class="op">,</span> (d) <span class="kw">=&gt;</span> d[<span class="dv">0</span>])])</a>
+<a class="sourceLine" id="cb7-22" title="22">                     .<span class="at">range</span>([padding<span class="op">,</span> w <span class="op">-</span> padding])<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-23" title="23"></a>
+<a class="sourceLine" id="cb7-24" title="24">    <span class="kw">const</span> yScale <span class="op">=</span> <span class="va">d3</span>.<span class="at">scaleLinear</span>()</a>
+<a class="sourceLine" id="cb7-25" title="25">                     .<span class="at">domain</span>([<span class="dv">0</span><span class="op">,</span> <span class="va">d3</span>.<span class="at">max</span>(dataset<span class="op">,</span> (d) <span class="kw">=&gt;</span> d[<span class="dv">1</span>])])</a>
+<a class="sourceLine" id="cb7-26" title="26">                     .<span class="at">range</span>([h <span class="op">-</span> padding<span class="op">,</span> padding])<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-27" title="27"></a>
+<a class="sourceLine" id="cb7-28" title="28">    <span class="kw">const</span> svg <span class="op">=</span> <span class="va">d3</span>.<span class="at">select</span>(<span class="st">&quot;body&quot;</span>)</a>
+<a class="sourceLine" id="cb7-29" title="29">                  .<span class="at">append</span>(<span class="st">&quot;svg&quot;</span>)</a>
+<a class="sourceLine" id="cb7-30" title="30">                  .<span class="at">attr</span>(<span class="st">&quot;width&quot;</span><span class="op">,</span> w)</a>
+<a class="sourceLine" id="cb7-31" title="31">                  .<span class="at">attr</span>(<span class="st">&quot;height&quot;</span><span class="op">,</span> h)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-32" title="32"></a>
+<a class="sourceLine" id="cb7-33" title="33">    <span class="va">svg</span>.<span class="at">selectAll</span>(<span class="st">&quot;circle&quot;</span>)</a>
+<a class="sourceLine" id="cb7-34" title="34">       .<span class="at">data</span>(dataset)</a>
+<a class="sourceLine" id="cb7-35" title="35">       .<span class="at">enter</span>()</a>
+<a class="sourceLine" id="cb7-36" title="36">       .<span class="at">append</span>(<span class="st">&quot;circle&quot;</span>)</a>
+<a class="sourceLine" id="cb7-37" title="37">       .<span class="at">attr</span>(<span class="st">&quot;cx&quot;</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> <span class="at">xScale</span>(d[<span class="dv">0</span>]))</a>
+<a class="sourceLine" id="cb7-38" title="38">       .<span class="at">attr</span>(<span class="st">&quot;cy&quot;</span><span class="op">,</span>(d) <span class="kw">=&gt;</span> <span class="at">yScale</span>(d[<span class="dv">1</span>]))</a>
+<a class="sourceLine" id="cb7-39" title="39">       .<span class="at">attr</span>(<span class="st">&quot;r&quot;</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> <span class="dv">5</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-40" title="40"></a>
+<a class="sourceLine" id="cb7-41" title="41">    <span class="va">svg</span>.<span class="at">selectAll</span>(<span class="st">&quot;text&quot;</span>)</a>
+<a class="sourceLine" id="cb7-42" title="42">       .<span class="at">data</span>(dataset)</a>
+<a class="sourceLine" id="cb7-43" title="43">       .<span class="at">enter</span>()</a>
+<a class="sourceLine" id="cb7-44" title="44">       .<span class="at">append</span>(<span class="st">&quot;text&quot;</span>)</a>
+<a class="sourceLine" id="cb7-45" title="45">       .<span class="at">text</span>((d) <span class="kw">=&gt;</span>  (d[<span class="dv">0</span>] <span class="op">+</span> <span class="st">&quot;,&quot;</span> <span class="op">+</span> d[<span class="dv">1</span>]))</a>
+<a class="sourceLine" id="cb7-46" title="46">       .<span class="at">attr</span>(<span class="st">&quot;x&quot;</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> <span class="at">xScale</span>(d[<span class="dv">0</span>] <span class="op">+</span> <span class="dv">10</span>))</a>
+<a class="sourceLine" id="cb7-47" title="47">       .<span class="at">attr</span>(<span class="st">&quot;y&quot;</span><span class="op">,</span> (d) <span class="kw">=&gt;</span> <span class="at">yScale</span>(d[<span class="dv">1</span>]))</a>
+<a class="sourceLine" id="cb7-48" title="48"></a>
+<a class="sourceLine" id="cb7-49" title="49">    <span class="kw">const</span> xAxis <span class="op">=</span> <span class="va">d3</span>.<span class="at">axisBottom</span>(xScale)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-50" title="50">    </a>
+<a class="sourceLine" id="cb7-51" title="51">    <span class="kw">const</span> yAxis <span class="op">=</span> <span class="va">d3</span>.<span class="at">axisLeft</span>(yScale)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-52" title="52">    </a>
+<a class="sourceLine" id="cb7-53" title="53"></a>
+<a class="sourceLine" id="cb7-54" title="54">    <span class="va">svg</span>.<span class="at">append</span>(<span class="st">&quot;g&quot;</span>)</a>
+<a class="sourceLine" id="cb7-55" title="55">       .<span class="at">attr</span>(<span class="st">&quot;transform&quot;</span><span class="op">,</span> <span class="st">&quot;translate(0,&quot;</span> <span class="op">+</span> (h <span class="op">-</span> padding) <span class="op">+</span> <span class="st">&quot;)&quot;</span>)</a>
+<a class="sourceLine" id="cb7-56" title="56">       .<span class="at">call</span>(xAxis)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-57" title="57"></a>
+<a class="sourceLine" id="cb7-58" title="58">    <span class="va">svg</span>.<span class="at">append</span>(<span class="st">&quot;g&quot;</span>)</a>
+<a class="sourceLine" id="cb7-59" title="59">       .<span class="at">attr</span>(<span class="st">&quot;transform&quot;</span><span class="op">,</span> <span class="st">&quot;translate(&quot;</span> <span class="op">+</span> padding <span class="op">+</span> <span class="st">&quot;,0)&quot;</span>)</a>
+<a class="sourceLine" id="cb7-60" title="60">       .<span class="at">call</span>(yAxis)</a>
+<a class="sourceLine" id="cb7-61" title="61"></a>
+<a class="sourceLine" id="cb7-62" title="62">  <span class="kw">&lt;/script&gt;</span></a>
+<a class="sourceLine" id="cb7-63" title="63"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>

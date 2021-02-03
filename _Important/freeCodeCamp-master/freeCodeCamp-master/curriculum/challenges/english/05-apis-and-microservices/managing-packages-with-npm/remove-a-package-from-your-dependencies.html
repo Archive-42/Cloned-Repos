@@ -1,0 +1,29 @@
+<h1 id="description">–description–</h1>
+<p>You have now tested a few ways you can manage dependencies of your project by using the package.json’s dependencies section. You have also included external packages by adding them to the file and even told npm what types of versions you want, by using special characters such as the tilde or the caret.</p>
+<p>But what if you want to remove an external package that you no longer need? You might already have guessed it, just remove the corresponding key-value pair for that package from your dependencies.</p>
+<p>This same method applies to removing other fields in your package.json as well</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Remove the moment package from your dependencies.</p>
+<p><strong>Note:</strong> Make sure you have the right amount of commas after removing it.</p>
+<h1 id="hints">–hints–</h1>
+<p>“dependencies” should not include “moment”</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/package.json&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb1-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-4" title="4">      <span class="kw">var</span> packJson <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(data)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">      <span class="va">assert</span>.<span class="at">notProperty</span>(</a>
+<a class="sourceLine" id="cb1-6" title="6">        <span class="va">packJson</span>.<span class="at">dependencies</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-7" title="7">        <span class="st">&#39;moment&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-8" title="8">        <span class="st">&#39;&quot;dependencies&quot; still includes &quot;moment&quot;&#39;</span></a>
+<a class="sourceLine" id="cb1-9" title="9">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-10" title="10">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb1-11" title="11">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-12" title="12">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-13" title="13">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-14" title="14">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">*/</span></a></code></pre></div>

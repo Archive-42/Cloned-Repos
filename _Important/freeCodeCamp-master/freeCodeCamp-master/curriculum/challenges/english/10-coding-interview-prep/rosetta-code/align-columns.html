@@ -1,0 +1,162 @@
+<h1 id="description">–description–</h1>
+<p>Given a text file of many lines, where fields within a line are delineated by a single <code>$</code> character, write a program that aligns each column of fields by ensuring that words in each column are separated by at least one space. Further, allow for each word in a column to be either left justified, right justified, or center justified within its column.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Use the following text to test your programs:</p>
+<pre>
+Given$a$text$file$of$many$lines
+where$fields$within$a$line$
+are$delineated$by$a$single$'dollar'$character
+write$a$program
+that$aligns$each$column$of$fields
+by$ensuring$that$words$in$each$
+column$are$separated$by$at$least$one$space.
+Further,$allow$for$each$word$in$a$column$to$be$either$left$
+justified,$right$justified
+or$center$justified$within$its$column.
+</pre>
+<p><strong>Note that:</strong></p>
+<ul>
+<li>
+The example input texts lines may, or may not, have trailing dollar characters.
+</li>
+<li>
+All columns should share the same alignment.
+</li>
+<li>
+Consecutive space characters produced adjacent to the end of lines are insignificant for the purposes of the task.
+</li>
+<li>
+Output text will be viewed in a mono-spaced font on a plain text editor or basic terminal.
+</li>
+<li>
+The minimum space between columns should be computed from the text and not hard-coded.
+</li>
+<li>
+It is not a requirement to add separating characters between or around columns.
+</li>
+</ul>
+<h1 id="hints">–hints–</h1>
+<p><code>formatText</code> should be a function.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> formatText <span class="op">===</span> <span class="st">&#39;function&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>formatText</code> with the above input and “right” justification should produce the following:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">formatText</span>(testInput<span class="op">,</span> <span class="st">&#39;right&#39;</span>)<span class="op">,</span> rightAligned)<span class="op">;</span></a></code></pre></div>
+<p><code>formatText</code> with the above input and “left” justification should produce the following:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">formatText</span>(testInput<span class="op">,</span> <span class="st">&#39;left&#39;</span>)<span class="op">,</span> leftAligned)<span class="op">;</span></a></code></pre></div>
+<p><code>formatText</code> with the above input and “center” justification should produce the following:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">formatText</span>(testInput<span class="op">,</span> <span class="st">&#39;center&#39;</span>)<span class="op">,</span> centerAligned)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">const</span> testInput <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="st">&#39;Given$a$text$file$of$many$lines&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="st">&#39;where$fields$within$a$line$&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-4" title="4">  <span class="st">&#39;are$delineated$by$a$single$</span><span class="sc">\&quot;</span><span class="st">dollar</span><span class="sc">\&quot;</span><span class="st">$character&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-5" title="5">  <span class="st">&#39;write$a$program&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-6" title="6">  <span class="st">&#39;that$aligns$each$column$of$fields$&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-7" title="7">  <span class="st">&#39;by$ensuring$that$words$in$each$&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-8" title="8">  <span class="st">&#39;column$are$separated$by$at$least$one$space.&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-9" title="9">  <span class="st">&#39;Further,$allow$for$each$word$in$a$column$to$be$either$left$&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-10" title="10">  <span class="st">&#39;justified,$right$justified&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-11" title="11">  <span class="st">&#39;or$center$justified$within$its$column.&#39;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">]<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-13" title="13"></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="kw">const</span> rightAligned <span class="op">=</span> <span class="st">&#39;     Given          a      text   file     of     many     lines</span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-15" title="15"><span class="st">&#39;     where     fields    within      a   line </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-16" title="16"><span class="st">&#39;       are delineated        by      a single &quot;dollar&quot; character</span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-17" title="17"><span class="st">&#39;     write          a   program</span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-18" title="18"><span class="st">&#39;      that     aligns      each column     of   fields </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-19" title="19"><span class="st">&#39;        by   ensuring      that  words     in     each </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-20" title="20"><span class="st">&#39;    column        are separated     by     at    least       one space.</span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-21" title="21"><span class="st">&#39;  Further,      allow       for   each   word       in         a column to be either left </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-22" title="22"><span class="st">&#39;justified,      right justified</span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-23" title="23"><span class="st">&#39;        or     center justified within    its  column.&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-24" title="24"></a>
+<a class="sourceLine" id="cb5-25" title="25"><span class="kw">const</span> leftAligned <span class="op">=</span> <span class="st">&#39;Given      a          text      file   of     many     lines    </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-26" title="26"><span class="st">&#39;where      fields     within    a      line   </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-27" title="27"><span class="st">&#39;are        delineated by        a      single &quot;dollar&quot; character</span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-28" title="28"><span class="st">&#39;write      a          program  </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-29" title="29"><span class="st">&#39;that       aligns     each      column of     fields   </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-30" title="30"><span class="st">&#39;by         ensuring   that      words  in     each     </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-31" title="31"><span class="st">&#39;column     are        separated by     at     least    one       space.</span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-32" title="32"><span class="st">&#39;Further,   allow      for       each   word   in       a         column to be either left </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-33" title="33"><span class="st">&#39;justified, right      justified</span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-34" title="34"><span class="st">&#39;or         center     justified within its    column. &#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-35" title="35"></a>
+<a class="sourceLine" id="cb5-36" title="36"><span class="kw">const</span> centerAligned <span class="op">=</span> <span class="st">&#39;  Given        a        text     file    of     many     lines  </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-37" title="37"><span class="st">&#39;  where      fields    within     a     line  </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-38" title="38"><span class="st">&#39;   are     delineated    by       a    single </span><span class="sc">\&quot;</span><span class="st">dollar</span><span class="sc">\&quot;</span><span class="st"> character</span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-39" title="39"><span class="st">&#39;  write        a       program </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-40" title="40"><span class="st">&#39;   that      aligns     each    column   of    fields  </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-41" title="41"><span class="st">&#39;    by      ensuring    that    words    in     each   </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-42" title="42"><span class="st">&#39;  column      are     separated   by     at    least      one    space.</span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-43" title="43"><span class="st">&#39; Further,    allow       for     each   word     in        a     column to be either left </span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-44" title="44"><span class="st">&#39;justified,   right    justified</span><span class="sc">\n</span><span class="st">&#39;</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-45" title="45"><span class="st">&#39;    or       center   justified within  its   column. &#39;</span><span class="op">;</span></a></code></pre></div>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">const</span> testArr <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="st">&#39;Given$a$text$file$of$many$lines&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="st">&#39;where$fields$within$a$line$&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-4" title="4">  <span class="st">&#39;are$delineated$by$a$single$&quot;dollar&quot;$character&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-5" title="5">  <span class="st">&#39;write$a$program&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-6" title="6">  <span class="st">&#39;that$aligns$each$column$of$fields$&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-7" title="7">  <span class="st">&#39;by$ensuring$that$words$in$each$&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-8" title="8">  <span class="st">&#39;column$are$separated$by$at$least$one$space.&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-9" title="9">  <span class="st">&#39;Further,$allow$for$each$word$in$a$column$to$be$either$left$&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-10" title="10">  <span class="st">&#39;justified,$right$justified&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-11" title="11">  <span class="st">&#39;or$center$justified$within$its$column.&#39;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-13" title="13"></a>
+<a class="sourceLine" id="cb6-14" title="14"><span class="kw">function</span> <span class="at">formatText</span>(input<span class="op">,</span> justification) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-15" title="15"></a>
+<a class="sourceLine" id="cb6-16" title="16"><span class="op">}</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">const</span> testArr <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="st">&#39;Given$a$text$file$of$many$lines&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-3" title="3">  <span class="st">&#39;where$fields$within$a$line$&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-4" title="4">  <span class="st">&#39;are$delineated$by$a$single$&quot;dollar&quot;$character&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-5" title="5">  <span class="st">&#39;write$a$program&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-6" title="6">  <span class="st">&#39;that$aligns$each$column$of$fields$&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-7" title="7">  <span class="st">&#39;by$ensuring$that$words$in$each$&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-8" title="8">  <span class="st">&#39;column$are$separated$by$at$least$one$space.&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-9" title="9">  <span class="st">&#39;Further,$allow$for$each$word$in$a$column$to$be$either$left$&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-10" title="10">  <span class="st">&#39;justified,$right$justified&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-11" title="11">  <span class="st">&#39;or$center$justified$within$its$column.&#39;</span></a>
+<a class="sourceLine" id="cb7-12" title="12">]<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-13" title="13"></a>
+<a class="sourceLine" id="cb7-14" title="14"><span class="va">String</span>.<span class="va">prototype</span>.<span class="at">repeat</span> <span class="op">=</span> <span class="kw">function</span> (n) <span class="op">{</span> <span class="cf">return</span> <span class="kw">new</span> <span class="at">Array</span>(<span class="dv">1</span> <span class="op">+</span> <span class="at">parseInt</span>(n)).<span class="at">join</span>(<span class="kw">this</span>)<span class="op">;</span> <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-15" title="15"></a>
+<a class="sourceLine" id="cb7-16" title="16"><span class="kw">function</span> <span class="at">formatText</span>(input<span class="op">,</span> justification) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-17" title="17">  <span class="kw">let</span> x<span class="op">,</span> y<span class="op">,</span> max<span class="op">,</span> cols <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> diff<span class="op">,</span> left<span class="op">,</span> right<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-18" title="18">  <span class="cf">for</span> (x <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> x <span class="op">&lt;</span> <span class="va">input</span>.<span class="at">length</span><span class="op">;</span> x<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-19" title="19">    input[x] <span class="op">=</span> input[x].<span class="at">split</span>(<span class="st">&#39;$&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-20" title="20">    <span class="cf">if</span> (input[x].<span class="at">length</span> <span class="op">&gt;</span> cols) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-21" title="21">      cols <span class="op">=</span> input[x].<span class="at">length</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-22" title="22">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-23" title="23">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-24" title="24">  <span class="cf">for</span> (x <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> x <span class="op">&lt;</span> cols<span class="op">;</span> x<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-25" title="25">    max <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-26" title="26">    <span class="cf">for</span> (y <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> y <span class="op">&lt;</span> <span class="va">input</span>.<span class="at">length</span><span class="op">;</span> y<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-27" title="27">      <span class="cf">if</span> (input[y][x] <span class="op">&amp;&amp;</span> max <span class="op">&lt;</span> input[y][x].<span class="at">length</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-28" title="28">        max <span class="op">=</span> input[y][x].<span class="at">length</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-29" title="29">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-30" title="30">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-31" title="31">    <span class="cf">for</span> (y <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> y <span class="op">&lt;</span> <span class="va">input</span>.<span class="at">length</span><span class="op">;</span> y<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-32" title="32">      <span class="cf">if</span> (input[y][x]) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-33" title="33">        diff <span class="op">=</span> (max <span class="op">-</span> input[y][x].<span class="at">length</span>) / <span class="dv">2</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-34" title="34">        left <span class="op">=</span> <span class="st">&#39; &#39;</span>.<span class="at">repeat</span>(<span class="va">Math</span>.<span class="at">floor</span>(diff))<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-35" title="35">        right <span class="op">=</span> <span class="st">&#39; &#39;</span>.<span class="at">repeat</span>(<span class="va">Math</span>.<span class="at">ceil</span>(diff))<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-36" title="36">        <span class="cf">if</span> (justification <span class="op">===</span> <span class="st">&#39;left&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-37" title="37">          right <span class="op">+=</span> left<span class="op">;</span> left <span class="op">=</span> <span class="st">&#39;&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-38" title="38">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-39" title="39">        <span class="cf">if</span> (justification <span class="op">===</span> <span class="st">&#39;right&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-40" title="40">          left <span class="op">+=</span> right<span class="op">;</span> right <span class="op">=</span> <span class="st">&#39;&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-41" title="41">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-42" title="42">        input[y][x] <span class="op">=</span> left <span class="op">+</span> input[y][x] <span class="op">+</span> right<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-43" title="43">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-44" title="44">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-45" title="45">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-46" title="46">  <span class="cf">for</span> (x <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> x <span class="op">&lt;</span> <span class="va">input</span>.<span class="at">length</span><span class="op">;</span> x<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-47" title="47">    input[x] <span class="op">=</span> input[x].<span class="at">join</span>(<span class="st">&#39; &#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-48" title="48">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-49" title="49">  input <span class="op">=</span> <span class="va">input</span>.<span class="at">join</span>(<span class="st">&#39;</span><span class="sc">\n</span><span class="st">&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-50" title="50">  <span class="cf">return</span> input<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-51" title="51"><span class="op">}</span></a></code></pre></div>

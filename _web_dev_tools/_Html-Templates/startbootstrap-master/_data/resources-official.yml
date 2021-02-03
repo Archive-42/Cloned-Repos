@@ -1,0 +1,15 @@
+- name:        Bootstrap
+  link:        https://getbootstrap.com/
+  description: The most popular front-end framework for developing responsive, mobile first projects on the web.
+
+- name:        Bootstrap Blog
+  link:        http://blog.getbootstrap.com/
+  description: The official bootstrap blog. Announcements, discussions, and more for Bootstrap.
+
+- name:        Bootstrap Expo
+  link:        http://expo.getbootstrap.com/
+  description: Beautiful and inspiring uses of Bootstrap, curated by @mdo.
+
+- name:        Bootlint
+  link:        https://github.com/twbs/bootlint
+  description: An HTML linter for Bootstrap projects.

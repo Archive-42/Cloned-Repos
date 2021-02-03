@@ -1,0 +1,665 @@
+<!doctype html>
+<!--[if IE 7 ]>		 <html class="no-js ie ie7 lte7 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 8 ]>		 <html class="no-js ie ie8 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 9 ]>		 <html class="no-js ie ie9 lte9"> lang="en-US"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head data-live-domain="learn.jquery.com">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Extending Widgets with the Widget Factory | jQuery Learning Center</title>
+
+	<meta name="author" content="JS Foundation - js.foundation">
+	<meta name="description" content="">
+
+	<meta name="viewport" content="width=device-width">
+
+	<link rel="shortcut icon" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/i/favicon.ico">
+
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/base.css?v=2">
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/style.css">
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/modernizr.custom.2.8.3.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/main.js"></script>
+
+	<script src="https://use.typekit.net/wde1aof.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+	<!-- at the end of the HEAD -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/docsearch.css">
+
+<link rel='https://api.w.org/' href='//learn.jquery.com/wp-json/' />
+<meta name="generator" content="WordPress 4.5.2" />
+<link rel="alternate" type="application/json+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fjquery-ui%2Fwidget-factory%2Fextending-widgets%2F" />
+<link rel="alternate" type="text/xml+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fjquery-ui%2Fwidget-factory%2Fextending-widgets%2F&#038;format=xml" />
+
+</head>
+<body class="jquery-learn page page-id-778 page-child parent-pageid-382 page-template-default page-slug-extending-widgets single-author singular">
+
+<header>
+	<section id="global-nav">
+		<nav>
+			<div class="constrain">
+				<ul class="projects">
+					<li class="project jquery"><a href="https://jquery.com/" title="jQuery">jQuery</a></li>
+					<li class="project jquery-ui"><a href="https://jqueryui.com/" title="jQuery UI">jQuery UI</a></li>
+					<li class="project jquery-mobile"><a href="https://jquerymobile.com/" title="jQuery Mobile">jQuery Mobile</a></li>
+					<li class="project sizzlejs"><a href="https://sizzlejs.com/" title="Sizzle">Sizzle</a></li>
+					<li class="project qunitjs"><a href="https://qunitjs.com/" title="QUnit">QUnit</a></li>
+				</ul>
+				<ul class="links">
+					<li><a href="https://plugins.jquery.com/">Plugins</a></li>
+					<li class="dropdown"><a href="https://contribute.jquery.org/">Contribute</a>
+						<ul>
+							<li><a href="https://js.foundation/CLA">CLA</a></li>
+							<li><a href="https://contribute.jquery.org/style-guide/">Style Guides</a></li>
+							<li><a href="https://contribute.jquery.org/triage/">Bug Triage</a></li>
+							<li><a href="https://contribute.jquery.org/code/">Code</a></li>
+							<li><a href="https://contribute.jquery.org/documentation/">Documentation</a></li>
+							<li><a href="https://contribute.jquery.org/web-sites/">Web Sites</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/events">Events</a>
+						<ul class="wide">
+																		</ul>
+					</li>
+					<li class="dropdown"><a href="https://jquery.org/support/">Support</a>
+						<ul>
+							<li><a href="https://learn.jquery.com/">Learning Center</a></li>
+							<li><a href="https://irc.jquery.org/">IRC/Chat</a></li>
+							<li><a href="https://forum.jquery.com/">Forums</a></li>
+							<li><a href="https://stackoverflow.com/tags/jquery/info">Stack Overflow</a></li>
+							<li><a href="https://jquery.org/support/">Commercial Support</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/">JS Foundation</a>
+						<ul>
+							<li><a href="https://js.foundation/about/join">Join</a></li>
+							<li><a href="https://js.foundation/about/members">Members</a></li>
+							<li><a href="https://js.foundation/about/leadership">Leadership</a></li>
+							<li><a href="https://js.foundation/community/code-of-conduct">Conduct</a></li>
+							<li><a href="https://js.foundation/about/donate">Donate</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</section>
+</header>
+
+<div id="banner-blm">
+	<h2>#BlackLivesMatter</h2>
+	<p>To Donate, see this <a href="https://bit.ly/fundthecommunity">list of organizations to support</a> from <a href="https://www.reclaimtheblock.org/">Reclaim the Block</a> 
+</div>
+
+<div id="container">
+	<div id="logo-events" class="constrain clearfix">
+		<h2 class="logo"><a href="/" title="jQuery Learning Center">jQuery Learning Center</a></h2>
+
+		<aside>
+			<div id="broadcast">
+				<a href="https://js.foundation/about/donate" title="Support the JS Foundation"><img src="/jquery-wp-content/themes/jquery/content/donate.png" title="Support the JS Foundation" alt="Support the JS Foundation" border="0" width="400" height="100"></a>
+			</div>
+		</aside>
+	</div>
+
+	<nav id="main" class="constrain clearfix">
+		<div class="menu-top-container">
+	<ul id="menu-top" class="menu">
+<li class="menu-item"><a href="https://learn.jquery.com">Home</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/about/">About</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/contributing/">Contributing</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/style-guide/">Style Guide</a></li>
+	</ul>
+</div>
+
+		<form method="get" class="searchform" action="//learn.jquery.com/">
+	<button type="submit" class="icon-search"><span class="visuallyhidden">search</span></button>
+	<label>
+		<span class="visuallyhidden">Search jQuery Learning Center</span>
+		<input type="text" name="s" value=""
+			placeholder="Search">
+	</label>
+</form>
+	</nav>
+
+	<div id="content-wrapper" class="clearfix row">
+
+<div class="beta-ribbon-wrapper"><div class="beta-ribbon"><a href="/about/#beta">Beta</a></div></div>
+<div class="content-right twelve columns">
+	<div id="content">
+		<div class="post-heirarchy">Posted in: <a href="https://learn.jquery.com/jquery-ui/">jQuery UI</a> > <a href="https://learn.jquery.com/jquery-ui/widget-factory/">Widget Factory</a></div><article id="post-778" class="post-778 page type-page status-publish hentry">
+	<header class="entry-header">
+		<h1 class="entry-title">Extending Widgets with the Widget Factory</h1>
+	</header>
+
+	<div class="entry-content">
+		<p>jQuery UI&apos;s widget factory makes it easy to build widgets that extend the functionality of existing widgets. Doing so allows you to build powerful widgets on top of an existing base, as well as make small tweaks to an existing widget&apos;s functionality.</p>
+<p><strong>Note:</strong> This article assumes some basic knowledge of what the widget factory is and how it works. If you&apos;re unfamiliar with this, read up on <a href="/jquery-ui/widget-factory/how-to-use-the-widget-factory/">how to use the widget factory</a> first.</p>
+<h3 class="toc-linked"><a href="#creating-widget-extensions" id="creating-widget-extensions" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Creating Widget Extensions</h3><p>Creating widgets with the widget factory is done by passing the name of the widget and a prototype object to <code>$.widget()</code>. The following creates a &quot;superDialog&quot; widget in the &quot;custom&quot; namespace.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.widget( <span class="string">&quot;custom.superDialog&quot;</span>, {} );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>To allow for extension, <code>$.widget()</code> optionally accepts the constructor of a widget to use as a parent. When specifying a parent widget, pass it as the second argument - after the widget&apos;s name, and before the widget&apos;s prototype object.</p>
+<p>Like the previous example, the following also creates a &quot;superDialog&quot; widget in the &quot;custom&quot; namespace. However, this time the constructor of <a href="http://jqueryui.com/dialog/">jQuery UI&apos;s dialog widget</a> (<code>$.ui.dialog</code>) is passed, indicating that the superDialog widget should use jQuery UI&apos;s dialog widget as a parent.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.widget( <span class="string">&quot;custom.superDialog&quot;</span>, $.ui.dialog, {} );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Here superDialog and dialog are essentially equivalent widgets with different names and namespaces. To make our new widget more interesting we can add methods to its prototype object.</p>
+<p>A widget&apos;s prototype object is the final argument passed to <code>$.widget()</code>. So far, our examples have been using an empty object. Let&apos;s add a method to this object:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.widget( <span class="string">&quot;custom.superDialog&quot;</span>, $.ui.dialog, {</code></div></div><div class="container"><div class="line"><code>    red: <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">this</span>.element.css( <span class="string">&quot;color&quot;</span>, <span class="string">&quot;red&quot;</span> );</code></div></div><div class="container"><div class="line"><code>    }</code></div></div><div class="container"><div class="line"><code>});</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Create a new &lt;div&gt;, convert it into a superDialog, and call the red() method.</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;&lt;div&gt;I am red&lt;/div&gt;&quot;</span> )</code></div></div><div class="container"><div class="line"><code>    .superDialog()</code></div></div><div class="container"><div class="line"><code>    .superDialog( <span class="string">&quot;red&quot;</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Now the <code>superDialog</code> has a <code>red()</code> method that will change the color of its text to red. Note how the widget factory automatically sets <code>this</code> to the widget&apos;s instance object. For a full list of the methods and properties available on the instance, see <a href="http://api.jqueryui.com/jquery.widget/">the widget factory&apos;s API documentation</a>.</p>
+<h3 class="toc-linked"><a href="#extending-existing-methods" id="extending-existing-methods" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Extending Existing Methods</h3><p>Sometimes you need to tweak or add to the behavior of existing widget methods. The do this, specify a method with the same name as the method you want to override on the prototype object. The following example overrides dialog&apos;s <a href="http://api.jqueryui.com/dialog/#method-open"><code>open()</code> method</a>. Since dialogs automatically open by default, <code>&quot;open&quot;</code> will be logged when this code runs.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.widget( <span class="string">&quot;custom.superDialog&quot;</span>, $.ui.dialog, {</code></div></div><div class="container"><div class="line"><code>    open: <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>        console.log( <span class="string">&quot;open&quot;</span> );</code></div></div><div class="container"><div class="line"><code>    }</code></div></div><div class="container"><div class="line"><code>});</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Create a new &lt;div&gt;, and convert it into a superDialog.</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;&lt;div&gt;&quot;</span> ).superDialog();</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>While this runs, there&apos;s a problem. Since we overrode the default behavior of <code>open()</code>, the dialog no longer displays on the screen.</p>
+<p>When we place methods on the prototype object, we are not actually overriding the original method - rather, we are placing a new method at a higher level in the prototype chain.</p>
+<p>To make the parent&apos;s methods available, the widget factory provides two methods - <code>_super()</code> and <code>_superApply()</code>.</p>
+<h3 class="toc-linked"><a href="#using-_super-and-_superapply-to-access-parents" id="using-_super-and-_superapply-to-access-parents" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Using <code>_super()</code> and <code>_superApply()</code> to Access Parents</h3><p><a href="http://api.jqueryui.com/jquery.widget/#method-_super"><code>_super()</code></a> and <a href="http://api.jqueryui.com/jquery.widget/#method-_superApply"><code>_superApply()</code></a> invoke methods of the same name in the parent widget. Refer to the following example. Like the previous one, this example also overrides the <code>open()</code> method to log <code>&quot;open&quot;</code>. However, this time <code>_super()</code> is run to invoke dialog&apos;s <code>open()</code> and open the dialog.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.widget( <span class="string">&quot;custom.superDialog&quot;</span>, $.ui.dialog, {</code></div></div><div class="container"><div class="line"><code>    open: <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>        console.log( <span class="string">&quot;open&quot;</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>        <span class="comment">// Invoke the parent widget&apos;s open().</span></code></div></div><div class="container"><div class="line"><code>        <span class="keyword">return</span> <span class="keyword">this</span>._super();</code></div></div><div class="container"><div class="line"><code>    }</code></div></div><div class="container"><div class="line"><code>});</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;&lt;div&gt;&quot;</span> ).superDialog();</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p><code>_super()</code> and <code>_superApply()</code> were designed to behave like the native <code>Function.prototype.call()</code> and <code>Function.prototype.apply()</code> methods. Therefore, <code>_super()</code> accepts an argument list, and <code>_superApply()</code> accepts a single array of arguments. This difference is shown in the example below.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.widget( <span class="string">&quot;custom.superDialog&quot;</span>, $.ui.dialog, {</code></div></div><div class="container"><div class="line"><code>    _setOption: <span class="keyword">function</span>( key, value ) {</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>        <span class="comment">// Both invoke dialog&apos;s setOption() method. _super() requires the arguments</span></code></div></div><div class="container"><div class="line"><code>        <span class="comment">// be passed as an argument list, _superApply() as a single array.</span></code></div></div><div class="container"><div class="line"><code>        <span class="keyword">this</span>._super( key, value );</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">this</span>._superApply( arguments );</code></div></div><div class="container"><div class="line"><code>    }</code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<h3 class="toc-linked"><a href="#redefining-widgets" id="redefining-widgets" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Redefining Widgets</h3><p>jQuery UI 1.9 added the ability for widgets to redefine themselves. Therefore, instead of creating a new widget, we can pass <code>$.widget()</code> an existing widget&apos;s name and constructor. The following example adds the same logging in <code>open()</code>, but doesn&apos;t create a new widget to do so.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.widget( <span class="string">&quot;ui.dialog&quot;</span>, $.ui.dialog, {</code></div></div><div class="container"><div class="line"><code>    open: <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>        console.log( <span class="string">&quot;open&quot;</span> );</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">return</span> <span class="keyword">this</span>._super();</code></div></div><div class="container"><div class="line"><code>    }</code></div></div><div class="container"><div class="line"><code>});</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;&lt;div&gt;&quot;</span> ).dialog();</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>With this approach you can extend an existing widget&apos;s method and still have access to the original methods using <code>_super()</code> - all without creating a new widget.</p>
+<h3 class="toc-linked"><a href="#widgets-and-polymorphism" id="widgets-and-polymorphism" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Widgets and Polymorphism</h3><p>One word of warning when interacting with widget extensions and their plugins. The parent widget&apos;s plugin cannot be used to invoke methods on elements that are child widgets. This is shown in the example below.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.widget( <span class="string">&quot;custom.superDialog&quot;</span>, $.ui.dialog, {} );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="keyword">var</span> dialog = $( <span class="string">&quot;&lt;div&gt;&quot;</span> ).superDialog();</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// This works.</span></code></div></div><div class="container"><div class="line"><code>dialog.superDialog( <span class="string">&quot;close&quot;</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// This doesn&apos;t.</span></code></div></div><div class="container"><div class="line"><code>dialog.dialog( <span class="string">&quot;close&quot;</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Above, the parent widget&apos;s plugin, <code>dialog()</code>, cannot invoke the <code>close()</code> method on an element that is a superDialog. For more on the invoking widget methods see <a href="/jquery-ui/widget-factory/widget-method-invocation/">Widget Method Invocation</a>.</p>
+<h3 class="toc-linked"><a href="#customizing-individual-instances" id="customizing-individual-instances" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Customizing Individual Instances</h3><p>All the examples we have looked at so far have extended methods on the widget&apos;s prototype. Methods overridden on the prototype affect all instances of the widget.</p>
+<p>To show this, refer to the example below; both instances of the dialog use the same <code>open()</code> method.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.widget( <span class="string">&quot;ui.dialog&quot;</span>, $.ui.dialog, {</code></div></div><div class="container"><div class="line"><code>    open: <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>        console.log( <span class="string">&quot;open&quot;</span> );</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">return</span> <span class="keyword">this</span>._super();</code></div></div><div class="container"><div class="line"><code>    }</code></div></div><div class="container"><div class="line"><code>});</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Create two dialogs, both use the same open(), therefore &quot;open&quot; is logged twice.</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;&lt;div&gt;&quot;</span> ).dialog();</code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;&lt;div&gt;&quot;</span> ).dialog();</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>While this is powerful, sometimes you only need to change the behavior for a single instance of the widget.  To do this, obtain a reference to the instance and override the method using normal JavaScript property assignment. The example below shows this.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+						<div class="line n17">17</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="keyword">var</span> dialogInstance = $( <span class="string">&quot;&lt;div&gt;&quot;</span> )</code></div></div><div class="container"><div class="line"><code>    .dialog()</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Retrieve the dialog&apos;s instance and store it.</span></code></div></div><div class="container"><div class="line"><code>    .data( <span class="string">&quot;ui-dialog&quot;</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Override the close() method for this dialog</span></code></div></div><div class="container"><div class="line"><code>dialogInstance.close = <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>    console.log( <span class="string">&quot;close&quot;</span> );</code></div></div><div class="container"><div class="line"><code>};</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Create a second dialog</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;&lt;div&gt;&quot;</span> ).dialog();</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Select both dialogs and call close() on each of them.</span></code></div></div><div class="container"><div class="line"><code><span class="comment">// &quot;close&quot; will only be logged once.</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;:data(ui-dialog)&quot;</span> ).dialog( <span class="string">&quot;close&quot;</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>This technique of overriding methods for individual instances is perfect for one-off customizations.</p>					</div>
+
+	<div class="entry-meta row">
+				<div class="bottom-links row">
+							<div class="prev six columns">
+					<a href="https://learn.jquery.com/jquery-ui/widget-factory/widget-method-invocation/">
+					<i class="icon-chevron-left"></i>
+					Widget Method Invocation					</a>
+				</div>
+										<div class="next six columns">
+					<a href="https://learn.jquery.com/jquery-ui/widget-factory/classes-option/">
+					Using the classes Option					<i class="icon-chevron-right"></i>
+					</a>
+				</div>
+					</div>
+		
+		<aside class="meta-details six columns">
+			<h3>Last Updated</h3>
+			<ul>
+				<li class="icon-calendar icon-large" title="Last Updated"><span>December 17, 2015</span></li>
+			</ul>
+		</aside>
+		<aside class="github-feedback six columns">
+			<h3>Suggestions, Problems, Feedback?</h3>
+			<a class="button dark" href="https://github.com/jquery/learn.jquery.com/tree/master/page/jquery-ui/widget-factory/extending-widgets.md"><i class="icon-github"></i> Open an Issue or Submit a Pull Request on GitHub</a>
+		</aside>
+
+	</div>
+</article>
+	</div>
+
+	<div id="sidebar" class="widget-area" role="complementary">
+		
+		<aside id="chapter-listing" class="widget">
+			<h3 class="widget-title">Chapters</h3>
+			<ul>
+																		<li >
+						<a href="//learn.jquery.com/about-jquery/">
+															<i class="icon-certificate"></i>
+														About jQuery						</a>
+																																																																									</li>
+														<li >
+						<a href="//learn.jquery.com/using-jquery-core/">
+															<i class="icon-star-empty"></i>
+														Using jQuery Core						</a>
+																																																																																																																																																																																																																																																																																										<ul class="sub-chapter">
+																																																																																																																																																																																																																																																																																	<li >
+										<a href="//learn.jquery.com/using-jquery-core/faq/">
+											Frequently Asked Questions										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/events/">
+															<i class="icon-tasks"></i>
+														Events						</a>
+																																																																																																																																																																																																	</li>
+														<li >
+						<a href="//learn.jquery.com/effects/">
+															<i class="icon-picture"></i>
+														Effects						</a>
+																																																																																								</li>
+														<li >
+						<a href="//learn.jquery.com/ajax/">
+															<i class="icon-refresh"></i>
+														Ajax						</a>
+																																																																																																																						</li>
+														<li >
+						<a href="//learn.jquery.com/plugins/">
+															<i class="icon-bolt"></i>
+														Plugins						</a>
+																																																																																																							</li>
+														<li >
+						<a href="//learn.jquery.com/performance/">
+															<i class="icon-dashboard"></i>
+														Performance						</a>
+																																																																																																																																																				</li>
+														<li >
+						<a href="//learn.jquery.com/code-organization/">
+															<i class="icon-sitemap"></i>
+														Code Organization						</a>
+																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/code-organization/deferreds/">
+											Deferreds										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-ui/">
+															<i class="icon-magnet"></i>
+														jQuery UI						</a>
+																																																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li class='active'>
+										<a href="//learn.jquery.com/jquery-ui/widget-factory/">
+											Widget Factory										</a>
+									</li>
+																																												<li >
+										<a href="//learn.jquery.com/jquery-ui/environments/">
+											Using jQuery UI										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-mobile/">
+															<i class="icon-th-large"></i>
+														jQuery Mobile						</a>
+																																																																									</li>
+							</ul>
+		</aside>
+
+
+	</div><!-- #sidebar .widget-area -->
+</div>
+
+	</div>
+</div>
+
+<footer class="clearfix simple">
+	<div class="constrain">
+		<div class="row">
+			<div class="six columns offset-by-three">
+				<h3><span>Books</span></h3>
+				<ul class="books">
+					<li>
+						<a href="https://www.packtpub.com/web-development/learning-jquery-fourth-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/learning-jquery-4th-ed.jpg" alt="Learning jQuery 4th Edition by Karl Swedberg and Jonathan Chaffer" width="92" height="114">
+							Learning jQuery Fourth Edition
+							<cite>Karl Swedberg and Jonathan Chaffer</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.manning.com/books/jquery-in-action-third-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-in-action.jpg" alt="jQuery in Action by Bear Bibeault, Yehuda Katz, and Aurelio De Rosa" width="92" height="114">
+							jQuery in Action
+							<cite>Bear Bibeault, Yehuda Katz, and Aurelio De Rosa</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.syncfusion.com/ebooks/jquery">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-succinctly.jpg" alt="jQuery Succinctly by Cody Lindley" width="92" height="114">
+							jQuery Succinctly
+							<cite>Cody Lindley</cite>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		
+<div id="legal">
+	<ul class="footer-site-links">
+			<li><a class="icon-pencil" href="https://learn.jquery.com/">Learning Center</a></li>
+			<li><a class="icon-group" href="https://forum.jquery.com/">Forum</a></li>
+			<li><a class="icon-wrench" href="https://api.jquery.com/">API</a></li>
+			<li><a class="icon-twitter" href="https://twitter.com/jquery">Twitter</a></li>
+			<li><a class="icon-comments" href="https://irc.jquery.org/">IRC</a></li>
+			<li><a class="icon-github" href="https://github.com/jquery">GitHub</a></li>
+	</ul>
+	<p class="copyright">
+		Copyright 2021 <a href="https://openjsf.org/">OpenJS Foundation</a> and jQuery contributors. All rights reserved. See <a href="https://jquery.org/license/">jQuery License</a> for more information. The <a href="https://openjsf.org/">OpenJS Foundation</a> has registered trademarks and uses trademarks. For a list of trademarks of the <a href="https://openjsf.org/">OpenJS Foundation</a>, please see our <a href="https://trademark-policy.openjsf.org/">Trademark Policy</a> and <a href="https://trademark-list.openjsf.org/">Trademark List</a>. Trademarks and logos not indicated on the <a href="https://trademark-list.openjsf.org/">list of OpenJS Foundation trademarks</a> are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them. OpenJS Foundation <a href="https://terms-of-use.openjsf.org/">Terms of Use</a>, <a href="https://privacy-policy.openjsf.org/">Privacy</a>, and <a href="https://www.linuxfoundation.org/cookies">Cookie</a> Policies also apply.
+		<span class="sponsor-line"><a href="https://www.digitalocean.com" class="do-link">Web hosting by Digital Ocean</a> | <a href="https://www.stackpath.com" class="sp-link">CDN by StackPath</a></span>
+	</p>
+</div>
+
+	</div>
+</footer>
+
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/comment-reply.min.js?ver=4.5.2'></script>
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/wp-embed.min.js?ver=4.5.2'></script>
+	<!-- at the end of the BODY -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"  onload="document.querySelector('input[name=\'s\']') && docsearch({apiKey: '3cfde9aca378c8aab554d5bf1b23489b',
+		indexName: 'jquery',
+		inputSelector: 'input[name=\'s\']',
+		debug: true // Set debug to true if you want to inspect the dropdown
+	})" async></script>
+</body>
+</html>

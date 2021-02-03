@@ -1,0 +1,339 @@
+/* Please note making changes to the styles here might make some of the project
+tests no longer work, or even just give a false positive. Especially if you
+change a selector name.
+The project tests generally try to filter out any CSS selectors that
+contain 'fcc_test', or that contain 'mocha'. So please make sure the
+selectors here use that naming convention.
+See the following project tests which rely on filtering out the CSS rules
+used here. If you find other project tests that rely on the CSS here,
+please add them to the list:
+- styleSheetUtils.js
+- product-landing-page-tests.js
+*/
+
+.fcc_test_report {
+  font: 20px/1.5 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 20px 40px;
+}
+
+/* Most of the rules here are taken from mocha css */
+
+.fcc_test_message-box-content ul,
+.fcc_test_message-box-content ol,
+.fcc_test_message-box-content li {
+  margin: 0;
+  padding: 0;
+}
+
+.fcc_test_report ul {
+  list-style: none;
+}
+
+.fcc_test_report h1,
+.fcc_test_report h2 {
+  margin: 0;
+}
+
+.fcc_test_report h1 {
+  margin-top: 15px;
+  font-size: 1em;
+  font-weight: 200;
+}
+
+.fcc_test_report .suite .suite h1 {
+  margin-top: 0;
+  font-size: 0.8em;
+}
+
+.fcc_test_report .hidden {
+  display: none;
+}
+
+.fcc_test_report h2 {
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.fcc_test_report .suite {
+  margin-left: 15px;
+}
+
+.fcc_test_report .test {
+  margin-left: 15px;
+  overflow: hidden;
+}
+
+.fcc_test_report .test.pending:hover h2::after {
+  content: '(pending)';
+  font-family: arial, sans-serif;
+}
+.fcc_test_report .test.pass.medium .duration {
+  background: #c09853;
+}
+.fcc_test_report .test.pass.slow .duration {
+  background: #b94a48;
+}
+
+.fcc_test_report .test::before {
+  font-size: 12px;
+  display: block;
+  float: left;
+  margin-right: 5px;
+}
+
+.fcc_test_report .test.pass::before {
+  content: '✓';
+  color: #00d6b2;
+}
+.fcc_test_report .test.pass .duration {
+  font-size: 9px;
+  margin-left: 5px;
+  padding: 2px 5px;
+  color: #fff;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+.fcc_test_report .test.pass.fast .duration {
+  display: none;
+}
+.fcc_test_report .test.pending {
+  color: #0b97c4;
+}
+.fcc_test_report .test.pending::before {
+  content: '◦';
+  color: #0b97c4;
+}
+.fcc_test_report .test.fail {
+  color: #c00;
+}
+.fcc_test_report .test.fail pre {
+  color: #000;
+}
+.fcc_test_report .test.fail::before {
+  content: '✖';
+  color: #c00;
+}
+
+.fcc_test_report .test pre.error {
+  color: #c00;
+  max-height: 300px;
+  overflow: auto;
+}
+
+.fcc_test_report .test .html-error {
+  overflow: auto;
+  color: #000;
+  line-height: 1.5;
+  display: block;
+  font: 12px/1.5 monaco, monospace;
+  margin: 5px;
+  padding: 15px;
+  border: 1px solid #eee;
+  max-width: 85%;
+  max-width: calc(100% - 42px);
+  max-height: 300px;
+  border-bottom-color: #ddd;
+  box-shadow: 0 1px 3px #eee;
+  border-radius: 3px;
+}
+.fcc_test_report .test .html-error pre.error {
+  border: none;
+  border-radius: 0;
+  box-shadow: 0;
+  padding: 0;
+  margin: 18px 0 0;
+  max-height: none;
+}
+.fcc_test_report .test pre {
+  font: 12px/1.5 monaco, monospace;
+  margin: 5px;
+  padding: 15px;
+  border: 1px solid #eee;
+  max-width: 85%;
+  max-width: calc(100% - 42px);
+  border-bottom-color: #ddd;
+  box-shadow: 0 1px 3px #eee;
+  border-radius: 3px;
+  overflow: auto;
+}
+
+.fcc_test_report .test h2 {
+  position: relative;
+}
+
+#fcc_test_mocha-report.pass .test.fail {
+  display: none;
+}
+
+#fcc_test_mocha-report.fail .test.pass {
+  display: none;
+}
+
+#fcc_test_mocha-report.pending .test.pass,
+#fcc_test_mocha-report.pending .test.fail {
+  display: none;
+}
+
+#fcc_test_mocha-report.pending .test.pass.pending {
+  display: block;
+}
+
+.fcc_test_mocha-stats {
+  font-size: 12px;
+  margin: 0;
+  color: #888;
+}
+
+.fcc_test_mocha-stats .progress {
+  float: right;
+  padding-top: 0;
+  height: auto;
+  box-shadow: none;
+  background-color: initial;
+}
+
+.fcc_test_mocha-stats em {
+  color: #000;
+}
+
+.fcc_test_mocha-stats a:hover {
+  border-bottom: 1px solid #eee;
+}
+
+.fcc_test_mocha-stats li {
+  display: inline-block;
+  margin: 0 5px;
+  list-style: none;
+  padding-top: 11px;
+}
+
+.fcc_test_mocha-stats canvas {
+  width: 40px;
+  height: 40px;
+}
+
+.fcc_test_mocha-report code .comment {
+  color: #ddd;
+}
+
+.fcc_test_mocha-report code .init {
+  color: #2f6fad;
+}
+
+.fcc_test_mocha-report code .string {
+  color: #5890ad;
+}
+
+.fcc_test_mocha-report code .keyword {
+  color: #8a6343;
+}
+
+.fcc_test_mocha-report code .number {
+  color: #2f6fad;
+}
+
+@media screen and (max-width: 480px) {
+  .fcc_test_report {
+    margin: 20px 0;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans');
+
+/* TEST/MESSAGE CENTER CSS */
+
+#fcc_test_message-box {
+  font-size: 20px;
+  font-family: Noto Sans, arial, sans-serif;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  transition: all 0.5s;
+  z-index: 100;
+  overflow: auto;
+}
+
+#fcc_test_message-box.fcc_test_message-box-hidden {
+  visibility: hidden;
+  opacity: 0;
+  top: -300px;
+}
+
+#fcc_test_message-box.fcc_test_message-box-shown {
+  visibility: visible;
+  opacity: 1;
+  top: 0;
+}
+
+div.fcc_test_message-box-content {
+  position: relative;
+  color: black;
+  background-color: white;
+  top: 10vh;
+  width: 80%;
+  margin: 0 auto;
+  text-align: initial;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.fcc_test_message-box-header,
+.fcc_test_message-box-footer {
+  position: relative;
+  flex: none;
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 0;
+}
+
+.fcc_test_message-box-header {
+  border-bottom: 1px solid rgb(229, 229, 229);
+}
+
+.fcc_test_message-box-header .fcc_test_title {
+  float: left;
+  font-size: 30px;
+  line-height: 40px;
+  margin-left: 10px;
+  padding: 0;
+}
+
+.fcc_test_message-box-header .fcc_test_stats {
+  float: right;
+}
+
+div.fcc_test_message-box-body {
+  flex: 1;
+  position: static;
+  max-width: 100%;
+}
+
+.fcc_test_message-box-footer {
+  border-top: 1px solid rgb(229, 229, 229);
+  height: 70px;
+}
+
+.fcc_test_message-box-close-btn {
+  float: right;
+  cursor: pointer;
+  color: black;
+  background-color: white;
+  border: 1px solid rgb(229, 229, 229);
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  transition: all 0.3s;
+  line-height: 30px;
+  height: auto;
+}
+
+.fcc_test_message-box-close-btn:hover {
+  color: white;
+  background-color: black;
+}

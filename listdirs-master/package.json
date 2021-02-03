@@ -1,0 +1,47 @@
+{
+  "name": "listdirs",
+  "version": "3.1.0",
+  "description": "List all directories recursively given an inital directory",
+  "main": "listdirs.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "quick": "./node_modules/tape/bin/tape ./test/*.js",
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/tape/bin/tape ./test/*.js",
+    "cover": "npm test && ./node_modules/.bin/istanbul check-coverage --statements 100 --functions 100 --lines 100 --branches 100"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dwyl/listdirs.git"
+  },
+  "keywords": [
+    "List",
+    "Directories",
+    "Simple"
+  ],
+  "author": "@nelsonic <contact.nelsonic@gmail.com> (https://github.com/nelsonic)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dwyl/listdirs/issues"
+  },
+  "homepage": "https://github.com/dwyl/listdirs",
+  "devDependencies": {
+    "chalk": "^1.0.0",
+    "codeclimate-test-reporter": "0.0.4",
+    "ignored": "^2.0.2",
+    "istanbul": "^0.3.4",
+    "mkdirp": "^0.5.0",
+    "pre-commit": "0.0.9",
+    "tape": "^3.0.3"
+  },
+  "pre-commit": [
+    "cover"
+  ],
+  "engines": {
+    "node": ">=0.10"
+  },
+  "dependencies": {
+    "isdir": "^2.0.0"
+  }
+}

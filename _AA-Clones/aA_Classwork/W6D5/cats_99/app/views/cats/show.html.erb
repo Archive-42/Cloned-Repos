@@ -1,0 +1,41 @@
+<!-- <ul>
+    <li>
+      <ul>
+        <li><%= @kitty.birth_date %></li>
+        <li><%= @kitty.name %></li>
+        <li><%= @kitty.color %></li>
+        <li><%= @kitty.sex %></li>
+      </ul>
+    </li>
+</ul> -->
+
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">Cat Info</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Name</td>
+            <td><%= @kitty.name %></td>
+        </tr>
+        <tr>
+            <td>Color</td>
+            <td><%= @kitty.color %></td>
+        </tr>
+        <tr>
+            <td>Birthdate</td>
+            <td><%= @kitty.birth_date %></td>
+        </tr>
+        <tr>
+            <td>Sex</td>
+            <td><%= @kitty.sex %></td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td><%= @kitty.description %></td>
+        </tr>
+    </tbody>
+</table>
+

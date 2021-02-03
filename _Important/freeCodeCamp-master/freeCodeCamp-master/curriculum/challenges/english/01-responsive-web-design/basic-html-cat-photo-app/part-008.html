@@ -1,0 +1,27 @@
+<h1 id="description">–description–</h1>
+<p>HTML <dfn>attributes</dfn> are special words used inside the opening tag of an element to control the element’s behavior. The <code>src</code> attribute in an <code>img</code> element specifies the image’s URL (where the image is located). An example of an <code>img</code> element using an <code>src</code> attribute: <code>&lt;img src="https://www.your-image-source.com/your-image.jpg"&gt;</code>.</p>
+<p>Add an <code>src</code> attribute to the existing <code>img</code> element that is set to the following URL: <code>https://bit.ly/fcc-relaxing-cat</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should have an <code>img</code> element. You may have removed the <code>img</code> element or you have not surrounded the <code>src</code> attribute’s value with quotes.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;img&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>img</code> element should have an <code>src</code> attribute. You have either omitted the attribute or have a typo. Make sure there is a space between the element name and the attribute name.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;img&#39;</span>).<span class="at">src</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>img</code> element’s <code>src</code> attribute should be set to ‘<code>https://bit.ly/fcc-relaxing-cat</code>’. You have either omitted the URL or have a typo. The case of the URL is important.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;img&#39;</span>).<span class="at">src</span> <span class="op">===</span> <span class="st">&#39;https://bit.ly/fcc-relaxing-cat&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Although you have set the <code>img</code> element’s <code>src</code> to the correct URL, it is recommended to always surround the value of an attribute with quotation marks.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="op">!</span><span class="ss">/</span><span class="sc">\&lt;</span><span class="ss">img</span><span class="sc">\s+</span><span class="ss">src</span><span class="sc">\s*</span><span class="ss">=</span><span class="sc">\s*</span><span class="ss">https:</span><span class="sc">\/\/</span><span class="ss">bit</span><span class="sc">\.</span><span class="ss">ly</span><span class="sc">\/</span><span class="ss">fcc-relaxing-cat/</span>.<span class="at">test</span>(code))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">&lt;h1&gt;</span>CatPhotoApp<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">      <span class="kw">&lt;h2&gt;</span>Cat Photos<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">      <span class="co">&lt;!-- </span><span class="al">TODO</span><span class="co">: Add link to cat photos --&gt;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">      <span class="kw">&lt;p&gt;</span>Click here to view more cat photos.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">--fcc-editable-region--</a>
+<a class="sourceLine" id="cb5-9" title="9">      <span class="kw">&lt;img&gt;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">--fcc-editable-region--</a>
+<a class="sourceLine" id="cb5-11" title="11">    <span class="kw">&lt;/main&gt;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">  <span class="kw">&lt;/body&gt;</span></a>
+<a class="sourceLine" id="cb5-13" title="13"><span class="kw">&lt;/html&gt;</span></a></code></pre></div>

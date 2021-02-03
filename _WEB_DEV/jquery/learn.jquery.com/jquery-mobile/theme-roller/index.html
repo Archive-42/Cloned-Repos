@@ -1,0 +1,370 @@
+<!doctype html>
+<!--[if IE 7 ]>		 <html class="no-js ie ie7 lte7 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 8 ]>		 <html class="no-js ie ie8 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 9 ]>		 <html class="no-js ie ie9 lte9"> lang="en-US"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head data-live-domain="learn.jquery.com">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Creating a Custom Theme with ThemeRoller | jQuery Learning Center</title>
+
+	<meta name="author" content="JS Foundation - js.foundation">
+	<meta name="description" content="">
+
+	<meta name="viewport" content="width=device-width">
+
+	<link rel="shortcut icon" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/i/favicon.ico">
+
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/base.css?v=2">
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/style.css">
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/modernizr.custom.2.8.3.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/main.js"></script>
+
+	<script src="https://use.typekit.net/wde1aof.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+	<!-- at the end of the HEAD -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/docsearch.css">
+
+<link rel='https://api.w.org/' href='//learn.jquery.com/wp-json/' />
+<meta name="generator" content="WordPress 4.5.2" />
+<link rel="alternate" type="application/json+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fjquery-mobile%2Ftheme-roller%2F" />
+<link rel="alternate" type="text/xml+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fjquery-mobile%2Ftheme-roller%2F&#038;format=xml" />
+
+</head>
+<body class="jquery-learn page page-id-262 page-child parent-pageid-21 page-template-default page-slug-theme-roller single-author singular">
+
+<header>
+	<section id="global-nav">
+		<nav>
+			<div class="constrain">
+				<ul class="projects">
+					<li class="project jquery"><a href="https://jquery.com/" title="jQuery">jQuery</a></li>
+					<li class="project jquery-ui"><a href="https://jqueryui.com/" title="jQuery UI">jQuery UI</a></li>
+					<li class="project jquery-mobile"><a href="https://jquerymobile.com/" title="jQuery Mobile">jQuery Mobile</a></li>
+					<li class="project sizzlejs"><a href="https://sizzlejs.com/" title="Sizzle">Sizzle</a></li>
+					<li class="project qunitjs"><a href="https://qunitjs.com/" title="QUnit">QUnit</a></li>
+				</ul>
+				<ul class="links">
+					<li><a href="https://plugins.jquery.com/">Plugins</a></li>
+					<li class="dropdown"><a href="https://contribute.jquery.org/">Contribute</a>
+						<ul>
+							<li><a href="https://js.foundation/CLA">CLA</a></li>
+							<li><a href="https://contribute.jquery.org/style-guide/">Style Guides</a></li>
+							<li><a href="https://contribute.jquery.org/triage/">Bug Triage</a></li>
+							<li><a href="https://contribute.jquery.org/code/">Code</a></li>
+							<li><a href="https://contribute.jquery.org/documentation/">Documentation</a></li>
+							<li><a href="https://contribute.jquery.org/web-sites/">Web Sites</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/events">Events</a>
+						<ul class="wide">
+																		</ul>
+					</li>
+					<li class="dropdown"><a href="https://jquery.org/support/">Support</a>
+						<ul>
+							<li><a href="https://learn.jquery.com/">Learning Center</a></li>
+							<li><a href="https://irc.jquery.org/">IRC/Chat</a></li>
+							<li><a href="https://forum.jquery.com/">Forums</a></li>
+							<li><a href="https://stackoverflow.com/tags/jquery/info">Stack Overflow</a></li>
+							<li><a href="https://jquery.org/support/">Commercial Support</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/">JS Foundation</a>
+						<ul>
+							<li><a href="https://js.foundation/about/join">Join</a></li>
+							<li><a href="https://js.foundation/about/members">Members</a></li>
+							<li><a href="https://js.foundation/about/leadership">Leadership</a></li>
+							<li><a href="https://js.foundation/community/code-of-conduct">Conduct</a></li>
+							<li><a href="https://js.foundation/about/donate">Donate</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</section>
+</header>
+
+<div id="banner-blm">
+	<h2>#BlackLivesMatter</h2>
+	<p>To Donate, see this <a href="https://bit.ly/fundthecommunity">list of organizations to support</a> from <a href="https://www.reclaimtheblock.org/">Reclaim the Block</a> 
+</div>
+
+<div id="container">
+	<div id="logo-events" class="constrain clearfix">
+		<h2 class="logo"><a href="/" title="jQuery Learning Center">jQuery Learning Center</a></h2>
+
+		<aside>
+			<div id="broadcast">
+				<a href="https://js.foundation/about/donate" title="Support the JS Foundation"><img src="/jquery-wp-content/themes/jquery/content/donate.png" title="Support the JS Foundation" alt="Support the JS Foundation" border="0" width="400" height="100"></a>
+			</div>
+		</aside>
+	</div>
+
+	<nav id="main" class="constrain clearfix">
+		<div class="menu-top-container">
+	<ul id="menu-top" class="menu">
+<li class="menu-item"><a href="https://learn.jquery.com">Home</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/about/">About</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/contributing/">Contributing</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/style-guide/">Style Guide</a></li>
+	</ul>
+</div>
+
+		<form method="get" class="searchform" action="//learn.jquery.com/">
+	<button type="submit" class="icon-search"><span class="visuallyhidden">search</span></button>
+	<label>
+		<span class="visuallyhidden">Search jQuery Learning Center</span>
+		<input type="text" name="s" value=""
+			placeholder="Search">
+	</label>
+</form>
+	</nav>
+
+	<div id="content-wrapper" class="clearfix row">
+
+<div class="beta-ribbon-wrapper"><div class="beta-ribbon"><a href="/about/#beta">Beta</a></div></div>
+<div class="content-right twelve columns">
+	<div id="content">
+		<div class="post-heirarchy">Posted in: <a href="https://learn.jquery.com/jquery-mobile/">jQuery Mobile</a></div><article id="post-262" class="post-262 page type-page status-publish hentry">
+	<header class="entry-header">
+		<h1 class="entry-title">Creating a Custom Theme with ThemeRoller</h1>
+	</header>
+
+	<div class="entry-content">
+		<h2 class="toc-linked"><a href="#theming-overview" id="theming-overview" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Theming Overview</h2><p>jQuery Mobile has a robust theme framework that supports up to 26 sets of toolbar, content, and button colors, called a &quot;swatch&quot;. The framework comes with five defined themes (swatches &quot;a&quot; to &quot;e&quot;) which can be used readily, removed, or overwritten.</p>
+<h3 class="toc-linked"><a href="#default-theme-swatch-mapping-for-components" id="default-theme-swatch-mapping-for-components" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Default Theme Swatch Mapping for Components</h3><p>If no theme swatch letter is set at all, the framework uses the &quot;a&quot; swatch (black in the default theme) for headers and footers and the &quot;c&quot; swatch (light gray in the default theme) for the page content to maximize contrast between the both.</p>
+<p>All items in containers inherit the swatch from their parent. Exceptions to this rule are the listdivider in listviews, the header of nested list pages, and the button of split button lists, which all default to &quot;b&quot; (blue in the default theme). Count bubbles default to &quot;c&quot; (silver in the default theme).</p>
+<p>Note that there is also a swatch named &quot;active&quot; (bright blue in the default theme) which is used to indicate an active selected item. See the global &quot;Active&quot; state further down this page for more information on the active swatch.</p>
+<p>The page loading dialog and error message don&apos;t inherit a swatch theme. The loading dialog defaults to swatch &quot;a&quot; (black in the default theme) and the error message to swatch &quot;e&quot; (yellow in the default theme). You can configure those defaults globally.</p>
+<h3 class="toc-linked"><a href="#themes-and-swatches" id="themes-and-swatches" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Themes and Swatches</h3><p>The theme system separates color and texture from structural styles that define things like padding and dimensions. This allows theme colors and textures to be defined once in the stylesheet and to be mixed, matched, and combined to achieve a wide range of visual effects.</p>
+<p>Each theme includes several global settings, including font family, drop shadows for overlays, and corner radius values for buttons and boxes. In addition, the theme can include multiple color swatches, each with color values for bars, content blocks, buttons and list items, and font text-shadow.</p>
+<p>The default theme includes five swatches that are given letters (a, b, c, d, e) for quick reference. To make mapping of color swatches consistent across our widgets, we have followed the convention that swatch &quot;a&quot; is the highest level of visual priority (black in our default theme), &quot;b&quot; is secondary level (blue), &quot;c&quot; is the baseline level (gray) that we use by default in many situations, &quot;d&quot; for an alternate secondary level, and &quot;e&quot; as an accent swatch. Themes may have additional swatches for accent colors or specific situations. For example, you could add a new theme swatch &quot;f&quot; that has a red bar and button for use in error situations.</p>
+<p>Most theme changes can be done using ThemeRoller, but it is also fairly simple to manually edit the base swatches in the default theme and/or add additional swatches by editing the theme CSS file. Just copy a block of swatch styles, rename the classes with the new swatch letter name, and tweak colors as you see fit.</p>
+<h2 class="toc-linked"><a href="#creating-a-custom-theme-with-themeroller" id="creating-a-custom-theme-with-themeroller" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Creating a Custom Theme with ThemeRoller</h2><p><img src="/resources/jquery-mobile/themeroller-mobile-logo.png" alt="picture Theme Roller Logo" title="Theme Roller"></p>
+<p>The easiest way to create custom themes is with the ThemeRoller tool. It allows you to build a theme composed of up to 26 swatches, download the newly created CSS file, and use it in your project.</p>
+<h3 class="toc-linked"><a href="#creating-the-theme-swatches" id="creating-the-theme-swatches" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Creating the Theme Swatches</h3><p>The <a href="http://jquerymobile.com/themeroller/">ThemeRoller</a> allows users to create their own theme through an easy to use drag and drop interface. By default, ThemeRoller offers three swatches (a, b and c). You can use the offered default colors, the Adobe Kuler colors, or create your own. You will create your theme by dragging the chosen color onto the chosen element in the swatch of your choice. You can add more swatches by pressing the &quot;+&quot; sign near the &quot;A&quot;, &quot;B&quot;, and &quot;C&quot; tabs, in the left-hand side menu.</p>
+<p>You can further edit your swatch from the menu. For example, you can expand the various element parts and carry out detailed editing. This will allow you to change text color, text shadow size, position and color, etc. You can also edit the gradient used on each element.</p>
+<p>Here are two examples of theme swatches created, one with the default colors, and one with the Kuler colors:</p>
+<p><img src="/resources/jquery-mobile/Theme.png" alt="picture Default colors theme example" title="Default colors theme example"> <img src="/resources/jquery-mobile/Kuler.png" alt="picture Kuler theme example" title="Kuler theme example"></p>
+<h3 class="toc-linked"><a href="#downloading-the-created-theme" id="downloading-the-created-theme" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Downloading the Created Theme</h3><p>Once you are satisfied with the various swatches that you have created in your theme, you can download this theme to be able to start using it in your project. You will simply need to press the &quot;Download theme zip file button&quot;, and enter the name of your theme in the popup window. Then, press the &quot;Download Zip&quot; button on the download popup window, see below:</p>
+<p><img src="/resources/jquery-mobile/downloadTheme.png" alt="picture Download Theme" title="Download Theme"></p>
+<h3 class="toc-linked"><a href="#using-the-downloaded-theme" id="using-the-downloaded-theme" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Using the Downloaded Theme</h3><p>The theme gets downloaded on your local machine as a zip file. This contains an <code>index.html</code> file, and a <code>themes</code> folder. The <code>index.html</code> file is an example of how you can now use your theme. The <code>themes</code> folder contains your theme CSS files, and the icons that are used by jQuery Mobile.</p>
+<p>To start using your theme, you can either start from the provided <code>index.html</code>, or start from scratch. As explained in the theme download popup window, all you need is to add your theme to the head of your page before the jquery.mobile.structure file, like this:</p>
+<div class="syntaxhighlighter xml">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="doctype">&lt;!doctype html&gt;</span></code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">html</span>&gt;</span></code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">head</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>    <span class="tag">&lt;<span class="title">title</span>&gt;</span>jQuery Mobile page<span class="tag">&lt;/<span class="title">title</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">&quot;utf-8&quot;</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">&quot;viewport&quot;</span> <span class="attribute">content</span>=<span class="value">&quot;width=device-width, initial-scale=1&quot;</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>    <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">&quot;stylesheet&quot;</span> <span class="attribute">href</span>=<span class="value">&quot;css/themes/my-custom-theme.css&quot;</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>    <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">&quot;stylesheet&quot;</span> <span class="attribute">href</span>=<span class="value">&quot;https://code.jquery.com/mobile/1.2.0/jquery.mobile.structure-1.2.0.min.css&quot;</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">&quot;https://code.jquery.com/jquery-1.8.2.min.js&quot;</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">&quot;https://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js&quot;</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;/<span class="title">head</span>&gt;</span></code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<h3 class="toc-linked"><a href="#final-note" id="final-note" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Final Note</h3><p>You need to be aware that jQuery Mobile will default to certain swatches when none are specified. For example, page content will default to swatch &quot;c&quot;, list dividers to swatch &quot;b&quot;, etc. As the full jQuery Mobile CSS is replaced by your custom theme CSS and the jQuery Mobile structure CSS, the only swatches available are the ones that you have provided as part of your custom theme. Therefore, you need to either always specify a swatch letter for all your elements or their parent using for example the <code>data-theme</code> attribute, or you will need to provide a swatch in your custom theme for the possible defaults. Additionally, the error messages use the swatch &quot;e&quot;, so this should also be specified in your theme.</p>					</div>
+
+	<div class="entry-meta row">
+				<div class="bottom-links row">
+							<div class="prev six columns">
+					<a href="https://learn.jquery.com/jquery-mobile/getting-started/">
+					<i class="icon-chevron-left"></i>
+					Getting Started with jQuery Mobile					</a>
+				</div>
+								</div>
+		
+		<aside class="meta-details six columns">
+			<h3>Last Updated</h3>
+			<ul>
+				<li class="icon-calendar icon-large" title="Last Updated"><span>September 15, 2016</span></li>
+			</ul>
+		</aside>
+		<aside class="github-feedback six columns">
+			<h3>Suggestions, Problems, Feedback?</h3>
+			<a class="button dark" href="https://github.com/jquery/learn.jquery.com/tree/master/page/jquery-mobile/theme-roller.md"><i class="icon-github"></i> Open an Issue or Submit a Pull Request on GitHub</a>
+		</aside>
+
+	</div>
+</article>
+	</div>
+
+	<div id="sidebar" class="widget-area" role="complementary">
+		
+		<aside id="chapter-listing" class="widget">
+			<h3 class="widget-title">Chapters</h3>
+			<ul>
+																		<li >
+						<a href="//learn.jquery.com/about-jquery/">
+															<i class="icon-certificate"></i>
+														About jQuery						</a>
+																																																																									</li>
+														<li >
+						<a href="//learn.jquery.com/using-jquery-core/">
+															<i class="icon-star-empty"></i>
+														Using jQuery Core						</a>
+																																																																																																																																																																																																																																																																																										<ul class="sub-chapter">
+																																																																																																																																																																																																																																																																																	<li >
+										<a href="//learn.jquery.com/using-jquery-core/faq/">
+											Frequently Asked Questions										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/events/">
+															<i class="icon-tasks"></i>
+														Events						</a>
+																																																																																																																																																																																																	</li>
+														<li >
+						<a href="//learn.jquery.com/effects/">
+															<i class="icon-picture"></i>
+														Effects						</a>
+																																																																																								</li>
+														<li >
+						<a href="//learn.jquery.com/ajax/">
+															<i class="icon-refresh"></i>
+														Ajax						</a>
+																																																																																																																						</li>
+														<li >
+						<a href="//learn.jquery.com/plugins/">
+															<i class="icon-bolt"></i>
+														Plugins						</a>
+																																																																																																							</li>
+														<li >
+						<a href="//learn.jquery.com/performance/">
+															<i class="icon-dashboard"></i>
+														Performance						</a>
+																																																																																																																																																				</li>
+														<li >
+						<a href="//learn.jquery.com/code-organization/">
+															<i class="icon-sitemap"></i>
+														Code Organization						</a>
+																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/code-organization/deferreds/">
+											Deferreds										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-ui/">
+															<i class="icon-magnet"></i>
+														jQuery UI						</a>
+																																																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/jquery-ui/widget-factory/">
+											Widget Factory										</a>
+									</li>
+																																												<li >
+										<a href="//learn.jquery.com/jquery-ui/environments/">
+											Using jQuery UI										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li class='active'>
+						<a href="//learn.jquery.com/jquery-mobile/">
+															<i class="icon-th-large"></i>
+														jQuery Mobile						</a>
+																																																																									</li>
+							</ul>
+		</aside>
+
+
+	</div><!-- #sidebar .widget-area -->
+</div>
+
+	</div>
+</div>
+
+<footer class="clearfix simple">
+	<div class="constrain">
+		<div class="row">
+			<div class="six columns offset-by-three">
+				<h3><span>Books</span></h3>
+				<ul class="books">
+					<li>
+						<a href="https://www.packtpub.com/web-development/learning-jquery-fourth-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/learning-jquery-4th-ed.jpg" alt="Learning jQuery 4th Edition by Karl Swedberg and Jonathan Chaffer" width="92" height="114">
+							Learning jQuery Fourth Edition
+							<cite>Karl Swedberg and Jonathan Chaffer</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.manning.com/books/jquery-in-action-third-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-in-action.jpg" alt="jQuery in Action by Bear Bibeault, Yehuda Katz, and Aurelio De Rosa" width="92" height="114">
+							jQuery in Action
+							<cite>Bear Bibeault, Yehuda Katz, and Aurelio De Rosa</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.syncfusion.com/ebooks/jquery">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-succinctly.jpg" alt="jQuery Succinctly by Cody Lindley" width="92" height="114">
+							jQuery Succinctly
+							<cite>Cody Lindley</cite>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		
+<div id="legal">
+	<ul class="footer-site-links">
+			<li><a class="icon-pencil" href="https://learn.jquery.com/">Learning Center</a></li>
+			<li><a class="icon-group" href="https://forum.jquery.com/">Forum</a></li>
+			<li><a class="icon-wrench" href="https://api.jquery.com/">API</a></li>
+			<li><a class="icon-twitter" href="https://twitter.com/jquery">Twitter</a></li>
+			<li><a class="icon-comments" href="https://irc.jquery.org/">IRC</a></li>
+			<li><a class="icon-github" href="https://github.com/jquery">GitHub</a></li>
+	</ul>
+	<p class="copyright">
+		Copyright 2021 <a href="https://openjsf.org/">OpenJS Foundation</a> and jQuery contributors. All rights reserved. See <a href="https://jquery.org/license/">jQuery License</a> for more information. The <a href="https://openjsf.org/">OpenJS Foundation</a> has registered trademarks and uses trademarks. For a list of trademarks of the <a href="https://openjsf.org/">OpenJS Foundation</a>, please see our <a href="https://trademark-policy.openjsf.org/">Trademark Policy</a> and <a href="https://trademark-list.openjsf.org/">Trademark List</a>. Trademarks and logos not indicated on the <a href="https://trademark-list.openjsf.org/">list of OpenJS Foundation trademarks</a> are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them. OpenJS Foundation <a href="https://terms-of-use.openjsf.org/">Terms of Use</a>, <a href="https://privacy-policy.openjsf.org/">Privacy</a>, and <a href="https://www.linuxfoundation.org/cookies">Cookie</a> Policies also apply.
+		<span class="sponsor-line"><a href="https://www.digitalocean.com" class="do-link">Web hosting by Digital Ocean</a> | <a href="https://www.stackpath.com" class="sp-link">CDN by StackPath</a></span>
+	</p>
+</div>
+
+	</div>
+</footer>
+
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/comment-reply.min.js?ver=4.5.2'></script>
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/wp-embed.min.js?ver=4.5.2'></script>
+	<!-- at the end of the BODY -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"  onload="document.querySelector('input[name=\'s\']') && docsearch({apiKey: '3cfde9aca378c8aab554d5bf1b23489b',
+		indexName: 'jquery',
+		inputSelector: 'input[name=\'s\']',
+		debug: true // Set debug to true if you want to inspect the dropdown
+	})" async></script>
+</body>
+</html>

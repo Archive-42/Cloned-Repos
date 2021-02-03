@@ -1,0 +1,63 @@
+<h1 id="description">–description–</h1>
+<p>The following iterative sequence is defined for the set of positive integers:</p>
+<div style="padding-left: 4em;">
+<var>n</var> → <var>n</var>/2 (<var>n</var> is even)
+</div>
+<div style="padding-left: 4em;">
+<var>n</var> → 3<var>n</var> + 1 (<var>n</var> is odd)
+</div>
+<p>Using the rule above and starting with 13, we generate the following sequence:</p>
+<div style="text-align: center;">
+13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1
+</div>
+<p>It can be seen that this sequence (starting at 13 and finishing at 1) contains 10 terms. Although it has not been proved yet (Collatz Problem), it is thought that all starting numbers finish at 1.</p>
+<p>Which starting number, under the given <code>limit</code>, produces the longest chain?</p>
+<p><strong>Note:</strong> Once the chain starts the terms are allowed to go above one million.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>longestCollatzSequence(14)</code> should return a number.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">longestCollatzSequence</span>(<span class="dv">14</span>) <span class="op">===</span> <span class="st">&#39;number&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>longestCollatzSequence(14)</code> should return 9.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">longestCollatzSequence</span>(<span class="dv">14</span>)<span class="op">,</span> <span class="dv">9</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>longestCollatzSequence(5847)</code> should return 3711.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">longestCollatzSequence</span>(<span class="dv">5847</span>)<span class="op">,</span> <span class="dv">3711</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>longestCollatzSequence(46500)</code> should return 35655.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">longestCollatzSequence</span>(<span class="dv">46500</span>)<span class="op">,</span> <span class="dv">35655</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>longestCollatzSequence(54512)</code> should return 52527.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">longestCollatzSequence</span>(<span class="dv">54512</span>)<span class="op">,</span> <span class="dv">52527</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>longestCollatzSequence(100000)</code> should return 77031.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">longestCollatzSequence</span>(<span class="dv">100000</span>)<span class="op">,</span> <span class="dv">77031</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>longestCollatzSequence(1000000)</code> should return 837799.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">longestCollatzSequence</span>(<span class="dv">1000000</span>)<span class="op">,</span> <span class="dv">837799</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">function</span> <span class="at">longestCollatzSequence</span>(limit) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-2" title="2"></a>
+<a class="sourceLine" id="cb8-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb8-5" title="5"></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="at">longestCollatzSequence</span>(<span class="dv">14</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">function</span> <span class="at">longestCollatzSequence</span>(limit) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-2" title="2">  <span class="kw">let</span> longest <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-3" title="3">  <span class="kw">let</span> maxLength <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-4" title="4">  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="va">Math</span>.<span class="at">floor</span>(limit / <span class="dv">2</span>)<span class="op">;</span> i <span class="op">&lt;</span> limit<span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-5" title="5">    <span class="kw">let</span> len <span class="op">=</span> <span class="at">colLen</span>(i)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-6" title="6">    <span class="cf">if</span> (len <span class="op">&gt;</span> maxLength) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-7" title="7">      longest <span class="op">=</span> i<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-8" title="8">      maxLength <span class="op">=</span> len<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-9" title="9">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb9-10" title="10">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb9-11" title="11">  <span class="cf">return</span> longest<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-12" title="12"><span class="op">}</span></a>
+<a class="sourceLine" id="cb9-13" title="13"></a>
+<a class="sourceLine" id="cb9-14" title="14"><span class="kw">const</span> knownSequence <span class="op">=</span> <span class="op">{</span> <span class="st">&#39;1&#39;</span><span class="op">:</span> <span class="dv">1</span> <span class="op">};</span></a>
+<a class="sourceLine" id="cb9-15" title="15"></a>
+<a class="sourceLine" id="cb9-16" title="16"><span class="kw">function</span> <span class="at">colLen</span>(n) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-17" title="17">  <span class="cf">if</span> (knownSequence[n]) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-18" title="18">    <span class="cf">return</span> knownSequence[n]<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-19" title="19">  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-20" title="20">    <span class="kw">const</span> len <span class="op">=</span> n <span class="op">%</span> <span class="dv">2</span> <span class="op">===</span> <span class="dv">0</span> <span class="op">?</span> <span class="at">colLen</span>(n / <span class="dv">2</span>) <span class="op">+</span> <span class="dv">1</span> : <span class="at">colLen</span>((<span class="dv">3</span> <span class="op">*</span> n <span class="op">+</span> <span class="dv">1</span>) / <span class="dv">2</span>) <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-21" title="21">    knownSequence[n] <span class="op">=</span> len<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-22" title="22">    <span class="cf">return</span> len<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-23" title="23">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb9-24" title="24"><span class="op">}</span></a></code></pre></div>

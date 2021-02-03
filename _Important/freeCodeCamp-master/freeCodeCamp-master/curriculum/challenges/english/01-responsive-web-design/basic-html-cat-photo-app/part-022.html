@@ -1,0 +1,44 @@
+<h1 id="description">–description–</h1>
+<p>The <code>figure</code> element represents self-contained content and will allow you to associate an image with a caption.</p>
+<p>Nest the image you just added within a <code>figure</code> element.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>figure</code> element should have an opening tag. Opening tags have the following syntax: <code>&lt;elementName&gt;</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;figure&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>figure</code> element should have a closing tag. Closing tags have a <code>/</code> just after the <code>&lt;</code> character.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">figure</span><span class="sc">\&gt;</span><span class="ss">/</span>))<span class="op">;</span></a></code></pre></div>
+<p>There should be an <code>figure</code> element right above the second <code>section</code> element’s closing tag.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;section&#39;</span>)[<span class="dv">1</span>].<span class="va">lastElementChild</span>.<span class="at">nodeName</span> <span class="op">===</span> <span class="st">&#39;FIGURE&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>The lasagna <code>img</code> element should be nested in the <code>figure</code> element.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;figure &gt; img&#39;</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;figure &gt; img&#39;</span>).<span class="at">getAttribute</span>(<span class="st">&#39;src&#39;</span>).<span class="at">toLowerCase</span>() <span class="op">===</span></a>
+<a class="sourceLine" id="cb4-4" title="4">      <span class="st">&#39;https://bit.ly/fcc-lasagna&#39;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">&lt;h1&gt;</span>CatPhotoApp<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">      <span class="kw">&lt;section&gt;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">      <span class="kw">&lt;h2&gt;</span>Cat Photos<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">      <span class="co">&lt;!-- </span><span class="al">TODO</span><span class="co">: Add link to cat photos --&gt;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">        <span class="kw">&lt;p&gt;</span>Click here to view more <span class="kw">&lt;a</span><span class="ot"> target=</span><span class="st">&quot;_blank&quot;</span><span class="ot"> href=</span><span class="st">&quot;https://freecatphotoapp.com&quot;</span><span class="kw">&gt;</span>cat photos<span class="kw">&lt;/a&gt;</span>.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">        <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;https://freecatphotoapp.com&quot;</span><span class="kw">&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-relaxing-cat&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A cute orange cat lying on its back.&quot;</span><span class="kw">&gt;&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">      <span class="kw">&lt;/section&gt;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">      <span class="kw">&lt;section&gt;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">        <span class="kw">&lt;h2&gt;</span>Cat Lists<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb5-13" title="13">        <span class="kw">&lt;h3&gt;</span>Things cats love:<span class="kw">&lt;/h3&gt;</span></a>
+<a class="sourceLine" id="cb5-14" title="14">        <span class="kw">&lt;ul&gt;</span></a>
+<a class="sourceLine" id="cb5-15" title="15">          <span class="kw">&lt;li&gt;</span>cat nip<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-16" title="16">          <span class="kw">&lt;li&gt;</span>laser pointers<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-17" title="17">          <span class="kw">&lt;li&gt;</span>lasagna<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-18" title="18">        <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb5-19" title="19">--fcc-editable-region--</a>
+<a class="sourceLine" id="cb5-20" title="20">        <span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-lasagna&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A slice of lasagna on a plate.&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-21" title="21">--fcc-editable-region--</a>
+<a class="sourceLine" id="cb5-22" title="22">      <span class="kw">&lt;/section&gt;</span></a>
+<a class="sourceLine" id="cb5-23" title="23">    <span class="kw">&lt;/main&gt;</span></a>
+<a class="sourceLine" id="cb5-24" title="24"></a>
+<a class="sourceLine" id="cb5-25" title="25">  <span class="kw">&lt;/body&gt;</span></a>
+<a class="sourceLine" id="cb5-26" title="26"><span class="kw">&lt;/html&gt;</span></a></code></pre></div>

@@ -1,0 +1,47 @@
+<h1 id="description">–description–</h1>
+<p>One of the biggest reasons to use a package manager, is their powerful dependency management. Instead of manually having to make sure that you get all dependencies whenever you set up a project on a new computer, npm automatically installs everything for you. But how can npm know exactly what your project needs? Meet the <code>dependencies</code> section of your package.json file.</p>
+<p>In this section, packages your project requires are stored using the following format:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb1-1" title="1"><span class="er">&quot;dependencies&quot;:</span> <span class="fu">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="dt">&quot;package-name&quot;</span><span class="fu">:</span> <span class="st">&quot;version&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="dt">&quot;express&quot;</span><span class="fu">:</span> <span class="st">&quot;4.14.0&quot;</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="fu">}</span></a></code></pre></div>
+<h1 id="instructions">–instructions–</h1>
+<p>Add version “2.14.0” of the “moment” package to the <code>dependencies</code> field of your package.json file.</p>
+<p><strong>Note:</strong> Moment is a handy library for working with time and dates.</p>
+<h1 id="hints">–hints–</h1>
+<p>“dependencies” should include “moment”</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/package.json&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="kw">var</span> packJson <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(data)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      <span class="va">assert</span>.<span class="at">property</span>(</a>
+<a class="sourceLine" id="cb2-6" title="6">        <span class="va">packJson</span>.<span class="at">dependencies</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-7" title="7">        <span class="st">&#39;moment&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-8" title="8">        <span class="st">&#39;&quot;dependencies&quot; does not include &quot;moment&quot;&#39;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-10" title="10">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-11" title="11">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-12" title="12">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-13" title="13">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-14" title="14">  )<span class="op">;</span></a></code></pre></div>
+<p>“moment” version should be “2.14.0”</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/package.json&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="kw">var</span> packJson <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(data)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb3-6" title="6">        <span class="va">packJson</span>.<span class="va">dependencies</span>.<span class="at">moment</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">        <span class="ss">/</span><span class="sc">^[\^\~]?</span><span class="ss">2</span><span class="sc">\.</span><span class="ss">14</span><span class="sc">\.</span><span class="ss">0/</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-8" title="8">        <span class="st">&#39;Wrong version of &quot;moment&quot; installed. It should be 2.14.0&#39;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-11" title="11">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-12" title="12">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-13" title="13">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-14" title="14">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">*/</span></a></code></pre></div>

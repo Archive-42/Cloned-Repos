@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Adopt-a-Puppy</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="app.js"></script>
+    <script src="factories/puppies.js"></script>
+    <script src="directives/puppy/puppy.directive.js"></script>
+    <script src="directives/no-loitering.js"></script>
+    <script src="directives/open-in-new-tab.js"></script>
+</head>
+    <body ng-app="PuppyAdopt" ng-controller="MainController">
+        <div id="storefront">
+            <puppy dog="myPuppy"></puppy>
+            <puppy dog="favoriteDog"></puppy>
+        </div>
+    </body>
+</html>

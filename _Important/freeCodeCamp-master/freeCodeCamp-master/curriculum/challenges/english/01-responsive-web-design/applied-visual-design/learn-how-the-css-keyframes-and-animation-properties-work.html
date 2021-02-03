@@ -1,0 +1,83 @@
+<h1 id="description">–description–</h1>
+<p>To animate an element, you need to know about the animation properties and the <code>@keyframes</code> rule. The animation properties control how the animation should behave and the <code>@keyframes</code> rule controls what happens during that animation. There are eight animation properties in total. This challenge will keep it simple and cover the two most important ones first:</p>
+<p><code>animation-name</code> sets the name of the animation, which is later used by <code>@keyframes</code> to tell CSS which rules go with which animations.</p>
+<p><code>animation-duration</code> sets the length of time for the animation.</p>
+<p><code>@keyframes</code> is how to specify exactly what happens within the animation over the duration. This is done by giving CSS properties for specific “frames” during the animation, with percentages ranging from 0% to 100%. If you compare this to a movie, the CSS properties for 0% is how the element displays in the opening scene. The CSS properties for 100% is how the element appears at the end, right before the credits roll. Then CSS applies the magic to transition the element over the given duration to act out the scene. Here’s an example to illustrate the usage of <code>@keyframes</code> and the animation properties:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode css"><code class="sourceCode css"><a class="sourceLine" id="cb1-1" title="1"><span class="pp">#anim</span> {</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="kw">animation-name</span>: colorful<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="kw">animation-duration</span>: <span class="dv">3</span><span class="dt">s</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">}</a>
+<a class="sourceLine" id="cb1-5" title="5"></a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="im">@keyframes</span> colorful {</a>
+<a class="sourceLine" id="cb1-7" title="7">  <span class="dv">0%</span> {</a>
+<a class="sourceLine" id="cb1-8" title="8">    <span class="kw">background-color</span>: <span class="cn">blue</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-9" title="9">  }</a>
+<a class="sourceLine" id="cb1-10" title="10">  <span class="dv">100%</span> {</a>
+<a class="sourceLine" id="cb1-11" title="11">    <span class="kw">background-color</span>: <span class="cn">yellow</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-12" title="12">  }</a>
+<a class="sourceLine" id="cb1-13" title="13">}</a></code></pre></div>
+<p>For the element with the <code>anim</code> id, the code snippet above sets the <code>animation-name</code> to <code>colorful</code> and sets the <code>animation-duration</code> to 3 seconds. Then the <code>@keyframes</code> rule links to the animation properties with the name <code>colorful</code>. It sets the color to blue at the beginning of the animation (0%) which will transition to yellow by the end of the animation (100%). You aren’t limited to only beginning-end transitions, you can set properties for the element for any percentage between 0% and 100%.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Create an animation for the element with the id <code>rect</code>, by setting the <code>animation-name</code> to rainbow and the <code>animation-duration</code> to 4 seconds. Next, declare a <code>@keyframes</code> rule, and set the <code>background-color</code> at the beginning of the animation (<code>0%</code>) to blue, the middle of the animation (<code>50%</code>) to green, and the end of the animation (<code>100%</code>) to yellow.</p>
+<h1 id="hints">–hints–</h1>
+<p>The element with id of <code>rect</code> should have an <code>animation-name</code> property with a value of rainbow.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;#rect&#39;</span>).<span class="at">css</span>(<span class="st">&#39;animation-name&#39;</span>) <span class="op">==</span> <span class="st">&#39;rainbow&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>The element with id of <code>rect</code> should have an <code>animation-duration</code> property with a value of 4s.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;#rect&#39;</span>).<span class="at">css</span>(<span class="st">&#39;animation-duration&#39;</span>) <span class="op">==</span> <span class="st">&#39;4s&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>@keyframes</code> rule should use the <code>animation-name</code> of rainbow.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/@keyframes</span><span class="sc">\s+?</span><span class="ss">rainbow</span><span class="sc">\s*?</span><span class="ss">{/g</span>))<span class="op">;</span></a></code></pre></div>
+<p>The <code>@keyframes</code> rule for rainbow should use a <code>background-color</code> of blue at 0%.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/0%</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">background-color:</span><span class="sc">\s*?</span><span class="ss">blue;</span><span class="sc">\s*?</span><span class="ss">}/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>The <code>@keyframes</code> rule for rainbow should use a <code>background-color</code> of green at 50%.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/50%</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">background-color:</span><span class="sc">\s*?</span><span class="ss">green;</span><span class="sc">\s*?</span><span class="ss">}/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>The <code>@keyframes</code> rule for rainbow should use a <code>background-color</code> of yellow at 100%.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/100%</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">background-color:</span><span class="sc">\s*?</span><span class="ss">yellow;</span><span class="sc">\s*?</span><span class="ss">}/gi</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  div {</a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="kw">height</span>: <span class="dv">40</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-4" title="4">    <span class="kw">width</span>: <span class="dv">70</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-5" title="5">    <span class="kw">background</span>: <span class="cn">black</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-6" title="6">    <span class="kw">margin</span>: <span class="dv">50</span><span class="dt">px</span> <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-7" title="7">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-8" title="8">  }</a>
+<a class="sourceLine" id="cb8-9" title="9"></a>
+<a class="sourceLine" id="cb8-10" title="10">  <span class="pp">#rect</span> {</a>
+<a class="sourceLine" id="cb8-11" title="11"></a>
+<a class="sourceLine" id="cb8-12" title="12"></a>
+<a class="sourceLine" id="cb8-13" title="13">  }</a>
+<a class="sourceLine" id="cb8-14" title="14"></a>
+<a class="sourceLine" id="cb8-15" title="15"></a>
+<a class="sourceLine" id="cb8-16" title="16"></a>
+<a class="sourceLine" id="cb8-17" title="17"></a>
+<a class="sourceLine" id="cb8-18" title="18"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb8-19" title="19"><span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;rect&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb9"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb9-2" title="2">  div {</a>
+<a class="sourceLine" id="cb9-3" title="3">    <span class="kw">height</span>: <span class="dv">40</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-4" title="4">    <span class="kw">width</span>: <span class="dv">70</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-5" title="5">    <span class="kw">background</span>: <span class="cn">black</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-6" title="6">    <span class="kw">margin</span>: <span class="dv">50</span><span class="dt">px</span> <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-7" title="7">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-8" title="8">  }</a>
+<a class="sourceLine" id="cb9-9" title="9"></a>
+<a class="sourceLine" id="cb9-10" title="10">  <span class="pp">#rect</span> {</a>
+<a class="sourceLine" id="cb9-11" title="11">    <span class="kw">animation-name</span>: rainbow<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-12" title="12">    <span class="kw">animation-duration</span>: <span class="dv">4</span><span class="dt">s</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-13" title="13">  }</a>
+<a class="sourceLine" id="cb9-14" title="14"></a>
+<a class="sourceLine" id="cb9-15" title="15">  <span class="im">@keyframes</span> rainbow {</a>
+<a class="sourceLine" id="cb9-16" title="16">    <span class="dv">0%</span> {</a>
+<a class="sourceLine" id="cb9-17" title="17">      <span class="kw">background-color</span>: <span class="cn">blue</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-18" title="18">    }</a>
+<a class="sourceLine" id="cb9-19" title="19">    <span class="dv">50%</span> {</a>
+<a class="sourceLine" id="cb9-20" title="20">      <span class="kw">background-color</span>: <span class="cn">green</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-21" title="21">    }</a>
+<a class="sourceLine" id="cb9-22" title="22">    <span class="dv">100%</span> {</a>
+<a class="sourceLine" id="cb9-23" title="23">      <span class="kw">background-color</span>: <span class="cn">yellow</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-24" title="24">    }</a>
+<a class="sourceLine" id="cb9-25" title="25">  }</a>
+<a class="sourceLine" id="cb9-26" title="26"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb9-27" title="27"><span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;rect&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a></code></pre></div>

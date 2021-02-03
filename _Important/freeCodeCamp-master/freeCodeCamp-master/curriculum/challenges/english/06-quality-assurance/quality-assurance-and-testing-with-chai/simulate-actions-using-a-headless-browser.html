@@ -1,0 +1,37 @@
+<h1 id="description">–description–</h1>
+<p>As a reminder, this project is being built upon the following starter project on <a href="https://repl.it/github/freeCodeCamp/boilerplate-mochachai">Repl.it</a>, or cloned from <a href="https://github.com/freeCodeCamp/boilerplate-mochachai/">GitHub</a>.</p>
+<p>In the next challenges we are going to simulate the human interaction with a page using a device called ‘Headless Browser’.</p>
+<p>A headless browser is a web browser without a graphical user interface. This kind of tool is particularly useful for testing web pages, as it is able to render and understand HTML, CSS, and JavaScript the same way a browser would.</p>
+<p>For these challenges we are using Zombie.JS. It’s a lightweight browser which is totally based on JS, without relying on additional binaries to be installed. This feature makes it usable in an environment such as Repl.it. There are many other (more powerful) options.</p>
+<p>Mocha allows you to prepare the ground running some code before the actual tests. This can be useful for example to create items in the database, which will be used in the successive tests.</p>
+<p>With a headless browser, before the actual testing, we need to <strong>visit</strong> the page we are going to inspect. The <code>suiteSetup</code> ‘hook’ is executed only once at the suite startup. Other different hook types can be executed before each test, after each test, or at the end of a suite. See the Mocha docs for more information.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Within <code>tests/2_functional-tests.js</code>, immediately after the <code>Browser</code> declaration, add your project URL to the <code>site</code> property of the variable:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">Browser</span>.<span class="at">site</span> <span class="op">=</span> <span class="st">&#39;https://sincere-cone.gomix.me&#39;</span><span class="op">;</span> <span class="co">// Your URL here</span></a></code></pre></div>
+<p>If you are testing on a local environment replace the line above with</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">Browser</span>.<span class="at">localhost</span>(<span class="st">&#39;example.com&#39;</span><span class="op">,</span> <span class="va">process</span>.<span class="va">env</span>.<span class="at">PORT</span> <span class="op">||</span> <span class="dv">3000</span>)<span class="op">;</span></a></code></pre></div>
+<p>Within <code>tests/2_functional-tests.js</code>, at the root level of the <code>'Functional Tests with Zombie.js'</code> suite, instantiate a new instance of the <code>Browser</code> object with the following code:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">const</span> browser <span class="op">=</span> <span class="kw">new</span> <span class="at">Browser</span>()<span class="op">;</span></a></code></pre></div>
+<p>Then, use the <code>suiteSetup</code> hook to direct the <code>browser</code> to the <code>/</code> route with the following code:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">suiteSetup</span>(<span class="kw">function</span>(done) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="cf">return</span> <span class="va">browser</span>.<span class="at">visit</span>(<span class="st">&#39;/&#39;</span><span class="op">,</span> done)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="hints">–hints–</h1>
+<p>All tests should pass.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests?type=functional&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb5-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-4" title="4">      <span class="va">data</span>.<span class="at">slice</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">4</span>).<span class="at">forEach</span>((test) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-5" title="5">        <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">test</span>.<span class="at">state</span><span class="op">,</span> <span class="st">&#39;passed&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">      <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb5-7" title="7">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb5-8" title="8">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-9" title="9">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-11" title="11">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="co">*/</span></a></code></pre></div>

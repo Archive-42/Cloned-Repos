@@ -1,0 +1,94 @@
+<h1 id="description">–description–</h1>
+<p>Except for the last challenge, you’ve been passing props to stateless functional components. These components act like pure functions. They accept props as input and return the same view every time they are passed the same props. You may be wondering what state is, and the next challenge will cover it in more detail. Before that, here’s a review of the terminology for components.</p>
+<p>A <em>stateless functional component</em> is any function you write which accepts props and returns JSX. A <em>stateless component</em>, on the other hand, is a class that extends <code>React.Component</code>, but does not use internal state (covered in the next challenge). Finally, a <em>stateful component</em> is a class component that does maintain its own internal state. You may see stateful components referred to simply as components or React components.</p>
+<p>A common pattern is to try to minimize statefulness and to create stateless functional components wherever possible. This helps contain your state management to a specific area of your application. In turn, this improves development and maintenance of your app by making it easier to follow how changes to state affect its behavior.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>The code editor has a <code>CampSite</code> component that renders a <code>Camper</code> component as a child. Define the <code>Camper</code> component and assign it default props of <code>{ name: 'CamperBot' }</code>. Inside the <code>Camper</code> component, render any code that you want, but make sure to have one <code>p</code> element that includes only the <code>name</code> value that is passed in as a <code>prop</code>. Finally, define <code>propTypes</code> on the <code>Camper</code> component to require <code>name</code> to be provided as a prop and verify that it is of type <code>string</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>CampSite</code> component should render.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(CampSite))<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;CampSite&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>Camper</code> component should render.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(CampSite))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;Camper&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>Camper</code> component should include default props which assign the string <code>CamperBot</code> to the key <code>name</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="ss">/Camper.defaultProps={name:</span><span class="sc">([&#39;&quot;`])</span><span class="ss">CamperBot</span><span class="sc">\1</span><span class="ss">,</span><span class="sc">?</span><span class="ss">}/</span>.<span class="at">test</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="va">__helpers</span>.<span class="at">removeWhiteSpace</span>(code)</a>
+<a class="sourceLine" id="cb3-4" title="4">  )</a>
+<a class="sourceLine" id="cb3-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>Camper</code> component should include prop types which require the <code>name</code> prop to be of type <code>string</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="ss">/Camper.propTypes={name:PropTypes.string.isRequired,</span><span class="sc">?</span><span class="ss">}/</span>.<span class="at">test</span>(</a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="va">__helpers</span>.<span class="at">removeWhiteSpace</span>(code)</a>
+<a class="sourceLine" id="cb4-4" title="4">  )</a>
+<a class="sourceLine" id="cb4-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>Camper</code> component should contain a <code>p</code> element with only the text from the <code>name</code> prop.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(CampSite))<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb5-5" title="5">      <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;p&#39;</span>).<span class="at">text</span>() <span class="op">===</span></a>
+<a class="sourceLine" id="cb5-6" title="6">      <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;Camper&#39;</span>).<span class="at">props</span>().<span class="at">name</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb5-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="before-user-code">–before-user-code–</h2>
+<pre class="jsx"><code>var PropTypes = {
+   string: { isRequired: true }
+};</code></pre>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;CampSite /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>class CampSite extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;Camper/&gt;
+      &lt;/div&gt;
+    );
+  }
+};
+// Change code below this line</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>class CampSite extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;Camper/&gt;
+      &lt;/div&gt;
+    );
+  }
+};
+// Change code below this line
+
+const Camper = (props) =&gt; {
+   return (
+     &lt;div&gt;
+       &lt;p&gt;{props.name}&lt;/p&gt;
+     &lt;/div&gt;
+   );
+};
+
+Camper.propTypes = {
+  name: PropTypes.string.isRequired
+};
+
+Camper.defaultProps = {
+  name: &#39;CamperBot&#39;
+};</code></pre>

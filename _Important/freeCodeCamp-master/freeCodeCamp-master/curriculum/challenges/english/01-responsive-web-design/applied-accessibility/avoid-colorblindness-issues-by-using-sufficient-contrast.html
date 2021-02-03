@@ -1,0 +1,51 @@
+<h1 id="description">–description–</h1>
+<p>Color is a large part of visual design, but its use introduces two accessibility issues. First, color alone should not be used as the only way to convey important information because screen reader users won’t see it. Second, foreground and background colors need sufficient contrast so colorblind users can distinguish them.</p>
+<p>Previous challenges covered having text alternatives to address the first issue. The last challenge introduced contrast checking tools to help with the second. The WCAG-recommended contrast ratio of 4.5:1 applies for color use as well as gray-scale combinations.</p>
+<p>Colorblind users have trouble distinguishing some colors from others - usually in hue but sometimes lightness as well. You may recall the contrast ratio is calculated using the relative luminance (or lightness) values of the foreground and background colors.</p>
+<p>In practice, the 4.5:1 contrast ratio can be reached by shading (adding black to) the darker color and tinting (adding white to) the lighter color. Darker shades on the color wheel are considered to be shades of blues, violets, magentas, and reds, whereas lighter tinted colors are oranges, yellows, greens, and blue-greens.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Camper Cat is experimenting with using color for his blog text and background, but his current combination of a greenish <code>background-color</code> with maroon text <code>color</code> has a 2.5:1 contrast ratio. You can easily adjust the lightness of the colors since he declared them using the CSS <code>hsl()</code> property (which stands for hue, saturation, lightness) by changing the third argument. Increase the <code>background-color</code> lightness value from 35% to 55%, and decrease the <code>color</code> lightness value from 20% to 15%. This improves the contrast to 5.9:1.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should only change the lightness value for the text <code>color</code> property to a value of 15%.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/color:</span><span class="sc">\s*?</span><span class="ss">hsl</span><span class="sc">\(</span><span class="ss">0,</span><span class="sc">\s*?</span><span class="ss">55%,</span><span class="sc">\s*?</span><span class="ss">15%</span><span class="sc">\)</span><span class="ss">/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your code should only change the lightness value for the <code>background-color</code> property to a value of 55%.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/background-color:</span><span class="sc">\s*?</span><span class="ss">hsl</span><span class="sc">\(</span><span class="ss">120,</span><span class="sc">\s*?</span><span class="ss">25%,</span><span class="sc">\s*?</span><span class="ss">55%</span><span class="sc">\)</span><span class="ss">/gi</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;head&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">  body {</a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="kw">color</span>: <span class="fu">hsl(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">55</span><span class="dt">%</span><span class="op">,</span> <span class="dv">20</span><span class="dt">%</span><span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">    <span class="kw">background-color</span>: <span class="fu">hsl(</span><span class="dv">120</span><span class="op">,</span> <span class="dv">25</span><span class="dt">%</span><span class="op">,</span> <span class="dv">35</span><span class="dt">%</span><span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">  }</a>
+<a class="sourceLine" id="cb3-7" title="7">  <span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="kw">&lt;/head&gt;</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb3-10" title="10">  <span class="kw">&lt;header&gt;</span></a>
+<a class="sourceLine" id="cb3-11" title="11">    <span class="kw">&lt;h1&gt;</span>Deep Thoughts with Master Camper Cat<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb3-12" title="12">  <span class="kw">&lt;/header&gt;</span></a>
+<a class="sourceLine" id="cb3-13" title="13">  <span class="kw">&lt;article&gt;</span></a>
+<a class="sourceLine" id="cb3-14" title="14">    <span class="kw">&lt;h2&gt;</span>A Word on the Recent Catnip Doping Scandal<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb3-15" title="15">    <span class="kw">&lt;p&gt;</span>The influence that catnip has on feline behavior is well-documented, and its use as an herbal supplement in competitive ninja circles remains controversial. Once again, the debate to ban the substance is brought to the public&#39;s attention after the high-profile win of Kittytron, a long-time proponent and user of the green stuff, at the Claw of Fury tournament.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb3-16" title="16">    <span class="kw">&lt;p&gt;</span>As I&#39;ve stated in the past, I firmly believe a true ninja&#39;s skills must come from within, with no external influences. My own catnip use shall continue as purely recreational.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb3-17" title="17">  <span class="kw">&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb3-18" title="18"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;head&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  body {</a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="kw">color</span>: <span class="fu">hsl(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">55</span><span class="dt">%</span><span class="op">,</span> <span class="dv">15</span><span class="dt">%</span><span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="kw">background-color</span>: <span class="fu">hsl(</span><span class="dv">120</span><span class="op">,</span> <span class="dv">25</span><span class="dt">%</span><span class="op">,</span> <span class="dv">55</span><span class="dt">%</span><span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">  }</a>
+<a class="sourceLine" id="cb4-7" title="7">  <span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="kw">&lt;/head&gt;</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">  <span class="kw">&lt;header&gt;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">    <span class="kw">&lt;h1&gt;</span>Deep Thoughts with Master Camper Cat<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">  <span class="kw">&lt;/header&gt;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">  <span class="kw">&lt;article&gt;</span></a>
+<a class="sourceLine" id="cb4-14" title="14">    <span class="kw">&lt;h2&gt;</span>A Word on the Recent Catnip Doping Scandal<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb4-15" title="15">    <span class="kw">&lt;p&gt;</span>The influence that catnip has on feline behavior is well-documented, and its use as an herbal supplement in competitive ninja circles remains controversial. Once again, the debate to ban the substance is brought to the public&#39;s attention after the high-profile win of Kittytron, a long-time proponent and user of the green stuff, at the Claw of Fury tournament.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb4-16" title="16">    <span class="kw">&lt;p&gt;</span>As I&#39;ve stated in the past, I firmly believe a true ninja&#39;s skills must come from within, with no external influences. My own catnip use shall continue as purely recreational.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb4-17" title="17">  <span class="kw">&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb4-18" title="18"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>

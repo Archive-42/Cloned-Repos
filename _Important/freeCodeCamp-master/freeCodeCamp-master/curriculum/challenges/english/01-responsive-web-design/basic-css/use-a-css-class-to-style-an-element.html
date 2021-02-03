@@ -1,0 +1,98 @@
+<h1 id="description">–description–</h1>
+<p>Classes are reusable styles that can be added to HTML elements.</p>
+<p>Here’s an example CSS class declaration:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="fu">.blue-text</span> {</a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">color</span>: <span class="cn">blue</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">  }</a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="kw">&lt;/style&gt;</span></a></code></pre></div>
+<p>You can see that we’ve created a CSS class called <code>blue-text</code> within the <code>&lt;style&gt;</code> tag. You can apply a class to an HTML element like this: <code>&lt;h2 class="blue-text"&gt;CatPhotoApp&lt;/h2&gt;</code> Note that in your CSS <code>style</code> element, class names start with a period. In your HTML elements’ class attribute, the class name does not include the period.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Inside your <code>style</code> element, change the <code>h2</code> selector to <code>.red-text</code> and update the color’s value from <code>blue</code> to <code>red</code>.</p>
+<p>Give your <code>h2</code> element the <code>class</code> attribute with a value of <code>'red-text'</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>h2</code> element should be red.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h2&#39;</span>).<span class="at">css</span>(<span class="st">&#39;color&#39;</span>) <span class="op">===</span> <span class="st">&#39;rgb(255, 0, 0)&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h2</code> element should have the class <code>red-text</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h2&#39;</span>).<span class="at">hasClass</span>(<span class="st">&#39;red-text&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your stylesheet should declare a <code>red-text</code> class and have its color set to red.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/</span><span class="sc">\.</span><span class="ss">red-text</span><span class="sc">\s*\{\s*</span><span class="ss">color</span><span class="sc">\s*</span><span class="ss">:</span><span class="sc">\s*</span><span class="ss">red;</span><span class="sc">\s*\}</span><span class="ss">/g</span>))<span class="op">;</span></a></code></pre></div>
+<p>You should not use inline style declarations like <code>style="color: red"</code> in your <code>h2</code> element.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h2&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;style&#39;</span>) <span class="op">===</span> <span class="kw">undefined</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  h2 {</a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">color</span>: <span class="cn">blue</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">  }</a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb6-6" title="6"></a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb6-8" title="8"><span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">  <span class="kw">&lt;p&gt;</span>Click here to view more <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>cat photos<span class="kw">&lt;/a&gt;</span>.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb6-10" title="10"></a>
+<a class="sourceLine" id="cb6-11" title="11">  <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-relaxing-cat&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A cute orange cat lying on its back.&quot;</span><span class="kw">&gt;&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb6-12" title="12"></a>
+<a class="sourceLine" id="cb6-13" title="13">  <span class="kw">&lt;div&gt;</span></a>
+<a class="sourceLine" id="cb6-14" title="14">    <span class="kw">&lt;p&gt;</span>Things cats love:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb6-15" title="15">    <span class="kw">&lt;ul&gt;</span></a>
+<a class="sourceLine" id="cb6-16" title="16">      <span class="kw">&lt;li&gt;</span>cat nip<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-17" title="17">      <span class="kw">&lt;li&gt;</span>laser pointers<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-18" title="18">      <span class="kw">&lt;li&gt;</span>lasagna<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-19" title="19">    <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb6-20" title="20">    <span class="kw">&lt;p&gt;</span>Top 3 things cats hate:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb6-21" title="21">    <span class="kw">&lt;ol&gt;</span></a>
+<a class="sourceLine" id="cb6-22" title="22">      <span class="kw">&lt;li&gt;</span>flea treatment<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-23" title="23">      <span class="kw">&lt;li&gt;</span>thunder<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-24" title="24">      <span class="kw">&lt;li&gt;</span>other cats<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-25" title="25">    <span class="kw">&lt;/ol&gt;</span></a>
+<a class="sourceLine" id="cb6-26" title="26">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-27" title="27"></a>
+<a class="sourceLine" id="cb6-28" title="28">  <span class="kw">&lt;form</span><span class="ot"> action=</span><span class="st">&quot;https://freecatphotoapp.com/submit-cat-photo&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-29" title="29">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="ot"> checked</span><span class="kw">&gt;</span> Indoor<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb6-30" title="30">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="kw">&gt;</span> Outdoor<span class="kw">&lt;/label&gt;&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb6-31" title="31">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="ot"> checked</span><span class="kw">&gt;</span> Loving<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb6-32" title="32">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Lazy<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb6-33" title="33">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Energetic<span class="kw">&lt;/label&gt;&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb6-34" title="34">    <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="ot"> placeholder=</span><span class="st">&quot;cat photo URL&quot;</span><span class="ot"> required</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-35" title="35">    <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span>Submit<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb6-36" title="36">  <span class="kw">&lt;/form&gt;</span></a>
+<a class="sourceLine" id="cb6-37" title="37"><span class="kw">&lt;/main&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="fu">.red-text</span> {</a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="kw">color</span>: <span class="cn">red</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-4" title="4">  }</a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb7-6" title="6"></a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="kw">&lt;h2</span><span class="ot"> class=</span><span class="st">&quot;red-text&quot;</span><span class="kw">&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb7-9" title="9">  <span class="kw">&lt;p&gt;</span>Click here to view more <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>cat photos<span class="kw">&lt;/a&gt;</span>.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb7-10" title="10">  </a>
+<a class="sourceLine" id="cb7-11" title="11">  <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-relaxing-cat&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A cute orange cat lying on its back.&quot;</span><span class="kw">&gt;&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb7-12" title="12">  </a>
+<a class="sourceLine" id="cb7-13" title="13">  <span class="kw">&lt;div&gt;</span></a>
+<a class="sourceLine" id="cb7-14" title="14">    <span class="kw">&lt;p&gt;</span>Things cats love:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb7-15" title="15">    <span class="kw">&lt;ul&gt;</span></a>
+<a class="sourceLine" id="cb7-16" title="16">      <span class="kw">&lt;li&gt;</span>cat nip<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb7-17" title="17">      <span class="kw">&lt;li&gt;</span>laser pointers<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb7-18" title="18">      <span class="kw">&lt;li&gt;</span>lasagna<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb7-19" title="19">    <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb7-20" title="20">    <span class="kw">&lt;p&gt;</span>Top 3 things cats hate:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb7-21" title="21">    <span class="kw">&lt;ol&gt;</span></a>
+<a class="sourceLine" id="cb7-22" title="22">      <span class="kw">&lt;li&gt;</span>flea treatment<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb7-23" title="23">      <span class="kw">&lt;li&gt;</span>thunder<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb7-24" title="24">      <span class="kw">&lt;li&gt;</span>other cats<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb7-25" title="25">    <span class="kw">&lt;/ol&gt;</span></a>
+<a class="sourceLine" id="cb7-26" title="26">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb7-27" title="27">  </a>
+<a class="sourceLine" id="cb7-28" title="28">  <span class="kw">&lt;form</span><span class="ot"> action=</span><span class="st">&quot;https://freecatphotoapp.com/submit-cat-photo&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb7-29" title="29">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="ot"> checked</span><span class="kw">&gt;</span> Indoor<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb7-30" title="30">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="kw">&gt;</span> Outdoor<span class="kw">&lt;/label&gt;&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb7-31" title="31">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="ot"> checked</span><span class="kw">&gt;</span> Loving<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb7-32" title="32">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Lazy<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb7-33" title="33">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Energetic<span class="kw">&lt;/label&gt;&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb7-34" title="34">    <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="ot"> placeholder=</span><span class="st">&quot;cat photo URL&quot;</span><span class="ot"> required</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb7-35" title="35">    <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span>Submit<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb7-36" title="36">  <span class="kw">&lt;/form&gt;</span></a>
+<a class="sourceLine" id="cb7-37" title="37"><span class="kw">&lt;/main&gt;</span></a></code></pre></div>

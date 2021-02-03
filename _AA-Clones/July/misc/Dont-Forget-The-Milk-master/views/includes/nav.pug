@@ -1,0 +1,15 @@
+div(class="header-nav__container")
+  div(class="nav-left-container")
+    a(class="logo-link" href="#")
+      img(class="logo-nav" src="images/rtm-logo2.png")
+
+    form(class="search-form" id="search-form")
+      //- i(class="fas fa-search")
+      input(class="search-input" id="search-input" type="search" placeholder="Search" aria-label="Search" name="searchStr")
+
+  div(class="nav-right-container")
+    div(class="welcome-container" id="welcome") Welcome <span id="navUserName">User</span>
+
+    button(type="button" class="logout-btn") Logout
+
+script(type='module' src='js/nav.js')

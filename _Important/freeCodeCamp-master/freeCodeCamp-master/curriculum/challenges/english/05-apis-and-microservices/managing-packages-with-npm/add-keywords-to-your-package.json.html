@@ -1,0 +1,51 @@
+<h1 id="description">–description–</h1>
+<p>The <code>keywords</code> field is where you can describe your project using related keywords. Here’s an example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb1-1" title="1"><span class="er">&quot;keywords&quot;:</span> <span class="ot">[</span> <span class="st">&quot;descriptive&quot;</span><span class="ot">,</span> <span class="st">&quot;related&quot;</span><span class="ot">,</span> <span class="st">&quot;words&quot;</span> <span class="ot">]</span><span class="er">,</span></a></code></pre></div>
+<p>As you can see, this field is structured as an array of double-quoted strings.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Add an array of suitable strings to the <code>keywords</code> field in the package.json file of your project.</p>
+<p>One of the keywords should be “freecodecamp”.</p>
+<h1 id="hints">–hints–</h1>
+<p>package.json should have a valid “keywords” key</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/package.json&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="kw">var</span> packJson <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(data)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      <span class="at">assert</span>(<span class="va">packJson</span>.<span class="at">keywords</span><span class="op">,</span> <span class="st">&#39;&quot;keywords&quot; is missing&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-7" title="7">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-8" title="8">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-10" title="10">  )<span class="op">;</span></a></code></pre></div>
+<p>“keywords” field should be an Array</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/package.json&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="kw">var</span> packJson <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(data)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      <span class="va">assert</span>.<span class="at">isArray</span>(<span class="va">packJson</span>.<span class="at">keywords</span><span class="op">,</span> <span class="st">&#39;&quot;keywords&quot; is not an array&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-7" title="7">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-8" title="8">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-10" title="10">  )<span class="op">;</span></a></code></pre></div>
+<p>“keywords” should include “freecodecamp”</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/package.json&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb4-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-4" title="4">      <span class="kw">var</span> packJson <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(data)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">      <span class="va">assert</span>.<span class="at">include</span>(</a>
+<a class="sourceLine" id="cb4-6" title="6">        <span class="va">packJson</span>.<span class="at">keywords</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-7" title="7">        <span class="st">&#39;freecodecamp&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-8" title="8">        <span class="st">&#39;&quot;keywords&quot; does not include &quot;freecodecamp&quot;&#39;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb4-11" title="11">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-12" title="12">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-14" title="14">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">*/</span></a></code></pre></div>

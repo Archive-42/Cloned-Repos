@@ -1,0 +1,82 @@
+extends layout.pug
+
+block content
+  include includes/nav
+  include includes/modal-no-match
+  include includes/edit-task-form
+  include includes/edit-list-form
+  include includes/add-list-form
+  include includes/select-list-popup
+
+  div(class="grid__container")
+    div(class="grid__left-col" id="")
+      div(class="logo-container")
+        img(src="images/dftm-logo-black.png" class="logo-dftm")
+      div(class="left-col__list-categories")
+        div(class="add-list-container")
+        //- a(class="all-lists" id="all-lists") Lists
+        //-   button(id="add-list-button" class="add-list-button fa fa-plus fa-fw")
+        div(class="list-cat-container") This holds the categories
+        script(type="module" src="js/list.js")
+
+
+    div(class="grid__mid-col")
+      div(class="mid-col-list-header")
+        h2(id="list-header") Home
+      div(class="task-total")
+        <span class="total-task-span"> </span>  <br> tasks
+
+      div(class="completed-total")
+        <span class="completed-tasks-span"> </span> <br> completed
+
+      div(class="overdue-total")
+        <span class="overdue-tasks-span">  </span> <br> overdue
+
+      div(class="divider")
+      div(class="tab-container")
+        button(class="incomplete-task-tab task-tab") Incomplete
+        button(class="complete-task-tab task-tab") Completed
+
+      form(class="add-task-form" id="add-task")
+        label(for="new-task")
+        input(class="add-task-input" type="input" placeholder="Add a task..." aria-label="Add a task..." name="new-task")
+        button(class="add-task-btn generic-btn" type="submit") Add Task
+
+      div(class="task-list-container" id="task-list-container")
+        div(class="task-container")
+          div(class="task")
+
+
+    div(class="grid__right-col")
+      div(class="right-col__task-info")
+
+        form(class="edit-task-name-form")
+          input(class="edit-task-name-input" type="input" placeholder=`Task Name Here` aria-label="" name="taskName")
+        div(id="edit-task-modal") click here to edit >
+
+        div(class="info-header" ) Due:
+          span(class="date-span")
+        div(class="info-header") List:
+          span(class="list-span")
+        div(class="info-header") Completion Status:
+          span(class="completed-span")
+        div(class="info-header") Description:
+          div(class="task-description")
+      //- div(class="footer") © 2020 Don't Forget The Milk
+
+
+
+
+  script(type="module" src="js/search-feature.js")
+  script(type="module" src="js/tasks.js")
+  script(type="module" src="js/list-summary/total-tasks.js")
+  script(type="module" src="js/list-summary/overdue-tasks.js")
+  script(type="module" src="js/list-summary/completed-tasks.js")
+  script(type="module" src="js/add-tasks.js")
+  script(type="module" src="js/modify-tasks.js")
+  script(type="module" src="js/update-tasks.js")
+  script(type="module" src="js/complete-incomplete-tab/complete-tab.js")
+  script(type="module" src="js/complete-incomplete-tab/incomplete-tab.js")
+  script(type="module" src="js/test-added-functions.js")
+  script(type="module" src="js/right-col-edit-task-name.js")
+  script(type="module" src="js/redirect-home.js")

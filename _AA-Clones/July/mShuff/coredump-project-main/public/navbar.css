@@ -1,0 +1,267 @@
+.box {
+  height: 100%;
+  width: 25%;
+  /* border: 1px solid white; */
+  display:flex;
+  flex-direction: row;
+  position: fixed;
+  top: 0px;
+  z-index: 3;
+  background-color: teal;
+}
+
+.logobox-orange {
+  box-sizing: border-box;
+  width: 165px;
+  height: 203px;
+  background-color: #ff6b35;
+  /* position: absolute; */
+  position: fixed;
+  left: 80px;
+  margin: 0px;
+}
+
+.logobox-white-border {
+  box-sizing: border-box;
+  width: 68px;
+  height: 68px;
+  background-color: #ff6b35;
+  border: 2px solid white;
+  position: fixed;
+  top: 65px;
+  left: 80px;
+  z-index: 4;
+}
+
+.logobox-back-logo {
+  box-sizing: border-box;
+  width: 5px;
+  height: 31px;
+  left: 146px;
+  top: 88px;
+  background-color: #ff6b35;
+  position: fixed;
+  z-index: 5;
+}
+
+
+.logo-text {
+  font-weight: 300;
+  font-size: 25px;
+  letter-spacing: 0.15em;
+  color: white;
+  position: fixed;
+  left: 102px;
+  top: 102px;
+  z-index: 6;
+  text-decoration: none;
+}
+
+.logo:hover  {
+  color: white;
+  text-decoration: none;
+}
+
+.menu {
+  box-sizing: border-box;
+  /* border: 1px solid blue; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 11%;
+  top: 250px;
+  position: fixed;
+  left: 60px;
+}
+
+.home {
+  color: white;
+  /* color: #721A8B; */
+  margin-left: 20px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+
+}
+
+.public{
+  margin-top: 15px;
+  margin-left: 30px;
+  color: white;
+
+}
+
+.submenu-questions, .submenu-users {
+  text-decoration: none;
+  margin-top: 55px;
+  margin-left: 10px;
+  font-size: 15px;
+  padding-top: 18px;
+  color: white;
+}
+
+.search {
+  box-sizing: border-box;
+  display:flex;
+  justify-content: space-between;
+  /* border: 1px solid white; */
+  width: 72%;
+  height: 100px;
+  font-size: 18px;
+  color: white;
+  font-weight: lighter;
+  padding:30px;
+  text-decoration: none;
+  position: fixed;
+  z-index: 2;
+  background-color: #809096;
+  /* background-color:   #2C8C99; */
+  top: 0px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  /* max-width: 75%; */
+}
+
+.main-box {
+  box-sizing: border-box;
+  /* border: 1px solid white; */
+  width: 950px;
+  height: auto;
+  margin-top: 150px;
+  /* position: absolute; */
+}
+
+.burger {
+   display:none;
+   /* box-sizing: border-box; */
+   align-items: flex-start;
+   width: 2rem;
+}
+
+.btn-search {
+box-sizing: border-box;
+border-radius: 20px;
+border: 1px solid white;
+height: 30px;
+width: 90px;
+margin-left: 20px;
+outline: none;
+}
+
+.btn-search:hover {
+  cursor: pointer;
+}
+
+.input-search {
+  box-sizing: border-box;
+  border: 1px solid white;
+  border-radius: 20px;
+  height: 40px;
+  text-decoration: none;
+  padding-left: 40px;
+  margin-left: 10px;
+  outline: none;
+}
+
+.auth-btn {
+  display: flex;
+  justify-content: space-between;
+  width: 10%;
+}
+
+.login {
+  text-decoration: none;
+  /* margin-left: 80px; */
+  color: white;
+  margin-right: 10px;
+  /* display:flex;
+  align-items: flex-end; */
+  /* display: inline; */
+  /* padding-left: 20px;
+  padding-right: 20px; */
+
+}
+
+.signup {
+  text-decoration: none;
+  /* margin-left: 40px; */
+  color: white;
+}
+
+ .navbar-text {
+  box-sizing: border-box;
+  /* border: 1px solid white; */
+  height: 60px;
+  width: 120px;
+  text-decoration: none;
+  display:flex;
+  align-items: flex-end;
+  display: inline;
+  /* margin-left: 90px; */
+  /* padding-left: 20px; */
+  /* padding-right: 50px; */
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  /* position: fixed; */
+}
+
+.user-name {
+  margin-left: 5px;
+}
+
+.logout {
+  text-decoration: none;
+  display:flex;
+  align-items: flex-end;
+  display: inline;
+  margin-left: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.logout:hover {
+  cursor: pointer;
+}
+
+
+
+
+.login:hover  {
+  color: white;
+  text-decoration: none;
+}
+
+.signup:hover  {
+  color: white;
+  text-decoration: none;
+}
+
+
+.avatar-container {
+  display: flex;
+}
+
+
+.avatar {
+  /* box-sizing: border-box; */
+  min-width: 50px;
+  height: 60px;
+  border-radius: 50%;
+  opacity: 0.7;
+  /* position: fixed; */
+}
+
+.xmark {
+  width: 2.5rem;
+  position: relative;
+  left:280px;
+}
+
+/* @media screen and (max-width: 1200px) {
+  .menu, .logobox-orange, .logobox-white-border, .logo-text, .logobox-back-logo{
+    display: none;
+  }
+} */

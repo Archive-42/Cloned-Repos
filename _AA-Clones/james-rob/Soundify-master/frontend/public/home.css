@@ -1,0 +1,155 @@
+#mainContent {
+    grid-area: main-view;
+    background-color: rgb(18,18,18);
+}
+
+.main-content__container{
+    background-color: rgb(18,18,18);
+    text-align: left;
+}
+
+.main-content__container__topbar{
+    height: 110px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    color: #b3b3b3;
+    justify-content: center;
+    padding: 8px;
+    transition: .3s;
+    -webkit-text-stroke: medium;
+}
+
+.main-content__grid {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 16px;
+    vertical-align: baseline;
+    background: transparent;
+    font-family: "Neue Plak", sans-serif;
+    line-height: inherit;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.music-card {
+    color: white;
+    font-family: "Circular";
+    font-size: 16px;
+    width: 200;
+    max-height: 515px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding: 1px 8px 50px;
+    border: 16px solid transparent;
+    background-color: #282828;
+    height: 142.39px;
+    border-radius: 20px;
+    height: 249px;
+    margin: 18px 10px 75px 10px;
+    position: relative;
+}
+
+.music-card__image{
+     height: 200px;
+     width: 200px;
+}
+
+.music-card__title{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10px;
+    width: 85%;
+    margin: auto;
+    height: 200px;
+    bottom:0;
+    left: 0;
+    -webkit-text-stroke: medium;
+    color: white;
+    font-size: 24px;
+}
+
+img{
+   height: 150px;
+    width: 76%;
+}
+
+.music-card__play-button{
+    color: #1DB954;
+    height: 100%;
+    border-radius: 50%;
+    align-self: safe;
+    font-size: 3em;
+    height: 0px;
+    /* display: flex; */
+    display: none;
+    align-self: flex-end;
+    padding: 0px;
+    margin-right: 15px;
+    bottom: 43px;
+    position: absolute;
+    z-index: -1
+}
+
+
+.music-card:hover {
+    opacity: 50%;
+}
+
+.topbar-home-button{
+    margin:10px;
+    border: none;
+    background-color: transparent;
+    color: #bfbfbf;
+    outline: 0;
+    font-size: 18px;
+}
+
+.topbar-home-button:hover{
+    color: white;
+    border: 0px 0px 1px 0px;
+}
+
+.topbar-home-button--selected {
+    border-bottom: 2px solid #1DB954;
+    color: white;
+}
+
+
+
+.music-content__title{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    font-size: 36px;
+    color: white;
+    padding-left: 50px;
+    font-weight: bold;
+}
+
+.music-card-text-container {
+    padding-top: 20px;
+
+}
+.music-card-title {
+    font-weight: bold;
+    font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.music-card-type {
+    padding-top: 5px;
+    font-size: 12px;
+    color: #bfbfbf;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,58 @@
+<h1 id="description">–description–</h1>
+<p>HTML5’s <code>audio</code> element gives semantic meaning when it wraps sound or audio stream content in your markup. Audio content also needs a text alternative to be accessible to people who are deaf or hard of hearing. This can be done with nearby text on the page or a link to a transcript.</p>
+<p>The <code>audio</code> tag supports the <code>controls</code> attribute. This shows the browser default play, pause, and other controls, and supports keyboard functionality. This is a boolean attribute, meaning it doesn’t need a value, its presence on the tag turns the setting on.</p>
+<p>Here’s an example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">&lt;audio</span><span class="ot"> id=</span><span class="st">&quot;meowClip&quot;</span><span class="ot"> controls</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="kw">&lt;source</span><span class="ot"> src=</span><span class="st">&quot;audio/meow.mp3&quot;</span><span class="ot"> type=</span><span class="st">&quot;audio/mpeg&quot;</span> <span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="kw">&lt;source</span><span class="ot"> src=</span><span class="st">&quot;audio/meow.ogg&quot;</span><span class="ot"> type=</span><span class="st">&quot;audio/ogg&quot;</span> <span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="kw">&lt;/audio&gt;</span></a></code></pre></div>
+<p><strong>Note:</strong> Multimedia content usually has both visual and auditory components. It needs synchronized captions and a transcript so users with visual and/or auditory impairments can access it. Generally, a web developer is not responsible for creating the captions or transcript, but needs to know to include them.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Time to take a break from Camper Cat and meet fellow camper Zersiax (<span class="citation" data-cites="zersiax">@zersiax</span>), a champion of accessibility and a screen reader user. To hear a clip of his screen reader in action, add an <code>audio</code> element after the <code>p</code>. Include the <code>controls</code> attribute. Then place a <code>source</code> tag inside the <code>audio</code> tags with the <code>src</code> attribute set to “<code>https://s3.amazonaws.com/freecodecamp/screen-reader.mp3</code>” and <code>type</code> attribute set to “audio/mpeg”.</p>
+<p><strong>Note:</strong> The audio clip may sound fast and be difficult to understand, but that is a normal speed for screen reader users.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should have one <code>audio</code> tag.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;audio&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>audio</code> element should have a closing tag.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">audio&gt;/g</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;audio.</span><span class="sc">*</span><span class="ss">&gt;</span><span class="sc">[\s\S]*</span><span class="ss">&lt;</span><span class="sc">\/</span><span class="ss">audio&gt;/g</span>)</a>
+<a class="sourceLine" id="cb3-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>audio</code> tag should have the <code>controls</code> attribute.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;audio&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;controls&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your code should have one <code>source</code> tag.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;source&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>source</code> tag should be inside the <code>audio</code> tags.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;audio&#39;</span>).<span class="at">children</span>(<span class="st">&#39;source&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>The value for the <code>src</code> attribute on the <code>source</code> tag should match the link in the instructions exactly.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="at">$</span>(<span class="st">&#39;source&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;src&#39;</span>) <span class="op">===</span></a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="st">&#39;https://s3.amazonaws.com/freecodecamp/screen-reader.mp3&#39;</span></a>
+<a class="sourceLine" id="cb7-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>Your code should include a <code>type</code> attribute on the <code>source</code> tag with a value of audio/mpeg.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;source&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;type&#39;</span>) <span class="op">===</span> <span class="st">&#39;audio/mpeg&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb9-2" title="2">  <span class="kw">&lt;header&gt;</span></a>
+<a class="sourceLine" id="cb9-3" title="3">    <span class="kw">&lt;h1&gt;</span>Real Coding Ninjas<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb9-4" title="4">  <span class="kw">&lt;/header&gt;</span></a>
+<a class="sourceLine" id="cb9-5" title="5">  <span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb9-6" title="6">    <span class="kw">&lt;p&gt;</span>A sound clip of Zersiax&#39;s screen reader in action.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb9-7" title="7"></a>
+<a class="sourceLine" id="cb9-8" title="8"></a>
+<a class="sourceLine" id="cb9-9" title="9"></a>
+<a class="sourceLine" id="cb9-10" title="10">  <span class="kw">&lt;/main&gt;</span></a>
+<a class="sourceLine" id="cb9-11" title="11"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb10"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb10-2" title="2">  <span class="kw">&lt;header&gt;</span></a>
+<a class="sourceLine" id="cb10-3" title="3">    <span class="kw">&lt;h1&gt;</span>Real Coding Ninjas<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb10-4" title="4">  <span class="kw">&lt;/header&gt;</span></a>
+<a class="sourceLine" id="cb10-5" title="5">  <span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb10-6" title="6">    <span class="kw">&lt;p&gt;</span>A sound clip of Zersiax&#39;s screen reader in action.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb10-7" title="7">    <span class="kw">&lt;audio</span><span class="ot"> controls</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb10-8" title="8">      <span class="kw">&lt;source</span><span class="ot"> src=</span><span class="st">&quot;https://s3.amazonaws.com/freecodecamp/screen-reader.mp3&quot;</span><span class="ot"> type=</span><span class="st">&quot;audio/mpeg&quot;</span><span class="kw">/&gt;</span></a>
+<a class="sourceLine" id="cb10-9" title="9">    <span class="kw">&lt;/audio&gt;</span></a>
+<a class="sourceLine" id="cb10-10" title="10">  <span class="kw">&lt;/main&gt;</span></a>
+<a class="sourceLine" id="cb10-11" title="11"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>

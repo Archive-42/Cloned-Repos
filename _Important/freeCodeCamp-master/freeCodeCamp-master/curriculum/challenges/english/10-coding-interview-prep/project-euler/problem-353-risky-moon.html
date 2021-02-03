@@ -1,0 +1,22 @@
+<h1 id="description">–description–</h1>
+<p>A moon could be described by the sphere C(r) with centre (0,0,0) and radius r.</p>
+<p>There are stations on the moon at the points on the surface of C(r) with integer coordinates. The station at (0,0,r) is called North Pole station, the station at (0,0,-r) is called South Pole station.</p>
+<p>All stations are connected with each other via the shortest road on the great arc through the stations. A journey between two stations is risky. If d is the length of the road between two stations, (d/(π r))2 is a measure for the risk of the journey (let us call it the risk of the road). If the journey includes more than two stations, the risk of the journey is the sum of risks of the used roads.</p>
+<p>A direct journey from the North Pole station to the South Pole station has the length πr and risk 1. The journey from the North Pole station to the South Pole station via (0,r,0) has the same length, but a smaller risk: (½πr/(πr))2+(½πr/(πr))2=0.5.</p>
+<p>The minimal risk of a journey from the North Pole station to the South Pole station on C(r) is M(r).</p>
+<p>You are given that M(7)=0.1784943998 rounded to 10 digits behind the decimal point.</p>
+<p>Find ∑M(2n-1) for 1≤n≤15.</p>
+<p>Give your answer rounded to 10 digits behind the decimal point in the form a.bcdefghijk.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>euler353()</code> should return 1.2759860331.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">euler353</span>()<span class="op">,</span> <span class="fl">1.2759860331</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">function</span> <span class="at">euler353</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb2-5" title="5"></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="at">euler353</span>()<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">// solution required</span></a></code></pre></div>

@@ -1,0 +1,72 @@
+<h1 id="description">–description–</h1>
+<p>Sass allows nesting of CSS rules, which is a useful way of organizing a style sheet.</p>
+<p>Normally, each element is targeted on a different line to style it, like so:</p>
+<pre class="scss"><code>nav {
+  background-color: red;
+}
+
+nav ul {
+  list-style: none;
+}
+
+nav ul li {
+  display: inline-block;
+}</code></pre>
+<p>For a large project, the CSS file will have many lines and rules. This is where nesting can help organize your code by placing child style rules within the respective parent elements:</p>
+<pre class="scss"><code>nav {
+  background-color: red;
+
+  ul {
+    list-style: none;
+
+    li {
+      display: inline-block;
+    }
+  }
+}
+</code></pre>
+<h1 id="instructions">–instructions–</h1>
+<p>Use the nesting technique shown above to re-organize the CSS rules for both children of <code>.blog-post</code> element. For testing purposes, the <code>h1</code> should come before the <code>p</code> element.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should re-organize the CSS rules so the <code>h1</code> and <code>p</code> are nested in the <code>.blog-post</code> parent element.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="ss">/</span><span class="sc">\.</span><span class="ss">blog-post</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">h1</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">text-align:</span><span class="sc">\s*?</span><span class="ss">center;</span><span class="sc">\s*?</span><span class="ss">color:</span><span class="sc">\s*?</span><span class="ss">blue;</span><span class="sc">\s*?</span><span class="ss">}</span><span class="sc">\s*?</span><span class="ss">p</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">font-size:</span><span class="sc">\s*?</span><span class="ss">20px;</span><span class="sc">\s*?</span><span class="ss">}</span><span class="sc">\s*?</span><span class="ss">}/gi</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  )</a>
+<a class="sourceLine" id="cb3-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;style</span><span class="ot"> type=</span><span class="st">&#39;text/scss&#39;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="fu">.blog-post</span> {</a>
+<a class="sourceLine" id="cb4-3" title="3"></a>
+<a class="sourceLine" id="cb4-4" title="4">  }</a>
+<a class="sourceLine" id="cb4-5" title="5">  h1 {</a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="kw">color</span>: <span class="cn">blue</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">  }</a>
+<a class="sourceLine" id="cb4-9" title="9">  p {</a>
+<a class="sourceLine" id="cb4-10" title="10">    <span class="kw">font-size</span>: <span class="dv">20</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">  }</a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb4-13" title="13"></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;blog-post&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-15" title="15">  <span class="kw">&lt;h1&gt;</span>Blog Title<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb4-16" title="16">  <span class="kw">&lt;p&gt;</span>This is a paragraph<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb4-17" title="17"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;style</span><span class="ot"> type=</span><span class="st">&#39;text/scss&#39;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="fu">.blog-post</span> {</a>
+<a class="sourceLine" id="cb5-3" title="3">    h1 {</a>
+<a class="sourceLine" id="cb5-4" title="4">      <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">      <span class="kw">color</span>: <span class="cn">blue</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">    }</a>
+<a class="sourceLine" id="cb5-7" title="7">    p {</a>
+<a class="sourceLine" id="cb5-8" title="8">      <span class="kw">font-size</span>: <span class="dv">20</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">    }</a>
+<a class="sourceLine" id="cb5-10" title="10">  }</a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb5-12" title="12"></a>
+<a class="sourceLine" id="cb5-13" title="13"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;blog-post&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-14" title="14">  <span class="kw">&lt;h1&gt;</span>Blog Title<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb5-15" title="15">  <span class="kw">&lt;p&gt;</span>This is a paragraph<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-16" title="16"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>

@@ -1,0 +1,20 @@
+<h1 id="description">–description–</h1>
+<p>Here are the records from a busy telephone system with one million users:</p>
+<p>RecNrCallerCalled120000710005326001835004393600863701497……… The telephone number of the caller and the called number in record n are Caller(n) = S2n-1 and Called(n) = S2n where S1,2,3,… come from the “Lagged Fibonacci Generator”:</p>
+<p>For 1 ≤ k ≤ 55, Sk = [100003 - 200003k + 300007k3] (modulo 1000000) For 56 ≤ k, Sk = [Sk-24 + Sk-55] (modulo 1000000)</p>
+<p>If Caller(n) = Called(n) then the user is assumed to have misdialled and the call fails; otherwise the call is successful.</p>
+<p>From the start of the records, we say that any pair of users X and Y are friends if X calls Y or vice-versa. Similarly, X is a friend of a friend of Z if X is a friend of Y and Y is a friend of Z; and so on for longer chains.</p>
+<p>The Prime Minister’s phone number is 524287. After how many successful calls, not counting misdials, will 99% of the users (including the PM) be a friend, or a friend of a friend etc., of the Prime Minister?</p>
+<h1 id="hints">–hints–</h1>
+<p><code>euler186()</code> should return 2325629.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">euler186</span>()<span class="op">,</span> <span class="dv">2325629</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">function</span> <span class="at">euler186</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb2-5" title="5"></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="at">euler186</span>()<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">// solution required</span></a></code></pre></div>

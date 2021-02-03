@@ -1,0 +1,180 @@
+<h1 id="description">–description–</h1>
+<p>In this challenge we will learn about hash tables. A Hash table is used to implement associative arrays, or mappings of key-value pairs, like the objects and Maps we have just been studying. A JavaScript object could be implemented as a hash table, for instance (its actual implementation will depend on the environment it’s running in). The way a hash table works is that it takes a key input and hashes this key in a deterministic way to some numerical value. This numerical value is then used as the actual key the associated value is stored by. Then, if you try to access the same key again, the hashing function will process the key, return the same numerical result, which will then be used to look up the associated value. This provides very efficient O(1) lookup time on average.</p>
+<p>Hash tables can be implemented as arrays with hash functions producing array indices within a specified range. In this method, the choice of the array size is important, as is the hashing function. For instance, what if the hashing function produces the same value for two different keys? This is called a collision. One way to handle collisions is to just store both key-value pairs at that index. Then, upon lookup of either, you would have to iterate through the bucket of items to find the key you are looking for. A good hashing function will minimize collisions to maintain efficient search time.</p>
+<p>Here, we won’t be concerned with the details of hashing or hash table implementation, we will just try to get a general sense of how they work.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Let’s create the basic functionality of a hash table. We’ve created a naive hashing function for you to use. You can pass a string value to the function <code>hash</code> and it will return a hashed value you can use as a key for storage. Store items based on this hashed value in the <code>this.collection</code> object. Create these three methods: <code>add</code>, <code>remove</code>, and <code>lookup</code>. The first should accept a key value pair to add to the hash table. The second should remove a key-value pair when passed a key. The third should accept a key and return the associated value or <code>null</code> if the key is not present.</p>
+<p>Be sure to write your code to account for collisions!</p>
+<h1 id="hints">–hints–</h1>
+<p>The HashTable data structure should exist.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> HashTable <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">HashTable</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-7" title="7">    <span class="cf">return</span> <span class="kw">typeof</span> test <span class="op">===</span> <span class="st">&#39;object&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<p>The HashTable should have an add method.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> HashTable <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">HashTable</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-7" title="7">    <span class="cf">return</span> <span class="kw">typeof</span> <span class="va">test</span>.<span class="at">add</span> <span class="op">===</span> <span class="st">&#39;function&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<p>The HashTable should have a remove method.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> HashTable <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">HashTable</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-7" title="7">    <span class="cf">return</span> <span class="kw">typeof</span> <span class="va">test</span>.<span class="at">remove</span> <span class="op">===</span> <span class="st">&#39;function&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<p>The HashTable should have a lookup method.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> HashTable <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">HashTable</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="cf">return</span> <span class="kw">typeof</span> <span class="va">test</span>.<span class="at">lookup</span> <span class="op">===</span> <span class="st">&#39;function&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb4-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<p>The add method should add key value pairs and the lookup method should return the values associated with a given key.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> HashTable <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">HashTable</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    <span class="va">test</span>.<span class="at">add</span>(<span class="st">&#39;key&#39;</span><span class="op">,</span> <span class="st">&#39;value&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="cf">return</span> <span class="va">test</span>.<span class="at">lookup</span>(<span class="st">&#39;key&#39;</span>) <span class="op">===</span> <span class="st">&#39;value&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb5-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<p>The remove method should accept a key as input and should remove the associated key value pair.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb6-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="kw">var</span> hashValue <span class="op">=</span> <span class="at">hash</span>(<span class="st">&#39;key&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">    <span class="cf">if</span> (<span class="kw">typeof</span> HashTable <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-6" title="6">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">HashTable</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-7" title="7">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="va">test</span>.<span class="at">add</span> <span class="op">=</span> addMethodSolution<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">    <span class="va">test</span>.<span class="at">add</span>(<span class="st">&#39;key&#39;</span><span class="op">,</span> <span class="st">&#39;value&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">    <span class="va">test</span>.<span class="at">remove</span>(<span class="st">&#39;key&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-11" title="11">    <span class="cf">return</span> <span class="op">!</span><span class="va">test</span>.<span class="va">collection</span>.<span class="at">hasOwnProperty</span>(hashValue)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb6-13" title="13">)<span class="op">;</span></a></code></pre></div>
+<p>Items should be added using the hash function.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb7-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> HashTable <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">HashTable</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-7" title="7">    called <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-8" title="8">    <span class="va">test</span>.<span class="at">add</span>(<span class="st">&#39;key1&#39;</span><span class="op">,</span> <span class="st">&#39;value1&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-9" title="9">    <span class="va">test</span>.<span class="at">add</span>(<span class="st">&#39;key2&#39;</span><span class="op">,</span> <span class="st">&#39;value2&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-10" title="10">    <span class="va">test</span>.<span class="at">add</span>(<span class="st">&#39;key3&#39;</span><span class="op">,</span> <span class="st">&#39;value3&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-11" title="11">    <span class="cf">return</span> called <span class="op">&gt;=</span> <span class="dv">3</span> <span class="op">&amp;&amp;</span> called <span class="op">%</span> <span class="dv">3</span> <span class="op">===</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-12" title="12">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb7-13" title="13">)<span class="op">;</span></a></code></pre></div>
+<p>The hash table should handle collisions.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb8-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> HashTable <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">HashTable</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-7" title="7">    called <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-8" title="8">    <span class="va">test</span>.<span class="at">add</span>(<span class="st">&#39;key1&#39;</span><span class="op">,</span> <span class="st">&#39;value1&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-9" title="9">    <span class="va">test</span>.<span class="at">add</span>(<span class="st">&#39;1key&#39;</span><span class="op">,</span> <span class="st">&#39;value2&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-10" title="10">    <span class="va">test</span>.<span class="at">add</span>(<span class="st">&#39;ke1y&#39;</span><span class="op">,</span> <span class="st">&#39;value3&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-11" title="11">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb8-12" title="12">      <span class="va">test</span>.<span class="at">lookup</span>(<span class="st">&#39;key1&#39;</span>) <span class="op">===</span> <span class="st">&#39;value1&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb8-13" title="13">      <span class="va">test</span>.<span class="at">lookup</span>(<span class="st">&#39;1key&#39;</span>) <span class="op">==</span> <span class="st">&#39;value2&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb8-14" title="14">      <span class="va">test</span>.<span class="at">lookup</span>(<span class="st">&#39;ke1y&#39;</span>) <span class="op">==</span> <span class="st">&#39;value3&#39;</span></a>
+<a class="sourceLine" id="cb8-15" title="15">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-16" title="16">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb8-17" title="17">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="before-user-code">–before-user-code–</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">var</span> called <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw">var</span> hash <span class="op">=</span> string <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-3" title="3">  called<span class="op">++;</span></a>
+<a class="sourceLine" id="cb9-4" title="4">  <span class="kw">var</span> hash <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-5" title="5">  <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">string</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-6" title="6">    hash <span class="op">+=</span> <span class="va">string</span>.<span class="at">charCodeAt</span>(i)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-7" title="7">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb9-8" title="8">  <span class="cf">return</span> hash<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-9" title="9"><span class="op">};</span></a>
+<a class="sourceLine" id="cb9-10" title="10"></a>
+<a class="sourceLine" id="cb9-11" title="11"><span class="kw">var</span> addMethodSolution <span class="op">=</span> <span class="kw">function</span>(key<span class="op">,</span> val) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-12" title="12">    <span class="kw">var</span> theHash <span class="op">=</span> <span class="at">hash</span>(key)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-13" title="13">    <span class="cf">if</span> (<span class="op">!</span><span class="kw">this</span>.<span class="va">collection</span>.<span class="at">hasOwnProperty</span>(theHash)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-14" title="14">      <span class="kw">this</span>.<span class="at">collection</span>[theHash] <span class="op">=</span> <span class="op">{};</span></a>
+<a class="sourceLine" id="cb9-15" title="15">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb9-16" title="16">    <span class="kw">this</span>.<span class="at">collection</span>[theHash][key] <span class="op">=</span> val<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-17" title="17"><span class="op">}</span></a></code></pre></div>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">var</span> called <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw">var</span> hash <span class="op">=</span> string <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb10-3" title="3">  called<span class="op">++;</span></a>
+<a class="sourceLine" id="cb10-4" title="4">  <span class="kw">var</span> hashed <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-5" title="5">  <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">string</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb10-6" title="6">    hashed <span class="op">+=</span> <span class="va">string</span>.<span class="at">charCodeAt</span>(i)<span class="op">;</span></a>
+<a class="sourceLine" id="cb10-7" title="7">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb10-8" title="8">  <span class="cf">return</span> hashed<span class="op">;</span></a>
+<a class="sourceLine" id="cb10-9" title="9"><span class="op">};</span></a>
+<a class="sourceLine" id="cb10-10" title="10"><span class="kw">var</span> HashTable <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb10-11" title="11">  <span class="kw">this</span>.<span class="at">collection</span> <span class="op">=</span> <span class="op">{};</span></a>
+<a class="sourceLine" id="cb10-12" title="12">  <span class="co">// Only change code below this line</span></a>
+<a class="sourceLine" id="cb10-13" title="13">  </a>
+<a class="sourceLine" id="cb10-14" title="14">  <span class="co">// Only change code above this line</span></a>
+<a class="sourceLine" id="cb10-15" title="15"><span class="op">};</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb11"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">var</span> called <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw">var</span> hash <span class="op">=</span> (string) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb11-3" title="3">  called<span class="op">++;</span></a>
+<a class="sourceLine" id="cb11-4" title="4">  <span class="kw">var</span> hash <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb11-5" title="5">  <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">string</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span> hash <span class="op">+=</span> <span class="va">string</span>.<span class="at">charCodeAt</span>(i)<span class="op">;</span> <span class="op">}</span></a>
+<a class="sourceLine" id="cb11-6" title="6">  <span class="cf">return</span> hash<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-7" title="7"><span class="op">};</span></a>
+<a class="sourceLine" id="cb11-8" title="8"><span class="kw">var</span> HashTable <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb11-9" title="9">  <span class="kw">this</span>.<span class="at">collection</span> <span class="op">=</span> <span class="op">{};</span></a>
+<a class="sourceLine" id="cb11-10" title="10">  <span class="co">// Only change code below this line</span></a>
+<a class="sourceLine" id="cb11-11" title="11"></a>
+<a class="sourceLine" id="cb11-12" title="12">  <span class="kw">this</span>.<span class="at">add</span> <span class="op">=</span> <span class="kw">function</span>(key<span class="op">,</span> val) <span class="op">{</span></a>
+<a class="sourceLine" id="cb11-13" title="13">    <span class="kw">var</span> theHash <span class="op">=</span> <span class="at">hash</span>(key)<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-14" title="14">    <span class="cf">if</span> (<span class="op">!</span><span class="kw">this</span>.<span class="va">collection</span>.<span class="at">hasOwnProperty</span>(theHash)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb11-15" title="15">      <span class="kw">this</span>.<span class="at">collection</span>[theHash] <span class="op">=</span> <span class="op">{};</span></a>
+<a class="sourceLine" id="cb11-16" title="16">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb11-17" title="17">    <span class="kw">this</span>.<span class="at">collection</span>[theHash][key] <span class="op">=</span> val<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-18" title="18">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb11-19" title="19"></a>
+<a class="sourceLine" id="cb11-20" title="20">  <span class="kw">this</span>.<span class="at">remove</span> <span class="op">=</span> <span class="kw">function</span>(key) <span class="op">{</span></a>
+<a class="sourceLine" id="cb11-21" title="21">    <span class="kw">var</span> theHash <span class="op">=</span> <span class="at">hash</span>(key)<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-22" title="22">    <span class="kw">var</span> hashedObj <span class="op">=</span> <span class="kw">this</span>.<span class="at">collection</span>[theHash]<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-23" title="23">    <span class="cf">if</span> (<span class="va">hashedObj</span>.<span class="at">hasOwnProperty</span>(key)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb11-24" title="24">      <span class="kw">delete</span> hashedObj[key]<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-25" title="25">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb11-26" title="26">    <span class="cf">if</span> (<span class="op">!</span><span class="va">Object</span>.<span class="at">keys</span>(hashedObj).<span class="at">length</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb11-27" title="27">      <span class="kw">delete</span> <span class="kw">this</span>.<span class="at">collection</span>[theHash]<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-28" title="28">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb11-29" title="29">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb11-30" title="30"></a>
+<a class="sourceLine" id="cb11-31" title="31">  <span class="kw">this</span>.<span class="at">lookup</span> <span class="op">=</span> <span class="kw">function</span>(key) <span class="op">{</span></a>
+<a class="sourceLine" id="cb11-32" title="32">    <span class="kw">var</span> theHash <span class="op">=</span> <span class="at">hash</span>(key)<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-33" title="33">    <span class="cf">if</span> (<span class="kw">this</span>.<span class="va">collection</span>.<span class="at">hasOwnProperty</span>(theHash)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb11-34" title="34">      <span class="cf">return</span> <span class="kw">this</span>.<span class="at">collection</span>[theHash][key]<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-35" title="35">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb11-36" title="36">    <span class="cf">return</span> <span class="kw">null</span></a>
+<a class="sourceLine" id="cb11-37" title="37">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb11-38" title="38">  <span class="co">// Only change code above this line</span></a>
+<a class="sourceLine" id="cb11-39" title="39"><span class="op">};</span></a></code></pre></div>

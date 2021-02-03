@@ -1,0 +1,16 @@
+extends layout.pug
+
+block content
+  include includes/navigation
+  h1= article.title
+  div Claps: #{article.claps}
+  div= article.body
+    each comment in comments
+      div
+        div= comment.User.userName
+        div= comment.comment
+
+
+        a(href=`/articles/${article.id}/comment`)
+            div Tell us what you think!
+        button(id="leave-a-comment") Comment

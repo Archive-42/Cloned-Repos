@@ -1,0 +1,321 @@
+<h1 id="description">–description–</h1>
+<p>Provide a function to find the closest two points among a set of given points in two dimensions, i.e. to solve the <a href="https://en.wikipedia.org/wiki/Closest%20pair%20of%20points%20problem" title="wp: Closest pair of points problem">Closest pair of points problem</a> in the <em>planar</em> case.</p>
+<p>The straightforward solution is a O(n<sup>2</sup>) algorithm (which we can call <em>brute-force algorithm</em>); the pseudo-code (using indexes) could be simply:</p>
+<pre><strong>bruteForceClosestPair</strong> of P(1), P(2), ... P(N)
+<strong>if</strong> N &#x3C; 2 <strong>then</strong>
+  <strong>return</strong> ∞
+<strong>else</strong>
+  minDistance ← |P(1) - P(2)|
+  minPoints ← { P(1), P(2) }
+  <strong>foreach</strong> i ∈ [1, N-1]
+    <strong>foreach</strong> j ∈ [i+1, N]
+      <strong>if</strong> |P(i) - P(j)| &#x3C; minDistance <strong>then</strong>
+        minDistance ← |P(i) - P(j)|
+        minPoints ← { P(i), P(j) }
+      <strong>endif</strong>
+    <strong>endfor</strong>
+  <strong>endfor</strong>
+  <strong>return</strong> minDistance, minPoints
+<strong>endif</strong>
+</pre>
+<p>A better algorithm is based on the recursive divide and conquer approach, as explained also at <a href="https://en.wikipedia.org/wiki/Closest%20pair%20of%20points%20problem#Planar_case" title="wp: Closest pair of points problem#Planar_case">Wikipedia’s Closest pair of points problem</a>, which is <code>O(nlog(n))</code> a pseudo-code could be:</p>
+<pre><strong>closestPair</strong> of (xP, yP)
+  where xP is P(1) .. P(N) sorted by x coordinate, and
+  yP is P(1) .. P(N) sorted by y coordinate (ascending order)
+<strong>if</strong> N ≤ 3 <strong>then</strong>
+  <strong>return</strong> closest points of xP using brute-force algorithm
+<strong>else</strong>
+  xL ← points of xP from 1 to ⌈N/2⌉
+  xR ← points of xP from ⌈N/2⌉+1 to N
+  xm ← xP(⌈N/2⌉)<sub>x</sub>
+  yL ← { p ∈ yP : p<sub>x</sub> ≤ xm }
+  yR ← { p ∈ yP : p<sub>x</sub> > xm }
+  (dL, pairL) ← closestPair of (xL, yL)
+  (dR, pairR) ← closestPair of (xR, yR)
+  (dmin, pairMin) ← (dR, pairR)
+  <strong>if</strong> dL &#x3C; dR <strong>then</strong>
+    (dmin, pairMin) ← (dL, pairL)
+  <strong>endif</strong>
+  yS ← { p ∈ yP : |xm - p<sub>x</sub>| &#x3C; dmin }
+  nS ← number of points in yS
+  (closest, closestPair) ← (dmin, pairMin)
+  <strong>for</strong> i <strong>from</strong> 1 <strong>to</strong> nS - 1
+    k ← i + 1
+    <strong>while</strong> k ≤ nS <strong>and</strong> yS(k)<sub>y</sub> - yS(i)<sub>y</sub> &#x3C; dmin
+      <strong>if</strong> |yS(k) - yS(i)| &#x3C; closest <strong>then</strong>
+        (closest, closestPair) ← (|yS(k) - yS(i)|, {yS(k), yS(i)})
+      <strong>endif</strong>
+      k ← k + 1
+    <strong>endwhile</strong>
+  <strong>endfor</strong>
+  <strong>return</strong> closest, closestPair
+<strong>endif</strong>
+</pre>
+<p>For the input, expect the argument to be an array of objects (points) with <code>x</code> and <code>y</code> members set to numbers. For the output, return an object containing the key:value pairs for <code>distance</code> and <code>pair</code> (the pair of two closest points).</p>
+<p><strong>References and further readings:</strong></p>
+<ul>
+<li>
+<a href='https://en.wikipedia.org/wiki/Closest pair of points problem' title='wp: Closest pair of points problem' target='_blank'>Closest pair of points problem</a>
+</li>
+<li>
+<a href='https://www.cs.mcgill.ca/~cs251/ClosestPair/ClosestPairDQ.html' target='_blank'>Closest Pair (McGill)</a>
+</li>
+<li>
+<a href='https://www.cs.ucsb.edu/~suri/cs235/ClosestPair.pdf' target='_blank'>Closest Pair (UCSB)</a>
+</li>
+<li>
+<a href='https://classes.cec.wustl.edu/~cse241/handouts/closestpair.pdf' target='_blank'>Closest pair (WUStL)</a>
+</li>
+</ul>
+<h1 id="hints">–hints–</h1>
+<p><code>getClosestPair</code> should be a function.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> getClosestPair <span class="op">===</span> <span class="st">&#39;function&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Distance should be the following.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">getClosestPair</span>(points1).<span class="at">distance</span><span class="op">,</span> <span class="va">answer1</span>.<span class="at">distance</span>)<span class="op">;</span></a></code></pre></div>
+<p>Points should be the following.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">JSON</span>.<span class="at">parse</span>(<span class="va">JSON</span>.<span class="at">stringify</span>(<span class="at">getClosestPair</span>(points1))).<span class="at">pair</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="va">answer1</span>.<span class="at">pair</span></a>
+<a class="sourceLine" id="cb3-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>Distance should be the following.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">getClosestPair</span>(points2).<span class="at">distance</span><span class="op">,</span> <span class="va">answer2</span>.<span class="at">distance</span>)<span class="op">;</span></a></code></pre></div>
+<p>Points should be the following.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="va">JSON</span>.<span class="at">parse</span>(<span class="va">JSON</span>.<span class="at">stringify</span>(<span class="at">getClosestPair</span>(points2))).<span class="at">pair</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="va">answer2</span>.<span class="at">pair</span></a>
+<a class="sourceLine" id="cb5-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">const</span> points1 <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb6-2" title="2">    <span class="kw">new</span> <span class="at">Point</span>(<span class="fl">0.748501</span><span class="op">,</span> <span class="fl">4.09624</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">new</span> <span class="at">Point</span>(<span class="fl">3.00302</span><span class="op">,</span> <span class="fl">5.26164</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="kw">new</span> <span class="at">Point</span>(<span class="fl">3.61878</span><span class="op">,</span>  <span class="fl">9.52232</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-5" title="5">    <span class="kw">new</span> <span class="at">Point</span>(<span class="fl">7.46911</span><span class="op">,</span>  <span class="fl">4.71611</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-6" title="6">    <span class="kw">new</span> <span class="at">Point</span>(<span class="fl">5.7819</span><span class="op">,</span>   <span class="fl">2.69367</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-7" title="7">    <span class="kw">new</span> <span class="at">Point</span>(<span class="fl">2.34709</span><span class="op">,</span>  <span class="fl">8.74782</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="kw">new</span> <span class="at">Point</span>(<span class="fl">2.87169</span><span class="op">,</span>  <span class="fl">5.97774</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-9" title="9">    <span class="kw">new</span> <span class="at">Point</span>(<span class="fl">6.33101</span><span class="op">,</span>  <span class="fl">0.463131</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-10" title="10">    <span class="kw">new</span> <span class="at">Point</span>(<span class="fl">7.46489</span><span class="op">,</span>  <span class="fl">4.6268</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-11" title="11">    <span class="kw">new</span> <span class="at">Point</span>(<span class="fl">1.45428</span><span class="op">,</span>  <span class="fl">0.087596</span>)</a>
+<a class="sourceLine" id="cb6-12" title="12">]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-13" title="13"></a>
+<a class="sourceLine" id="cb6-14" title="14"><span class="kw">const</span> points2 <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb6-15" title="15">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">37100</span><span class="op">,</span> <span class="dv">13118</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-16" title="16">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">37134</span><span class="op">,</span> <span class="dv">1963</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-17" title="17">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">37181</span><span class="op">,</span> <span class="dv">2008</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-18" title="18">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">37276</span><span class="op">,</span> <span class="dv">21611</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-19" title="19">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">37307</span><span class="op">,</span> <span class="dv">9320</span>)</a>
+<a class="sourceLine" id="cb6-20" title="20">]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-21" title="21"></a>
+<a class="sourceLine" id="cb6-22" title="22"><span class="kw">const</span> answer1 <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-23" title="23">  <span class="dt">distance</span><span class="op">:</span> <span class="fl">0.0894096443343775</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-24" title="24">  <span class="dt">pair</span><span class="op">:</span> [</a>
+<a class="sourceLine" id="cb6-25" title="25">    <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-26" title="26">      <span class="dt">x</span><span class="op">:</span> <span class="fl">7.46489</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-27" title="27">      <span class="dt">y</span><span class="op">:</span> <span class="fl">4.6268</span></a>
+<a class="sourceLine" id="cb6-28" title="28">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb6-29" title="29">    <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-30" title="30">      <span class="dt">x</span><span class="op">:</span> <span class="fl">7.46911</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-31" title="31">      <span class="dt">y</span><span class="op">:</span> <span class="fl">4.71611</span></a>
+<a class="sourceLine" id="cb6-32" title="32">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-33" title="33">  ]</a>
+<a class="sourceLine" id="cb6-34" title="34"><span class="op">};</span></a>
+<a class="sourceLine" id="cb6-35" title="35"></a>
+<a class="sourceLine" id="cb6-36" title="36"><span class="kw">const</span> answer2 <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-37" title="37">  <span class="dt">distance</span><span class="op">:</span> <span class="fl">65.06919393998976</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-38" title="38">  <span class="dt">pair</span><span class="op">:</span> [</a>
+<a class="sourceLine" id="cb6-39" title="39">    <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-40" title="40">      <span class="dt">x</span><span class="op">:</span> <span class="dv">37134</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-41" title="41">      <span class="dt">y</span><span class="op">:</span> <span class="dv">1963</span></a>
+<a class="sourceLine" id="cb6-42" title="42">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb6-43" title="43">    <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-44" title="44">      <span class="dt">x</span><span class="op">:</span> <span class="dv">37181</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-45" title="45">      <span class="dt">y</span><span class="op">:</span> <span class="dv">2008</span></a>
+<a class="sourceLine" id="cb6-46" title="46">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-47" title="47">  ]</a>
+<a class="sourceLine" id="cb6-48" title="48"><span class="op">};</span></a>
+<a class="sourceLine" id="cb6-49" title="49"></a>
+<a class="sourceLine" id="cb6-50" title="50"><span class="kw">const</span> benchmarkPoints <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb6-51" title="51">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">16909</span><span class="op">,</span> <span class="dv">54699</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-52" title="52">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">14773</span><span class="op">,</span> <span class="dv">61107</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-53" title="53">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">95547</span><span class="op">,</span> <span class="dv">45344</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-54" title="54">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">95951</span><span class="op">,</span> <span class="dv">17573</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-55" title="55">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">5824</span><span class="op">,</span> <span class="dv">41072</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-56" title="56">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">8769</span><span class="op">,</span> <span class="dv">52562</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-57" title="57">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">21182</span><span class="op">,</span> <span class="dv">41881</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-58" title="58">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">53226</span><span class="op">,</span> <span class="dv">45749</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-59" title="59">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">68180</span><span class="op">,</span> <span class="dv">887</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-60" title="60">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">29322</span><span class="op">,</span> <span class="dv">44017</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-61" title="61">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">46817</span><span class="op">,</span> <span class="dv">64975</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-62" title="62">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">10501</span><span class="op">,</span> <span class="dv">483</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-63" title="63">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">57094</span><span class="op">,</span> <span class="dv">60703</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-64" title="64">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">23318</span><span class="op">,</span> <span class="dv">35472</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-65" title="65">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">72452</span><span class="op">,</span> <span class="dv">88070</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-66" title="66">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">67775</span><span class="op">,</span> <span class="dv">28659</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-67" title="67">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">19450</span><span class="op">,</span> <span class="dv">20518</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-68" title="68">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">17314</span><span class="op">,</span> <span class="dv">26927</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-69" title="69">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">98088</span><span class="op">,</span> <span class="dv">11164</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-70" title="70">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">25050</span><span class="op">,</span> <span class="dv">56835</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-71" title="71">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">8364</span><span class="op">,</span> <span class="dv">6892</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-72" title="72">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">37868</span><span class="op">,</span> <span class="dv">18382</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-73" title="73">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">23723</span><span class="op">,</span> <span class="dv">7701</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-74" title="74">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">55767</span><span class="op">,</span> <span class="dv">11569</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-75" title="75">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">70721</span><span class="op">,</span> <span class="dv">66707</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-76" title="76">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">31863</span><span class="op">,</span> <span class="dv">9837</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-77" title="77">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">49358</span><span class="op">,</span> <span class="dv">30795</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-78" title="78">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">13041</span><span class="op">,</span> <span class="dv">39745</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-79" title="79">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">59635</span><span class="op">,</span> <span class="dv">26523</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-80" title="80">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">25859</span><span class="op">,</span> <span class="dv">1292</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-81" title="81">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">1551</span><span class="op">,</span> <span class="dv">53890</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-82" title="82">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">70316</span><span class="op">,</span> <span class="dv">94479</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-83" title="83">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">48549</span><span class="op">,</span> <span class="dv">86338</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-84" title="84">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">46413</span><span class="op">,</span> <span class="dv">92747</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-85" title="85">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">27186</span><span class="op">,</span> <span class="dv">50426</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-86" title="86">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">27591</span><span class="op">,</span> <span class="dv">22655</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-87" title="87">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">10905</span><span class="op">,</span> <span class="dv">46153</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-88" title="88">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">40408</span><span class="op">,</span> <span class="dv">84202</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-89" title="89">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">52821</span><span class="op">,</span> <span class="dv">73520</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-90" title="90">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">84865</span><span class="op">,</span> <span class="dv">77388</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-91" title="91">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">99819</span><span class="op">,</span> <span class="dv">32527</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-92" title="92">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">34404</span><span class="op">,</span> <span class="dv">75657</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-93" title="93">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">78457</span><span class="op">,</span> <span class="dv">96615</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-94" title="94">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">42140</span><span class="op">,</span> <span class="dv">5564</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-95" title="95">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">62175</span><span class="op">,</span> <span class="dv">92342</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-96" title="96">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">54958</span><span class="op">,</span> <span class="dv">67112</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-97" title="97">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">4092</span><span class="op">,</span> <span class="dv">19709</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-98" title="98">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">99415</span><span class="op">,</span> <span class="dv">60298</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-99" title="99">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">51090</span><span class="op">,</span> <span class="dv">52158</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-100" title="100">  <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">48953</span><span class="op">,</span> <span class="dv">58567</span>)</a>
+<a class="sourceLine" id="cb6-101" title="101">]<span class="op">;</span></a></code></pre></div>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">const</span> Point <span class="op">=</span> <span class="kw">function</span>(x<span class="op">,</span> y) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="kw">this</span>.<span class="at">x</span> <span class="op">=</span> x<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-3" title="3">  <span class="kw">this</span>.<span class="at">y</span> <span class="op">=</span> y<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="op">};</span></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="va">Point</span>.<span class="va">prototype</span>.<span class="at">getX</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-6" title="6">  <span class="cf">return</span> <span class="kw">this</span>.<span class="at">x</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="op">};</span></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="va">Point</span>.<span class="va">prototype</span>.<span class="at">getY</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-9" title="9">  <span class="cf">return</span> <span class="kw">this</span>.<span class="at">y</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-10" title="10"><span class="op">};</span></a>
+<a class="sourceLine" id="cb7-11" title="11"></a>
+<a class="sourceLine" id="cb7-12" title="12"><span class="kw">function</span> <span class="at">getClosestPair</span>(pointsArr) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-13" title="13"></a>
+<a class="sourceLine" id="cb7-14" title="14">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-15" title="15"><span class="op">}</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">const</span> Point <span class="op">=</span> <span class="kw">function</span>(x<span class="op">,</span> y) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="kw">this</span>.<span class="at">x</span> <span class="op">=</span> x<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-3" title="3">  <span class="kw">this</span>.<span class="at">y</span> <span class="op">=</span> y<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="op">};</span></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="va">Point</span>.<span class="va">prototype</span>.<span class="at">getX</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-6" title="6">  <span class="cf">return</span> <span class="kw">this</span>.<span class="at">x</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="op">};</span></a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="va">Point</span>.<span class="va">prototype</span>.<span class="at">getY</span> <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-9" title="9">  <span class="cf">return</span> <span class="kw">this</span>.<span class="at">y</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-10" title="10"><span class="op">};</span></a>
+<a class="sourceLine" id="cb8-11" title="11"></a>
+<a class="sourceLine" id="cb8-12" title="12"><span class="kw">const</span> mergeSort <span class="op">=</span> <span class="kw">function</span> <span class="at">mergeSort</span>(points<span class="op">,</span> comp) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-13" title="13">    <span class="cf">if</span>(<span class="va">points</span>.<span class="at">length</span> <span class="op">&lt;</span> <span class="dv">2</span>) <span class="cf">return</span> points<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-14" title="14"></a>
+<a class="sourceLine" id="cb8-15" title="15">    <span class="kw">var</span> n <span class="op">=</span> <span class="va">points</span>.<span class="at">length</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb8-16" title="16">        i <span class="op">=</span> <span class="dv">0</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb8-17" title="17">        j <span class="op">=</span> <span class="dv">0</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb8-18" title="18">        leftN <span class="op">=</span> <span class="va">Math</span>.<span class="at">floor</span>(n / <span class="dv">2</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-19" title="19">        rightN <span class="op">=</span> leftN<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-20" title="20"></a>
+<a class="sourceLine" id="cb8-21" title="21">    <span class="kw">var</span> leftPart <span class="op">=</span> <span class="at">mergeSort</span>( <span class="va">points</span>.<span class="at">slice</span>(<span class="dv">0</span><span class="op">,</span> leftN)<span class="op">,</span> comp)<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-22" title="22">        rightPart <span class="op">=</span> <span class="at">mergeSort</span>( <span class="va">points</span>.<span class="at">slice</span>(rightN)<span class="op">,</span> comp )<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-23" title="23"></a>
+<a class="sourceLine" id="cb8-24" title="24">    <span class="kw">var</span> sortedPart <span class="op">=</span> []<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-25" title="25"></a>
+<a class="sourceLine" id="cb8-26" title="26">    <span class="cf">while</span>((i <span class="op">&lt;</span> <span class="va">leftPart</span>.<span class="at">length</span>) <span class="op">&amp;&amp;</span> (j <span class="op">&lt;</span> <span class="va">rightPart</span>.<span class="at">length</span>)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-27" title="27">        <span class="cf">if</span>(<span class="at">comp</span>(leftPart[i]<span class="op">,</span> rightPart[j]) <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-28" title="28">            <span class="va">sortedPart</span>.<span class="at">push</span>(leftPart[i])<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-29" title="29">            i <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-30" title="30">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-31" title="31">        <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-32" title="32">            <span class="va">sortedPart</span>.<span class="at">push</span>(rightPart[j])<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-33" title="33">            j <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-34" title="34">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-35" title="35">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-36" title="36">    <span class="cf">while</span>(i <span class="op">&lt;</span> <span class="va">leftPart</span>.<span class="at">length</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-37" title="37">        <span class="va">sortedPart</span>.<span class="at">push</span>(leftPart[i])<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-38" title="38">        i <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-39" title="39">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-40" title="40">    <span class="cf">while</span>(j <span class="op">&lt;</span> <span class="va">rightPart</span>.<span class="at">length</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-41" title="41">        <span class="va">sortedPart</span>.<span class="at">push</span>(rightPart[j])<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-42" title="42">        j <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-43" title="43">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-44" title="44">    <span class="cf">return</span> sortedPart<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-45" title="45"><span class="op">};</span></a>
+<a class="sourceLine" id="cb8-46" title="46"></a>
+<a class="sourceLine" id="cb8-47" title="47"><span class="kw">const</span> closestPair <span class="op">=</span> <span class="kw">function</span> <span class="at">_closestPair</span>(Px<span class="op">,</span> Py) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-48" title="48">    <span class="cf">if</span>(<span class="va">Px</span>.<span class="at">length</span> <span class="op">&lt;</span> <span class="dv">2</span>) <span class="cf">return</span> <span class="op">{</span> <span class="dt">distance</span><span class="op">:</span> <span class="kw">Infinity</span><span class="op">,</span> <span class="dt">pair</span><span class="op">:</span> [ <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">,</span> <span class="kw">new</span> <span class="at">Point</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>) ] <span class="op">};</span></a>
+<a class="sourceLine" id="cb8-49" title="49">    <span class="cf">if</span>(<span class="va">Px</span>.<span class="at">length</span> <span class="op">&lt;</span> <span class="dv">3</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-50" title="50">        <span class="co">//find euclid distance</span></a>
+<a class="sourceLine" id="cb8-51" title="51">        <span class="kw">var</span> d <span class="op">=</span> <span class="va">Math</span>.<span class="at">sqrt</span>( <span class="va">Math</span>.<span class="at">pow</span>(<span class="va">Math</span>.<span class="at">abs</span>(Px[<span class="dv">1</span>].<span class="at">x</span> <span class="op">-</span> Px[<span class="dv">0</span>].<span class="at">x</span>)<span class="op">,</span> <span class="dv">2</span>) <span class="op">+</span> <span class="va">Math</span>.<span class="at">pow</span>(<span class="va">Math</span>.<span class="at">abs</span>(Px[<span class="dv">1</span>].<span class="at">y</span> <span class="op">-</span> Px[<span class="dv">0</span>].<span class="at">y</span>)<span class="op">,</span> <span class="dv">2</span>) )<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-52" title="52">        <span class="cf">return</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-53" title="53">            <span class="dt">distance</span><span class="op">:</span> d<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-54" title="54">            <span class="dt">pair</span><span class="op">:</span> [ Px[<span class="dv">0</span>]<span class="op">,</span> Px[<span class="dv">1</span>] ]</a>
+<a class="sourceLine" id="cb8-55" title="55">        <span class="op">};</span></a>
+<a class="sourceLine" id="cb8-56" title="56">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-57" title="57"></a>
+<a class="sourceLine" id="cb8-58" title="58">    <span class="kw">var</span> n <span class="op">=</span> <span class="va">Px</span>.<span class="at">length</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb8-59" title="59">        leftN <span class="op">=</span> <span class="va">Math</span>.<span class="at">floor</span>(n / <span class="dv">2</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-60" title="60">        rightN <span class="op">=</span> leftN<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-61" title="61"></a>
+<a class="sourceLine" id="cb8-62" title="62">    <span class="kw">var</span> Xl <span class="op">=</span> <span class="va">Px</span>.<span class="at">slice</span>(<span class="dv">0</span><span class="op">,</span> leftN)<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-63" title="63">        Xr <span class="op">=</span> <span class="va">Px</span>.<span class="at">slice</span>(rightN)<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-64" title="64">        Xm <span class="op">=</span> Xl[leftN <span class="op">-</span> <span class="dv">1</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-65" title="65">        Yl <span class="op">=</span> []<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-66" title="66">        Yr <span class="op">=</span> []<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-67" title="67">    <span class="co">//separate Py</span></a>
+<a class="sourceLine" id="cb8-68" title="68">    <span class="cf">for</span>(<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">Py</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-69" title="69">        <span class="cf">if</span>(Py[i].<span class="at">x</span> <span class="op">&lt;=</span> <span class="va">Xm</span>.<span class="at">x</span>)</a>
+<a class="sourceLine" id="cb8-70" title="70">            <span class="va">Yl</span>.<span class="at">push</span>(Py[i])<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-71" title="71">        <span class="cf">else</span></a>
+<a class="sourceLine" id="cb8-72" title="72">            <span class="va">Yr</span>.<span class="at">push</span>(Py[i])<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-73" title="73">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-74" title="74"></a>
+<a class="sourceLine" id="cb8-75" title="75">    <span class="kw">var</span> dLeft <span class="op">=</span> <span class="at">_closestPair</span>(Xl<span class="op">,</span> Yl)<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-76" title="76">        dRight <span class="op">=</span> <span class="at">_closestPair</span>(Xr<span class="op">,</span> Yr)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-77" title="77"></a>
+<a class="sourceLine" id="cb8-78" title="78">    <span class="kw">var</span> minDelta <span class="op">=</span> <span class="va">dLeft</span>.<span class="at">distance</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb8-79" title="79">        closestPair <span class="op">=</span> <span class="va">dLeft</span>.<span class="at">pair</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-80" title="80">    <span class="cf">if</span>(<span class="va">dLeft</span>.<span class="at">distance</span> <span class="op">&gt;</span> <span class="va">dRight</span>.<span class="at">distance</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-81" title="81">        minDelta <span class="op">=</span> <span class="va">dRight</span>.<span class="at">distance</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-82" title="82">        closestPair <span class="op">=</span> <span class="va">dRight</span>.<span class="at">pair</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-83" title="83">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-84" title="84"></a>
+<a class="sourceLine" id="cb8-85" title="85">    <span class="co">//filter points around Xm within delta (minDelta)</span></a>
+<a class="sourceLine" id="cb8-86" title="86">    <span class="kw">var</span> closeY <span class="op">=</span> []<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-87" title="87">    <span class="cf">for</span>(i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">Py</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-88" title="88">        <span class="cf">if</span>(<span class="va">Math</span>.<span class="at">abs</span>(Py[i].<span class="at">x</span> <span class="op">-</span> <span class="va">Xm</span>.<span class="at">x</span>) <span class="op">&lt;</span> minDelta) <span class="va">closeY</span>.<span class="at">push</span>(Py[i])<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-89" title="89">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-90" title="90">    <span class="co">//find min within delta. 8 steps max</span></a>
+<a class="sourceLine" id="cb8-91" title="91">    <span class="cf">for</span>(i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">closeY</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-92" title="92">        <span class="cf">for</span>(<span class="kw">var</span> j <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">;</span> j <span class="op">&lt;</span> <span class="va">Math</span>.<span class="at">min</span>( (i <span class="op">+</span> <span class="dv">8</span>)<span class="op">,</span> <span class="va">closeY</span>.<span class="at">length</span> )<span class="op">;</span> j <span class="op">+=</span> <span class="dv">1</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-93" title="93">            <span class="kw">var</span> d <span class="op">=</span> <span class="va">Math</span>.<span class="at">sqrt</span>( <span class="va">Math</span>.<span class="at">pow</span>(<span class="va">Math</span>.<span class="at">abs</span>(closeY[j].<span class="at">x</span> <span class="op">-</span> closeY[i].<span class="at">x</span>)<span class="op">,</span> <span class="dv">2</span>) <span class="op">+</span> <span class="va">Math</span>.<span class="at">pow</span>(<span class="va">Math</span>.<span class="at">abs</span>(closeY[j].<span class="at">y</span> <span class="op">-</span> closeY[i].<span class="at">y</span>)<span class="op">,</span> <span class="dv">2</span>) )<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-94" title="94">            <span class="cf">if</span>(d <span class="op">&lt;</span> minDelta) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-95" title="95">                minDelta <span class="op">=</span> d<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-96" title="96">                closestPair <span class="op">=</span> [ closeY[i]<span class="op">,</span> closeY[j] ]</a>
+<a class="sourceLine" id="cb8-97" title="97">            <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-98" title="98">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-99" title="99">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-100" title="100"></a>
+<a class="sourceLine" id="cb8-101" title="101">    <span class="cf">return</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-102" title="102">        <span class="dt">distance</span><span class="op">:</span> minDelta<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-103" title="103">        <span class="dt">pair</span><span class="op">:</span> closestPair</a>
+<a class="sourceLine" id="cb8-104" title="104">    <span class="op">};</span></a>
+<a class="sourceLine" id="cb8-105" title="105"><span class="op">};</span></a>
+<a class="sourceLine" id="cb8-106" title="106"></a>
+<a class="sourceLine" id="cb8-107" title="107"><span class="kw">function</span> <span class="at">getClosestPair</span>(points) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-108" title="108">  <span class="kw">const</span> sortX <span class="op">=</span> <span class="kw">function</span>(a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> (<span class="va">a</span>.<span class="at">x</span> <span class="op">&lt;</span> <span class="va">b</span>.<span class="at">x</span>) <span class="op">?</span> <span class="dv">-1</span> : ((<span class="va">a</span>.<span class="at">x</span> <span class="op">&gt;</span> <span class="va">b</span>.<span class="at">x</span>) <span class="op">?</span> <span class="dv">1</span> : <span class="dv">0</span>)<span class="op">;</span> <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-109" title="109">  <span class="kw">const</span> sortY <span class="op">=</span> <span class="kw">function</span>(a<span class="op">,</span> b) <span class="op">{</span> <span class="cf">return</span> (<span class="va">a</span>.<span class="at">y</span> <span class="op">&lt;</span> <span class="va">b</span>.<span class="at">y</span>) <span class="op">?</span> <span class="dv">-1</span> : ((<span class="va">a</span>.<span class="at">y</span> <span class="op">&gt;</span> <span class="va">b</span>.<span class="at">y</span>) <span class="op">?</span> <span class="dv">1</span> : <span class="dv">0</span>)<span class="op">;</span> <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-110" title="110"></a>
+<a class="sourceLine" id="cb8-111" title="111">  <span class="kw">const</span> Px <span class="op">=</span> <span class="at">mergeSort</span>(points<span class="op">,</span> sortX)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-112" title="112">  <span class="kw">const</span> Py <span class="op">=</span> <span class="at">mergeSort</span>(points<span class="op">,</span> sortY)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-113" title="113"></a>
+<a class="sourceLine" id="cb8-114" title="114">  <span class="cf">return</span> <span class="at">closestPair</span>(Px<span class="op">,</span> Py)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-115" title="115"><span class="op">}</span></a></code></pre></div>

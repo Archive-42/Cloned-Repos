@@ -1,0 +1,22 @@
+<h1 id="description">–description–</h1>
+<p>Starting from zero the natural numbers are written down in base 10 like this:</p>
+<p>0 1 2 3 4 5 6 7 8 9 10 11 12….</p>
+<p>Consider the digit d=1. After we write down each number n, we will update the number of ones that have occurred and call this number f(n,1). The first values for f(n,1), then, are as follows:</p>
+<p>nf(n,1) 00 11 21 31 41 51 61 71 81 91 102 114 125</p>
+<p>Note that f(n,1) never equals 3.</p>
+<p>So the first two solutions of the equation f(n,1)=n are n=0 and n=1. The next solution is n=199981. In the same manner the function f(n,d) gives the total number of digits d that have been written down after the number n has been written.</p>
+<p>In fact, for every digit d ≠ 0, 0 is the first solution of the equation f(n,d)=n. Let s(d) be the sum of all the solutions for which f(n,d)=n.</p>
+<p>You are given that s(1)=22786974071. Find ∑ s(d) for 1 ≤ d ≤ 9. Note: if, for some n, f(n,d)=n for more than one value of d this value of n is counted again for every value of d for which f(n,d)=n.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>euler156()</code> should return 21295121502550.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">euler156</span>()<span class="op">,</span> <span class="dv">21295121502550</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">function</span> <span class="at">euler156</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb2-5" title="5"></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="at">euler156</span>()<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">// solution required</span></a></code></pre></div>

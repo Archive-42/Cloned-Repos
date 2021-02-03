@@ -1,0 +1,46 @@
+<h1 id="description">–description–</h1>
+<p>Instead of using <code>em</code> or <code>px</code> to size text, you can use viewport units for responsive typography. Viewport units, like percentages, are relative units, but they are based off different items. Viewport units are relative to the viewport dimensions (width or height) of a device, and percentages are relative to the size of the parent container element.</p>
+<p>The four different viewport units are:</p>
+<ul>
+<li>
+<code>vw</code> (viewport width): <code>10vw</code> would be 10% of the viewport’s width.
+</li>
+<li>
+<code>vh</code> (viewport height): <code>3vh</code> would be 3% of the viewport’s height.
+</li>
+<li>
+<code>vmin</code> (viewport minimum): <code>70vmin</code> would be 70% of the viewport’s smaller dimension (height or width).
+</li>
+<li>
+<code>vmax</code> (viewport maximum): <code>100vmax</code> would be 100% of the viewport’s bigger dimension (height or width).
+</li>
+</ul>
+<p>Here is an example that sets a body tag to 30% of the viewport’s width.</p>
+<p><code>body { width: 30vw; }</code></p>
+<h1 id="instructions">–instructions–</h1>
+<p>Set the <code>width</code> of the <code>h2</code> tag to 80% of the viewport’s width and the <code>width</code> of the paragraph as 75% of the viewport’s smaller dimension.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>h2</code> tag should have a <code>width</code> of 80vw.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/h2</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">width:</span><span class="sc">\s*?</span><span class="ss">80vw;</span><span class="sc">\s*?</span><span class="ss">}/g</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>p</code> tag should have a <code>width</code> of 75vmin.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/p</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">width:</span><span class="sc">\s*?</span><span class="ss">75vmin;</span><span class="sc">\s*?</span><span class="ss">}/g</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="kw">&lt;h2&gt;</span>Importantus Ipsum<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="kw">&lt;p&gt;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis tempus massa. Aenean erat nisl, gravida vel vestibulum cursus, interdum sit amet lectus. Sed sit amet quam nibh. Suspendisse quis tincidunt nulla. In hac habitasse platea dictumst. Ut sit amet pretium nisl. Vivamus vel mi sem. Aenean sit amet consectetur sem. Suspendisse pretium, purus et gravida consequat, nunc ligula ultricies diam, at aliquet velit libero a dui.<span class="kw">&lt;/p&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  h2 {</a>
+<a class="sourceLine" id="cb4-3" title="3">      <span class="kw">width</span>: <span class="dv">80</span><span class="dt">vw</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">  }</a>
+<a class="sourceLine" id="cb4-5" title="5">  p {</a>
+<a class="sourceLine" id="cb4-6" title="6">      <span class="kw">width</span>: <span class="dv">75</span>vmin<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">  }</a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb4-9" title="9"></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="kw">&lt;h2&gt;</span>Importantus Ipsum<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="kw">&lt;p&gt;</span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis tempus massa. Aenean erat nisl, gravida vel vestibulum cursus, interdum sit amet lectus. Sed sit amet quam nibh. Suspendisse quis tincidunt nulla. In hac habitasse platea dictumst. Ut sit amet pretium nisl. Vivamus vel mi sem. Aenean sit amet consectetur sem. Suspendisse pretium, purus et gravida consequat, nunc ligula ultricies diam, at aliquet velit libero a dui.<span class="kw">&lt;/p&gt;</span></a></code></pre></div>

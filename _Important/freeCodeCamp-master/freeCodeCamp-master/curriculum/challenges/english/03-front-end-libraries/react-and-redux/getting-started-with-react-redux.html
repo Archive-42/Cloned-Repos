@@ -1,0 +1,63 @@
+<h1 id="description">–description–</h1>
+<p>This series of challenges introduces how to use Redux with React. First, here’s a review of some of the key principles of each technology. React is a view library that you provide with data, then it renders the view in an efficient, predictable way. Redux is a state management framework that you can use to simplify the management of your application’s state. Typically, in a React Redux app, you create a single Redux store that manages the state of your entire app. Your React components subscribe to only the pieces of data in the store that are relevant to their role. Then, you dispatch actions directly from React components, which then trigger store updates.</p>
+<p>Although React components can manage their own state locally, when you have a complex app, it’s generally better to keep the app state in a single location with Redux. There are exceptions when individual components may have local state specific only to them. Finally, because Redux is not designed to work with React out of the box, you need to use the <code>react-redux</code> package. It provides a way for you to pass Redux <code>state</code> and <code>dispatch</code> to your React components as <code>props</code>.</p>
+<p>Over the next few challenges, first, you’ll create a simple React component which allows you to input new text messages. These are added to an array that’s displayed in the view. This should be a nice review of what you learned in the React lessons. Next, you’ll create a Redux store and actions that manage the state of the messages array. Finally, you’ll use <code>react-redux</code> to connect the Redux store with your component, thereby extracting the local state into the Redux store.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Start with a <code>DisplayMessages</code> component. Add a constructor to this component and initialize it with a state that has two properties: <code>input</code>, that’s set to an empty string, and <code>messages</code>, that’s set to an empty array.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>DisplayMessages</code> component should render an empty <code>div</code> element.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(DisplayMessages))<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;div&#39;</span>).<span class="at">text</span>() <span class="op">===</span> <span class="st">&#39;&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>DisplayMessages</code> constructor should be called properly with <code>super</code>, passing in <code>props</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="kw">const</span> noWhiteSpace <span class="op">=</span> <span class="va">__helpers</span>.<span class="at">removeWhiteSpace</span>(<span class="at">getUserInput</span>(<span class="st">&#39;index&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb2-6" title="6">        <span class="va">noWhiteSpace</span>.<span class="at">includes</span>(<span class="st">&#39;constructor(props)&#39;</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb2-7" title="7">        <span class="va">noWhiteSpace</span>.<span class="at">includes</span>(<span class="st">&#39;super(props&#39;</span>)</a>
+<a class="sourceLine" id="cb2-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-10" title="10">  )<span class="op">;</span></a></code></pre></div>
+<p>The <code>DisplayMessages</code> component should have an initial state equal to <code>{input: "", messages: []}</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(DisplayMessages))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="kw">const</span> initialState <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">state</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb3-6" title="6">      <span class="kw">typeof</span> initialState <span class="op">===</span> <span class="st">&#39;object&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-7" title="7">      <span class="va">initialState</span>.<span class="at">input</span> <span class="op">===</span> <span class="st">&#39;&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">      <span class="va">Array</span>.<span class="at">isArray</span>(<span class="va">initialState</span>.<span class="at">messages</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">      <span class="va">initialState</span>.<span class="va">messages</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-11" title="11">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-12" title="12">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;DisplayMessages /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>class DisplayMessages extends React.Component {
+  // Change code below this line
+
+  // Change code above this line
+  render() {
+    return &lt;div /&gt;
+  }
+};</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>class DisplayMessages extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: &#39;&#39;,
+      messages: []
+    }
+  }
+  render() {
+    return &lt;div/&gt;
+  }
+};</code></pre>

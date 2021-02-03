@@ -1,0 +1,26 @@
+<h1 id="description">–description–</h1>
+<p>While an HTML server serves (you guessed it!) HTML, an API serves data. A <dfn>REST</dfn> (REpresentational State Transfer) API allows data exchange in a simple way, without the need for clients to know any detail about the server. The client only needs to know where the resource is (the URL), and the action it wants to perform on it (the verb). The GET verb is used when you are fetching some information, without modifying anything. These days, the preferred data format for moving information around the web is JSON. Simply put, JSON is a convenient way to represent a JavaScript object as a string, so it can be easily transmitted.</p>
+<p>Let’s create a simple API by creating a route that responds with JSON at the path <code>/json</code>. You can do it as usual, with the <code>app.get()</code> method. Inside the route handler, use the method <code>res.json()</code>, passing in an object as an argument. This method closes the request-response loop, returning the data. Behind the scenes, it converts a valid JavaScript object into a string, then sets the appropriate headers to tell your browser that you are serving JSON, and sends the data back. A valid object has the usual structure <code>{key: data}</code>. <code>data</code> can be a number, a string, a nested object or an array. <code>data</code> can also be a variable or the result of a function call, in which case it will be evaluated before being converted into a string.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Serve the object <code>{"message": "Hello json"}</code> as a response, in JSON format, to GET requests to the <code>/json</code> route. Then point your browser to <code>your-app-url/json</code>, you should see the message on the screen.</p>
+<h1 id="hints">–hints–</h1>
+<p>The endpoint <code>/json</code> should serve the json object <code>{"message": "Hello json"}</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/json&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb1-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb1-5" title="5">        <span class="va">data</span>.<span class="at">message</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-6" title="6">        <span class="st">&#39;Hello json&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-7" title="7">        <span class="st">&quot;The &#39;/json&#39; endpoint does not serve the right data&quot;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb1-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">*/</span></a></code></pre></div>

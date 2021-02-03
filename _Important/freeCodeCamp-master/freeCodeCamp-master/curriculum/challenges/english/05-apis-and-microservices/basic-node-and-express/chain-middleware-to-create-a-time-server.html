@@ -1,0 +1,49 @@
+<h1 id="description">–description–</h1>
+<p>Middleware can be mounted at a specific route using <code>app.METHOD(path, middlewareFunction)</code>. Middleware can also be chained inside route definition.</p>
+<p>Look at the following example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">app</span>.<span class="at">get</span>(<span class="st">&#39;/user&#39;</span><span class="op">,</span> <span class="kw">function</span>(req<span class="op">,</span> res<span class="op">,</span> next) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="va">req</span>.<span class="at">user</span> <span class="op">=</span> <span class="at">getTheUserSync</span>()<span class="op">;</span>  <span class="co">// Hypothetical synchronous operation</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="at">next</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="op">},</span> <span class="kw">function</span>(req<span class="op">,</span> res) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="va">res</span>.<span class="at">send</span>(<span class="va">req</span>.<span class="at">user</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
+<p>This approach is useful to split the server operations into smaller units. That leads to a better app structure, and the possibility to reuse code in different places. This approach can also be used to perform some validation on the data. At each point of the middleware stack you can block the execution of the current chain and pass control to functions specifically designed to handle errors. Or you can pass control to the next matching route, to handle special cases. We will see how in the advanced Express section.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>In the route <code>app.get('/now', ...)</code> chain a middleware function and the final handler. In the middleware function you should add the current time to the request object in the <code>req.time</code> key. You can use <code>new Date().toString()</code>. In the handler, respond with a JSON object, taking the structure <code>{time: req.time}</code>.</p>
+<p><strong>Note:</strong> The test will not pass if you don’t chain the middleware. If you mount the function somewhere else, the test will fail, even if the output result is correct.</p>
+<h1 id="hints">–hints–</h1>
+<p>The /now endpoint should have mounted middleware</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/chain-middleware-time&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb2-5" title="5">        <span class="va">data</span>.<span class="at">stackLength</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-6" title="6">        <span class="dv">2</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-7" title="7">        <span class="st">&#39;&quot;/now&quot; route has no mounted middleware&#39;</span></a>
+<a class="sourceLine" id="cb2-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<p>The /now endpoint should return a time that is +/- 20 secs from now</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/chain-middleware-time&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="kw">var</span> now <span class="op">=</span> <span class="kw">new</span> <span class="at">Date</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      <span class="va">assert</span>.<span class="at">isAtMost</span>(</a>
+<a class="sourceLine" id="cb3-6" title="6">        <span class="va">Math</span>.<span class="at">abs</span>(<span class="kw">new</span> <span class="at">Date</span>(<span class="va">data</span>.<span class="at">time</span>) <span class="op">-</span> now)<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">        <span class="dv">20000</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-8" title="8">        <span class="st">&#39;the returned time is not between +- 20 secs from now&#39;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-11" title="11">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-12" title="12">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-13" title="13">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-14" title="14">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">*/</span></a></code></pre></div>

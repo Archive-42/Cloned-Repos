@@ -1,0 +1,157 @@
+<h1 id="description">–description–</h1>
+<p>All of the linked lists we’ve created so far are singly linked lists. Here, we’ll create a <dfn>doubly linked list</dfn>. As the name implies, nodes in a doubly linked list have references to the next and previous node in the list.</p>
+<p>This allows us to traverse the list in both directions but it also requires more memory to be used because every node must contain an additional reference to the previous node in the list.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>We’ve provided a <code>Node</code> object and started our <code>DoublyLinkedList</code>. Let’s add two methods to our doubly linked list called <code>add</code> and <code>remove</code>. The <code>add</code> method should add the given element to the list while the <code>remove</code> method should remove all occurrences of a given element in the list.</p>
+<p>Be careful to handle any possible edge cases when writing these methods, such as deletions for the first or last element. Also, removing any item on an empty list should return <code>null</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>The DoublyLinkedList data structure should exist.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> DoublyLinkedList <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">DoublyLinkedList</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-7" title="7">    <span class="cf">return</span> <span class="kw">typeof</span> test <span class="op">==</span> <span class="st">&#39;object&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<p>The DoublyLinkedList should have a method called add.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> DoublyLinkedList <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">DoublyLinkedList</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-7" title="7">    <span class="cf">if</span> (<span class="va">test</span>.<span class="at">add</span> <span class="op">==</span> <span class="kw">undefined</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-8" title="8">      <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-10" title="10">    <span class="cf">return</span> <span class="kw">typeof</span> <span class="va">test</span>.<span class="at">add</span> <span class="op">==</span> <span class="st">&#39;function&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-11" title="11">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-12" title="12">)<span class="op">;</span></a></code></pre></div>
+<p>The DoublyLinkedList should have a method called remove.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> DoublyLinkedList <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">DoublyLinkedList</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-7" title="7">    <span class="cf">if</span> (<span class="va">test</span>.<span class="at">remove</span> <span class="op">==</span> <span class="kw">undefined</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-8" title="8">      <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    <span class="cf">return</span> <span class="kw">typeof</span> <span class="va">test</span>.<span class="at">remove</span> <span class="op">==</span> <span class="st">&#39;function&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-11" title="11">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-12" title="12">)<span class="op">;</span></a></code></pre></div>
+<p>Removing an item from an empty list should return null.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> DoublyLinkedList <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">DoublyLinkedList</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="cf">return</span> <span class="va">test</span>.<span class="at">remove</span>(<span class="dv">100</span>) <span class="op">==</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb4-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<p>The add method should add items to the list.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> DoublyLinkedList <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">DoublyLinkedList</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    <span class="va">test</span>.<span class="at">add</span>(<span class="dv">5</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="va">test</span>.<span class="at">add</span>(<span class="dv">6</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">    <span class="va">test</span>.<span class="at">add</span>(<span class="dv">723</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">    <span class="cf">return</span> <span class="va">test</span>.<span class="at">print</span>().<span class="at">join</span>(<span class="st">&#39;&#39;</span>) <span class="op">==</span> <span class="st">&#39;56723&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb5-12" title="12">)<span class="op">;</span></a></code></pre></div>
+<p>Each node should keep track of the previous node.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb6-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> DoublyLinkedList <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">DoublyLinkedList</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-7" title="7">    <span class="va">test</span>.<span class="at">add</span>(<span class="dv">50</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="va">test</span>.<span class="at">add</span>(<span class="dv">68</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">    <span class="va">test</span>.<span class="at">add</span>(<span class="dv">73</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">    <span class="cf">return</span> <span class="va">test</span>.<span class="at">printReverse</span>().<span class="at">join</span>(<span class="st">&#39;&#39;</span>) <span class="op">==</span> <span class="st">&#39;736850&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-11" title="11">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb6-12" title="12">)<span class="op">;</span></a></code></pre></div>
+<p>The first item should be removable from the list.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb7-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> DoublyLinkedList <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">DoublyLinkedList</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-7" title="7">    <span class="va">test</span>.<span class="at">add</span>(<span class="dv">25</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-8" title="8">    <span class="va">test</span>.<span class="at">add</span>(<span class="dv">35</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-9" title="9">    <span class="va">test</span>.<span class="at">add</span>(<span class="dv">60</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-10" title="10">    <span class="va">test</span>.<span class="at">remove</span>(<span class="dv">25</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-11" title="11">    <span class="cf">return</span> <span class="va">test</span>.<span class="at">print</span>().<span class="at">join</span>(<span class="st">&#39;&#39;</span>) <span class="op">==</span> <span class="st">&#39;3560&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-12" title="12">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb7-13" title="13">)<span class="op">;</span></a></code></pre></div>
+<p>The last item should be removable from the list.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb8-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> DoublyLinkedList <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">DoublyLinkedList</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-7" title="7">    <span class="va">test</span>.<span class="at">add</span>(<span class="dv">25</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-8" title="8">    <span class="va">test</span>.<span class="at">add</span>(<span class="dv">35</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-9" title="9">    <span class="va">test</span>.<span class="at">add</span>(<span class="dv">60</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-10" title="10">    <span class="va">test</span>.<span class="at">remove</span>(<span class="dv">60</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-11" title="11">    <span class="cf">return</span> <span class="va">test</span>.<span class="at">print</span>().<span class="at">join</span>(<span class="st">&#39;&#39;</span>) <span class="op">==</span> <span class="st">&#39;2535&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-12" title="12">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb8-13" title="13">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="va">DoublyLinkedList</span>.<span class="at">prototype</span> <span class="op">=</span> <span class="va">Object</span>.<span class="at">assign</span>(</a>
+<a class="sourceLine" id="cb9-2" title="2">  <span class="va">DoublyLinkedList</span>.<span class="at">prototype</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb9-3" title="3">  <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-4" title="4">  </a>
+<a class="sourceLine" id="cb9-5" title="5">  <span class="at">print</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-6" title="6">    <span class="cf">if</span> (<span class="kw">this</span>.<span class="at">head</span> <span class="op">==</span> <span class="kw">null</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-7" title="7">      <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-8" title="8">    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-9" title="9">      <span class="kw">var</span> result <span class="op">=</span> <span class="kw">new</span> <span class="at">Array</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-10" title="10">      <span class="kw">var</span> node <span class="op">=</span> <span class="kw">this</span>.<span class="at">head</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-11" title="11">      <span class="cf">while</span> (<span class="va">node</span>.<span class="at">next</span> <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-12" title="12">        <span class="va">result</span>.<span class="at">push</span>(<span class="va">node</span>.<span class="at">data</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-13" title="13">        node <span class="op">=</span> <span class="va">node</span>.<span class="at">next</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-14" title="14">      <span class="op">};</span></a>
+<a class="sourceLine" id="cb9-15" title="15">      <span class="va">result</span>.<span class="at">push</span>(<span class="va">node</span>.<span class="at">data</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-16" title="16">      <span class="cf">return</span> result<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-17" title="17">    <span class="op">};</span></a>
+<a class="sourceLine" id="cb9-18" title="18">  <span class="op">},</span></a>
+<a class="sourceLine" id="cb9-19" title="19">  <span class="at">printReverse</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-20" title="20">    <span class="cf">if</span> (<span class="kw">this</span>.<span class="at">tail</span> <span class="op">==</span> <span class="kw">null</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-21" title="21">      <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-22" title="22">    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-23" title="23">      <span class="kw">var</span> result <span class="op">=</span> <span class="kw">new</span> <span class="at">Array</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-24" title="24">      <span class="kw">var</span> node <span class="op">=</span> <span class="kw">this</span>.<span class="at">tail</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-25" title="25">      <span class="cf">while</span> (<span class="va">node</span>.<span class="at">prev</span> <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-26" title="26">        <span class="va">result</span>.<span class="at">push</span>(<span class="va">node</span>.<span class="at">data</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-27" title="27">        node <span class="op">=</span> <span class="va">node</span>.<span class="at">prev</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-28" title="28">      <span class="op">};</span></a>
+<a class="sourceLine" id="cb9-29" title="29">      <span class="va">result</span>.<span class="at">push</span>(<span class="va">node</span>.<span class="at">data</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-30" title="30">      <span class="cf">return</span> result<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-31" title="31">    <span class="op">};</span></a>
+<a class="sourceLine" id="cb9-32" title="32">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb9-33" title="33"><span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">var</span> Node <span class="op">=</span> <span class="kw">function</span>(data<span class="op">,</span> prev) <span class="op">{</span></a>
+<a class="sourceLine" id="cb10-2" title="2">  <span class="kw">this</span>.<span class="at">data</span> <span class="op">=</span> data<span class="op">;</span></a>
+<a class="sourceLine" id="cb10-3" title="3">  <span class="kw">this</span>.<span class="at">prev</span> <span class="op">=</span> prev<span class="op">;</span></a>
+<a class="sourceLine" id="cb10-4" title="4">  <span class="kw">this</span>.<span class="at">next</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="op">};</span></a>
+<a class="sourceLine" id="cb10-6" title="6"><span class="kw">var</span> DoublyLinkedList <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb10-7" title="7">  <span class="kw">this</span>.<span class="at">head</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-8" title="8">  <span class="kw">this</span>.<span class="at">tail</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-9" title="9">  <span class="co">// Only change code below this line</span></a>
+<a class="sourceLine" id="cb10-10" title="10">  </a>
+<a class="sourceLine" id="cb10-11" title="11">  <span class="co">// Only change code above this line</span></a>
+<a class="sourceLine" id="cb10-12" title="12"><span class="op">};</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb11"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb11-1" title="1"><span class="co">// solution required</span></a></code></pre></div>

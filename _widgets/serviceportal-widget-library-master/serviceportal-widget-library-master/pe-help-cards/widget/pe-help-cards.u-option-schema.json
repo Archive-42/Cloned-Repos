@@ -1,0 +1,16 @@
+[{
+  "name": "title",
+  "default_value": "How can we help?",
+  "label": "Title",
+  "type": "string"
+}, {
+  "name": "category",
+  "default_value": "PE How Can We Help",
+  "label": "Category",
+  "type": "string"
+}, {
+  "name": "items",
+  "default_value": "sc_cat_item.name, sc_cat_item.icon",
+  "label": "Items",
+  "type": "string"
+}]

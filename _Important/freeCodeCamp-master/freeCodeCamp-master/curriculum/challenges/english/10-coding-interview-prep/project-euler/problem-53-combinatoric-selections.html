@@ -1,0 +1,47 @@
+<h1 id="description">–description–</h1>
+<p>There are exactly ten ways of selecting three from five, 12345:</p>
+<div style="text-align: center;">
+123, 124, 125, 134, 135, 145, 234, 235, 245, and 345
+</div>
+<p>In combinatorics, we use the notation, <span class="math inline">$\\displaystyle \\binom 5 3 = 10$</span></p>
+<p>In general, <span class="math inline">$\\displaystyle \\binom n r = \\dfrac{n!}{r!(n-r)!}$</span>, where <span class="math inline">$r \\le n$</span>, <span class="math inline">$n! = n \\times (n-1) \\times ... \\times 3 \\times 2 \\times 1$</span>, and <span class="math inline">0! = 1</span>.</p>
+<p>It is not until <span class="math inline"><em>n</em> = 23</span>, that a value exceeds one-million: <span class="math inline">$\\displaystyle \\binom {23} {10} = 1144066$</span>.</p>
+<p>How many, not necessarily distinct, values of <span class="math inline">$\\displaystyle \\binom n r$</span> for <span class="math inline">$1 \\le n \\le 100$</span>, are greater than one-million?</p>
+<h1 id="hints">–hints–</h1>
+<p><code>combinatoricSelections(1000)</code> should return a number.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">combinatoricSelections</span>(<span class="dv">1000</span>) <span class="op">===</span> <span class="st">&#39;number&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>combinatoricSelections(1000)</code> should return 4626.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">combinatoricSelections</span>(<span class="dv">1000</span>)<span class="op">,</span> <span class="dv">4626</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>combinatoricSelections(10000)</code> should return 4431.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">combinatoricSelections</span>(<span class="dv">10000</span>)<span class="op">,</span> <span class="dv">4431</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>combinatoricSelections(100000)</code> should return 4255.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">combinatoricSelections</span>(<span class="dv">100000</span>)<span class="op">,</span> <span class="dv">4255</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>combinatoricSelections(1000000)</code> should return 4075.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">combinatoricSelections</span>(<span class="dv">1000000</span>)<span class="op">,</span> <span class="dv">4075</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">function</span> <span class="at">combinatoricSelections</span>(limit) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb6-5" title="5"></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="at">combinatoricSelections</span>(<span class="dv">1000000</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">function</span> <span class="at">combinatoricSelections</span>(limit) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2">    <span class="kw">const</span> factorial <span class="op">=</span> n <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb7-3" title="3">        <span class="va">Array</span>.<span class="at">apply</span>(<span class="kw">null</span><span class="op">,</span> <span class="op">{</span> <span class="dt">length</span><span class="op">:</span> n <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb7-4" title="4">            .<span class="at">map</span>((_<span class="op">,</span> i) <span class="kw">=&gt;</span> i <span class="op">+</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb7-5" title="5">            .<span class="at">reduce</span>((p<span class="op">,</span> c) <span class="kw">=&gt;</span> p <span class="op">*</span> c<span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6"></a>
+<a class="sourceLine" id="cb7-7" title="7">    <span class="kw">let</span> result <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-8" title="8">    <span class="kw">const</span> nMax <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-9" title="9"></a>
+<a class="sourceLine" id="cb7-10" title="10">    <span class="cf">for</span> (<span class="kw">let</span> n <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> n <span class="op">&lt;=</span> nMax<span class="op">;</span> n<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-11" title="11">        <span class="cf">for</span> (<span class="kw">let</span> r <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> r <span class="op">&lt;=</span> n<span class="op">;</span> r<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-12" title="12">            <span class="cf">if</span> (<span class="at">factorial</span>(n) / (<span class="at">factorial</span>(r) <span class="op">*</span> <span class="at">factorial</span>(n <span class="op">-</span> r)) <span class="op">&gt;=</span> limit)</a>
+<a class="sourceLine" id="cb7-13" title="13">                result<span class="op">++;</span></a>
+<a class="sourceLine" id="cb7-14" title="14">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-15" title="15">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-16" title="16"></a>
+<a class="sourceLine" id="cb7-17" title="17">    <span class="cf">return</span> result<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-18" title="18"><span class="op">}</span></a></code></pre></div>

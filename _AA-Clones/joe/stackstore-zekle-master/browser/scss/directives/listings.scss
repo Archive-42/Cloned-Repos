@@ -1,0 +1,25 @@
+$offwhite:#f0f0f0;
+.listingContainer{
+	padding:1%;
+}
+.listing{
+	padding-bottom:5%;
+	background-color:$offwhite;
+	border-radius:10px;
+	// margin:1%;
+	border:2px solid darken($offwhite,10%);
+	// border:1px
+	img{
+		border:5px solid darken($offwhite,30%);
+		width:100%;
+	}
+}
+.product-details {
+	img {
+		border: none;
+		margin: 0 1% 1% 0;
+	}
+	h3 {
+		text-align: center;
+	}
+}

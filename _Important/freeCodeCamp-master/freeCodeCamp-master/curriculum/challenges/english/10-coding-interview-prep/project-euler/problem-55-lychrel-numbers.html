@@ -1,0 +1,61 @@
+<h1 id="description">–description–</h1>
+<p>If we take 47, reverse and add, 47 + 74 = 121, which is palindromic.</p>
+<p>Not all numbers produce palindromes so quickly. For example,</p>
+<div style="margin-left: 4em;">
+<p>349 + 943 = 1292,<br> 1292 + 2921 = 4213<br> 4213 + 3124 = 7337<br></p>
+</div>
+<p>That is, 349 took three iterations to arrive at a palindrome.</p>
+<p>Although no one has proved it yet, it is thought that some numbers, like 196, never produce a palindrome. A number that never forms a palindrome through the reverse and add process is called a Lychrel number. Due to the theoretical nature of these numbers, and for the purpose of this problem, we shall assume that a number is Lychrel until proven otherwise. In addition you are given that for every number below ten-thousand, it will either (i) become a palindrome in less than fifty iterations, or, (ii) no one, with all the computing power that exists, has managed so far to map it to a palindrome. In fact, 10677 is the first number to be shown to require over fifty iterations before producing a palindrome: 4668731596684224866951378664 (53 iterations, 28-digits).</p>
+<p>Surprisingly, there are palindromic numbers that are themselves Lychrel numbers; the first example is 4994.</p>
+<p>How many Lychrel numbers are there below <code>num</code>?</p>
+<p><strong>Note:</strong> Wording was modified slightly on 24 April 2007 to emphasize the theoretical nature of Lychrel numbers.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>countLychrelNumbers(1000)</code> should return a number.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">countLychrelNumbers</span>(<span class="dv">1000</span>) <span class="op">===</span> <span class="st">&#39;number&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>countLychrelNumbers(1000)</code> should return 13.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">countLychrelNumbers</span>(<span class="dv">1000</span>)<span class="op">,</span> <span class="dv">13</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>countLychrelNumbers(3243)</code> should return 39.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">countLychrelNumbers</span>(<span class="dv">3243</span>)<span class="op">,</span> <span class="dv">39</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>countLychrelNumbers(5000)</code> should return 76.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">countLychrelNumbers</span>(<span class="dv">5000</span>)<span class="op">,</span> <span class="dv">76</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>countLychrelNumbers(7654)</code> should return 140.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">countLychrelNumbers</span>(<span class="dv">7654</span>)<span class="op">,</span> <span class="dv">140</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>countLychrelNumbers(10000)</code> should return 249.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">countLychrelNumbers</span>(<span class="dv">10000</span>)<span class="op">,</span> <span class="dv">249</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">function</span> <span class="at">countLychrelNumbers</span>(num) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2"></a>
+<a class="sourceLine" id="cb7-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb7-5" title="5"></a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="at">countLychrelNumbers</span>(<span class="dv">10000</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">const</span> countLychrelNumbers <span class="op">=</span> (size) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="kw">const</span> numReverse <span class="op">=</span> (num) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="cf">return</span> <span class="at">Number</span>(<span class="va">num</span>.<span class="at">toString</span>().<span class="at">split</span>(<span class="st">&#39;&#39;</span>).<span class="at">reverse</span>().<span class="at">join</span>(<span class="st">&#39;&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-4" title="4">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb8-5" title="5">  <span class="kw">const</span> isPalin <span class="op">=</span> (num) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-6" title="6">    <span class="cf">if</span> (<span class="at">numReverse</span>(num) <span class="op">===</span> num) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-7" title="7">      <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-8" title="8">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-9" title="9">    <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-10" title="10">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb8-11" title="11">  <span class="kw">let</span> total <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-12" title="12">  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;</span> size<span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-13" title="13">    <span class="kw">let</span> loopCount <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-14" title="14">    <span class="kw">let</span> sum <span class="op">=</span> i<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-15" title="15">    <span class="cf">while</span> (loopCount <span class="op">&lt;</span> <span class="dv">50</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-16" title="16">      sum <span class="op">=</span> sum <span class="op">+</span> <span class="at">numReverse</span>(sum)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-17" title="17">      <span class="cf">if</span> (<span class="at">isPalin</span>(sum)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-18" title="18">        <span class="cf">break</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-19" title="19">      <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-20" title="20">        loopCount<span class="op">++;</span></a>
+<a class="sourceLine" id="cb8-21" title="21">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-22" title="22">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-23" title="23">    <span class="cf">if</span> (loopCount <span class="op">===</span> <span class="dv">50</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-24" title="24">      total<span class="op">++;</span></a>
+<a class="sourceLine" id="cb8-25" title="25">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-26" title="26">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-27" title="27">  <span class="cf">return</span> total<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-28" title="28"><span class="op">}</span></a></code></pre></div>

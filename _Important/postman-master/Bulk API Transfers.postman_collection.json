@@ -1,0 +1,1962 @@
+{
+	"info": {
+		"_postman_id": "3d92d472-8184-4e2b-b01a-6e84e0ddeb70",
+		"name": "Bulk API Transfers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Transfers",
+			"item": [
+				{
+					"name": "Positive Scenarios",
+					"item": [
+						{
+							"name": "POST Bulk Transfer",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "658adde9-94aa-4627-9af2-57fd42357527",
+										"exec": [
+											"const uuid = require('uuid');",
+											"",
+											"const delay = 1000 * 3600 * 24",
+											"const bulkTransferId = uuid.v4();",
+											"const bulkQuoteId = uuid.v4();",
+											"const transferId = uuid.v4();",
+											"const transferId2 = uuid.v4();",
+											"const now = new Date();",
+											"const headerDate = now.toUTCString();",
+											"const expirationDate = new Date(now.getTime() + delay).toISOString();",
+											"const completedTimestamp = now.toISOString();",
+											"",
+											"pm.environment.set(\"bulkTransferId\", bulkTransferId);",
+											"pm.environment.set(\"bulkQuoteId\", bulkQuoteId);",
+											"pm.environment.set(\"transferId\", transferId);",
+											"pm.environment.set(\"transferId2\", transferId2);",
+											"pm.environment.set(\"headerDate\", headerDate);",
+											"pm.environment.set(\"expirationDate\", expirationDate);",
+											"pm.environment.set(\"completedTimestamp\", completedTimestamp);",
+											"pm.environment.set(\"amount\", 1);",
+											"pm.environment.set(\"amount2\", 1);",
+											"pm.environment.set(\"currency2\", \"USD\");",
+											"pm.environment.set(\"acceptHeader\", \"application/vnd.interoperability.bulkTransfers+json;version=1\");",
+											"pm.environment.set(\"contentType\", \"application/vnd.interoperability.bulkTransfers+json;version=1.0\");",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "{{contentType}}"
+									},
+									{
+										"key": "Date",
+										"value": "{{headerDate}}"
+									},
+									{
+										"key": "Accept",
+										"value": "{{acceptHeader}}"
+									},
+									{
+										"key": "FSPIOP-Source",
+										"value": "{{payerFsp}}"
+									},
+									{
+										"key": "FSPIOP-Destination",
+										"value": "{{payeeFsp}}"
+									},
+									{
+										"key": "FSPIOP-Signature",
+										"type": "text",
+										"value": "~~{{payerFsp}}~~"
+									},
+									{
+										"key": "FSPIOP-URI",
+										"type": "text",
+										"value": "/parties/msisdn/123456789"
+									},
+									{
+										"key": "FSPIOP-HTTP-Method",
+										"value": "POST",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"bulkTransferId\": \"{{bulkTransferId}}\",\n    \"bulkQuoteId\": \"{{bulkQuoteId}}\",\n    \"payeeFsp\": \"{{payeefsp}}\",\n    \"payerFsp\": \"{{payerfsp}}\",\n    \"individualTransfers\":\n    [ {\n        \"transferId\": \"{{transferId}}\",\n        \"transferAmount\": {\n            \"currency\": \"{{currency}}\",\n            \"amount\": \"{{amount}}\"\n        },\n        \"ilpPacket\": \"{{validIlpPacket2}}\",\n        \"condition\": \"{{validCondition2}}\",\n        \"extensionList\": { \"extension\": [\n            { \"key\": \"extKey1\", \"value\": \"extValue1\"},\n            { \"key\": \"extKey2\", \"value\": \"extValue2\"}\n        ] }\n      },\n       {\n        \"transferId\": \"{{transferId2}}\",\n        \"transferAmount\": {\n            \"currency\": \"{{currency2}}\",\n            \"amount\": \"{{amount2}}\"\n        },\n        \"ilpPacket\": \"{{validIlpPacket2}}\",\n        \"condition\": \"{{validCondition2}}\"\n    } ],\n    \"expiration\": \"{{expirationDate}}\"\n}"
+								},
+								"url": {
+									"raw": "{{HOST_BULK_ADAPTER}}/bulkTransfers",
+									"host": [
+										"{{HOST_BULK_ADAPTER}}"
+									],
+									"path": [
+										"bulkTransfers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT Bulk Transfer",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2ac81476-4343-4f26-9e75-687a4ee18188",
+										"exec": [
+											"const delay = 1000 * 3600 * 24 * 0",
+											"const now = new Date();",
+											"const headerDate = now.toUTCString();",
+											"const completedTimestamp = new Date(now.getTime() + delay).toISOString();",
+											"",
+											"pm.environment.set(\"headerDate\", headerDate);",
+											"pm.environment.set(\"completedTimestamp\", completedTimestamp);",
+											"pm.environment.set(\"acceptHeader\", \"application/vnd.interoperability.bulkTransfers+json;version=1\");",
+											"pm.environment.set(\"contentType\", \"application/vnd.interoperability.bulkTransfers+json;version=1.0\");",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "{{contentType}}"
+									},
+									{
+										"key": "Date",
+										"value": "{{headerDate}}"
+									},
+									{
+										"key": "Accept",
+										"value": "{{acceptHeader}}"
+									},
+									{
+										"key": "FSPIOP-Source",
+										"value": "{{payeeFsp}}"
+									},
+									{
+										"key": "FSPIOP-Destination",
+										"value": "{{payerFsp}}"
+									},
+									{
+										"key": "FSPIOP-Signature",
+										"type": "text",
+										"value": "~~{{payeeFsp}}~~"
+									},
+									{
+										"key": "FSPIOP-URI",
+										"type": "text",
+										"value": "/parties/msisdn/123456789"
+									},
+									{
+										"key": "FSPIOP-HTTP-Method",
+										"value": "PUT",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n    \"bulkTransferState\": \"COMPLETED\",\n\t\"completedTimestamp\": \"{{completedTimestamp}}\",\n    \"individualTransferResults\":\n    [ {\n        \"transferId\": \"{{transferId}}\",\n        \"fulfilment\": \"{{fulfilment}}\",\n        \"extensionList\": { \"extension\": [\n            { \"key\": \"{{extKey1}}t1\", \"value\": \"{{extValue1}}t1\"},\n            { \"key\": \"{{extKey2}}t1\", \"value\": \"{{extValue2}}t1\"}\n        ] }\n      },\n      {\n        \"transferId\": \"{{transferId2}}\",\n        \"fulfilment\": \"{{fulfilment2}}\"\n      }\n    ],\n    \"extensionList\": { \"extension\": [\n        { \"key\": \"{{extKey1}}\", \"value\": \"{{extValue1}}\"},\n        { \"key\": \"{{extKey2}}\", \"value\": \"{{extValue2}}\"}\n    ] }\n}"
+								},
+								"url": {
+									"raw": "{{HOST_BULK_ADAPTER}}/bulkTransfers/{{bulkTransferId}}",
+									"host": [
+										"{{HOST_BULK_ADAPTER}}"
+									],
+									"path": [
+										"bulkTransfers",
+										"{{bulkTransferId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Negative Scenarios",
+					"item": [
+						{
+							"name": "payee_abort",
+							"item": [
+								{
+									"name": "Store Payerfsp position before prepare",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ef780180-5050-4ad2-b762-b5552f68b7ca",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.environment.set(\"payerfspPositionBeforePrepare\", jsonData[0].value);",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "3d645dce-59f7-4868-a486-614d63b7dfbd",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "FSPIOP-Source",
+												"type": "text",
+												"value": "{{payerfsp}}"
+											}
+										],
+										"url": {
+											"raw": "{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}/participants/{{payerfsp}}/positions",
+											"host": [
+												"{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}"
+											],
+											"path": [
+												"participants",
+												"{{payerfsp}}",
+												"positions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Store Payeefsp position before prepare",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "b6e831b8-f2f3-4bcf-b124-b8121129e774",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.environment.set(\"payeefspPositionBeforePrepare\", jsonData[0].value);",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "94854df2-0dd5-4a76-8f89-af70edb4248d",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "FSPIOP-Source",
+												"type": "text",
+												"value": "noresponsepayeefsp"
+											}
+										],
+										"url": {
+											"raw": "{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}/participants/noresponsepayeefsp/positions",
+											"host": [
+												"{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}"
+											],
+											"path": [
+												"participants",
+												"noresponsepayeefsp",
+												"positions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send Prepare",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "9457caaf-fff4-4a29-ba39-2b5f5a9f8748",
+												"exec": [
+													"const uuid = require('uuid');",
+													"",
+													"const delay = 1000 * 3600 * 24",
+													"const bulkTransferId = uuid.v4();",
+													"const bulkQuoteId = uuid.v4();",
+													"const transferId = uuid.v4();",
+													"const transferId2 = uuid.v4();",
+													"const now = new Date();",
+													"const headerDate = now.toUTCString();",
+													"const expirationDate = new Date(now.getTime() + delay).toISOString();",
+													"const completedTimestamp = now.toISOString();",
+													"",
+													"pm.environment.set(\"bulkTransferId\", bulkTransferId);",
+													"pm.environment.set(\"bulkQuoteId\", bulkQuoteId);",
+													"pm.environment.set(\"transferId\", transferId);",
+													"pm.environment.set(\"transferId2\", transferId2);",
+													"pm.environment.set(\"headerDate\", headerDate);",
+													"pm.environment.set(\"expirationDate\", expirationDate);",
+													"pm.environment.set(\"completedTimestamp\", completedTimestamp);",
+													"pm.environment.set(\"contentType\", \"application/vnd.interoperability.bulkTransfers+json;version=1.0\");",
+													"pm.environment.set(\"acceptHeader\", \"application/vnd.interoperability.bulkTransfers+json;version=1\");",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "1ce8bf70-6fae-4652-bcf9-acfbe4db46be",
+												"exec": [
+													"pm.test(\"Status code is 202\", function () {",
+													"    pm.response.to.have.status(202);",
+													"});",
+													"",
+													"",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "{{contentType}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "{{acceptHeader}}"
+											},
+											{
+												"key": "Date",
+												"value": "{{dateHeader}}"
+											},
+											{
+												"key": "FSPIOP-Source",
+												"value": "{{payerfsp}}"
+											},
+											{
+												"key": "FSPIOP-Destination",
+												"value": "noresponsepayeefsp"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \n    \"bulkTransferId\": \"{{bulkTransferId}}\",\n    \"bulkQuoteId\": \"{{bulkQuoteId}}\",\n    \"payeeFsp\": \"noresponsepayeefsp\",\n    \"payerFsp\": \"{{payerFsp}}\",\n    \"individualTransfers\":\n    [ {\n        \"transferId\": \"{{transferId}}\",\n        \"transferAmount\": {\n            \"currency\": \"{{currency}}\",\n            \"amount\": \"{{amount}}\"\n        },\n        \"ilpPacket\": \"{{ilpPacket}}\",\n        \"condition\": \"{{condition}}\",\n        \"extensionList\": { \"extension\": [\n            { \"key\": \"{{extKey1}}t1\", \"value\": \"{{extValue1}}t1\"},\n            { \"key\": \"{{extKey2}}t1\", \"value\": \"{{extValue2}}t1\"}\n        ] }\n      },\n      {\n        \"transferId\": \"{{transferId2}}\",\n        \"transferAmount\": {\n            \"currency\": \"{{currency2}}\",\n            \"amount\": \"{{amount2}}\"\n        },\n        \"ilpPacket\": \"{{ilpPacket2}}\",\n        \"condition\": \"{{condition2}}\"\n    } ],\n    \"expiration\": \"{{expirationDate}}\"\n}",
+											"options": {
+												"raw": {}
+											}
+										},
+										"url": {
+											"raw": "{{HOST_BULK_ADAPTER}}/bulkTransfers",
+											"host": [
+												"{{HOST_BULK_ADAPTER}}"
+											],
+											"path": [
+												"bulkTransfers"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Store Payerfsp position after Prepare",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "14f4071c-8ffa-4c00-b084-c392e65c96bc",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.environment.set(\"payerfspPositionAfterPrepare\", jsonData[0].value);",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f67eb03b-e31b-43c0-9c1d-721dfc4f07f5",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "FSPIOP-Source",
+												"type": "text",
+												"value": "{{payerfsp}}"
+											}
+										],
+										"url": {
+											"raw": "{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}/participants/{{payerfsp}}/positions",
+											"host": [
+												"{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}"
+											],
+											"path": [
+												"participants",
+												"{{payerfsp}}",
+												"positions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Check Payeefsp Notification",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "c9fb5aee-0297-4402-b8f4-7e28144e9a6c",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "cfcea55c-3ae8-4889-a3fc-6bd0c0ac6e5f",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"if(pm.response.responseSize !== 0) {",
+													"    var headers = pm.response.json().headers;",
+													"    pm.test(\"payeefsp fspiop-source is payerfsp \", function () {",
+													"        pm.expect(headers['fspiop-source']).to.eql('payerfsp');",
+													"    });",
+													"    ",
+													"    pm.test(\"payeefsp fspiop-destination is noresponsepayeefsp\", function () {",
+													"        pm.expect(headers['fspiop-destination']).to.eql('noresponsepayeefsp');",
+													"    });",
+													"    ",
+													"    pm.test(\"payeefsp content-type should be application/vnd.interoperability.bulkTransfers+json;version=1.0\", function () {",
+													"        pm.expect(headers['content-type']).to.eql('application/vnd.interoperability.bulkTransfers+json;version=1.0');",
+													"    });",
+													"    ",
+													"    pm.test(\"payeefsp accept is application/vnd.interoperability.bulkTransfers+json;version=1\", function () {",
+													"        pm.expect(headers['accept']).to.eql('application/vnd.interoperability.bulkTransfers+json;version=1');",
+													"    });",
+													"    ",
+													"    pm.test(\"payeefsp fspiop-uri includes /bulkTransfers\", function () {",
+													"        pm.expect(headers['fspiop-uri']).to.eql('/bulkTransfers');",
+													"    });",
+													"    ",
+													"    pm.test(\"payeefsp fspiop-http-method is POST\", function () {",
+													"        pm.expect(headers['fspiop-http-method']).to.eql('POST');",
+													"    });",
+													"    ",
+													"    var jsonData = pm.response.json().data;",
+													"    pm.test(\"Request data have bulkTransferId\", function () {",
+													"        pm.expect(jsonData.bulkTransferId).to.eql(pm.environment.get(\"bulkTransferId\"));",
+													"    });",
+													"    pm.test(\"Request data have individual transfers\", function () {",
+													"        pm.expect(jsonData.individualTransfers.length).to.eql(2);",
+													"    });",
+													"} else {",
+													"    pm.test(\"Transfer FAILED\", function () {",
+													"    throw new Error('Did not receive response on payee side');",
+													"    });",
+													"}",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.interoperability.bulkTransfers+json;version=1"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/vnd.interoperability.bulkTransfers+json;version=1.0"
+											}
+										],
+										"url": {
+											"raw": "{{HOST_SIMULATOR}}/bulkTransfersNegative/requests/{{bulkTransferId}}",
+											"host": [
+												"{{HOST_SIMULATOR}}"
+											],
+											"path": [
+												"bulkTransfersNegative",
+												"requests",
+												"{{bulkTransferId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send Payee Error",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "6b3b1682-f847-4ed7-82e6-6656a458f330",
+												"exec": [
+													"pm.environment.set(\"contentType\", \"application/vnd.interoperability.bulkTransfers+json;version=1.0\");",
+													"pm.environment.set(\"acceptHeader\", \"application/vnd.interoperability.bulkTransfers+json;version=1\");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "be36ebf8-1f1e-425b-829b-693d63533450",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"setTimeout(function () {",
+													"  pm.sendRequest(pm.environment.get(\"HOST_SIMULATOR\")+\"/bulkTransfers/correlationid/\"+pm.environment.get(\"bulkTransferId\"), function (err, response) {",
+													"          if(response.responseSize !== 0) {",
+													"              var jsonData = response.json();",
+													"              pm.test(\"Transfer state should be REJECTED on Payer side\", function () {",
+													"                pm.expect(jsonData.bulkTransferState).to.eql('REJECTED');",
+													"              });",
+													"          } else {",
+													"              pm.test(\"Transfer FAILED\", function () {",
+													"                throw new Error('Did not receive response');",
+													"              });",
+													"              ",
+													"          }",
+													"   });",
+													"   pm.sendRequest(pm.environment.get(\"HOST_SIMULATOR\")+\"/bulkTransfersNegative/correlationid/\"+pm.environment.get(\"bulkTransferId\"), function (err, response) {",
+													"          if(response.responseSize !== 0) {",
+													"              var jsonData = response.json();",
+													"              pm.test(\"Transfer state should be REJECTED on Payee side\", function () {",
+													"                pm.expect(jsonData.bulkTransferState).to.eql('REJECTED');",
+													"              });",
+													"          } else {",
+													"              pm.test(\"Transfer FAILED\", function () {",
+													"                throw new Error('Did not receive response');",
+													"              });",
+													"          }",
+													"   });",
+													"}, 1000)"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{PAYEEFSP_BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "{{contentType}}"
+											},
+											{
+												"key": "Date",
+												"type": "text",
+												"value": "{{dateHeader}}"
+											},
+											{
+												"key": "FSPIOP-Source",
+												"type": "text",
+												"value": "noresponsepayeefsp"
+											},
+											{
+												"key": "FSPIOP-Destination",
+												"type": "text",
+												"value": "{{payerfsp}}"
+											},
+											{
+												"key": "Accept",
+												"value": "{{acceptHeader}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \n    \"errorInformation\": {\n        \"errorCode\": \"5100\",\n        \"errorDescription\": \"An error occured\"\n    }\n}",
+											"options": {
+												"raw": {}
+											}
+										},
+										"url": {
+											"raw": "{{HOST_BULK_ADAPTER}}/bulkTransfers/{{bulkTransferId}}/error",
+											"host": [
+												"{{HOST_BULK_ADAPTER}}"
+											],
+											"path": [
+												"bulkTransfers",
+												"{{bulkTransferId}}",
+												"error"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Check Payerfsp Notification",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "be158eed-2af2-4bb8-89a8-e2d08cd04392",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "c935744b-f321-4a26-ad35-736ef8b363fc",
+												"exec": [
+													"pm.test(\"Status code is 202\", function () {",
+													"    pm.response.to.have.status(202);",
+													"});",
+													"",
+													"setTimeout(function () {",
+													"  pm.sendRequest(pm.environment.get(\"HOST_SIMULATOR\")+\"/bulkTransfers/callbacks/\"+pm.variables.get(\"bulkTransferId\"), function (err, response) {",
+													"        console.log(response.json())",
+													"        if(response.responseSize !== 0) {",
+													"            var jsonData = response.json();",
+													"            ",
+													"            pm.test(\"Trasnfer status is REJECTED\", function () {",
+													"            pm.expect(jsonData.data.bulkTransferState).to.eql('REJECTED');",
+													"            });",
+													"        } else {",
+													"            pm.test(\"Transfer FAILED\", function () {",
+													"            throw new Error('Did not receive response');",
+													"            });",
+													"            ",
+													"        }",
+													"    });",
+													"}, 1000)",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.interoperability.transfers+json;version=1"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/vnd.interoperability.transfers+json;version=1.0"
+											},
+											{
+												"key": "Date",
+												"value": "{{transferDate}}"
+											},
+											{
+												"key": "FSPIOP-Source",
+												"value": "{{payerfsp}}"
+											}
+										],
+										"url": {
+											"raw": "{{HOST_SIMULATOR}}/bulkTransfers/correlationid/{{bulkTransferId}}",
+											"host": [
+												"{{HOST_SIMULATOR}}"
+											],
+											"path": [
+												"bulkTransfers",
+												"correlationid",
+												"{{bulkTransferId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Check Bulk Transfer status - REJECTED",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "5e0fd692-dc5c-4066-8be2-2410c9189d51",
+												"exec": [
+													"pm.environment.set(\"contentType\", \"application/vnd.interoperability.bulkTransfers+json;version=1.0\");",
+													"pm.environment.set(\"acceptHeader\", \"application/vnd.interoperability.bulkTransfers+json;version=1\");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "dfd489cd-2dcd-49a5-ae4d-16e39e4ccb68",
+												"exec": [
+													"pm.test(\"Status code is 202\", function () {",
+													"    pm.response.to.have.status(202);",
+													"});",
+													"",
+													"setTimeout(function () {",
+													"  pm.sendRequest(pm.environment.get(\"HOST_SIMULATOR\")+\"/bulkTransfers/correlationid/\"+pm.variables.get(\"bulkTransferId\"), function (err, response) {",
+													"          if(response.responseSize !== 0) {",
+													"              var jsonData = response.json();",
+													"              ",
+													"              pm.test(\"Trasnfer status is REJECTED\", function () {",
+													"                pm.expect(jsonData.bulkTransferState).to.eql('REJECTED');",
+													"              });",
+													"          } else {",
+													"              pm.test(\"Transfer FAILED\", function () {",
+													"                throw new Error('Did not receive response');",
+													"              });",
+													"              ",
+													"          }",
+													"   });",
+													"}, 1000)",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "{{acceptHeader}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "{{contentType}}"
+											},
+											{
+												"key": "Date",
+												"value": "{{transferDate}}"
+											},
+											{
+												"key": "FSPIOP-Source",
+												"value": "{{payerfsp}}"
+											}
+										],
+										"url": {
+											"raw": "{{HOST_BULK_ADAPTER}}/bulkTransfers/{{bulkTransferId}}",
+											"host": [
+												"{{HOST_BULK_ADAPTER}}"
+											],
+											"path": [
+												"bulkTransfers",
+												"{{bulkTransferId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Check Payerfsp position after Abort",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "64516fbc-eef5-4add-a336-f192b3954825",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.test(\"Payerfsp position after Payee ABORT should be same as position before prepare.\", function () {",
+													"    pm.expect(jsonData[0].value).to.equal(Number(pm.environment.get('payerfspPositionBeforePrepare')));",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "58168856-55c1-4710-96d7-6971e061477b",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "FSPIOP-Source",
+												"type": "text",
+												"value": "{{payerfsp}}"
+											}
+										],
+										"url": {
+											"raw": "{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}/participants/{{payerfsp}}/positions",
+											"host": [
+												"{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}"
+											],
+											"path": [
+												"participants",
+												"{{payerfsp}}",
+												"positions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Check Payeefsp position after Abort",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "62350057-26ac-457c-b21b-ec6249198cf6",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.test(\"Payeefsp position after Payee ABORT should be same as position before prepare.\", function () {",
+													"    pm.expect(jsonData[0].value).to.equal(Number(pm.environment.get('payeefspPositionBeforePrepare')));",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "99bce6fe-261a-4fe3-ba60-98593955632c",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "FSPIOP-Source",
+												"type": "text",
+												"value": "{{payerfsp}}"
+											}
+										],
+										"url": {
+											"raw": "{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}/participants/noresponsepayeefsp/positions",
+											"host": [
+												"{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}"
+											],
+											"path": [
+												"participants",
+												"noresponsepayeefsp",
+												"positions"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "partial_fulfil",
+							"item": [
+								{
+									"name": "Store Payerfsp position before prepare",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0d05d23a-095a-4e17-a7b3-b4d70c4656df",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.environment.set(\"payerfspPositionBeforePrepare\", jsonData[0].value);",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "c9783ecd-58e2-4c21-96a6-a6136e9eb6e9",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "FSPIOP-Source",
+												"type": "text",
+												"value": "{{payerfsp}}"
+											}
+										],
+										"url": {
+											"raw": "{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}/participants/{{payerfsp}}/positions",
+											"host": [
+												"{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}"
+											],
+											"path": [
+												"participants",
+												"{{payerfsp}}",
+												"positions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Store Payeefsp position before prepare",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "290af66a-5150-4443-9d57-93c960159d1b",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.environment.set(\"payeefspPositionBeforePrepare\", jsonData[0].value);",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "c089d9ac-9306-40d8-8603-0be9eca83acf",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "FSPIOP-Source",
+												"type": "text",
+												"value": "noresponsepayeefsp"
+											}
+										],
+										"url": {
+											"raw": "{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}/participants/noresponsepayeefsp/positions",
+											"host": [
+												"{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}"
+											],
+											"path": [
+												"participants",
+												"noresponsepayeefsp",
+												"positions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send Prepare",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "101c97a4-8303-4b7e-a587-136556439bf7",
+												"exec": [
+													"const uuid = require('uuid');",
+													"",
+													"const delay = 1000 * 3600 * 24",
+													"const bulkTransferId = uuid.v4();",
+													"const bulkQuoteId = uuid.v4();",
+													"const transferId = uuid.v4();",
+													"const transferId2 = uuid.v4();",
+													"const now = new Date();",
+													"const headerDate = now.toUTCString();",
+													"const expirationDate = new Date(now.getTime() + delay).toISOString();",
+													"const completedTimestamp = now.toISOString();",
+													"",
+													"pm.environment.set(\"bulkTransferId\", bulkTransferId);",
+													"pm.environment.set(\"bulkQuoteId\", bulkQuoteId);",
+													"pm.environment.set(\"transferId\", transferId);",
+													"pm.environment.set(\"transferId2\", transferId2);",
+													"pm.environment.set(\"headerDate\", headerDate);",
+													"pm.environment.set(\"expirationDate\", expirationDate);",
+													"pm.environment.set(\"completedTimestamp\", completedTimestamp);",
+													"pm.environment.set(\"acceptHeader\", \"application/vnd.interoperability.bulkTransfers+json;version=1\");",
+													"pm.environment.set(\"contentType\", \"application/vnd.interoperability.bulkTransfers+json;version=1.0\");",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "6ab8bb72-0b94-4c46-a01a-aaa28fff2284",
+												"exec": [
+													"pm.test(\"Status code is 202\", function () {",
+													"    pm.response.to.have.status(202);",
+													"});",
+													"",
+													"",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "{{acceptHeader}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "{{contentType}}"
+											},
+											{
+												"key": "Date",
+												"value": "{{dateHeader}}"
+											},
+											{
+												"key": "FSPIOP-Source",
+												"value": "{{payerfsp}}"
+											},
+											{
+												"key": "FSPIOP-Destination",
+												"value": "{{payeefsp}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \n    \"bulkTransferId\": \"{{bulkTransferId}}\",\n    \"bulkQuoteId\": \"{{bulkQuoteId}}\",\n    \"payeeFsp\": \"{{payeefsp}}\",\n    \"payerFsp\": \"{{payerfsp}}\",\n    \"individualTransfers\":\n    [ {\n        \"transferId\": \"{{transferId}}\",\n        \"transferAmount\": {\n            \"currency\": \"{{currency}}\",\n            \"amount\": \"{{amount}}\"\n        },\n        \"ilpPacket\": \"{{validIlpPacket2}}\",\n        \"condition\": \"{{validCondition2}}\",\n        \"extensionList\": { \"extension\": [\n            { \"key\": \"extKey1\", \"value\": \"extValue1\"},\n            { \"key\": \"extKey2\", \"value\": \"extValue2\"}\n        ] }\n      },\n       {\n        \"transferId\": \"{{transferId2}}\",\n        \"transferAmount\": {\n            \"currency\": \"{{currency2}}\",\n            \"amount\": \"{{amount2}}\"\n        },\n        \"ilpPacket\": \"{{validIlpPacket2}}\",\n        \"condition\": \"{{validCondition2}}\"\n    } ],\n    \"expiration\": \"{{expirationDate}}\"\n}",
+											"options": {
+												"raw": {}
+											}
+										},
+										"url": {
+											"raw": "{{HOST_BULK_ADAPTER}}/bulkTransfers",
+											"host": [
+												"{{HOST_BULK_ADAPTER}}"
+											],
+											"path": [
+												"bulkTransfers"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Store Payerfsp position after Prepare",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5d90bb23-54b7-404d-96df-a82eeed6232f",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.environment.set(\"payerfspPositionAfterPrepare\", jsonData[0].value);",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "ed1dc976-8de6-4db4-8135-debfcac2dbb8",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "FSPIOP-Source",
+												"type": "text",
+												"value": "{{payerfsp}}"
+											}
+										],
+										"url": {
+											"raw": "{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}/participants/{{payerfsp}}/positions",
+											"host": [
+												"{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}"
+											],
+											"path": [
+												"participants",
+												"{{payerfsp}}",
+												"positions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Check Payerfsp Notification",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "6fe99567-23c0-4c58-b065-27e6f28a1400",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "47de6fa4-904b-4f76-85e5-e7b95704ba41",
+												"exec": [
+													"pm.test(\"Status code is 202\", function () {",
+													"    pm.response.to.have.status(202);",
+													"});",
+													"",
+													"setTimeout(function () {",
+													"  pm.sendRequest(pm.environment.get(\"HOST_SIMULATOR\")+\"/bulkTransfers/callbacks/\"+pm.variables.get(\"bulkTransferId\"), function (err, response) {",
+													"        console.log(response.json())",
+													"        if(response.responseSize !== 0) {",
+													"            var jsonData = response.json();",
+													"            ",
+													"            pm.test(\"TraNsfer status is COMPLETED\", function () {",
+													"                pm.expect(jsonData.data.bulkTransferState).to.eql('COMPLETED');",
+													"            });",
+													"            pm.test(\"IndividualTransferResults are sent\", function () {",
+													"                pm.expect(jsonData.data.individualTransferResults.length).to.eql(2);",
+													"            });",
+													"            pm.test(\"First transfer is fulfilled\", function () {",
+													"                const transfer = jsonData.data.individualTransferResults.find(t => t.transferId === pm.environment.get('transferId'))",
+													"                pm.expect(transfer.fulfilment.length > 0).to.eql(true);",
+													"            });",
+													"             pm.test(\"Second transfer has error information\", function () {",
+													"                const transfer = jsonData.data.individualTransferResults.find(t => t.transferId === pm.environment.get('transferId2'))",
+													"                pm.expect(transfer.errorInformation !== undefined).to.eql(true);",
+													"            });",
+													"",
+													"        } else {",
+													"            pm.test(\"Transfer FAILED\", function () {",
+													"            throw new Error('Did not receive response');",
+													"            });",
+													"        }",
+													"    });",
+													"}, 1000)",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.interoperability.transfers+json;version=1"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/vnd.interoperability.transfers+json;version=1.0"
+											},
+											{
+												"key": "Date",
+												"value": "{{transferDate}}"
+											},
+											{
+												"key": "FSPIOP-Source",
+												"value": "{{payerfsp}}"
+											}
+										],
+										"url": {
+											"raw": "{{HOST_SIMULATOR}}/bulkTransfers/correlationid/{{bulkTransferId}}",
+											"host": [
+												"{{HOST_SIMULATOR}}"
+											],
+											"path": [
+												"bulkTransfers",
+												"correlationid",
+												"{{bulkTransferId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Check Bulk Transfer status - REJECTED",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "2e4d6815-b4d8-4c0a-aa2d-dc73e6ffb127",
+												"exec": [
+													"pm.environment.set(\"contentType\", \"application/vnd.interoperability.bulkTransfers+json;version=1.0\");",
+													"pm.environment.set(\"acceptHeader\", \"application/vnd.interoperability.bulkTransfers+json;version=1\");"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "d6008e16-ecec-43e5-9d9f-09a521ba1356",
+												"exec": [
+													"pm.test(\"Status code is 202\", function () {",
+													"    pm.response.to.have.status(202);",
+													"});",
+													"",
+													"setTimeout(function () {",
+													"  pm.sendRequest(pm.environment.get(\"HOST_SIMULATOR\")+\"/bulkTransfers/correlationid/\"+pm.variables.get(\"bulkTransferId\"), function (err, response) {",
+													"          if(response.responseSize !== 0) {",
+													"              var jsonData = response.json();",
+													"              ",
+													"              pm.test(\"Trasnfer status is REJECTED\", function () {",
+													"                pm.expect(jsonData.bulkTransferState).to.eql('REJECTED');",
+													"              });",
+													"          } else {",
+													"              pm.test(\"Transfer FAILED\", function () {",
+													"                throw new Error('Did not receive response');",
+													"              });",
+													"              ",
+													"          }",
+													"   });",
+													"}, 1000)",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "{{acceptHeader}}"
+											},
+											{
+												"key": "Content-Type",
+												"value": "{{contentType}}"
+											},
+											{
+												"key": "Date",
+												"value": "{{transferDate}}"
+											},
+											{
+												"key": "FSPIOP-Source",
+												"value": "{{payerfsp}}"
+											}
+										],
+										"url": {
+											"raw": "{{HOST_BULK_ADAPTER}}/bulkTransfers/{{bulkTransferId}}",
+											"host": [
+												"{{HOST_BULK_ADAPTER}}"
+											],
+											"path": [
+												"bulkTransfers",
+												"{{bulkTransferId}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Check Payerfsp position after Abort",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6a739336-4130-4a78-b6cc-ab9c9a4eb1e2",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.test(\"Payerfsp position after Payee ABORT should be same as position before prepare.\", function () {",
+													"    pm.expect(jsonData[0].value).to.equal(Number(pm.environment.get('payerfspPositionBeforePrepare')));",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "dfc97318-0f95-4deb-96e9-7620a1aa31a2",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "FSPIOP-Source",
+												"type": "text",
+												"value": "{{payerfsp}}"
+											}
+										],
+										"url": {
+											"raw": "{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}/participants/{{payerfsp}}/positions",
+											"host": [
+												"{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}"
+											],
+											"path": [
+												"participants",
+												"{{payerfsp}}",
+												"positions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Check Payeefsp position after Abort",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "09b30392-4e6e-466e-8bf8-48b6a2c10e30",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.test(\"Payeefsp position after Payee ABORT should be same as position before prepare.\", function () {",
+													"    pm.expect(jsonData[0].value).to.equal(Number(pm.environment.get('payeefspPositionBeforePrepare')));",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "90f05540-5a8c-4287-988d-f28898d803de",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{BEARER_TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "FSPIOP-Source",
+												"type": "text",
+												"value": "{{payerfsp}}"
+											}
+										],
+										"url": {
+											"raw": "{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}/participants/noresponsepayeefsp/positions",
+											"host": [
+												"{{HOST_CENTRAL_LEDGER}}{{BASE_CENTRAL_LEDGER_ADMIN}}"
+											],
+											"path": [
+												"participants",
+												"noresponsepayeefsp",
+												"positions"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "GET Bulk API Health",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "721da93c-9741-4621-b8cb-3eee4624e303",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{HOST_BULK_ADAPTER}}/health",
+							"host": [
+								"{{HOST_BULK_ADAPTER}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Quotes",
+			"item": [
+				{
+					"name": "Negative Scenarios",
+					"item": [
+						{
+							"name": "PUT bulkQuotes error",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "98e90a5d-bb11-4f51-ae1c-043fa08043ea",
+										"exec": [
+											"var uuid = require('uuid');",
+											"var generatedUUID = uuid.v4();",
+											"",
+											"pm.environment.set('bulkQuoteId', generatedUUID);",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "e03b571f-471e-49c5-ab90-c9c9adb2c0f5",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/vnd.interoperability.quotes+json;version=1.0"
+									},
+									{
+										"key": "Date",
+										"type": "text",
+										"value": "{{dateHeader}}"
+									},
+									{
+										"key": "FSPIOP-Source",
+										"type": "text",
+										"value": "{{payeefsp}}"
+									},
+									{
+										"key": "FSPIOP-Destination",
+										"type": "text",
+										"value": "{{payerfsp}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"errorInformation\": {\n\t\t\"errorCode\": \"5101\",\n\t\t\"errorDescription\": \"Payee transaction limit reached\",\n\t\t\"extensionList\": {\n\t\t\t\"extension\": [{\n\t\t\t\t\"key\": \"errorDetail\",\n\t\t\t\t\"value\": \"This is an abort extension\"\n\t\t\t}]\n\t\t}\n\t}\n}",
+									"options": {
+										"raw": {}
+									}
+								},
+								"url": {
+									"raw": "{{HOST_QUOTING_SERVICE}}/bulkQuotes/{{bulkQuoteId}}/error",
+									"host": [
+										"{{HOST_QUOTING_SERVICE}}"
+									],
+									"path": [
+										"bulkQuotes",
+										"{{bulkQuoteId}}",
+										"error"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Positive Scenarios",
+					"item": [
+						{
+							"name": "POST bulkQuotes success",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "15595112-3d8d-4d6a-9a2a-6e61c78881ca",
+										"exec": [
+											"var uuid = require('uuid');",
+											"var generatedUUID = uuid.v4();",
+											"",
+											"pm.environment.set('bulkQuoteId', generatedUUID);",
+											"generatedUUID = uuid.v4();",
+											"pm.environment.set('quoteId1', generatedUUID);",
+											"generatedUUID = uuid.v4();",
+											"pm.environment.set('transactionId1', generatedUUID);",
+											"generatedUUID = uuid.v4();",
+											"pm.environment.set('quoteId2', generatedUUID);",
+											"generatedUUID = uuid.v4();",
+											"pm.environment.set('transactionId2', generatedUUID);",
+											"pm.environment.set('quoteExpiration', new Date(new Date().getTime() + 600000));",
+											"pm.environment.set('quoteDate', (new Date()).toUTCString());",
+											"pm.environment.set('transferAmount', 60.11);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.interoperability.quotes+json;version=1",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.interoperability.quotes+json;version=1.0",
+										"type": "text"
+									},
+									{
+										"key": "Date",
+										"value": "{{quoteDate}}",
+										"type": "text"
+									},
+									{
+										"key": "FSPIOP-Source",
+										"value": "payerfsp",
+										"type": "text"
+									},
+									{
+										"key": "FSPIOP-Destination",
+										"value": "payeefsp",
+										"type": "text"
+									},
+									{
+										"key": "FSPIOP-Signature",
+										"value": "{{fspiopSignature}}",
+										"type": "text"
+									},
+									{
+										"key": "FSPIOP-HTTP-Method",
+										"value": "POST",
+										"type": "text"
+									},
+									{
+										"key": "FSPIOP-URI",
+										"value": "/bulkQuotes",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"bulkQuoteId\": \"{{bulkQuoteId}}\",\n    \"payer\": {\n        \"partyIdInfo\": {\n            \"partyIdType\": \"MSISDN\",\n            \"partyIdentifier\": \"{{payerMSISDN}}\",\n            \"fspId\": \"payerfsp\"\n        },\n        \"personalInfo\": {\n        \"complexName\": {\n            \"firstName\": \"Mats\",\n            \"lastName\": \"Hagman\"\n        },\n        \"dateOfBirth\": \"1983-10-25\"\n        }\n    },\n    \"expiration\": \"{{quoteExpiration}}\",\n    \"individualQuotes\":[\n        {\n        \"quoteId\": \"{{quoteId1}}\",\n        \"transactionId\": \"{{transactionId1}}\",\n        \"payee\": {\n            \"partyIdInfo\": {\n            \"partyIdType\": \"MSISDN\",\n            \"partyIdentifier\": \"22556999125\",\n            \"fspId\": \"payeefsp\"\n            }\n        },\n        \"amountType\": \"SEND\",\n        \"amount\": {\n            \"amount\": \"{{transferAmount}}\",\n            \"currency\": \"{{currency}}\"\n        },\n        \"transactionType\": {\n            \"scenario\": \"TRANSFER\",\n            \"initiator\": \"PAYER\",\n            \"initiatorType\": \"CONSUMER\"\n        },\n        \"note\": \"hej\"\n        },\n        {\n        \"quoteId\": \"{{quoteId2}}\",\n        \"transactionId\": \"{{transactionId2}}\",\n        \"payee\": {\n            \"partyIdInfo\": {\n            \"partyIdType\": \"MSISDN\",\n            \"partyIdentifier\": \"22556999125\",\n            \"fspId\": \"payeefsp\"\n            }\n        },\n        \"amountType\": \"SEND\",\n        \"amount\": {\n            \"amount\": \"{{transferAmount}}\",\n            \"currency\": \"{{currency}}\"\n        },\n        \"transactionType\": {\n            \"scenario\": \"TRANSFER\",\n            \"initiator\": \"PAYER\",\n            \"initiatorType\": \"CONSUMER\"\n        },\n        \"note\": \"hej2\"\n        }\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{HOST_QUOTING_SERVICE}}/bulkQuotes",
+									"host": [
+										"{{HOST_QUOTING_SERVICE}}"
+									],
+									"path": [
+										"bulkQuotes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get bulkQuotes by ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.interoperability.quotes+json;version=1",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.interoperability.quotes+json;version=1.0",
+										"type": "text"
+									},
+									{
+										"key": "Date",
+										"value": "{{quoteDate}}",
+										"type": "text"
+									},
+									{
+										"key": "FSPIOP-Source",
+										"value": "payerfsp",
+										"type": "text"
+									},
+									{
+										"key": "FSPIOP-Destination",
+										"value": "payeefsp",
+										"type": "text"
+									},
+									{
+										"key": "FSPIOP-Signature",
+										"value": "{{fspiopSignature}}",
+										"type": "text"
+									},
+									{
+										"key": "FSPIOP-HTTP-Method",
+										"value": "POST",
+										"type": "text"
+									},
+									{
+										"key": "FSPIOP-URI",
+										"value": "/bulkQuotes",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{HOST_QUOTING_SERVICE}}/bulkQuotes/{{bulkQuoteId}}",
+									"host": [
+										"{{HOST_QUOTING_SERVICE}}"
+									],
+									"path": [
+										"bulkQuotes",
+										"{{bulkQuoteId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

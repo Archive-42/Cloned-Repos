@@ -1,0 +1,56 @@
+<h1 id="description">–description–</h1>
+<p>We shall say that an <code>n</code>-digit number is pandigital if it makes use of all the digits 1 to <code>n</code> exactly once; for example, the 5-digit number, 15234, is 1 through 5 pandigital.</p>
+<p>The product 7254 is unusual, as the identity, 39 × 186 = 7254, containing multiplicand, multiplier, and product is 1 through 9 pandigital.</p>
+<p>Find the sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital.</p>
+<p><strong>Hint:</strong> Some products can be obtained in more than one way so be sure to only include it once in your sum.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>pandigitalProducts()</code> should return a number.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">pandigitalProducts</span>() <span class="op">===</span> <span class="st">&#39;number&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>pandigitalProducts()</code> should return 45228.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">pandigitalProducts</span>()<span class="op">,</span> <span class="dv">45228</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">function</span> <span class="at">pandigitalProducts</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb3-5" title="5"></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="at">pandigitalProducts</span>()<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">function</span> <span class="at">pandigitalProducts</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">function</span> <span class="at">is1to9Pandigital</span>(...<span class="at">numbers</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">const</span> digitStr <span class="op">=</span> <span class="at">concatenateNums</span>(...<span class="at">numbers</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="co">// check if length is 9</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="cf">if</span> (<span class="va">digitStr</span>.<span class="at">length</span> <span class="op">!==</span> <span class="dv">9</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-6" title="6">      <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    <span class="co">// check if pandigital</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="va">digitStr</span>.<span class="at">length</span><span class="op">;</span> i <span class="op">&gt;</span> <span class="dv">0</span><span class="op">;</span> i<span class="op">--</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-10" title="10">      <span class="cf">if</span> (<span class="va">digitStr</span>.<span class="at">indexOf</span>(<span class="va">i</span>.<span class="at">toString</span>()) <span class="op">===</span> <span class="dv">-1</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-11" title="11">        <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-13" title="13">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-14" title="14">    <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-15" title="15">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-16" title="16">  <span class="kw">function</span> <span class="at">concatenateNums</span>(...<span class="at">numbers</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-17" title="17">    <span class="kw">let</span> digitStr <span class="op">=</span> <span class="st">&#39;&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-18" title="18">    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">numbers</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-19" title="19">      digitStr <span class="op">+=</span> numbers[i].<span class="at">toString</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-20" title="20">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-21" title="21">    <span class="cf">return</span> digitStr<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-22" title="22">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-23" title="23"></a>
+<a class="sourceLine" id="cb4-24" title="24">  <span class="kw">const</span> pandigitalNums <span class="op">=</span> []<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-25" title="25">  <span class="kw">let</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-26" title="26">  <span class="cf">for</span> (<span class="kw">let</span> mult1 <span class="op">=</span> <span class="dv">2</span><span class="op">;</span> mult1 <span class="op">&lt;</span> <span class="dv">9876</span><span class="op">;</span> mult1<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-27" title="27">    <span class="kw">let</span> mult2 <span class="op">=</span> <span class="dv">123</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-28" title="28">    <span class="cf">while</span> (<span class="at">concatenateNums</span>(mult1<span class="op">,</span> mult2<span class="op">,</span> mult1 <span class="op">*</span> mult2).<span class="at">length</span> <span class="op">&lt;</span> <span class="dv">10</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-29" title="29">      <span class="cf">if</span> (<span class="at">is1to9Pandigital</span>(mult1<span class="op">,</span> mult2<span class="op">,</span> mult1 <span class="op">*</span> mult2) <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="va">pandigitalNums</span>.<span class="at">includes</span>(mult1 <span class="op">*</span> mult2)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-30" title="30">        <span class="va">pandigitalNums</span>.<span class="at">push</span>(mult1 <span class="op">*</span> mult2)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-31" title="31">        sum <span class="op">+=</span> mult1 <span class="op">*</span> mult2<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-32" title="32">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-33" title="33">      mult2<span class="op">++;</span></a>
+<a class="sourceLine" id="cb4-34" title="34">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-35" title="35">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-36" title="36">  <span class="cf">return</span> sum<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-37" title="37"><span class="op">}</span></a></code></pre></div>

@@ -1,0 +1,110 @@
+<h1 id="description">–description–</h1>
+<p>When the click event happens, you can use JavaScript to update an HTML element.</p>
+<p>For example, when a user clicks the “Get Message” button, it changes the text of the element with the class <code>message</code> to say “Here is the message”.</p>
+<p>This works by adding the following code within the click event:</p>
+<p><code>document.getElementsByClassName('message')[0].textContent="Here is the message";</code></p>
+<h1 id="instructions">–instructions–</h1>
+<p>Add code inside the <code>onclick</code> event handler to change the text inside the <code>message</code> element to say “Here is the message”.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should use the <code>document.getElementsByClassName</code> method to select the element with class <code>message</code> and set its <code>textContent</code> to the given string.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="ss">/document</span><span class="sc">\s*\.</span><span class="ss">getElementsByClassName</span><span class="sc">\(\s*?(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">message</span><span class="sc">\1\s*?\)\[</span><span class="ss">0</span><span class="sc">\]\s*\.</span><span class="ss">textContent</span><span class="sc">\s*?</span><span class="ss">=</span><span class="sc">\s*?(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">Here is the message</span><span class="sc">\2</span><span class="ss">/g</span></a>
+<a class="sourceLine" id="cb1-4" title="4">  )</a>
+<a class="sourceLine" id="cb1-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">&lt;script&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">document</span>.<span class="at">addEventListener</span>(<span class="st">&#39;DOMContentLoaded&#39;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&#39;getMessage&#39;</span>).<span class="at">onclick</span> <span class="op">=</span> <span class="kw">function</span>()<span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="co">// Add your code below this line</span></a>
+<a class="sourceLine" id="cb2-5" title="5"></a>
+<a class="sourceLine" id="cb2-6" title="6"></a>
+<a class="sourceLine" id="cb2-7" title="7">      <span class="co">// Add your code above this line</span></a>
+<a class="sourceLine" id="cb2-8" title="8">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-9" title="9">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="kw">&lt;/script&gt;</span></a>
+<a class="sourceLine" id="cb2-11" title="11"></a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb2-13" title="13">  body {</a>
+<a class="sourceLine" id="cb2-14" title="14">    <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-15" title="15">    <span class="kw">font-family</span>: <span class="st">&quot;Helvetica&quot;</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-16" title="16">  }</a>
+<a class="sourceLine" id="cb2-17" title="17">  h1 {</a>
+<a class="sourceLine" id="cb2-18" title="18">    <span class="kw">font-size</span>: <span class="dv">2</span><span class="dt">em</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-19" title="19">    <span class="kw">font-weight</span>: <span class="dv">bold</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-20" title="20">  }</a>
+<a class="sourceLine" id="cb2-21" title="21">  <span class="fu">.box</span> {</a>
+<a class="sourceLine" id="cb2-22" title="22">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-23" title="23">    <span class="kw">background-color</span>: <span class="cn">#eee</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-24" title="24">    <span class="kw">padding</span>: <span class="dv">20</span><span class="dt">px</span> <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-25" title="25">  }</a>
+<a class="sourceLine" id="cb2-26" title="26">  button {</a>
+<a class="sourceLine" id="cb2-27" title="27">    <span class="kw">color</span>: <span class="cn">white</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-28" title="28">    <span class="kw">background-color</span>: <span class="cn">#4791d0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-29" title="29">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-30" title="30">    <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#4791d0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-31" title="31">    <span class="kw">padding</span>: <span class="dv">5</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-32" title="32">  }</a>
+<a class="sourceLine" id="cb2-33" title="33">  button<span class="in">:hover</span> {</a>
+<a class="sourceLine" id="cb2-34" title="34">    <span class="kw">background-color</span>: <span class="cn">#0F5897</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-35" title="35">    <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#0F5897</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-36" title="36">  }</a>
+<a class="sourceLine" id="cb2-37" title="37"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb2-38" title="38"></a>
+<a class="sourceLine" id="cb2-39" title="39"><span class="kw">&lt;h1&gt;</span>Cat Photo Finder<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb2-40" title="40"><span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&quot;message box&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb2-41" title="41">  The message will go here</a>
+<a class="sourceLine" id="cb2-42" title="42"><span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb2-43" title="43"><span class="kw">&lt;p&gt;</span></a>
+<a class="sourceLine" id="cb2-44" title="44">  <span class="kw">&lt;button</span><span class="ot"> id=</span><span class="st">&quot;getMessage&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb2-45" title="45">    Get Message</a>
+<a class="sourceLine" id="cb2-46" title="46">  <span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb2-47" title="47"><span class="kw">&lt;/p&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;script&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">document</span>.<span class="at">addEventListener</span>(<span class="st">&#39;DOMContentLoaded&#39;</span><span class="op">,</span><span class="kw">function</span>()<span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&#39;getMessage&#39;</span>).<span class="at">onclick</span> <span class="op">=</span> <span class="kw">function</span>()<span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="co">// Add your code below this line</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      <span class="va">document</span>.<span class="at">getElementsByClassName</span>(<span class="st">&#39;message&#39;</span>)[<span class="dv">0</span>].<span class="at">textContent</span> <span class="op">=</span> <span class="st">&quot;Here is the message&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">      <span class="co">// Add your code above this line</span></a>
+<a class="sourceLine" id="cb3-7" title="7">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-8" title="8">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="kw">&lt;/script&gt;</span></a>
+<a class="sourceLine" id="cb3-10" title="10"></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb3-12" title="12">  body {</a>
+<a class="sourceLine" id="cb3-13" title="13">    <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-14" title="14">    <span class="kw">font-family</span>: <span class="st">&quot;Helvetica&quot;</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-15" title="15">  }</a>
+<a class="sourceLine" id="cb3-16" title="16">  h1 {</a>
+<a class="sourceLine" id="cb3-17" title="17">    <span class="kw">font-size</span>: <span class="dv">2</span><span class="dt">em</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-18" title="18">    <span class="kw">font-weight</span>: <span class="dv">bold</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-19" title="19">  }</a>
+<a class="sourceLine" id="cb3-20" title="20">  <span class="fu">.box</span> {</a>
+<a class="sourceLine" id="cb3-21" title="21">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-22" title="22">    <span class="kw">background-color</span>: <span class="cn">#eee</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-23" title="23">    <span class="kw">padding</span>: <span class="dv">20</span><span class="dt">px</span> <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-24" title="24">  }</a>
+<a class="sourceLine" id="cb3-25" title="25">  button {</a>
+<a class="sourceLine" id="cb3-26" title="26">    <span class="kw">color</span>: <span class="cn">white</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-27" title="27">    <span class="kw">background-color</span>: <span class="cn">#4791d0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-28" title="28">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-29" title="29">    <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#4791d0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-30" title="30">    <span class="kw">padding</span>: <span class="dv">5</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-31" title="31">  }</a>
+<a class="sourceLine" id="cb3-32" title="32">  button<span class="in">:hover</span> {</a>
+<a class="sourceLine" id="cb3-33" title="33">    <span class="kw">background-color</span>: <span class="cn">#0F5897</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-34" title="34">    <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#0F5897</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-35" title="35">  }</a>
+<a class="sourceLine" id="cb3-36" title="36"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb3-37" title="37"></a>
+<a class="sourceLine" id="cb3-38" title="38"><span class="kw">&lt;h1&gt;</span>Cat Photo Finder<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb3-39" title="39"><span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&quot;message&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb3-40" title="40">  The message will go here</a>
+<a class="sourceLine" id="cb3-41" title="41"><span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb3-42" title="42"><span class="kw">&lt;p&gt;</span></a>
+<a class="sourceLine" id="cb3-43" title="43">  <span class="kw">&lt;button</span><span class="ot"> id=</span><span class="st">&quot;getMessage&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb3-44" title="44">    Get Message</a>
+<a class="sourceLine" id="cb3-45" title="45">  <span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb3-46" title="46"><span class="kw">&lt;/p&gt;</span></a></code></pre></div>

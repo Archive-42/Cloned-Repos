@@ -1,0 +1,52 @@
+<h1 id="description">–description–</h1>
+<p>The <code>grid-area</code> property you learned in the last challenge can be used in another way. If your grid doesn’t have an areas template to reference, you can create an area on the fly for an item to be placed like this:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode css"><code class="sourceCode css"><a class="sourceLine" id="cb1-1" title="1">item1 { <span class="kw">grid-area</span>: <span class="dv">1</span>/<span class="dv">1</span>/<span class="dv">2</span>/<span class="dv">4</span><span class="op">;</span> }</a></code></pre></div>
+<p>This is using the line numbers you learned about earlier to define where the area for this item will be. The numbers in the example above represent these values:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode css"><code class="sourceCode css"><a class="sourceLine" id="cb2-1" title="1">grid-area<span class="in">: horizontal</span> line to start at / vertical line to start at / horizontal line to end at / vertical line to end at;</a></code></pre></div>
+<p>So the item in the example will consume the rows between lines 1 and 2, and the columns between lines 1 and 4.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Using the <code>grid-area</code> property, place the element with <code>item5</code> class between the third and fourth horizontal lines and between the first and fourth vertical lines.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>item5</code> class should have a <code>grid-area</code> property to make it fill the whole area between the third and fourth horizontal lines, and first and fourth vertical lines.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="ss">/.item5</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">[\s\S]*</span><span class="ss">grid-area</span><span class="sc">\s*?</span><span class="ss">:</span><span class="sc">\s*?</span><span class="ss">3</span><span class="sc">\s*?\/\s*?</span><span class="ss">1</span><span class="sc">\s*?\/\s*?</span><span class="ss">4</span><span class="sc">\s*?\/\s*?</span><span class="ss">4</span><span class="sc">\s*?</span><span class="ss">;</span><span class="sc">[\s\S]*</span><span class="ss">}/gi</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  )</a>
+<a class="sourceLine" id="cb3-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="fu">.item1</span>{<span class="kw">background</span>:<span class="cn">LightSkyBlue</span><span class="op">;</span>}</a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="fu">.item2</span>{<span class="kw">background</span>:<span class="cn">LightSalmon</span><span class="op">;</span>}</a>
+<a class="sourceLine" id="cb4-4" title="4">  <span class="fu">.item3</span>{<span class="kw">background</span>:<span class="cn">PaleTurquoise</span><span class="op">;</span>}</a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="fu">.item4</span>{<span class="kw">background</span>:<span class="cn">LightPink</span><span class="op">;</span>}</a>
+<a class="sourceLine" id="cb4-6" title="6"></a>
+<a class="sourceLine" id="cb4-7" title="7">  <span class="fu">.item5</span> {</a>
+<a class="sourceLine" id="cb4-8" title="8">    <span class="kw">background</span>: <span class="cn">PaleGreen</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    <span class="co">/* Only change code below this line */</span></a>
+<a class="sourceLine" id="cb4-10" title="10"></a>
+<a class="sourceLine" id="cb4-11" title="11"></a>
+<a class="sourceLine" id="cb4-12" title="12">    <span class="co">/* Only change code above this line */</span></a>
+<a class="sourceLine" id="cb4-13" title="13">  }</a>
+<a class="sourceLine" id="cb4-14" title="14"></a>
+<a class="sourceLine" id="cb4-15" title="15">  <span class="fu">.container</span> {</a>
+<a class="sourceLine" id="cb4-16" title="16">    <span class="kw">font-size</span>: <span class="dv">40</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-17" title="17">    <span class="kw">min-height</span>: <span class="dv">300</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-18" title="18">    <span class="kw">width</span>: <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-19" title="19">    <span class="kw">background</span>: <span class="cn">LightGray</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-20" title="20">    <span class="kw">display</span>: grid<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-21" title="21">    <span class="kw">grid-template-columns</span>: <span class="dv">1</span>fr <span class="dv">1</span>fr <span class="dv">1</span>fr<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-22" title="22">    <span class="kw">grid-template-rows</span>: <span class="dv">1</span>fr <span class="dv">1</span>fr <span class="dv">1</span>fr<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-23" title="23">    <span class="kw">grid-gap</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-24" title="24">  }</a>
+<a class="sourceLine" id="cb4-25" title="25"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb4-26" title="26"></a>
+<a class="sourceLine" id="cb4-27" title="27"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-28" title="28">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;item1&quot;</span><span class="kw">&gt;</span>1<span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb4-29" title="29">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;item2&quot;</span><span class="kw">&gt;</span>2<span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb4-30" title="30">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;item3&quot;</span><span class="kw">&gt;</span>3<span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb4-31" title="31">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;item4&quot;</span><span class="kw">&gt;</span>4<span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb4-32" title="32">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;item5&quot;</span><span class="kw">&gt;</span>5<span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb4-33" title="33"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;style&gt;</span><span class="fu">.item5</span> {<span class="kw">grid-area</span>: <span class="dv">3</span>/<span class="dv">1</span>/<span class="dv">4</span>/<span class="dv">4</span><span class="op">;</span>}<span class="kw">&lt;/style&gt;</span></a></code></pre></div>

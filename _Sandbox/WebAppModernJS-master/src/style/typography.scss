@@ -1,0 +1,11 @@
+
+body {
+	font-family: 'Raleway', 'Helvetica Neue', Helvetica, sans-serif;
+	font-size: $fs;
+	line-height: $lh;
+}
+
+.footer p {
+	font-size: $fs - 2;
+	line-height: $lh - 4;
+}

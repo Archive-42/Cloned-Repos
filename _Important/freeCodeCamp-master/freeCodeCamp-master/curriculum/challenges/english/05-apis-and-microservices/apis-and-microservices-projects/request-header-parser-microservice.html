@@ -1,0 +1,47 @@
+<h1 id="description">–description–</h1>
+<p>Build a full stack JavaScript app that is functionally similar to this: <a href="https://request-header-parser-microservice.freecodecamp.rocks/" class="uri">https://request-header-parser-microservice.freecodecamp.rocks/</a>. Working on this project will involve you writing your code using one of the following methods:</p>
+<ul>
+<li>Clone <a href="https://github.com/freeCodeCamp/boilerplate-project-headerparser/">this GitHub repo</a> and complete your project locally.</li>
+<li>Use <a href="https://repl.it/github/freeCodeCamp/boilerplate-project-headerparser">our repl.it starter project</a> to complete your project.</li>
+<li>Use a site builder of your choice to complete the project. Be sure to incorporate all the files from our GitHub repo.</li>
+</ul>
+<p>When you are done, make sure a working demo of your project is hosted somewhere public. Then submit the URL to it in the <code>Solution Link</code> field. Optionally, also submit a link to your project’s source code in the <code>GitHub Link</code> field.</p>
+<h1 id="hints">–hints–</h1>
+<p>You should provide your own project, not the example URL.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1">(getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="op">!</span><span class="ss">/.</span><span class="sc">*\/</span><span class="ss">request-header-parser-microservice</span><span class="sc">\.</span><span class="ss">freecodecamp</span><span class="sc">\.</span><span class="ss">rocks/</span>.<span class="at">test</span>(</a>
+<a class="sourceLine" id="cb1-4" title="4">      <span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>)</a>
+<a class="sourceLine" id="cb1-5" title="5">    )</a>
+<a class="sourceLine" id="cb1-6" title="6">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="op">};</span></a></code></pre></div>
+<p>A request to <code>/api/whoami</code> should return a JSON object with your IP address in the <code>ipaddress</code> key.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/whoami&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="at">assert</span>(<span class="va">data</span>.<span class="at">ipaddress</span> <span class="op">&amp;&amp;</span> <span class="va">data</span>.<span class="va">ipaddress</span>.<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-7" title="7">  )<span class="op">;</span></a></code></pre></div>
+<p>A request to <code>/api/whoami</code> should return a JSON object with your preferred language in the <code>language</code> key.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/whoami&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="at">assert</span>(<span class="va">data</span>.<span class="at">language</span> <span class="op">&amp;&amp;</span> <span class="va">data</span>.<span class="va">language</span>.<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-7" title="7">  )<span class="op">;</span></a></code></pre></div>
+<p>A request to <code>/api/whoami</code> should return a JSON object with your software in the <code>software</code> key.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/whoami&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb4-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="at">assert</span>(<span class="va">data</span>.<span class="at">software</span> <span class="op">&amp;&amp;</span> <span class="va">data</span>.<span class="va">software</span>.<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-5" title="5">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-7" title="7">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">*/</span></a></code></pre></div>

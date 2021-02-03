@@ -1,0 +1,41 @@
+<h1 id="description">–description–</h1>
+<p>The CSS offsets of <code>top</code> or <code>bottom</code>, and <code>left</code> or <code>right</code> tell the browser how far to offset an item relative to where it would sit in the normal flow of the document. You’re offsetting an element away from a given spot, which moves the element away from the referenced side (effectively, the opposite direction). As you saw in the last challenge, using the top offset moved the <code>h2</code> downwards. Likewise, using a left offset moves an item to the right.</p>
+<p><img src='https://cdn-media-1.freecodecamp.org/imgr/eWWi3gZ.gif' alt=''></p>
+<h1 id="instructions">–instructions–</h1>
+<p>Use CSS offsets to move the <code>h2</code> 15 pixels to the right and 10 pixels up.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should use a CSS offset to relatively position the <code>h2</code> 10px upwards. In other words, move it 10px away from the <code>bottom</code> of where it normally sits.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h2&#39;</span>).<span class="at">css</span>(<span class="st">&#39;bottom&#39;</span>) <span class="op">==</span> <span class="st">&#39;10px&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your code should use a CSS offset to relatively position the <code>h2</code> 15px towards the right. In other words, move it 15px away from the <code>left</code> of where it normally sits.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h2&#39;</span>).<span class="at">css</span>(<span class="st">&#39;left&#39;</span>) <span class="op">==</span> <span class="st">&#39;15px&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;head&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">  h2 {</a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="kw">position</span>: <span class="dv">relative</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5"></a>
+<a class="sourceLine" id="cb3-6" title="6"></a>
+<a class="sourceLine" id="cb3-7" title="7">  }</a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="kw">&lt;/head&gt;</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb3-11" title="11">  <span class="kw">&lt;h1&gt;</span>On Being Well-Positioned<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb3-12" title="12">  <span class="kw">&lt;h2&gt;</span>Move me!<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb3-13" title="13">  <span class="kw">&lt;p&gt;</span>I still think the h2 is where it normally sits.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb3-14" title="14"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;head&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  h2 {</a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="kw">position</span>: <span class="dv">relative</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="kw">left</span>: <span class="dv">15</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="kw">bottom</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">  }</a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="kw">&lt;/head&gt;</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">  <span class="kw">&lt;h1&gt;</span>On Being Well-Positioned<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">  <span class="kw">&lt;h2&gt;</span>Move me!<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">  <span class="kw">&lt;p&gt;</span>I still think the h2 is where it normally sits.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>

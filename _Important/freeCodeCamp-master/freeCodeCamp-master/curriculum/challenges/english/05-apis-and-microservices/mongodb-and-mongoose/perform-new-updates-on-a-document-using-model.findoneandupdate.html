@@ -1,0 +1,37 @@
+<h1 id="description">–description–</h1>
+<p>Recent versions of Mongoose have methods to simplify documents updating. Some more advanced features (i.e. pre/post hooks, validation) behave differently with this approach, so the classic method is still useful in many situations. <code>findByIdAndUpdate()</code> can be used when searching by id.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Modify the <code>findAndUpdate</code> function to find a person by <code>Name</code> and set the person’s age to <code>20</code>. Use the function parameter <code>personName</code> as the search key.</p>
+<p><strong>Note:</strong> You should return the updated document. To do that, you need to pass the options document <code>{ new: true }</code> as the 3rd argument to <code>findOneAndUpdate()</code>. By default, these methods return the unmodified object.</p>
+<h1 id="hints">–hints–</h1>
+<p>findOneAndUpdate an item should succeed</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="va">$</span>.<span class="at">post</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/find-one-update&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;Dorian Gray&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="dt">age</span><span class="op">:</span> <span class="dv">35</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-5" title="5">    <span class="dt">favoriteFoods</span><span class="op">:</span> [<span class="st">&#39;unknown&#39;</span>]</a>
+<a class="sourceLine" id="cb1-6" title="6">  <span class="op">}</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb1-7" title="7">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-8" title="8">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">name</span><span class="op">,</span> <span class="st">&#39;Dorian Gray&#39;</span><span class="op">,</span> <span class="st">&#39;item.name is not what expected&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-9" title="9">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">age</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="st">&#39;item.age is not what expected&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-10" title="10">      <span class="va">assert</span>.<span class="at">deepEqual</span>(</a>
+<a class="sourceLine" id="cb1-11" title="11">        <span class="va">data</span>.<span class="at">favoriteFoods</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-12" title="12">        [<span class="st">&#39;unknown&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-13" title="13">        <span class="st">&#39;item.favoriteFoods is not what expected&#39;</span></a>
+<a class="sourceLine" id="cb1-14" title="14">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-15" title="15">      <span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb1-16" title="16">        <span class="va">data</span>.<span class="at">__v</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-17" title="17">        <span class="dv">0</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-18" title="18">        <span class="st">&#39;findOneAndUpdate does not increment version by design!&#39;</span></a>
+<a class="sourceLine" id="cb1-19" title="19">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-20" title="20">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb1-21" title="21">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-22" title="22">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-23" title="23">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-24" title="24">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">*/</span></a></code></pre></div>

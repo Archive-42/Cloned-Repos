@@ -1,0 +1,19 @@
+{
+  "name": "functions-samples",
+  "version": "1.0.0",
+  "description": "Samples for Cloud Functions for Firebase",
+  "author": "Firebase (https://firebase.google.com/)",
+  "license": "Apache-2.0",
+  "scripts": {
+    "bootstrap": "lerna bootstrap --no-ci",
+    "lint": "lerna run lint",
+    "test": "lerna run test",
+    "compile": "lerna run compile --concurrency=8"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "lerna": "^3.20.2",
+    "typescript": "^3.8.2"
+  }
+}

@@ -1,0 +1,34 @@
+<div>
+
+	<div class="row">
+
+		<div class="col-sm-3">
+
+			<div ng-include src="'main-nav/main-nav.tpl.html'"></div>
+		
+		</div>
+		
+		<div class="col-sm-9">
+			
+			<h2>My Invites</h2>
+
+			<div ng-if="invitesEmpty">
+				<p>No invites to show.</p>
+			</div>
+
+			<div ng-if="!invitesEmpty">
+			
+				<ul>
+					<li ng-repeat="invite in invites">
+						{{ invite.eventName }}
+					</li>
+				</ul>
+			
+			</div>
+		
+		</div>
+
+	</div>
+
+</div>
+

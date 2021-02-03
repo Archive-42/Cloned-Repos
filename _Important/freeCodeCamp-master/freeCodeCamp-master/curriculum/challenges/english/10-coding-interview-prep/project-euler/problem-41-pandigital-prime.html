@@ -1,0 +1,85 @@
+<h1 id="description">–description–</h1>
+<p>We shall say that an <code>n</code>-digit number is pandigital if it makes use of all the digits 1 to <code>n</code> exactly once. For example, 2143 is a 4-digit pandigital and is also prime.</p>
+<p>What is the largest <code>n</code>-length digit pandigital prime that exists?</p>
+<h1 id="hints">–hints–</h1>
+<p><code>pandigitalPrime(4)</code> should return a number.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">pandigitalPrime</span>(<span class="dv">4</span>) <span class="op">===</span> <span class="st">&#39;number&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>pandigitalPrime(4)</code> should return 4231.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">pandigitalPrime</span>(<span class="dv">4</span>) <span class="op">==</span> <span class="dv">4231</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>pandigitalPrime(7)</code> should return 7652413.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">pandigitalPrime</span>(<span class="dv">7</span>) <span class="op">==</span> <span class="dv">7652413</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">function</span> <span class="at">pandigitalPrime</span>(n) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2"></a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="cf">return</span> n<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb4-5" title="5"></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="at">pandigitalPrime</span>(<span class="dv">7</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">function</span> <span class="at">pandigitalPrime</span>(n) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">function</span> <span class="at">isPrime</span>(num) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">2</span><span class="op">,</span> s <span class="op">=</span> <span class="va">Math</span>.<span class="at">sqrt</span>(num)<span class="op">;</span> i <span class="op">&lt;=</span> s<span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-4" title="4">      <span class="cf">if</span> (num <span class="op">%</span> i <span class="op">===</span> <span class="dv">0</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-5" title="5">        <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="cf">return</span> num <span class="op">!==</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-10" title="10"></a>
+<a class="sourceLine" id="cb5-11" title="11">  <span class="kw">function</span> <span class="at">getPermutations</span>(n) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-12" title="12">    <span class="cf">if</span> (n <span class="op">===</span> <span class="dv">1</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-13" title="13">      <span class="va">permutations</span>.<span class="at">push</span>(<span class="va">digitsArr</span>.<span class="at">join</span>(<span class="st">&#39;&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-14" title="14">    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-15" title="15">      <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n <span class="op">-</span> <span class="dv">1</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-16" title="16">        <span class="at">getPermutations</span>(n <span class="op">-</span> <span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-17" title="17">        <span class="co">// swap(n % 2 === 0 ? i : 0, n - 1);</span></a>
+<a class="sourceLine" id="cb5-18" title="18">        <span class="cf">if</span> (n <span class="op">%</span> <span class="dv">2</span> <span class="op">===</span> <span class="dv">0</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-19" title="19">          <span class="at">swap</span>(i<span class="op">,</span> n <span class="op">-</span> <span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-20" title="20">        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-21" title="21">          <span class="at">swap</span>(<span class="dv">0</span><span class="op">,</span> n <span class="op">-</span> <span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-22" title="22">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-23" title="23">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-24" title="24">      <span class="at">getPermutations</span>(n <span class="op">-</span> <span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-25" title="25">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-26" title="26">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-27" title="27">  <span class="kw">function</span> <span class="at">swap</span>(x<span class="op">,</span> y) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-28" title="28">    <span class="kw">let</span> temp <span class="op">=</span> digitsArr[x]<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-29" title="29">    digitsArr[x] <span class="op">=</span> digitsArr[y]<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-30" title="30">    digitsArr[y] <span class="op">=</span> temp<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-31" title="31">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-32" title="32">  <span class="kw">let</span> max <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-33" title="33">  <span class="kw">let</span> permutations <span class="op">=</span> []<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-34" title="34">  <span class="kw">let</span> digitsArr<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-35" title="35">  <span class="kw">let</span> pandigitalNum <span class="op">=</span> <span class="st">&#39;&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-36" title="36"></a>
+<a class="sourceLine" id="cb5-37" title="37">  <span class="cf">for</span> (<span class="kw">let</span> max <span class="op">=</span> n<span class="op">;</span> max <span class="op">&gt;</span> <span class="dv">0</span><span class="op">;</span> max<span class="op">--</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-38" title="38">    pandigitalNum <span class="op">+=</span> max<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-39" title="39">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-40" title="40"></a>
+<a class="sourceLine" id="cb5-41" title="41">  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">pandigitalNum</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-42" title="42">    <span class="cf">if</span> (max <span class="op">&gt;</span> <span class="dv">0</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-43" title="43">      <span class="cf">break</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-44" title="44">    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-45" title="45">      permutations <span class="op">=</span> []<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-46" title="46">      <span class="kw">const</span> currMax <span class="op">=</span> <span class="va">pandigitalNum</span>.<span class="at">slice</span>(i)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-47" title="47">      digitsArr <span class="op">=</span> <span class="va">currMax</span>.<span class="at">split</span>(<span class="st">&#39;&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-48" title="48">      <span class="at">getPermutations</span>(<span class="va">digitsArr</span>.<span class="at">length</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-49" title="49"></a>
+<a class="sourceLine" id="cb5-50" title="50">      <span class="co">// sort permutations in descending order</span></a>
+<a class="sourceLine" id="cb5-51" title="51">      <span class="va">permutations</span>.<span class="at">sort</span>(<span class="kw">function</span>(a<span class="op">,</span> b) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-52" title="52">        <span class="cf">return</span> b <span class="op">-</span> a<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-53" title="53">      <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-54" title="54"></a>
+<a class="sourceLine" id="cb5-55" title="55">      <span class="cf">for</span> (<span class="kw">let</span> perm <span class="kw">of</span> permutations) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-56" title="56">        <span class="kw">const</span> thisPerm <span class="op">=</span> <span class="at">parseInt</span>(perm)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-57" title="57">        <span class="cf">if</span> (<span class="at">isPrime</span>(thisPerm)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-58" title="58">          max <span class="op">=</span> thisPerm<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-59" title="59">          <span class="cf">break</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-60" title="60">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-61" title="61">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-62" title="62">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-63" title="63">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-64" title="64"></a>
+<a class="sourceLine" id="cb5-65" title="65">  <span class="cf">return</span> max<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-66" title="66"><span class="op">}</span></a></code></pre></div>

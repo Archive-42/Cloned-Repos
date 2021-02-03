@@ -1,0 +1,130 @@
+<h1 id="description">–description–</h1>
+<p>At this point, you’ve seen several applications of conditional rendering and the use of inline styles. Here’s one more example that combines both of these topics. You can also render CSS conditionally based on the state of a React component. To do this, you check for a condition, and if that condition is met, you modify the styles object that’s assigned to the JSX elements in the render method.</p>
+<p>This paradigm is important to understand because it is a dramatic shift from the more traditional approach of applying styles by modifying DOM elements directly (which is very common with jQuery, for example). In that approach, you must keep track of when elements change and also handle the actual manipulation directly. It can become difficult to keep track of changes, potentially making your UI unpredictable. When you set a style object based on a condition, you describe how the UI should look as a function of the application’s state. There is a clear flow of information that only moves in one direction. This is the preferred method when writing applications with React.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>The code editor has a simple controlled input component with a styled border. You want to style this border red if the user types more than 15 characters of text in the input box. Add a condition to check for this and, if the condition is valid, set the input border style to <code>3px solid red</code>. You can try it out by entering text in the input.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>GateKeeper</code> component should render a <code>div</code> element.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(GateKeeper))<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;div&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>GateKeeper</code> component should be initialized with a state key <code>input</code> set to an empty string.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(GateKeeper))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">state</span>().<span class="at">input</span> <span class="op">===</span> <span class="st">&#39;&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>GateKeeper</code> component should render an <code>h3</code> tag and an <code>input</code> tag.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(GateKeeper))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb3-5" title="5">      <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;h3&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">      <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;input&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb3-7" title="7">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>input</code> tag should initially have a style of <code>1px solid black</code> for the <code>border</code> property.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(GateKeeper))<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb4-5" title="5">      <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;input&#39;</span>).<span class="at">props</span>().<span class="va">style</span>.<span class="at">border</span> <span class="op">===</span> <span class="st">&#39;1px solid black&#39;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb4-8" title="8">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>input</code> tag should be styled with a border of <code>3px solid red</code> if the input value in state is longer than 15 characters.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">async</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">const</span> waitForIt <span class="op">=</span> (fn) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">new</span> <span class="at">Promise</span>((resolve<span class="op">,</span> reject) <span class="kw">=&gt;</span> <span class="at">setTimeout</span>(() <span class="kw">=&gt;</span> <span class="at">resolve</span>(<span class="at">fn</span>())<span class="op">,</span> <span class="dv">100</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">  <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(GateKeeper))<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">  <span class="kw">const</span> simulateChange <span class="op">=</span> (el<span class="op">,</span> value) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="va">el</span>.<span class="at">simulate</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">target</span><span class="op">:</span> <span class="op">{</span> value <span class="op">}</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">  <span class="kw">let</span> initialStyle <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;input&#39;</span>).<span class="at">props</span>().<span class="va">style</span>.<span class="at">border</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">  <span class="kw">const</span> state_1 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-9" title="9">    <span class="va">mockedComponent</span>.<span class="at">setState</span>(<span class="op">{</span> <span class="dt">input</span><span class="op">:</span> <span class="st">&#39;this is 15 char&#39;</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">    <span class="cf">return</span> <span class="at">waitForIt</span>(() <span class="kw">=&gt;</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;input&#39;</span>).<span class="at">props</span>().<span class="va">style</span>.<span class="at">border</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb5-12" title="12">  <span class="kw">const</span> state_2 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-13" title="13">    <span class="va">mockedComponent</span>.<span class="at">setState</span>(<span class="op">{</span></a>
+<a class="sourceLine" id="cb5-14" title="14">      <span class="dt">input</span><span class="op">:</span> <span class="st">&#39;A very long string longer than 15 characters.&#39;</span></a>
+<a class="sourceLine" id="cb5-15" title="15">    <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-16" title="16">    <span class="cf">return</span> <span class="at">waitForIt</span>(() <span class="kw">=&gt;</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;input&#39;</span>).<span class="at">props</span>().<span class="va">style</span>.<span class="at">border</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-17" title="17">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb5-18" title="18">  <span class="kw">const</span> style_1 <span class="op">=</span> <span class="cf">await</span> <span class="at">state_1</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-19" title="19">  <span class="kw">const</span> style_2 <span class="op">=</span> <span class="cf">await</span> <span class="at">state_2</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-20" title="20">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-21" title="21">    initialStyle <span class="op">===</span> <span class="st">&#39;1px solid black&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb5-22" title="22">      style_1 <span class="op">===</span> <span class="st">&#39;1px solid black&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb5-23" title="23">      style_2 <span class="op">===</span> <span class="st">&#39;3px solid red&#39;</span></a>
+<a class="sourceLine" id="cb5-24" title="24">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-25" title="25"><span class="op">};</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;GateKeeper /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>class GateKeeper extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: &#39;&#39;
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
+    this.setState({ input: event.target.value })
+  }
+  render() {
+    let inputStyle = {
+      border: &#39;1px solid black&#39;
+    };
+    // Change code below this line
+
+    // Change code above this line
+    return (
+      &lt;div&gt;
+        &lt;h3&gt;Don&#39;t Type Too Much:&lt;/h3&gt;
+        &lt;input
+          type=&quot;text&quot;
+          style={inputStyle}
+          value={this.state.input}
+          onChange={this.handleChange} /&gt;
+      &lt;/div&gt;
+    );
+  }
+};</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>class GateKeeper extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: &#39;&#39;
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
+    this.setState({ input: event.target.value })
+  }
+  render() {
+    let inputStyle = {
+      border: &#39;1px solid black&#39;
+    };
+    if (this.state.input.length &gt; 15) {
+      inputStyle.border = &#39;3px solid red&#39;;
+    };
+    return (
+      &lt;div&gt;
+        &lt;h3&gt;Don&#39;t Type Too Much:&lt;/h3&gt;
+        &lt;input
+          type=&quot;text&quot;
+          style={inputStyle}
+          value={this.state.input}
+          onChange={this.handleChange} /&gt;
+      &lt;/div&gt;
+    );
+  }
+};</code></pre>

@@ -1,0 +1,23 @@
+<h1 id="description">–description–</h1>
+<p>A <code>version</code> is one of the required fields of your package.json file. This field describes the current version of your project. Here’s an example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb1-1" title="1"><span class="er">&quot;version&quot;:</span> <span class="er">&quot;1.2.0&quot;,</span></a></code></pre></div>
+<h1 id="instructions">–instructions–</h1>
+<p>Add a <code>version</code> to the package.json file of your project.</p>
+<h1 id="hints">–hints–</h1>
+<p>package.json should have a valid “version” key</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/package.json&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="kw">var</span> packJson <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(data)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      <span class="at">assert</span>(<span class="va">packJson</span>.<span class="at">version</span><span class="op">,</span> <span class="st">&#39;&quot;version&quot; is missing&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-7" title="7">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-8" title="8">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-10" title="10">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">*/</span></a></code></pre></div>

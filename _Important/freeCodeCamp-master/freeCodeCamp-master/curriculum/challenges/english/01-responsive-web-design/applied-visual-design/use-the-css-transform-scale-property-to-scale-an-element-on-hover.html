@@ -1,0 +1,48 @@
+<h1 id="description">–description–</h1>
+<p>The <code>transform</code> property has a variety of functions that let you scale, move, rotate, skew, etc., your elements. When used with pseudo-classes such as <code>:hover</code> that specify a certain state of an element, the <code>transform</code> property can easily add interactivity to your elements.</p>
+<p>Here’s an example to scale the paragraph elements to 2.1 times their original size when a user hovers over them:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode css"><code class="sourceCode css"><a class="sourceLine" id="cb1-1" title="1">p<span class="in">:hover</span> {</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="kw">transform</span>: <span class="fu">scale(</span><span class="dv">2.1</span><span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">}</a></code></pre></div>
+<p><strong>Note:</strong> Applying a transform to a <code>div</code> element will also affect any child elements contained in the div.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Add a CSS rule for the <code>hover</code> state of the <code>div</code> and use the <code>transform</code> property to scale the <code>div</code> element to 1.1 times its original size when a user hovers over it.</p>
+<h1 id="hints">–hints–</h1>
+<p>The size of the <code>div</code> element should scale 1.1 times when the user hovers over it.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/div:hover</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">transform:</span><span class="sc">\s*?</span><span class="ss">scale</span><span class="sc">\(</span><span class="ss">1</span><span class="sc">\.</span><span class="ss">1</span><span class="sc">\)</span><span class="ss">;/gi</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  div {</a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">width</span>: <span class="dv">70</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="kw">height</span>: <span class="dv">100</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">    <span class="kw">margin</span>:  <span class="dv">50</span><span class="dt">px</span> <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">    <span class="kw">background</span>: <span class="fu">linear-gradient(</span></a>
+<a class="sourceLine" id="cb3-7" title="7">      <span class="dv">53</span><span class="dt">deg</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-8" title="8">      <span class="cn">#ccfffc</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-9" title="9">      <span class="cn">#ffcccf</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    <span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-11" title="11">  }</a>
+<a class="sourceLine" id="cb3-12" title="12"></a>
+<a class="sourceLine" id="cb3-13" title="13"></a>
+<a class="sourceLine" id="cb3-14" title="14"></a>
+<a class="sourceLine" id="cb3-15" title="15"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb3-16" title="16"></a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="kw">&lt;div&gt;&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  div {</a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">width</span>: <span class="dv">70</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="kw">height</span>: <span class="dv">100</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="kw">margin</span>:  <span class="dv">50</span><span class="dt">px</span> <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="kw">background</span>: <span class="fu">linear-gradient(</span></a>
+<a class="sourceLine" id="cb4-7" title="7">      <span class="dv">53</span><span class="dt">deg</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-8" title="8">      <span class="cn">#ccfffc</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-9" title="9">      <span class="cn">#ffcccf</span></a>
+<a class="sourceLine" id="cb4-10" title="10">    <span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">  }</a>
+<a class="sourceLine" id="cb4-12" title="12">  div<span class="in">:hover</span> {</a>
+<a class="sourceLine" id="cb4-13" title="13">    <span class="kw">transform</span>: <span class="fu">scale(</span><span class="dv">1.1</span><span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-14" title="14">  }</a>
+<a class="sourceLine" id="cb4-15" title="15"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="kw">&lt;div&gt;&lt;/div&gt;</span></a></code></pre></div>

@@ -1,0 +1,618 @@
+<!doctype html>
+<!--[if IE 7 ]>		 <html class="no-js ie ie7 lte7 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 8 ]>		 <html class="no-js ie ie8 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 9 ]>		 <html class="no-js ie ie9 lte9"> lang="en-US"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head data-live-domain="learn.jquery.com">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Introducing Events | jQuery Learning Center</title>
+
+	<meta name="author" content="JS Foundation - js.foundation">
+	<meta name="description" content="">
+
+	<meta name="viewport" content="width=device-width">
+
+	<link rel="shortcut icon" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/i/favicon.ico">
+
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/base.css?v=2">
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/style.css">
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/modernizr.custom.2.8.3.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/main.js"></script>
+
+	<script src="https://use.typekit.net/wde1aof.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+	<!-- at the end of the HEAD -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/docsearch.css">
+
+<link rel='https://api.w.org/' href='//learn.jquery.com/wp-json/' />
+<meta name="generator" content="WordPress 4.5.2" />
+<link rel="alternate" type="application/json+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fevents%2Fintroduction-to-events%2F" />
+<link rel="alternate" type="text/xml+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fevents%2Fintroduction-to-events%2F&#038;format=xml" />
+
+</head>
+<body class="jquery-learn page page-id-150 page-child parent-pageid-13 page-template-default page-slug-introduction-to-events single-author singular">
+
+<header>
+	<section id="global-nav">
+		<nav>
+			<div class="constrain">
+				<ul class="projects">
+					<li class="project jquery"><a href="https://jquery.com/" title="jQuery">jQuery</a></li>
+					<li class="project jquery-ui"><a href="https://jqueryui.com/" title="jQuery UI">jQuery UI</a></li>
+					<li class="project jquery-mobile"><a href="https://jquerymobile.com/" title="jQuery Mobile">jQuery Mobile</a></li>
+					<li class="project sizzlejs"><a href="https://sizzlejs.com/" title="Sizzle">Sizzle</a></li>
+					<li class="project qunitjs"><a href="https://qunitjs.com/" title="QUnit">QUnit</a></li>
+				</ul>
+				<ul class="links">
+					<li><a href="https://plugins.jquery.com/">Plugins</a></li>
+					<li class="dropdown"><a href="https://contribute.jquery.org/">Contribute</a>
+						<ul>
+							<li><a href="https://js.foundation/CLA">CLA</a></li>
+							<li><a href="https://contribute.jquery.org/style-guide/">Style Guides</a></li>
+							<li><a href="https://contribute.jquery.org/triage/">Bug Triage</a></li>
+							<li><a href="https://contribute.jquery.org/code/">Code</a></li>
+							<li><a href="https://contribute.jquery.org/documentation/">Documentation</a></li>
+							<li><a href="https://contribute.jquery.org/web-sites/">Web Sites</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/events">Events</a>
+						<ul class="wide">
+																		</ul>
+					</li>
+					<li class="dropdown"><a href="https://jquery.org/support/">Support</a>
+						<ul>
+							<li><a href="https://learn.jquery.com/">Learning Center</a></li>
+							<li><a href="https://irc.jquery.org/">IRC/Chat</a></li>
+							<li><a href="https://forum.jquery.com/">Forums</a></li>
+							<li><a href="https://stackoverflow.com/tags/jquery/info">Stack Overflow</a></li>
+							<li><a href="https://jquery.org/support/">Commercial Support</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/">JS Foundation</a>
+						<ul>
+							<li><a href="https://js.foundation/about/join">Join</a></li>
+							<li><a href="https://js.foundation/about/members">Members</a></li>
+							<li><a href="https://js.foundation/about/leadership">Leadership</a></li>
+							<li><a href="https://js.foundation/community/code-of-conduct">Conduct</a></li>
+							<li><a href="https://js.foundation/about/donate">Donate</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</section>
+</header>
+
+<div id="banner-blm">
+	<h2>#BlackLivesMatter</h2>
+	<p>To Donate, see this <a href="https://bit.ly/fundthecommunity">list of organizations to support</a> from <a href="https://www.reclaimtheblock.org/">Reclaim the Block</a> 
+</div>
+
+<div id="container">
+	<div id="logo-events" class="constrain clearfix">
+		<h2 class="logo"><a href="/" title="jQuery Learning Center">jQuery Learning Center</a></h2>
+
+		<aside>
+			<div id="broadcast">
+				<a href="https://js.foundation/about/donate" title="Support the JS Foundation"><img src="/jquery-wp-content/themes/jquery/content/donate.png" title="Support the JS Foundation" alt="Support the JS Foundation" border="0" width="400" height="100"></a>
+			</div>
+		</aside>
+	</div>
+
+	<nav id="main" class="constrain clearfix">
+		<div class="menu-top-container">
+	<ul id="menu-top" class="menu">
+<li class="menu-item"><a href="https://learn.jquery.com">Home</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/about/">About</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/contributing/">Contributing</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/style-guide/">Style Guide</a></li>
+	</ul>
+</div>
+
+		<form method="get" class="searchform" action="//learn.jquery.com/">
+	<button type="submit" class="icon-search"><span class="visuallyhidden">search</span></button>
+	<label>
+		<span class="visuallyhidden">Search jQuery Learning Center</span>
+		<input type="text" name="s" value=""
+			placeholder="Search">
+	</label>
+</form>
+	</nav>
+
+	<div id="content-wrapper" class="clearfix row">
+
+<div class="beta-ribbon-wrapper"><div class="beta-ribbon"><a href="/about/#beta">Beta</a></div></div>
+<div class="content-right twelve columns">
+	<div id="content">
+		<div class="post-heirarchy">Posted in: <a href="https://learn.jquery.com/events/">Events</a></div><article id="post-150" class="post-150 page type-page status-publish hentry">
+	<header class="entry-header">
+		<h1 class="entry-title">Introducing Events</h1>
+	</header>
+
+	<div class="entry-content">
+		<h2 class="toc-linked"><a href="#introduction" id="introduction" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Introduction</h2><p>Web pages are all about interaction. Users perform a countless number of actions such as moving their mice over the page, clicking on elements, and typing in textboxes &#x2014; all of these are examples of events. In addition to these user events, there are a slew of others that occur, like when the page is loaded, when video begins playing or is paused, etc. Whenever something interesting occurs on the page, an event is fired, meaning that the browser basically announces that something has happened. It&apos;s this announcement that allows developers to &quot;listen&quot; for events and react to them appropriately.</p>
+<h2 class="toc-linked"><a href="#what-39-s-a-dom-event" id="what-39-s-a-dom-event" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> What&apos;s a DOM event?</h2><p>As mentioned, there are a myriad of event types, but perhaps the ones that are easiest to understand are user events, like when someone clicks on an element or types into a form. These types of events occur on an element, meaning that when a user clicks on a button for example, the button has had an event occur on it. While user interactions aren&apos;t the only types of DOM events, they&apos;re certainly the easiest to understand when starting out. Mozilla Developer Network has a good reference of <a href="https://developer.mozilla.org/en-US/docs/Web/Events">available DOM events</a>.</p>
+<h2 class="toc-linked"><a href="#ways-to-listen-for-events" id="ways-to-listen-for-events" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Ways to listen for events</h2><p>There are many ways to listen for events. Actions are constantly occurring on a webpage, but the developer is only notified about them if they&apos;re <em>listening</em> for them. Listening for an event basically means you&apos;re waiting for the browser to tell you that a specific event has occurred and then you&apos;ll specify how the page should react.</p>
+<p>To specify to the browser what to do when an event occurs, you provide a function, also known as an <em>event handler</em>. This function is executed whenever the event occurs (or until the event is unbound).</p>
+<p>For instance, to alert a message whenever a user clicks on a button, you might write something like this:</p>
+<div class="syntaxhighlighter xml">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">button</span> <span class="attribute">onclick</span>=<span class="value">&quot;alert(&apos;Hello&apos;)&quot;</span>&gt;</span>Say hello<span class="tag">&lt;/<span class="title">button</span>&gt;</span></code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>The event we want to listen to is specified by the button&apos;s <code>onclick</code> attribute, and the event handler is the <code>alert</code> function which alerts &quot;Hello&quot; to the user. While this works, it&apos;s an abysmal way to achieve this functionality for a couple of reasons:</p>
+<ol>
+<li>First, we&apos;re coupling our view code (HTML) with our interaction code (JS). That means that whenever we need to update functionality, we&apos;d have to edit our HTML which is just a bad practice and a maintenance nightmare.</li>
+<li>Second, it&apos;s not scalable. If you had to attach this functionality onto numerous buttons, you&apos;d not only bloat the page with a bunch of repetitious code, but you would again destroy maintainability.</li>
+</ol>
+<p>Utilizing inline event handlers like this can be considered <em>obtrusive JavaScript,</em> but its opposite, <em>unobtrusive JavaScript</em> is a much more common way of discussing the topic. The notion of <em>unobtrusive JavaScript</em> is that your HTML and JS are kept separate and are therefore more maintainable. Separation of concerns is important because it keeps like pieces of code together (i.e. HTML, JS, CSS) and unlike pieces of code apart, facilitating changes, enhancements, etc. Furthermore, unobtrusive JavaScript stresses the importance of adding the least amount of cruft to a page as possible. If a user&apos;s browser doesn&apos;t support JavaScript, then it shouldn&apos;t be intertwined into the markup of the page. Also, to prevent naming collisions, JS code should utilize a single namespace for different pieces of functionality or libraries. jQuery is a good example of this, in that the <code>jQuery</code> object/constructor (and also the <code>$</code> alias to <code>jQuery</code>) only utilizes a single global variable, and all of jQuery&apos;s functionality is packaged into that one object.</p>
+<p>To accomplish the desired task unobtrusively, let&apos;s change our HTML a little bit by removing the <code>onclick</code> attribute and replacing it with an <code>id</code>, which we&apos;ll utilize to &quot;hook onto&quot; the button from within a script file.</p>
+<div class="syntaxhighlighter xml">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">button</span> <span class="attribute">id</span>=<span class="value">&quot;helloBtn&quot;</span>&gt;</span>Say hello<span class="tag">&lt;/<span class="title">button</span>&gt;</span></code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>If we wanted to be informed when a user clicks on that button unobtrusively, we might do something like the following in a separate script file:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Event binding using addEventListener</span></code></div></div><div class="container"><div class="line"><code><span class="keyword">var</span> helloBtn = document.getElementById( <span class="string">&quot;helloBtn&quot;</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>helloBtn.addEventListener( <span class="string">&quot;click&quot;</span>, <span class="keyword">function</span>( event ) {</code></div></div><div class="container"><div class="line"><code>    alert( <span class="string">&quot;Hello.&quot;</span> );</code></div></div><div class="container"><div class="line"><code>}, <span class="literal">false</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Here we&apos;re saving a reference to the button element by calling <code>getElementById</code> and assigning its return value to a variable. We then call <code>addEventListener</code> and provide an event handler function that will be called whenever that event occurs. While there&apos;s nothing wrong with this code as it will work fine in modern browsers, it won&apos;t fare well in versions of IE prior to IE9. This is because Microsoft chose to implement a different method, <code>attachEvent</code>, as opposed to the W3C standard <code>addEventListener</code>, and didn&apos;t get around to changing it until IE9 was released. For this reason, it&apos;s beneficial to utilize jQuery because it abstracts away browser inconsistencies, allowing developers to use a single API for these types of tasks, as seen below.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Event binding using a convenience method</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;#helloBtn&quot;</span> ).click(<span class="keyword">function</span>( event ) {</code></div></div><div class="container"><div class="line"><code>    alert( <span class="string">&quot;Hello.&quot;</span> );</code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>The <code>$( &quot;#helloBtn&quot; )</code> code selects the button element using the <code>$</code> (a.k.a. <code>jQuery</code>) function and returns a jQuery object. The jQuery object has a bunch of methods (functions) available to it, one of them named <code>click</code>, which resides in the jQuery object&apos;s prototype. We call the <code>click</code> method on the jQuery object and pass along an anonymous function event handler that&apos;s going to be executed when a user clicks the button, alerting &quot;Hello.&quot; to the user.</p>
+<p>There are a number of ways that events can be listened for using jQuery:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+						<div class="line n17">17</div>
+					
+						<div class="line n18">18</div>
+					
+						<div class="line n19">19</div>
+					
+						<div class="line n20">20</div>
+					
+						<div class="line n21">21</div>
+					
+						<div class="line n22">22</div>
+					
+						<div class="line n23">23</div>
+					
+						<div class="line n24">24</div>
+					
+						<div class="line n25">25</div>
+					
+						<div class="line n26">26</div>
+					
+						<div class="line n27">27</div>
+					
+						<div class="line n28">28</div>
+					
+						<div class="line n29">29</div>
+					
+						<div class="line n30">30</div>
+					
+						<div class="line n31">31</div>
+					
+						<div class="line n32">32</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// The many ways to bind events with jQuery</span></code></div></div><div class="container"><div class="line"><code><span class="comment">// Attach an event handler directly to the button using jQuery&apos;s</span></code></div></div><div class="container"><div class="line"><code><span class="comment">// shorthand `click` method.</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;#helloBtn&quot;</span> ).click(<span class="keyword">function</span>( event ) {</code></div></div><div class="container"><div class="line"><code>    alert( <span class="string">&quot;Hello.&quot;</span> );</code></div></div><div class="container"><div class="line"><code>});</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Attach an event handler directly to the button using jQuery&apos;s</span></code></div></div><div class="container"><div class="line"><code><span class="comment">// `bind` method, passing it an event string of `click`</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;#helloBtn&quot;</span> ).bind( <span class="string">&quot;click&quot;</span>, <span class="keyword">function</span>( event ) {</code></div></div><div class="container"><div class="line"><code>    alert( <span class="string">&quot;Hello.&quot;</span> );</code></div></div><div class="container"><div class="line"><code>});</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// As of jQuery 1.7, attach an event handler directly to the button</span></code></div></div><div class="container"><div class="line"><code><span class="comment">// using jQuery&apos;s `on` method.</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;#helloBtn&quot;</span> ).on( <span class="string">&quot;click&quot;</span>, <span class="keyword">function</span>( event ) {</code></div></div><div class="container"><div class="line"><code>    alert( <span class="string">&quot;Hello.&quot;</span> );</code></div></div><div class="container"><div class="line"><code>});</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// As of jQuery 1.7, attach an event handler to the `body` element that</span></code></div></div><div class="container"><div class="line"><code><span class="comment">// is listening for clicks, and will respond whenever *any* button is</span></code></div></div><div class="container"><div class="line"><code><span class="comment">// clicked on the page.</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;body&quot;</span> ).on({</code></div></div><div class="container"><div class="line"><code>    click: <span class="keyword">function</span>( event ) {</code></div></div><div class="container"><div class="line"><code>        alert( <span class="string">&quot;Hello.&quot;</span> );</code></div></div><div class="container"><div class="line"><code>    }</code></div></div><div class="container"><div class="line"><code>}, <span class="string">&quot;button&quot;</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// An alternative to the previous example, using slightly different syntax.</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;body&quot;</span> ).on( <span class="string">&quot;click&quot;</span>, <span class="string">&quot;button&quot;</span>, <span class="keyword">function</span>( event ) {</code></div></div><div class="container"><div class="line"><code>    alert( <span class="string">&quot;Hello.&quot;</span> );</code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>As of jQuery 1.7, all events are bound via the <code>on</code> method, whether you call it directly or whether you use an alias/shortcut method such as <code>bind</code> or <code>click</code>, which are mapped to the <code>on</code> method internally. With this in mind, it&apos;s beneficial to use the <code>on</code> method because the others are all just syntactic sugar, and utilizing the <code>on</code> method is going to result in faster and more consistent code.</p>
+<p>Let&apos;s look at the <code>on</code> examples from above and discuss their differences. In the first example, a string of <code>click</code> is passed as the first argument to the <code>on</code> method, and an anonymous function is passed as the second. This looks a lot like the <code>bind</code> method before it. Here, we&apos;re attaching an event handler directly to <code>#helloBtn</code>. If there were any other buttons on the page, they wouldn&apos;t alert &quot;Hello&quot; when clicked because the event is only attached to <code>#helloBtn</code>.</p>
+<p>In the second <code>on</code> example, we&apos;re passing an object (denoted by the curly braces <code>{}</code>), which has a property of <code>click</code> whose value is an anonymous function. The second argument to the <code>on</code> method is a jQuery selector string of <code>button</code>. While examples 1&#x2013;3 are functionally equivalent, example 4 is different in that the <code>body</code> element is listening for click events that occur on <em>any</em> button element, not just <code>#helloBtn</code>. The final example above is exactly the same as the one preceding it, but instead of passing an object, we pass an event string, a selector string, and the callback. Both of these are examples of event delegation, a process by which an element higher in the DOM tree listens for events occurring on its children.</p>
+<h2 class="toc-linked"><a href="#event-delegation" id="event-delegation" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Event delegation</h2><p>Event delegation works because of the notion of <em>event bubbling</em>. For most events, whenever something occurs on a page (like an element is clicked), the event travels from the element it occurred on, up to its parent, then up to the parent&apos;s parent, and so on, until it reaches the root element, a.k.a. the <code>window</code>. So in our table example, whenever a <code>td</code> is clicked, its parent <code>tr</code> would also be notified of the click, the parent <code>table</code> would be notified, the <code>body</code> would be notified, and ultimately the <code>window</code> would be notified as well. While event bubbling and delegation work well, the delegating element (in our example, the <code>table</code>) should always be as close to the delegatees as possible so the event doesn&apos;t have to travel way up the DOM tree before its handler function is called.</p>
+<p>The two main pros of event delegation over binding directly to an element (or set of elements) are performance and the aforementioned event bubbling. Imagine having a large table of 1,000 cells and binding to an event for each cell. That&apos;s 1,000 separate event handlers that the browser has to attach, even if they&apos;re all mapped to the same function. Instead of binding to each individual cell though, we could instead use delegation to listen for events that occur on the parent table and react accordingly. One event would be bound instead of 1,000, resulting in way better performance and memory management.</p>
+<p>The event bubbling that occurs affords us the ability to add cells via Ajax for example, without having to bind events directly to those cells since the parent table is listening for clicks and is therefore notified of clicks on its children. If we weren&apos;t using delegation, we&apos;d have to constantly bind events for every cell that&apos;s added which is not only a performance issue, but could also become a maintenance nightmare.</p>
+<h2 class="toc-linked"><a href="#the-event-object" id="the-event-object" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> The event object</h2><p>In all of the previous examples, we&apos;ve been using anonymous functions and specifying an <code>event</code> argument within that function. Let&apos;s change it up a little bit.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Binding a named function</span></code></div></div><div class="container"><div class="line"><code><span class="function"><span class="keyword">function</span> <span class="title">sayHello</span><span class="params">( event )</span> {</span></code></div></div><div class="container"><div class="line"><code>    alert( <span class="string">&quot;Hello.&quot;</span> );</code></div></div><div class="container"><div class="line"><code>}</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;#helloBtn&quot;</span> ).on( <span class="string">&quot;click&quot;</span>, sayHello );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>In this slightly different example, we&apos;re defining a function called <code>sayHello</code> and then passing that function into the <code>on</code> method instead of an anonymous function. So many online examples show anonymous functions used as event handlers, but it&apos;s important to realize that you can also pass defined functions as event handlers as well. This is important if different elements or different events should perform the same functionality. This helps to keep your code <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>.</p>
+<p>But what about that <code>event</code> argument in the <code>sayHello</code> function &#x2014; what is it and why does it matter? In all DOM event callbacks, jQuery passes an <em>event object</em> argument which contains information about the event, such as precisely when and where it occurred, what type of event it was, which element the event occurred on, and a plethora of other information. Of course you don&apos;t have to call it <code>event</code>; you could call it <code>e</code> or whatever you want to, but <code>event</code> is a pretty common convention.</p>
+<p>If the element has default functionality for a specific event (like a link opens a new page, a button in a form submits the form, etc.), that default functionality can be canceled. This is often useful for Ajax requests. When a user clicks on a button to submit a form via Ajax, we&apos;d want to cancel the button/form&apos;s default action (to submit it to the form&apos;s <code>action</code> attribute), and we would instead do an Ajax request to accomplish the same task for a more seamless experience. To do this, we would utilize the event object and call its <code>.preventDefault()</code> method. We can also prevent the event from bubbling up the DOM tree using <code>.stopPropagation()</code> so that parent elements aren&apos;t notified of its occurrence (in the case that event delegation is being used).</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Preventing a default action from occurring and stopping the event bubbling</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;form&quot;</span> ).on( <span class="string">&quot;submit&quot;</span>, <span class="keyword">function</span>( event ) {</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Prevent the form&apos;s default submission.</span></code></div></div><div class="container"><div class="line"><code>    event.preventDefault();</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Prevent event from bubbling up DOM tree, prohibiting delegation</span></code></div></div><div class="container"><div class="line"><code>    event.stopPropagation();</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Make an AJAX request to submit the form data</span></code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>When utilizing both <code>.preventDefault()</code> and <code>.stopPropagation()</code> simultaneously, you can instead <code>return false</code> to achieve both in a more concise manner, but it&apos;s advisable to only <code>return false</code> when both are actually necessary and not just for the sake of terseness. A final note on <code>.stopPropagation()</code> is that when using it in delegated events, the soonest that event bubbling can be stopped is when the event reaches the element that is delegating it.</p>
+<p>It&apos;s also important to note that the event object contains a property called <code>originalEvent</code>, which is the event object that the browser itself created. jQuery wraps this native event object with some useful methods and properties, but in some instances, you&apos;ll need to access the original event via <code>event.originalEvent</code> for instance. This is especially  useful for touch events on mobile devices and tablets.</p>
+<p>Finally, to inspect the event itself and see all of the data it contains, you should log the event in the browser&apos;s console using <code>console.log</code>. This will allow you to see all of an event&apos;s properties (including the <code>originalEvent</code>) which can be really helpful for debugging.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Logging an event&apos;s information</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;form&quot;</span> ).on( <span class="string">&quot;submit&quot;</span>, <span class="keyword">function</span>( event ) {</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Prevent the form&apos;s default submission.</span></code></div></div><div class="container"><div class="line"><code>    event.preventDefault();</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Log the event object for inspectin&apos;</span></code></div></div><div class="container"><div class="line"><code>    console.log( event );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Make an AJAX request to submit the form data</span></code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>					</div>
+
+	<div class="entry-meta row">
+				<div class="bottom-links row">
+							<div class="prev six columns">
+					<a href="https://learn.jquery.com/events/event-helpers/">
+					<i class="icon-chevron-left"></i>
+					Event Helpers					</a>
+				</div>
+										<div class="next six columns">
+					<a href="https://learn.jquery.com/events/handling-events/">
+					Handling Events					<i class="icon-chevron-right"></i>
+					</a>
+				</div>
+					</div>
+		
+		<aside class="meta-details six columns">
+			<h3>Last Updated</h3>
+			<ul>
+				<li class="icon-calendar icon-large" title="Last Updated"><span>December 17, 2015</span></li>
+			</ul>
+		</aside>
+		<aside class="github-feedback six columns">
+			<h3>Suggestions, Problems, Feedback?</h3>
+			<a class="button dark" href="https://github.com/jquery/learn.jquery.com/tree/master/page/events/introduction-to-events.md"><i class="icon-github"></i> Open an Issue or Submit a Pull Request on GitHub</a>
+		</aside>
+
+	</div>
+</article>
+	</div>
+
+	<div id="sidebar" class="widget-area" role="complementary">
+		
+		<aside id="chapter-listing" class="widget">
+			<h3 class="widget-title">Chapters</h3>
+			<ul>
+																		<li >
+						<a href="//learn.jquery.com/about-jquery/">
+															<i class="icon-certificate"></i>
+														About jQuery						</a>
+																																																																									</li>
+														<li >
+						<a href="//learn.jquery.com/using-jquery-core/">
+															<i class="icon-star-empty"></i>
+														Using jQuery Core						</a>
+																																																																																																																																																																																																																																																																																										<ul class="sub-chapter">
+																																																																																																																																																																																																																																																																																	<li >
+										<a href="//learn.jquery.com/using-jquery-core/faq/">
+											Frequently Asked Questions										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li class='active'>
+						<a href="//learn.jquery.com/events/">
+															<i class="icon-tasks"></i>
+														Events						</a>
+																																																																																																																																																																																																	</li>
+														<li >
+						<a href="//learn.jquery.com/effects/">
+															<i class="icon-picture"></i>
+														Effects						</a>
+																																																																																								</li>
+														<li >
+						<a href="//learn.jquery.com/ajax/">
+															<i class="icon-refresh"></i>
+														Ajax						</a>
+																																																																																																																						</li>
+														<li >
+						<a href="//learn.jquery.com/plugins/">
+															<i class="icon-bolt"></i>
+														Plugins						</a>
+																																																																																																							</li>
+														<li >
+						<a href="//learn.jquery.com/performance/">
+															<i class="icon-dashboard"></i>
+														Performance						</a>
+																																																																																																																																																				</li>
+														<li >
+						<a href="//learn.jquery.com/code-organization/">
+															<i class="icon-sitemap"></i>
+														Code Organization						</a>
+																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/code-organization/deferreds/">
+											Deferreds										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-ui/">
+															<i class="icon-magnet"></i>
+														jQuery UI						</a>
+																																																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/jquery-ui/widget-factory/">
+											Widget Factory										</a>
+									</li>
+																																												<li >
+										<a href="//learn.jquery.com/jquery-ui/environments/">
+											Using jQuery UI										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-mobile/">
+															<i class="icon-th-large"></i>
+														jQuery Mobile						</a>
+																																																																									</li>
+							</ul>
+		</aside>
+
+
+	</div><!-- #sidebar .widget-area -->
+</div>
+
+	</div>
+</div>
+
+<footer class="clearfix simple">
+	<div class="constrain">
+		<div class="row">
+			<div class="six columns offset-by-three">
+				<h3><span>Books</span></h3>
+				<ul class="books">
+					<li>
+						<a href="https://www.packtpub.com/web-development/learning-jquery-fourth-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/learning-jquery-4th-ed.jpg" alt="Learning jQuery 4th Edition by Karl Swedberg and Jonathan Chaffer" width="92" height="114">
+							Learning jQuery Fourth Edition
+							<cite>Karl Swedberg and Jonathan Chaffer</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.manning.com/books/jquery-in-action-third-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-in-action.jpg" alt="jQuery in Action by Bear Bibeault, Yehuda Katz, and Aurelio De Rosa" width="92" height="114">
+							jQuery in Action
+							<cite>Bear Bibeault, Yehuda Katz, and Aurelio De Rosa</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.syncfusion.com/ebooks/jquery">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-succinctly.jpg" alt="jQuery Succinctly by Cody Lindley" width="92" height="114">
+							jQuery Succinctly
+							<cite>Cody Lindley</cite>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		
+<div id="legal">
+	<ul class="footer-site-links">
+			<li><a class="icon-pencil" href="https://learn.jquery.com/">Learning Center</a></li>
+			<li><a class="icon-group" href="https://forum.jquery.com/">Forum</a></li>
+			<li><a class="icon-wrench" href="https://api.jquery.com/">API</a></li>
+			<li><a class="icon-twitter" href="https://twitter.com/jquery">Twitter</a></li>
+			<li><a class="icon-comments" href="https://irc.jquery.org/">IRC</a></li>
+			<li><a class="icon-github" href="https://github.com/jquery">GitHub</a></li>
+	</ul>
+	<p class="copyright">
+		Copyright 2021 <a href="https://openjsf.org/">OpenJS Foundation</a> and jQuery contributors. All rights reserved. See <a href="https://jquery.org/license/">jQuery License</a> for more information. The <a href="https://openjsf.org/">OpenJS Foundation</a> has registered trademarks and uses trademarks. For a list of trademarks of the <a href="https://openjsf.org/">OpenJS Foundation</a>, please see our <a href="https://trademark-policy.openjsf.org/">Trademark Policy</a> and <a href="https://trademark-list.openjsf.org/">Trademark List</a>. Trademarks and logos not indicated on the <a href="https://trademark-list.openjsf.org/">list of OpenJS Foundation trademarks</a> are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them. OpenJS Foundation <a href="https://terms-of-use.openjsf.org/">Terms of Use</a>, <a href="https://privacy-policy.openjsf.org/">Privacy</a>, and <a href="https://www.linuxfoundation.org/cookies">Cookie</a> Policies also apply.
+		<span class="sponsor-line"><a href="https://www.digitalocean.com" class="do-link">Web hosting by Digital Ocean</a> | <a href="https://www.stackpath.com" class="sp-link">CDN by StackPath</a></span>
+	</p>
+</div>
+
+	</div>
+</footer>
+
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/comment-reply.min.js?ver=4.5.2'></script>
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/wp-embed.min.js?ver=4.5.2'></script>
+	<!-- at the end of the BODY -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"  onload="document.querySelector('input[name=\'s\']') && docsearch({apiKey: '3cfde9aca378c8aab554d5bf1b23489b',
+		indexName: 'jquery',
+		inputSelector: 'input[name=\'s\']',
+		debug: true // Set debug to true if you want to inspect the dropdown
+	})" async></script>
+</body>
+</html>

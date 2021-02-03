@@ -1,0 +1,60 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "264f93d842e4637d1feb30fcc41ffc1c",
+    "packages": [
+        {
+            "name": "yuloh/bccomp-polyfill",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/matt-allan/bccomp-polyfill.git",
+                "reference": "62813e0841a92e8bf409869a3ba10cdaf88e120e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/matt-allan/bccomp-polyfill/zipball/62813e0841a92e8bf409869a3ba10cdaf88e120e",
+                "reference": "62813e0841a92e8bf409869a3ba10cdaf88e120e",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Yuloh\\BcCompPolyfill\\": "src"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matt Allan",
+                    "email": "matthew.james.allan@gmail.com"
+                }
+            ],
+            "time": "2016-08-22T19:24:35+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "yuloh/bccomp-polyfill": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.1"
+    },
+    "platform-dev": [],
+    "platform-overrides": {
+        "php": "7.1"
+    }
+}

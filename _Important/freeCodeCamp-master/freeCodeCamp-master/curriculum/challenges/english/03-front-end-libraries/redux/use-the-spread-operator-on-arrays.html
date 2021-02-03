@@ -1,0 +1,73 @@
+<h1 id="description">–description–</h1>
+<p>One solution from ES6 to help enforce state immutability in Redux is the spread operator: <code>...</code>. The spread operator has a variety of applications, one of which is well-suited to the previous challenge of producing a new array from an existing array. This is relatively new, but commonly used syntax. For example, if you have an array <code>myArray</code> and write:</p>
+<p><code>let newArray = [...myArray];</code></p>
+<p><code>newArray</code> is now a clone of <code>myArray</code>. Both arrays still exist separately in memory. If you perform a mutation like <code>newArray.push(5)</code>, <code>myArray</code> doesn’t change. The <code>...</code> effectively <em>spreads</em> out the values in <code>myArray</code> into a new array. To clone an array but add additional values in the new array, you could write <code>[...myArray, 'new value']</code>. This would return a new array composed of the values in <code>myArray</code> and the string <code>'new value'</code> as the last value. The spread syntax can be used multiple times in array composition like this, but it’s important to note that it only makes a shallow copy of the array. That is to say, it only provides immutable array operations for one-dimensional arrays.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Use the spread operator to return a new copy of state when a to-do is added.</p>
+<h1 id="hints">–hints–</h1>
+<p>The Redux store should exist and initialize with a state equal to <code>[Do not mutate state!]</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">const</span> initialState <span class="op">=</span> <span class="va">store</span>.<span class="at">getState</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb1-5" title="5">      <span class="va">Array</span>.<span class="at">isArray</span>(initialState) <span class="op">===</span> <span class="kw">true</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb1-6" title="6">      initialState[<span class="dv">0</span>] <span class="op">===</span> <span class="st">&#39;Do not mutate state!&#39;</span></a>
+<a class="sourceLine" id="cb1-7" title="7">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<p><code>addToDo</code> and <code>immutableReducer</code> both should be functions.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> addToDo <span class="op">===</span> <span class="st">&#39;function&#39;</span> <span class="op">&amp;&amp;</span> <span class="kw">typeof</span> immutableReducer <span class="op">===</span> <span class="st">&#39;function&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Dispatching an action of type <code>ADD_TO_DO</code> on the Redux store should add a <code>todo</code> item and should NOT mutate state.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">const</span> initialState <span class="op">=</span> <span class="va">store</span>.<span class="at">getState</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="kw">const</span> isFrozen <span class="op">=</span> <span class="at">DeepFreeze</span>(initialState)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">    <span class="va">store</span>.<span class="at">dispatch</span>(<span class="at">addToDo</span>(<span class="st">&#39;__TEST__TO__DO__&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">    <span class="kw">const</span> finalState <span class="op">=</span> <span class="va">store</span>.<span class="at">getState</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-7" title="7">    <span class="kw">const</span> expectedState <span class="op">=</span> [<span class="st">&#39;Do not mutate state!&#39;</span><span class="op">,</span> <span class="st">&#39;__TEST__TO__DO__&#39;</span>]<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">    <span class="cf">return</span> isFrozen <span class="op">&amp;&amp;</span> <span class="at">DeepEqual</span>(finalState<span class="op">,</span> expectedState)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<p>The spread operator should be used to return new state.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1">(getUserInput) <span class="kw">=&gt;</span> <span class="at">assert</span>(<span class="at">getUserInput</span>(<span class="st">&#39;index&#39;</span>).<span class="at">includes</span>(<span class="st">&#39;...state&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">const</span> immutableReducer <span class="op">=</span> (state <span class="op">=</span> [<span class="st">&#39;Do not mutate state!&#39;</span>]<span class="op">,</span> action) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="cf">switch</span>(<span class="va">action</span>.<span class="at">type</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="cf">case</span> <span class="st">&#39;ADD_TO_DO&#39;</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb5-4" title="4">      <span class="co">// Don&#39;t mutate state here or the tests will fail</span></a>
+<a class="sourceLine" id="cb5-5" title="5">      <span class="cf">return</span></a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="cf">default</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb5-7" title="7">      <span class="cf">return</span> state<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="op">};</span></a>
+<a class="sourceLine" id="cb5-10" title="10"></a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="kw">const</span> addToDo <span class="op">=</span> (todo) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-12" title="12">  <span class="cf">return</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-13" title="13">    <span class="dt">type</span><span class="op">:</span> <span class="st">&#39;ADD_TO_DO&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-14" title="14">    todo</a>
+<a class="sourceLine" id="cb5-15" title="15">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-16" title="16"><span class="op">}</span></a>
+<a class="sourceLine" id="cb5-17" title="17"></a>
+<a class="sourceLine" id="cb5-18" title="18"><span class="kw">const</span> store <span class="op">=</span> <span class="va">Redux</span>.<span class="at">createStore</span>(immutableReducer)<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">const</span> immutableReducer <span class="op">=</span> (state <span class="op">=</span> [<span class="st">&#39;Do not mutate state!&#39;</span>]<span class="op">,</span> action) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="cf">switch</span>(<span class="va">action</span>.<span class="at">type</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="cf">case</span> <span class="st">&#39;ADD_TO_DO&#39;</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb6-4" title="4">      <span class="cf">return</span> [</a>
+<a class="sourceLine" id="cb6-5" title="5">        ...<span class="at">state</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-6" title="6">        <span class="va">action</span>.<span class="at">todo</span></a>
+<a class="sourceLine" id="cb6-7" title="7">      ]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="cf">default</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb6-9" title="9">      <span class="cf">return</span> state<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-11" title="11"><span class="op">};</span></a>
+<a class="sourceLine" id="cb6-12" title="12"></a>
+<a class="sourceLine" id="cb6-13" title="13"><span class="kw">const</span> addToDo <span class="op">=</span> (todo) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-14" title="14">  <span class="cf">return</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-15" title="15">    <span class="dt">type</span><span class="op">:</span> <span class="st">&#39;ADD_TO_DO&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-16" title="16">    todo</a>
+<a class="sourceLine" id="cb6-17" title="17">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-18" title="18"><span class="op">}</span></a>
+<a class="sourceLine" id="cb6-19" title="19"></a>
+<a class="sourceLine" id="cb6-20" title="20"><span class="kw">const</span> store <span class="op">=</span> <span class="va">Redux</span>.<span class="at">createStore</span>(immutableReducer)<span class="op">;</span></a></code></pre></div>

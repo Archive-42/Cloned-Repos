@@ -1,0 +1,58 @@
+<h1 id="description">–description–</h1>
+<p>The last challenge created an <code>svg</code> element with a given width and height, which was visible because it had a <code>background-color</code> applied to it in the <code>style</code> tag. The code made space for the given width and height.</p>
+<p>The next step is to create a shape to put in the <code>svg</code> area. There are a number of supported shapes in SVG, such as rectangles and circles. They are used to display data. For example, a rectangle (<code>&lt;rect&gt;</code>) SVG shape could create a bar in a bar chart.</p>
+<p>When you place a shape into the <code>svg</code> area, you can specify where it goes with <code>x</code> and <code>y</code> coordinates. The origin point of (0, 0) is in the upper-left corner. Positive values for <code>x</code> push the shape to the right, and positive values for <code>y</code> push the shape down from the origin point.</p>
+<p>To place a shape in the middle of the 500 (width) x 100 (height) <code>svg</code> from last challenge, the <code>x</code> coordinate would be 250 and the <code>y</code> coordinate would be 50.</p>
+<p>An SVG <code>rect</code> has four attributes. There are the <code>x</code> and <code>y</code> coordinates for where it is placed in the <code>svg</code> area. It also has a <code>height</code> and <code>width</code> to specify the size.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Add a <code>rect</code> shape to the <code>svg</code> using <code>append()</code>, and give it a <code>width</code> attribute of 25 and <code>height</code> attribute of 100. Also, give the <code>rect</code> <code>x</code> and <code>y</code> attributes each set to 0.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your document should have 1 <code>rect</code> element.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;rect&#39;</span>).<span class="at">length</span> <span class="op">==</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>rect</code> element should have a <code>width</code> attribute set to 25.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;rect&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;width&#39;</span>) <span class="op">==</span> <span class="st">&#39;25&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>rect</code> element should have a <code>height</code> attribute set to 100.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;rect&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;height&#39;</span>) <span class="op">==</span> <span class="st">&#39;100&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>rect</code> element should have an <code>x</code> attribute set to 0.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;rect&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;x&#39;</span>) <span class="op">==</span> <span class="st">&#39;0&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>rect</code> element should have a <code>y</code> attribute set to 0.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;rect&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;y&#39;</span>) <span class="op">==</span> <span class="st">&#39;0&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="kw">&lt;script&gt;</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">const</span> dataset <span class="op">=</span> [<span class="dv">12</span><span class="op">,</span> <span class="dv">31</span><span class="op">,</span> <span class="dv">22</span><span class="op">,</span> <span class="dv">17</span><span class="op">,</span> <span class="dv">25</span><span class="op">,</span> <span class="dv">18</span><span class="op">,</span> <span class="dv">29</span><span class="op">,</span> <span class="dv">14</span><span class="op">,</span> <span class="dv">9</span>]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4"></a>
+<a class="sourceLine" id="cb6-5" title="5">    <span class="kw">const</span> w <span class="op">=</span> <span class="dv">500</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">    <span class="kw">const</span> h <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-7" title="7"></a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="kw">const</span> svg <span class="op">=</span> <span class="va">d3</span>.<span class="at">select</span>(<span class="st">&quot;body&quot;</span>)</a>
+<a class="sourceLine" id="cb6-9" title="9">                  .<span class="at">append</span>(<span class="st">&quot;svg&quot;</span>)</a>
+<a class="sourceLine" id="cb6-10" title="10">                  .<span class="at">attr</span>(<span class="st">&quot;width&quot;</span><span class="op">,</span> w)</a>
+<a class="sourceLine" id="cb6-11" title="11">                  .<span class="at">attr</span>(<span class="st">&quot;height&quot;</span><span class="op">,</span> h)</a>
+<a class="sourceLine" id="cb6-12" title="12">                  <span class="co">// Add your code below this line</span></a>
+<a class="sourceLine" id="cb6-13" title="13"></a>
+<a class="sourceLine" id="cb6-14" title="14"></a>
+<a class="sourceLine" id="cb6-15" title="15"></a>
+<a class="sourceLine" id="cb6-16" title="16">                  <span class="co">// Add your code above this line</span></a>
+<a class="sourceLine" id="cb6-17" title="17">  <span class="kw">&lt;/script&gt;</span></a>
+<a class="sourceLine" id="cb6-18" title="18"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="kw">&lt;script&gt;</span></a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="kw">const</span> dataset <span class="op">=</span> [<span class="dv">12</span><span class="op">,</span> <span class="dv">31</span><span class="op">,</span> <span class="dv">22</span><span class="op">,</span> <span class="dv">17</span><span class="op">,</span> <span class="dv">25</span><span class="op">,</span> <span class="dv">18</span><span class="op">,</span> <span class="dv">29</span><span class="op">,</span> <span class="dv">14</span><span class="op">,</span> <span class="dv">9</span>]<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-4" title="4"></a>
+<a class="sourceLine" id="cb7-5" title="5">    <span class="kw">const</span> w <span class="op">=</span> <span class="dv">500</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">    <span class="kw">const</span> h <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-7" title="7"></a>
+<a class="sourceLine" id="cb7-8" title="8">    <span class="kw">const</span> svg <span class="op">=</span> <span class="va">d3</span>.<span class="at">select</span>(<span class="st">&quot;body&quot;</span>)</a>
+<a class="sourceLine" id="cb7-9" title="9">                  .<span class="at">append</span>(<span class="st">&quot;svg&quot;</span>)</a>
+<a class="sourceLine" id="cb7-10" title="10">                  .<span class="at">attr</span>(<span class="st">&quot;width&quot;</span><span class="op">,</span> w)</a>
+<a class="sourceLine" id="cb7-11" title="11">                  .<span class="at">attr</span>(<span class="st">&quot;height&quot;</span><span class="op">,</span> h)</a>
+<a class="sourceLine" id="cb7-12" title="12">                  .<span class="at">append</span>(<span class="st">&quot;rect&quot;</span>)</a>
+<a class="sourceLine" id="cb7-13" title="13">                  .<span class="at">attr</span>(<span class="st">&quot;width&quot;</span><span class="op">,</span> <span class="dv">25</span>)</a>
+<a class="sourceLine" id="cb7-14" title="14">                  .<span class="at">attr</span>(<span class="st">&quot;height&quot;</span><span class="op">,</span> <span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb7-15" title="15">                  .<span class="at">attr</span>(<span class="st">&quot;x&quot;</span><span class="op">,</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb7-16" title="16">                  .<span class="at">attr</span>(<span class="st">&quot;y&quot;</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-17" title="17">  <span class="kw">&lt;/script&gt;</span></a>
+<a class="sourceLine" id="cb7-18" title="18"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>

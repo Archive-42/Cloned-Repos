@@ -1,0 +1,32 @@
+.create-character,
+.modify-character {
+    height: 99%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.create-character_form,
+.modify-character_form {
+    width: 48%;
+    height: 100%;
+    max-height: 700px;
+}
+
+.create-character_display,
+.modify-character_display {
+    height: 100%;
+    max-height: 700px;
+    width: 48%;
+    display: flex;
+}
+
+.modify-character_display {
+    /* overflow: scroll; */
+}
+
+
+
+
+@media ()

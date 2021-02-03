@@ -1,0 +1,12 @@
+{
+  "name": "firebase-bower-master",
+  "version": "1.0.0",
+  "description": "To use Firebase via Bower, do:",
+  "main": "firebase-analytics.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

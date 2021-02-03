@@ -1,0 +1,436 @@
+<!doctype html>
+<!--[if IE 7 ]>		 <html class="no-js ie ie7 lte7 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 8 ]>		 <html class="no-js ie ie8 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 9 ]>		 <html class="no-js ie ie9 lte9"> lang="en-US"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head data-live-domain="learn.jquery.com">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Feature &#038; Browser Detection | jQuery Learning Center</title>
+
+	<meta name="author" content="JS Foundation - js.foundation">
+	<meta name="description" content="">
+
+	<meta name="viewport" content="width=device-width">
+
+	<link rel="shortcut icon" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/i/favicon.ico">
+
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/base.css?v=2">
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/style.css">
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/modernizr.custom.2.8.3.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/main.js"></script>
+
+	<script src="https://use.typekit.net/wde1aof.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+	<!-- at the end of the HEAD -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/docsearch.css">
+
+<link rel='https://api.w.org/' href='//learn.jquery.com/wp-json/' />
+<meta name="generator" content="WordPress 4.5.2" />
+<link rel="alternate" type="application/json+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fcode-organization%2Ffeature-browser-detection%2F" />
+<link rel="alternate" type="text/xml+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fcode-organization%2Ffeature-browser-detection%2F&#038;format=xml" />
+
+</head>
+<body class="jquery-learn page page-id-96 page-child parent-pageid-7 page-template-default page-slug-feature-browser-detection single-author singular">
+
+<header>
+	<section id="global-nav">
+		<nav>
+			<div class="constrain">
+				<ul class="projects">
+					<li class="project jquery"><a href="https://jquery.com/" title="jQuery">jQuery</a></li>
+					<li class="project jquery-ui"><a href="https://jqueryui.com/" title="jQuery UI">jQuery UI</a></li>
+					<li class="project jquery-mobile"><a href="https://jquerymobile.com/" title="jQuery Mobile">jQuery Mobile</a></li>
+					<li class="project sizzlejs"><a href="https://sizzlejs.com/" title="Sizzle">Sizzle</a></li>
+					<li class="project qunitjs"><a href="https://qunitjs.com/" title="QUnit">QUnit</a></li>
+				</ul>
+				<ul class="links">
+					<li><a href="https://plugins.jquery.com/">Plugins</a></li>
+					<li class="dropdown"><a href="https://contribute.jquery.org/">Contribute</a>
+						<ul>
+							<li><a href="https://js.foundation/CLA">CLA</a></li>
+							<li><a href="https://contribute.jquery.org/style-guide/">Style Guides</a></li>
+							<li><a href="https://contribute.jquery.org/triage/">Bug Triage</a></li>
+							<li><a href="https://contribute.jquery.org/code/">Code</a></li>
+							<li><a href="https://contribute.jquery.org/documentation/">Documentation</a></li>
+							<li><a href="https://contribute.jquery.org/web-sites/">Web Sites</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/events">Events</a>
+						<ul class="wide">
+																		</ul>
+					</li>
+					<li class="dropdown"><a href="https://jquery.org/support/">Support</a>
+						<ul>
+							<li><a href="https://learn.jquery.com/">Learning Center</a></li>
+							<li><a href="https://irc.jquery.org/">IRC/Chat</a></li>
+							<li><a href="https://forum.jquery.com/">Forums</a></li>
+							<li><a href="https://stackoverflow.com/tags/jquery/info">Stack Overflow</a></li>
+							<li><a href="https://jquery.org/support/">Commercial Support</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/">JS Foundation</a>
+						<ul>
+							<li><a href="https://js.foundation/about/join">Join</a></li>
+							<li><a href="https://js.foundation/about/members">Members</a></li>
+							<li><a href="https://js.foundation/about/leadership">Leadership</a></li>
+							<li><a href="https://js.foundation/community/code-of-conduct">Conduct</a></li>
+							<li><a href="https://js.foundation/about/donate">Donate</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</section>
+</header>
+
+<div id="banner-blm">
+	<h2>#BlackLivesMatter</h2>
+	<p>To Donate, see this <a href="https://bit.ly/fundthecommunity">list of organizations to support</a> from <a href="https://www.reclaimtheblock.org/">Reclaim the Block</a> 
+</div>
+
+<div id="container">
+	<div id="logo-events" class="constrain clearfix">
+		<h2 class="logo"><a href="/" title="jQuery Learning Center">jQuery Learning Center</a></h2>
+
+		<aside>
+			<div id="broadcast">
+				<a href="https://js.foundation/about/donate" title="Support the JS Foundation"><img src="/jquery-wp-content/themes/jquery/content/donate.png" title="Support the JS Foundation" alt="Support the JS Foundation" border="0" width="400" height="100"></a>
+			</div>
+		</aside>
+	</div>
+
+	<nav id="main" class="constrain clearfix">
+		<div class="menu-top-container">
+	<ul id="menu-top" class="menu">
+<li class="menu-item"><a href="https://learn.jquery.com">Home</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/about/">About</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/contributing/">Contributing</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/style-guide/">Style Guide</a></li>
+	</ul>
+</div>
+
+		<form method="get" class="searchform" action="//learn.jquery.com/">
+	<button type="submit" class="icon-search"><span class="visuallyhidden">search</span></button>
+	<label>
+		<span class="visuallyhidden">Search jQuery Learning Center</span>
+		<input type="text" name="s" value=""
+			placeholder="Search">
+	</label>
+</form>
+	</nav>
+
+	<div id="content-wrapper" class="clearfix row">
+
+<div class="beta-ribbon-wrapper"><div class="beta-ribbon"><a href="/about/#beta">Beta</a></div></div>
+<div class="content-right twelve columns">
+	<div id="content">
+		<div class="post-heirarchy">Posted in: <a href="https://learn.jquery.com/code-organization/">Code Organization</a></div><article id="post-96" class="post-96 page type-page status-publish hentry">
+	<header class="entry-header">
+		<h1 class="entry-title">Feature &#038; Browser Detection</h1>
+	</header>
+
+	<div class="entry-content">
+		<h3 class="toc-linked"><a href="#can-i-use-this-browser-feature" id="can-i-use-this-browser-feature" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Can I Use This Browser Feature?</h3><p>There are a couple of common ways to check whether or not a particular feature is supported by a user&apos;s browser:</p>
+<ul>
+<li>Browser Detection</li>
+<li>Specific Feature Detection</li>
+</ul>
+<p>In general, we recommend specific feature detection. Let&apos;s look at why.</p>
+<h3 class="toc-linked"><a href="#browser-detection" id="browser-detection" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Browser Detection</h3><p>Browser detection is a method where the browser&apos;s User Agent (UA) string is checked for a particular pattern unique to a browser family or version. For example, this is Chrome 39&apos;s UA string on Mac OS X Yosemite:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>Mozilla/<span class="number">5.0</span> (Macintosh; Intel Mac OS X <span class="number">10</span>_10_0) AppleWebKit/<span class="number">537.36</span> (KHTML, like Gecko) Chrome/<span class="number">39.0</span><span class="number">.2171</span><span class="number">.99</span> Safari/<span class="number">537.36</span></code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Browser UA detection may check this string for something like &quot;Chrome&quot; or &quot;Chrome/39&quot; or any other part the developer feels identifies the browser they intend to target.</p>
+<p>While this seems to be an easy solution, there are several problems:</p>
+<h4 class="toc-linked"><a href="#other-browsers-other-than-your-target-may-have-the-same-issue" id="other-browsers-other-than-your-target-may-have-the-same-issue" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Other browsers other than your target may have the same issue.</h4><p>If we target a specific browser for different functionality, we implicitly exclude any browser we did not account for. This is also not future-proof. If the browser we target receives a bug fix or change, we may not be able to discern between a &quot;working&quot; and &quot;non-working&quot; UA string. We may also need to update our test for each new release. This isn&apos;t a maintainable solution.</p>
+<h4 class="toc-linked"><a href="#user-agents-are-unreliable" id="user-agents-are-unreliable" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> User Agents are unreliable.</h4><p>User Agents are set by the client browser. In the early days of the web, browsers would mimic each others&apos; UA strings in order to bypass exactly this type of detection. It is still possible that a browser with very different capabilities may mimic just the portion of the UA string you&apos;re targeting.</p>
+<p>The UA string is also user-configurable. While the user may change this string, the browser&apos;s feature support remains the same.</p>
+<p>In general, we do not recommend UA string-based feature detection.</p>
+<h3 class="toc-linked"><a href="#specific-feature-detection" id="specific-feature-detection" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Specific Feature Detection</h3><p>Specific feature detection checks if a specific feature is available, instead of developing against a specific browser. This way, developers can write their code for two cases: the browser <strong>does</strong> support said feature, or the browser <strong>does not</strong> support said feature.</p>
+<p>Developing against specific features, instead of developing against a specific browser, not only clears up the peripheral logic of your application, but also makes your job easier as a developer.</p>
+<p>We recommend specific feature detection over UA string detection.</p>
+<p>Now how would you go about doing that?</p>
+<h3 class="toc-linked"><a href="#how-to-go-about-feature-detection" id="how-to-go-about-feature-detection" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> How to go about feature detection</h3><p>There are several ways to go about feature detection:</p>
+<ul>
+<li>Straight JavaScript</li>
+<li>A Helper Library</li>
+</ul>
+<h4 class="toc-linked"><a href="#straight-javascript" id="straight-javascript" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Straight JavaScript</h4><p>Let&apos;s take a look at how to check whether or not a <code>&lt;canvas&gt;</code> element exists in a specific browser, without using a helper library. We do this by specifically querying whether the method or property exists:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// We want to show a graph in browsers that support canvas,</span></code></div></div><div class="container"><div class="line"><code><span class="comment">// but a data table in browsers that don&apos;t.</span></code></div></div><div class="container"><div class="line"><code><span class="keyword">var</span> elem = document.createElement( <span class="string">&quot;canvas&quot;</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="keyword">if</span> ( elem.getContext &amp;&amp; elem.getContext( <span class="string">&quot;2d&quot;</span> ) ) {</code></div></div><div class="container"><div class="line"><code>    showGraph();</code></div></div><div class="container"><div class="line"><code>} <span class="keyword">else</span> {</code></div></div><div class="container"><div class="line"><code>    showTable();</code></div></div><div class="container"><div class="line"><code>}</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>This is a very simple way to provide conditional experiences, depending on the features present in the user&apos;s browser. We can extract this into a helper function for reuse, but still have to write a test for every feature we&apos;re concerned about. This can be time-consuming and error-prone. Instead you might be interested in using a helper library.</p>
+<h4 class="toc-linked"><a href="#a-helper-library" id="a-helper-library" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> A Helper Library</h4><p>Thankfully, there are some great helper libraries (like <a href="http://modernizr.com/">Modernizr</a>) that provide a simple, high-level API for determining if a browser has a specific feature available or not.</p>
+<p>For example, utilizing Modernizr, we are able to do the same canvas detection test with this code:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="keyword">if</span> ( Modernizr.canvas ) {</code></div></div><div class="container"><div class="line"><code>    showGraphWithCanvas();</code></div></div><div class="container"><div class="line"><code>} <span class="keyword">else</span> {</code></div></div><div class="container"><div class="line"><code>    showTable();</code></div></div><div class="container"><div class="line"><code>}</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>For more in-depth information on Modernizr, feel free to check out their <a href="http://modernizr.com/docs/">documentation</a>.</p>
+<h3 class="toc-linked"><a href="#performance-considerations" id="performance-considerations" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Performance Considerations</h3><p>So, while the Modernizr syntax is great, it can end up being quite cumbersome to have several conditionals. Secondly, we&apos;re sending the code for both conditions to every browser, regardless if we&apos;ll need it or not.</p>
+<p>If you&apos;re using Modernizr, we highly encourage you to use the <a href="http://modernizr.com/download/">build configurator</a>, a tool that allows you to create custom builds of the library. You can exclude checks you don&apos;t need, which will save bytes and reduce the time it takes the page to load. Running every check that Modernizr can do, even when you don&apos;t need them, can slow down the page load.</p>
+<h3 class="toc-linked"><a href="#other-resources" id="other-resources" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Other Resources</h3><h4 class="toc-linked"><a href="#feature-detection-tools" id="feature-detection-tools" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Feature Detection Tools</h4><ul>
+<li><a href="http://modernizr.com/">modernizr</a> &#x2014; Conditionally check to see if a specific feature is available in a browser.</li>
+<li><a href="http://html5please.com/">html5please</a> &#x2014; Use the new and shiny responsibly.</li>
+<li><a href="http://api.html5please.com/">html5please API</a> &#x2014; An API you can query to see how good (or bad) support for a specific feature is.</li>
+<li><a href="http://caniuse.com/">caniuse</a> &#x2014; Browser compatibility tables for HTML5, CSS3, SVG, etc.</li>
+</ul>
+<h4 class="toc-linked"><a href="#helpful-articles" id="helpful-articles" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Helpful Articles</h4><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Browser_Feature_Detection">Browser Feature Detection</a></li>
+<li><a href="http://www.adobe.com/devnet/dreamweaver/articles/using-modernizr.html">Using Modernizr to detect HTML5 and CSS3 browser support</a></li>
+<li><a href="http://addyosmani.com/polyfillthehtml5gaps/slides/#1">Polyfilling the HTML5 gaps</a> by Addy Osmani</li>
+<li><a href="http://www.html5rocks.com/en/tutorials/detection/index.html">Feature, Browser, and Form Factor Detection: It&apos;s Good for the Environment</a> by Michael Mahemoff</li>
+</ul>					</div>
+
+	<div class="entry-meta row">
+				<div class="bottom-links row">
+							<div class="prev six columns">
+					<a href="https://learn.jquery.com/code-organization/dont-repeat-yourself/">
+					<i class="icon-chevron-left"></i>
+					Keep Things DRY					</a>
+				</div>
+										<div class="next six columns">
+					<a href="https://learn.jquery.com/code-organization/deferreds/">
+					Deferreds					<i class="icon-chevron-right"></i>
+					</a>
+				</div>
+					</div>
+		
+		<aside class="meta-details six columns">
+			<h3>Last Updated</h3>
+			<ul>
+				<li class="icon-calendar icon-large" title="Last Updated"><span>December 17, 2015</span></li>
+			</ul>
+		</aside>
+		<aside class="github-feedback six columns">
+			<h3>Suggestions, Problems, Feedback?</h3>
+			<a class="button dark" href="https://github.com/jquery/learn.jquery.com/tree/master/page/code-organization/feature-browser-detection.md"><i class="icon-github"></i> Open an Issue or Submit a Pull Request on GitHub</a>
+		</aside>
+
+	</div>
+</article>
+	</div>
+
+	<div id="sidebar" class="widget-area" role="complementary">
+		
+		<aside id="chapter-listing" class="widget">
+			<h3 class="widget-title">Chapters</h3>
+			<ul>
+																		<li >
+						<a href="//learn.jquery.com/about-jquery/">
+															<i class="icon-certificate"></i>
+														About jQuery						</a>
+																																																																									</li>
+														<li >
+						<a href="//learn.jquery.com/using-jquery-core/">
+															<i class="icon-star-empty"></i>
+														Using jQuery Core						</a>
+																																																																																																																																																																																																																																																																																										<ul class="sub-chapter">
+																																																																																																																																																																																																																																																																																	<li >
+										<a href="//learn.jquery.com/using-jquery-core/faq/">
+											Frequently Asked Questions										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/events/">
+															<i class="icon-tasks"></i>
+														Events						</a>
+																																																																																																																																																																																																	</li>
+														<li >
+						<a href="//learn.jquery.com/effects/">
+															<i class="icon-picture"></i>
+														Effects						</a>
+																																																																																								</li>
+														<li >
+						<a href="//learn.jquery.com/ajax/">
+															<i class="icon-refresh"></i>
+														Ajax						</a>
+																																																																																																																						</li>
+														<li >
+						<a href="//learn.jquery.com/plugins/">
+															<i class="icon-bolt"></i>
+														Plugins						</a>
+																																																																																																							</li>
+														<li >
+						<a href="//learn.jquery.com/performance/">
+															<i class="icon-dashboard"></i>
+														Performance						</a>
+																																																																																																																																																				</li>
+														<li class='active'>
+						<a href="//learn.jquery.com/code-organization/">
+															<i class="icon-sitemap"></i>
+														Code Organization						</a>
+																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/code-organization/deferreds/">
+											Deferreds										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-ui/">
+															<i class="icon-magnet"></i>
+														jQuery UI						</a>
+																																																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/jquery-ui/widget-factory/">
+											Widget Factory										</a>
+									</li>
+																																												<li >
+										<a href="//learn.jquery.com/jquery-ui/environments/">
+											Using jQuery UI										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-mobile/">
+															<i class="icon-th-large"></i>
+														jQuery Mobile						</a>
+																																																																									</li>
+							</ul>
+		</aside>
+
+
+	</div><!-- #sidebar .widget-area -->
+</div>
+
+	</div>
+</div>
+
+<footer class="clearfix simple">
+	<div class="constrain">
+		<div class="row">
+			<div class="six columns offset-by-three">
+				<h3><span>Books</span></h3>
+				<ul class="books">
+					<li>
+						<a href="https://www.packtpub.com/web-development/learning-jquery-fourth-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/learning-jquery-4th-ed.jpg" alt="Learning jQuery 4th Edition by Karl Swedberg and Jonathan Chaffer" width="92" height="114">
+							Learning jQuery Fourth Edition
+							<cite>Karl Swedberg and Jonathan Chaffer</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.manning.com/books/jquery-in-action-third-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-in-action.jpg" alt="jQuery in Action by Bear Bibeault, Yehuda Katz, and Aurelio De Rosa" width="92" height="114">
+							jQuery in Action
+							<cite>Bear Bibeault, Yehuda Katz, and Aurelio De Rosa</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.syncfusion.com/ebooks/jquery">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-succinctly.jpg" alt="jQuery Succinctly by Cody Lindley" width="92" height="114">
+							jQuery Succinctly
+							<cite>Cody Lindley</cite>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		
+<div id="legal">
+	<ul class="footer-site-links">
+			<li><a class="icon-pencil" href="https://learn.jquery.com/">Learning Center</a></li>
+			<li><a class="icon-group" href="https://forum.jquery.com/">Forum</a></li>
+			<li><a class="icon-wrench" href="https://api.jquery.com/">API</a></li>
+			<li><a class="icon-twitter" href="https://twitter.com/jquery">Twitter</a></li>
+			<li><a class="icon-comments" href="https://irc.jquery.org/">IRC</a></li>
+			<li><a class="icon-github" href="https://github.com/jquery">GitHub</a></li>
+	</ul>
+	<p class="copyright">
+		Copyright 2021 <a href="https://openjsf.org/">OpenJS Foundation</a> and jQuery contributors. All rights reserved. See <a href="https://jquery.org/license/">jQuery License</a> for more information. The <a href="https://openjsf.org/">OpenJS Foundation</a> has registered trademarks and uses trademarks. For a list of trademarks of the <a href="https://openjsf.org/">OpenJS Foundation</a>, please see our <a href="https://trademark-policy.openjsf.org/">Trademark Policy</a> and <a href="https://trademark-list.openjsf.org/">Trademark List</a>. Trademarks and logos not indicated on the <a href="https://trademark-list.openjsf.org/">list of OpenJS Foundation trademarks</a> are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them. OpenJS Foundation <a href="https://terms-of-use.openjsf.org/">Terms of Use</a>, <a href="https://privacy-policy.openjsf.org/">Privacy</a>, and <a href="https://www.linuxfoundation.org/cookies">Cookie</a> Policies also apply.
+		<span class="sponsor-line"><a href="https://www.digitalocean.com" class="do-link">Web hosting by Digital Ocean</a> | <a href="https://www.stackpath.com" class="sp-link">CDN by StackPath</a></span>
+	</p>
+</div>
+
+	</div>
+</footer>
+
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/comment-reply.min.js?ver=4.5.2'></script>
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/wp-embed.min.js?ver=4.5.2'></script>
+	<!-- at the end of the BODY -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"  onload="document.querySelector('input[name=\'s\']') && docsearch({apiKey: '3cfde9aca378c8aab554d5bf1b23489b',
+		indexName: 'jquery',
+		inputSelector: 'input[name=\'s\']',
+		debug: true // Set debug to true if you want to inspect the dropdown
+	})" async></script>
+</body>
+</html>

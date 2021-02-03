@@ -1,0 +1,108 @@
+<h1 id="description">–description–</h1>
+<p>Build a full stack JavaScript app that is functionally similar to this: <a href="https://timestamp-microservice.freecodecamp.rocks/" class="uri">https://timestamp-microservice.freecodecamp.rocks/</a>. Working on this project will involve you writing your code using one of the following methods:</p>
+<ul>
+<li>Clone <a href="https://github.com/freeCodeCamp/boilerplate-project-timestamp/">this GitHub repo</a> and complete your project locally.</li>
+<li>Use <a href="https://repl.it/github/freeCodeCamp/boilerplate-project-timestamp">our repl.it starter project</a> to complete your project.</li>
+<li>Use a site builder of your choice to complete the project. Be sure to incorporate all the files from our GitHub repo.</li>
+</ul>
+<p>When you are done, make sure a working demo of your project is hosted somewhere public. Then submit the URL to it in the <code>Solution Link</code> field. Optionally, also submit a link to your projects source code in the <code>GitHub Link</code> field.</p>
+<h1 id="hints">–hints–</h1>
+<p>You should provide your own project, not the example URL.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1">(getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="op">!</span><span class="ss">/.</span><span class="sc">*\/</span><span class="ss">timestamp-microservice</span><span class="sc">\.</span><span class="ss">freecodecamp</span><span class="sc">\.</span><span class="ss">rocks/</span>.<span class="at">test</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>))</a>
+<a class="sourceLine" id="cb1-4" title="4">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="op">};</span></a></code></pre></div>
+<p>A request to <code>/api/timestamp/:date?</code> with a valid date should return a JSON object with a <code>unix</code> key that is a Unix timestamp of the input date in milliseconds</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/timestamp/2016-12-25&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb2-5" title="5">        <span class="va">data</span>.<span class="at">unix</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-6" title="6">        <span class="dv">1482624000000</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-7" title="7">        <span class="st">&#39;Should be a valid unix timestamp&#39;</span></a>
+<a class="sourceLine" id="cb2-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<p>A request to <code>/api/timestamp/:date?</code> with a valid date should return a JSON object with a <code>utc</code> key that is a string of the input date in the format: <code>Thu, 01 Jan 1970 00:00:00 GMT</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/timestamp/2016-12-25&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb3-5" title="5">        <span class="va">data</span>.<span class="at">utc</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-6" title="6">        <span class="st">&#39;Sun, 25 Dec 2016 00:00:00 GMT&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">        <span class="st">&#39;Should be a valid UTC date string&#39;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<p>A request to <code>/api/timestamp/1451001600000</code> should return <code>{ unix: 1451001600000, utc: "Fri, 25 Dec 2015 00:00:00 GMT" }</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/timestamp/1451001600000&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb4-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-4" title="4">      <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-5" title="5">        <span class="va">data</span>.<span class="at">unix</span> <span class="op">===</span> <span class="dv">1451001600000</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">          <span class="va">data</span>.<span class="at">utc</span> <span class="op">===</span> <span class="st">&#39;Fri, 25 Dec 2015 00:00:00 GMT&#39;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-10" title="10">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-12" title="12">  )<span class="op">;</span></a></code></pre></div>
+<p>Your project can handle dates that can be successfully parsed by <code>new Date(date_string)</code></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/timestamp/05 October 2011&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb5-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-4" title="4">      <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-5" title="5">        <span class="va">data</span>.<span class="at">unix</span> <span class="op">===</span> <span class="dv">1317772800000</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">          <span class="va">data</span>.<span class="at">utc</span> <span class="op">===</span> <span class="st">&#39;Wed, 05 Oct 2011 00:00:00 GMT&#39;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb5-9" title="9">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-10" title="10">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-12" title="12">  )<span class="op">;</span></a></code></pre></div>
+<p>If the input date string is invalid, the api returns an object having the structure <code>{ error : "Invalid Date" }</code></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/timestamp/this-is-not-a-date&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb6-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="va">error</span>.<span class="at">toLowerCase</span>()<span class="op">,</span> <span class="st">&#39;invalid date&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb6-6" title="6">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-7" title="7">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-9" title="9">  )<span class="op">;</span></a></code></pre></div>
+<p>An empty date parameter should return the current time in a JSON object with a <code>unix</code> key</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/timestamp&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb7-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-4" title="4">      <span class="kw">var</span> now <span class="op">=</span> <span class="va">Date</span>.<span class="at">now</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-5" title="5">      <span class="va">assert</span>.<span class="at">approximately</span>(<span class="va">data</span>.<span class="at">unix</span><span class="op">,</span> now<span class="op">,</span> <span class="dv">20000</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb7-7" title="7">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-8" title="8">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-9" title="9">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-10" title="10">  )<span class="op">;</span></a></code></pre></div>
+<p>An empty date parameter should return the current time in a JSON object with a <code>utc</code> key</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/timestamp&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb8-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-4" title="4">      <span class="kw">var</span> now <span class="op">=</span> <span class="va">Date</span>.<span class="at">now</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-5" title="5">      <span class="kw">var</span> serverTime <span class="op">=</span> <span class="kw">new</span> <span class="at">Date</span>(<span class="va">data</span>.<span class="at">utc</span>).<span class="at">getTime</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-6" title="6">      <span class="va">assert</span>.<span class="at">approximately</span>(serverTime<span class="op">,</span> now<span class="op">,</span> <span class="dv">20000</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-7" title="7">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb8-8" title="8">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-9" title="9">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-10" title="10">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-11" title="11">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co">*/</span></a></code></pre></div>

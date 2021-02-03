@@ -1,0 +1,109 @@
+<h1 id="description">–description–</h1>
+<p>Given two points on a plane and a radius, usually two circles of given radius can be drawn through the points.</p>
+<p><strong>Exceptions:</strong></p>
+<ul>
+<li>
+A radius of zero should be treated as never describing circles (except in the case where the points are coincident).
+</li>
+<li>
+If the points are coincident then an infinite number of circles with the point on their circumference can be drawn, unless the radius is equal to zero as well which then collapses the circles to a point.
+</li>
+<li>
+If the points form a diameter then return a single circle.
+</li>
+<li>
+If the points are too far apart then no circles can be drawn.
+</li>
+</ul>
+<h1 id="instructions">–instructions–</h1>
+<p>Implement a function that takes two points and a radius and returns the two circles through those points. For each resulting circle, provide the coordinates for the center of each circle rounded to four decimal digits. Return each coordinate as an array, and coordinates as an array of arrays.</p>
+<p><strong>For edge cases, return the following:</strong></p>
+<ul>
+<li>
+If points are on the diameter, return one point. If the radius is also zero however, return <code>“Radius Zero”</code>.
+</li>
+<li>
+If points are coincident, return <code>“Coincident point. Infinite solutions”</code>.
+</li>
+<li>
+If points are farther apart than the diameter, return <code>“No intersection. Points further apart than circle diameter”</code>.
+</li>
+</ul>
+<p><strong>Sample inputs:</strong></p>
+<pre>      p1                p2           r
+0.1234, 0.9876    0.8765, 0.2345    2.0
+0.0000, 2.0000    0.0000, 0.0000    1.0
+0.1234, 0.9876    0.1234, 0.9876    2.0
+0.1234, 0.9876    0.8765, 0.2345    0.5
+0.1234, 0.9876    0.1234, 0.9876    0.0
+</pre>
+<h1 id="hints">–hints–</h1>
+<p><code>getCircles</code> should be a function.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> getCircles <span class="op">===</span> <span class="st">&#39;function&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>getCircles([0.1234, 0.9876], [0.8765, 0.2345], 2.0)</code> should return <code>[[1.8631, 1.9742], [-0.8632, -0.7521]]</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(<span class="at">getCircles</span>(...<span class="at">testCases</span>[<span class="dv">0</span>])<span class="op">,</span> answers[<span class="dv">0</span>])<span class="op">;</span></a></code></pre></div>
+<p><code>getCircles([0.0000, 2.0000], [0.0000, 0.0000], 1.0)</code> should return <code>[0, 1]</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(<span class="at">getCircles</span>(...<span class="at">testCases</span>[<span class="dv">1</span>])<span class="op">,</span> answers[<span class="dv">1</span>])<span class="op">;</span></a></code></pre></div>
+<p><code>getCircles([0.1234, 0.9876], [0.1234, 0.9876], 2.0)</code> should return <code>Coincident point. Infinite solutions</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(<span class="at">getCircles</span>(...<span class="at">testCases</span>[<span class="dv">2</span>])<span class="op">,</span> answers[<span class="dv">2</span>])<span class="op">;</span></a></code></pre></div>
+<p><code>getCircles([0.1234, 0.9876], [0.8765, 0.2345], 0.5)</code> should return <code>No intersection. Points further apart than circle diameter</code></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(<span class="at">getCircles</span>(...<span class="at">testCases</span>[<span class="dv">3</span>])<span class="op">,</span> answers[<span class="dv">3</span>])<span class="op">;</span></a></code></pre></div>
+<p><code>getCircles([0.1234, 0.9876], [0.1234, 0.9876], 0.0)</code> should return <code>Radius Zero</code></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(<span class="at">getCircles</span>(...<span class="at">testCases</span>[<span class="dv">4</span>])<span class="op">,</span> answers[<span class="dv">4</span>])<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">const</span> testCases <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb7-2" title="2">  [[<span class="fl">0.1234</span><span class="op">,</span> <span class="fl">0.9876</span>]<span class="op">,</span> [<span class="fl">0.8765</span><span class="op">,</span> <span class="fl">0.2345</span>]<span class="op">,</span> <span class="fl">2.0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-3" title="3">  [[<span class="fl">0.0000</span><span class="op">,</span> <span class="fl">2.0000</span>]<span class="op">,</span> [<span class="fl">0.0000</span><span class="op">,</span> <span class="fl">0.0000</span>]<span class="op">,</span> <span class="fl">1.0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-4" title="4">  [[<span class="fl">0.1234</span><span class="op">,</span> <span class="fl">0.9876</span>]<span class="op">,</span> [<span class="fl">0.1234</span><span class="op">,</span> <span class="fl">0.9876</span>]<span class="op">,</span> <span class="fl">2.0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-5" title="5">  [[<span class="fl">0.1234</span><span class="op">,</span> <span class="fl">0.9876</span>]<span class="op">,</span> [<span class="fl">0.8765</span><span class="op">,</span> <span class="fl">0.2345</span>]<span class="op">,</span> <span class="fl">0.5</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-6" title="6">  [[<span class="fl">0.1234</span><span class="op">,</span> <span class="fl">0.9876</span>]<span class="op">,</span> [<span class="fl">0.1234</span><span class="op">,</span> <span class="fl">0.9876</span>]<span class="op">,</span> <span class="fl">0.0</span>]</a>
+<a class="sourceLine" id="cb7-7" title="7">]<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="kw">const</span> answers <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb7-9" title="9">  [[<span class="fl">1.8631</span><span class="op">,</span> <span class="fl">1.9742</span>]<span class="op">,</span> [<span class="op">-</span><span class="fl">0.8632</span><span class="op">,</span> <span class="fl">-0.7521</span>]]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-10" title="10">  [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-11" title="11">  <span class="st">&#39;Coincident point. Infinite solutions&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-12" title="12">  <span class="st">&#39;No intersection. Points further apart than circle diameter&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-13" title="13">  <span class="st">&#39;Radius Zero&#39;</span></a>
+<a class="sourceLine" id="cb7-14" title="14">]<span class="op">;</span></a></code></pre></div>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">function</span> <span class="at">getCircles</span>(...<span class="at">args</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-2" title="2"></a>
+<a class="sourceLine" id="cb8-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="op">}</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">const</span> hDist <span class="op">=</span> (p1<span class="op">,</span> p2) <span class="kw">=&gt;</span> <span class="va">Math</span>.<span class="at">hypot</span>(...<span class="va">p1</span>.<span class="at">map</span>((e<span class="op">,</span> i) <span class="kw">=&gt;</span> e <span class="op">-</span> p2[i])) / <span class="dv">2</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="kw">const</span> pAng <span class="op">=</span> (p1<span class="op">,</span> p2) <span class="kw">=&gt;</span> <span class="va">Math</span>.<span class="at">atan</span>(<span class="va">p1</span>.<span class="at">map</span>((e<span class="op">,</span> i) <span class="kw">=&gt;</span> e <span class="op">-</span> p2[i]).<span class="at">reduce</span>((p<span class="op">,</span> c) <span class="kw">=&gt;</span> c / p<span class="op">,</span> <span class="dv">1</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="kw">const</span> solveF <span class="op">=</span> (p<span class="op">,</span> r) <span class="kw">=&gt;</span> t <span class="kw">=&gt;</span> [<span class="at">parseFloat</span>((r <span class="op">*</span> <span class="va">Math</span>.<span class="at">cos</span>(t) <span class="op">+</span> p[<span class="dv">0</span>]).<span class="at">toFixed</span>(<span class="dv">4</span>))<span class="op">,</span> <span class="at">parseFloat</span>((r <span class="op">*</span> <span class="va">Math</span>.<span class="at">sin</span>(t) <span class="op">+</span> p[<span class="dv">1</span>]).<span class="at">toFixed</span>(<span class="dv">4</span>))]<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="kw">const</span> diamPoints <span class="op">=</span> (p1<span class="op">,</span> p2) <span class="kw">=&gt;</span> <span class="va">p1</span>.<span class="at">map</span>((e<span class="op">,</span> i) <span class="kw">=&gt;</span> <span class="at">parseFloat</span>((e <span class="op">+</span> (p2[i] <span class="op">-</span> e) / <span class="dv">2</span>).<span class="at">toFixed</span>(<span class="dv">4</span>)))<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-5" title="5"></a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="kw">function</span> <span class="at">getCircles</span>(...<span class="at">args</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-7" title="7">  <span class="kw">const</span> [p1<span class="op">,</span> p2<span class="op">,</span> s] <span class="op">=</span> args<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-8" title="8">  <span class="kw">const</span> solve <span class="op">=</span> <span class="at">solveF</span>(p1<span class="op">,</span> s)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-9" title="9">  <span class="kw">const</span> halfDist <span class="op">=</span> <span class="at">hDist</span>(p1<span class="op">,</span> p2)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-10" title="10"></a>
+<a class="sourceLine" id="cb9-11" title="11">  <span class="kw">let</span> msg <span class="op">=</span> []<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-12" title="12">  <span class="cf">switch</span> (<span class="va">Math</span>.<span class="at">sign</span>(s <span class="op">-</span> halfDist)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-13" title="13">    <span class="cf">case</span> <span class="dv">0</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb9-14" title="14">      msg <span class="op">=</span> s <span class="op">?</span> <span class="at">diamPoints</span>(p1<span class="op">,</span> p2) :</a>
+<a class="sourceLine" id="cb9-15" title="15">        <span class="st">&#39;Radius Zero&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-16" title="16">      <span class="cf">break</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-17" title="17">    <span class="cf">case</span> <span class="dv">1</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb9-18" title="18">      <span class="cf">if</span> (<span class="op">!</span>halfDist) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-19" title="19">        msg <span class="op">=</span> <span class="st">&#39;Coincident point. Infinite solutions&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-20" title="20">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb9-21" title="21">      <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-22" title="22">        <span class="kw">const</span> theta <span class="op">=</span> <span class="at">pAng</span>(p1<span class="op">,</span> p2)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-23" title="23">        <span class="kw">const</span> theta2 <span class="op">=</span> <span class="va">Math</span>.<span class="at">acos</span>(halfDist / s)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-24" title="24">        [<span class="dv">1</span><span class="op">,</span> <span class="dv">-1</span>].<span class="at">map</span>(e <span class="kw">=&gt;</span> <span class="at">solve</span>(theta <span class="op">+</span> e <span class="op">*</span> theta2)).<span class="at">forEach</span>(</a>
+<a class="sourceLine" id="cb9-25" title="25">          e <span class="kw">=&gt;</span> <span class="va">msg</span>.<span class="at">push</span>(e))<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-26" title="26">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb9-27" title="27">      <span class="cf">break</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-28" title="28">    <span class="cf">case</span> <span class="dv">-1</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb9-29" title="29">      msg <span class="op">=</span> <span class="st">&#39;No intersection. Points further apart than circle diameter&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-30" title="30">      <span class="cf">break</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-31" title="31">    <span class="cf">default</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb9-32" title="32">      msg <span class="op">=</span> <span class="st">&#39;Reached the default&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-33" title="33">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb9-34" title="34">  <span class="cf">return</span> msg<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-35" title="35"><span class="op">}</span></a></code></pre></div>

@@ -1,0 +1,144 @@
+<h1 id="description">–description–</h1>
+<p>Font Awesome is a convenient library of icons. These icons can be webfonts or vector graphics. These icons are treated just like fonts. You can specify their size using pixels, and they will assume the font size of their parent HTML elements.</p>
+<p>You can include Font Awesome in any app by adding the following code to the top of your HTML:</p>
+<p><code>&lt;link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"&gt;</code></p>
+<p>In this case, we’ve already added it for you to this page behind the scenes.</p>
+<p>The <code>i</code> element was originally used to make other elements italic, but is now commonly used for icons. You can add the Font Awesome classes to the <code>i</code> element to turn it into an icon, for example:</p>
+<p><code>&lt;i class="fas fa-info-circle"&gt;&lt;/i&gt;</code></p>
+<p>Note that the <code>span</code> element is also acceptable for use with icons.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Use Font Awesome to add a <code>thumbs-up</code> icon to your like button by giving it an <code>i</code> element with the classes <code>fas</code> and <code>fa-thumbs-up</code>. Make sure to keep the text “Like” next to the icon.</p>
+<h1 id="hints">–hints–</h1>
+<p>You should add an <code>i</code> element with the classes <code>fas</code> and <code>fa-thumbs-up</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;i&#39;</span>).<span class="at">is</span>(<span class="st">&#39;.fas.fa-thumbs-up&#39;</span>) <span class="op">||</span> <span class="at">$</span>(<span class="st">&#39;span&#39;</span>).<span class="at">is</span>(<span class="st">&#39;.fas.fa-thumbs-up&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>fa-thumbs-up</code> icon should be located within the Like button.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="at">$</span>(<span class="st">&#39;i.fa-thumbs-up&#39;</span>).<span class="at">parent</span>().<span class="at">text</span>().<span class="at">match</span>(<span class="ss">/Like/gi</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="at">$</span>(<span class="st">&#39;.btn-primary &gt; i&#39;</span>).<span class="at">is</span>(<span class="st">&#39;.fas.fa-thumbs-up&#39;</span>)) <span class="op">||</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    (<span class="at">$</span>(<span class="st">&#39;span.fa-thumbs-up&#39;</span>).<span class="at">parent</span>().<span class="at">text</span>().<span class="at">match</span>(<span class="ss">/Like/gi</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      <span class="at">$</span>(<span class="st">&#39;.btn-primary &gt; span&#39;</span>).<span class="at">is</span>(<span class="st">&#39;.fas.fa-thumbs-up&#39;</span>))</a>
+<a class="sourceLine" id="cb2-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>i</code> element should be nested within your <code>button</code> element.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="at">$</span>(<span class="st">&#39;button&#39;</span>).<span class="at">children</span>(<span class="st">&#39;i&#39;</span>).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">||</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="at">$</span>(<span class="st">&#39;button&#39;</span>).<span class="at">children</span>(<span class="st">&#39;span&#39;</span>).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb3-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>Your icon element should have a closing tag.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">i&gt;</span><span class="sc">|</span><span class="ss">&lt;</span><span class="sc">\/</span><span class="ss">span&gt;/g</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;link</span><span class="ot"> href=</span><span class="st">&quot;https://fonts.googleapis.com/css?family=Lobster&quot;</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/css&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">  h2 {</a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">font-family</span>: Lobster<span class="op">,</span> <span class="dv">Monospace</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">  }</a>
+<a class="sourceLine" id="cb5-6" title="6"></a>
+<a class="sourceLine" id="cb5-7" title="7">  <span class="fu">.thick-green-border</span> {</a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="kw">border-color</span>: <span class="cn">green</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">    <span class="kw">border-width</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">    <span class="kw">border-style</span>: <span class="dv">solid</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">    <span class="kw">border-radius</span>: <span class="dv">50</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">  }</a>
+<a class="sourceLine" id="cb5-13" title="13"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb5-14" title="14"></a>
+<a class="sourceLine" id="cb5-15" title="15"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container-fluid&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-16" title="16">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;row&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-17" title="17">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-8&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-18" title="18">      <span class="kw">&lt;h2</span><span class="ot"> class=</span><span class="st">&quot;text-primary text-center&quot;</span><span class="kw">&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb5-19" title="19">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-20" title="20">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-4&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-21" title="21">      <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;&lt;img</span><span class="ot"> class=</span><span class="st">&quot;img-responsive thick-green-border&quot;</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-relaxing-cat&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A cute orange cat lying on its back.&quot;</span><span class="kw">&gt;&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb5-22" title="22">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-23" title="23">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-24" title="24">  <span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-running-cats&quot;</span><span class="ot"> class=</span><span class="st">&quot;img-responsive&quot;</span><span class="ot"> alt=</span><span class="st">&quot;Three kittens running towards the camera.&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-25" title="25">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;row&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-26" title="26">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-4&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-27" title="27">      <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-block btn-primary&quot;</span><span class="kw">&gt;</span>Like<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb5-28" title="28">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-29" title="29">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-4&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-30" title="30">      <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-block btn-info&quot;</span><span class="kw">&gt;</span>Info<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb5-31" title="31">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-32" title="32">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-4&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-33" title="33">      <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-block btn-danger&quot;</span><span class="kw">&gt;</span>Delete<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb5-34" title="34">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-35" title="35">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-36" title="36">  <span class="kw">&lt;p&gt;</span>Things cats <span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&quot;text-danger&quot;</span><span class="kw">&gt;</span>love:<span class="kw">&lt;/span&gt;&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-37" title="37">  <span class="kw">&lt;ul&gt;</span></a>
+<a class="sourceLine" id="cb5-38" title="38">    <span class="kw">&lt;li&gt;</span>cat nip<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-39" title="39">    <span class="kw">&lt;li&gt;</span>laser pointers<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-40" title="40">    <span class="kw">&lt;li&gt;</span>lasagna<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-41" title="41">  <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb5-42" title="42">  <span class="kw">&lt;p&gt;</span>Top 3 things cats hate:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-43" title="43">  <span class="kw">&lt;ol&gt;</span></a>
+<a class="sourceLine" id="cb5-44" title="44">    <span class="kw">&lt;li&gt;</span>flea treatment<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-45" title="45">    <span class="kw">&lt;li&gt;</span>thunder<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-46" title="46">    <span class="kw">&lt;li&gt;</span>other cats<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-47" title="47">  <span class="kw">&lt;/ol&gt;</span></a>
+<a class="sourceLine" id="cb5-48" title="48">  <span class="kw">&lt;form</span><span class="ot"> action=</span><span class="st">&quot;https://freecatphotoapp.com/submit-cat-photo&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-49" title="49">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="kw">&gt;</span> Indoor<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb5-50" title="50">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="kw">&gt;</span> Outdoor<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb5-51" title="51">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Loving<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb5-52" title="52">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Lazy<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb5-53" title="53">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Crazy<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb5-54" title="54">    <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="ot"> placeholder=</span><span class="st">&quot;cat photo URL&quot;</span><span class="ot"> required</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-55" title="55">    <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span>Submit<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb5-56" title="56">  <span class="kw">&lt;/form&gt;</span></a>
+<a class="sourceLine" id="cb5-57" title="57"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;link</span><span class="ot"> href=</span><span class="st">&quot;https://fonts.googleapis.com/css?family=Lobster&quot;</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/css&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb6-3" title="3">  h2 {</a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="kw">font-family</span>: Lobster<span class="op">,</span> <span class="dv">Monospace</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">  }</a>
+<a class="sourceLine" id="cb6-6" title="6"></a>
+<a class="sourceLine" id="cb6-7" title="7">  <span class="fu">.thick-green-border</span> {</a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="kw">border-color</span>: <span class="cn">green</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">    <span class="kw">border-width</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">    <span class="kw">border-style</span>: <span class="dv">solid</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-11" title="11">    <span class="kw">border-radius</span>: <span class="dv">50</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">  }</a>
+<a class="sourceLine" id="cb6-13" title="13"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb6-14" title="14"></a>
+<a class="sourceLine" id="cb6-15" title="15"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container-fluid&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-16" title="16">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;row&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-17" title="17">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-8&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-18" title="18">      <span class="kw">&lt;h2</span><span class="ot"> class=</span><span class="st">&quot;text-primary text-center&quot;</span><span class="kw">&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb6-19" title="19">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-20" title="20">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-4&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-21" title="21">      <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;&lt;img</span><span class="ot"> class=</span><span class="st">&quot;img-responsive thick-green-border&quot;</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-relaxing-cat&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A cute orange cat lying on its back.&quot;</span><span class="kw">&gt;&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb6-22" title="22">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-23" title="23">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-24" title="24">  <span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-running-cats&quot;</span><span class="ot"> class=</span><span class="st">&quot;img-responsive&quot;</span><span class="ot"> alt=</span><span class="st">&quot;Three kittens running towards the camera.&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-25" title="25">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;row&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-26" title="26">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-4&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-27" title="27">      <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-block btn-primary&quot;</span><span class="kw">&gt;&lt;i</span><span class="ot"> class=</span><span class="st">&quot;fas fa-thumbs-up&quot;</span><span class="kw">&gt;&lt;/i&gt;</span> Like<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb6-28" title="28">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-29" title="29">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-4&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-30" title="30">      <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-block btn-info&quot;</span><span class="kw">&gt;</span>Info<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb6-31" title="31">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-32" title="32">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-4&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-33" title="33">      <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-block btn-danger&quot;</span><span class="kw">&gt;</span>Delete<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb6-34" title="34">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-35" title="35">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-36" title="36">  <span class="kw">&lt;p&gt;</span>Things cats <span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&quot;text-danger&quot;</span><span class="kw">&gt;</span>love:<span class="kw">&lt;/span&gt;&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb6-37" title="37">  <span class="kw">&lt;ul&gt;</span></a>
+<a class="sourceLine" id="cb6-38" title="38">    <span class="kw">&lt;li&gt;</span>cat nip<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-39" title="39">    <span class="kw">&lt;li&gt;</span>laser pointers<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-40" title="40">    <span class="kw">&lt;li&gt;</span>lasagna<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-41" title="41">  <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb6-42" title="42">  <span class="kw">&lt;p&gt;</span>Top 3 things cats hate:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb6-43" title="43">  <span class="kw">&lt;ol&gt;</span></a>
+<a class="sourceLine" id="cb6-44" title="44">    <span class="kw">&lt;li&gt;</span>flea treatment<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-45" title="45">    <span class="kw">&lt;li&gt;</span>thunder<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-46" title="46">    <span class="kw">&lt;li&gt;</span>other cats<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-47" title="47">  <span class="kw">&lt;/ol&gt;</span></a>
+<a class="sourceLine" id="cb6-48" title="48">  <span class="kw">&lt;form</span><span class="ot"> action=</span><span class="st">&quot;https://freecatphotoapp.com/submit-cat-photo&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-49" title="49">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="kw">&gt;</span> Indoor<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb6-50" title="50">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="kw">&gt;</span> Outdoor<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb6-51" title="51">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Loving<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb6-52" title="52">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Lazy<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb6-53" title="53">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Crazy<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb6-54" title="54">    <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="ot"> placeholder=</span><span class="st">&quot;cat photo URL&quot;</span><span class="ot"> required</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-55" title="55">    <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span>Submit<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb6-56" title="56">  <span class="kw">&lt;/form&gt;</span></a>
+<a class="sourceLine" id="cb6-57" title="57"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>

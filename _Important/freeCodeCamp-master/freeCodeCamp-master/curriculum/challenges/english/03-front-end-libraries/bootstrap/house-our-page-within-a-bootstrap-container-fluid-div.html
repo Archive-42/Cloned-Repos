@@ -1,0 +1,21 @@
+<h1 id="description">–description–</h1>
+<p>Now let’s make sure all the content on your page is mobile-responsive.</p>
+<p>Let’s nest your <code>h3</code> element within a <code>div</code> element with the class <code>container-fluid</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>div</code> element should have the class <code>container-fluid</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;div&#39;</span>).<span class="at">hasClass</span>(<span class="st">&#39;container-fluid&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Each of your <code>div</code> elements should have closing tags.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">div&gt;/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;div/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">div&gt;/g</span>).<span class="at">length</span> <span class="op">===</span> <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;div/g</span>).<span class="at">length</span></a>
+<a class="sourceLine" id="cb2-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h3</code> element should be nested inside a <code>div</code> element.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;div&#39;</span>).<span class="at">children</span>(<span class="st">&#39;h3&#39;</span>).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;h3</span><span class="ot"> class=</span><span class="st">&quot;text-primary text-center&quot;</span><span class="kw">&gt;</span>jQuery Playground<span class="kw">&lt;/h3&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container-fluid&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">    <span class="kw">&lt;h3</span><span class="ot"> class=</span><span class="st">&quot;text-primary text-center&quot;</span><span class="kw">&gt;</span>jQuery Playground<span class="kw">&lt;/h3&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>

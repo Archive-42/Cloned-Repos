@@ -1,0 +1,49 @@
+<h1 id="description">–description–</h1>
+<p>As a reminder, this project is being built upon the following starter project on <a href="https://repl.it/github/freeCodeCamp/boilerplate-mochachai">Repl.it</a>, or cloned from <a href="https://github.com/freeCodeCamp/boilerplate-mochachai/">GitHub</a>.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Within <code>tests/1_unit-tests.js</code> under the test labelled <code>#12</code> in the <code>Arrays</code> suite, change each <code>assert</code> to either <code>assert.include</code> or <code>assert.notInclude</code> to make the test pass (should evaluate to <code>true</code>). Do not alter the arguments passed to the asserts.</p>
+<h1 id="hints">–hints–</h1>
+<p>All tests should pass.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests?type=unit&amp;n=11&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb1-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">state</span><span class="op">,</span> <span class="st">&#39;passed&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb1-6" title="6">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-7" title="7">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-9" title="9">  )<span class="op">;</span></a></code></pre></div>
+<p>You should choose the correct method for the first assertion - <code>include</code> vs. <code>notInclude</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests?type=unit&amp;n=11&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb2-5" title="5">        <span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">0</span>].<span class="at">method</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-6" title="6">        <span class="st">&#39;notInclude&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-7" title="7">        <span class="st">&quot;It&#39;s summer in july...&quot;</span></a>
+<a class="sourceLine" id="cb2-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<p>You should choose the correct method for the second assertion - <code>include</code> vs. <code>notInclude</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests?type=unit&amp;n=11&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb3-5" title="5">        <span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">1</span>].<span class="at">method</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-6" title="6">        <span class="st">&#39;include&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">        <span class="st">&#39;JavaScript is a backend language !!&#39;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">*/</span></a></code></pre></div>

@@ -1,0 +1,124 @@
+<h1 id="description">–description–</h1>
+<p>Arrays are JavaScript objects that can hold a lot of different elements.</p>
+<p><code>var complexArr = [1, 5, "2", "Word", {"name": "James"}];</code></p>
+<p>Basically what happens in the background is that your browser will automatically give the right amount of memory space for that array. It will also change as needed if you add or remove data.</p>
+<p>However, in the world of high performance and different element types, sometimes you need to be more specific on how much memory is given to an array.</p>
+<p><dfn>Typed arrays</dfn> are the answer to this problem. You are now able to say how much memory you want to give an array. Below is a basic overview of the different types of arrays available and the size in bytes for each element in that array.</p>
+<table class="table table-striped">
+<tbody>
+<tr>
+<th>
+Type
+</th>
+<th>
+Each element size in bytes
+</th>
+</tr>
+<tr>
+<td>
+<code>Int8Array</code>
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+<code>Uint8Array</code>
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+<code>Uint8ClampedArray</code>
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+<code>Int16Array</code>
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<td>
+<code>Uint16Array</code>
+</td>
+<td>
+2
+</td>
+</tr>
+<tr>
+<td>
+<code>Int32Array</code>
+</td>
+<td>
+4
+</td>
+</tr>
+<tr>
+<td>
+<code>Uint32Array</code>
+</td>
+<td>
+4
+</td>
+</tr>
+<tr>
+<td>
+<code>Float32Array</code>
+</td>
+<td>
+4
+</td>
+</tr>
+<tr>
+<td>
+<code>Float64Array</code>
+</td>
+<td>
+8
+</td>
+</tr>
+</tbody>
+</table>
+<p>There are two ways in creating these kind of arrays. One way is to create it directly. Below is how to create a 3 length <code>Int16Array</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">var</span> i8 <span class="op">=</span> <span class="kw">new</span> <span class="at">Int16Array</span>(<span class="dv">3</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="va">console</span>.<span class="at">log</span>(i8)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co">// Returns [0, 0, 0]</span></a></code></pre></div>
+<p>You can also create a <dfn>buffer</dfn> to assign how much data (in bytes) you want the array to take up. <strong>Note</strong><br />
+To create typed arrays using buffers, you need to assign the number of bytes to be a multiple of the bytes listed above.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="co">// Create same Int16Array array differently</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">var</span> byteSize <span class="op">=</span> <span class="dv">6</span><span class="op">;</span> <span class="co">// Needs to be multiple of 2</span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="kw">var</span> buffer <span class="op">=</span> <span class="kw">new</span> <span class="at">ArrayBuffer</span>(byteSize)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="kw">var</span> i8View <span class="op">=</span> <span class="kw">new</span> <span class="at">Int16Array</span>(buffer)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="va">buffer</span>.<span class="at">byteLength</span><span class="op">;</span> <span class="co">// Returns 6</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="va">i8View</span>.<span class="at">byteLength</span><span class="op">;</span> <span class="co">// Returns 6</span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="va">console</span>.<span class="at">log</span>(i8View)<span class="op">;</span> <span class="co">// Returns [0, 0, 0]</span></a></code></pre></div>
+<p><dfn>Buffers</dfn> are general purpose objects that just carry data. You cannot access them normally. To access them, you need to first create a <dfn>view</dfn>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">i8View[<span class="dv">0</span>] <span class="op">=</span> <span class="dv">42</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="va">console</span>.<span class="at">log</span>(i8View)<span class="op">;</span> <span class="co">// Returns [42, 0, 0]</span></a></code></pre></div>
+<p><strong>Note</strong><br />
+Typed arrays do not have some of the methods traditional arrays have such as <code>.pop()</code> or <code>.push()</code>. Typed arrays also fail <code>Array.isArray()</code> that checks if something is an array. Although simpler, this can be an advantage for less-sophisticated JavaScript engines to implement them.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>First create a <code>buffer</code> that is 64-bytes. Then create a <code>Int32Array</code> typed array with a view of it called <code>i32View</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>buffer</code> should be 64 bytes large.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="va">buffer</span>.<span class="at">byteLength</span> <span class="op">===</span> <span class="dv">64</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>i32View</code> view of your buffer should be 64 bytes large.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="va">i32View</span>.<span class="at">byteLength</span> <span class="op">===</span> <span class="dv">64</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>i32View</code> view of your buffer should be 16 elements long.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(<span class="va">i32View</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">16</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">var</span> buffer<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw">var</span> i32View<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">var</span> buffer <span class="op">=</span> <span class="kw">new</span> <span class="at">ArrayBuffer</span>(<span class="dv">64</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw">var</span> i32View <span class="op">=</span> <span class="kw">new</span> <span class="at">Int32Array</span>(buffer)<span class="op">;</span></a></code></pre></div>

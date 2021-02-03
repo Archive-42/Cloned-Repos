@@ -1,0 +1,225 @@
+/*
+Theme Name: learn-jquery-com
+Template: jquery
+ */
+
+a {
+	color: #0769ad;
+}
+
+/*******************************************************************************/
+/* Home Page
+/*******************************************************************************/
+#home-features aside h3 {
+	text-align: center;
+}
+
+#home-features aside ul {
+	list-style-type: none;
+	text-align: left;
+}
+#home-features aside ul li {
+	margin: 0;
+}
+
+#open-source-content p {
+	clear: both;
+}
+
+/*******************************************************************************/
+/* Beta Ribbon
+/*******************************************************************************/
+.beta-ribbon-wrapper {
+	width: 85px;
+	height: 88px;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 10;
+}
+
+.beta-ribbon {
+	font-weight: bold;
+	text-align: center;
+	text-shadow: rgba(255,255,255,0.5) 0 1px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+	position: relative;
+	padding: 7px 0;
+	left: -5px;
+	top: 11px;
+	width: 120px;
+	background-color: #ffea94;
+	background-image: -webkit-linear-gradient(top, #ffea94, #ffea5E);
+	background-image: linear-gradient(to bottom, #ffea94, #ffea5E);
+	color: #6a6340;
+	box-shadow: 0 0 3px rgba(0,0,0,0.3);
+	cursor: pointer;
+}
+
+.beta-ribbon:hover {
+	background-color: #ffea5e;
+	background-image: -webkit-linear-gradient(top, #ffea5e, #ffea94);
+	background-image: linear-gradient(to bottom, #ffea5e, #ffea94);
+}
+.beta-ribbon a {
+	text-decoration: none;
+	color: #393939;
+}
+
+.beta-ribbon:hover a {
+	text-decoration: underline;
+}
+/*******************************************************************************/
+/* Sidebar
+/*******************************************************************************/
+
+#sidebar #chapter-listing ul li {
+	background: none;
+	padding-left: 0;
+
+}
+
+#sidebar #chapter-listing li.active > a {
+	background: #212121;
+	color: #fff;
+	text-shadow: none;
+}
+
+#sidebar #chapter-listing li.active > a i {
+	color: #fff;
+}
+
+#sidebar #chapter-listing ul.sub-chapter {
+	margin: 0;
+	float: none;
+}
+
+#sidebar #chapter-listing ul.sub-chapter li {
+	border-bottom: none;
+}
+
+#sidebar #chapter-listing ul.sub-chapter li a {
+	padding: 1% 10% 1% 15%;
+	width: 100%;
+}
+/*******************************************************************************/
+/* Footer Metadata
+/*******************************************************************************/
+
+.entry-meta.row {
+	min-width: initial;
+	margin: 0;
+}
+
+.entry-meta aside {
+	color: #333;
+}
+
+.entry-meta aside.meta-details {
+	float: left;
+	box-shadow: 0 0 5px -0.5px #ddd;
+	border: 1px solid white;
+	background: #fff7e3;
+	background: -webkit-linear-gradient(top, #fffaf5 0%,#fff7e3 100%,#fff7e3 100%);
+	background: linear-gradient(to bottom, #fffaf5 0%,#fff7e3 100%,#fff7e3 100%);
+	margin-bottom: 1.8em;
+	padding: 1em 1em 0 1em;
+}
+.entry-meta aside.meta-details h3 {
+	color: #303030;
+	font-weight: normal;
+	padding-left: 0.4em;
+	padding-bottom: 0.2em;
+	border-bottom: 1px solid #ccc;
+}
+.entry-meta aside.meta-details ul {
+	font-size: 140%;
+	color: #666;
+	margin-left: 1.7em;
+}
+.entry-meta aside.meta-details li {
+	margin-bottom: 0.7em;
+}
+.entry-meta aside.meta-details li[class^="icon-"] span,
+.entry-meta aside.meta-details li[class*="icon-"] span {
+	margin-left: 10px;
+}
+
+.entry-meta aside.meta-details [class^="icon-"]:before,
+.entry-meta aside.meta-details [class*=" icon-"]:before {
+	margin-top: 0.05em;
+}
+.entry-meta .github-feedback {
+	float: right;
+	text-align: right;
+	background: #fff url(i/github.png) no-repeat 102% 50%;
+	text-shadow: 0 1px 1px #fff;
+	color: #5d5d5d;
+	padding-top: 1em;
+}
+.entry-meta .github-feedback h3 {
+	padding-right: 0.5em;
+}
+.entry-meta .github-feedback a {
+	float: right;
+}
+
+.meta .github {
+	float: left;
+	display: block;
+	width: 35%;
+	min-height: 45px;
+	border-right: 1px solid #fff;
+	box-shadow: 1px 0 0 #b7b7b7;
+}
+
+.meta .github .avatar {
+	border: 5px solid #fff;
+	width: auto;
+	height: 40px;
+	box-shadow: 0 0 5px rgba(0,0,0,0.25);
+	display: block;
+	float: left;
+}
+
+.meta .feedback {
+	float: left;
+	display: block;
+	width: 62%;
+	padding: 0 0 0 3%;
+}
+
+.meta .feedback h4 {
+	letter-spacing: 0;
+	margin: 4px 0 0 0;
+}
+
+.github-feedback .icon-github {
+	color: #7acef4;
+}
+.entry-meta .bottom-links {
+	background-image: url(../jquery/images/gauze.png);
+	border: none;
+	margin: 2em 0;
+	clear: both;
+}
+
+#content .bottom-links a {
+	line-height: 2;
+	text-decoration: none;
+	font-size: 140%;
+}
+
+#content .bottom-links a:hover {
+	text-decoration: underline;
+}
+#content .bottom-links .prev, #content .bottom-links .next  {
+	color: #333;
+}
+
+#content .bottom-links .next {
+	text-align: right;
+}

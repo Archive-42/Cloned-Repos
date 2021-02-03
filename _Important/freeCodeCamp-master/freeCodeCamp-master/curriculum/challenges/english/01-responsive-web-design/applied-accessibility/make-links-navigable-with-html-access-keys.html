@@ -1,0 +1,63 @@
+<h1 id="description">–description–</h1>
+<p>HTML offers the <code>accesskey</code> attribute to specify a shortcut key to activate or bring focus to an element. This can make navigation more efficient for keyboard-only users.</p>
+<p>HTML5 allows this attribute to be used on any element, but it’s particularly useful when it’s used with interactive ones. This includes links, buttons, and form controls.</p>
+<p>Here’s an example:</p>
+<p><code>&lt;button accesskey="b"&gt;Important Button&lt;/button&gt;</code></p>
+<h1 id="instructions">–instructions–</h1>
+<p>Camper Cat wants the links around the two blog article titles to have keyboard shortcuts so his site’s users can quickly navigate to the full story. Add an <code>accesskey</code> attribute to both links and set the first one to “g” (for Garfield) and the second one to “c” (for Chuck Norris).</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should add an <code>accesskey</code> attribute to the <code>a</code> tag with the <code>id</code> of “first”.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;#first&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;accesskey&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your code should add an <code>accesskey</code> attribute to the <code>a</code> tag with the <code>id</code> of “second”.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;#second&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;accesskey&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your code should set the <code>accesskey</code> attribute on the <code>a</code> tag with the <code>id</code> of “first” to “g”. Note that case matters.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;#first&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;accesskey&#39;</span>) <span class="op">==</span> <span class="st">&#39;g&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your code should set the <code>accesskey</code> attribute on the <code>a</code> tag with the <code>id</code> of “second” to “c”. Note that case matters.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;#second&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;accesskey&#39;</span>) <span class="op">==</span> <span class="st">&#39;c&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">&lt;header&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">&lt;h1&gt;</span>Deep Thoughts with Master Camper Cat<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">  <span class="kw">&lt;/header&gt;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">  <span class="kw">&lt;article&gt;</span></a>
+<a class="sourceLine" id="cb5-6" title="6"></a>
+<a class="sourceLine" id="cb5-7" title="7"></a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="kw">&lt;h2&gt;&lt;a</span><span class="ot"> id=</span><span class="st">&quot;first&quot;</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>The Garfield Files: Lasagna as Training Fuel?<span class="kw">&lt;/a&gt;&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb5-9" title="9"></a>
+<a class="sourceLine" id="cb5-10" title="10"></a>
+<a class="sourceLine" id="cb5-11" title="11">    <span class="kw">&lt;p&gt;</span>The internet is littered with varying opinions on nutritional paradigms, from catnip paleo to hairball cleanses. But let&#39;s turn our attention to an often overlooked fitness fuel, and examine the protein-carb-NOM trifecta that is lasagna...<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">  <span class="kw">&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb5-13" title="13">  <span class="kw">&lt;article&gt;</span></a>
+<a class="sourceLine" id="cb5-14" title="14"></a>
+<a class="sourceLine" id="cb5-15" title="15"></a>
+<a class="sourceLine" id="cb5-16" title="16">    <span class="kw">&lt;h2&gt;&lt;a</span><span class="ot"> id=</span><span class="st">&quot;second&quot;</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Is Chuck Norris a Cat Person?<span class="kw">&lt;/a&gt;&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb5-17" title="17"></a>
+<a class="sourceLine" id="cb5-18" title="18"></a>
+<a class="sourceLine" id="cb5-19" title="19">    <span class="kw">&lt;p&gt;</span>Chuck Norris is widely regarded as the premier martial artist on the planet, and it&#39;s a complete coincidence anyone who disagrees with this fact mysteriously disappears soon after. But the real question is, is he a cat person?...<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-20" title="20">  <span class="kw">&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb5-21" title="21">  <span class="kw">&lt;footer&gt;</span><span class="dv">&amp;copy;</span> 2018 Camper Cat<span class="kw">&lt;/footer&gt;</span></a>
+<a class="sourceLine" id="cb5-22" title="22"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="kw">&lt;header&gt;</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">&lt;h1&gt;</span>Deep Thoughts with Master Camper Cat<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">  <span class="kw">&lt;/header&gt;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">  <span class="kw">&lt;article&gt;</span></a>
+<a class="sourceLine" id="cb6-6" title="6"></a>
+<a class="sourceLine" id="cb6-7" title="7"></a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="kw">&lt;h2&gt;&lt;a</span><span class="ot"> id=</span><span class="st">&quot;first&quot;</span><span class="ot"> accesskey=</span><span class="st">&quot;g&quot;</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>The Garfield Files: Lasagna as Training Fuel?<span class="kw">&lt;/a&gt;&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb6-9" title="9"></a>
+<a class="sourceLine" id="cb6-10" title="10"></a>
+<a class="sourceLine" id="cb6-11" title="11">    <span class="kw">&lt;p&gt;</span>The internet is littered with varying opinions on nutritional paradigms, from catnip paleo to hairball cleanses. But let&#39;s turn our attention to an often overlooked fitness fuel, and examine the protein-carb-NOM trifecta that is lasagna...<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">  <span class="kw">&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb6-13" title="13">  <span class="kw">&lt;article&gt;</span></a>
+<a class="sourceLine" id="cb6-14" title="14"></a>
+<a class="sourceLine" id="cb6-15" title="15"></a>
+<a class="sourceLine" id="cb6-16" title="16">    <span class="kw">&lt;h2&gt;&lt;a</span><span class="ot"> id=</span><span class="st">&quot;second&quot;</span><span class="ot"> accesskey=</span><span class="st">&quot;c&quot;</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Is Chuck Norris a Cat Person?<span class="kw">&lt;/a&gt;&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb6-17" title="17"></a>
+<a class="sourceLine" id="cb6-18" title="18"></a>
+<a class="sourceLine" id="cb6-19" title="19">    <span class="kw">&lt;p&gt;</span>Chuck Norris is widely regarded as the premier martial artist on the planet, and it&#39;s a complete coincidence anyone who disagrees with this fact mysteriously disappears soon after. But the real question is, is he a cat person?...<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb6-20" title="20">  <span class="kw">&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb6-21" title="21">  <span class="kw">&lt;footer&gt;</span><span class="dv">&amp;copy;</span> 2018 Camper Cat<span class="kw">&lt;/footer&gt;</span></a>
+<a class="sourceLine" id="cb6-22" title="22"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>

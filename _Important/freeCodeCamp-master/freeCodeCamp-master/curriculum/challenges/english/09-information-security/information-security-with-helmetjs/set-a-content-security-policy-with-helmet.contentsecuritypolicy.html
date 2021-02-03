@@ -1,0 +1,44 @@
+<h1 id="description">–description–</h1>
+<p>As a reminder, this project is being built upon the following starter project on <a href="https://repl.it/github/freeCodeCamp/boilerplate-infosec">Repl.it</a>, or cloned from <a href="https://github.com/freeCodeCamp/boilerplate-infosec/">GitHub</a>.</p>
+<p>This challenge highlights one promising new defense that can significantly reduce the risk and impact of many type of attacks in modern browsers. By setting and configuring a Content Security Policy you can prevent the injection of anything unintended into your page. This will protect your app from XSS vulnerabilities, undesired tracking, malicious frames, and much more. CSP works by defining an allowed list of content sources which are trusted. You can configure them for each kind of resource a web page may need (scripts, stylesheets, fonts, frames, media, and so on…). There are multiple directives available, so a website owner can have a granular control. See HTML 5 Rocks, KeyCDN for more details. Unfortunately CSP is unsupported by older browser.</p>
+<p>By default, directives are wide open, so it’s important to set the defaultSrc directive as a fallback. Helmet supports both defaultSrc and default-src naming styles. The fallback applies for most of the unspecified directives.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>In this exercise, use <code>helmet.contentSecurityPolicy()</code>, and configure it setting the <code>defaultSrc directive</code> to <code>["self"]</code> (the list of allowed sources must be in an array), in order to trust only your website address by default. Set also the <code>scriptSrc</code> directive so that you will allow scripts to be downloaded from your website, and from the domain ‘trusted-cdn.com’.</p>
+<p>Hint: in the <code>self</code> keyword, the single quotes are part of the keyword itself, so it needs to be enclosed in double quotes to be working.</p>
+<h1 id="hints">–hints–</h1>
+<p>helmet.csp() middleware should be mounted correctly</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/app-info&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb1-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-4" title="4">      <span class="va">assert</span>.<span class="at">include</span>(<span class="va">data</span>.<span class="at">appStack</span><span class="op">,</span> <span class="st">&#39;csp&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb1-6" title="6">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-7" title="7">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-9" title="9">  )<span class="op">;</span></a></code></pre></div>
+<p>Your csp config is not correct. defaultSrc should be [“‘self’”] and scriptSrc should be [“‘self’”, ‘trusted-cdn.com’]</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/app-info&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="kw">var</span> cspHeader <span class="op">=</span> <span class="va">Object</span>.<span class="at">keys</span>(<span class="va">data</span>.<span class="at">headers</span>).<span class="at">filter</span>(<span class="kw">function</span> (k) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-5" title="5">        <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb2-6" title="6">          k <span class="op">===</span> <span class="st">&#39;content-security-policy&#39;</span> <span class="op">||</span></a>
+<a class="sourceLine" id="cb2-7" title="7">          k <span class="op">===</span> <span class="st">&#39;x-webkit-csp&#39;</span> <span class="op">||</span></a>
+<a class="sourceLine" id="cb2-8" title="8">          k <span class="op">===</span> <span class="st">&#39;x-content-security-policy&#39;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">        )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-10" title="10">      <span class="op">}</span>)[<span class="dv">0</span>]<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-11" title="11">      <span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb2-12" title="12">        <span class="va">data</span>.<span class="at">headers</span>[cspHeader]<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-13" title="13">        <span class="st">&quot;default-src &#39;self&#39;; script-src &#39;self&#39; trusted-cdn.com&quot;</span></a>
+<a class="sourceLine" id="cb2-14" title="14">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-15" title="15">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-16" title="16">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-17" title="17">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-18" title="18">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-19" title="19">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions,</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">  because they would need to be tested against a full working project.</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">*/</span></a></code></pre></div>

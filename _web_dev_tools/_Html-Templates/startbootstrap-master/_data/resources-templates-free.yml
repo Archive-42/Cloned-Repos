@@ -1,0 +1,7 @@
+- name:        Start Bootstrap
+  link:        https://startbootstrap.com/
+  description: Start Bootstrap creates free, open source, MIT license, Bootstrap themes, templates, and code snippets for you to use on any project, guides to help you learn more about designing and developing with the Bootstrap framework, and premium Bootstrap products.
+
+- name:        Bootswatch
+  link:        http://bootswatch.com/
+  description: A collection of easy to use, open source swatches for Bootstrap.

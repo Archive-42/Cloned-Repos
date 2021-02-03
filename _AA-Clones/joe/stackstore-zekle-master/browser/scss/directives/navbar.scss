@@ -1,0 +1,56 @@
+$purple: rgb(48, 34, 74);
+$offwhite:darken(white,10%);
+navbar {
+
+  display: block;
+  background-color: black;
+  // border-bottom: 4px solid darken($offwhite,20%);
+  search{
+    float:right;
+  }
+  fullstack-logo {
+    padding-top: 0px;
+    margin-right: 20px;
+    width: 50px;
+  }
+
+  a {
+    color: $offwhite;
+    font-size:1.1em;
+    &:hover {
+      
+    }
+  }
+
+  .nav > li > a {
+    cursor: pointer;
+    &.active {
+      color: $teal;
+    }
+    &:hover {
+      transition: color 0.2s;
+    }
+    &:focus {
+      color: $teal;
+      background: transparent;
+    }
+  }
+
+  .login-button {
+    float: right;
+    margin-top: 8px;
+  }
+
+  .welcome {
+    float: right;
+    margin-top: 12px;
+    span {
+      color: white;
+    }
+    a {
+      color: $teal;
+      cursor: pointer;
+    }
+  }
+
+}

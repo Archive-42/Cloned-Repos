@@ -1,0 +1,57 @@
+<h1 id="description">–description–</h1>
+<p>A <strong>CUSIP</strong> is a nine-character alphanumeric code that identifies a North American financial security for the purposes of facilitating clearing and settlement of trades. The CUSIP was adopted as an American National Standard under Accredited Standards X9.6.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Write a function that takes a string as a parameter and checks if the string is valid CUSIP.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>isCusip</code> should be a function.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> isCusip <span class="op">==</span> <span class="st">&#39;function&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>isCusip("037833100")</code> should return a boolean.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">isCusip</span>(<span class="st">&#39;037833100&#39;</span>) <span class="op">==</span> <span class="st">&#39;boolean&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>isCusip("037833100")</code> should return <code>true</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">isCusip</span>(<span class="st">&#39;037833100&#39;</span>)<span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>isCusip("17275R102")</code> should return <code>true</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">isCusip</span>(<span class="st">&#39;17275R102&#39;</span>)<span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>isCusip("38259P50a")</code> should return <code>false</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">isCusip</span>(<span class="st">&#39;38259P50a&#39;</span>)<span class="op">,</span> <span class="kw">false</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>isCusip("38259P508")</code> should return <code>true</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">isCusip</span>(<span class="st">&#39;38259P508&#39;</span>)<span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>isCusip("38259P50#")</code> should return <code>false</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">isCusip</span>(<span class="st">&#39;38259P50#&#39;</span>)<span class="op">,</span> <span class="kw">false</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>isCusip("68389X105")</code> should return <code>true</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">isCusip</span>(<span class="st">&#39;68389X105&#39;</span>)<span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>isCusip("68389X106")</code> should return <code>false</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">isCusip</span>(<span class="st">&#39;68389X106&#39;</span>)<span class="op">,</span> <span class="kw">false</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>isCusip("5949181")</code> should return <code>false</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb10-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">isCusip</span>(<span class="st">&#39;5949181&#39;</span>)<span class="op">,</span> <span class="kw">false</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">function</span> <span class="at">isCusip</span>(s) <span class="op">{</span></a>
+<a class="sourceLine" id="cb11-2" title="2"></a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="op">}</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb12"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">function</span> <span class="at">isCusip</span>(s) <span class="op">{</span></a>
+<a class="sourceLine" id="cb12-2" title="2">  <span class="cf">if</span> (<span class="va">s</span>.<span class="at">length</span> <span class="op">!=</span> <span class="dv">9</span>) <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb12-3" title="3">  <span class="kw">var</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb12-4" title="4">  <span class="kw">var</span> ASCII <span class="op">=</span> x <span class="kw">=&gt;</span> <span class="va">x</span>.<span class="at">charCodeAt</span>(<span class="dv">0</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb12-5" title="5">  <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">7</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb12-6" title="6">    <span class="kw">var</span> c <span class="op">=</span> <span class="va">s</span>.<span class="at">charCodeAt</span>(i)<span class="op">;</span></a>
+<a class="sourceLine" id="cb12-7" title="7"></a>
+<a class="sourceLine" id="cb12-8" title="8">    <span class="kw">var</span> v<span class="op">;</span></a>
+<a class="sourceLine" id="cb12-9" title="9">    <span class="cf">if</span> (c <span class="op">&gt;=</span> <span class="at">ASCII</span>(<span class="st">&#39;0&#39;</span>) <span class="op">&amp;&amp;</span> c <span class="op">&lt;=</span> <span class="at">ASCII</span>(<span class="st">&#39;9&#39;</span>)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb12-10" title="10">      v <span class="op">=</span> c <span class="op">-</span> <span class="dv">48</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb12-11" title="11">    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (c <span class="op">&gt;=</span> <span class="at">ASCII</span>(<span class="st">&#39;A&#39;</span>) <span class="op">&amp;&amp;</span> c <span class="op">&lt;=</span> <span class="at">ASCII</span>(<span class="st">&#39;Z&#39;</span>)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb12-12" title="12">      v <span class="op">=</span> c <span class="op">-</span> <span class="dv">64</span><span class="op">;</span> <span class="co">// lower case letters apparently invalid</span></a>
+<a class="sourceLine" id="cb12-13" title="13">    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (c <span class="op">==</span> <span class="at">ASCII</span>(<span class="st">&#39;*&#39;</span>)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb12-14" title="14">      v <span class="op">=</span> <span class="dv">36</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb12-15" title="15">    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (c <span class="op">==</span> <span class="at">ASCII</span>(<span class="st">&#39;@&#39;</span>)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb12-16" title="16">      v <span class="op">=</span> <span class="dv">37</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb12-17" title="17">    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (c <span class="op">==</span> <span class="at">ASCII</span>(<span class="st">&#39;#&#39;</span>)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb12-18" title="18">      v <span class="op">=</span> <span class="dv">38</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb12-19" title="19">    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb12-20" title="20">      <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb12-21" title="21">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb12-22" title="22">    <span class="cf">if</span> (i <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">1</span>) v <span class="op">*=</span> <span class="dv">2</span><span class="op">;</span> <span class="co">// check if odd as using 0-based indexing</span></a>
+<a class="sourceLine" id="cb12-23" title="23">    sum <span class="op">+=</span> <span class="va">Math</span>.<span class="at">floor</span>(v / <span class="dv">10</span>) <span class="op">+</span> (v <span class="op">%</span> <span class="dv">10</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb12-24" title="24">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb12-25" title="25">  <span class="cf">return</span> <span class="va">s</span>.<span class="at">charCodeAt</span>(<span class="dv">8</span>) <span class="op">-</span> <span class="dv">48</span> <span class="op">==</span> (<span class="dv">10</span> <span class="op">-</span> (sum <span class="op">%</span> <span class="dv">10</span>)) <span class="op">%</span> <span class="dv">10</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb12-26" title="26"><span class="op">}</span></a></code></pre></div>

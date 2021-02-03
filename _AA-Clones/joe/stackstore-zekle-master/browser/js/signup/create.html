@@ -1,0 +1,49 @@
+    <form id="registration-form" name="registrationForm" ng-class="form-group" ng-submit="createUser()" novalidate>
+
+        <!-- FIRST NAME -->
+        <div class="form-group" ng-class="{ 'has-error' : SignupForm.firstName.$invalid && !SignupForm.firstName.$pristine }">
+            <label>First Name</label>
+            <input type="text" name="firstName" class="form-control" ng-model="SignupForm.firstName" required>
+            <p ng-show="SignupForm.firstName.$invalid && !SignupForm.firstName.$pristine" class="help-block">first name is required.</p>
+        </div>
+
+        <!-- LAST NAME -->
+        <div class="form-group" ng-class="{ 'has-error' : SignupForm.lastName.$invalid && !SignupForm.lastName.$pristine }">
+            <label>Last Name</label>
+            <input type="text" name="lastName" class="form-control" ng-model="SignupForm.lastName" required>
+            <p ng-show="SignupForm.lastName.$invalid && !SignupForm.lastName.$pristine" class="help-block">last name is required.</p>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="form-group" ng-class="{ 'has-error' : SignupForm.email.$invalid && !SignupForm.email.$pristine }">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" ng-model="SignupForm.email" ng-required="true">
+            <p ng-show="SignupForm.email.$invalid && !SignupForm.email.$pristine" class="help-block">please enter a valid email.</p>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="form-group" ng-class="{ 'has-error' : SignupForm.password.$invalid && !SignupForm.password.$pristine }">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" ng-model="SignupForm.password" ng-minlength="8" ng-required="true">
+            <p ng-show="SignupForm.password.$error.minlength" class="help-block">password must be at least 8 characters.</p>
+        </div>
+
+        <!-- PHONE NUMBER -->
+        <div class="form-group" ng-class="{ 'has-error' : SignupForm.password.$invalid && !SignupForm.password.$pristine }">
+            <label>Phone Number</label>
+            <input type="text" name="phoneNumber" class="form-control" ng-model="SignupForm.phoneNumber" ng-minlength="10" ng-maxlength="10" ng-required="true">
+            <p ng-show="SignupForm.phoneNumber.$error.required" class="help-block">phone number is required.</p>
+            <p ng-show="SignupForm.phoneNumber.$error.minlength" class="help-block">must be 10 digits in length</p>
+            <p ng-show="SignupForm.phoneNumber.$invalid && !SignupForm.phoneNumber.$pristine" class="help-block">not a valid phone number</p>
+        </div>
+
+        <input value="Create Account" type="submit" class="btn btn-default"></input>
+
+    </form>
+    {{SignupForm | json}}
+    {{SignupForm.valid}}
+    <button  class= "btn btn-danger" ng-click="googleAuth()">Login with Google</button>
+    {{createUser}}
+
+
+    <!-- {{ SignupForm | json }} -->

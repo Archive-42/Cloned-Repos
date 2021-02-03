@@ -1,0 +1,21 @@
+{
+  "name": "tariff",
+  "version": "0.1.0",
+  "description": "Crudely convert ES6 import/export declarations to CommonJS",
+  "main": "index.js",
+  "scripts": {"test": "node test.js"},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/marijnh/tariff.git"
+  },
+  "author": "Marijn Haverbeke <marijnh@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marijnh/tariff/issues"
+  },
+  "homepage": "https://github.com/marijnh/tariff#readme",
+  "dependencies": {
+    "acorn": "^3.1.0",
+    "source-map": "^0.5.3"
+  }
+}

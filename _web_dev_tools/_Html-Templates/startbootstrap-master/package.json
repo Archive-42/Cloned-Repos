@@ -1,0 +1,16 @@
+{
+    "name": "startbootstrap",
+    "title": "Start Bootstrap",
+    "version": "5.0.0",
+    "homepage": "https://startbootstrap.com",
+    "author": "Start Bootstrap",
+    "license": "SEE LICENSE IN LICENSE.txt",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/BlackrockDigital/startbootstrap.git"
+    },
+    "dependencies": {
+        "bootstrap": "4.4.1",
+        "gulp": "4.0.2"
+    }
+}

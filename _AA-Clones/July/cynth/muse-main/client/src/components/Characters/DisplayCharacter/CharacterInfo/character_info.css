@@ -1,0 +1,117 @@
+.info_display {
+    width: 100%;
+    /* max-height: 425px; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-x: center;
+    
+    /* margin-left: 2%; */
+}
+
+.info_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 20% repeat(5, 1fr);
+    grid-template-areas: 
+        'first last'
+        'trait1 bio'
+        'trait2 bio'
+        'trait3 bio'
+        'trait4 bio'
+        'trait5 bio';
+    align-items: flex-start;
+    margin: 7% 10% 0px 10%;
+    /* max-height: 325px; */
+    height: 60%;
+}
+
+.first,
+.last {
+    /* margin-top: 40px; */
+    text-align: center;
+    font-size: 3vw;
+    font-family: var(--font-display-title);
+    color: rgba(0, 0, 0, .65);
+    /* min-height: 40px; */
+    /* max-height: 20px;
+    min-height: 20px; */
+}
+
+.first {
+    grid-area: first;
+    margin-right: 10%;
+}
+
+.last {
+    grid-area: last;
+    margin-left: 10%;
+}
+
+.trait {
+    margin: 2% 10% 2% 5%;
+    /* height: 2.25em; */
+    font-size: 1.3vw;
+    font-weight: bold;
+    font-family: var(--font-display-title);
+    align-self: start;
+    /* padding-left: 20px; */
+}
+
+.id-char {
+    grid-area: trait1;
+}
+
+.strengths {
+    grid-area: trait2;
+}
+
+.weaknesses {
+    grid-area: trait3;
+}
+
+.motivations {
+    grid-area: trait4;
+}
+
+.secrets {
+    grid-area: trait5;
+}
+
+
+
+.bio {
+    grid-area: bio;
+    margin: 2px 0px 2px 30px;
+    font-size: 16.5px;
+    font-weight: bold;
+}
+
+.first-enter,
+.first-exit-done,
+.last-enter,
+.last-exit-done,
+.trait-enter,
+.trait-exit-done {
+    opacity: 0;
+}
+
+.first-enter-active,
+.last-enter-active,
+.trait-enter-active {
+    opacity: 1;
+    transition: opacity 1000ms linear;
+}
+
+.first-exit,
+.last-exit,
+.trait-exit {
+    opacity: 1;
+}
+
+.first-exit-active,
+.last-exit-active,
+.trait-exit-active {
+    opacity: 0;
+    transition: opacity 1000ms linear;
+}

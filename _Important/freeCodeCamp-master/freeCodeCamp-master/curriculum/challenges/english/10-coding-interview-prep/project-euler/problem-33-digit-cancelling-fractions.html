@@ -1,0 +1,72 @@
+<h1 id="description">–description–</h1>
+<p>The fraction <sup>49</sup>/<sub>98</sub> is a curious fraction, as an inexperienced mathematician in attempting to simplify it may incorrectly believe that <sup>49</sup>/<sub>98</sub> = <sup>4</sup>/<sub>8</sub>, which is correct, is obtained by cancelling the 9s.</p>
+<p>We shall consider fractions like, <sup>30</sup>/<sub>50</sub> = <sup>3</sup>/<sub>5</sub>, to be trivial examples.</p>
+<p>There are exactly four non-trivial examples of this type of fraction, less than one in value, and containing two digits in the numerator and denominator.</p>
+<p>If the product of these four fractions is given in its lowest common terms, find the value of the denominator.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>digitCancellingFractions()</code> should return a number.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">digitCancellingFractions</span>() <span class="op">===</span> <span class="st">&#39;number&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>digitCancellingFractions()</code> should return 100.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">digitCancellingFractions</span>()<span class="op">,</span> <span class="dv">100</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">function</span> <span class="at">digitCancellingFractions</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb3-5" title="5"></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="at">digitCancellingFractions</span>()<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">function</span> <span class="at">digitCancellingFractions</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">function</span> <span class="at">isCurious</span>(numerator<span class="op">,</span> denominator) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">const</span> fraction <span class="op">=</span> numerator / denominator<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="kw">const</span> numString <span class="op">=</span> <span class="va">numerator</span>.<span class="at">toString</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="kw">const</span> denString <span class="op">=</span> <span class="va">denominator</span>.<span class="at">toString</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6"></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="cf">if</span> (numString[<span class="dv">1</span>] <span class="op">===</span> <span class="st">&#39;0&#39;</span> <span class="op">&amp;&amp;</span> denString[<span class="dv">1</span>] <span class="op">===</span> <span class="st">&#39;0&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-8" title="8">      <span class="co">// trivial</span></a>
+<a class="sourceLine" id="cb4-9" title="9">      <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-11" title="11">    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-12" title="12">      <span class="cf">for</span> (<span class="kw">let</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> <span class="dv">2</span><span class="op">;</span> j<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-13" title="13">        <span class="cf">if</span> (numString[i] <span class="op">===</span> denString[j]) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-14" title="14">          <span class="kw">const</span> newNum <span class="op">=</span> <span class="at">parseInt</span>(numString[<span class="dv">1</span> <span class="op">-</span> i]<span class="op">,</span> <span class="dv">10</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-15" title="15">          <span class="kw">const</span> newDen <span class="op">=</span> <span class="at">parseInt</span>(denString[<span class="dv">1</span> <span class="op">-</span> j]<span class="op">,</span> <span class="dv">10</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-16" title="16">          <span class="cf">if</span> (newNum / newDen <span class="op">===</span> fraction) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-17" title="17">            <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-18" title="18">          <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-19" title="19">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-20" title="20">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-21" title="21">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-22" title="22">    <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-23" title="23">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-24" title="24">  <span class="kw">function</span> <span class="at">findLargestDivisor</span>(a<span class="op">,</span> b) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-25" title="25">    <span class="kw">let</span> gcd <span class="op">=</span> a <span class="op">&gt;</span> b <span class="op">?</span> b : a<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-26" title="26">    <span class="cf">while</span> (gcd <span class="op">&gt;</span> <span class="dv">1</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-27" title="27">      <span class="cf">if</span> (a <span class="op">%</span> gcd <span class="op">===</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> b <span class="op">%</span> gcd <span class="op">===</span> <span class="dv">0</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-28" title="28">        <span class="cf">return</span> gcd<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-29" title="29">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-30" title="30">      gcd<span class="op">--;</span></a>
+<a class="sourceLine" id="cb4-31" title="31">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-32" title="32">    <span class="cf">return</span> gcd<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-33" title="33">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-34" title="34"></a>
+<a class="sourceLine" id="cb4-35" title="35">  <span class="kw">function</span> <span class="at">simplifyFraction</span>(numerator<span class="op">,</span> denominator) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-36" title="36">    <span class="kw">const</span> divisor <span class="op">=</span> <span class="at">findLargestDivisor</span>(numerator<span class="op">,</span> denominator)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-37" title="37">    <span class="cf">return</span> [numerator / divisor<span class="op">,</span> denominator / divisor]<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-38" title="38">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-39" title="39"></a>
+<a class="sourceLine" id="cb4-40" title="40">  <span class="kw">let</span> multipleNumerator <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-41" title="41">  <span class="kw">let</span> multipleDenominator <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-42" title="42"></a>
+<a class="sourceLine" id="cb4-43" title="43">  <span class="cf">for</span> (<span class="kw">let</span> denominator <span class="op">=</span> <span class="dv">11</span><span class="op">;</span> denominator <span class="op">&lt;</span> <span class="dv">100</span><span class="op">;</span> denominator<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-44" title="44">    <span class="cf">for</span> (<span class="kw">let</span> numerator <span class="op">=</span> <span class="dv">10</span><span class="op">;</span> numerator <span class="op">&lt;</span> denominator<span class="op">;</span> numerator<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-45" title="45">      <span class="cf">if</span> (<span class="at">isCurious</span>(numerator<span class="op">,</span> denominator)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-46" title="46">        multipleNumerator <span class="op">*=</span> numerator<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-47" title="47">        multipleDenominator <span class="op">*=</span> denominator<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-48" title="48">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-49" title="49">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-50" title="50">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-51" title="51"></a>
+<a class="sourceLine" id="cb4-52" title="52">  <span class="cf">return</span> <span class="at">simplifyFraction</span>(multipleNumerator<span class="op">,</span> multipleDenominator)[<span class="dv">1</span>]<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-53" title="53"><span class="op">}</span></a></code></pre></div>

@@ -1,0 +1,96 @@
+<h1 id="description">–description–</h1>
+<p>The last challenge showed how the <code>map</code> method is used to dynamically render a number of elements based on user input. However, there was an important piece missing from that example. When you create an array of elements, each one needs a <code>key</code> attribute set to a unique value. React uses these keys to keep track of which items are added, changed, or removed. This helps make the re-rendering process more efficient when the list is modified in any way.</p>
+<p><strong>Note:</strong> Keys only need to be unique between sibling elements, they don’t need to be globally unique in your application.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>The code editor has an array with some front end frameworks and a stateless functional component named <code>Frameworks()</code>. <code>Frameworks()</code> needs to map the array to an unordered list, much like in the last challenge. Finish writing the <code>map</code> callback to return an <code>li</code> element for each framework in the <code>frontEndFrameworks</code> array. This time, make sure to give each <code>li</code> a <code>key</code> attribute, set to a unique value. The <code>li</code> elements should also contain text from <code>frontEndFrameworks</code>.</p>
+<p>Normally, you want to make the key something that uniquely identifies the element being rendered. As a last resort the array index may be used, but typically you should try to use a unique identification.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>Frameworks</code> component should exist and render to the page.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(Frameworks)).<span class="at">find</span>(<span class="st">&#39;Frameworks&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb1-3" title="3">)<span class="op">;</span></a></code></pre></div>
+<p><code>Frameworks</code> should render an <code>h1</code> element.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(Frameworks)).<span class="at">find</span>(<span class="st">&#39;h1&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>Frameworks</code> should render a <code>ul</code> element.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(Frameworks)).<span class="at">find</span>(<span class="st">&#39;ul&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>ul</code> tag should render 6 child <code>li</code> elements.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(Frameworks)).<span class="at">find</span>(<span class="st">&#39;ul&#39;</span>).<span class="at">children</span>().<span class="at">length</span> <span class="op">===</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="dv">6</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(Frameworks))</a>
+<a class="sourceLine" id="cb4-5" title="5">      .<span class="at">find</span>(<span class="st">&#39;ul&#39;</span>)</a>
+<a class="sourceLine" id="cb4-6" title="6">      .<span class="at">childAt</span>(<span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb4-7" title="7">      .<span class="at">name</span>() <span class="op">===</span> <span class="st">&#39;li&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(Frameworks)).<span class="at">find</span>(<span class="st">&#39;li&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">6</span></a>
+<a class="sourceLine" id="cb4-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<p>Each list item element should have a unique <code>key</code> attribute.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  (() <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">const</span> ul <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(Frameworks)).<span class="at">find</span>(<span class="st">&#39;ul&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">const</span> keys <span class="op">=</span> <span class="kw">new</span> <span class="at">Set</span>([</a>
+<a class="sourceLine" id="cb5-5" title="5">      <span class="va">ul</span>.<span class="at">childAt</span>(<span class="dv">0</span>).<span class="at">key</span>()<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-6" title="6">      <span class="va">ul</span>.<span class="at">childAt</span>(<span class="dv">1</span>).<span class="at">key</span>()<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-7" title="7">      <span class="va">ul</span>.<span class="at">childAt</span>(<span class="dv">2</span>).<span class="at">key</span>()<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-8" title="8">      <span class="va">ul</span>.<span class="at">childAt</span>(<span class="dv">3</span>).<span class="at">key</span>()<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-9" title="9">      <span class="va">ul</span>.<span class="at">childAt</span>(<span class="dv">4</span>).<span class="at">key</span>()<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-10" title="10">      <span class="va">ul</span>.<span class="at">childAt</span>(<span class="dv">5</span>).<span class="at">key</span>()</a>
+<a class="sourceLine" id="cb5-11" title="11">    ])<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">    <span class="cf">return</span> <span class="va">keys</span>.<span class="at">size</span> <span class="op">===</span> <span class="dv">6</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-13" title="13">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb5-14" title="14">)<span class="op">;</span></a></code></pre></div>
+<p>Each list item element should contain text from <code>frontEndFrameworks</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb6-2" title="2">  (() <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">const</span> li <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(Frameworks))</a>
+<a class="sourceLine" id="cb6-4" title="4">      .<span class="at">find</span>(<span class="st">&#39;ul&#39;</span>)</a>
+<a class="sourceLine" id="cb6-5" title="5">      .<span class="at">children</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">    <span class="cf">return</span> [...<span class="at">Array</span>(<span class="dv">5</span>)].<span class="at">every</span>((_<span class="op">,</span> i) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb6-7" title="7">      <span class="va">frontEndFrameworks</span>.<span class="at">includes</span>(<span class="va">li</span>.<span class="at">at</span>(i).<span class="at">text</span>())</a>
+<a class="sourceLine" id="cb6-8" title="8">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb6-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;Frameworks /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>const frontEndFrameworks = [
+  &#39;React&#39;,
+  &#39;Angular&#39;,
+  &#39;Ember&#39;,
+  &#39;Knockout&#39;,
+  &#39;Backbone&#39;,
+  &#39;Vue&#39;
+];
+
+function Frameworks() {
+  const renderFrameworks = null; // Change this line
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Popular Front End JavaScript Frameworks&lt;/h1&gt;
+      &lt;ul&gt;
+        {renderFrameworks}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>const frontEndFrameworks = [
+  &#39;React&#39;,
+  &#39;Angular&#39;,
+  &#39;Ember&#39;,
+  &#39;Knockout&#39;,
+  &#39;Backbone&#39;,
+  &#39;Vue&#39;
+];
+
+function Frameworks() {
+  const renderFrameworks = frontEndFrameworks.map((fw, i) =&gt; &lt;li key={i}&gt;{fw}&lt;/li&gt;);
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Popular Front End JavaScript Frameworks&lt;/h1&gt;
+      &lt;ul&gt;
+        {renderFrameworks}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>

@@ -1,0 +1,25 @@
+#search{
+	input:focus{
+		border-color:none;
+	}
+	
+	
+	max-width:500px;
+	float:left;
+	margin-top:8px;
+	#searchCategory{
+		width:30%; 
+		// display:inline-block;
+
+
+	}
+	#searchStr{
+		// display:inline-block; 
+		width:70%; 
+
+	}
+	button{
+		
+		float:left;
+	}
+}

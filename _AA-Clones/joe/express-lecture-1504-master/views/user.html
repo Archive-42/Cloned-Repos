@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>User profile</title>
+</head>
+<body>
+<h1>{{ user.name }}</h1>
+<h2>I like to:</h2>
+<ul>
+    {% for like in user.likes %}
+    <li>
+        {{ like }}
+    </li>
+    {% endfor %}
+</ul>
+</body>
+</html>

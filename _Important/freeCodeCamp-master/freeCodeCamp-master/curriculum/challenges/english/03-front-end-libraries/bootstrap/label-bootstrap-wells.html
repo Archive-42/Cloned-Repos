@@ -1,0 +1,64 @@
+<h1 id="description">–description–</h1>
+<p>For the sake of clarity, let’s label both of our wells with their ids.</p>
+<p>Above your left-well, inside its <code>col-xs-6</code> <code>div</code> element, add a <code>h4</code> element with the text <code>#left-well</code>.</p>
+<p>Above your right-well, inside its <code>col-xs-6</code> <code>div</code> element, add a <code>h4</code> element with the text <code>#right-well</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>You should add an <code>h4</code> element to each of your <code>&lt;div class="col-xs-6"&gt;</code> elements.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="at">$</span>(<span class="st">&#39;.col-xs-6&#39;</span>).<span class="at">children</span>(<span class="st">&#39;h4&#39;</span>) <span class="op">&amp;&amp;</span> <span class="at">$</span>(<span class="st">&#39;.col-xs-6&#39;</span>).<span class="at">children</span>(<span class="st">&#39;h4&#39;</span>).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb1-3" title="3">)<span class="op">;</span></a></code></pre></div>
+<p>One <code>h4</code> element should have the text <code>#left-well</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="kw">new</span> <span class="at">RegExp</span>(<span class="st">&#39;#left-well&#39;</span><span class="op">,</span> <span class="st">&#39;gi&#39;</span>).<span class="at">test</span>(<span class="at">$</span>(<span class="st">&#39;h4&#39;</span>).<span class="at">text</span>()))<span class="op">;</span></a></code></pre></div>
+<p>One <code>h4</code> element should have the text <code>#right-well</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="kw">new</span> <span class="at">RegExp</span>(<span class="st">&#39;#right-well&#39;</span><span class="op">,</span> <span class="st">&#39;gi&#39;</span>).<span class="at">test</span>(<span class="at">$</span>(<span class="st">&#39;h4&#39;</span>).<span class="at">text</span>()))<span class="op">;</span></a></code></pre></div>
+<p>All of your <code>h4</code> elements should have closing tags.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">h4&gt;/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;h4/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">h4&gt;/g</span>).<span class="at">length</span> <span class="op">===</span> <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;h4/g</span>).<span class="at">length</span></a>
+<a class="sourceLine" id="cb4-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container-fluid&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">&lt;h3</span><span class="ot"> class=</span><span class="st">&quot;text-primary text-center&quot;</span><span class="kw">&gt;</span>jQuery Playground<span class="kw">&lt;/h3&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;row&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-6&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-5" title="5"></a>
+<a class="sourceLine" id="cb5-6" title="6">      <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;well&quot;</span><span class="ot"> id=</span><span class="st">&quot;left-well&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">        <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-default target&quot;</span><span class="kw">&gt;&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">        <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-default target&quot;</span><span class="kw">&gt;&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">        <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-default target&quot;</span><span class="kw">&gt;&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">      <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-6&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-13" title="13"></a>
+<a class="sourceLine" id="cb5-14" title="14">      <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;well&quot;</span><span class="ot"> id=</span><span class="st">&quot;right-well&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-15" title="15">        <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-default target&quot;</span><span class="kw">&gt;&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb5-16" title="16">        <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-default target&quot;</span><span class="kw">&gt;&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb5-17" title="17">        <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-default target&quot;</span><span class="kw">&gt;&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb5-18" title="18">      <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-19" title="19">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-20" title="20">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-21" title="21"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container-fluid&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="kw">&lt;h3</span><span class="ot"> class=</span><span class="st">&quot;text-primary text-center&quot;</span><span class="kw">&gt;</span>jQuery Playground<span class="kw">&lt;/h3&gt;</span></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;row&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-6&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">      <span class="kw">&lt;h4&gt;</span>#left-well<span class="kw">&lt;/h4&gt;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">      <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;well&quot;</span><span class="ot"> id=</span><span class="st">&quot;left-well&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-7" title="7">        <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-default target&quot;</span><span class="kw">&gt;&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb6-8" title="8">        <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-default target&quot;</span><span class="kw">&gt;&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">        <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-default target&quot;</span><span class="kw">&gt;&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">      <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-11" title="11">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-6&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-13" title="13">      <span class="kw">&lt;h4&gt;</span>#right-well<span class="kw">&lt;/h4&gt;</span></a>
+<a class="sourceLine" id="cb6-14" title="14">      <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;well&quot;</span><span class="ot"> id=</span><span class="st">&quot;right-well&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-15" title="15">        <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-default target&quot;</span><span class="kw">&gt;&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb6-16" title="16">        <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-default target&quot;</span><span class="kw">&gt;&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb6-17" title="17">        <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;btn btn-default target&quot;</span><span class="kw">&gt;&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb6-18" title="18">      <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-19" title="19">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-20" title="20">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-21" title="21"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>

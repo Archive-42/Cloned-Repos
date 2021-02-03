@@ -1,0 +1,80 @@
+<h1 id="description">–description–</h1>
+<p>The Fibonacci sequence is defined by the recurrence relation:</p>
+<div style="padding-left: 4em;">
+F<sub>n</sub> = F<sub>n−1</sub> + F<sub>n−2</sub>, where F<sub>1</sub> = 1 and F<sub>2</sub> = 1.
+</div>
+<p>Hence the first 12 terms will be:</p>
+<div style="padding-left: 4em; display: inline-grid; grid-template-rows: auto; row-gap: 7px;">
+<div>
+F<sub>1</sub> = 1
+</div>
+<div>
+F<sub>2</sub> = 1
+</div>
+<div>
+F<sub>3</sub> = 2
+</div>
+<div>
+F<sub>4</sub> = 3
+</div>
+<div>
+F<sub>5</sub> = 5
+</div>
+<div>
+F<sub>6</sub> = 8
+</div>
+<div>
+F<sub>7</sub> = 13
+</div>
+<div>
+F<sub>8</sub> = 21
+</div>
+<div>
+F<sub>9</sub> = 34
+</div>
+<div>
+F<sub>10</sub> = 55
+</div>
+<div>
+F<sub>11</sub> = 89
+</div>
+<div>
+F<sub>12</sub> = 144
+</div>
+</div>
+<p>The 12th term, F<sub>12</sub>, is the first term to contain three digits.</p>
+<p>What is the index of the first term in the Fibonacci sequence to contain <code>n</code> digits?</p>
+<h1 id="hints">–hints–</h1>
+<p><code>digitFibonacci(5)</code> should return a number.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">digitFibonacci</span>(<span class="dv">5</span>) <span class="op">===</span> <span class="st">&#39;number&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>digitFibonacci(5)</code> should return 21.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">digitFibonacci</span>(<span class="dv">5</span>)<span class="op">,</span> <span class="dv">21</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>digitFibonacci(10)</code> should return 45.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">digitFibonacci</span>(<span class="dv">10</span>)<span class="op">,</span> <span class="dv">45</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>digitFibonacci(15)</code> should return 69.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">digitFibonacci</span>(<span class="dv">15</span>)<span class="op">,</span> <span class="dv">69</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>digitFibonacci(20)</code> should return 93.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">digitFibonacci</span>(<span class="dv">20</span>)<span class="op">,</span> <span class="dv">93</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">function</span> <span class="at">digitFibonacci</span>(n) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="cf">return</span> n<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb6-5" title="5"></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="at">digitFibonacci</span>(<span class="dv">20</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">const</span> digitFibonacci <span class="op">=</span> (n) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="kw">const</span> digits <span class="op">=</span> (num) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="cf">return</span> <span class="va">num</span>.<span class="at">toString</span>().<span class="at">length</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-4" title="4">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-5" title="5">  <span class="kw">let</span> f1 <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">  <span class="kw">let</span> f2 <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-7" title="7">  <span class="kw">let</span> index <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-8" title="8">  <span class="cf">while</span> (<span class="kw">true</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-9" title="9">    <span class="kw">let</span> fn <span class="op">=</span> f1 <span class="op">+</span> f2<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-10" title="10">    <span class="cf">if</span> (<span class="at">digits</span>(fn) <span class="op">===</span> n) <span class="cf">return</span> index<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-11" title="11">    [f1<span class="op">,</span> f2] <span class="op">=</span> [f2<span class="op">,</span> fn]<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-12" title="12">    index<span class="op">++;</span></a>
+<a class="sourceLine" id="cb7-13" title="13">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-14" title="14"><span class="op">};</span></a></code></pre></div>

@@ -1,0 +1,29 @@
+<h1 id="description">–description–</h1>
+<p>You can add images to your website by using the <code>img</code> element. <code>img</code> elements have an opening tag without a closing tag. A tag for an element without a closing tag is known as a <dfn>self-closing tag</dfn>.</p>
+<p>Add an <code>img</code> element below the <code>p</code> element. At this point, no image will show up in the browser.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>img</code> element should have an opening tag. Opening tags have this syntax: <code>&lt;elementName&gt;</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;img&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>img</code> element should not have a closing tag. Closing tags have a <code>/</code> just after the <code>&lt;</code> character.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="op">!</span><span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">img</span><span class="sc">\&gt;</span><span class="ss">/</span>))<span class="op">;</span></a></code></pre></div>
+<p>You should only have one <code>img</code> element. Remove any extras.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">document</span>.<span class="at">querySelectorAll</span>(<span class="st">&#39;img&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>img</code> element should be below the <code>p</code> element. You have them in the wrong order.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">const</span> collection <span class="op">=</span> [...<span class="va">document</span>.<span class="at">querySelectorAll</span>(<span class="st">&#39;p,img&#39;</span>)].<span class="at">map</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  (node) <span class="kw">=&gt;</span> <span class="va">node</span>.<span class="at">nodeName</span></a>
+<a class="sourceLine" id="cb4-3" title="3">)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="at">assert</span>(<span class="va">collection</span>.<span class="at">indexOf</span>(<span class="st">&#39;P&#39;</span>) <span class="op">&lt;</span> <span class="va">collection</span>.<span class="at">indexOf</span>(<span class="st">&#39;IMG&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">&lt;h1&gt;</span>CatPhotoApp<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">      <span class="kw">&lt;h2&gt;</span>Cat Photos<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">      <span class="co">&lt;!-- </span><span class="al">TODO</span><span class="co">: Add link to cat photos --&gt;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">--fcc-editable-region--</a>
+<a class="sourceLine" id="cb5-8" title="8">      <span class="kw">&lt;p&gt;</span>Click here to view more cat photos.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">--fcc-editable-region--</a>
+<a class="sourceLine" id="cb5-10" title="10">    <span class="kw">&lt;/main&gt;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">  <span class="kw">&lt;/body&gt;</span></a>
+<a class="sourceLine" id="cb5-12" title="12"><span class="kw">&lt;/html&gt;</span></a></code></pre></div>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2017-03-28 22:53:28">
+<sys_remote_update_set action="INSERT_OR_UPDATE">
+<application display_value="Global">global</application>
+<application_name>Global</application_name>
+<application_scope>global</application_scope>
+<application_version/>
+<collisions/>
+<commit_date/>
+<deleted/>
+<description/>
+<inserted/>
+<name>pe-cloud-sprawl-info-cost-snippet</name>
+<origin_sys_id/>
+<release_date/>
+<remote_sys_id>ec9f80a913353200d15e3d7ed144b090</remote_sys_id>
+<state>loaded</state>
+<summary/>
+<sys_class_name>sys_remote_update_set</sys_class_name>
+<sys_created_by>fabio.petito</sys_created_by>
+<sys_created_on>2017-03-28 22:53:28</sys_created_on>
+<sys_id>a10018a913353200d15e3d7ed144b02e</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>fabio.petito</sys_updated_by>
+<sys_updated_on>2017-03-28 22:53:28</sys_updated_on>
+<update_set display_value=""/>
+<update_source display_value=""/>
+<updated/>
+</sys_remote_update_set>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sp_widget_3234df9913f532007e94fc5ed144b078</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;client_script&gt;&lt;![CDATA[function InfoCostSnippet() {
+  /* widget controller */
+  var c = this;
+  c.threetabs = {
+    first_tab: {
+      name: "Reclaimed VMs",
+      badge_number: 13,
+      badge_color: "bg-red",
+
+      list: [{
+        icon: "#icon-aws",
+        company: "AWS",
+        cost: "$43k",
+        virtual_m: "28"
+      }, {
+        icon: "#icon-azure",
+        company: "azure",
+        cost: "$14k",
+        virtual_m: "9"
+      }, {
+        icon: "#icon-vmware",
+        company: "VMW",
+        cost: "$12k",
+        virtual_m: "9"
+      }]
+
+
+    },
+    second_tab: {
+      name: "expiring soon",
+      badge_number: 5,
+      badge_color: "bg-orange",
+      list: [{
+        icon: "#icon-aws",
+        company: "AWS",
+        lease: "Expires in 3 days",
+        vimnumber: "VM10",
+        vim_number: "REQ05001",
+        user: {
+          fname: "David",
+          lname: "Hoffman",
+          name: "David Hoffman",
+          photo: "22d959621398fe00f7f5bcc32244b0d2.iix",
+          title: "Application Manager",
+          phone: "8581234567"
+
+        }
+      }, {
+
+        icon: "#icon-aws",
+        company: "AWS",
+        lease: "Expires in 5 days",
+        vimnumber: "VM20",
+        vim_number: "REQ05001",
+        user: {
+          fname: "jose",
+          lname: "riley",
+          name: "Jose Riley",
+          photo: "fae1fa1013d07e00f7f5bcc32244b091.iix",
+          title: "Application Manager",
+          phone: "8581234567"
+
+        }
+      }, {
+        icon: "#icon-aws",
+        company: "AWS",
+        lease: "Expires in 10 days",
+        vimnumber: "VM30",
+        vim_number: "REQ05001",
+        user: {
+          fname: "greg",
+          lname: "hill",
+          name: "Greg Hill",
+          photo: "743a51a21398fe00f7f5bcc32244b067.iix",
+          title: "Application Manager",
+          phone: "8581234567"
+
+        }
+      }, {
+        icon: "#icon-azure",
+        company: "Azure",
+        lease: "Expires in 5 days",
+        vimnumber: "VM40",
+        vim_number: "REQ05001",
+        user: {
+          fname: "Andrew",
+          lname: "Garner",
+          name: "Jose Riley",
+          photo: "90f8d5621398fe00f7f5bcc32244b00b.iix",
+          title: "Application Manager",
+          phone: "8581234567"
+
+        }
+      }, {
+        icon: "#icon-vmware",
+        company: "VMW",
+        lease: "Expires in 10 days",
+        vimnumber: "VM50",
+        vim_number: "REQ05001",
+        user: {
+          fname: "edward",
+          lname: "scott",
+          name: "Edward Scott",
+          photo: "47161dae1358fe00f7f5bcc32244b03c.iix",
+          title: "IT Manager",
+          phone: "8581234567"
+
+        }
+      }]
+    },
+
+
+    third_tab: {
+      name: "new vms",
+      badge_number: 10,
+      badge_color: "bg-green",
+      list: [{
+        icon: "#icon-aws",
+        company: "AWS",
+        cost: "$27.6k/month",
+        virtual_m: "5"
+      }, {
+        icon: "#icon-azure",
+        company: "Azure",
+        cost: "$13.8k/month",
+        virtual_m: "3"
+      }, {
+        icon: "#icon-vmware",
+        company: "VMW",
+        cost: "$9.2k/month",
+        virtual_m: "2"
+      }]
+    }
+  }
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.first-tab-details {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .flex-it {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    p {
+      color: #9C9C9C;
+    }
+  }
+  .svg-icon {
+    height: 23px;
+    width: 27px;
+    fill: #9C9C9C;
+  }
+  p {
+    margin-left: 5px;
+    margin-bottom: 0px;
+  }
+  .detail-numbers {
+    font-size: 18px;
+    color: #595959;
+  }
+}
+
+.vmwwidth {
+  width: 80px !important;
+}&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;pe-cloud-sprawl-info-cost-snippet&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link/&gt;&lt;name&gt;PE Cloud Sprawl Info Cost Snippet&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;fabio.petito&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2017-03-28 18:32:43&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;true&lt;/sys_customer_update&gt;&lt;sys_id&gt;3234df9913f532007e94fc5ed144b078&lt;/sys_id&gt;&lt;sys_mod_count&gt;7&lt;/sys_mod_count&gt;&lt;sys_name&gt;PE Cloud Sprawl Info Cost Snippet&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_3234df9913f532007e94fc5ed144b078&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;fabio.petito&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2017-03-28 18:42:45&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="first-tab-details" ng-repeat="each in c.threetabs.first_tab.list | filter:filter" ng-class-even="'light-grey-bg'"&gt;
+  &lt;div class="flex-it"&gt;
+    &lt;svg ng-class="{'vmwwidth': each.company == 'VMW'}" class="svg-icon"&gt;
+      &lt;use xlink:href='{{each.icon}}'&gt;&lt;/use&gt;
+    &lt;/svg&gt;
+    &lt;p ng-if="each.company != 'VMW'"&gt;{{each.company}}&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;p class="small-text"&gt;cost&lt;/p&gt;
+    &lt;p class="detail-numbers"&gt;{{each.cost}}&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;p class="small-text"&gt;virtual machines&lt;/p&gt;
+    &lt;p class="detail-numbers"&gt;{{each.virtual_m}}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+<remote_update_set display_value="pe-cloud-sprawl-info-cost-snippet">a10018a913353200d15e3d7ed144b02e</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>fabio.petito</sys_created_by>
+<sys_created_on>2017-03-28 22:53:28</sys_created_on>
+<sys_id>650018a913353200d15e3d7ed144b02e</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>fabio.petito</sys_updated_by>
+<sys_updated_on>2017-03-28 22:53:28</sys_updated_on>
+<table/>
+<target_name>PE Cloud Sprawl Info Cost Snippet</target_name>
+<type>Widget</type>
+<update_domain>global</update_domain>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+</unload>

@@ -1,0 +1,28 @@
+<h1 id="description">–description–</h1>
+<p>Add a <code>target</code> attribute with the value <code>_blank</code> to the anchor (<code>a</code>) element’s opening tag, so that the link opens in a new tab.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>p</code> element should have a nested anchor (<code>a</code>) element with the text <code>cat photos</code>. You may have deleted it or have a typo.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">const</span> anchor <span class="op">=</span> <span class="at">$</span>(<span class="st">&#39;p &gt; a&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="va">anchor</span>.<span class="at">length</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    anchor[<span class="dv">0</span>].<span class="va">innerText</span>.<span class="at">toLowerCase</span>().<span class="at">replace</span>(<span class="ss">/</span><span class="sc">\s+</span><span class="ss">/g</span><span class="op">,</span> <span class="st">&#39; &#39;</span>) <span class="op">===</span> <span class="st">&#39;cat photos&#39;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>Your anchor (<code>a</code>) element does not have a <code>target</code> attribute. Check that there is a space after the opening tag’s name and/or there are spaces before all attribute names.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;a&#39;</span>).<span class="at">hasAttribute</span>(<span class="st">&#39;target&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>The value of the <code>target</code> attribute should ‘_blank’. You have either omitted the value or have a typo. Remember that attribute values should be surrounded with quotation marks.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;a&#39;</span>).<span class="at">getAttribute</span>(<span class="st">&#39;target&#39;</span>) <span class="op">===</span> <span class="st">&#39;_blank&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">&lt;h1&gt;</span>CatPhotoApp<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">      <span class="kw">&lt;h2&gt;</span>Cat Photos<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">      <span class="co">&lt;!-- </span><span class="al">TODO</span><span class="co">: Add link to cat photos --&gt;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">--fcc-editable-region--</a>
+<a class="sourceLine" id="cb4-8" title="8">      <span class="kw">&lt;p&gt;</span>Click here to view more <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;https://freecatphotoapp.com&quot;</span><span class="kw">&gt;</span>cat photos<span class="kw">&lt;/a&gt;</span>.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">--fcc-editable-region--</a>
+<a class="sourceLine" id="cb4-10" title="10">      <span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-relaxing-cat&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A cute orange cat lying on its back.&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">    <span class="kw">&lt;/main&gt;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">  <span class="kw">&lt;/body&gt;</span></a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="kw">&lt;/html&gt;</span></a></code></pre></div>

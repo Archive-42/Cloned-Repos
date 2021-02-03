@@ -1,0 +1,12 @@
+.klawk {
+  font-family: 'Lacquer', sans-serif;
+  font-size: 100px;
+  display: flex;
+  justify-content: flex-end;
+  color: rgb(114, 232, 240);
+}
+
+html {
+  background-image: url("https://i.redd.it/v883qnj79zl11.jpg");
+  background-size: cover;
+}

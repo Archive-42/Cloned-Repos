@@ -1,0 +1,209 @@
+<h1 id="description">–description–</h1>
+<p>Conditional rendering is useful, but you may need your components to render an unknown number of elements. Often in reactive programming, a programmer has no way to know what the state of an application is until runtime, because so much depends on a user’s interaction with that program. Programmers need to write their code to correctly handle that unknown state ahead of time. Using <code>Array.map()</code> in React illustrates this concept.</p>
+<p>For example, you create a simple “To Do List” app. As the programmer, you have no way of knowing how many items a user might have on their list. You need to set up your component to dynamically render the correct number of list elements long before someone using the program decides that today is laundry day.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>The code editor has most of the <code>MyToDoList</code> component set up. Some of this code should look familiar if you completed the controlled form challenge. You’ll notice a <code>textarea</code> and a <code>button</code>, along with a couple of methods that track their states, but nothing is rendered to the page yet.</p>
+<p>Inside the <code>constructor</code>, create a <code>this.state</code> object and define two states: <code>userInput</code> should be initialized as an empty string, and <code>toDoList</code> should be initialized as an empty array. Next, delete the comment in the <code>render()</code> method next to the <code>items</code> variable. In its place, map over the <code>toDoList</code> array stored in the component’s internal state and dynamically render a <code>li</code> for each item. Try entering the string <code>eat, code, sleep, repeat</code> into the <code>textarea</code>, then click the button and see what happens.</p>
+<p><strong>Note:</strong> You may know that all sibling child elements created by a mapping operation like this do need to be supplied with a unique <code>key</code> attribute. Don’t worry, this is the topic of the next challenge.</p>
+<h1 id="hints">–hints–</h1>
+<p>The MyToDoList component should exist and render to the page.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyToDoList))<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;MyToDoList&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The first child of <code>MyToDoList</code> should be a <code>textarea</code> element.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyToDoList))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb2-5" title="5">      <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;MyToDoList&#39;</span>).<span class="at">children</span>().<span class="at">childAt</span>(<span class="dv">0</span>).<span class="at">type</span>() <span class="op">===</span></a>
+<a class="sourceLine" id="cb2-6" title="6">      <span class="st">&#39;textarea&#39;</span></a>
+<a class="sourceLine" id="cb2-7" title="7">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<p>The second child of <code>MyToDoList</code> should be a <code>br</code> element.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyToDoList))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb3-5" title="5">      <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;MyToDoList&#39;</span>).<span class="at">children</span>().<span class="at">childAt</span>(<span class="dv">1</span>).<span class="at">type</span>() <span class="op">===</span> <span class="st">&#39;br&#39;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-7" title="7">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-8" title="8">)<span class="op">;</span></a></code></pre></div>
+<p>The third child of <code>MyToDoList</code> should be a <code>button</code> element.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyToDoList))<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb4-5" title="5">      <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;MyToDoList&#39;</span>).<span class="at">children</span>().<span class="at">childAt</span>(<span class="dv">2</span>).<span class="at">type</span>() <span class="op">===</span></a>
+<a class="sourceLine" id="cb4-6" title="6">      <span class="st">&#39;button&#39;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb4-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<p>The state of <code>MyToDoList</code> should be initialized with <code>toDoList</code> as an empty array.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyToDoList))<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">const</span> initialState <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">state</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb5-6" title="6">      <span class="va">Array</span>.<span class="at">isArray</span>(<span class="va">initialState</span>.<span class="at">toDoList</span>) <span class="op">===</span> <span class="kw">true</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">      <span class="va">initialState</span>.<span class="va">toDoList</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb5-8" title="8">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb5-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<p>The state of <code>MyToDoList</code> should be initialized with <code>userInput</code> as an empty string.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb6-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyToDoList))<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="kw">const</span> initialState <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">state</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb6-6" title="6">      <span class="kw">typeof</span> <span class="va">initialState</span>.<span class="at">userInput</span> <span class="op">===</span> <span class="st">&#39;string&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-7" title="7">      <span class="va">initialState</span>.<span class="va">userInput</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb6-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<p>When the <code>Create List</code> button is clicked, the <code>MyToDoList</code> component should dynamically return an unordered list that contains a list item element for every item of a comma-separated list entered into the <code>textarea</code> element.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1">(() <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyToDoList))<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-3" title="3">  <span class="kw">const</span> simulateChange <span class="op">=</span> (el<span class="op">,</span> value) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb7-4" title="4">    <span class="va">el</span>.<span class="at">simulate</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">target</span><span class="op">:</span> <span class="op">{</span> value <span class="op">}</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-5" title="5">  <span class="kw">const</span> state_1 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-6" title="6">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;ul&#39;</span>).<span class="at">find</span>(<span class="st">&#39;li&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-7" title="7">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-8" title="8">  <span class="kw">const</span> setInput <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-9" title="9">    <span class="cf">return</span> <span class="at">simulateChange</span>(</a>
+<a class="sourceLine" id="cb7-10" title="10">      <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;textarea&#39;</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-11" title="11">      <span class="st">&#39;testA, testB, testC&#39;</span></a>
+<a class="sourceLine" id="cb7-12" title="12">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-13" title="13">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-14" title="14">  <span class="kw">const</span> click <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-15" title="15">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;click&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-16" title="16">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-17" title="17">  <span class="kw">const</span> state_2 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-18" title="18">    <span class="kw">const</span> nodes <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;ul&#39;</span>).<span class="at">find</span>(<span class="st">&#39;li&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-19" title="19">    <span class="cf">return</span> <span class="op">{</span> nodes<span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="va">nodes</span>.<span class="at">reduce</span>((t<span class="op">,</span> n) <span class="kw">=&gt;</span> t <span class="op">+</span> <span class="va">n</span>.<span class="at">text</span>().<span class="at">trim</span>()<span class="op">,</span> <span class="st">&#39;&#39;</span>) <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-20" title="20">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-21" title="21">  <span class="kw">const</span> setInput_2 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-22" title="22">    <span class="cf">return</span> <span class="at">simulateChange</span>(</a>
+<a class="sourceLine" id="cb7-23" title="23">      <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;textarea&#39;</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-24" title="24">      <span class="st">&#39;t1, t2, t3, t4, t5, t6&#39;</span></a>
+<a class="sourceLine" id="cb7-25" title="25">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-26" title="26">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-27" title="27">  <span class="kw">const</span> click_1 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-28" title="28">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;click&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-29" title="29">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-30" title="30">  <span class="kw">const</span> state_3 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-31" title="31">    <span class="kw">const</span> nodes <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;ul&#39;</span>).<span class="at">find</span>(<span class="st">&#39;li&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-32" title="32">    <span class="cf">return</span> <span class="op">{</span> nodes<span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="va">nodes</span>.<span class="at">reduce</span>((t<span class="op">,</span> n) <span class="kw">=&gt;</span> t <span class="op">+</span> <span class="va">n</span>.<span class="at">text</span>().<span class="at">trim</span>()<span class="op">,</span> <span class="st">&#39;&#39;</span>) <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-33" title="33">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-34" title="34">  <span class="kw">const</span> awaited_state_1 <span class="op">=</span> <span class="at">state_1</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-35" title="35">  <span class="kw">const</span> awaited_setInput <span class="op">=</span> <span class="at">setInput</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-36" title="36">  <span class="kw">const</span> awaited_click <span class="op">=</span> <span class="at">click</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-37" title="37">  <span class="kw">const</span> awaited_state_2 <span class="op">=</span> <span class="at">state_2</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-38" title="38">  <span class="kw">const</span> awaited_setInput_2 <span class="op">=</span> <span class="at">setInput_2</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-39" title="39">  <span class="kw">const</span> awaited_click_1 <span class="op">=</span> <span class="at">click_1</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-40" title="40">  <span class="kw">const</span> awaited_state_3 <span class="op">=</span> <span class="at">state_3</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-41" title="41">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb7-42" title="42">    <span class="va">awaited_state_1</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb7-43" title="43">      <span class="va">awaited_state_2</span>.<span class="va">nodes</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">3</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb7-44" title="44">      <span class="va">awaited_state_3</span>.<span class="va">nodes</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">6</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb7-45" title="45">      <span class="va">awaited_state_2</span>.<span class="at">text</span> <span class="op">===</span> <span class="st">&#39;testAtestBtestC&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb7-46" title="46">      <span class="va">awaited_state_3</span>.<span class="at">text</span> <span class="op">===</span> <span class="st">&#39;t1t2t3t4t5t6&#39;</span></a>
+<a class="sourceLine" id="cb7-47" title="47">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-48" title="48"><span class="op">}</span>)()<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;MyToDoList /&gt;, document.getElementById(&#39;root&#39;));</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>const textAreaStyles = {
+  width: 235,
+  margin: 5
+};
+
+class MyToDoList extends React.Component {
+  constructor(props) {
+    super(props);
+    // Change code below this line
+
+    // Change code above this line
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleSubmit() {
+    const itemsArray = this.state.userInput.split(&#39;,&#39;);
+    this.setState({
+      toDoList: itemsArray
+    });
+  }
+  handleChange(e) {
+    this.setState({
+      userInput: e.target.value
+    });
+  }
+  render() {
+    const items = null; // Change this line
+    return (
+      &lt;div&gt;
+        &lt;textarea
+          onChange={this.handleChange}
+          value={this.state.userInput}
+          style={textAreaStyles}
+          placeholder=&#39;Separate Items With Commas&#39;
+        /&gt;
+        &lt;br /&gt;
+        &lt;button onClick={this.handleSubmit}&gt;Create List&lt;/button&gt;
+        &lt;h1&gt;My &quot;To Do&quot; List:&lt;/h1&gt;
+        &lt;ul&gt;{items}&lt;/ul&gt;
+      &lt;/div&gt;
+    );
+  }
+}</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>const textAreaStyles = {
+  width: 235,
+  margin: 5
+};
+
+class MyToDoList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      toDoList: [],
+      userInput: &#39;&#39;
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleSubmit() {
+    const itemsArray = this.state.userInput.split(&#39;,&#39;);
+    this.setState({
+      toDoList: itemsArray
+    });
+  }
+  handleChange(e) {
+    this.setState({
+      userInput: e.target.value
+    });
+  }
+  render() {
+    const items = this.state.toDoList.map((item, i) =&gt; {
+      return &lt;li key={i}&gt;{item}&lt;/li&gt;;
+    });
+    return (
+      &lt;div&gt;
+        &lt;textarea
+          onChange={this.handleChange}
+          value={this.state.userInput}
+          style={textAreaStyles}
+          placeholder=&#39;Separate Items With Commas&#39;
+        /&gt;
+        &lt;br /&gt;
+        &lt;button onClick={this.handleSubmit}&gt;Create List&lt;/button&gt;
+        &lt;h1&gt;My &quot;To Do&quot; List:&lt;/h1&gt;
+        &lt;ul&gt;{items}&lt;/ul&gt;
+      &lt;/div&gt;
+    );
+  }
+}</code></pre>

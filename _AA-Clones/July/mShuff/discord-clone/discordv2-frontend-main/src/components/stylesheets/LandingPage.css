@@ -1,0 +1,9 @@
+/* .landingPage {
+    background-color: blue;
+} */
+
+body {
+  background: url(https://i.redd.it/y6rc2sm425051.jpg) center fixed;
+  background-size: cover;
+  background-position-y: -85px;
+}

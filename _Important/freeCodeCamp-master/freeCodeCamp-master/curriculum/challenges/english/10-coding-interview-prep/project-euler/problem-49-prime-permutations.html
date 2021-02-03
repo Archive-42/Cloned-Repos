@@ -1,0 +1,64 @@
+<h1 id="description">–description–</h1>
+<p>The arithmetic sequence, 1487, 4817, 8147, in which each of the terms increases by 3330, is unusual in two ways: (i) each of the three terms are prime, and, (ii) each of the 4-digit numbers are permutations of one another.</p>
+<p>There are no arithmetic sequences made up of three 1-, 2-, or 3-digit primes, exhibiting this property, but there is one other 4-digit increasing sequence.</p>
+<p>What 12-digit number do you form by concatenating the three terms in this sequence?</p>
+<h1 id="hints">–hints–</h1>
+<p><code>primePermutations()</code> should return a number.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">primePermutations</span>() <span class="op">===</span> <span class="st">&#39;number&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>primePermutations()</code> should return 296962999629.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">primePermutations</span>()<span class="op">,</span> <span class="dv">296962999629</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">function</span> <span class="at">primePermutations</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb3-5" title="5"></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="at">primePermutations</span>()<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">function</span> <span class="at">primePermutations</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">function</span> <span class="at">arePermutations</span>(num1<span class="op">,</span> num2) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">const</span> numStr1 <span class="op">=</span> <span class="va">num1</span>.<span class="at">toString</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="kw">let</span> numStr2 <span class="op">=</span> <span class="va">num2</span>.<span class="at">toString</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="cf">if</span> (<span class="va">numStr1</span>.<span class="at">length</span> <span class="op">!==</span> <span class="va">numStr2</span>.<span class="at">length</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-6" title="6">      <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-8" title="8"></a>
+<a class="sourceLine" id="cb4-9" title="9">    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">numStr1</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-10" title="10">      <span class="kw">const</span> index <span class="op">=</span> <span class="va">numStr2</span>.<span class="at">indexOf</span>(numStr1[i])<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">      <span class="cf">if</span> (index <span class="op">===</span> <span class="dv">-1</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-12" title="12">        <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-14" title="14">      numStr2 <span class="op">=</span> <span class="va">numStr2</span>.<span class="at">slice</span>(<span class="dv">0</span><span class="op">,</span> index) <span class="op">+</span> <span class="va">numStr2</span>.<span class="at">slice</span>(index <span class="op">+</span> <span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-15" title="15">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-16" title="16">    <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-17" title="17">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-18" title="18"></a>
+<a class="sourceLine" id="cb4-19" title="19">  <span class="kw">function</span> <span class="at">isPrime</span>(num) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-20" title="20">    <span class="cf">if</span> (num <span class="op">&lt;</span> <span class="dv">2</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-21" title="21">      <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-22" title="22">    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (num <span class="op">===</span> <span class="dv">2</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-23" title="23">      <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-24" title="24">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-25" title="25">    <span class="kw">const</span> sqrtOfNum <span class="op">=</span> <span class="va">Math</span>.<span class="at">floor</span>(num <span class="op">**</span> <span class="fl">0.5</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-26" title="26">    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">2</span><span class="op">;</span> i <span class="op">&lt;=</span> sqrtOfNum <span class="op">+</span> <span class="dv">1</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-27" title="27">      <span class="cf">if</span> (num <span class="op">%</span> i <span class="op">===</span> <span class="dv">0</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-28" title="28">        <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-29" title="29">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-30" title="30">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-31" title="31">    <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-32" title="32">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-33" title="33"></a>
+<a class="sourceLine" id="cb4-34" title="34">  <span class="cf">for</span> (<span class="kw">let</span> num1 <span class="op">=</span> <span class="dv">1000</span><span class="op">;</span> num1 <span class="op">&lt;=</span> <span class="dv">9999</span><span class="op">;</span> num1<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-35" title="35">    <span class="kw">const</span> num2 <span class="op">=</span> num1 <span class="op">+</span> <span class="dv">3330</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-36" title="36">    <span class="kw">const</span> num3 <span class="op">=</span> num2 <span class="op">+</span> <span class="dv">3330</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-37" title="37">    <span class="cf">if</span> (<span class="at">isPrime</span>(num1) <span class="op">&amp;&amp;</span> <span class="at">isPrime</span>(num2) <span class="op">&amp;&amp;</span> <span class="at">isPrime</span>(num3)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-38" title="38">      <span class="cf">if</span> (<span class="at">arePermutations</span>(num1<span class="op">,</span> num2) <span class="op">&amp;&amp;</span> <span class="at">arePermutations</span>(num1<span class="op">,</span> num3)</a>
+<a class="sourceLine" id="cb4-39" title="39">        <span class="op">&amp;&amp;</span> num1 <span class="op">!==</span> <span class="dv">1487</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-40" title="40">        <span class="co">// concatenate and return numbers</span></a>
+<a class="sourceLine" id="cb4-41" title="41">        <span class="cf">return</span> (num1 <span class="op">*</span> <span class="dv">100000000</span>) <span class="op">+</span> (num2 <span class="op">*</span> <span class="dv">10000</span>) <span class="op">+</span> num3<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-42" title="42">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-43" title="43">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-44" title="44">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-45" title="45">  <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-46" title="46"><span class="op">}</span></a></code></pre></div>

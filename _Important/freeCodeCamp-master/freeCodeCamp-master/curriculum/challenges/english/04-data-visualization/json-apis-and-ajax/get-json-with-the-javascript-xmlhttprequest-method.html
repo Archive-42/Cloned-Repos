@@ -1,0 +1,141 @@
+<h1 id="description">–description–</h1>
+<p>You can also request data from an external source. This is where APIs come into play.</p>
+<p>Remember that APIs - or Application Programming Interfaces - are tools that computers use to communicate with one another. You’ll learn how to update HTML with the data we get from APIs using a technology called AJAX.</p>
+<p>Most web APIs transfer data in a format called JSON. JSON stands for JavaScript Object Notation.</p>
+<p>JSON syntax looks very similar to JavaScript object literal notation. JSON has object properties and their current values, sandwiched between a <code>{</code> and a <code>}</code>.</p>
+<p>These properties and their values are often referred to as “key-value pairs”.</p>
+<p>However, JSON transmitted by APIs are sent as <code>bytes</code>, and your application receives it as a <code>string</code>. These can be converted into JavaScript objects, but they are not JavaScript objects by default. The <code>JSON.parse</code> method parses the string and constructs the JavaScript object described by it.</p>
+<p>You can request the JSON from freeCodeCamp’s Cat Photo API. Here’s the code you can put in your click event to do this:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">const</span> req <span class="op">=</span> <span class="kw">new</span> <span class="at">XMLHttpRequest</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="va">req</span>.<span class="at">open</span>(<span class="st">&quot;GET&quot;</span><span class="op">,</span><span class="st">&#39;/json/cats.json&#39;</span><span class="op">,</span><span class="kw">true</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="va">req</span>.<span class="at">send</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="va">req</span>.<span class="at">onload</span> <span class="op">=</span> <span class="kw">function</span>()<span class="op">{</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="kw">const</span> json <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(<span class="va">req</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-6" title="6">  <span class="va">document</span>.<span class="at">getElementsByClassName</span>(<span class="st">&#39;message&#39;</span>)[<span class="dv">0</span>].<span class="at">innerHTML</span> <span class="op">=</span> <span class="va">JSON</span>.<span class="at">stringify</span>(json)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="op">};</span></a></code></pre></div>
+<p>Here’s a review of what each piece is doing. The JavaScript <code>XMLHttpRequest</code> object has a number of properties and methods that are used to transfer data. First, an instance of the <code>XMLHttpRequest</code> object is created and saved in the <code>req</code> variable. Next, the <code>open</code> method initializes a request - this example is requesting data from an API, therefore is a “GET” request. The second argument for <code>open</code> is the URL of the API you are requesting data from. The third argument is a Boolean value where <code>true</code> makes it an asynchronous request. The <code>send</code> method sends the request. Finally, the <code>onload</code> event handler parses the returned data and applies the <code>JSON.stringify</code> method to convert the JavaScript object into a string. This string is then inserted as the message text.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Update the code to create and send a “GET” request to the freeCodeCamp Cat Photo API. Then click the “Get Message” button. Your AJAX function will replace the “The message will go here” text with the raw JSON output from the API.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should create a new <code>XMLHttpRequest</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/new</span><span class="sc">\s+?</span><span class="ss">XMLHttpRequest</span><span class="sc">\(\s*?\)</span><span class="ss">/g</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your code should use the <code>open</code> method to initialize a “GET” request to the freeCodeCamp Cat Photo API.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="ss">/</span><span class="sc">\.</span><span class="ss">open</span><span class="sc">\(\s*?(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">GET</span><span class="sc">\1\s*?</span><span class="ss">,</span><span class="sc">\s*?(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)\/</span><span class="ss">json</span><span class="sc">\/</span><span class="ss">cats</span><span class="sc">\.</span><span class="ss">json</span><span class="sc">\2\s*?</span><span class="ss">,</span><span class="sc">\s*?</span><span class="ss">true</span><span class="sc">\s*?\)</span><span class="ss">/g</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  )</a>
+<a class="sourceLine" id="cb3-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>Your code should use the <code>send</code> method to send the request.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/</span><span class="sc">\.</span><span class="ss">send</span><span class="sc">\(\s*\)</span><span class="ss">/g</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your code should have an <code>onload</code> event handler set to a function.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/</span><span class="sc">\.</span><span class="ss">onload</span><span class="sc">\s*</span><span class="ss">=</span><span class="sc">\s*(</span><span class="ss">function</span><span class="sc">|\(\s*?\))\s*?(\(\s*?\)|\=\&gt;)\s*?</span><span class="ss">{/g</span>)</a>
+<a class="sourceLine" id="cb5-3" title="3">)<span class="op">;</span></a></code></pre></div>
+<p>Your code should use the <code>JSON.parse</code> method to parse the <code>responseText</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/JSON</span><span class="sc">\s*\.</span><span class="ss">parse</span><span class="sc">\(\s*</span><span class="ss">.</span><span class="sc">*\.</span><span class="ss">responseText</span><span class="sc">\s*\)</span><span class="ss">/g</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your code should get the element with class <code>message</code> and change its inner HTML to the string of JSON data.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="ss">/document</span><span class="sc">\s*\.</span><span class="ss">getElementsByClassName</span><span class="sc">\(\s*?(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">message</span><span class="sc">\1\s*?\)\[</span><span class="ss">0</span><span class="sc">\]\s*\.</span><span class="ss">innerHTML</span><span class="sc">\s*?</span><span class="ss">=</span><span class="sc">\s*?</span><span class="ss">JSON</span><span class="sc">\.</span><span class="ss">stringify</span><span class="sc">\(</span><span class="ss">.</span><span class="sc">+?\)</span><span class="ss">/g</span></a>
+<a class="sourceLine" id="cb7-4" title="4">  )</a>
+<a class="sourceLine" id="cb7-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">&lt;script&gt;</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="va">document</span>.<span class="at">addEventListener</span>(<span class="st">&#39;DOMContentLoaded&#39;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span></a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&#39;getMessage&#39;</span>).<span class="at">onclick</span> <span class="op">=</span> <span class="kw">function</span>()<span class="op">{</span></a>
+<a class="sourceLine" id="cb8-4" title="4">      <span class="co">// Add your code below this line</span></a>
+<a class="sourceLine" id="cb8-5" title="5"></a>
+<a class="sourceLine" id="cb8-6" title="6"></a>
+<a class="sourceLine" id="cb8-7" title="7">      <span class="co">// Add your code above this line</span></a>
+<a class="sourceLine" id="cb8-8" title="8">    <span class="op">};</span></a>
+<a class="sourceLine" id="cb8-9" title="9">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-10" title="10"><span class="kw">&lt;/script&gt;</span></a>
+<a class="sourceLine" id="cb8-11" title="11"></a>
+<a class="sourceLine" id="cb8-12" title="12"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb8-13" title="13">  body {</a>
+<a class="sourceLine" id="cb8-14" title="14">    <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-15" title="15">    <span class="kw">font-family</span>: <span class="st">&quot;Helvetica&quot;</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-16" title="16">  }</a>
+<a class="sourceLine" id="cb8-17" title="17">  h1 {</a>
+<a class="sourceLine" id="cb8-18" title="18">    <span class="kw">font-size</span>: <span class="dv">2</span><span class="dt">em</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-19" title="19">    <span class="kw">font-weight</span>: <span class="dv">bold</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-20" title="20">  }</a>
+<a class="sourceLine" id="cb8-21" title="21">  <span class="fu">.box</span> {</a>
+<a class="sourceLine" id="cb8-22" title="22">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-23" title="23">    <span class="kw">background-color</span>: <span class="cn">#eee</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-24" title="24">    <span class="kw">padding</span>: <span class="dv">20</span><span class="dt">px</span> <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-25" title="25">  }</a>
+<a class="sourceLine" id="cb8-26" title="26">  button {</a>
+<a class="sourceLine" id="cb8-27" title="27">    <span class="kw">color</span>: <span class="cn">white</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-28" title="28">    <span class="kw">background-color</span>: <span class="cn">#4791d0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-29" title="29">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-30" title="30">    <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#4791d0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-31" title="31">    <span class="kw">padding</span>: <span class="dv">5</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-32" title="32">  }</a>
+<a class="sourceLine" id="cb8-33" title="33">  button<span class="in">:hover</span> {</a>
+<a class="sourceLine" id="cb8-34" title="34">    <span class="kw">background-color</span>: <span class="cn">#0F5897</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-35" title="35">    <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#0F5897</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-36" title="36">  }</a>
+<a class="sourceLine" id="cb8-37" title="37"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb8-38" title="38"></a>
+<a class="sourceLine" id="cb8-39" title="39"><span class="kw">&lt;h1&gt;</span>Cat Photo Finder<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb8-40" title="40"><span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&quot;message box&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb8-41" title="41">  The message will go here</a>
+<a class="sourceLine" id="cb8-42" title="42"><span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb8-43" title="43"><span class="kw">&lt;p&gt;</span></a>
+<a class="sourceLine" id="cb8-44" title="44">  <span class="kw">&lt;button</span><span class="ot"> id=</span><span class="st">&quot;getMessage&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb8-45" title="45">    Get Message</a>
+<a class="sourceLine" id="cb8-46" title="46">  <span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb8-47" title="47"><span class="kw">&lt;/p&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb9"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">&lt;script&gt;</span></a>
+<a class="sourceLine" id="cb9-2" title="2">  <span class="va">document</span>.<span class="at">addEventListener</span>(<span class="st">&#39;DOMContentLoaded&#39;</span><span class="op">,</span><span class="kw">function</span>()<span class="op">{</span></a>
+<a class="sourceLine" id="cb9-3" title="3">    <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&#39;getMessage&#39;</span>).<span class="at">onclick</span> <span class="op">=</span> <span class="kw">function</span>()<span class="op">{</span></a>
+<a class="sourceLine" id="cb9-4" title="4">      <span class="kw">const</span> req <span class="op">=</span> <span class="kw">new</span> <span class="at">XMLHttpRequest</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-5" title="5">      <span class="va">req</span>.<span class="at">open</span>(<span class="st">&#39;GET&#39;</span><span class="op">,</span> <span class="st">&#39;/json/cats.json&#39;</span><span class="op">,</span> <span class="kw">true</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-6" title="6">      <span class="va">req</span>.<span class="at">send</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-7" title="7">      <span class="va">req</span>.<span class="at">onload</span> <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-8" title="8">        <span class="kw">const</span> json <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(<span class="va">req</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-9" title="9">        <span class="va">document</span>.<span class="at">getElementsByClassName</span>(<span class="st">&#39;message&#39;</span>)[<span class="dv">0</span>].<span class="at">innerHTML</span> <span class="op">=</span> <span class="va">JSON</span>.<span class="at">stringify</span>(json)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-10" title="10">      <span class="op">};</span></a>
+<a class="sourceLine" id="cb9-11" title="11">    <span class="op">};</span></a>
+<a class="sourceLine" id="cb9-12" title="12">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-13" title="13"><span class="kw">&lt;/script&gt;</span></a>
+<a class="sourceLine" id="cb9-14" title="14"></a>
+<a class="sourceLine" id="cb9-15" title="15"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb9-16" title="16">  body {</a>
+<a class="sourceLine" id="cb9-17" title="17">    <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-18" title="18">    <span class="kw">font-family</span>: <span class="st">&quot;Helvetica&quot;</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-19" title="19">  }</a>
+<a class="sourceLine" id="cb9-20" title="20">  h1 {</a>
+<a class="sourceLine" id="cb9-21" title="21">    <span class="kw">font-size</span>: <span class="dv">2</span><span class="dt">em</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-22" title="22">    <span class="kw">font-weight</span>: <span class="dv">bold</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-23" title="23">  }</a>
+<a class="sourceLine" id="cb9-24" title="24">  <span class="fu">.box</span> {</a>
+<a class="sourceLine" id="cb9-25" title="25">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-26" title="26">    <span class="kw">background-color</span>: <span class="cn">#eee</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-27" title="27">    <span class="kw">padding</span>: <span class="dv">20</span><span class="dt">px</span> <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-28" title="28">  }</a>
+<a class="sourceLine" id="cb9-29" title="29">  button {</a>
+<a class="sourceLine" id="cb9-30" title="30">    <span class="kw">color</span>: <span class="cn">white</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-31" title="31">    <span class="kw">background-color</span>: <span class="cn">#4791d0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-32" title="32">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-33" title="33">    <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#4791d0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-34" title="34">    <span class="kw">padding</span>: <span class="dv">5</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-35" title="35">  }</a>
+<a class="sourceLine" id="cb9-36" title="36">  button<span class="in">:hover</span> {</a>
+<a class="sourceLine" id="cb9-37" title="37">    <span class="kw">background-color</span>: <span class="cn">#0F5897</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-38" title="38">    <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#0F5897</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-39" title="39">  }</a>
+<a class="sourceLine" id="cb9-40" title="40"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb9-41" title="41"></a>
+<a class="sourceLine" id="cb9-42" title="42"><span class="kw">&lt;h1&gt;</span>Cat Photo Finder<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb9-43" title="43"><span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&quot;message box&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb9-44" title="44">  The message will go here</a>
+<a class="sourceLine" id="cb9-45" title="45"><span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb9-46" title="46"><span class="kw">&lt;p&gt;</span></a>
+<a class="sourceLine" id="cb9-47" title="47">  <span class="kw">&lt;button</span><span class="ot"> id=</span><span class="st">&quot;getMessage&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb9-48" title="48">    Get Message</a>
+<a class="sourceLine" id="cb9-49" title="49">  <span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb9-50" title="50"><span class="kw">&lt;/p&gt;</span></a></code></pre></div>

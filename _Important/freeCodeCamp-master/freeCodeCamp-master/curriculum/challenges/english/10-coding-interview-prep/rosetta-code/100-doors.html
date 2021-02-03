@@ -1,0 +1,30 @@
+<h1 id="description">–description–</h1>
+<p>There are 100 doors in a row that are all initially closed. You make 100 passes by the doors. The first time through, visit every door and ‘toggle’ the door (if the door is closed, open it; if it is open, close it). The second time, only visit every 2nd door (i.e., door #2, #4, #6, …) and toggle it. The third time, visit every 3rd door (i.e., door #3, #6, #9, …), etc., until you only visit the 100th door.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Implement a function to determine the state of the doors after the last pass. Return the final result in an array, with only the door number included in the array if it is open.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>getFinalOpenedDoors</code> should be a function.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> getFinalOpenedDoors <span class="op">===</span> <span class="st">&#39;function&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>getFinalOpenedDoors</code> should return an array.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">Array</span>.<span class="at">isArray</span>(<span class="at">getFinalOpenedDoors</span>(<span class="dv">100</span>)))<span class="op">;</span></a></code></pre></div>
+<p><code>getFinalOpenedDoors</code> should produce the correct result.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(<span class="at">getFinalOpenedDoors</span>(<span class="dv">100</span>)<span class="op">,</span> solution)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">const</span> solution <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">9</span><span class="op">,</span> <span class="dv">16</span><span class="op">,</span> <span class="dv">25</span><span class="op">,</span> <span class="dv">36</span><span class="op">,</span> <span class="dv">49</span><span class="op">,</span> <span class="dv">64</span><span class="op">,</span> <span class="dv">81</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">;</span></a></code></pre></div>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">function</span> <span class="at">getFinalOpenedDoors</span>(numDoors) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-2" title="2"></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="op">}</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">function</span> <span class="at">getFinalOpenedDoors</span>(numDoors) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="co">// this is the final pattern (always squares).</span></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="co">// thus, the most efficient solution simply returns an array of squares up to numDoors).</span></a>
+<a class="sourceLine" id="cb6-4" title="4">  <span class="kw">const</span> finalState <span class="op">=</span> []<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">  <span class="kw">let</span> i <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">  <span class="cf">while</span> (<span class="va">Math</span>.<span class="at">pow</span>(i<span class="op">,</span> <span class="dv">2</span>) <span class="op">&lt;=</span> numDoors) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-7" title="7">    <span class="va">finalState</span>.<span class="at">push</span>(<span class="va">Math</span>.<span class="at">pow</span>(i<span class="op">,</span> <span class="dv">2</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    i<span class="op">++;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-10" title="10">  <span class="cf">return</span> finalState<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-11" title="11"><span class="op">}</span></a></code></pre></div>

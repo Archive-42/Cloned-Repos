@@ -1,0 +1,223 @@
+<h1 id="description">–description–</h1>
+<p>Before moving on to dynamic rendering techniques, there’s one last way to use built-in JavaScript conditionals to render what you want: the <dfn>ternary operator</dfn>. The ternary operator is often utilized as a shortcut for <code>if/else</code> statements in JavaScript. They’re not quite as robust as traditional <code>if/else</code> statements, but they are very popular among React developers. One reason for this is because of how JSX is compiled, <code>if/else</code> statements can’t be inserted directly into JSX code. You might have noticed this a couple challenges ago — when an <code>if/else</code> statement was required, it was always <em>outside</em> the <code>return</code> statement. Ternary expressions can be an excellent alternative if you want to implement conditional logic within your JSX. Recall that a ternary operator has three parts, but you can combine several ternary expressions together. Here’s the basic syntax:</p>
+<pre class="jsx"><code>condition ? expressionIfTrue : expressionIfFalse;</code></pre>
+<h1 id="instructions">–instructions–</h1>
+<p>The code editor has three constants defined within the <code>CheckUserAge</code> component’s <code>render()</code> method. They are called <code>buttonOne</code>, <code>buttonTwo</code>, and <code>buttonThree</code>. Each of these is assigned a simple JSX expression representing a button element. First, initialize the state of <code>CheckUserAge</code> with <code>input</code> and <code>userAge</code> both set to values of an empty string.</p>
+<p>Once the component is rendering information to the page, users should have a way to interact with it. Within the component’s <code>return</code> statement, set up a ternary expression that implements the following logic: when the page first loads, render the submit button, <code>buttonOne</code>, to the page. Then, when a user enters their age and clicks the button, render a different button based on the age. If a user enters a number less than <code>18</code>, render <code>buttonThree</code>. If a user enters a number greater than or equal to <code>18</code>, render <code>buttonTwo</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>CheckUserAge</code> component should render with a single <code>input</code> element and a single <code>button</code> element.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(CheckUserAge)).<span class="at">find</span>(<span class="st">&#39;div&#39;</span>).<span class="at">find</span>(<span class="st">&#39;input&#39;</span>)</a>
+<a class="sourceLine" id="cb2-3" title="3">    .<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(CheckUserAge)).<span class="at">find</span>(<span class="st">&#39;div&#39;</span>).<span class="at">find</span>(<span class="st">&#39;button&#39;</span>)</a>
+<a class="sourceLine" id="cb2-5" title="5">      .<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb2-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>CheckUserAge</code> component’s state should be initialized with a property of <code>userAge</code> and a property of <code>input</code>, both set to a value of an empty string.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(CheckUserAge)).<span class="at">state</span>().<span class="at">input</span> <span class="op">===</span> <span class="st">&#39;&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(CheckUserAge)).<span class="at">state</span>().<span class="at">userAge</span> <span class="op">===</span> <span class="st">&#39;&#39;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>When the <code>CheckUserAge</code> component is first rendered to the DOM, the <code>button</code>’s inner text should be Submit.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(CheckUserAge)).<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">text</span>() <span class="op">===</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="st">&#39;Submit&#39;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>When a number of less than 18 is entered into the <code>input</code> element and the <code>button</code> is clicked, the <code>button</code>’s inner text should read <code>You Shall Not Pass</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1">(() <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(CheckUserAge))<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="kw">const</span> initialButton <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">text</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">  <span class="kw">const</span> enter3AndClickButton <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-5" title="5">    mockedComponent</a>
+<a class="sourceLine" id="cb5-6" title="6">      .<span class="at">find</span>(<span class="st">&#39;input&#39;</span>)</a>
+<a class="sourceLine" id="cb5-7" title="7">      .<span class="at">simulate</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">target</span><span class="op">:</span> <span class="op">{</span> <span class="dt">value</span><span class="op">:</span> <span class="st">&#39;3&#39;</span> <span class="op">}</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;click&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">    <span class="va">mockedComponent</span>.<span class="at">update</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">text</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb5-12" title="12">  <span class="kw">const</span> enter17AndClickButton <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-13" title="13">    mockedComponent</a>
+<a class="sourceLine" id="cb5-14" title="14">      .<span class="at">find</span>(<span class="st">&#39;input&#39;</span>)</a>
+<a class="sourceLine" id="cb5-15" title="15">      .<span class="at">simulate</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">target</span><span class="op">:</span> <span class="op">{</span> <span class="dt">value</span><span class="op">:</span> <span class="st">&#39;17&#39;</span> <span class="op">}</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-16" title="16">    <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;click&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-17" title="17">    <span class="va">mockedComponent</span>.<span class="at">update</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-18" title="18">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">text</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-19" title="19">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb5-20" title="20">  <span class="kw">const</span> userAge3 <span class="op">=</span> <span class="at">enter3AndClickButton</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-21" title="21">  <span class="kw">const</span> userAge17 <span class="op">=</span> <span class="at">enter17AndClickButton</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-22" title="22">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-23" title="23">    initialButton <span class="op">===</span> <span class="st">&#39;Submit&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb5-24" title="24">      userAge3 <span class="op">===</span> <span class="st">&#39;You Shall Not Pass&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb5-25" title="25">      userAge17 <span class="op">===</span> <span class="st">&#39;You Shall Not Pass&#39;</span></a>
+<a class="sourceLine" id="cb5-26" title="26">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-27" title="27"><span class="op">}</span>)()<span class="op">;</span></a></code></pre></div>
+<p>When a number greater than or equal to 18 is entered into the <code>input</code> element and the <code>button</code> is clicked, the <code>button</code>’s inner text should read <code>You May Enter</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1">(() <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(CheckUserAge))<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="kw">const</span> initialButton <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">text</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">  <span class="kw">const</span> enter18AndClickButton <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-5" title="5">    mockedComponent</a>
+<a class="sourceLine" id="cb6-6" title="6">      .<span class="at">find</span>(<span class="st">&#39;input&#39;</span>)</a>
+<a class="sourceLine" id="cb6-7" title="7">      .<span class="at">simulate</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">target</span><span class="op">:</span> <span class="op">{</span> <span class="dt">value</span><span class="op">:</span> <span class="st">&#39;18&#39;</span> <span class="op">}</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;click&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">    <span class="va">mockedComponent</span>.<span class="at">update</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">text</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-11" title="11">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb6-12" title="12">  <span class="kw">const</span> enter35AndClickButton <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-13" title="13">    mockedComponent</a>
+<a class="sourceLine" id="cb6-14" title="14">      .<span class="at">find</span>(<span class="st">&#39;input&#39;</span>)</a>
+<a class="sourceLine" id="cb6-15" title="15">      .<span class="at">simulate</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">target</span><span class="op">:</span> <span class="op">{</span> <span class="dt">value</span><span class="op">:</span> <span class="st">&#39;35&#39;</span> <span class="op">}</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-16" title="16">    <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;click&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-17" title="17">    <span class="va">mockedComponent</span>.<span class="at">update</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-18" title="18">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">text</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-19" title="19">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb6-20" title="20">  <span class="kw">const</span> userAge18 <span class="op">=</span> <span class="at">enter18AndClickButton</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-21" title="21">  <span class="kw">const</span> userAge35 <span class="op">=</span> <span class="at">enter35AndClickButton</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-22" title="22">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb6-23" title="23">    initialButton <span class="op">===</span> <span class="st">&#39;Submit&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-24" title="24">      userAge18 <span class="op">===</span> <span class="st">&#39;You May Enter&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-25" title="25">      userAge35 <span class="op">===</span> <span class="st">&#39;You May Enter&#39;</span></a>
+<a class="sourceLine" id="cb6-26" title="26">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-27" title="27"><span class="op">}</span>)()<span class="op">;</span></a></code></pre></div>
+<p>Once a number has been submitted, and the value of the <code>input</code> is once again changed, the <code>button</code> should return to reading <code>Submit</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1">(() <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(CheckUserAge))<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-3" title="3">  <span class="kw">const</span> enter18AndClickButton <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-4" title="4">    mockedComponent</a>
+<a class="sourceLine" id="cb7-5" title="5">      .<span class="at">find</span>(<span class="st">&#39;input&#39;</span>)</a>
+<a class="sourceLine" id="cb7-6" title="6">      .<span class="at">simulate</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">target</span><span class="op">:</span> <span class="op">{</span> <span class="dt">value</span><span class="op">:</span> <span class="st">&#39;18&#39;</span> <span class="op">}</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-7" title="7">    <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;click&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-8" title="8">    <span class="va">mockedComponent</span>.<span class="at">update</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-9" title="9">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">text</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-10" title="10">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-11" title="11">  <span class="kw">const</span> changeInputDontClickButton <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-12" title="12">    mockedComponent</a>
+<a class="sourceLine" id="cb7-13" title="13">      .<span class="at">find</span>(<span class="st">&#39;input&#39;</span>)</a>
+<a class="sourceLine" id="cb7-14" title="14">      .<span class="at">simulate</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">target</span><span class="op">:</span> <span class="op">{</span> <span class="dt">value</span><span class="op">:</span> <span class="st">&#39;5&#39;</span> <span class="op">}</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-15" title="15">    <span class="va">mockedComponent</span>.<span class="at">update</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-16" title="16">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">text</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-17" title="17">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-18" title="18">  <span class="kw">const</span> enter10AndClickButton <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-19" title="19">    mockedComponent</a>
+<a class="sourceLine" id="cb7-20" title="20">      .<span class="at">find</span>(<span class="st">&#39;input&#39;</span>)</a>
+<a class="sourceLine" id="cb7-21" title="21">      .<span class="at">simulate</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">target</span><span class="op">:</span> <span class="op">{</span> <span class="dt">value</span><span class="op">:</span> <span class="st">&#39;10&#39;</span> <span class="op">}</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-22" title="22">    <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;click&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-23" title="23">    <span class="va">mockedComponent</span>.<span class="at">update</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-24" title="24">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">text</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-25" title="25">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-26" title="26">  <span class="kw">const</span> userAge18 <span class="op">=</span> <span class="at">enter18AndClickButton</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-27" title="27">  <span class="kw">const</span> changeInput1 <span class="op">=</span> <span class="at">changeInputDontClickButton</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-28" title="28">  <span class="kw">const</span> userAge10 <span class="op">=</span> <span class="at">enter10AndClickButton</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-29" title="29">  <span class="kw">const</span> changeInput2 <span class="op">=</span> <span class="at">changeInputDontClickButton</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-30" title="30">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb7-31" title="31">    userAge18 <span class="op">===</span> <span class="st">&#39;You May Enter&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb7-32" title="32">      changeInput1 <span class="op">===</span> <span class="st">&#39;Submit&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb7-33" title="33">      userAge10 <span class="op">===</span> <span class="st">&#39;You Shall Not Pass&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb7-34" title="34">      changeInput2 <span class="op">===</span> <span class="st">&#39;Submit&#39;</span></a>
+<a class="sourceLine" id="cb7-35" title="35">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-36" title="36"><span class="op">}</span>)()<span class="op">;</span></a></code></pre></div>
+<p>Your code should not contain any <code>if/else</code> statements.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="kw">new</span> <span class="at">RegExp</span>(<span class="ss">/</span><span class="sc">(\s|</span><span class="ss">;</span><span class="sc">)</span><span class="ss">if</span><span class="sc">(\s|\()</span><span class="ss">/</span>).<span class="at">test</span>(</a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(CheckUserAge)).<span class="at">instance</span>().<span class="va">render</span>.<span class="at">toString</span>()</a>
+<a class="sourceLine" id="cb8-4" title="4">  ) <span class="op">===</span> <span class="kw">false</span></a>
+<a class="sourceLine" id="cb8-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;CheckUserAge /&gt;, document.getElementById(&#39;root&#39;));</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>const inputStyle = {
+  width: 235,
+  margin: 5
+};
+
+class CheckUserAge extends React.Component {
+  constructor(props) {
+    super(props);
+    // Change code below this line
+
+    // Change code above this line
+    this.submit = this.submit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(e) {
+    this.setState({
+      input: e.target.value,
+      userAge: &#39;&#39;
+    });
+  }
+  submit() {
+    this.setState(state =&gt; ({
+      userAge: state.input
+    }));
+  }
+  render() {
+    const buttonOne = &lt;button onClick={this.submit}&gt;Submit&lt;/button&gt;;
+    const buttonTwo = &lt;button&gt;You May Enter&lt;/button&gt;;
+    const buttonThree = &lt;button&gt;You Shall Not Pass&lt;/button&gt;;
+    return (
+      &lt;div&gt;
+        &lt;h3&gt;Enter Your Age to Continue&lt;/h3&gt;
+        &lt;input
+          style={inputStyle}
+          type=&#39;number&#39;
+          value={this.state.input}
+          onChange={this.handleChange}
+        /&gt;
+        &lt;br /&gt;
+        {/* Change code below this line */}
+
+        {/* Change code above this line */}
+      &lt;/div&gt;
+    );
+  }
+}</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>const inputStyle = {
+  width: 235,
+  margin: 5
+};
+
+class CheckUserAge extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userAge: &#39;&#39;,
+      input: &#39;&#39;
+    };
+    this.submit = this.submit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(e) {
+    this.setState({
+      input: e.target.value,
+      userAge: &#39;&#39;
+    });
+  }
+  submit() {
+    this.setState(state =&gt; ({
+      userAge: state.input
+    }));
+  }
+  render() {
+    const buttonOne = &lt;button onClick={this.submit}&gt;Submit&lt;/button&gt;;
+    const buttonTwo = &lt;button&gt;You May Enter&lt;/button&gt;;
+    const buttonThree = &lt;button&gt;You Shall Not Pass&lt;/button&gt;;
+    return (
+      &lt;div&gt;
+        &lt;h3&gt;Enter Your Age to Continue&lt;/h3&gt;
+        &lt;input
+          style={inputStyle}
+          type=&#39;number&#39;
+          value={this.state.input}
+          onChange={this.handleChange}
+        /&gt;
+        &lt;br /&gt;
+        {this.state.userAge === &#39;&#39;
+          ? buttonOne
+          : this.state.userAge &gt;= 18
+          ? buttonTwo
+          : buttonThree}
+      &lt;/div&gt;
+    );
+  }
+}</code></pre>

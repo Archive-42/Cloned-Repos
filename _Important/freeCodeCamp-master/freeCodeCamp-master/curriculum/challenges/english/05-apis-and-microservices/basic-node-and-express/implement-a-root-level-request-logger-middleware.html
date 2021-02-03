@@ -1,0 +1,31 @@
+<h1 id="description">–description–</h1>
+<p>Earlier, you were introduced to the <code>express.static()</code> middleware function. Now it’s time to see what middleware is, in more detail. Middleware functions are functions that take 3 arguments: the request object, the response object, and the next function in the application’s request-response cycle. These functions execute some code that can have side effects on the app, and usually add information to the request or response objects. They can also end the cycle by sending a response when some condition is met. If they don’t send the response when they are done, they start the execution of the next function in the stack. This triggers calling the 3rd argument, <code>next()</code>.</p>
+<p>Look at the following example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">function</span>(req<span class="op">,</span> res<span class="op">,</span> next) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;I&#39;m a middleware...&quot;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="at">next</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="op">}</span></a></code></pre></div>
+<p>Let’s suppose you mounted this function on a route. When a request matches the route, it displays the string “I’m a middleware…”, then it executes the next function in the stack. In this exercise, you are going to build root-level middleware. As you have seen in challenge 4, to mount a middleware function at root level, you can use the <code>app.use(&lt;mware-function&gt;)</code> method. In this case, the function will be executed for all the requests, but you can also set more specific conditions. For example, if you want a function to be executed only for POST requests, you could use <code>app.post(&lt;mware-function&gt;)</code>. Analogous methods exist for all the HTTP verbs (GET, DELETE, PUT, …).</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Build a simple logger. For every request, it should log to the console a string taking the following format: <code>method path - ip</code>. An example would look like this: <code>GET /json - ::ffff:127.0.0.1</code>. Note that there is a space between <code>method</code> and <code>path</code> and that the dash separating <code>path</code> and <code>ip</code> is surrounded by a space on both sides. You can get the request method (http verb), the relative route path, and the caller’s ip from the request object using <code>req.method</code>, <code>req.path</code> and <code>req.ip</code>. Remember to call <code>next()</code> when you are done, or your server will be stuck forever. Be sure to have the ‘Logs’ opened, and see what happens when some request arrives.</p>
+<p><strong>Note:</strong> Express evaluates functions in the order they appear in the code. This is true for middleware too. If you want it to work for all the routes, it should be mounted before them.</p>
+<h1 id="hints">–hints–</h1>
+<p>Root level logger middleware should be active</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/root-middleware-logger&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="va">assert</span>.<span class="at">isTrue</span>(</a>
+<a class="sourceLine" id="cb2-5" title="5">        <span class="va">data</span>.<span class="at">passed</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-6" title="6">        <span class="st">&#39;root-level logger is not working as expected&#39;</span></a>
+<a class="sourceLine" id="cb2-7" title="7">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-8" title="8">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-10" title="10">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-11" title="11">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-12" title="12">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">*/</span></a></code></pre></div>

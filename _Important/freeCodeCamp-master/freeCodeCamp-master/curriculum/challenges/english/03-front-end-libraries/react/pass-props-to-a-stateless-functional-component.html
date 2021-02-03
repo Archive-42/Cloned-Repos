@@ -1,0 +1,107 @@
+<h1 id="description">–description–</h1>
+<p>The previous challenges covered a lot about creating and composing JSX elements, functional components, and ES6 style class components in React. With this foundation, it’s time to look at another feature very common in React: <strong>props</strong>. In React, you can pass props, or properties, to child components. Say you have an <code>App</code> component which renders a child component called <code>Welcome</code> which is a stateless functional component. You can pass <code>Welcome</code> a <code>user</code> property by writing:</p>
+<pre class="jsx"><code>&lt;App&gt;
+  &lt;Welcome user=&#39;Mark&#39; /&gt;
+&lt;/App&gt;</code></pre>
+<p>You use <strong>custom HTML attributes</strong> created by you and supported by React to be passed to the component. In this case, the created property <code>user</code> is passed to the component <code>Welcome</code>. Since <code>Welcome</code> is a stateless functional component, it has access to this value like so:</p>
+<pre class="jsx"><code>const Welcome = (props) =&gt; &lt;h1&gt;Hello, {props.user}!&lt;/h1&gt;</code></pre>
+<p>It is standard to call this value <code>props</code> and when dealing with stateless functional components, you basically consider it as an argument to a function which returns JSX. You can access the value of the argument in the function body. With class components, you will see this is a little different.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>There are <code>Calendar</code> and <code>CurrentDate</code> components in the code editor. When rendering <code>CurrentDate</code> from the <code>Calendar</code> component, pass in a property of <code>date</code> assigned to the current date from JavaScript’s <code>Date</code> object. Then access this <code>prop</code> in the <code>CurrentDate</code> component, showing its value within the <code>p</code> tags. Note that for <code>prop</code> values to be evaluated as JavaScript, they must be enclosed in curly brackets, for instance <code>date={Date()}</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>Calendar</code> component should return a single <code>div</code> element.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(Calendar))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">children</span>().<span class="at">type</span>() <span class="op">===</span> <span class="st">&#39;div&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The second child of the <code>Calendar</code> component should be the <code>CurrentDate</code> component.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(Calendar))<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">children</span>().<span class="at">childAt</span>(<span class="dv">1</span>).<span class="at">name</span>() <span class="op">===</span> <span class="st">&#39;CurrentDate&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb4-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>CurrentDate</code> component should have a prop called <code>date</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(Calendar))<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">children</span>().<span class="at">childAt</span>(<span class="dv">1</span>).<span class="at">props</span>().<span class="at">date</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb5-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>date</code> prop of the <code>CurrentDate</code> should contain a string of text.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb6-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(Calendar))<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="kw">const</span> prop <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">children</span>().<span class="at">childAt</span>(<span class="dv">1</span>).<span class="at">props</span>().<span class="at">date</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">    <span class="cf">return</span> <span class="kw">typeof</span> prop <span class="op">===</span> <span class="st">&#39;string&#39;</span> <span class="op">&amp;&amp;</span> <span class="va">prop</span>.<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb6-7" title="7">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>date</code> prop should be generated by calling <code>Date()</code></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="at">assert</span>(<span class="ss">/&lt;CurrentDatedate={Date</span><span class="sc">\(\)</span><span class="ss">}</span><span class="sc">\/</span><span class="ss">&gt;/</span>.<span class="at">test</span>(<span class="va">__helpers</span>.<span class="at">removeWhiteSpace</span>(code)))<span class="op">;</span></a></code></pre></div>
+<p>The <code>CurrentDate</code> component should render the value from the <code>date</code> prop in the <code>p</code> tag.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">let</span> date <span class="op">=</span> <span class="st">&#39;dummy date&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb8-3" title="3">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-4" title="4">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(</a>
+<a class="sourceLine" id="cb8-5" title="5">      <span class="va">React</span>.<span class="at">createElement</span>(CurrentDate<span class="op">,</span> <span class="op">{</span> date <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb8-6" title="6">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-7" title="7">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;p&#39;</span>).<span class="at">html</span>().<span class="at">includes</span>(date)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb8-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;Calendar /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>const CurrentDate = (props) =&gt; {
+  return (
+    &lt;div&gt;
+      { /* Change code below this line */ }
+      &lt;p&gt;The current date is: &lt;/p&gt;
+      { /* Change code above this line */ }
+    &lt;/div&gt;
+  );
+};
+
+class Calendar extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h3&gt;What date is it?&lt;/h3&gt;
+        { /* Change code below this line */ }
+        &lt;CurrentDate /&gt;
+        { /* Change code above this line */ }
+      &lt;/div&gt;
+    );
+  }
+};</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>const CurrentDate = (props) =&gt; {
+  return (
+    &lt;div&gt;
+      { /* Change code below this line */ }
+      &lt;p&gt;The current date is: {props.date}&lt;/p&gt;
+      { /* Change code above this line */ }
+    &lt;/div&gt;
+  );
+};
+
+class Calendar extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h3&gt;What date is it?&lt;/h3&gt;
+        { /* Change code below this line */ }
+        &lt;CurrentDate date={Date()} /&gt;
+        { /* Change code above this line */ }
+      &lt;/div&gt;
+    );
+  }
+};</code></pre>

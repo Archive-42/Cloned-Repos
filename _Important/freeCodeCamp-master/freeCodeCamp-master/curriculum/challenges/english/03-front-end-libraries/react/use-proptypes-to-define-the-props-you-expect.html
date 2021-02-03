@@ -1,0 +1,85 @@
+<h1 id="description">–description–</h1>
+<p>React provides useful type-checking features to verify that components receive props of the correct type. For example, your application makes an API call to retrieve data that you expect to be in an array, which is then passed to a component as a prop. You can set <code>propTypes</code> on your component to require the data to be of type <code>array</code>. This will throw a useful warning when the data is of any other type.</p>
+<p>It’s considered a best practice to set <code>propTypes</code> when you know the type of a prop ahead of time. You can define a <code>propTypes</code> property for a component in the same way you defined <code>defaultProps</code>. Doing this will check that props of a given key are present with a given type. Here’s an example to require the type <code>function</code> for a prop called <code>handleClick</code>:</p>
+<p><code>MyComponent.propTypes = { handleClick: PropTypes.func.isRequired }</code></p>
+<p>In the example above, the <code>PropTypes.func</code> part checks that <code>handleClick</code> is a function. Adding <code>isRequired</code> tells React that <code>handleClick</code> is a required property for that component. You will see a warning if that prop isn’t provided. Also notice that <code>func</code> represents <code>function</code>. Among the seven JavaScript primitive types, <code>function</code> and <code>boolean</code> (written as <code>bool</code>) are the only two that use unusual spelling. In addition to the primitive types, there are other types available. For example, you can check that a prop is a React element. Please refer to the <a href="https://reactjs.org/docs/jsx-in-depth.html#specifying-the-react-element-type">documentation</a> for all of the options.</p>
+<p><strong>Note:</strong> As of React v15.5.0, <code>PropTypes</code> is imported independently from React, like this: <code>import PropTypes from 'prop-types';</code></p>
+<h1 id="instructions">–instructions–</h1>
+<p>Define <code>propTypes</code> for the <code>Items</code> component to require <code>quantity</code> as a prop and verify that it is of type <code>number</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>ShoppingCart</code> component should render.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(ShoppingCart))<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;ShoppingCart&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>Items</code> component should render.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(ShoppingCart))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;Items&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>Items</code> component should include a <code>propTypes</code> check to require a value for <code>quantity</code> and ensure that its value is a number.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="kw">const</span> noWhiteSpace <span class="op">=</span> <span class="va">__helpers</span>.<span class="at">removeWhiteSpace</span>(<span class="at">getUserInput</span>(<span class="st">&#39;index&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb3-6" title="6">        <span class="va">noWhiteSpace</span>.<span class="at">includes</span>(<span class="st">&#39;quantity:PropTypes.number.isRequired&#39;</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-7" title="7">        <span class="va">noWhiteSpace</span>.<span class="at">includes</span>(<span class="st">&#39;Items.propTypes=&#39;</span>)</a>
+<a class="sourceLine" id="cb3-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-10" title="10">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="before-user-code">–before-user-code–</h2>
+<pre class="jsx"><code>var PropTypes = {
+  number: { isRequired: true }
+};</code></pre>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;ShoppingCart /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>const Items = (props) =&gt; {
+  return &lt;h1&gt;Current Quantity of Items in Cart: {props.quantity}&lt;/h1&gt;
+};
+
+// Change code below this line
+
+// Change code above this line
+
+Items.defaultProps = {
+  quantity: 0
+};
+
+class ShoppingCart extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return &lt;Items /&gt;
+  }
+};</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>const Items = (props) =&gt; {
+  return &lt;h1&gt;Current Quantity of Items in Cart: {props.quantity}&lt;/h1&gt;
+};
+
+// Change code below this line
+Items.propTypes = {
+  quantity: PropTypes.number.isRequired
+};
+// Change code above this line
+
+Items.defaultProps = {
+  quantity: 0
+};
+
+class ShoppingCart extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return &lt;Items /&gt;
+  }
+};</code></pre>

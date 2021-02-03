@@ -1,0 +1,25 @@
+<h1 id="description">–description–</h1>
+<p>Now let’s build something from scratch to practice our HTML, CSS and Bootstrap skills.</p>
+<p>We’ll build a jQuery playground, which we’ll soon put to use in our jQuery challenges.</p>
+<p>To start with, create an <code>h3</code> element, with the text <code>jQuery Playground</code>.</p>
+<p>Color your <code>h3</code> element with the <code>text-primary</code> Bootstrap class, and center it with the <code>text-center</code> Bootstrap class.</p>
+<h1 id="hints">–hints–</h1>
+<p>You should add an <code>h3</code> element to your page.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h3&#39;</span>) <span class="op">&amp;&amp;</span> <span class="at">$</span>(<span class="st">&#39;h3&#39;</span>).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h3</code> element should have a closing tag.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">h3&gt;/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;h3/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">h3&gt;/g</span>).<span class="at">length</span> <span class="op">===</span> <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;h3/g</span>).<span class="at">length</span></a>
+<a class="sourceLine" id="cb2-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h3</code> element should be colored by applying the class <code>text-primary</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h3&#39;</span>).<span class="at">hasClass</span>(<span class="st">&#39;text-primary&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h3</code> element should be centered by applying the class <code>text-center</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h3&#39;</span>).<span class="at">hasClass</span>(<span class="st">&#39;text-center&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h3</code> element should have the text <code>jQuery Playground</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="va">assert</span>.<span class="at">isTrue</span>(<span class="ss">/jquery</span><span class="sc">(\s)+</span><span class="ss">playground/gi</span>.<span class="at">test</span>(<span class="at">$</span>(<span class="st">&#39;h3&#39;</span>).<span class="at">text</span>()))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">&lt;h3</span><span class="ot"> class=</span><span class="st">&quot;text-primary text-center&quot;</span><span class="kw">&gt;</span>jQuery Playground<span class="kw">&lt;/h3&gt;</span></a></code></pre></div>

@@ -1,0 +1,41 @@
+{
+  "name": "dont-forget-the-milk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./bin/www",
+  "scripts": {
+    "start": "per-env",
+    "start:development": "nodemon -r dotenv/config ./bin/www",
+    "start:production": "node ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DerekInhoKim/Dont-Forget-The-Milk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DerekInhoKim/Dont-Forget-The-Milk/issues"
+  },
+  "homepage": "https://github.com/DerekInhoKim/Dont-Forget-The-Milk#readme",
+  "devDependencies": {
+    "dotenv-cli": "^3.1.0",
+    "nodemon": "^2.0.2",
+    "sequelize-cli": "^5.5.1"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-bearer-token": "^2.4.0",
+    "express-validator": "^6.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "per-env": "^1.0.2",
+    "pg": "^8.0.0",
+    "pug": "^2.0.4",
+    "sequelize": "^5.21.6"
+  }
+}

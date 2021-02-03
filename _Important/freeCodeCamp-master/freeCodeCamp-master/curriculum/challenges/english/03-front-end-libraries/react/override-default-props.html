@@ -1,0 +1,74 @@
+<h1 id="description">–description–</h1>
+<p>The ability to set default props is a useful feature in React. The way to override the default props is to explicitly set the prop values for a component.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>The <code>ShoppingCart</code> component now renders a child component <code>Items</code>. This <code>Items</code> component has a default prop <code>quantity</code> set to the integer <code>0</code>. Override the default prop by passing in a value of <code>10</code> for <code>quantity</code>.</p>
+<p><strong>Note:</strong> Remember that the syntax to add a prop to a component looks similar to how you add HTML attributes. However, since the value for <code>quantity</code> is an integer, it won’t go in quotes but it should be wrapped in curly braces. For example, <code>{100}</code>. This syntax tells JSX to interpret the value within the braces directly as JavaScript.</p>
+<h1 id="hints">–hints–</h1>
+<p>The component <code>ShoppingCart</code> should render.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(ShoppingCart))<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;ShoppingCart&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The component <code>Items</code> should render.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(ShoppingCart))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;Items&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>Items</code> component should have a prop of <code>{ quantity: 10 }</code> passed from the <code>ShoppingCart</code> component.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(ShoppingCart))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb3-6" title="6">        <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;Items&#39;</span>).<span class="at">props</span>().<span class="at">quantity</span> <span class="op">==</span> <span class="dv">10</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-7" title="7">        <span class="at">getUserInput</span>(<span class="st">&#39;index&#39;</span>)</a>
+<a class="sourceLine" id="cb3-8" title="8">          .<span class="at">replace</span>(<span class="ss">/ /g</span><span class="op">,</span> <span class="st">&#39;&#39;</span>)</a>
+<a class="sourceLine" id="cb3-9" title="9">          .<span class="at">includes</span>(<span class="st">&#39;&lt;Itemsquantity={10}/&gt;&#39;</span>)</a>
+<a class="sourceLine" id="cb3-10" title="10">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-11" title="11">    <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-12" title="12">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;ShoppingCart /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>const Items = (props) =&gt; {
+  return &lt;h1&gt;Current Quantity of Items in Cart: {props.quantity}&lt;/h1&gt;
+}
+
+Items.defaultProps = {
+  quantity: 0
+}
+
+class ShoppingCart extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    { /* Change code below this line */ }
+    return &lt;Items /&gt;
+    { /* Change code above this line */ }
+  }
+};</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>const Items = (props) =&gt; {
+  return &lt;h1&gt;Current Quantity of Items in Cart: {props.quantity}&lt;/h1&gt;
+}
+
+Items.defaultProps = {
+  quantity: 0
+}
+
+class ShoppingCart extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    { /* Change code below this line */ }
+    return &lt;Items quantity = {10} /&gt;
+    { /* Change code above this line */ }
+  }
+};</code></pre>

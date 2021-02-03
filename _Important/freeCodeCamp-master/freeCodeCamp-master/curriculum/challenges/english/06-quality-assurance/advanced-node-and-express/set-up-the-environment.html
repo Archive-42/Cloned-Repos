@@ -1,0 +1,96 @@
+<h1 id="description">–description–</h1>
+<p>The following challenges will make use of the <code>chat.pug</code> file. So, in your <code>routes.js</code> file, add a GET route pointing to <code>/chat</code> which makes use of <code>ensureAuthenticated</code>, and renders <code>chat.pug</code>, with <code>{ user: req.user }</code> passed as an argument to the response. Now, alter your existing <code>/auth/github/callback</code> route to set the <code>req.session.user_id = req.user.id</code>, and redirect to <code>/chat</code>.</p>
+<p>Add <code>http</code> and <code>socket.io</code> as a dependency and require/instantiate them in your server defined as follows:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">const</span> http <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;http&#39;</span>).<span class="at">createServer</span>(app)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">const</span> io <span class="op">=</span> <span class="at">require</span>(<span class="st">&#39;socket.io&#39;</span>)(http)<span class="op">;</span></a></code></pre></div>
+<p>Now that the <em>http</em> server is mounted on the <em>express app</em>, you need to listen from the <em>http</em> server. Change the line with <code>app.listen</code> to <code>http.listen</code>.</p>
+<p>The first thing needing to be handled is listening for a new connection from the client. The <dfn>on</dfn> keyword does just that- listen for a specific event. It requires 2 arguments: a string containing the title of the event thats emitted, and a function with which the data is passed though. In the case of our connection listener, we use <em>socket</em> to define the data in the second argument. A socket is an individual client who is connected.</p>
+<p>To listen for connections to your server, add the following within your database connection:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode javascript"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">io</span>.<span class="at">on</span>(<span class="st">&#39;connection&#39;</span><span class="op">,</span> socket <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">console</span>.<span class="at">log</span>(<span class="st">&#39;A user has connected&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
+<p>Now for the client to connect, you just need to add the following to your <code>client.js</code> which is loaded by the page after you’ve authenticated:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">/*global io*/</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw">let</span> socket <span class="op">=</span> <span class="at">io</span>()<span class="op">;</span></a></code></pre></div>
+<p>The comment suppresses the error you would normally see since ‘io’ is not defined in the file. We’ve already added a reliable CDN to the Socket.IO library on the page in chat.pug.</p>
+<p>Now try loading up your app and authenticate and you should see in your server console ‘A user has connected’!</p>
+<p><strong>Note:</strong><code>io()</code> works only when connecting to a socket hosted on the same url/server. For connecting to an external socket hosted elsewhere, you would use <code>io.connect('URL');</code>.</p>
+<p>Submit your page when you think you’ve got it right. If you’re running into errors, you can check out the project completed up to this point <a href="https://gist.github.com/camperbot/aae41cf59debc1a4755c9a00ee3859d1">here</a>.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>socket.io</code> should be a dependency.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/package.json&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb4-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-4" title="4">      <span class="kw">var</span> packJson <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(data)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">      <span class="va">assert</span>.<span class="at">property</span>(</a>
+<a class="sourceLine" id="cb4-6" title="6">        <span class="va">packJson</span>.<span class="at">dependencies</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-7" title="7">        <span class="st">&#39;socket.io&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-8" title="8">        <span class="st">&#39;Your project should list &quot;socket.io&quot; as a dependency&#39;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb4-11" title="11">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-12" title="12">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-14" title="14">  )<span class="op">;</span></a></code></pre></div>
+<p>You should correctly require and instantiate <code>http</code> as <code>http</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/server.js&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb5-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-4" title="4">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb5-5" title="5">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-6" title="6">        <span class="ss">/http.</span><span class="sc">*</span><span class="ss">=.</span><span class="sc">*</span><span class="ss">require.</span><span class="sc">*(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">http</span><span class="sc">\1</span><span class="ss">/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-7" title="7">        <span class="st">&#39;Your project should list &quot;http&quot; as a dependency&#39;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb5-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<p>You should correctly require and instantiate <code>socket.io</code> as <code>io</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/server.js&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb6-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-4" title="4">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb6-5" title="5">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-6" title="6">        <span class="ss">/io.</span><span class="sc">*</span><span class="ss">=.</span><span class="sc">*</span><span class="ss">require.</span><span class="sc">*(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">socket.io</span><span class="sc">\1</span><span class="ss">.</span><span class="sc">*</span><span class="ss">http/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-7" title="7">        <span class="st">&#39;You should correctly require and instantiate socket.io as io.&#39;</span></a>
+<a class="sourceLine" id="cb6-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb6-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<p>Socket.IO should be listening for connections.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/server.js&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb7-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-4" title="4">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb7-5" title="5">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-6" title="6">        <span class="ss">/io.on.</span><span class="sc">*(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">connection</span><span class="sc">\1</span><span class="ss">.</span><span class="sc">*</span><span class="ss">socket/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-7" title="7">        <span class="st">&#39;io should listen for &quot;connection&quot; and socket should be the 2nd arguments variable&#39;</span></a>
+<a class="sourceLine" id="cb7-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb7-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<p>Your client should connect to your server.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/public/client.js&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb8-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-4" title="4">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb8-5" title="5">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-6" title="6">        <span class="ss">/socket.</span><span class="sc">*</span><span class="ss">=.</span><span class="sc">*</span><span class="ss">io/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb8-7" title="7">        <span class="st">&#39;Your client should be connection to server with the connection defined as socket&#39;</span></a>
+<a class="sourceLine" id="cb8-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb8-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co">*/</span></a></code></pre></div>

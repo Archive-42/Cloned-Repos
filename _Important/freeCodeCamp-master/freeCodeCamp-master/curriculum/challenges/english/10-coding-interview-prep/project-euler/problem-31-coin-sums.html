@@ -1,0 +1,38 @@
+<h1 id="description">–description–</h1>
+<p>In England the currency is made up of pound, £, and pence, p, and there are eight coins in general circulation:</p>
+<div style="margin-left: 4em;">
+1p, 2p, 5p, 10p, 20p, 50p, £1 (100p) and £2 (200p).
+</div>
+<p>It is possible to make £2 in the following way:</p>
+<div style="margin-left: 4em;">
+1×£1 + 1×50p + 2×20p + 1×5p + 1×2p + 3×1p
+</div>
+<p>How many different ways can <code>n</code> pence be made using any number of coins?</p>
+<h1 id="hints">–hints–</h1>
+<p><code>coinSums(50)</code> should return a number.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">coinSums</span>(<span class="dv">50</span>) <span class="op">===</span> <span class="st">&#39;number&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>coinSums(50)</code> should return 451.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">coinSums</span>(<span class="dv">50</span>) <span class="op">==</span> <span class="dv">451</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>coinSums(100)</code> should return 4563.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">coinSums</span>(<span class="dv">100</span>) <span class="op">==</span> <span class="dv">4563</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>coinSums(150)</code> should return 21873.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="at">coinSums</span>(<span class="dv">150</span>) <span class="op">==</span> <span class="dv">21873</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>coinSums(200)</code> should return 73682.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="at">coinSums</span>(<span class="dv">200</span>) <span class="op">==</span> <span class="dv">73682</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">function</span> <span class="at">coinSums</span>(n) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="cf">return</span> n<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb6-5" title="5"></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="at">coinSums</span>(<span class="dv">200</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">const</span> coinSums <span class="op">=</span> (n) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="kw">const</span> getWays <span class="op">=</span> (n<span class="op">,</span> m<span class="op">=</span><span class="dv">8</span><span class="op">,</span> c<span class="op">=</span>[<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">100</span><span class="op">,</span> <span class="dv">200</span>]) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="cf">if</span> (n <span class="op">===</span> <span class="dv">0</span>) <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-4" title="4">    <span class="cf">if</span> (m <span class="op">===</span> <span class="dv">0</span> <span class="op">||</span> n <span class="op">&lt;</span> <span class="dv">0</span>) <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-5" title="5">    <span class="cf">return</span> <span class="at">getWays</span>(n <span class="op">-</span> c[m <span class="op">-</span> <span class="dv">1</span>]<span class="op">,</span> m<span class="op">,</span> c) <span class="op">+</span> <span class="at">getWays</span>(n<span class="op">,</span> m <span class="op">-</span> <span class="dv">1</span><span class="op">,</span> c)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-7" title="7">  <span class="cf">return</span> <span class="at">getWays</span>(n)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="op">};</span></a></code></pre></div>

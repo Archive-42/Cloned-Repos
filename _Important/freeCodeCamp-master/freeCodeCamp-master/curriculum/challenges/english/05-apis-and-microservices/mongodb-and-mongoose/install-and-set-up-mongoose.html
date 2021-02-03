@@ -1,0 +1,44 @@
+<h1 id="description">–description–</h1>
+<p>In this challenge, you will import the required projects, and connect to your Atlas database.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Add <code>mongodb</code> and <code>mongoose</code> to the project’s <code>package.json</code>. Then, require mongoose as <code>mongoose</code> in <code>myApp.js</code>. Store your MongoDB Atlas database URI in a private <code>.env</code> file as <code>MONGO_URI</code>. Surround the the URI with single or double quotes, and make sure no space exists between both the variable and the <code>=</code>, and the value and <code>=</code>. Connect to the database using the following syntax:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">mongoose</span>.<span class="at">connect</span>(<span class="op">&lt;</span>Your URI<span class="op">&gt;,</span> <span class="op">{</span> <span class="dt">useNewUrlParser</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">useUnifiedTopology</span><span class="op">:</span> <span class="kw">true</span> <span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="hints">–hints–</h1>
+<p>“mongodb” dependency should be in package.json</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/file/package.json&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="kw">var</span> packJson <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(data)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      <span class="va">assert</span>.<span class="at">property</span>(<span class="va">packJson</span>.<span class="at">dependencies</span><span class="op">,</span> <span class="st">&#39;mongodb&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-7" title="7">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-8" title="8">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-10" title="10">  )<span class="op">;</span></a></code></pre></div>
+<p>“mongoose” dependency should be in package.json</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/file/package.json&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="kw">var</span> packJson <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(data)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      <span class="va">assert</span>.<span class="at">property</span>(<span class="va">packJson</span>.<span class="at">dependencies</span><span class="op">,</span> <span class="st">&#39;mongoose&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-7" title="7">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-8" title="8">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-10" title="10">  )<span class="op">;</span></a></code></pre></div>
+<p>“mongoose” should be connected to a database</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/is-mongoose-ok&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb4-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-4" title="4">      <span class="va">assert</span>.<span class="at">isTrue</span>(<span class="va">data</span>.<span class="at">isMongooseOk</span><span class="op">,</span> <span class="st">&#39;mongoose is not connected&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-7" title="7">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-9" title="9">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">*/</span></a></code></pre></div>

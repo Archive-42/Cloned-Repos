@@ -1,0 +1,79 @@
+<h1 id="description">–description–</h1>
+<p>Build a full stack JavaScript app that is functionally similar to this: <a href="https://anonymous-message-board.freecodecamp.rocks/" class="uri">https://anonymous-message-board.freecodecamp.rocks/</a>.</p>
+<p>Working on this project will involve you writing your code using one of the following methods:</p>
+<ul>
+<li>Clone <a href="https://github.com/freeCodeCamp/boilerplate-project-messageboard/">this GitHub repo</a> and complete your project locally.</li>
+<li>Use <a href="https://repl.it/github/freeCodeCamp/boilerplate-project-messageboard">our repl.it starter project</a> to complete your project.</li>
+<li>Use a site builder of your choice to complete the project. Be sure to incorporate all the files from our GitHub repo.</li>
+</ul>
+<p>When you are done, make sure a working demo of your project is hosted somewhere public. Then submit the URL to it in the <code>Solution Link</code> field. Optionally, also submit a link to your projects source code in the <code>GitHub Link</code> field.</p>
+<h1 id="instructions">–instructions–</h1>
+<ol type="1">
+<li>Set <code>NODE_ENV</code> to test without quotes when ready to write tests and DB to your databases connection string (in <code>.env</code>)</li>
+<li>Recommended to create controllers/handlers and handle routing in <code>routes/api.js</code></li>
+<li>You will add any security features to <code>server.js</code></li>
+</ol>
+<p>Write the following tests in <code>tests/2_functional-tests.js</code>:</p>
+<ul>
+<li>Creating a new thread: POST request to <code>/api/threads/{board}</code></li>
+<li>Viewing the 10 most recent threads with 3 replies each: GET request to <code>/api/threads/{board}</code></li>
+<li>Deleting a thread with the incorrect password: DELETE request to <code>/api/threads/{board}</code> with an invalid <code>delete_password</code></li>
+<li>Deleting a thread with the correct password: DELETE request to <code>/api/threads/{board}</code> with a valid <code>delete_password</code></li>
+<li>Reporting a thread: PUT request to <code>/api/threads/{board}</code></li>
+<li>Creating a new reply: POST request to <code>/api/replies/{board}</code></li>
+<li>Viewing a single thread with all replies: GET request to <code>/api/replies/{board}</code></li>
+<li>Deleting a reply with the incorrect password: DELETE request to <code>/api/threads/{board}</code> with an invalid <code>delete_password</code></li>
+<li>Deleting a reply with the correct password: DELETE request to <code>/api/threads/{board}</code> with a valid <code>delete_password</code></li>
+<li>Reporting a reply: PUT request to <code>/api/replies/{board}</code></li>
+</ul>
+<h1 id="hints">–hints–</h1>
+<p>You can provide your own project, not the example URL.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1">(getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="op">!</span><span class="ss">/.</span><span class="sc">*\/</span><span class="ss">anonymous-message-board</span><span class="sc">\.</span><span class="ss">freecodecamp</span><span class="sc">\.</span><span class="ss">rocks/</span>.<span class="at">test</span>(</a>
+<a class="sourceLine" id="cb1-4" title="4">      <span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>)</a>
+<a class="sourceLine" id="cb1-5" title="5">    )</a>
+<a class="sourceLine" id="cb1-6" title="6">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="op">};</span></a></code></pre></div>
+<p>Only allow your site to be loaded in an iFrame on your own pages.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/app-info&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">  <span class="va">assert</span>.<span class="at">isTrue</span>(<span class="va">parsed</span>.<span class="at">headers</span>[<span class="st">&#39;x-frame-options&#39;</span>]<span class="op">?</span>.<span class="at">includes</span>(<span class="st">&#39;SAMEORIGIN&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">}<span class="op">;</span></a></code></pre></div>
+<p>Do not allow DNS prefetching.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/app-info&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="va">assert</span>.<span class="at">isTrue</span>(<span class="va">parsed</span>.<span class="at">headers</span>[<span class="st">&#39;x-dns-prefetch-control&#39;</span>]<span class="op">?</span>.<span class="at">includes</span>(<span class="st">&#39;off&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">}<span class="op">;</span></a></code></pre></div>
+<p>Only allow your site to send the referrer for your own pages.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/app-info&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">  <span class="va">assert</span>.<span class="at">isTrue</span>(<span class="va">parsed</span>.<span class="at">headers</span>[<span class="st">&#39;referrer-policy&#39;</span>]<span class="op">?</span>.<span class="at">includes</span>(<span class="st">&#39;same-origin&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">}<span class="op">;</span></a></code></pre></div>
+<p>You can send a POST request to <code>/api/threads/{board}</code> with form data including <code>text</code> and <code>delete_password</code>. The saved database record will have at least the fields <code>_id</code>, <code>text</code>, <code>created_on</code>(date &amp; time), <code>bumped_on</code>(date &amp; time, starts same as <code>created_on</code>), <code>reported</code> (boolean), <code>delete_password</code>, &amp; <code>replies</code> (array).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"></code></pre></div>
+<p>You can send a POST request to <code>/api/replies/{board}</code> with form data including <code>text</code>, <code>delete_password</code>, &amp; <code>thread_id</code>. This will update the <code>bumped_on</code> date to the comment’s date. In the thread’s <code>replies</code> array, an object will be saved with at least the properties <code>_id</code>, <code>text</code>, <code>created_on</code>, <code>delete_password</code>, &amp; <code>reported</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"></code></pre></div>
+<p>You can send a GET request to <code>/api/threads/{board}</code>. Returned will be an array of the most recent 10 bumped threads on the board with only the most recent 3 replies for each. The <code>reported</code> and <code>delete_password</code> fields will not be sent to the client.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"></code></pre></div>
+<p>You can send a GET request to <code>/api/replies/{board}?thread_id={thread_id}</code>. Returned will be the entire thread with all its replies, also excluding the same fields from the client as the previous test.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"></code></pre></div>
+<p>You can send a DELETE request to <code>/api/threads/{board}</code> and pass along the <code>thread_id</code> &amp; <code>delete_password</code> to delete the thread. Returned will be the string <code>incorrect password</code> or <code>success</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"></code></pre></div>
+<p>You can send a DELETE request to <code>/api/replies/{board}</code> and pass along the <code>thread_id</code>, <code>reply_id</code>, &amp; <code>delete_password</code>. Returned will be the string <code>incorrect password</code> or <code>success</code>. On success, the text of the <code>reply_id</code> will be changed to <code>[deleted]</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode js"><code class="sourceCode javascript"></code></pre></div>
+<p>You can send a PUT request to <code>/api/threads/{board}</code> and pass along the <code>thread_id</code>. Returned will be the string <code>success</code>. The <code>reported</code> value of the <code>thread_id</code> will be changed to <code>true</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode js"><code class="sourceCode javascript"></code></pre></div>
+<p>You can send a PUT request to <code>/api/replies/{board}</code> and pass along the <code>thread_id</code> &amp; <code>reply_id</code>. Returned will be the string <code>success</code>. The <code>reported</code> value of the <code>reply_id</code> will be changed to <code>true</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode js"><code class="sourceCode javascript"></code></pre></div>
+<p>All 10 functional tests are complete and passing.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode js"><code class="sourceCode javascript"></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb14"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb14-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb14-5" title="5"><span class="co">*/</span></a></code></pre></div>

@@ -1,0 +1,91 @@
+$pe-light-theme: #283347 !default;
+$pe-dark-theme: #1c2432 !default;
+
+.task-carousel {
+  h2 {
+    color: $pe-header-color;
+    font-size: 24px;
+    font-weight: 600;
+    height: 28px;
+    margin: 0 0 10px 0;
+  }
+  .carousel {
+    margin-bottom: 25px;
+    .carousel-indicators {
+      margin-bottom: -6%;
+      li {
+        border: 1px solid $pe-light-theme;
+        opacity: .3;
+      }
+      .active {
+        background-color: $pe-dark-theme;
+        opacity: 1;
+      }
+    }
+  }
+  .panel {
+    border: 0;
+    color: $pe-light-theme;
+    background-color: transparent;
+    .panel-heading {
+      border-bottom: 0 !important;
+      background-color: $pe-light-theme !important;
+      color: #fff;
+      font-size: 12px;
+      padding: 14px;
+      text-transform: uppercase;
+    }
+    .panel-body {
+      background-color: $pe-dark-theme;
+      color: #fff;
+    }
+    .panel-analysis {
+      background-color: $pe-dark-theme !important;
+      h3 {
+        font-size: 18px;
+        text-transform: capitalize;
+        margin: 0 !important;
+      }
+    }
+    .panel-body-tasks {
+      font-weight: 100 !important;
+      padding-bottom: 0;
+      padding-top: 0;
+      white-space: nowrap;
+      img {
+        height: 24.1px;
+        width: 79px;
+      }
+      .row {
+        border-bottom: 2px solid #3d4e6d;
+        padding: 15px 0 8px 0 !important;
+      }
+      .no-border-bottom {
+        border: none !important;
+      }
+    }
+    .panel-footer-analysis {
+      background-color: $pe-dark-theme !important;
+      border-color: $pe-dark-theme !important;
+      padding: 14px 0 20px 0;
+      .show-more {
+        background-color: $pe-light-theme;
+        border-radius: 25px;
+        color: #fff;
+        font-size: 12px;
+        padding: 7px 16.5px;
+        text-transform: uppercase;
+      }
+    }
+  }
+  .left-arrow {
+    height: 14px;
+    margin-right: 50px;
+    width: 8px;
+  }
+  .right-arrow {
+    height: 14px;
+    margin-left: 50px;
+    width: 8px;
+  }
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        link(rel='stylesheet' type='text/css' href='../login.css')
+        link(rel='stylesheet' type='text/css' href='../global.css')
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        script(src="../js/log-in.js")
+        title Document
+    body#body
+        .header
+            .head
+                .logo
+                    a(class="soundify-logo" href="http://localhost:4001/")
+                        i.left-nav__logo-icon.fab.fa-spotify
+                        .left-nav__logo-text Soundify
+        .container-sides
+            span#continue-text To continue, please log into Soundify.
+            div(class="errors-container")
+            .form-content
+                form#log-in-form
+                    //- input(type="hidden" name="_csrf" value=token)
+                    .email-form
+                        label(demo)
+                        input#email(type="text" name="email" placeholder="email" required)
+                    .password-form
+                        label
+                        input#password(type="password" name="password" placeholder="password" required)
+                    div
+                        button(id="login" type="submit") Login
+                    div
+                        button(id="demoButton" type="submit") Demo User
+            span#login-text Don't Have An Account?
+                button(id="signup" onclick="window.location.href = '/sign-up'") Sign Up

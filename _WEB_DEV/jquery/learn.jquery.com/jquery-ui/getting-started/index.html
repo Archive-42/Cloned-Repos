@@ -1,0 +1,458 @@
+<!doctype html>
+<!--[if IE 7 ]>		 <html class="no-js ie ie7 lte7 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 8 ]>		 <html class="no-js ie ie8 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 9 ]>		 <html class="no-js ie ie9 lte9"> lang="en-US"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head data-live-domain="learn.jquery.com">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Getting Started with jQuery UI | jQuery Learning Center</title>
+
+	<meta name="author" content="JS Foundation - js.foundation">
+	<meta name="description" content="">
+
+	<meta name="viewport" content="width=device-width">
+
+	<link rel="shortcut icon" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/i/favicon.ico">
+
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/base.css?v=2">
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/style.css">
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/modernizr.custom.2.8.3.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/main.js"></script>
+
+	<script src="https://use.typekit.net/wde1aof.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+	<!-- at the end of the HEAD -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/docsearch.css">
+
+<link rel='https://api.w.org/' href='//learn.jquery.com/wp-json/' />
+<meta name="generator" content="WordPress 4.5.2" />
+<link rel="alternate" type="application/json+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fjquery-ui%2Fgetting-started%2F" />
+<link rel="alternate" type="text/xml+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fjquery-ui%2Fgetting-started%2F&#038;format=xml" />
+
+</head>
+<body class="jquery-learn page page-id-379 page-child parent-pageid-367 page-template-default page-slug-getting-started single-author singular">
+
+<header>
+	<section id="global-nav">
+		<nav>
+			<div class="constrain">
+				<ul class="projects">
+					<li class="project jquery"><a href="https://jquery.com/" title="jQuery">jQuery</a></li>
+					<li class="project jquery-ui"><a href="https://jqueryui.com/" title="jQuery UI">jQuery UI</a></li>
+					<li class="project jquery-mobile"><a href="https://jquerymobile.com/" title="jQuery Mobile">jQuery Mobile</a></li>
+					<li class="project sizzlejs"><a href="https://sizzlejs.com/" title="Sizzle">Sizzle</a></li>
+					<li class="project qunitjs"><a href="https://qunitjs.com/" title="QUnit">QUnit</a></li>
+				</ul>
+				<ul class="links">
+					<li><a href="https://plugins.jquery.com/">Plugins</a></li>
+					<li class="dropdown"><a href="https://contribute.jquery.org/">Contribute</a>
+						<ul>
+							<li><a href="https://js.foundation/CLA">CLA</a></li>
+							<li><a href="https://contribute.jquery.org/style-guide/">Style Guides</a></li>
+							<li><a href="https://contribute.jquery.org/triage/">Bug Triage</a></li>
+							<li><a href="https://contribute.jquery.org/code/">Code</a></li>
+							<li><a href="https://contribute.jquery.org/documentation/">Documentation</a></li>
+							<li><a href="https://contribute.jquery.org/web-sites/">Web Sites</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/events">Events</a>
+						<ul class="wide">
+																		</ul>
+					</li>
+					<li class="dropdown"><a href="https://jquery.org/support/">Support</a>
+						<ul>
+							<li><a href="https://learn.jquery.com/">Learning Center</a></li>
+							<li><a href="https://irc.jquery.org/">IRC/Chat</a></li>
+							<li><a href="https://forum.jquery.com/">Forums</a></li>
+							<li><a href="https://stackoverflow.com/tags/jquery/info">Stack Overflow</a></li>
+							<li><a href="https://jquery.org/support/">Commercial Support</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/">JS Foundation</a>
+						<ul>
+							<li><a href="https://js.foundation/about/join">Join</a></li>
+							<li><a href="https://js.foundation/about/members">Members</a></li>
+							<li><a href="https://js.foundation/about/leadership">Leadership</a></li>
+							<li><a href="https://js.foundation/community/code-of-conduct">Conduct</a></li>
+							<li><a href="https://js.foundation/about/donate">Donate</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</section>
+</header>
+
+<div id="banner-blm">
+	<h2>#BlackLivesMatter</h2>
+	<p>To Donate, see this <a href="https://bit.ly/fundthecommunity">list of organizations to support</a> from <a href="https://www.reclaimtheblock.org/">Reclaim the Block</a> 
+</div>
+
+<div id="container">
+	<div id="logo-events" class="constrain clearfix">
+		<h2 class="logo"><a href="/" title="jQuery Learning Center">jQuery Learning Center</a></h2>
+
+		<aside>
+			<div id="broadcast">
+				<a href="https://js.foundation/about/donate" title="Support the JS Foundation"><img src="/jquery-wp-content/themes/jquery/content/donate.png" title="Support the JS Foundation" alt="Support the JS Foundation" border="0" width="400" height="100"></a>
+			</div>
+		</aside>
+	</div>
+
+	<nav id="main" class="constrain clearfix">
+		<div class="menu-top-container">
+	<ul id="menu-top" class="menu">
+<li class="menu-item"><a href="https://learn.jquery.com">Home</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/about/">About</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/contributing/">Contributing</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/style-guide/">Style Guide</a></li>
+	</ul>
+</div>
+
+		<form method="get" class="searchform" action="//learn.jquery.com/">
+	<button type="submit" class="icon-search"><span class="visuallyhidden">search</span></button>
+	<label>
+		<span class="visuallyhidden">Search jQuery Learning Center</span>
+		<input type="text" name="s" value=""
+			placeholder="Search">
+	</label>
+</form>
+	</nav>
+
+	<div id="content-wrapper" class="clearfix row">
+
+<div class="beta-ribbon-wrapper"><div class="beta-ribbon"><a href="/about/#beta">Beta</a></div></div>
+<div class="content-right twelve columns">
+	<div id="content">
+		<div class="post-heirarchy">Posted in: <a href="https://learn.jquery.com/jquery-ui/">jQuery UI</a></div><article id="post-379" class="post-379 page type-page status-publish hentry">
+	<header class="entry-header">
+		<h1 class="entry-title">Getting Started with jQuery UI</h1>
+	</header>
+
+	<div class="entry-content">
+		<h3 class="toc-linked"><a href="#what-is-jquery-ui" id="what-is-jquery-ui" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> What is jQuery UI?</h3><p>jQuery UI is a widget and interaction library built on top of the jQuery JavaScript Library that you can use to build highly interactive web applications. This guide is designed to get you up to speed on how jQuery UI works. Follow along below to get started.</p>
+<h3 class="toc-linked"><a href="#start-by-checking-out-the-demos" id="start-by-checking-out-the-demos" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Start by Checking Out the Demos</h3><p>To get a feel for what jQuery UI is capable of, check out the <a href="http://jqueryui.com/demos/">UI Demos</a>.</p>
+<p>In the demos section, the navigation lists all of the interactions and widgets that jQuery UI offers. Choose an interaction or widget and you&apos;ll be presented with several demo configurations for that particular plugin. Each demo allows you to view source code, change themes, and the URL can always be bookmarked. For example, check out the <a href="http://jqueryui.com/accordion/#fillspace">accordion widget&apos;s fill space demo page</a>.</p>
+<h3 class="toc-linked"><a href="#build-your-custom-jquery-ui-download" id="build-your-custom-jquery-ui-download" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Build Your Custom jQuery UI Download</h3><p>Once you have a basic understanding of what jQuery UI is and what it does, you&apos;re ready to try it out! It&apos;s time to head over to the <a href="http://jqueryui.com/download/">Download Builder</a> on the jQuery UI website to download a copy of jQuery UI. jQuery UI&apos;s Download Builder allows you to choose the components you would like to download and get a custom version of the library for your project. There are three easy steps to building your custom jQuery UI download:</p>
+<h4 class="toc-linked"><a href="#step-1-choose-which-components-you-need" id="step-1-choose-which-components-you-need" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Step 1: Choose Which Components You Need</h4><p>The main column of the Download Builder lists all of the JavaScript components in jQuery UI categorized into groups: core, interactions, widgets, and effects. Some components in jQuery UI depend on other components. Just check the boxes for the widgets you&apos;d like to download and any required dependencies will automatically be checked as well. The components you select will all be combined into a custom jQuery UI JavaScript file.</p>
+<p><img src="/resources/jquery-ui/configure.png" alt="Configuring a download"></p>
+<h4 class="toc-linked"><a href="#step-2-select-a-theme-or-roll-your-own-custom-theme" id="step-2-select-a-theme-or-roll-your-own-custom-theme" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Step 2: Select a Theme (or Roll Your Own Custom Theme)</h4><p>In the right column of the Download Builder, you&apos;ll find a field where you can choose from a number of pre-designed themes for your jQuery UI widgets.
+You can either choose from the various themes we provide, or you can design your own custom theme using ThemeRoller (more on that later).</p>
+<p><strong>Advanced Theme Settings:</strong> <em>The theme section of the Download Builder also offers some advanced configuration settings for your theme. If you plan to use multiple themes on a single page, these fields will come in handy. If you plan to only use one theme on a page, you can skip these settings entirely.</em></p>
+<h4 class="toc-linked"><a href="#step-3-choose-a-version-of-jquery-ui" id="step-3-choose-a-version-of-jquery-ui" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Step 3: Choose a Version of jQuery UI</h4><p>The last step in the Download Builder is to select a version number. Make sure to check not only what version of jQuery UI you pick, but also the version of jQuery Core that version supports, as different versions of the library support different versions of jQuery. For more information on what&apos;s new in each version of jQuery UI, see the project&apos;s <a href="http://jqueryui.com/upgrade-guide/">upgrade guides</a> and <a href="http://jqueryui.com/changelog/">changelogs</a>.</p>
+<h4 class="toc-linked"><a href="#click-download" id="click-download" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Click Download!</h4><p>You&apos;re finished with the Download Builder! Click the download button and you&apos;ll get a customized zip file containing everything you selected.</p>
+<h3 class="toc-linked"><a href="#basic-overview-using-jquery-ui-on-a-web-page" id="basic-overview-using-jquery-ui-on-a-web-page" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Basic Overview: Using jQuery UI on a Web Page</h3><p>Next, open up <code>index.html</code> from the downloaded zip in a text editor. You&apos;ll see that it references your theme, jQuery, and jQuery UI. Generally, you&apos;ll need to include these three files on any page to use the jQuery UI widgets and interactions:</p>
+<div class="syntaxhighlighter xml">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">&quot;stylesheet&quot;</span> <span class="attribute">href</span>=<span class="value">&quot;jquery-ui.min.css&quot;</span>&gt;</span></code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">&quot;external/jquery/jquery.js&quot;</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">&quot;jquery-ui.min.js&quot;</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<p>Once you&apos;ve included the necessary files, you can add some jQuery widgets to your page. For example, to make a datepicker widget, you&apos;ll add a text input element to your page and then call <code>.datepicker()</code> on it. Like this:</p>
+<p><strong>HTML:</strong></p>
+<div class="syntaxhighlighter xml">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">&quot;text&quot;</span> <span class="attribute">name</span>=<span class="value">&quot;date&quot;</span> <span class="attribute">id</span>=<span class="value">&quot;date&quot;</span>&gt;</span></code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<p><strong>JavaScript:</strong></p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">&quot;#date&quot;</span> ).datepicker();</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<p><img src="/resources/jquery-ui/ex-datepicker.png" alt="Example Screenshot"></p>
+<h4 class="toc-linked"><a href="#that-39-s-it" id="that-39-s-it" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> That&apos;s It!</h4><p>For demos of all of the jQuery UI widgets and interactions, check out the demos section of the jQuery UI website.</p>
+<h3 class="toc-linked"><a href="#customizing-jquery-ui-to-your-needs" id="customizing-jquery-ui-to-your-needs" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Customizing jQuery UI to Your Needs</h3><p>jQuery UI allows you to customize it in several ways. You&apos;ve already seen how the Download Builder allows you to customize your copy of jQuery UI to include only the portions you want, but there are additional ways to customize that code to your implementation.</p>
+<h3 class="toc-linked"><a href="#jquery-ui-basics-using-options" id="jquery-ui-basics-using-options" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> jQuery UI Basics: Using Options</h3><p>Each plugin in jQuery UI has a default configuration which is catered to the most basic and common use case. But if you want a plugin to behave different from its default configuration, you can override each of its default settings using &quot;options&quot;. Options are a set of properties passed into a jQuery UI widget as an argument. For example, the slider widget has an option for orientation, which allows you to specify whether the slider should be horizontal or vertical. To set this option for a slider on your page, you just pass it in as an argument, like this:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">&quot;#mySliderDiv&quot;</span> ).slider({</code></div></div><div class="container"><div class="line"><code>    orientation: <span class="string">&quot;vertical&quot;</span></code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<p>You can pass as many different options as you&apos;d like by following each one with a comma (except the last one):</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">&quot;#mySliderDiv&quot;</span> ).slider({</code></div></div><div class="container"><div class="line"><code>    orientation: <span class="string">&quot;vertical&quot;</span>,</code></div></div><div class="container"><div class="line"><code>    min: <span class="number">0</span>,</code></div></div><div class="container"><div class="line"><code>    max: <span class="number">150</span>,</code></div></div><div class="container"><div class="line"><code>    value: <span class="number">50</span></code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<p>Just remember to surround your options with curly brackets <code>{ }</code>, and you&apos;re well on your way. Of course, the example above barely touches on what you can do with jQuery UI. To get detailed information on the entire set of jQuery UI widgets, visit the <a href="http://jqueryui.com/demos/">jQuery UI documentation</a>.</p>
+<h3 class="toc-linked"><a href="#visual-customization-designing-a-jquery-ui-theme" id="visual-customization-designing-a-jquery-ui-theme" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Visual Customization: Designing a jQuery UI Theme</h3><p>If you want to design your own theme, jQuery UI has a very slick application for just that purpose. It&apos;s called ThemeRoller, and you can always get to it by either clicking the &quot;Themes&quot; link in the jQuery UI navigation, or simply going to <a href="http://jqueryui.com/themeroller/">jQuery UI ThemeRoller</a>.</p>
+<p>ThemeRoller provides a custom interface for designing all of the elements used by jQuery UI widgets. As you tweak the &quot;levers&quot; in the left column, the widgets on the right will reflect your design. The Gallery tab of ThemeRoller offers a number of pre-designed themes (the same ones offered by the Download Builder) that you can tweak or download as they are.</p>
+<p><img src="/resources/jquery-ui/themeroller.png" alt="ThemeRoller Example"></p>
+<h3 class="toc-linked"><a href="#downloading-your-theme" id="downloading-your-theme" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Downloading Your Theme</h3><p>When you click the &quot;Download theme&quot; button in ThemeRoller, you&apos;ll be directed to the Download Builder and your custom theme will be auto-selected in the Theme dropdown menu. You can configure your download package further from there. Once you download, you&apos;ll see that the <code>example.html</code> page is styled using your custom theme.</p>
+<p><strong>Quick Tip:</strong> <em>If you ever need to edit your theme, simply open the CSS file and find where it says &quot;To view and modify this theme, visit ...&quot; That URL will open the theme in ThemeRoller for editing.</em></p>
+<h3 class="toc-linked"><a href="#support-where-can-i-get-help" id="support-where-can-i-get-help" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Support: Where Can I Get Help?</h3><p>JQuery UI user and developer resources are kept up-to-date at the <a href="http://jqueryui.com/support/">Support Center</a>.</p>
+<h3 class="toc-linked"><a href="#developers-wanted" id="developers-wanted" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Developers Wanted!</h3><p>Want to join the jQuery UI team? We&apos;d love your help! Visit the UI <a href="http://jqueryui.com/development/">Development Center</a> for details on how to get involved.</p>					</div>
+
+	<div class="entry-meta row">
+				<div class="bottom-links row">
+							<div class="prev six columns">
+					<a href="https://learn.jquery.com/jquery-ui/">
+					<i class="icon-chevron-left"></i>
+					jQuery UI					</a>
+				</div>
+										<div class="next six columns">
+					<a href="https://learn.jquery.com/jquery-ui/how-jquery-ui-works/">
+					How jQuery UI Works					<i class="icon-chevron-right"></i>
+					</a>
+				</div>
+					</div>
+		
+		<aside class="meta-details six columns">
+			<h3>Last Updated</h3>
+			<ul>
+				<li class="icon-calendar icon-large" title="Last Updated"><span>December 17, 2015</span></li>
+			</ul>
+		</aside>
+		<aside class="github-feedback six columns">
+			<h3>Suggestions, Problems, Feedback?</h3>
+			<a class="button dark" href="https://github.com/jquery/learn.jquery.com/tree/master/page/jquery-ui/getting-started.md"><i class="icon-github"></i> Open an Issue or Submit a Pull Request on GitHub</a>
+		</aside>
+
+	</div>
+</article>
+	</div>
+
+	<div id="sidebar" class="widget-area" role="complementary">
+		
+		<aside id="chapter-listing" class="widget">
+			<h3 class="widget-title">Chapters</h3>
+			<ul>
+																		<li >
+						<a href="//learn.jquery.com/about-jquery/">
+															<i class="icon-certificate"></i>
+														About jQuery						</a>
+																																																																									</li>
+														<li >
+						<a href="//learn.jquery.com/using-jquery-core/">
+															<i class="icon-star-empty"></i>
+														Using jQuery Core						</a>
+																																																																																																																																																																																																																																																																																										<ul class="sub-chapter">
+																																																																																																																																																																																																																																																																																	<li >
+										<a href="//learn.jquery.com/using-jquery-core/faq/">
+											Frequently Asked Questions										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/events/">
+															<i class="icon-tasks"></i>
+														Events						</a>
+																																																																																																																																																																																																	</li>
+														<li >
+						<a href="//learn.jquery.com/effects/">
+															<i class="icon-picture"></i>
+														Effects						</a>
+																																																																																								</li>
+														<li >
+						<a href="//learn.jquery.com/ajax/">
+															<i class="icon-refresh"></i>
+														Ajax						</a>
+																																																																																																																						</li>
+														<li >
+						<a href="//learn.jquery.com/plugins/">
+															<i class="icon-bolt"></i>
+														Plugins						</a>
+																																																																																																							</li>
+														<li >
+						<a href="//learn.jquery.com/performance/">
+															<i class="icon-dashboard"></i>
+														Performance						</a>
+																																																																																																																																																				</li>
+														<li >
+						<a href="//learn.jquery.com/code-organization/">
+															<i class="icon-sitemap"></i>
+														Code Organization						</a>
+																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/code-organization/deferreds/">
+											Deferreds										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li class='active'>
+						<a href="//learn.jquery.com/jquery-ui/">
+															<i class="icon-magnet"></i>
+														jQuery UI						</a>
+																																																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/jquery-ui/widget-factory/">
+											Widget Factory										</a>
+									</li>
+																																												<li >
+										<a href="//learn.jquery.com/jquery-ui/environments/">
+											Using jQuery UI										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-mobile/">
+															<i class="icon-th-large"></i>
+														jQuery Mobile						</a>
+																																																																									</li>
+							</ul>
+		</aside>
+
+
+	</div><!-- #sidebar .widget-area -->
+</div>
+
+	</div>
+</div>
+
+<footer class="clearfix simple">
+	<div class="constrain">
+		<div class="row">
+			<div class="six columns offset-by-three">
+				<h3><span>Books</span></h3>
+				<ul class="books">
+					<li>
+						<a href="https://www.packtpub.com/web-development/learning-jquery-fourth-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/learning-jquery-4th-ed.jpg" alt="Learning jQuery 4th Edition by Karl Swedberg and Jonathan Chaffer" width="92" height="114">
+							Learning jQuery Fourth Edition
+							<cite>Karl Swedberg and Jonathan Chaffer</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.manning.com/books/jquery-in-action-third-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-in-action.jpg" alt="jQuery in Action by Bear Bibeault, Yehuda Katz, and Aurelio De Rosa" width="92" height="114">
+							jQuery in Action
+							<cite>Bear Bibeault, Yehuda Katz, and Aurelio De Rosa</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.syncfusion.com/ebooks/jquery">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-succinctly.jpg" alt="jQuery Succinctly by Cody Lindley" width="92" height="114">
+							jQuery Succinctly
+							<cite>Cody Lindley</cite>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		
+<div id="legal">
+	<ul class="footer-site-links">
+			<li><a class="icon-pencil" href="https://learn.jquery.com/">Learning Center</a></li>
+			<li><a class="icon-group" href="https://forum.jquery.com/">Forum</a></li>
+			<li><a class="icon-wrench" href="https://api.jquery.com/">API</a></li>
+			<li><a class="icon-twitter" href="https://twitter.com/jquery">Twitter</a></li>
+			<li><a class="icon-comments" href="https://irc.jquery.org/">IRC</a></li>
+			<li><a class="icon-github" href="https://github.com/jquery">GitHub</a></li>
+	</ul>
+	<p class="copyright">
+		Copyright 2021 <a href="https://openjsf.org/">OpenJS Foundation</a> and jQuery contributors. All rights reserved. See <a href="https://jquery.org/license/">jQuery License</a> for more information. The <a href="https://openjsf.org/">OpenJS Foundation</a> has registered trademarks and uses trademarks. For a list of trademarks of the <a href="https://openjsf.org/">OpenJS Foundation</a>, please see our <a href="https://trademark-policy.openjsf.org/">Trademark Policy</a> and <a href="https://trademark-list.openjsf.org/">Trademark List</a>. Trademarks and logos not indicated on the <a href="https://trademark-list.openjsf.org/">list of OpenJS Foundation trademarks</a> are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them. OpenJS Foundation <a href="https://terms-of-use.openjsf.org/">Terms of Use</a>, <a href="https://privacy-policy.openjsf.org/">Privacy</a>, and <a href="https://www.linuxfoundation.org/cookies">Cookie</a> Policies also apply.
+		<span class="sponsor-line"><a href="https://www.digitalocean.com" class="do-link">Web hosting by Digital Ocean</a> | <a href="https://www.stackpath.com" class="sp-link">CDN by StackPath</a></span>
+	</p>
+</div>
+
+	</div>
+</footer>
+
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/comment-reply.min.js?ver=4.5.2'></script>
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/wp-embed.min.js?ver=4.5.2'></script>
+	<!-- at the end of the BODY -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"  onload="document.querySelector('input[name=\'s\']') && docsearch({apiKey: '3cfde9aca378c8aab554d5bf1b23489b',
+		indexName: 'jquery',
+		inputSelector: 'input[name=\'s\']',
+		debug: true // Set debug to true if you want to inspect the dropdown
+	})" async></script>
+</body>
+</html>

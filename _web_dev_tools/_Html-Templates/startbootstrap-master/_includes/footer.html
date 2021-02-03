@@ -1,0 +1,77 @@
+<footer>
+
+  <div class="mt-5">
+    <div class="container text-center">
+      <p class="lead">And now, a word from our sponsors...</p>
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="bsa-cpc"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      if (typeof _bsa !== 'undefined' && _bsa) {
+        _bsa.init('default', 'CKYD6KQU', 'placement:startbootstrapcom', {
+          target: '.bsa-cpc',
+          align: 'horizontal',
+          disable_css: 'true'
+        });
+      }
+    })();
+    // Function to check whether there are any ads are visible. If not ads are loaded, hide the container.
+    window.onload = function() {
+      if (document.getElementsByClassName("_default_").length > 0) {
+        document.getElementsByClassName("bsa-ad")[0].style.display = "flex";
+      }
+    }
+  </script>
+
+  <div class="footer-social my-5">
+    <div class="container">
+      <div class="d-flex justify-content-center">
+        <a class="footer-social-link d-inline-flex mx-3 justify-content-center align-items-center text-white rounded-circle shadow btn btn-github" href="https://github.com/StartBootstrap">
+          <i class="fab fa-github"></i>
+        </a>
+        <!-- Slack - disabled for now -->
+        <!-- <a class="footer-social-link d-inline-flex mx-3 justify-content-center align-items-center text-white rounded-circle shadow" href="https://startbootstrap-slack.herokuapp.com/" style="background-color: #3eb991;">
+          <i class="fab fa-slack"></i>
+        </a> -->
+        <a class="footer-social-link d-inline-flex mx-3 justify-content-center align-items-center text-white rounded-circle shadow btn btn-twitter" href="https://twitter.com/sbootstrap">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a class="footer-social-link d-inline-flex mx-3 justify-content-center align-items-center text-white rounded-circle shadow btn btn-facebook" href="https://www.facebook.com/StartBootstrap/">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-main bg-dark py-5 small">
+    <div class="container">
+
+      <a href="/about">Start Bootstrap</a>
+      is a project created and maintained by
+      <a href="http://davidmiller.io">David Miller</a>.
+
+      <br>
+
+      Themes, templates, and snippets licensed
+      <a href="https://opensource.org/licenses/MIT">MIT</a>, Start Bootstrap website
+      <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.
+
+      <br>
+
+      <a href="/terms-and-conditions">Terms &amp; Conditions</a> - 
+      <a href="/privacy-policy">Privacy Policy</a>
+
+      <br>
+
+      Based on
+      <a href="http://getbootstrap.com">Bootstrap</a>.
+
+    </div>
+  </div>
+
+</footer>

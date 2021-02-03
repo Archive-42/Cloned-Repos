@@ -1,0 +1,46 @@
+.message {
+    margin: 0.5em 0;
+    max-width: 80%;
+    word-wrap: break-word;
+    border: 1px solid rgba(0,0,0,0.2);;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    box-shadow: 0 0 6px rgba(0,0,0,0.2);
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.my-message {
+    right: 0;
+    background: #D2D7D3;
+    border-bottom-left-radius: 1em;
+}
+.my-message > .message-footer {
+    color: rgba(0,0,0,0.4);
+    width: 100%;
+    text-align: right;
+}
+
+
+
+.their-message {
+    /*background: #22A7F0;*/
+    border-bottom-right-radius: 1em;
+    color: white;
+    text-align: left;
+}
+.their-message > .message-footer {
+    color: rgba(255,255,255,0.75);
+}
+
+.message-body {
+    display: block;
+    margin: 1em 1em 0.5em 1em;
+    font-size: 1.25em;
+}
+
+.message-footer {
+    margin: 1em;
+    white-space: nowrap;
+}

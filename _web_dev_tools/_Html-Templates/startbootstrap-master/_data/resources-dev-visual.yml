@@ -1,0 +1,49 @@
+- name:        Bootply
+  link:        http://www.bootply.com/
+  description: A Bootstrap code editor and builder - the Bootstrap playground.
+  supports:    bs3, bs4
+
+- name:        BuildBootstrap
+  link:        http://buildbootstrap.com/
+  description: BuildBootstrap is a free online tool helping with common task of creating responsive layout utilizing Bootstrap 3 or latest Bootstrap 4 grid system.
+  supports:    bs3, bs4
+
+- name:        Pingendo
+  link:        http://pingendo.com/
+  description: A first class Bootstrap 4 builder for developers, designers, and their clients
+  supports:    bs4
+
+- name:        Bootstrap Studio
+  link:        https://bootstrapstudio.io/
+  description: A powerful desktop app for creating responsive websites using the Bootstrap framework.
+  supports:    bs4
+
+- name:        Form Builder
+  link:        https://bootsnipp.com/forms
+  description: A drag-and-drop Bootstrap form builder by Bootsnipp.
+  supports:    bs2, bs3
+
+- name:        Button Builder
+  link:        http://www.bootply.com/
+  description: A simple Bootstrap button builder by Bootsnipp.
+  supports:    bs3
+
+- name:        Jetstrap
+  link:        https://jetstrap.com/
+  description: Not just a mock-up tool, Jetstrap is the premier interface-building tool for Bootstrap 3.
+  supports:    bs3
+
+- name:        BootSwatchr
+  link:        http://bootswatchr.com/
+  description: ThemeRoller for Bootstrap.
+  supports:    bs3
+
+- name:        PaintStrap
+  link:        http://paintstrap.com/
+  description: Generate beautiful Bootstrap themes using the Adobe kuler / COLOURlovers color scheme.
+  supports:    bs3
+
+- name:        1pxdeep
+  link:        http://rriepe.github.io/1pxdeep/
+  description: Flat(ish) Bootstrap 3 theme generator.
+  supports:    bs3

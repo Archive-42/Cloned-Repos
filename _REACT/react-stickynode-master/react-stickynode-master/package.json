@@ -1,0 +1,87 @@
+{
+  "name": "react-stickynode",
+  "version": "3.0.4",
+  "description": "A performant and comprehensive React sticky component",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist",
+    "ci": "./tests/functional/saucelabs.sh",
+    "lint": "eslint --cache --ext .js,.jsx . --fix",
+    "prepublish": "npm run build",
+    "test": "jest --coverage tests/unit",
+    "test:func": "grunt func",
+    "test:watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yahoo/react-stickynode"
+  },
+  "keywords": [
+    "Sticky",
+    "React"
+  ],
+  "author": {
+    "name": "Hank Hsiao",
+    "email": "hankxiao@yahoo-inc.com"
+  },
+  "contributors": [
+    {
+      "name": "Steve Carlson",
+      "email": "yasteve@yahoo-inc.com"
+    }
+  ],
+  "dependencies": {
+    "classnames": "^2.0.0",
+    "core-js": "^3.6.5",
+    "prop-types": "^15.6.0",
+    "shallowequal": "^1.0.0",
+    "subscribe-ui-event": "^2.0.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/register": "^7.9.0",
+    "@testing-library/react": "^11.0.1",
+    "babel-jest": "^26.0.1",
+    "coveralls": "^3.1.0",
+    "es5-shim": "^4.5.14",
+    "eslint": "^7.0.0",
+    "eslint-plugin-react": "^7.19.0",
+    "expect.js": "^0.3.1",
+    "grunt": "^1.1.0",
+    "grunt-atomizer": "^3.0.0",
+    "grunt-cli": "^1.1.0",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-connect": "^3.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-saucelabs": "^9.0.1",
+    "grunt-webpack": "^4.0.2",
+    "jest": "^26.0.1",
+    "jsdom": "^16.2.2",
+    "minimist": "^1.2.5",
+    "mocha": "^8.0.1",
+    "pre-commit": "^1.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-test-renderer": "^16.13.1",
+    "webpack": "^4.43.0",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "peerDependencies": {
+    "react": "^0.14.2 || ^15.0.0 || ^16.0.0",
+    "react-dom": "^0.14.2 || ^15.0.0 || ^16.0.0"
+  },
+  "precommit": [
+    "lint",
+    "test"
+  ],
+  "license": "BSD-3-Clause",
+  "browserslist": [
+    "last 2 versions",
+    "ie >= 11",
+    "iOS >= 12",
+    "Android >= 6"
+  ]
+}

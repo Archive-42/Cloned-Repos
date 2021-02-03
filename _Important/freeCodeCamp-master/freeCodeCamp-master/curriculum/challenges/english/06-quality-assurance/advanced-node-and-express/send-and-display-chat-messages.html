@@ -1,0 +1,46 @@
+<h1 id="description">–description–</h1>
+<p>It’s time you start allowing clients to send a chat message to the server to emit to all the clients! In your <code>client.js</code> file, you should see there is already a block of code handling when the message form is submitted.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">$</span>(<span class="st">&#39;form&#39;</span>).<span class="at">submit</span>(<span class="kw">function</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="co">/*logic*/</span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
+<p>Within the form submit code, you should emit an event after you define <code>messageToSend</code> but before you clear the text box <code>#m</code>. The event should be named <code>'chat message'</code> and the data should just be <code>messageToSend</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">socket</span>.<span class="at">emit</span>(<span class="st">&#39;chat message&#39;</span><span class="op">,</span> messageToSend)<span class="op">;</span></a></code></pre></div>
+<p>Now, on your server, you should be listening to the socket for the event <code>'chat message'</code> with the data being named <code>message</code>. Once the event is received, it should emit the event <code>'chat message'</code> to all sockets <code>io.emit</code> with the data being an object containing <code>name</code> and <code>message</code>.</p>
+<p>In <code>client.js</code>, you should now listen for event <code>'chat message'</code> and, when received, append a list item to <code>#messages</code> with the name, a colon, and the message!</p>
+<p>At this point, the chat should be fully functional and sending messages across all clients!</p>
+<p>Submit your page when you think you’ve got it right. If you’re running into errors, you can check out the project completed up to this point <a href="https://gist.github.com/camperbot/d7af9864375207e254f73262976d2016">here</a>.</p>
+<h1 id="hints">–hints–</h1>
+<p>Server should listen for <code>'chat message'</code> and then emit it properly.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/server.js&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb3-5" title="5">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-6" title="6">        <span class="ss">/socket.on.</span><span class="sc">*(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">chat message</span><span class="sc">(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)[^]*</span><span class="ss">io.emit.</span><span class="sc">*(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">chat message</span><span class="sc">(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">.</span><span class="sc">*</span><span class="ss">name.</span><span class="sc">*</span><span class="ss">message/gis</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">        <span class="st">&#39;Your server should listen to the socket for &quot;chat message&quot; then emit to all users &quot;chat message&quot; with name and message in the data object&#39;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<p>Client should properly handle and display the new data from event <code>'chat message'</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/public/client.js&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb4-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-4" title="4">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb4-5" title="5">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-6" title="6">        <span class="ss">/socket.on.</span><span class="sc">*(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">chat message</span><span class="sc">(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)[^]*</span><span class="ss">messages.</span><span class="sc">*</span><span class="ss">li/gis</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-7" title="7">        <span class="st">&#39;You should append a list item to #messages on your client within the &quot;chat message&quot; event listener to display the new message&#39;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb4-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">*/</span></a></code></pre></div>

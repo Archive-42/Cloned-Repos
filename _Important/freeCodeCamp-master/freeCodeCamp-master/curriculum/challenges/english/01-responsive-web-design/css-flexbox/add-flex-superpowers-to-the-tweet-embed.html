@@ -1,0 +1,201 @@
+<h1 id="description">–description–</h1>
+<p>To the right is the tweet embed that will be used as the practical example. Some of the elements would look better with a different layout. The last challenge demonstrated <code>display: flex</code>. Here you’ll add it to several components in the tweet embed to start adjusting their positioning.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Add the CSS property <code>display: flex</code> to all of the following items - note that the selectors are already set up in the CSS:</p>
+<p><code>header</code>, the header’s <code>.profile-name</code>, the header’s <code>.follow-btn</code>, the header’s <code>h3</code> and <code>h4</code>, the <code>footer</code>, and the footer’s <code>.stats</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>header</code> should have a <code>display</code> property set to <code>flex</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;header&#39;</span>).<span class="at">css</span>(<span class="st">&#39;display&#39;</span>) <span class="op">==</span> <span class="st">&#39;flex&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>footer</code> should have a <code>display</code> property set to <code>flex</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;footer&#39;</span>).<span class="at">css</span>(<span class="st">&#39;display&#39;</span>) <span class="op">==</span> <span class="st">&#39;flex&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h3</code> should have a <code>display</code> property set to <code>flex</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h3&#39;</span>).<span class="at">css</span>(<span class="st">&#39;display&#39;</span>) <span class="op">==</span> <span class="st">&#39;flex&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h4</code> should have a <code>display</code> property set to <code>flex</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h4&#39;</span>).<span class="at">css</span>(<span class="st">&#39;display&#39;</span>) <span class="op">==</span> <span class="st">&#39;flex&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>.profile-name</code> should have a <code>display</code> property set to <code>flex</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;.profile-name&#39;</span>).<span class="at">css</span>(<span class="st">&#39;display&#39;</span>) <span class="op">==</span> <span class="st">&#39;flex&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>.follow-btn</code> should have a <code>display</code> property set to <code>flex</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;.follow-btn&#39;</span>).<span class="at">css</span>(<span class="st">&#39;display&#39;</span>) <span class="op">==</span> <span class="st">&#39;flex&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>.stats</code> should have a <code>display</code> property set to <code>flex</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;.stats&#39;</span>).<span class="at">css</span>(<span class="st">&#39;display&#39;</span>) <span class="op">==</span> <span class="st">&#39;flex&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  body {</a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="kw">font-family</span>: Arial<span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-4" title="4">  }</a>
+<a class="sourceLine" id="cb8-5" title="5">  header {</a>
+<a class="sourceLine" id="cb8-6" title="6"></a>
+<a class="sourceLine" id="cb8-7" title="7">  }</a>
+<a class="sourceLine" id="cb8-8" title="8">  header <span class="fu">.profile-thumbnail</span> {</a>
+<a class="sourceLine" id="cb8-9" title="9">    <span class="kw">width</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-10" title="10">    <span class="kw">height</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-11" title="11">    <span class="kw">border-radius</span>: <span class="dv">4</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-12" title="12">  }</a>
+<a class="sourceLine" id="cb8-13" title="13">  header <span class="fu">.profile-name</span> {</a>
+<a class="sourceLine" id="cb8-14" title="14"></a>
+<a class="sourceLine" id="cb8-15" title="15">    <span class="kw">margin-left</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-16" title="16">  }</a>
+<a class="sourceLine" id="cb8-17" title="17">  header <span class="fu">.follow-btn</span> {</a>
+<a class="sourceLine" id="cb8-18" title="18"></a>
+<a class="sourceLine" id="cb8-19" title="19">    <span class="kw">margin</span>: <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-20" title="20">  }</a>
+<a class="sourceLine" id="cb8-21" title="21">  header <span class="fu">.follow-btn</span> button {</a>
+<a class="sourceLine" id="cb8-22" title="22">    <span class="kw">border</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-23" title="23">    <span class="kw">border-radius</span>: <span class="dv">3</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-24" title="24">    <span class="kw">padding</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-25" title="25">  }</a>
+<a class="sourceLine" id="cb8-26" title="26">  header h3<span class="op">,</span> header h4 {</a>
+<a class="sourceLine" id="cb8-27" title="27"></a>
+<a class="sourceLine" id="cb8-28" title="28">    <span class="kw">margin</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-29" title="29">  }</a>
+<a class="sourceLine" id="cb8-30" title="30">  <span class="pp">#inner</span> p {</a>
+<a class="sourceLine" id="cb8-31" title="31">    <span class="kw">margin-bottom</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-32" title="32">    <span class="kw">font-size</span>: <span class="dv">20</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-33" title="33">  }</a>
+<a class="sourceLine" id="cb8-34" title="34">  <span class="pp">#inner</span> hr {</a>
+<a class="sourceLine" id="cb8-35" title="35">    <span class="kw">margin</span>: <span class="dv">20</span><span class="dt">px</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-36" title="36">    <span class="kw">border-style</span>: <span class="dv">solid</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-37" title="37">    <span class="kw">opacity</span>: <span class="dv">0.1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-38" title="38">  }</a>
+<a class="sourceLine" id="cb8-39" title="39">  footer {</a>
+<a class="sourceLine" id="cb8-40" title="40"></a>
+<a class="sourceLine" id="cb8-41" title="41">  }</a>
+<a class="sourceLine" id="cb8-42" title="42">  footer <span class="fu">.stats</span> {</a>
+<a class="sourceLine" id="cb8-43" title="43"></a>
+<a class="sourceLine" id="cb8-44" title="44">    <span class="kw">font-size</span>: <span class="dv">15</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-45" title="45">  }</a>
+<a class="sourceLine" id="cb8-46" title="46">  footer <span class="fu">.stats</span> strong {</a>
+<a class="sourceLine" id="cb8-47" title="47">    <span class="kw">font-size</span>: <span class="dv">18</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-48" title="48">  }</a>
+<a class="sourceLine" id="cb8-49" title="49">  footer <span class="fu">.stats</span> <span class="fu">.likes</span> {</a>
+<a class="sourceLine" id="cb8-50" title="50">    <span class="kw">margin-left</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-51" title="51">  }</a>
+<a class="sourceLine" id="cb8-52" title="52">  footer <span class="fu">.cta</span> {</a>
+<a class="sourceLine" id="cb8-53" title="53">    <span class="kw">margin-left</span>: <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-54" title="54">  }</a>
+<a class="sourceLine" id="cb8-55" title="55">  footer <span class="fu">.cta</span> button {</a>
+<a class="sourceLine" id="cb8-56" title="56">    <span class="kw">border</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-57" title="57">    <span class="kw">background</span>: <span class="dv">transparent</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-58" title="58">  }</a>
+<a class="sourceLine" id="cb8-59" title="59"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb8-60" title="60"><span class="kw">&lt;header&gt;</span></a>
+<a class="sourceLine" id="cb8-61" title="61">  <span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://freecodecamp.s3.amazonaws.com/quincy-twitter-photo.jpg&quot;</span><span class="ot"> alt=</span><span class="st">&quot;Quincy Larson&#39;s profile picture&quot;</span><span class="ot"> class=</span><span class="st">&quot;profile-thumbnail&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb8-62" title="62">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;profile-name&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb8-63" title="63">    <span class="kw">&lt;h3&gt;</span>Quincy Larson<span class="kw">&lt;/h3&gt;</span></a>
+<a class="sourceLine" id="cb8-64" title="64">    <span class="kw">&lt;h4&gt;</span>@ossia<span class="kw">&lt;/h4&gt;</span></a>
+<a class="sourceLine" id="cb8-65" title="65">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb8-66" title="66">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;follow-btn&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb8-67" title="67">    <span class="kw">&lt;button&gt;</span>Follow<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb8-68" title="68">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb8-69" title="69"><span class="kw">&lt;/header&gt;</span></a>
+<a class="sourceLine" id="cb8-70" title="70"><span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;inner&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb8-71" title="71">  <span class="kw">&lt;p&gt;</span>I meet so many people who are in search of that one trick that will help them work smart. Even if you work smart, you still have to work hard.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb8-72" title="72">  <span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&quot;date&quot;</span><span class="kw">&gt;</span>1:32 PM - 12 Jan 2018<span class="kw">&lt;/span&gt;</span></a>
+<a class="sourceLine" id="cb8-73" title="73">  <span class="kw">&lt;hr&gt;</span></a>
+<a class="sourceLine" id="cb8-74" title="74"><span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb8-75" title="75"><span class="kw">&lt;footer&gt;</span></a>
+<a class="sourceLine" id="cb8-76" title="76">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;stats&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb8-77" title="77">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;Retweets&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb8-78" title="78">      <span class="kw">&lt;strong&gt;</span>107<span class="kw">&lt;/strong&gt;</span> Retweets</a>
+<a class="sourceLine" id="cb8-79" title="79">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb8-80" title="80">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;likes&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb8-81" title="81">      <span class="kw">&lt;strong&gt;</span>431<span class="kw">&lt;/strong&gt;</span> Likes</a>
+<a class="sourceLine" id="cb8-82" title="82">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb8-83" title="83">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb8-84" title="84">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;cta&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb8-85" title="85">    <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;share-btn&quot;</span><span class="kw">&gt;</span>Share<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb8-86" title="86">    <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;retweet-btn&quot;</span><span class="kw">&gt;</span>Retweet<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb8-87" title="87">    <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;like-btn&quot;</span><span class="kw">&gt;</span>Like<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb8-88" title="88">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb8-89" title="89"><span class="kw">&lt;/footer&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb9"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb9-2" title="2">  body {</a>
+<a class="sourceLine" id="cb9-3" title="3">    <span class="kw">font-family</span>: Arial<span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-4" title="4">  }</a>
+<a class="sourceLine" id="cb9-5" title="5">  header {</a>
+<a class="sourceLine" id="cb9-6" title="6">   <span class="kw">display</span>: flex<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-7" title="7">  }</a>
+<a class="sourceLine" id="cb9-8" title="8">  header <span class="fu">.profile-thumbnail</span> {</a>
+<a class="sourceLine" id="cb9-9" title="9">    <span class="kw">width</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-10" title="10">    <span class="kw">height</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-11" title="11">    <span class="kw">border-radius</span>: <span class="dv">4</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-12" title="12">  }</a>
+<a class="sourceLine" id="cb9-13" title="13">  header <span class="fu">.profile-name</span> {</a>
+<a class="sourceLine" id="cb9-14" title="14">    <span class="kw">display</span>: flex<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-15" title="15">    <span class="kw">margin-left</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-16" title="16">  }</a>
+<a class="sourceLine" id="cb9-17" title="17">  header <span class="fu">.follow-btn</span> {</a>
+<a class="sourceLine" id="cb9-18" title="18">    <span class="kw">display</span>: flex<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-19" title="19">    <span class="kw">margin</span>: <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-20" title="20">  }</a>
+<a class="sourceLine" id="cb9-21" title="21">  header <span class="fu">.follow-btn</span> button {</a>
+<a class="sourceLine" id="cb9-22" title="22">    <span class="kw">border</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-23" title="23">    <span class="kw">border-radius</span>: <span class="dv">3</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-24" title="24">    <span class="kw">padding</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-25" title="25">  }</a>
+<a class="sourceLine" id="cb9-26" title="26">  header h3<span class="op">,</span> header h4 {</a>
+<a class="sourceLine" id="cb9-27" title="27">    <span class="kw">display</span>: flex<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-28" title="28">    <span class="kw">margin</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-29" title="29">  }</a>
+<a class="sourceLine" id="cb9-30" title="30">  <span class="pp">#inner</span> p {</a>
+<a class="sourceLine" id="cb9-31" title="31">    <span class="kw">margin-bottom</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-32" title="32">    <span class="kw">font-size</span>: <span class="dv">20</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-33" title="33">  }</a>
+<a class="sourceLine" id="cb9-34" title="34">  <span class="pp">#inner</span> hr {</a>
+<a class="sourceLine" id="cb9-35" title="35">    <span class="kw">margin</span>: <span class="dv">20</span><span class="dt">px</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-36" title="36">    <span class="kw">border-style</span>: <span class="dv">solid</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-37" title="37">    <span class="kw">opacity</span>: <span class="dv">0.1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-38" title="38">  }</a>
+<a class="sourceLine" id="cb9-39" title="39">  footer {</a>
+<a class="sourceLine" id="cb9-40" title="40">    <span class="kw">display</span>: flex<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-41" title="41">  }</a>
+<a class="sourceLine" id="cb9-42" title="42">  footer <span class="fu">.stats</span> {</a>
+<a class="sourceLine" id="cb9-43" title="43">    <span class="kw">display</span>: flex<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-44" title="44">    <span class="kw">font-size</span>: <span class="dv">15</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-45" title="45">  }</a>
+<a class="sourceLine" id="cb9-46" title="46">  footer <span class="fu">.stats</span> strong {</a>
+<a class="sourceLine" id="cb9-47" title="47">    <span class="kw">font-size</span>: <span class="dv">18</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-48" title="48">  }</a>
+<a class="sourceLine" id="cb9-49" title="49">  footer <span class="fu">.stats</span> <span class="fu">.likes</span> {</a>
+<a class="sourceLine" id="cb9-50" title="50">    <span class="kw">margin-left</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-51" title="51">  }</a>
+<a class="sourceLine" id="cb9-52" title="52">  footer <span class="fu">.cta</span> {</a>
+<a class="sourceLine" id="cb9-53" title="53">    <span class="kw">margin-left</span>: <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-54" title="54">  }</a>
+<a class="sourceLine" id="cb9-55" title="55">  footer <span class="fu">.cta</span> button {</a>
+<a class="sourceLine" id="cb9-56" title="56">    <span class="kw">border</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-57" title="57">    <span class="kw">background</span>: <span class="dv">transparent</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-58" title="58">  }</a>
+<a class="sourceLine" id="cb9-59" title="59"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb9-60" title="60"><span class="kw">&lt;header&gt;</span></a>
+<a class="sourceLine" id="cb9-61" title="61">  <span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://freecodecamp.s3.amazonaws.com/quincy-twitter-photo.jpg&quot;</span><span class="ot"> alt=</span><span class="st">&quot;Quincy Larson&#39;s profile picture&quot;</span><span class="ot"> class=</span><span class="st">&quot;profile-thumbnail&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb9-62" title="62">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;profile-name&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb9-63" title="63">    <span class="kw">&lt;h3&gt;</span>Quincy Larson<span class="kw">&lt;/h3&gt;</span></a>
+<a class="sourceLine" id="cb9-64" title="64">    <span class="kw">&lt;h4&gt;</span>@ossia<span class="kw">&lt;/h4&gt;</span></a>
+<a class="sourceLine" id="cb9-65" title="65">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb9-66" title="66">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;follow-btn&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb9-67" title="67">    <span class="kw">&lt;button&gt;</span>Follow<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb9-68" title="68">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb9-69" title="69"><span class="kw">&lt;/header&gt;</span></a>
+<a class="sourceLine" id="cb9-70" title="70"><span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;inner&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb9-71" title="71">  <span class="kw">&lt;p&gt;</span>I meet so many people who are in search of that one trick that will help them work smart. Even if you work smart, you still have to work hard.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb9-72" title="72">  <span class="kw">&lt;span</span><span class="ot"> class=</span><span class="st">&quot;date&quot;</span><span class="kw">&gt;</span>1:32 PM - 12 Jan 2018<span class="kw">&lt;/span&gt;</span></a>
+<a class="sourceLine" id="cb9-73" title="73">  <span class="kw">&lt;hr&gt;</span></a>
+<a class="sourceLine" id="cb9-74" title="74"><span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb9-75" title="75"><span class="kw">&lt;footer&gt;</span></a>
+<a class="sourceLine" id="cb9-76" title="76">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;stats&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb9-77" title="77">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;Retweets&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb9-78" title="78">      <span class="kw">&lt;strong&gt;</span>107<span class="kw">&lt;/strong&gt;</span> Retweets</a>
+<a class="sourceLine" id="cb9-79" title="79">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb9-80" title="80">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;likes&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb9-81" title="81">      <span class="kw">&lt;strong&gt;</span>431<span class="kw">&lt;/strong&gt;</span> Likes</a>
+<a class="sourceLine" id="cb9-82" title="82">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb9-83" title="83">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb9-84" title="84">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;cta&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb9-85" title="85">    <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;share-btn&quot;</span><span class="kw">&gt;</span>Share<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb9-86" title="86">    <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;retweet-btn&quot;</span><span class="kw">&gt;</span>Retweet<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb9-87" title="87">    <span class="kw">&lt;button</span><span class="ot"> class=</span><span class="st">&quot;like-btn&quot;</span><span class="kw">&gt;</span>Like<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb9-88" title="88">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb9-89" title="89"><span class="kw">&lt;/footer&gt;</span></a></code></pre></div>

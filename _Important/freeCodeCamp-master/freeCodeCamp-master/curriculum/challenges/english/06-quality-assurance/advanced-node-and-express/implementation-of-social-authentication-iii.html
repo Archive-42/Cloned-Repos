@@ -1,0 +1,56 @@
+<h1 id="description">–description–</h1>
+<p>The final part of the strategy is handling the profile returned from GitHub. We need to load the user’s database object if it exists, or create one if it doesn’t, and populate the fields from the profile, then return the user’s object. GitHub supplies us a unique <em>id</em> within each profile which we can use to search with to serialize the user with (already implemented). Below is an example implementation you can use in your project–it goes within the function that is the second argument for the new strategy, right below where <code>console.log(profile);</code> currently is:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">myDataBase</span>.<span class="at">findOneAndUpdate</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="op">{</span> <span class="dt">id</span><span class="op">:</span> <span class="va">profile</span>.<span class="at">id</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="dt">$setOnInsert</span><span class="op">:</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-5" title="5">      <span class="dt">id</span><span class="op">:</span> <span class="va">profile</span>.<span class="at">id</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-6" title="6">      <span class="dt">name</span><span class="op">:</span> <span class="va">profile</span>.<span class="at">displayName</span> <span class="op">||</span> <span class="st">&#39;John Doe&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-7" title="7">      <span class="dt">photo</span><span class="op">:</span> <span class="va">profile</span>.<span class="at">photos</span>[<span class="dv">0</span>].<span class="at">value</span> <span class="op">||</span> <span class="st">&#39;&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-8" title="8">      <span class="dt">email</span><span class="op">:</span> <span class="va">Array</span>.<span class="at">isArray</span>(<span class="va">profile</span>.<span class="at">emails</span>)</a>
+<a class="sourceLine" id="cb1-9" title="9">        <span class="op">?</span> <span class="va">profile</span>.<span class="at">emails</span>[<span class="dv">0</span>].<span class="at">value</span></a>
+<a class="sourceLine" id="cb1-10" title="10">        : <span class="st">&#39;No public email&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-11" title="11">      <span class="dt">created_on</span><span class="op">:</span> <span class="kw">new</span> <span class="at">Date</span>()<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-12" title="12">      <span class="dt">provider</span><span class="op">:</span> <span class="va">profile</span>.<span class="at">provider</span> <span class="op">||</span> <span class="st">&#39;&#39;</span></a>
+<a class="sourceLine" id="cb1-13" title="13">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb1-14" title="14">    <span class="dt">$set</span><span class="op">:</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-15" title="15">      <span class="dt">last_login</span><span class="op">:</span> <span class="kw">new</span> <span class="at">Date</span>()</a>
+<a class="sourceLine" id="cb1-16" title="16">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb1-17" title="17">    <span class="dt">$inc</span><span class="op">:</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-18" title="18">      <span class="dt">login_count</span><span class="op">:</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb1-19" title="19">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-20" title="20">  <span class="op">},</span></a>
+<a class="sourceLine" id="cb1-21" title="21">  <span class="op">{</span> <span class="dt">upsert</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="kw">new</span><span class="op">:</span> <span class="kw">true</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb1-22" title="22">  (err<span class="op">,</span> doc) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-23" title="23">    <span class="cf">return</span> <span class="at">cb</span>(<span class="kw">null</span><span class="op">,</span> <span class="va">doc</span>.<span class="at">value</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-24" title="24">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-25" title="25">)<span class="op">;</span></a></code></pre></div>
+<p><code>findOneAndUpdate</code> allows you to search for an object and update it. If the object doesn’t exist, it will be inserted and made available to the callback function. In this example, we always set <code>last_login</code>, increment the <code>login_count</code> by <code>1</code>, and only populate the majority of the fields when a new object (new user) is inserted. Notice the use of default values. Sometimes a profile returned won’t have all the information filled out or the user will keep it private. In this case, you handle it to prevent an error.</p>
+<p>You should be able to login to your app now–try it!</p>
+<p>Submit your page when you think you’ve got it right. If you’re running into errors, you can check out the project completed up to this point <a href="https://gist.github.com/camperbot/183e968f0e01d81dde015d45ba9d2745">here</a>.</p>
+<h1 id="hints">–hints–</h1>
+<p>GitHub strategy setup should be complete.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/auth.js&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb2-5" title="5">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-6" title="6">        <span class="ss">/GitHubStrategy</span><span class="sc">[^]*</span><span class="ss">myDataBase/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-7" title="7">        <span class="st">&#39;Strategy should use now use the database to search for the user&#39;</span></a>
+<a class="sourceLine" id="cb2-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb2-10" title="10">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-11" title="11">        <span class="ss">/GitHubStrategy</span><span class="sc">[^]*</span><span class="ss">return cb/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-12" title="12">        <span class="st">&#39;Strategy should return the callback function &quot;cb&quot;&#39;</span></a>
+<a class="sourceLine" id="cb2-13" title="13">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-14" title="14">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-15" title="15">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-16" title="16">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-17" title="17">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-18" title="18">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">*/</span></a></code></pre></div>

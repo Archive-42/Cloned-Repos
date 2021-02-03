@@ -1,0 +1,26 @@
+<h1 id="description">–description–</h1>
+<p>The Redux store object provides several methods that allow you to interact with it. For example, you can retrieve the current <code>state</code> held in the Redux store object with the <code>getState()</code> method.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>The code from the previous challenge is re-written more concisely in the code editor. Use <code>store.getState()</code> to retrieve the <code>state</code> from the <code>store</code>, and assign this to a new variable <code>currentState</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>The redux store should have a value of 5 for the initial state.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="va">store</span>.<span class="at">getState</span>() <span class="op">===</span> <span class="dv">5</span>)<span class="op">;</span></a></code></pre></div>
+<p>A variable <code>currentState</code> should exist and should be assigned the current state of the Redux store.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    currentState <span class="op">===</span> <span class="dv">5</span> <span class="op">&amp;&amp;</span> <span class="at">getUserInput</span>(<span class="st">&#39;index&#39;</span>).<span class="at">includes</span>(<span class="st">&#39;store.getState()&#39;</span>)</a>
+<a class="sourceLine" id="cb2-4" title="4">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">const</span> store <span class="op">=</span> <span class="va">Redux</span>.<span class="at">createStore</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (state <span class="op">=</span> <span class="dv">5</span>) <span class="kw">=&gt;</span> state</a>
+<a class="sourceLine" id="cb3-3" title="3">)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">// Change code below this line</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">const</span> store <span class="op">=</span> <span class="va">Redux</span>.<span class="at">createStore</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  (state <span class="op">=</span> <span class="dv">5</span>) <span class="kw">=&gt;</span> state</a>
+<a class="sourceLine" id="cb4-3" title="3">)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">// Change code below this line</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="kw">const</span> currentState <span class="op">=</span> <span class="va">store</span>.<span class="at">getState</span>()<span class="op">;</span></a></code></pre></div>

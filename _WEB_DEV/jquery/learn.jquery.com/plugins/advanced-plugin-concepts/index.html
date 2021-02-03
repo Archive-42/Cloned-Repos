@@ -1,0 +1,1003 @@
+<!doctype html>
+<!--[if IE 7 ]>		 <html class="no-js ie ie7 lte7 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 8 ]>		 <html class="no-js ie ie8 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 9 ]>		 <html class="no-js ie ie9 lte9"> lang="en-US"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head data-live-domain="learn.jquery.com">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Advanced Plugin Concepts | jQuery Learning Center</title>
+
+	<meta name="author" content="JS Foundation - js.foundation">
+	<meta name="description" content="">
+
+	<meta name="viewport" content="width=device-width">
+
+	<link rel="shortcut icon" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/i/favicon.ico">
+
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/base.css?v=2">
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/style.css">
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/modernizr.custom.2.8.3.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/main.js"></script>
+
+	<script src="https://use.typekit.net/wde1aof.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+	<!-- at the end of the HEAD -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/docsearch.css">
+
+<link rel='https://api.w.org/' href='//learn.jquery.com/wp-json/' />
+<meta name="generator" content="WordPress 4.5.2" />
+<link rel="alternate" type="application/json+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fplugins%2Fadvanced-plugin-concepts%2F" />
+<link rel="alternate" type="text/xml+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fplugins%2Fadvanced-plugin-concepts%2F&#038;format=xml" />
+
+</head>
+<body class="jquery-learn page page-id-47 page-child parent-pageid-25 page-template-default page-slug-advanced-plugin-concepts single-author singular">
+
+<header>
+	<section id="global-nav">
+		<nav>
+			<div class="constrain">
+				<ul class="projects">
+					<li class="project jquery"><a href="https://jquery.com/" title="jQuery">jQuery</a></li>
+					<li class="project jquery-ui"><a href="https://jqueryui.com/" title="jQuery UI">jQuery UI</a></li>
+					<li class="project jquery-mobile"><a href="https://jquerymobile.com/" title="jQuery Mobile">jQuery Mobile</a></li>
+					<li class="project sizzlejs"><a href="https://sizzlejs.com/" title="Sizzle">Sizzle</a></li>
+					<li class="project qunitjs"><a href="https://qunitjs.com/" title="QUnit">QUnit</a></li>
+				</ul>
+				<ul class="links">
+					<li><a href="https://plugins.jquery.com/">Plugins</a></li>
+					<li class="dropdown"><a href="https://contribute.jquery.org/">Contribute</a>
+						<ul>
+							<li><a href="https://js.foundation/CLA">CLA</a></li>
+							<li><a href="https://contribute.jquery.org/style-guide/">Style Guides</a></li>
+							<li><a href="https://contribute.jquery.org/triage/">Bug Triage</a></li>
+							<li><a href="https://contribute.jquery.org/code/">Code</a></li>
+							<li><a href="https://contribute.jquery.org/documentation/">Documentation</a></li>
+							<li><a href="https://contribute.jquery.org/web-sites/">Web Sites</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/events">Events</a>
+						<ul class="wide">
+																		</ul>
+					</li>
+					<li class="dropdown"><a href="https://jquery.org/support/">Support</a>
+						<ul>
+							<li><a href="https://learn.jquery.com/">Learning Center</a></li>
+							<li><a href="https://irc.jquery.org/">IRC/Chat</a></li>
+							<li><a href="https://forum.jquery.com/">Forums</a></li>
+							<li><a href="https://stackoverflow.com/tags/jquery/info">Stack Overflow</a></li>
+							<li><a href="https://jquery.org/support/">Commercial Support</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/">JS Foundation</a>
+						<ul>
+							<li><a href="https://js.foundation/about/join">Join</a></li>
+							<li><a href="https://js.foundation/about/members">Members</a></li>
+							<li><a href="https://js.foundation/about/leadership">Leadership</a></li>
+							<li><a href="https://js.foundation/community/code-of-conduct">Conduct</a></li>
+							<li><a href="https://js.foundation/about/donate">Donate</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</section>
+</header>
+
+<div id="banner-blm">
+	<h2>#BlackLivesMatter</h2>
+	<p>To Donate, see this <a href="https://bit.ly/fundthecommunity">list of organizations to support</a> from <a href="https://www.reclaimtheblock.org/">Reclaim the Block</a> 
+</div>
+
+<div id="container">
+	<div id="logo-events" class="constrain clearfix">
+		<h2 class="logo"><a href="/" title="jQuery Learning Center">jQuery Learning Center</a></h2>
+
+		<aside>
+			<div id="broadcast">
+				<a href="https://js.foundation/about/donate" title="Support the JS Foundation"><img src="/jquery-wp-content/themes/jquery/content/donate.png" title="Support the JS Foundation" alt="Support the JS Foundation" border="0" width="400" height="100"></a>
+			</div>
+		</aside>
+	</div>
+
+	<nav id="main" class="constrain clearfix">
+		<div class="menu-top-container">
+	<ul id="menu-top" class="menu">
+<li class="menu-item"><a href="https://learn.jquery.com">Home</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/about/">About</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/contributing/">Contributing</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/style-guide/">Style Guide</a></li>
+	</ul>
+</div>
+
+		<form method="get" class="searchform" action="//learn.jquery.com/">
+	<button type="submit" class="icon-search"><span class="visuallyhidden">search</span></button>
+	<label>
+		<span class="visuallyhidden">Search jQuery Learning Center</span>
+		<input type="text" name="s" value=""
+			placeholder="Search">
+	</label>
+</form>
+	</nav>
+
+	<div id="content-wrapper" class="clearfix row">
+
+<div class="beta-ribbon-wrapper"><div class="beta-ribbon"><a href="/about/#beta">Beta</a></div></div>
+<div class="content-right twelve columns">
+	<div id="content">
+		<div class="post-heirarchy">Posted in: <a href="https://learn.jquery.com/plugins/">Plugins</a></div><article id="post-47" class="post-47 page type-page status-publish hentry">
+	<header class="entry-header">
+		<h1 class="entry-title">Advanced Plugin Concepts</h1>
+	</header>
+
+	<div class="entry-content">
+		<h3 class="toc-linked"><a href="#provide-public-access-to-default-plugin-settings" id="provide-public-access-to-default-plugin-settings" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Provide Public Access to Default Plugin Settings</h3><p>An improvement we can, and should, make to the code above is to expose the default plugin settings. This is important because it makes it very easy for plugin users to override/customize the plugin with minimal code. And this is where we begin to take advantage of the function object.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+						<div class="line n17">17</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Plugin definition.</span></code></div></div><div class="container"><div class="line"><code>$.fn.hilight = <span class="keyword">function</span>( options ) {</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Extend our default options with those provided.</span></code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Note that the first argument to extend is an empty</span></code></div></div><div class="container"><div class="line"><code>    <span class="comment">// object &#x2013; this is to keep from overriding our &quot;defaults&quot; object.</span></code></div></div><div class="container"><div class="line"><code>    <span class="keyword">var</span> opts = $.extend( {}, $.fn.hilight.defaults, options );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Our plugin implementation code goes here.</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>};</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Plugin defaults &#x2013; added as a property on our plugin function.</span></code></div></div><div class="container"><div class="line"><code>$.fn.hilight.defaults = {</code></div></div><div class="container"><div class="line"><code>    foreground: <span class="string">&quot;red&quot;</span>,</code></div></div><div class="container"><div class="line"><code>    background: <span class="string">&quot;yellow&quot;</span></code></div></div><div class="container"><div class="line"><code>};</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Now users can include a line like this in their scripts:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// This needs only be called once and does not</span></code></div></div><div class="container"><div class="line"><code><span class="comment">// have to be called from within a &quot;ready&quot; block</span></code></div></div><div class="container"><div class="line"><code>$.fn.hilight.defaults.foreground = <span class="string">&quot;blue&quot;</span>;</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>And now we can call the plugin method like this and it will use a blue foreground color:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">&quot;#myDiv&quot;</span> ).hilight();</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>As you can see, we&apos;ve allowed the user to write a single line of code to alter the default foreground color of the plugin. And users can still selectively override this new default value when they want:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Override plugin default foreground color.</span></code></div></div><div class="container"><div class="line"><code>$.fn.hilight.defaults.foreground = <span class="string">&quot;blue&quot;</span>;</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// ...</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Invoke plugin using new defaults.</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;.hilightDiv&quot;</span> ).hilight();</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// ...</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Override default by passing options to plugin method.</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;#green&quot;</span> ).hilight({</code></div></div><div class="container"><div class="line"><code>    foreground: <span class="string">&quot;green&quot;</span></code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<h3 class="toc-linked"><a href="#provide-public-access-to-secondary-functions-as-applicable" id="provide-public-access-to-secondary-functions-as-applicable" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Provide Public Access to Secondary Functions as Applicable</h3><p>This item goes hand-in-hand with the previous item and is an interesting way to extend your plugin (and to let others extend your plugin). For example, the implementation of our plugin may define a function called &quot;format&quot; which formats the hilight text. Our plugin may now look like this, with the default implementation of the format method defined below the hilight function:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+						<div class="line n17">17</div>
+					
+						<div class="line n18">18</div>
+					
+						<div class="line n19">19</div>
+					
+						<div class="line n20">20</div>
+					
+						<div class="line n21">21</div>
+					
+						<div class="line n22">22</div>
+					
+						<div class="line n23">23</div>
+					
+						<div class="line n24">24</div>
+					
+						<div class="line n25">25</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Plugin definition.</span></code></div></div><div class="container"><div class="line"><code>$.fn.hilight = <span class="keyword">function</span>( options ) {</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Iterate and reformat each matched element.</span></code></div></div><div class="container"><div class="line"><code>    <span class="keyword">return</span> <span class="keyword">this</span>.each(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>        <span class="keyword">var</span> elem = $( <span class="keyword">this</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>        <span class="comment">// ...</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>        <span class="keyword">var</span> markup = elem.html();</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>        <span class="comment">// Call our format function.</span></code></div></div><div class="container"><div class="line"><code>        markup = $.fn.hilight.format( markup );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>        elem.html( markup );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    });</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>};</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Define our format function.</span></code></div></div><div class="container"><div class="line"><code>$.fn.hilight.format = <span class="keyword">function</span>( txt ) {</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">return</span> <span class="string">&quot;&lt;strong&gt;&quot;</span> + txt + <span class="string">&quot;&lt;/strong&gt;&quot;</span>;</code></div></div><div class="container"><div class="line"><code>};</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>We could have just as easily supported another property on the options object that allowed a callback function to be provided to override the default formatting. That&apos;s another excellent way to support customization of your plugin. The technique shown here takes this a step further by actually exposing the format function so that it can be redefined. With this technique it would be possible for others to ship their own custom overrides of your plugin &#x2013; in other words, it means others can write plugins for your plugin.</p>
+<p>Considering the trivial example plugin we&apos;re building in this article, you may be wondering when this would ever be useful. One real-world example is the <a href="http://malsup.com/jquery/cycle/">Cycle Plugin</a>. The Cycle Plugin is a slideshow plugin which supports a number of built-in transition effects &#x2013; scroll, slide, fade, etc. But realistically, there is no way to define every single type of effect that one might wish to apply to a slide transition. And that&apos;s where this type of extensibility is useful. The Cycle Plugin exposes a &quot;transitions&quot; object to which users can add their own custom transition definitions. It&apos;s defined in the plugin like this:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.fn.cycle.transitions = {</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// ...</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>};</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>This technique makes it possible for others to define and ship transition definitions that plug-in to the Cycle Plugin.</p>
+<h3 class="toc-linked"><a href="#keep-private-functions-private" id="keep-private-functions-private" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Keep Private Functions Private</h3><p>The technique of exposing part of your plugin to be overridden can be very powerful. But you need to think carefully about what parts of your implementation to expose. Once it&apos;s exposed, you need to keep in mind that any changes to the calling arguments or semantics may break backward compatibility. As a general rule, if you&apos;re not sure whether to expose a particular function, then you probably shouldn&apos;t.</p>
+<p>So how then do we define more functions without cluttering the namespace and without exposing the implementation? This is a job for closures. To demonstrate, we&apos;ll add another function to our plugin called &quot;debug&quot;. The debug function will log the number of selected elements to the console. To create a closure, we wrap the entire plugin definition in a function (as detailed in the jQuery Authoring Guidelines).</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+						<div class="line n17">17</div>
+					
+						<div class="line n18">18</div>
+					
+						<div class="line n19">19</div>
+					
+						<div class="line n20">20</div>
+					
+						<div class="line n21">21</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Create closure.</span></code></div></div><div class="container"><div class="line"><code>(<span class="keyword">function</span>( $ ) {</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Plugin definition.</span></code></div></div><div class="container"><div class="line"><code>    $.fn.hilight = <span class="keyword">function</span>( options ) {</code></div></div><div class="container"><div class="line"><code>        debug( <span class="keyword">this</span> );</code></div></div><div class="container"><div class="line"><code>        <span class="comment">// ...</span></code></div></div><div class="container"><div class="line"><code>    };</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Private function for debugging.</span></code></div></div><div class="container"><div class="line"><code>    <span class="function"><span class="keyword">function</span> <span class="title">debug</span><span class="params">( obj )</span> {</span></code></div></div><div class="container"><div class="line"><code>        <span class="keyword">if</span> ( window.console &amp;&amp; window.console.log ) {</code></div></div><div class="container"><div class="line"><code>            window.console.log( <span class="string">&quot;hilight selection count: &quot;</span> + obj.length );</code></div></div><div class="container"><div class="line"><code>        }</code></div></div><div class="container"><div class="line"><code>    };</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// ...</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// End of closure.</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>})( jQuery );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Our &quot;debug&quot; method cannot be accessed from outside of the closure and thus is private to our implementation.</p>
+<h3 class="toc-linked"><a href="#bob-and-sue" id="bob-and-sue" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Bob and Sue</h3><p>Let&apos;s say Bob has created a wicked new gallery plugin (called &quot;superGallery&quot;) which takes a list of images and makes them navigable. Bob&apos;s thrown in some animation to make it more interesting. He&apos;s tried to make the plugin as customizable as possible, and has ended up with something like this:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+						<div class="line n17">17</div>
+					
+						<div class="line n18">18</div>
+					
+						<div class="line n19">19</div>
+					
+						<div class="line n20">20</div>
+					
+						<div class="line n21">21</div>
+					
+						<div class="line n22">22</div>
+					
+						<div class="line n23">23</div>
+					
+						<div class="line n24">24</div>
+					
+						<div class="line n25">25</div>
+					
+						<div class="line n26">26</div>
+					
+						<div class="line n27">27</div>
+					
+						<div class="line n28">28</div>
+					
+						<div class="line n29">29</div>
+					
+						<div class="line n30">30</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>jQuery.fn.superGallery = <span class="keyword">function</span>( options ) {</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Bob&apos;s default settings:</span></code></div></div><div class="container"><div class="line"><code>    <span class="keyword">var</span> defaults = {</code></div></div><div class="container"><div class="line"><code>        textColor: <span class="string">&quot;#000&quot;</span>,</code></div></div><div class="container"><div class="line"><code>        backgroundColor: <span class="string">&quot;#fff&quot;</span>,</code></div></div><div class="container"><div class="line"><code>        fontSize: <span class="string">&quot;1em&quot;</span>,</code></div></div><div class="container"><div class="line"><code>        delay: <span class="string">&quot;quite long&quot;</span>,</code></div></div><div class="container"><div class="line"><code>        getTextFromTitle: <span class="literal">true</span>,</code></div></div><div class="container"><div class="line"><code>        getTextFromRel: <span class="literal">false</span>,</code></div></div><div class="container"><div class="line"><code>        getTextFromAlt: <span class="literal">false</span>,</code></div></div><div class="container"><div class="line"><code>        animateWidth: <span class="literal">true</span>,</code></div></div><div class="container"><div class="line"><code>        animateOpacity: <span class="literal">true</span>,</code></div></div><div class="container"><div class="line"><code>        animateHeight: <span class="literal">true</span>,</code></div></div><div class="container"><div class="line"><code>        animationDuration: <span class="number">500</span>,</code></div></div><div class="container"><div class="line"><code>        clickImgToGoToNext: <span class="literal">true</span>,</code></div></div><div class="container"><div class="line"><code>        clickImgToGoToLast: <span class="literal">false</span>,</code></div></div><div class="container"><div class="line"><code>        nextButtonText: <span class="string">&quot;next&quot;</span>,</code></div></div><div class="container"><div class="line"><code>        previousButtonText: <span class="string">&quot;previous&quot;</span>,</code></div></div><div class="container"><div class="line"><code>        nextButtonTextColor: <span class="string">&quot;red&quot;</span>,</code></div></div><div class="container"><div class="line"><code>        previousButtonTextColor: <span class="string">&quot;red&quot;</span></code></div></div><div class="container"><div class="line"><code>    };</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="keyword">var</span> settings = $.extend( {}, defaults, options );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="keyword">return</span> <span class="keyword">this</span>.each(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>        <span class="comment">// Plugin code would go here...</span></code></div></div><div class="container"><div class="line"><code>    });</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>};</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>The first thing that probably comes to your mind (OK, maybe not the first) is the prospect of how huge this plugin must be to accommodate such a level of customization. The plugin, if it weren&apos;t fictional, would probably be a lot larger than necessary. There are only so many kilobytes people will be willing to spend!</p>
+<p>Now, our friend Bob thinks this is all fine; in fact, he&apos;s quite impressed with the plugin and its level of customization. He believes that all the options make for a more versatile solution, one which can be used in many different situations.</p>
+<p>Sue, another friend of ours, has decided to use this new plugin. She has set up all of the options required and now has a working solution sitting in front of her. It&apos;s only five minutes later, after playing with the plugin, that she realizes the gallery would look much nicer if each image&apos;s width were animated at a slower speed. She hastily searches through Bob&apos;s documentation but finds no <em>animateWidthDuration</em> option!</p>
+<h3 class="toc-linked"><a href="#do-you-see-the-problem" id="do-you-see-the-problem" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Do You See The Problem?</h3><p>It&apos;s not really about how many options your plugin has; but what options it has!</p>
+<p>Bob has gone a little over the top. The level of customization he&apos;s offering, while it may seem high, is actually quite low, especially considering all the possible things one might want to control when using this plugin. Bob has made the mistake of offering a lot of ridiculously specific options, rendering his plugin much more difficult to customize!</p>
+<h3 class="toc-linked"><a href="#a-better-model" id="a-better-model" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> A Better Model</h3><p>So it&apos;s pretty obvious: Bob needs a new customization model, one which does not relinquish control or abstract away the necessary details.</p>
+<p>The reason Bob is so drawn to this high-level simplicity is that the jQuery framework very much lends itself to this mindset. Offering a <em>previousButtonTextColor</em> option is nice and simple, but let&apos;s face it, the vast majority of plugin users are going to want way more control!</p>
+<p>Here are a few tips which should help you create a better set of customizable options for your plugins:</p>
+<h3 class="toc-linked"><a href="#don-39-t-create-plugin-specific-syntax" id="don-39-t-create-plugin-specific-syntax" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Don&apos;t Create Plugin-specific Syntax</h3><p>Developers who use your plugin shouldn&apos;t have to learn a new language or terminology just to get the job done.</p>
+<p>Bob thought he was offering maximum customization with his <em>delay</em> option (look above). He made it so that with his plugin you can specify four different delays, &quot;quite short,&quot; &quot;very short,&quot; &quot;quite long,&quot; or &quot;very long&quot;:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+						<div class="line n17">17</div>
+					
+						<div class="line n18">18</div>
+					
+						<div class="line n19">19</div>
+					
+						<div class="line n20">20</div>
+					
+						<div class="line n21">21</div>
+					
+						<div class="line n22">22</div>
+					
+						<div class="line n23">23</div>
+					
+						<div class="line n24">24</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="keyword">var</span> delayDuration = <span class="number">0</span>;</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="keyword">switch</span> ( settings.delay ) {</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="keyword">case</span> <span class="string">&quot;very short&quot;</span>:</code></div></div><div class="container"><div class="line"><code>        delayDuration = <span class="number">100</span>;</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">break</span>;</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="keyword">case</span> <span class="string">&quot;quite short&quot;</span>:</code></div></div><div class="container"><div class="line"><code>        delayDuration = <span class="number">200</span>;</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">break</span>;</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="keyword">case</span> <span class="string">&quot;quite long&quot;</span>:</code></div></div><div class="container"><div class="line"><code>        delayDuration = <span class="number">300</span>;</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">break</span>;</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="keyword">case</span> <span class="string">&quot;very long&quot;</span>:</code></div></div><div class="container"><div class="line"><code>        delayDuration = <span class="number">400</span>;</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">break</span>;</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="keyword">default</span>:</code></div></div><div class="container"><div class="line"><code>        delayDuration = <span class="number">200</span>;</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>}</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Not only does this limit the level of control people have, but it takes up quite a bit of space. Twelve lines of code just to define the delay time is a bit much, don&apos;t you think? A better way to construct this option would be to let plugin users specify the amount of time (in milliseconds) as a number, so that no processing of the option needs to take place.</p>
+<p>The key here is not to diminish the level of control through your abstraction. Your abstraction, whatever it is, can be as simplistic as you want, but make sure that people who use your plugin will still have that much-sought-after low-level control! (By low-level I mean non-abstracted.)</p>
+<h3 class="toc-linked"><a href="#give-full-control-of-elements" id="give-full-control-of-elements" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Give Full Control of Elements</h3><p>If your plugin creates elements to be used within the DOM, then it&apos;s a good idea to offer plugin users some way to access those elements. Sometimes this means giving certain elements IDs or classes. But note that your plugin shouldn&apos;t rely on these hooks internally:</p>
+<p>A bad implementation:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Plugin code</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;&lt;div class=&apos;gallery-wrapper&apos; /&gt;&quot;</span> ).appendTo( <span class="string">&quot;body&quot;</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;.gallery-wrapper&quot;</span> ).append( <span class="string">&quot;...&quot;</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>To allow users to access and even manipulate that information, you can store it in a variable containing the settings of your plugin. A better implementation of the previous code is shown below:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Retain an internal reference:</span></code></div></div><div class="container"><div class="line"><code><span class="keyword">var</span> wrapper = $( <span class="string">&quot;&lt;div /&gt;&quot;</span> )</code></div></div><div class="container"><div class="line"><code>    .attr( settings.wrapperAttrs )</code></div></div><div class="container"><div class="line"><code>    .appendTo( settings.container );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Easy to reference later...</span></code></div></div><div class="container"><div class="line"><code>wrapper.append( <span class="string">&quot;...&quot;</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Notice that we&apos;ve created a reference to the injected wrapper and we&apos;re also calling the <code>.attr()</code> method to add any specified attributes to the element. So, in our settings it might be handled like this:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="keyword">var</span> defaults = {</code></div></div><div class="container"><div class="line"><code>    wrapperAttrs : {</code></div></div><div class="container"><div class="line"><code>        class: <span class="string">&quot;gallery-wrapper&quot;</span></code></div></div><div class="container"><div class="line"><code>    },</code></div></div><div class="container"><div class="line"><code>    <span class="comment">// ... rest of settings ...</span></code></div></div><div class="container"><div class="line"><code>};</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// We can use the extend method to merge options/settings as usual:</span></code></div></div><div class="container"><div class="line"><code><span class="comment">// But with the added first parameter of TRUE to signify a DEEP COPY:</span></code></div></div><div class="container"><div class="line"><code><span class="keyword">var</span> settings = $.extend( <span class="literal">true</span>, {}, defaults, options );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>The <em>$.extend()</em> method will now recurse through all nested objects to give us a merged version of both the defaults and the passed options, giving the passed options precedence.</p>
+<p>The plugin user now has the power to specify any attribute of that wrapper element so if they require that there be a hook for any CSS styles then they can quite easily add a class or change the name of the ID without having to go digging around in plugin source.</p>
+<p>The same model can be used to let the user define CSS styles:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="keyword">var</span> defaults = {</code></div></div><div class="container"><div class="line"><code>    wrapperCSS: {},</code></div></div><div class="container"><div class="line"><code>    <span class="comment">// ... rest of settings ...</span></code></div></div><div class="container"><div class="line"><code>};</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Later on in the plugin where we define the wrapper:</span></code></div></div><div class="container"><div class="line"><code><span class="keyword">var</span> wrapper = $( <span class="string">&quot;&lt;div /&gt;&quot;</span> )</code></div></div><div class="container"><div class="line"><code>    .attr( settings.wrapperAttrs )</code></div></div><div class="container"><div class="line"><code>    .css( settings.wrapperCSS ) <span class="comment">// ** Set CSS!</span></code></div></div><div class="container"><div class="line"><code>    .appendTo( settings.container );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Your plugin may have an associated stylesheet where developers can add CSS styles. Even in this situation it&apos;s a good idea to offer some convenient way of setting styles in JavaScript, without having to use a selector to get at the elements.</p>
+<h3 class="toc-linked"><a href="#provide-callback-capabilities" id="provide-callback-capabilities" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Provide Callback Capabilities</h3><p><em>What is a callback?</em> &#x2013; A callback is essentially a function to be called later, normally triggered by an event. It&apos;s passed as an argument, usually to the initiating call of a component, in this case, a jQuery plugin.</p>
+<p>If your plugin is driven by events then it might be a good idea to provide a callback capability for each event. Plus, you can create your own custom events and then provide callbacks for those. In this gallery plugin it might make sense to add an &quot;onImageShow&quot; callback.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+						<div class="line n17">17</div>
+					
+						<div class="line n18">18</div>
+					
+						<div class="line n19">19</div>
+					
+						<div class="line n20">20</div>
+					
+						<div class="line n21">21</div>
+					
+						<div class="line n22">22</div>
+					
+						<div class="line n23">23</div>
+					
+						<div class="line n24">24</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="keyword">var</span> defaults = {</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// We define an empty anonymous function so that</span></code></div></div><div class="container"><div class="line"><code>    <span class="comment">// we don&apos;t need to check its existence before calling it.</span></code></div></div><div class="container"><div class="line"><code>    onImageShow : <span class="keyword">function</span>() {},</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// ... rest of settings ...</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>};</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Later on in the plugin:</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>nextButton.on( <span class="string">&quot;click&quot;</span>, showNextImage );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="function"><span class="keyword">function</span> <span class="title">showNextImage</span><span class="params">()</span> {</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Returns reference to the next image node</span></code></div></div><div class="container"><div class="line"><code>    <span class="keyword">var</span> image = getNextImage();</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Stuff to show the image here...</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Here&apos;s the callback:</span></code></div></div><div class="container"><div class="line"><code>    settings.onImageShow.call( image );</code></div></div><div class="container"><div class="line"><code>}</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Instead of initiating the callback via traditional means (adding parenthesis) we&apos;re calling it in the context of <code>image</code> which will be a reference to the image node. This means that you have access to the actual image node through the <code>this</code> keyword within the callback:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">&quot;ul.imgs li&quot;</span> ).superGallery({</code></div></div><div class="container"><div class="line"><code>    onImageShow: <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>        $( <span class="keyword">this</span> ).after( <span class="string">&quot;&lt;span&gt;&quot;</span> + $( <span class="keyword">this</span> ).attr( <span class="string">&quot;longdesc&quot;</span> ) + <span class="string">&quot;&lt;/span&gt;&quot;</span> );</code></div></div><div class="container"><div class="line"><code>    },</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// ... other options ...</span></code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Similarly you could add an &quot;onImageHide&quot; callback and numerous other ones. The point of callbacks is to give plugin users an easy way to add additional functionality without digging around in the source.</p>
+<h3 class="toc-linked"><a href="#remember-it-39-s-a-compromise" id="remember-it-39-s-a-compromise" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Remember, It&apos;s a Compromise</h3><p>Your plugin is not going to be able to work in every situation. And equally, it&apos;s not going to be very useful if you offer no or very few methods of control. So, remember, it&apos;s always going to be a compromise. Three things you must always take into account are:</p>
+<ul>
+<li><em>Flexibility</em>: How many situations will your plugin be able to deal with?</li>
+<li><em>Size</em>: Does the size of your plugin correspond to its level of functionality? I.e. Would you use a very basic tooltip plugin if it was 20k in size? &#x2013; Probably not!</li>
+<li><em>Performance</em>: Does your plugin heavily process the options in any way? Does this affect speed? Is the overhead caused worth it for the end user?</li>
+</ul>					</div>
+
+	<div class="entry-meta row">
+				<div class="bottom-links row">
+							<div class="prev six columns">
+					<a href="https://learn.jquery.com/plugins/basic-plugin-creation/">
+					<i class="icon-chevron-left"></i>
+					How to Create a Basic Plugin					</a>
+				</div>
+										<div class="next six columns">
+					<a href="https://learn.jquery.com/plugins/stateful-plugins-with-widget-factory/">
+					Writing Stateful Plugins with the jQuery UI Widget Factory					<i class="icon-chevron-right"></i>
+					</a>
+				</div>
+					</div>
+		
+		<aside class="meta-details six columns">
+			<h3>Last Updated</h3>
+			<ul>
+				<li class="icon-calendar icon-large" title="Last Updated"><span>December 17, 2015</span></li>
+			</ul>
+		</aside>
+		<aside class="github-feedback six columns">
+			<h3>Suggestions, Problems, Feedback?</h3>
+			<a class="button dark" href="https://github.com/jquery/learn.jquery.com/tree/master/page/plugins/advanced-plugin-concepts.md"><i class="icon-github"></i> Open an Issue or Submit a Pull Request on GitHub</a>
+		</aside>
+
+	</div>
+</article>
+	</div>
+
+	<div id="sidebar" class="widget-area" role="complementary">
+		
+		<aside id="chapter-listing" class="widget">
+			<h3 class="widget-title">Chapters</h3>
+			<ul>
+																		<li >
+						<a href="//learn.jquery.com/about-jquery/">
+															<i class="icon-certificate"></i>
+														About jQuery						</a>
+																																																																									</li>
+														<li >
+						<a href="//learn.jquery.com/using-jquery-core/">
+															<i class="icon-star-empty"></i>
+														Using jQuery Core						</a>
+																																																																																																																																																																																																																																																																																										<ul class="sub-chapter">
+																																																																																																																																																																																																																																																																																	<li >
+										<a href="//learn.jquery.com/using-jquery-core/faq/">
+											Frequently Asked Questions										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/events/">
+															<i class="icon-tasks"></i>
+														Events						</a>
+																																																																																																																																																																																																	</li>
+														<li >
+						<a href="//learn.jquery.com/effects/">
+															<i class="icon-picture"></i>
+														Effects						</a>
+																																																																																								</li>
+														<li >
+						<a href="//learn.jquery.com/ajax/">
+															<i class="icon-refresh"></i>
+														Ajax						</a>
+																																																																																																																						</li>
+														<li class='active'>
+						<a href="//learn.jquery.com/plugins/">
+															<i class="icon-bolt"></i>
+														Plugins						</a>
+																																																																																																							</li>
+														<li >
+						<a href="//learn.jquery.com/performance/">
+															<i class="icon-dashboard"></i>
+														Performance						</a>
+																																																																																																																																																				</li>
+														<li >
+						<a href="//learn.jquery.com/code-organization/">
+															<i class="icon-sitemap"></i>
+														Code Organization						</a>
+																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/code-organization/deferreds/">
+											Deferreds										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-ui/">
+															<i class="icon-magnet"></i>
+														jQuery UI						</a>
+																																																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/jquery-ui/widget-factory/">
+											Widget Factory										</a>
+									</li>
+																																												<li >
+										<a href="//learn.jquery.com/jquery-ui/environments/">
+											Using jQuery UI										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-mobile/">
+															<i class="icon-th-large"></i>
+														jQuery Mobile						</a>
+																																																																									</li>
+							</ul>
+		</aside>
+
+
+	</div><!-- #sidebar .widget-area -->
+</div>
+
+	</div>
+</div>
+
+<footer class="clearfix simple">
+	<div class="constrain">
+		<div class="row">
+			<div class="six columns offset-by-three">
+				<h3><span>Books</span></h3>
+				<ul class="books">
+					<li>
+						<a href="https://www.packtpub.com/web-development/learning-jquery-fourth-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/learning-jquery-4th-ed.jpg" alt="Learning jQuery 4th Edition by Karl Swedberg and Jonathan Chaffer" width="92" height="114">
+							Learning jQuery Fourth Edition
+							<cite>Karl Swedberg and Jonathan Chaffer</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.manning.com/books/jquery-in-action-third-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-in-action.jpg" alt="jQuery in Action by Bear Bibeault, Yehuda Katz, and Aurelio De Rosa" width="92" height="114">
+							jQuery in Action
+							<cite>Bear Bibeault, Yehuda Katz, and Aurelio De Rosa</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.syncfusion.com/ebooks/jquery">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-succinctly.jpg" alt="jQuery Succinctly by Cody Lindley" width="92" height="114">
+							jQuery Succinctly
+							<cite>Cody Lindley</cite>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		
+<div id="legal">
+	<ul class="footer-site-links">
+			<li><a class="icon-pencil" href="https://learn.jquery.com/">Learning Center</a></li>
+			<li><a class="icon-group" href="https://forum.jquery.com/">Forum</a></li>
+			<li><a class="icon-wrench" href="https://api.jquery.com/">API</a></li>
+			<li><a class="icon-twitter" href="https://twitter.com/jquery">Twitter</a></li>
+			<li><a class="icon-comments" href="https://irc.jquery.org/">IRC</a></li>
+			<li><a class="icon-github" href="https://github.com/jquery">GitHub</a></li>
+	</ul>
+	<p class="copyright">
+		Copyright 2021 <a href="https://openjsf.org/">OpenJS Foundation</a> and jQuery contributors. All rights reserved. See <a href="https://jquery.org/license/">jQuery License</a> for more information. The <a href="https://openjsf.org/">OpenJS Foundation</a> has registered trademarks and uses trademarks. For a list of trademarks of the <a href="https://openjsf.org/">OpenJS Foundation</a>, please see our <a href="https://trademark-policy.openjsf.org/">Trademark Policy</a> and <a href="https://trademark-list.openjsf.org/">Trademark List</a>. Trademarks and logos not indicated on the <a href="https://trademark-list.openjsf.org/">list of OpenJS Foundation trademarks</a> are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them. OpenJS Foundation <a href="https://terms-of-use.openjsf.org/">Terms of Use</a>, <a href="https://privacy-policy.openjsf.org/">Privacy</a>, and <a href="https://www.linuxfoundation.org/cookies">Cookie</a> Policies also apply.
+		<span class="sponsor-line"><a href="https://www.digitalocean.com" class="do-link">Web hosting by Digital Ocean</a> | <a href="https://www.stackpath.com" class="sp-link">CDN by StackPath</a></span>
+	</p>
+</div>
+
+	</div>
+</footer>
+
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/comment-reply.min.js?ver=4.5.2'></script>
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/wp-embed.min.js?ver=4.5.2'></script>
+	<!-- at the end of the BODY -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"  onload="document.querySelector('input[name=\'s\']') && docsearch({apiKey: '3cfde9aca378c8aab554d5bf1b23489b',
+		indexName: 'jquery',
+		inputSelector: 'input[name=\'s\']',
+		debug: true // Set debug to true if you want to inspect the dropdown
+	})" async></script>
+</body>
+</html>

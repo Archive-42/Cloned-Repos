@@ -1,0 +1,14 @@
+
+<form ng-model = "CategoryForm" id="create-category-form" name="CategoryForm" ng-submit="CategoryForm.$valid && newCategory()">
+    <alert type="danger" ng-show="error">
+        {{ error }}
+    </alert>
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input ng-model = "CategoryForm.name" novalidate type="text" class="form-control" id="name" placeholder="Enter category name">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+<pre>{{CategoryForm.name}}
+</pre>

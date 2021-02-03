@@ -1,0 +1,205 @@
+<h1 id="description">–description–</h1>
+<p>Here you’ll finish creating the <code>DisplayMessages</code> component.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>First, in the <code>render()</code> method, have the component render an <code>input</code> element, <code>button</code> element, and <code>ul</code> element. When the <code>input</code> element changes, it should trigger a <code>handleChange()</code> method. Also, the <code>input</code> element should render the value of <code>input</code> that’s in the component’s state. The <code>button</code> element should trigger a <code>submitMessage()</code> method when it’s clicked.</p>
+<p>Second, write these two methods. The <code>handleChange()</code> method should update the <code>input</code> with what the user is typing. The <code>submitMessage()</code> method should concatenate the current message (stored in <code>input</code>) to the <code>messages</code> array in local state, and clear the value of the <code>input</code>.</p>
+<p>Finally, use the <code>ul</code> to map over the array of <code>messages</code> and render it to the screen as a list of <code>li</code> elements.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>DisplayMessages</code> component should initialize with a state equal to <code>{ input: "", messages: [] }</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(DisplayMessages))<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="kw">const</span> initialState <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">state</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb1-6" title="6">      <span class="kw">typeof</span> initialState <span class="op">===</span> <span class="st">&#39;object&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb1-7" title="7">      <span class="va">initialState</span>.<span class="at">input</span> <span class="op">===</span> <span class="st">&#39;&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">      <span class="va">initialState</span>.<span class="va">messages</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb1-9" title="9">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-10" title="10">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-11" title="11">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>DisplayMessages</code> component should render a <code>div</code> containing an <code>h2</code> element, a <code>button</code> element, a <code>ul</code> element, and <code>li</code> elements as children.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">async</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(DisplayMessages))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="kw">const</span> waitForIt <span class="op">=</span> (fn) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="kw">new</span> <span class="at">Promise</span>((resolve<span class="op">,</span> reject) <span class="kw">=&gt;</span> <span class="at">setTimeout</span>(() <span class="kw">=&gt;</span> <span class="at">resolve</span>(<span class="at">fn</span>())<span class="op">,</span> <span class="dv">100</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">  <span class="kw">const</span> state <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    <span class="va">mockedComponent</span>.<span class="at">setState</span>(<span class="op">{</span> <span class="dt">messages</span><span class="op">:</span> [<span class="st">&#39;__TEST__MESSAGE&#39;</span>] <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-7" title="7">    <span class="cf">return</span> <span class="at">waitForIt</span>(() <span class="kw">=&gt;</span> mockedComponent)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-8" title="8">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb2-9" title="9">  <span class="kw">const</span> updated <span class="op">=</span> <span class="cf">await</span> <span class="at">state</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-10" title="10">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-11" title="11">    <span class="va">updated</span>.<span class="at">find</span>(<span class="st">&#39;div&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb2-12" title="12">      <span class="va">updated</span>.<span class="at">find</span>(<span class="st">&#39;h2&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb2-13" title="13">      <span class="va">updated</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb2-14" title="14">      <span class="va">updated</span>.<span class="at">find</span>(<span class="st">&#39;ul&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb2-15" title="15">      <span class="va">updated</span>.<span class="at">find</span>(<span class="st">&#39;li&#39;</span>).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb2-16" title="16">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-17" title="17"><span class="op">};</span></a></code></pre></div>
+<p><code>.map</code> should be used on the <code>messages</code> array.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/this</span><span class="sc">\.</span><span class="ss">state</span><span class="sc">\.</span><span class="ss">messages</span><span class="sc">\.</span><span class="ss">map/g</span>))<span class="op">;</span></a></code></pre></div>
+<p>The <code>input</code> element should render the value of <code>input</code> in local state.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">async</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(DisplayMessages))<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="kw">const</span> waitForIt <span class="op">=</span> (fn) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="kw">new</span> <span class="at">Promise</span>((resolve<span class="op">,</span> reject) <span class="kw">=&gt;</span> <span class="at">setTimeout</span>(() <span class="kw">=&gt;</span> <span class="at">resolve</span>(<span class="at">fn</span>())<span class="op">,</span> <span class="dv">100</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="kw">const</span> causeChange <span class="op">=</span> (c<span class="op">,</span> v) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="va">c</span>.<span class="at">find</span>(<span class="st">&#39;input&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">target</span><span class="op">:</span> <span class="op">{</span> <span class="dt">value</span><span class="op">:</span> v <span class="op">}</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">  <span class="kw">const</span> testValue <span class="op">=</span> <span class="st">&#39;__TEST__EVENT__INPUT&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">  <span class="kw">const</span> changed <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    <span class="at">causeChange</span>(mockedComponent<span class="op">,</span> testValue)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">    <span class="cf">return</span> <span class="at">waitForIt</span>(() <span class="kw">=&gt;</span> mockedComponent)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb4-12" title="12">  <span class="kw">const</span> updated <span class="op">=</span> <span class="cf">await</span> <span class="at">changed</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">  <span class="at">assert</span>(<span class="va">updated</span>.<span class="at">find</span>(<span class="st">&#39;input&#39;</span>).<span class="at">props</span>().<span class="at">value</span> <span class="op">===</span> testValue)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="op">};</span></a></code></pre></div>
+<p>Calling the method <code>handleChange</code> should update the <code>input</code> value in state to the current input.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">async</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(DisplayMessages))<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="kw">const</span> waitForIt <span class="op">=</span> (fn) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">new</span> <span class="at">Promise</span>((resolve<span class="op">,</span> reject) <span class="kw">=&gt;</span> <span class="at">setTimeout</span>(() <span class="kw">=&gt;</span> <span class="at">resolve</span>(<span class="at">fn</span>())<span class="op">,</span> <span class="dv">100</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">  <span class="kw">const</span> causeChange <span class="op">=</span> (c<span class="op">,</span> v) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="va">c</span>.<span class="at">find</span>(<span class="st">&#39;input&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">target</span><span class="op">:</span> <span class="op">{</span> <span class="dt">value</span><span class="op">:</span> v <span class="op">}</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">  <span class="kw">const</span> initialState <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">state</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">  <span class="kw">const</span> testMessage <span class="op">=</span> <span class="st">&#39;__TEST__EVENT__MESSAGE__&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">  <span class="kw">const</span> changed <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-10" title="10">    <span class="at">causeChange</span>(mockedComponent<span class="op">,</span> testMessage)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">    <span class="cf">return</span> <span class="at">waitForIt</span>(() <span class="kw">=&gt;</span> mockedComponent)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb5-13" title="13">  <span class="kw">const</span> afterInput <span class="op">=</span> <span class="cf">await</span> <span class="at">changed</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-14" title="14">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-15" title="15">    <span class="va">initialState</span>.<span class="at">input</span> <span class="op">===</span> <span class="st">&#39;&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb5-16" title="16">      <span class="va">afterInput</span>.<span class="at">state</span>().<span class="at">input</span> <span class="op">===</span> <span class="st">&#39;__TEST__EVENT__MESSAGE__&#39;</span></a>
+<a class="sourceLine" id="cb5-17" title="17">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-18" title="18"><span class="op">};</span></a></code></pre></div>
+<p>Clicking the <code>Add message</code> button should call the method <code>submitMessage</code> which should add the current <code>input</code> to the <code>messages</code> array in state.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">async</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(DisplayMessages))<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="kw">const</span> waitForIt <span class="op">=</span> (fn) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="kw">new</span> <span class="at">Promise</span>((resolve<span class="op">,</span> reject) <span class="kw">=&gt;</span> <span class="at">setTimeout</span>(() <span class="kw">=&gt;</span> <span class="at">resolve</span>(<span class="at">fn</span>())<span class="op">,</span> <span class="dv">100</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">  <span class="kw">const</span> causeChange <span class="op">=</span> (c<span class="op">,</span> v) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">    <span class="va">c</span>.<span class="at">find</span>(<span class="st">&#39;input&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">target</span><span class="op">:</span> <span class="op">{</span> <span class="dt">value</span><span class="op">:</span> v <span class="op">}</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-7" title="7">  <span class="kw">const</span> initialState <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">state</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-8" title="8">  <span class="kw">const</span> testMessage_1 <span class="op">=</span> <span class="st">&#39;__FIRST__MESSAGE__&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">  <span class="kw">const</span> firstChange <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-10" title="10">    <span class="at">causeChange</span>(mockedComponent<span class="op">,</span> testMessage_1)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-11" title="11">    <span class="cf">return</span> <span class="at">waitForIt</span>(() <span class="kw">=&gt;</span> mockedComponent)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb6-13" title="13">  <span class="kw">const</span> firstResult <span class="op">=</span> <span class="cf">await</span> <span class="at">firstChange</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-14" title="14">  <span class="kw">const</span> firstSubmit <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-15" title="15">    <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;click&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-16" title="16">    <span class="cf">return</span> <span class="at">waitForIt</span>(() <span class="kw">=&gt;</span> mockedComponent)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-17" title="17">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb6-18" title="18">  <span class="kw">const</span> afterSubmit_1 <span class="op">=</span> <span class="cf">await</span> <span class="at">firstSubmit</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-19" title="19">  <span class="kw">const</span> submitState_1 <span class="op">=</span> <span class="va">afterSubmit_1</span>.<span class="at">state</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-20" title="20">  <span class="kw">const</span> testMessage_2 <span class="op">=</span> <span class="st">&#39;__SECOND__MESSAGE__&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-21" title="21">  <span class="kw">const</span> secondChange <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-22" title="22">    <span class="at">causeChange</span>(mockedComponent<span class="op">,</span> testMessage_2)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-23" title="23">    <span class="cf">return</span> <span class="at">waitForIt</span>(() <span class="kw">=&gt;</span> mockedComponent)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-24" title="24">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb6-25" title="25">  <span class="kw">const</span> secondResult <span class="op">=</span> <span class="cf">await</span> <span class="at">secondChange</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-26" title="26">  <span class="kw">const</span> secondSubmit <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-27" title="27">    <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;click&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-28" title="28">    <span class="cf">return</span> <span class="at">waitForIt</span>(() <span class="kw">=&gt;</span> mockedComponent)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-29" title="29">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb6-30" title="30">  <span class="kw">const</span> afterSubmit_2 <span class="op">=</span> <span class="cf">await</span> <span class="at">secondSubmit</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-31" title="31">  <span class="kw">const</span> submitState_2 <span class="op">=</span> <span class="va">afterSubmit_2</span>.<span class="at">state</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-32" title="32">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb6-33" title="33">    <span class="va">initialState</span>.<span class="va">messages</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-34" title="34">      <span class="va">submitState_1</span>.<span class="va">messages</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-35" title="35">      <span class="va">submitState_2</span>.<span class="va">messages</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">2</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-36" title="36">      <span class="va">submitState_2</span>.<span class="at">messages</span>[<span class="dv">1</span>] <span class="op">===</span> testMessage_2</a>
+<a class="sourceLine" id="cb6-37" title="37">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-38" title="38"><span class="op">};</span></a></code></pre></div>
+<p>The <code>submitMessage</code> method should clear the current input.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">async</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(DisplayMessages))<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-3" title="3">  <span class="kw">const</span> waitForIt <span class="op">=</span> (fn) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb7-4" title="4">    <span class="kw">new</span> <span class="at">Promise</span>((resolve<span class="op">,</span> reject) <span class="kw">=&gt;</span> <span class="at">setTimeout</span>(() <span class="kw">=&gt;</span> <span class="at">resolve</span>(<span class="at">fn</span>())<span class="op">,</span> <span class="dv">100</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-5" title="5">  <span class="kw">const</span> causeChange <span class="op">=</span> (c<span class="op">,</span> v) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">    <span class="va">c</span>.<span class="at">find</span>(<span class="st">&#39;input&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;change&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">target</span><span class="op">:</span> <span class="op">{</span> <span class="dt">value</span><span class="op">:</span> v <span class="op">}</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-7" title="7">  <span class="kw">const</span> initialState <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">state</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-8" title="8">  <span class="kw">const</span> testMessage <span class="op">=</span> <span class="st">&#39;__FIRST__MESSAGE__&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-9" title="9">  <span class="kw">const</span> firstChange <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-10" title="10">    <span class="at">causeChange</span>(mockedComponent<span class="op">,</span> testMessage)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-11" title="11">    <span class="cf">return</span> <span class="at">waitForIt</span>(() <span class="kw">=&gt;</span> mockedComponent)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-12" title="12">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-13" title="13">  <span class="kw">const</span> firstResult <span class="op">=</span> <span class="cf">await</span> <span class="at">firstChange</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-14" title="14">  <span class="kw">const</span> firstState <span class="op">=</span> <span class="va">firstResult</span>.<span class="at">state</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-15" title="15">  <span class="kw">const</span> firstSubmit <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-16" title="16">    <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;click&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-17" title="17">    <span class="cf">return</span> <span class="at">waitForIt</span>(() <span class="kw">=&gt;</span> mockedComponent)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-18" title="18">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-19" title="19">  <span class="kw">const</span> afterSubmit <span class="op">=</span> <span class="cf">await</span> <span class="at">firstSubmit</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-20" title="20">  <span class="kw">const</span> submitState <span class="op">=</span> <span class="va">afterSubmit</span>.<span class="at">state</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-21" title="21">  <span class="at">assert</span>(<span class="va">firstState</span>.<span class="at">input</span> <span class="op">===</span> testMessage <span class="op">&amp;&amp;</span> <span class="va">submitState</span>.<span class="at">input</span> <span class="op">===</span> <span class="st">&#39;&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-22" title="22"><span class="op">};</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;DisplayMessages /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>class DisplayMessages extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: &#39;&#39;,
+      messages: []
+    }
+  }
+  // Add handleChange() and submitMessage() methods here
+
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h2&gt;Type in a new Message:&lt;/h2&gt;
+        { /* Render an input, button, and ul below this line */ }
+
+        { /* Change code above this line */ }
+      &lt;/div&gt;
+    );
+  }
+};</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>class DisplayMessages extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: &#39;&#39;,
+      messages: []
+    }
+ this.handleChange = this.handleChange.bind(this);
+   this.submitMessage = this.submitMessage.bind(this);
+ }
+  handleChange(event) {
+    this.setState({
+      input: event.target.value
+    });
+  }
+  submitMessage() {
+    this.setState((state) =&gt; {
+      const currentMessage = state.input;
+      return {
+        input: &#39;&#39;,
+        messages: state.messages.concat(currentMessage)
+      };  
+    });
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h2&gt;Type in a new Message:&lt;/h2&gt;
+        &lt;input
+          value={this.state.input}
+          onChange={this.handleChange}/&gt;&lt;br/&gt;
+        &lt;button onClick={this.submitMessage}&gt;Submit&lt;/button&gt;
+        &lt;ul&gt;
+          {this.state.messages.map( (message, idx) =&gt; {
+              return (
+                 &lt;li key={idx}&gt;{message}&lt;/li&gt;
+              )
+            })
+          }
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    );
+  }
+};</code></pre>

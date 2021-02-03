@@ -1,0 +1,33 @@
+{
+    "users": {
+        "u1": {
+            "name": "Bob Smith",
+            "events": {
+                "e1": {
+                    "name": "Halloween Party",
+                    "date": "2014-10-31",
+                    "time": "21:00",
+                    "description": "A spooky party in a haunted pub.",
+                    "attendees": {},
+                    "location" : [51.519135, -0.099935]
+                },
+                "e2": {
+                    "name": "Autumn Festival",
+                    "date": "2014-09-01",
+                    "time": "11:00",
+                    "description": "An all-day celebration in the park.",
+                    "attendees": {},
+                    "location" : [51.535088, -0.039670]
+                },
+                "e3": {
+                    "name": "Christmas Party",
+                    "date": "2014-12-22",
+                    "time": "17:00",
+                    "description": "A fancy holiday party at an exclusive venue.",
+                    "attendees": {},
+                    "location" : [51.507762, -0.140263]
+                }
+            }
+        }
+    }
+}

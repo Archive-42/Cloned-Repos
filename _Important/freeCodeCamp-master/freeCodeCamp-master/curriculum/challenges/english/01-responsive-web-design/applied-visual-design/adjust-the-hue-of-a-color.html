@@ -1,0 +1,139 @@
+<h1 id="description">–description–</h1>
+<p>Colors have several characteristics including hue, saturation, and lightness. CSS3 introduced the <code>hsl()</code> property as an alternative way to pick a color by directly stating these characteristics.</p>
+<p><strong>Hue</strong> is what people generally think of as ‘color’. If you picture a spectrum of colors starting with red on the left, moving through green in the middle, and blue on right, the hue is where a color fits along this line. In <code>hsl()</code>, hue uses a color wheel concept instead of the spectrum, where the angle of the color on the circle is given as a value between 0 and 360.</p>
+<p><strong>Saturation</strong> is the amount of gray in a color. A fully saturated color has no gray in it, and a minimally saturated color is almost completely gray. This is given as a percentage with 100% being fully saturated.</p>
+<p><strong>Lightness</strong> is the amount of white or black in a color. A percentage is given ranging from 0% (black) to 100% (white), where 50% is the normal color.</p>
+<p>Here are a few examples of using <code>hsl()</code> with fully-saturated, normal lightness colors:</p>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>
+Color
+</th>
+<th>
+HSL
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+red
+</td>
+<td>
+hsl(0, 100%, 50%)
+</td>
+</tr>
+<tr>
+<td>
+yellow
+</td>
+<td>
+hsl(60, 100%, 50%)
+</td>
+</tr>
+<tr>
+<td>
+green
+</td>
+<td>
+hsl(120, 100%, 50%)
+</td>
+</tr>
+<tr>
+<td>
+cyan
+</td>
+<td>
+hsl(180, 100%, 50%)
+</td>
+</tr>
+<tr>
+<td>
+blue
+</td>
+<td>
+hsl(240, 100%, 50%)
+</td>
+</tr>
+<tr>
+<td>
+magenta
+</td>
+<td>
+hsl(300, 100%, 50%)
+</td>
+</tr>
+</tbody>
+</table>
+<h1 id="instructions">–instructions–</h1>
+<p>Change the <code>background-color</code> of each <code>div</code> element based on the class names (<code>green</code>, <code>cyan</code>, or <code>blue</code>) using <code>hsl()</code>. All three should have full saturation and normal lightness.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should use the <code>hsl()</code> property to declare the color green.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/</span><span class="sc">\.</span><span class="ss">green</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">background-color:</span><span class="sc">\s*?</span><span class="ss">hsl/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your code should use the <code>hsl()</code> property to declare the color cyan.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/</span><span class="sc">\.</span><span class="ss">cyan</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">background-color:</span><span class="sc">\s*?</span><span class="ss">hsl/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your code should use the <code>hsl()</code> property to declare the color blue.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/</span><span class="sc">\.</span><span class="ss">blue</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">background-color:</span><span class="sc">\s*?</span><span class="ss">hsl/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>The <code>div</code> element with class <code>green</code> should have a <code>background-color</code> of green.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;.green&#39;</span>).<span class="at">css</span>(<span class="st">&#39;background-color&#39;</span>) <span class="op">==</span> <span class="st">&#39;rgb(0, 255, 0)&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>div</code> element with class <code>cyan</code> should have a <code>background-color</code> of cyan.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;.cyan&#39;</span>).<span class="at">css</span>(<span class="st">&#39;background-color&#39;</span>) <span class="op">==</span> <span class="st">&#39;rgb(0, 255, 255)&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>div</code> element with class <code>blue</code> should have a <code>background-color</code> of blue.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;.blue&#39;</span>).<span class="at">css</span>(<span class="st">&#39;background-color&#39;</span>) <span class="op">==</span> <span class="st">&#39;rgb(0, 0, 255)&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  body {</a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="kw">background-color</span>: <span class="cn">#FFFFFF</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-4" title="4">  }</a>
+<a class="sourceLine" id="cb7-5" title="5"></a>
+<a class="sourceLine" id="cb7-6" title="6">  <span class="fu">.green</span> {</a>
+<a class="sourceLine" id="cb7-7" title="7">    <span class="kw">background-color</span>: <span class="cn">#000000</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-8" title="8">  }</a>
+<a class="sourceLine" id="cb7-9" title="9"></a>
+<a class="sourceLine" id="cb7-10" title="10">  <span class="fu">.cyan</span> {</a>
+<a class="sourceLine" id="cb7-11" title="11">    <span class="kw">background-color</span>: <span class="cn">#000000</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-12" title="12">  }</a>
+<a class="sourceLine" id="cb7-13" title="13"></a>
+<a class="sourceLine" id="cb7-14" title="14">  <span class="fu">.blue</span> {</a>
+<a class="sourceLine" id="cb7-15" title="15">    <span class="kw">background-color</span>: <span class="cn">#000000</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-16" title="16">  }</a>
+<a class="sourceLine" id="cb7-17" title="17"></a>
+<a class="sourceLine" id="cb7-18" title="18">  div {</a>
+<a class="sourceLine" id="cb7-19" title="19">    <span class="kw">display</span>: <span class="dv">inline-block</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-20" title="20">    <span class="kw">height</span>: <span class="dv">100</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-21" title="21">    <span class="kw">width</span>: <span class="dv">100</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-22" title="22">  }</a>
+<a class="sourceLine" id="cb7-23" title="23"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb7-24" title="24"></a>
+<a class="sourceLine" id="cb7-25" title="25"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;green&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb7-26" title="26"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;cyan&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb7-27" title="27"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;blue&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb8"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  body {</a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="kw">background-color</span>: <span class="cn">#FFFFFF</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-4" title="4">  }</a>
+<a class="sourceLine" id="cb8-5" title="5"></a>
+<a class="sourceLine" id="cb8-6" title="6">  <span class="fu">.green</span> {</a>
+<a class="sourceLine" id="cb8-7" title="7">    <span class="kw">background-color</span>: <span class="fu">hsl(</span><span class="dv">120</span><span class="op">,</span> <span class="dv">100</span><span class="dt">%</span><span class="op">,</span> <span class="dv">50</span><span class="dt">%</span><span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-8" title="8">  }</a>
+<a class="sourceLine" id="cb8-9" title="9"></a>
+<a class="sourceLine" id="cb8-10" title="10">  <span class="fu">.cyan</span> {</a>
+<a class="sourceLine" id="cb8-11" title="11">    <span class="kw">background-color</span>:   <span class="fu">hsl(</span><span class="dv">180</span><span class="op">,</span> <span class="dv">100</span><span class="dt">%</span><span class="op">,</span> <span class="dv">50</span><span class="dt">%</span><span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-12" title="12">  }</a>
+<a class="sourceLine" id="cb8-13" title="13"></a>
+<a class="sourceLine" id="cb8-14" title="14">  <span class="fu">.blue</span> {</a>
+<a class="sourceLine" id="cb8-15" title="15">    <span class="kw">background-color</span>: <span class="fu">hsl(</span><span class="dv">240</span><span class="op">,</span> <span class="dv">100</span><span class="dt">%</span><span class="op">,</span> <span class="dv">50</span><span class="dt">%</span><span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-16" title="16">  }</a>
+<a class="sourceLine" id="cb8-17" title="17"></a>
+<a class="sourceLine" id="cb8-18" title="18">  div {</a>
+<a class="sourceLine" id="cb8-19" title="19">    <span class="kw">display</span>: <span class="dv">inline-block</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-20" title="20">    <span class="kw">height</span>: <span class="dv">100</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-21" title="21">    <span class="kw">width</span>: <span class="dv">100</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-22" title="22">  }</a>
+<a class="sourceLine" id="cb8-23" title="23"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb8-24" title="24"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;green&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb8-25" title="25"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;cyan&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb8-26" title="26"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;blue&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a></code></pre></div>

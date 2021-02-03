@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<div class="tribe-widget-form-control tribe-widget-form-control--text" <?php // Not escaped - contains html
+  (data-attr="value" ). echo $dependency; // phpcs:ignore ?>
+  >
+  <label class="tribe-common-form-control__label" for="<?php echo esc_attr( $id ); ?>">
+    <?php echo esc_html( $label ); ?>
+  </label>
+  <input class="tribe-common-form-control__input widefat" id="<?php echo esc_attr( $id ); ?>"
+    name="<?php echo esc_attr( $name ); ?>" type="text" value="<?php echo esc_attr( $value ); ?>" />
+</div>
+<div class="tribe-widget-form-control tribe-widget-form-control--checkbox" <?php // Not escaped - contains html
+  (data-attr="value" ). echo $dependency; // phpcs:ignore ?>
+  >
+  <input class="tribe-widget-form-control__input" id="<?php echo esc_attr( $id ); ?>"
+    name="<?php echo esc_attr( $name ); ?>" type="checkbox" value="1" <?php checked( tribe_is_truthy( $value ), true );
+    ?>
+  />
+  <label class="tribe-widget-form-control__label" for="<?php echo esc_attr( $id ); ?>">
+    <?php echo esc_html( $label ); ?>
+  </label>
+</div>
+<div class="tribe-widget-form-control tribe-widget-form-control--dropdown" <?php // Not escaped - contains html
+  (data-attr="value" ). echo $dependency; // phpcs:ignore ?>
+  >
+  <label class="tribe-widget-form-control__label" for="<?php echo esc_attr( $id ); ?>">
+    <?php echo esc_html( $label ); ?>
+  </label>
+  <select id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>"
+    class="tribe-widget-form-control__input widefat">
+    <?php foreach ( $options as $option ) { ?>
+    <option value="<?php echo esc_attr( $option['value'] ); ?>" <?php selected( $value, $option['value'] ); ?>
+      >
+      <?php echo esc_html( $option['text'] ); ?>
+    </option>
+    <?php } ?>
+  </select>
+</div>
+<?php
+/**
+ * Admin View: Widget Fieldset Component.
+ *
+ * This component is different in that it calls other components!
+ *
+ * Override this template in your own theme by creating a file at:
+ * [your-theme]/tribe/admin-views/widgets/components/fieldset.php
+ *
+ * See more documentation about our views templating system.
+ *
+ * @link    http://m.tri.be/1aiy
+ *
+ * @version 5.3.0
+ *
+ * @var string              $label       Title for the fieldset.
+ * @var string              $description Description for the fieldset.
+ * @var string              $classes     Classes to add to the fieldset.
+ * @var string              $dependency  Dependency attribute for the fieldset.
+ * @var array<string,mixed> $children    Child elements for the fieldset.
+ * @var string              $name        Name to pass through to child inputs.
+ */
+
+use Tribe__Utils__Array as Arr;
+
+$fieldset_classes = array_merge( [ 'tribe-widget-form-control', 'tribe-widget-form-control--fieldset' ], Arr::list_to_array( $classes, ' ' ) );
+
+?>
+<fieldset <?php tribe_classes( $fieldset_classes ); ?>
+  <?php
+	// Not escaped - contains html (data-attr="value").
+	echo $dependency; // phpcs:ignore
+	?>
+  >
+  <?php if ( ! empty( $label ) ) : ?>
+  <legend class="tribe-widget-form-control__legend">
+    <?php echo esc_html( $label ); ?>
+  </legend>
+  <?php endif; ?>
+
+  <?php
+	foreach ( $children as $child ) {
+		// The provided name/value are passed through for radios.
+		$this->template( "widgets/components/{$child['type']}", $child );
+	}
+	?>
+</fieldset>
+<div class="tribe-widget-form-control tribe-widget-form-control--radio" <?php // Not escaped - contains html
+  (data-attr="value" ). echo $dependency; // phpcs:ignore ?>
+  >
+  <input class="tribe-widget-form-control__input"
+    id="<?php echo esc_attr( $id . '-' . strtolower( $button_value ) ); ?>" name="<?php echo esc_attr( $name ); ?>"
+    type="radio" value="<?php echo esc_attr( $button_value ); ?>" <?php checked( $button_value, $value ); ?>
+  />
+  <label class="tribe-widget-form-control__label"
+    for="<?php echo esc_attr( $id . '-' . strtolower( $button_value ) ); ?>">
+    <?php echo esc_html( $label ); ?>
+  </label>
+</div>
+
+</body>
+</html>

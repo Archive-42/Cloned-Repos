@@ -1,0 +1,739 @@
+<!doctype html>
+<!--[if IE 7 ]>		 <html class="no-js ie ie7 lte7 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 8 ]>		 <html class="no-js ie ie8 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 9 ]>		 <html class="no-js ie ie9 lte9"> lang="en-US"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head data-live-domain="learn.jquery.com">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Introduction to Effects | jQuery Learning Center</title>
+
+	<meta name="author" content="JS Foundation - js.foundation">
+	<meta name="description" content="">
+
+	<meta name="viewport" content="width=device-width">
+
+	<link rel="shortcut icon" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/i/favicon.ico">
+
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/base.css?v=2">
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/style.css">
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/modernizr.custom.2.8.3.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/main.js"></script>
+
+	<script src="https://use.typekit.net/wde1aof.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+	<!-- at the end of the HEAD -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/docsearch.css">
+
+<link rel='https://api.w.org/' href='//learn.jquery.com/wp-json/' />
+<meta name="generator" content="WordPress 4.5.2" />
+<link rel="alternate" type="application/json+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Feffects%2Fintro-to-effects%2F" />
+<link rel="alternate" type="text/xml+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Feffects%2Fintro-to-effects%2F&#038;format=xml" />
+
+</head>
+<body class="jquery-learn page page-id-77 page-child parent-pageid-11 page-template-default page-slug-intro-to-effects single-author singular">
+
+<header>
+	<section id="global-nav">
+		<nav>
+			<div class="constrain">
+				<ul class="projects">
+					<li class="project jquery"><a href="https://jquery.com/" title="jQuery">jQuery</a></li>
+					<li class="project jquery-ui"><a href="https://jqueryui.com/" title="jQuery UI">jQuery UI</a></li>
+					<li class="project jquery-mobile"><a href="https://jquerymobile.com/" title="jQuery Mobile">jQuery Mobile</a></li>
+					<li class="project sizzlejs"><a href="https://sizzlejs.com/" title="Sizzle">Sizzle</a></li>
+					<li class="project qunitjs"><a href="https://qunitjs.com/" title="QUnit">QUnit</a></li>
+				</ul>
+				<ul class="links">
+					<li><a href="https://plugins.jquery.com/">Plugins</a></li>
+					<li class="dropdown"><a href="https://contribute.jquery.org/">Contribute</a>
+						<ul>
+							<li><a href="https://js.foundation/CLA">CLA</a></li>
+							<li><a href="https://contribute.jquery.org/style-guide/">Style Guides</a></li>
+							<li><a href="https://contribute.jquery.org/triage/">Bug Triage</a></li>
+							<li><a href="https://contribute.jquery.org/code/">Code</a></li>
+							<li><a href="https://contribute.jquery.org/documentation/">Documentation</a></li>
+							<li><a href="https://contribute.jquery.org/web-sites/">Web Sites</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/events">Events</a>
+						<ul class="wide">
+																		</ul>
+					</li>
+					<li class="dropdown"><a href="https://jquery.org/support/">Support</a>
+						<ul>
+							<li><a href="https://learn.jquery.com/">Learning Center</a></li>
+							<li><a href="https://irc.jquery.org/">IRC/Chat</a></li>
+							<li><a href="https://forum.jquery.com/">Forums</a></li>
+							<li><a href="https://stackoverflow.com/tags/jquery/info">Stack Overflow</a></li>
+							<li><a href="https://jquery.org/support/">Commercial Support</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/">JS Foundation</a>
+						<ul>
+							<li><a href="https://js.foundation/about/join">Join</a></li>
+							<li><a href="https://js.foundation/about/members">Members</a></li>
+							<li><a href="https://js.foundation/about/leadership">Leadership</a></li>
+							<li><a href="https://js.foundation/community/code-of-conduct">Conduct</a></li>
+							<li><a href="https://js.foundation/about/donate">Donate</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</section>
+</header>
+
+<div id="banner-blm">
+	<h2>#BlackLivesMatter</h2>
+	<p>To Donate, see this <a href="https://bit.ly/fundthecommunity">list of organizations to support</a> from <a href="https://www.reclaimtheblock.org/">Reclaim the Block</a> 
+</div>
+
+<div id="container">
+	<div id="logo-events" class="constrain clearfix">
+		<h2 class="logo"><a href="/" title="jQuery Learning Center">jQuery Learning Center</a></h2>
+
+		<aside>
+			<div id="broadcast">
+				<a href="https://js.foundation/about/donate" title="Support the JS Foundation"><img src="/jquery-wp-content/themes/jquery/content/donate.png" title="Support the JS Foundation" alt="Support the JS Foundation" border="0" width="400" height="100"></a>
+			</div>
+		</aside>
+	</div>
+
+	<nav id="main" class="constrain clearfix">
+		<div class="menu-top-container">
+	<ul id="menu-top" class="menu">
+<li class="menu-item"><a href="https://learn.jquery.com">Home</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/about/">About</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/contributing/">Contributing</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/style-guide/">Style Guide</a></li>
+	</ul>
+</div>
+
+		<form method="get" class="searchform" action="//learn.jquery.com/">
+	<button type="submit" class="icon-search"><span class="visuallyhidden">search</span></button>
+	<label>
+		<span class="visuallyhidden">Search jQuery Learning Center</span>
+		<input type="text" name="s" value=""
+			placeholder="Search">
+	</label>
+</form>
+	</nav>
+
+	<div id="content-wrapper" class="clearfix row">
+
+<div class="beta-ribbon-wrapper"><div class="beta-ribbon"><a href="/about/#beta">Beta</a></div></div>
+<div class="content-right twelve columns">
+	<div id="content">
+		<div class="post-heirarchy">Posted in: <a href="https://learn.jquery.com/effects/">Effects</a></div><article id="post-77" class="post-77 page type-page status-publish hentry">
+	<header class="entry-header">
+		<h1 class="entry-title">Introduction to Effects</h1>
+	</header>
+
+	<div class="entry-content">
+		<h2 class="toc-linked"><a href="#showing-and-hiding-content" id="showing-and-hiding-content" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Showing and Hiding Content</h2><p>jQuery can show or hide content instantaneously with <code>.show()</code> or <code>.hide()</code>:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Instantaneously hide all paragraphs</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;p&quot;</span> ).hide();</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Instantaneously show all divs that have the hidden style class</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;div.hidden&quot;</span> ).show();</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>When jQuery hides an element, it sets its CSS <code>display</code> property to <code>none</code>. This means the content will have zero width and height; it does not mean that the content will simply become transparent and leave an empty area on the page.</p>
+<p>jQuery can also show or hide content by means of animation effects. You can tell <code>.show()</code> and <code>.hide()</code> to use animation in a couple of ways. One is to pass in an argument of <code>&apos;slow&apos;</code>, <code>&apos;normal&apos;</code>, or <code>&apos;fast&apos;</code>:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Slowly hide all paragraphs</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;p&quot;</span> ).hide( <span class="string">&quot;slow&quot;</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Quickly show all divs that have the hidden style class</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;div.hidden&quot;</span> ).show( <span class="string">&quot;fast&quot;</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>If you prefer more direct control over the duration of the animation effect, you can pass the desired duration in milliseconds to <code>.show()</code> and <code>.hide()</code>:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Hide all paragraphs over half a second</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;p&quot;</span> ).hide( <span class="number">500</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Show all divs that have the hidden style class over 1.25 seconds</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;div.hidden&quot;</span> ).show( <span class="number">1250</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Most developers pass in a number of milliseconds to have more precise control over the duration.</p>
+<h2 class="toc-linked"><a href="#fade-and-slide-animations" id="fade-and-slide-animations" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Fade and Slide Animations</h2><p>You may have noticed that <code>.show()</code> and <code>.hide()</code> use a combination of slide and fade effects when showing and hiding content in an animated way. If you would rather show or hide content with one effect or the other, there are additional methods that can help. <code>.slideDown()</code> and <code>.slideUp()</code> show and hide content, respectively, using only a slide effect. Slide animations are accomplished by rapidly making changes to an element&apos;s CSS <code>height</code> property.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Hide all paragraphs using a slide up animation over 0.8 seconds</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;p&quot;</span> ).slideUp( <span class="number">800</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Show all hidden divs using a slide down animation over 0.6 seconds</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;div.hidden&quot;</span> ).slideDown( <span class="number">600</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Similarly <code>.fadeIn()</code> and <code>.fadeOut()</code> show and hide content, respectively, by means of a fade animation. Fade animations involve rapidly making changes to an element&apos;s CSS <code>opacity</code> property.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Hide all paragraphs using a fade out animation over 1.5 seconds</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;p&quot;</span> ).fadeOut( <span class="number">1500</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Show all hidden divs using a fade in animation over 0.75 seconds</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;div.hidden&quot;</span> ).fadeIn( <span class="number">750</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<h2 class="toc-linked"><a href="#changing-display-based-on-current-visibility-state" id="changing-display-based-on-current-visibility-state" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Changing Display Based on Current Visibility State</h2><p>jQuery can also let you change a content&apos;s visibility based on its current visibility state. <code>.toggle()</code> will show content that is currently hidden and hide content that is currently visible. You can pass the same arguments to <code>.toggle()</code> as you pass to any of the effects methods above.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Instantaneously toggle the display of all paragraphs</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;p&quot;</span> ).toggle();</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Slowly toggle the display of all images</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;img&quot;</span> ).toggle( <span class="string">&quot;slow&quot;</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Toggle the display of all divs over 1.8 seconds</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;div&quot;</span> ).toggle( <span class="number">1800</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p><code>.toggle()</code> will use a combination of slide and fade effects, just as <code>.show()</code> and <code>.hide()</code> do. You can toggle the display of content with just a slide or a fade using <code>.slideToggle()</code> and <code>.fadeToggle()</code>.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Toggle the display of all ordered lists over 1 second using slide up/down animations</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;ol&quot;</span> ).slideToggle( <span class="number">1000</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Toggle the display of all blockquotes over 0.4 seconds using fade in/out animations</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;blockquote&quot;</span> ).fadeToggle( <span class="number">400</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<h2 class="toc-linked"><a href="#doing-something-after-an-animation-completes" id="doing-something-after-an-animation-completes" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Doing Something After an Animation Completes</h2><p>A common mistake when implementing jQuery effects is assuming that the execution of the next method in your chain will wait until the animation runs to completion.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Fade in all hidden paragraphs; then add a style class to them (not quite right)</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;p.hidden&quot;</span> ).fadeIn( <span class="number">750</span> ).addClass( <span class="string">&quot;lookAtMe&quot;</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>It is important to realize that <code>.fadeIn()</code> above only <em>kicks off</em> the animation. Once started, the animation is implemented by rapidly changing CSS properties in a JavaScript <code>setInterval()</code> loop. When you call <code>.fadeIn()</code>, it starts the animation loop and then returns the jQuery object, passing it along to <code>.addClass()</code> which will then add the <code>lookAtMe</code> style class while the animation loop is just getting started.</p>
+<p>To defer an action until after an animation has run to completion, you need to use an animation callback function. You can specify your animation callback as the second argument passed to any of the animation methods discussed above. For the code snippet above, we can implement a callback as follows:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Fade in all hidden paragraphs; then add a style class to them (correct with animation callback)</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;p.hidden&quot;</span> ).fadeIn( <span class="number">750</span>, <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>    <span class="comment">// this = DOM element which has just finished being animated</span></code></div></div><div class="container"><div class="line"><code>    $( <span class="keyword">this</span> ).addClass( <span class="string">&quot;lookAtMe&quot;</span> );</code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Note that you can use the keyword <code>this</code> to refer to the DOM element being animated. Also note that the callback will be called for each element in the jQuery object. This means that if your selector returns no elements, your animation callback will never run! You can solve this problem by testing whether your selection returned any elements; if not, you can just run the callback immediately.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Run a callback even if there were no elements to animate</span></code></div></div><div class="container"><div class="line"><code><span class="keyword">var</span> someElement = $( <span class="string">&quot;#nonexistent&quot;</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="keyword">var</span> cb = <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>    console.log( <span class="string">&quot;done!&quot;</span> );</code></div></div><div class="container"><div class="line"><code>};</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="keyword">if</span> ( someElement.length ) {</code></div></div><div class="container"><div class="line"><code>    someElement.fadeIn( <span class="number">300</span>, cb );</code></div></div><div class="container"><div class="line"><code>} <span class="keyword">else</span> {</code></div></div><div class="container"><div class="line"><code>    cb();</code></div></div><div class="container"><div class="line"><code>}</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<h2 class="toc-linked"><a href="#managing-animation-effects" id="managing-animation-effects" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Managing Animation Effects</h2><p>jQuery provides some additional features for controlling your animations:</p>
+<h3 class="toc-linked"><a href="#stop-" id="stop-" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> <code>.stop()</code></h3><p><code>.stop()</code> will immediately terminate all animations running on the elements in your selection. You might give end-users control over page animations by rigging a button they can click to stop the animations.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Create a button to stop all animations on the page:</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;&lt;button type=&apos;button&apos;&gt;&lt;/button&gt;&quot;</span> )</code></div></div><div class="container"><div class="line"><code>    .text( <span class="string">&quot;Stop All Animations&quot;</span> )</code></div></div><div class="container"><div class="line"><code>    .on( <span class="string">&quot;click&quot;</span>, <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>        $( <span class="string">&quot;body *&quot;</span> ).filter( <span class="string">&quot;:animated&quot;</span> ).stop();</code></div></div><div class="container"><div class="line"><code>    })</code></div></div><div class="container"><div class="line"><code>    .appendTo( document.body );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<h3 class="toc-linked"><a href="#delay-" id="delay-" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> <code>.delay()</code></h3><p><code>.delay()</code> is used to introduce a delay between successive animations. For example:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="comment">// Hide all level 1 headings over half a second; then wait for 1.5 seconds</span></code></div></div><div class="container"><div class="line"><code><span class="comment">// and reveal all level 1 headings over 0.3 seconds</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;h1&quot;</span> ).hide( <span class="number">500</span> ).delay( <span class="number">1500</span> ).show( <span class="number">300</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<h3 class="toc-linked"><a href="#jquery-fx" id="jquery-fx" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> <code>jQuery.fx</code></h3><p>The <code>jQuery.fx</code> object has a number of properties that control how effects are implemented. <code>jQuery.fx.speeds</code> maps the <code>slow</code>, <code>normal</code>, and <code>fast</code> duration arguments mentioned above to a specific number of milliseconds. The default value of <code>jQuery.fx.speeds</code> is:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>{</code></div></div><div class="container"><div class="line"><code>    slow: <span class="number">600</span>,</code></div></div><div class="container"><div class="line"><code>    fast: <span class="number">200</span>,</code></div></div><div class="container"><div class="line"><code>    _<span class="keyword">default</span>: <span class="number">400</span> <span class="comment">// Default speed, used for &quot;normal&quot;</span></code></div></div><div class="container"><div class="line"><code>}</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>You can modify any of these settings and even introduce some of your own:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>jQuery.fx.speeds.fast = <span class="number">300</span>;</code></div></div><div class="container"><div class="line"><code>jQuery.fx.speeds.blazing = <span class="number">100</span>;</code></div></div><div class="container"><div class="line"><code>jQuery.fx.speeds.excruciating = <span class="number">60000</span>;</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p><code>jQuery.fx.interval</code> controls the number of frames per second that is displayed in an animation. The default value is 13 milliseconds between successive frames. You can set this to a lower value for faster browsers to make the animations run smoother. However this will mean more frames per second and thus a higher computational load for the browser, so you should be sure to test the performance implications of doing so thoroughly.</p>
+<p>Finally, <code>jQuery.fx.off</code> can be set to true to disable all animations. Elements will immediately be set to the target final state instead. This can be especially useful when dealing with older browsers; you also may want to provide the option to disable all animations to your users.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">&quot;&lt;button type=&apos;button&apos;&gt;&lt;/button&gt;&quot;</span> )</code></div></div><div class="container"><div class="line"><code>    .text( <span class="string">&quot;Disable Animations&quot;</span> )</code></div></div><div class="container"><div class="line"><code>    .on( <span class="string">&quot;click&quot;</span>, <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>        jQuery.fx.off = <span class="literal">true</span>;</code></div></div><div class="container"><div class="line"><code>    })</code></div></div><div class="container"><div class="line"><code>    .appendTo( document.body );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>					</div>
+
+	<div class="entry-meta row">
+				<div class="bottom-links row">
+							<div class="prev six columns">
+					<a href="https://learn.jquery.com/effects/">
+					<i class="icon-chevron-left"></i>
+					Effects					</a>
+				</div>
+										<div class="next six columns">
+					<a href="https://learn.jquery.com/effects/custom-effects/">
+					Custom Effects with .animate()					<i class="icon-chevron-right"></i>
+					</a>
+				</div>
+					</div>
+		
+		<aside class="meta-details six columns">
+			<h3>Last Updated</h3>
+			<ul>
+				<li class="icon-calendar icon-large" title="Last Updated"><span>December 17, 2015</span></li>
+			</ul>
+		</aside>
+		<aside class="github-feedback six columns">
+			<h3>Suggestions, Problems, Feedback?</h3>
+			<a class="button dark" href="https://github.com/jquery/learn.jquery.com/tree/master/page/effects/intro-to-effects.md"><i class="icon-github"></i> Open an Issue or Submit a Pull Request on GitHub</a>
+		</aside>
+
+	</div>
+</article>
+	</div>
+
+	<div id="sidebar" class="widget-area" role="complementary">
+		
+		<aside id="chapter-listing" class="widget">
+			<h3 class="widget-title">Chapters</h3>
+			<ul>
+																		<li >
+						<a href="//learn.jquery.com/about-jquery/">
+															<i class="icon-certificate"></i>
+														About jQuery						</a>
+																																																																									</li>
+														<li >
+						<a href="//learn.jquery.com/using-jquery-core/">
+															<i class="icon-star-empty"></i>
+														Using jQuery Core						</a>
+																																																																																																																																																																																																																																																																																										<ul class="sub-chapter">
+																																																																																																																																																																																																																																																																																	<li >
+										<a href="//learn.jquery.com/using-jquery-core/faq/">
+											Frequently Asked Questions										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/events/">
+															<i class="icon-tasks"></i>
+														Events						</a>
+																																																																																																																																																																																																	</li>
+														<li class='active'>
+						<a href="//learn.jquery.com/effects/">
+															<i class="icon-picture"></i>
+														Effects						</a>
+																																																																																								</li>
+														<li >
+						<a href="//learn.jquery.com/ajax/">
+															<i class="icon-refresh"></i>
+														Ajax						</a>
+																																																																																																																						</li>
+														<li >
+						<a href="//learn.jquery.com/plugins/">
+															<i class="icon-bolt"></i>
+														Plugins						</a>
+																																																																																																							</li>
+														<li >
+						<a href="//learn.jquery.com/performance/">
+															<i class="icon-dashboard"></i>
+														Performance						</a>
+																																																																																																																																																				</li>
+														<li >
+						<a href="//learn.jquery.com/code-organization/">
+															<i class="icon-sitemap"></i>
+														Code Organization						</a>
+																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/code-organization/deferreds/">
+											Deferreds										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-ui/">
+															<i class="icon-magnet"></i>
+														jQuery UI						</a>
+																																																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/jquery-ui/widget-factory/">
+											Widget Factory										</a>
+									</li>
+																																												<li >
+										<a href="//learn.jquery.com/jquery-ui/environments/">
+											Using jQuery UI										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-mobile/">
+															<i class="icon-th-large"></i>
+														jQuery Mobile						</a>
+																																																																									</li>
+							</ul>
+		</aside>
+
+
+	</div><!-- #sidebar .widget-area -->
+</div>
+
+	</div>
+</div>
+
+<footer class="clearfix simple">
+	<div class="constrain">
+		<div class="row">
+			<div class="six columns offset-by-three">
+				<h3><span>Books</span></h3>
+				<ul class="books">
+					<li>
+						<a href="https://www.packtpub.com/web-development/learning-jquery-fourth-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/learning-jquery-4th-ed.jpg" alt="Learning jQuery 4th Edition by Karl Swedberg and Jonathan Chaffer" width="92" height="114">
+							Learning jQuery Fourth Edition
+							<cite>Karl Swedberg and Jonathan Chaffer</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.manning.com/books/jquery-in-action-third-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-in-action.jpg" alt="jQuery in Action by Bear Bibeault, Yehuda Katz, and Aurelio De Rosa" width="92" height="114">
+							jQuery in Action
+							<cite>Bear Bibeault, Yehuda Katz, and Aurelio De Rosa</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.syncfusion.com/ebooks/jquery">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-succinctly.jpg" alt="jQuery Succinctly by Cody Lindley" width="92" height="114">
+							jQuery Succinctly
+							<cite>Cody Lindley</cite>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		
+<div id="legal">
+	<ul class="footer-site-links">
+			<li><a class="icon-pencil" href="https://learn.jquery.com/">Learning Center</a></li>
+			<li><a class="icon-group" href="https://forum.jquery.com/">Forum</a></li>
+			<li><a class="icon-wrench" href="https://api.jquery.com/">API</a></li>
+			<li><a class="icon-twitter" href="https://twitter.com/jquery">Twitter</a></li>
+			<li><a class="icon-comments" href="https://irc.jquery.org/">IRC</a></li>
+			<li><a class="icon-github" href="https://github.com/jquery">GitHub</a></li>
+	</ul>
+	<p class="copyright">
+		Copyright 2021 <a href="https://openjsf.org/">OpenJS Foundation</a> and jQuery contributors. All rights reserved. See <a href="https://jquery.org/license/">jQuery License</a> for more information. The <a href="https://openjsf.org/">OpenJS Foundation</a> has registered trademarks and uses trademarks. For a list of trademarks of the <a href="https://openjsf.org/">OpenJS Foundation</a>, please see our <a href="https://trademark-policy.openjsf.org/">Trademark Policy</a> and <a href="https://trademark-list.openjsf.org/">Trademark List</a>. Trademarks and logos not indicated on the <a href="https://trademark-list.openjsf.org/">list of OpenJS Foundation trademarks</a> are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them. OpenJS Foundation <a href="https://terms-of-use.openjsf.org/">Terms of Use</a>, <a href="https://privacy-policy.openjsf.org/">Privacy</a>, and <a href="https://www.linuxfoundation.org/cookies">Cookie</a> Policies also apply.
+		<span class="sponsor-line"><a href="https://www.digitalocean.com" class="do-link">Web hosting by Digital Ocean</a> | <a href="https://www.stackpath.com" class="sp-link">CDN by StackPath</a></span>
+	</p>
+</div>
+
+	</div>
+</footer>
+
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/comment-reply.min.js?ver=4.5.2'></script>
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/wp-embed.min.js?ver=4.5.2'></script>
+	<!-- at the end of the BODY -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"  onload="document.querySelector('input[name=\'s\']') && docsearch({apiKey: '3cfde9aca378c8aab554d5bf1b23489b',
+		indexName: 'jquery',
+		inputSelector: 'input[name=\'s\']',
+		debug: true // Set debug to true if you want to inspect the dropdown
+	})" async></script>
+</body>
+</html>

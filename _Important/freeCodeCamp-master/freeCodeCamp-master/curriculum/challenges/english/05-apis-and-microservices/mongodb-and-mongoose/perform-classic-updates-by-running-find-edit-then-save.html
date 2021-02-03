@@ -1,0 +1,33 @@
+<h1 id="description">–description–</h1>
+<p>In the good old days, this was what you needed to do if you wanted to edit a document, and be able to use it somehow (e.g. sending it back in a server response). Mongoose has a dedicated updating method: <code>Model.update()</code>. It is bound to the low-level mongo driver. It can bulk-edit many documents matching certain criteria, but it doesn’t send back the updated document, only a ‘status’ message. Furthermore, it makes model validations difficult, because it just directly calls the mongo driver.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Modify the <code>findEditThenSave</code> function to find a person by <code>_id</code> (use any of the above methods) with the parameter <code>personId</code> as search key. Add <code>"hamburger"</code> to the list of the person’s <code>favoriteFoods</code> (you can use <code>Array.push()</code>). Then - inside the find callback - <code>save()</code> the updated <code>Person</code>.</p>
+<p><strong>Note:</strong> This may be tricky, if in your Schema, you declared <code>favoriteFoods</code> as an Array, without specifying the type (i.e. <code>[String]</code>). In that case, <code>favoriteFoods</code> defaults to Mixed type, and you have to manually mark it as edited using <code>document.markModified('edited-field')</code>. See <a href="https://mongoosejs.com/docs/schematypes.html#Mixed">Mongoose documentation</a></p>
+<h1 id="hints">–hints–</h1>
+<p>Find-edit-update an item should succeed</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="va">$</span>.<span class="at">post</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/find-edit-save&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;Poldo&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="dt">age</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-5" title="5">    <span class="dt">favoriteFoods</span><span class="op">:</span> [<span class="st">&#39;spaghetti&#39;</span>]</a>
+<a class="sourceLine" id="cb1-6" title="6">  <span class="op">}</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb1-7" title="7">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-8" title="8">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">name</span><span class="op">,</span> <span class="st">&#39;Poldo&#39;</span><span class="op">,</span> <span class="st">&#39;item.name is not what is expected&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-9" title="9">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">age</span><span class="op">,</span> <span class="dv">40</span><span class="op">,</span> <span class="st">&#39;item.age is not what expected&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-10" title="10">      <span class="va">assert</span>.<span class="at">deepEqual</span>(</a>
+<a class="sourceLine" id="cb1-11" title="11">        <span class="va">data</span>.<span class="at">favoriteFoods</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-12" title="12">        [<span class="st">&#39;spaghetti&#39;</span><span class="op">,</span> <span class="st">&#39;hamburger&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-13" title="13">        <span class="st">&#39;item.favoriteFoods is not what expected&#39;</span></a>
+<a class="sourceLine" id="cb1-14" title="14">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-15" title="15">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">__v</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="st">&#39;The item should be previously edited&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-16" title="16">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb1-17" title="17">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-18" title="18">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-19" title="19">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-20" title="20">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">*/</span></a></code></pre></div>

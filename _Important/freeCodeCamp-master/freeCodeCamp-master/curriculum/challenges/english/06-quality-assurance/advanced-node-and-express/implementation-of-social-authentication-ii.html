@@ -1,0 +1,81 @@
+<h1 id="description">–description–</h1>
+<p>The last part of setting up your GitHub authentication is to create the strategy itself. For this, you will need to add the dependency of ‘passport-github’ to your project and require it in your <code>auth.js</code> as <code>GithubStrategy</code> like this: <code>const GitHubStrategy = require('passport-github').Strategy;</code>. Do not forget to require and configure <code>dotenv</code> to use your environment variables.</p>
+<p>To set up the GitHub strategy, you have to tell Passport to use an instantiated <code>GitHubStrategy</code>, which accepts 2 arguments: an object (containing <code>clientID</code>, <code>clientSecret</code>, and <code>callbackURL</code>) and a function to be called when a user is successfully authenticated, which will determine if the user is new and what fields to save initially in the user’s database object. This is common across many strategies, but some may require more information as outlined in that specific strategy’s GitHub README. For example, Google requires a <em>scope</em> as well which determines what kind of information your request is asking to be returned and asks the user to approve such access. The current strategy we are implementing has its usage outlined <a href="https://github.com/jaredhanson/passport-github/">here</a>, but we’re going through it all right here on freeCodeCamp!</p>
+<p>Here’s how your new strategy should look at this point:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">passport</span>.<span class="at">use</span>(<span class="kw">new</span> <span class="at">GitHubStrategy</span>(<span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="dt">clientID</span><span class="op">:</span> <span class="va">process</span>.<span class="va">env</span>.<span class="at">GITHUB_CLIENT_ID</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="dt">clientSecret</span><span class="op">:</span> <span class="va">process</span>.<span class="va">env</span>.<span class="at">GITHUB_CLIENT_SECRET</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-4" title="4">  <span class="dt">callbackURL</span><span class="op">:</span> <span class="co">/*INSERT CALLBACK URL ENTERED INTO GITHUB HERE*/</span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="op">},</span></a>
+<a class="sourceLine" id="cb1-6" title="6">  <span class="kw">function</span>(accessToken<span class="op">,</span> refreshToken<span class="op">,</span> profile<span class="op">,</span> cb) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-7" title="7">    <span class="va">console</span>.<span class="at">log</span>(profile)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">    <span class="co">//Database logic here with callback containing our user object</span></a>
+<a class="sourceLine" id="cb1-9" title="9">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-10" title="10">))<span class="op">;</span></a></code></pre></div>
+<p>Your authentication won’t be successful yet, and it will actually throw an error without the database logic and callback, but it should log your GitHub profile to your console if you try it!</p>
+<p>Submit your page when you think you’ve got it right. If you’re running into errors, you can check out the project completed up to this point <a href="https://gist.github.com/camperbot/ff3a1166684c1b184709ac0bee30dee6">here</a>.</p>
+<h1 id="hints">–hints–</h1>
+<p>passport-github dependency should be added.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/package.json&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="kw">var</span> packJson <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(data)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      <span class="va">assert</span>.<span class="at">property</span>(</a>
+<a class="sourceLine" id="cb2-6" title="6">        <span class="va">packJson</span>.<span class="at">dependencies</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-7" title="7">        <span class="st">&#39;passport-github&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-8" title="8">        <span class="st">&#39;Your project should list &quot;passport-github&quot; as a dependency&#39;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-10" title="10">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-11" title="11">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-12" title="12">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-13" title="13">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-14" title="14">  )<span class="op">;</span></a></code></pre></div>
+<p>passport-github should be required.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/auth.js&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb3-5" title="5">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-6" title="6">        <span class="ss">/require.</span><span class="sc">*(</span><span class="ss">&quot;</span><span class="sc">|</span><span class="ss">&#39;</span><span class="sc">)</span><span class="ss">passport-github</span><span class="sc">(</span><span class="ss">&quot;</span><span class="sc">|</span><span class="ss">&#39;</span><span class="sc">)</span><span class="ss">/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">        <span class="st">&#39;You should have required passport-github&#39;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<p>GitHub strategy should be setup correctly thus far.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/auth.js&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb4-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-4" title="4">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb4-5" title="5">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-6" title="6">        <span class="ss">/passport</span><span class="sc">\.</span><span class="ss">use.</span><span class="sc">*</span><span class="ss">new GitHubStrategy/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-7" title="7">        <span class="st">&#39;Passport should use a new GitHubStrategy&#39;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb4-10" title="10">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-11" title="11">        <span class="ss">/callbackURL:</span><span class="sc">\s*(</span><span class="ss">&quot;</span><span class="sc">|</span><span class="ss">&#39;</span><span class="sc">)</span><span class="ss">.</span><span class="sc">*(</span><span class="ss">&quot;</span><span class="sc">|</span><span class="ss">&#39;</span><span class="sc">)</span><span class="ss">/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-12" title="12">        <span class="st">&#39;You should have a callbackURL&#39;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-14" title="14">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb4-15" title="15">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-16" title="16">        <span class="ss">/process.env.GITHUB_CLIENT_SECRET/g</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-17" title="17">        <span class="st">&#39;You should use process.env.GITHUB_CLIENT_SECRET&#39;</span></a>
+<a class="sourceLine" id="cb4-18" title="18">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-19" title="19">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb4-20" title="20">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-21" title="21">        <span class="ss">/process.env.GITHUB_CLIENT_ID/g</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-22" title="22">        <span class="st">&#39;You should use process.env.GITHUB_CLIENT_ID&#39;</span></a>
+<a class="sourceLine" id="cb4-23" title="23">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-24" title="24">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb4-25" title="25">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-26" title="26">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-27" title="27">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-28" title="28">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">*/</span></a></code></pre></div>

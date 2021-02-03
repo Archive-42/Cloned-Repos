@@ -1,0 +1,60 @@
+<h1 id="description">–description–</h1>
+<p>Given a date string in EST, output the given date as a string with 12 hours added to the time. Time zone should be preserved.</p>
+<p>Example input: <code>"March 6 2009 7:30pm EST"</code></p>
+<p>Example output: <code>"March 7 2009 7:30am EST"</code></p>
+<h1 id="hints">–hints–</h1>
+<p><code>add12Hours</code> should be a function.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> add12Hours <span class="op">===</span> <span class="st">&#39;function&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>add12Hours(dateString)</code> should return a string.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">add12Hours</span>(<span class="st">&#39;January 17 2017 11:43am EST&#39;</span>) <span class="op">===</span> <span class="st">&#39;string&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>add12Hours("January 17 2017 11:43am EST")</code> should return <code>"January 17 2017 11:43pm EST"</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="at">add12Hours</span>(<span class="st">&#39;January 17 2017 11:43am EST&#39;</span>) <span class="op">===</span> <span class="st">&#39;January 17 2017 11:43pm EST&#39;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">)<span class="op">;</span></a></code></pre></div>
+<p>Should handle day change. <code>add12Hours("March 6 2009 7:30pm EST")</code> should return <code>"March 7 2009 7:30am EST"</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="at">add12Hours</span>(<span class="st">&#39;March 6 2009 7:30pm EST&#39;</span>) <span class="op">===</span> <span class="st">&#39;March 7 2009 7:30am EST&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Should handle month change in a leap years. <code>add12Hours("February 29 2004 9:15pm EST")</code> should return <code>"March 1 2004 9:15am EST"</code></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="at">add12Hours</span>(<span class="st">&#39;February 29 2004 9:15pm EST&#39;</span>) <span class="op">===</span> <span class="st">&#39;March 1 2004 9:15am EST&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Should handle month change in a common years. <code>add12Hours("February 28 1999 3:15pm EST")</code> should return <code>"March 1 1999 3:15am EST"</code></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(<span class="at">add12Hours</span>(<span class="st">&#39;February 28 1999 3:15pm EST&#39;</span>) <span class="op">===</span> <span class="st">&#39;March 1 1999 3:15am EST&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Should handle year change. <code>add12Hours("December 31 2020 1:45pm EST")</code> should return <code>"January 1 2021 1:45am EST"</code></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="at">add12Hours</span>(<span class="st">&#39;December 31 2020 1:45pm EST&#39;</span>) <span class="op">===</span> <span class="st">&#39;January 1 2021 1:45am EST&#39;</span></a>
+<a class="sourceLine" id="cb7-3" title="3">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">function</span> <span class="at">add12Hours</span>(dateString) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-2" title="2"></a>
+<a class="sourceLine" id="cb8-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="op">}</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">function</span> <span class="at">add12Hours</span>(dateString) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-2" title="2">  <span class="kw">const</span> months <span class="op">=</span> [<span class="st">&#39;January&#39;</span><span class="op">,</span> <span class="st">&#39;February&#39;</span><span class="op">,</span> <span class="st">&#39;March&#39;</span><span class="op">,</span> <span class="st">&#39;April&#39;</span><span class="op">,</span> <span class="st">&#39;May&#39;</span><span class="op">,</span> <span class="st">&#39;June&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb9-3" title="3">    <span class="st">&#39;July&#39;</span><span class="op">,</span> <span class="st">&#39;August&#39;</span><span class="op">,</span> <span class="st">&#39;September&#39;</span><span class="op">,</span> <span class="st">&#39;October&#39;</span><span class="op">,</span> <span class="st">&#39;November&#39;</span><span class="op">,</span> <span class="st">&#39;December&#39;</span>]<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-4" title="4">  <span class="co">// Get the parts of the string</span></a>
+<a class="sourceLine" id="cb9-5" title="5">  <span class="kw">const</span> parts <span class="op">=</span> <span class="va">dateString</span>.<span class="at">split</span>(<span class="st">&#39; &#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-6" title="6">  <span class="kw">const</span> month <span class="op">=</span> <span class="va">months</span>.<span class="at">indexOf</span>(parts[<span class="dv">0</span>])<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-7" title="7">  <span class="kw">const</span> day <span class="op">=</span> <span class="at">parseInt</span>(parts[<span class="dv">1</span>]<span class="op">,</span> <span class="dv">10</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-8" title="8">  <span class="kw">const</span> year <span class="op">=</span> <span class="at">parseInt</span>(parts[<span class="dv">2</span>]<span class="op">,</span> <span class="dv">10</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-9" title="9">  <span class="kw">const</span> time <span class="op">=</span> parts[<span class="dv">3</span>].<span class="at">split</span>(<span class="st">&#39;:&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-10" title="10">  <span class="kw">let</span> hours <span class="op">=</span> <span class="at">parseInt</span>(time[<span class="dv">0</span>]<span class="op">,</span> <span class="dv">10</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-11" title="11">  <span class="cf">if</span> (time[<span class="dv">1</span>].<span class="at">slice</span>(<span class="op">-</span><span class="dv">2</span>) <span class="op">===</span> <span class="st">&#39;pm&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-12" title="12">    hours <span class="op">+=</span> <span class="dv">12</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-13" title="13">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb9-14" title="14">  <span class="kw">const</span> minutes <span class="op">=</span> <span class="at">parseInt</span>(time[<span class="dv">1</span>].<span class="at">slice</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">-2</span>)<span class="op">,</span> <span class="dv">10</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-15" title="15"></a>
+<a class="sourceLine" id="cb9-16" title="16">  <span class="co">// Create a date with given parts, and updated hours</span></a>
+<a class="sourceLine" id="cb9-17" title="17">  <span class="kw">const</span> date <span class="op">=</span> <span class="kw">new</span> <span class="at">Date</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-18" title="18">  <span class="va">date</span>.<span class="at">setFullYear</span>(year<span class="op">,</span> month<span class="op">,</span> day)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-19" title="19">  <span class="va">date</span>.<span class="at">setHours</span>(hours <span class="op">+</span> <span class="dv">12</span>)<span class="op">;</span>  <span class="co">// Add 12 hours</span></a>
+<a class="sourceLine" id="cb9-20" title="20">  <span class="va">date</span>.<span class="at">setMinutes</span>(minutes)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-21" title="21"></a>
+<a class="sourceLine" id="cb9-22" title="22">  <span class="kw">let</span> hoursOutput <span class="op">=</span> <span class="va">date</span>.<span class="at">getHours</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-23" title="23">  <span class="kw">let</span> abbreviation <span class="op">=</span> <span class="st">&#39;am&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-24" title="24">  <span class="cf">if</span> (hoursOutput <span class="op">&gt;</span> <span class="dv">12</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-25" title="25">    hoursOutput <span class="op">-=</span> <span class="dv">12</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-26" title="26">    abbreviation <span class="op">=</span> <span class="st">&#39;pm&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-27" title="27">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb9-28" title="28"></a>
+<a class="sourceLine" id="cb9-29" title="29">  <span class="cf">return</span> <span class="vs">`</span><span class="sc">${</span>months[<span class="va">date</span>.<span class="at">getMonth</span>()]<span class="sc">}</span><span class="vs"> </span><span class="sc">${</span><span class="va">date</span>.<span class="at">getDate</span>()<span class="sc">}</span><span class="vs"> </span><span class="sc">${</span><span class="va">date</span>.<span class="at">getFullYear</span>()<span class="sc">}</span><span class="vs"> </span><span class="sc">${</span>hoursOutput<span class="sc">}</span><span class="vs">:</span><span class="sc">${</span><span class="va">date</span>.<span class="at">getMinutes</span>()<span class="sc">}${</span>abbreviation<span class="sc">}</span><span class="vs"> EST`</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-30" title="30"><span class="op">}</span></a></code></pre></div>

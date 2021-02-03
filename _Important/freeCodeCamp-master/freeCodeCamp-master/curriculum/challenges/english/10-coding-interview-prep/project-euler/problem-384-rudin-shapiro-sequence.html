@@ -1,0 +1,23 @@
+<h1 id="description">–description–</h1>
+<p>Define the sequence a(n) as the number of adjacent pairs of ones in the binary expansion of n (possibly overlapping).</p>
+<p>E.g.: a(5) = a(1012) = 0, a(6) = a(1102) = 1, a(7) = a(1112) = 2</p>
+<p>Define the sequence b(n) = (-1)a(n). This sequence is called the Rudin-Shapiro sequence. Also consider the summatory sequence of b(n): .</p>
+<p>The first couple of values of these sequences are: n 0 1 2 3 4 5 6 7 a(n) 0 0 0 1 0 0 1 2 b(n) 1 1 1 -1 1 1 -1 1 s(n) 1 2 3 2 3 4 3 4</p>
+<p>The sequence s(n) has the remarkable property that all elements are positive and every positive integer k occurs exactly k times.</p>
+<p>Define g(t,c), with 1 ≤ c ≤ t, as the index in s(n) for which t occurs for the c’th time in s(n). E.g.: g(3,3) = 6, g(4,2) = 7 and g(54321,12345) = 1220847710.</p>
+<p>Let F(n) be the fibonacci sequence defined by: F(0)=F(1)=1 and F(n)=F(n-1)+F(n-2) for n&gt;1.</p>
+<p>Define GF(t)=g(F(t),F(t-1)).</p>
+<p>Find ΣGF(t) for 2≤t≤45.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>euler384()</code> should return 3354706415856333000.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">euler384</span>()<span class="op">,</span> <span class="dv">3354706415856333000</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">function</span> <span class="at">euler384</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb2-5" title="5"></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="at">euler384</span>()<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">// solution required</span></a></code></pre></div>

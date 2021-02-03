@@ -1,0 +1,34 @@
+- name:        Bootstrap Navbar Dropdowns
+  link:        http://fontenele.github.io/bootstrap-navbar-dropdowns/
+  description: Bootstrap 4 Navbar with multiple dropdowns.
+  supports:    bs4
+
+- name:        Bootstrap Tree View
+  link:        http://jonmiles.github.io/bootstrap-treeview/
+  description: Tree View for Bootstrap
+  supports:    bs3
+
+- name:        Bootstrap Context Menu
+  link:        https://dgoguerra.github.io/bootstrap-menu/
+  description: A context menu plugin using Bootstrap's dropdown component.
+  supports:    bs3
+
+- name:        Bootpag
+  link:        http://botmonster.com/jquery-bootpag/
+  description: A dynamic pagination jQuery plugin that works well with Bootstrap.
+  supports:    bs3
+
+- name:        Bootstrap Submenu
+  link:        https://vsn4ik.github.io/bootstrap-submenu/
+  description: Extense the Bootstrap dropdown to add support for submenus.
+  supports:    bs3
+
+- name:        Bootstrap Dropmenu
+  link:        https://skywalkapps.github.io/bootstrap-dropmenu/
+  description: Dropmenu is a set of extensions, which enhances Bootstrap dropdown component.
+  supports:    bs3
+
+- name:        Hierarchy Select
+  link:        https://neofusion.github.io/hierarchy-select/
+  description: Dropmenu menus with live search and hierarchy.
+  supports:    bs3

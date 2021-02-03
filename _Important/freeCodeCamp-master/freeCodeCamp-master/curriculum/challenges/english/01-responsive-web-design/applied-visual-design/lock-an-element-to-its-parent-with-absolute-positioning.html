@@ -1,0 +1,55 @@
+<h1 id="description">–description–</h1>
+<p>The next option for the CSS <code>position</code> property is <code>absolute</code>, which locks the element in place relative to its parent container. Unlike the <code>relative</code> position, this removes the element from the normal flow of the document, so surrounding items ignore it. The CSS offset properties (top or bottom and left or right) are used to adjust the position.</p>
+<p>One nuance with absolute positioning is that it will be locked relative to its closest <em>positioned</em> ancestor. If you forget to add a position rule to the parent item, (this is typically done using <code>position: relative;</code>), the browser will keep looking up the chain and ultimately default to the body tag.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Lock the <code>#searchbar</code> element to the top-right of its <code>section</code> parent by declaring its <code>position</code> as <code>absolute</code>. Give it <code>top</code> and <code>right</code> offsets of 50 pixels each.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>#searchbar</code> element should have a <code>position</code> set to <code>absolute</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;#searchbar&#39;</span>).<span class="at">css</span>(<span class="st">&#39;position&#39;</span>) <span class="op">==</span> <span class="st">&#39;absolute&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your code should use the <code>top</code> CSS offset of 50 pixels on the <code>#searchbar</code> element.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;#searchbar&#39;</span>).<span class="at">css</span>(<span class="st">&#39;top&#39;</span>) <span class="op">==</span> <span class="st">&#39;50px&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your code should use the <code>right</code> CSS offset of 50 pixels on the <code>#searchbar</code> element.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;#searchbar&#39;</span>).<span class="at">css</span>(<span class="st">&#39;right&#39;</span>) <span class="op">==</span> <span class="st">&#39;50px&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="pp">#searchbar</span> {</a>
+<a class="sourceLine" id="cb4-3" title="3"></a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5"></a>
+<a class="sourceLine" id="cb4-6" title="6">  }</a>
+<a class="sourceLine" id="cb4-7" title="7">  section {</a>
+<a class="sourceLine" id="cb4-8" title="8">    <span class="kw">position</span>: <span class="dv">relative</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">  }</a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">  <span class="kw">&lt;h1&gt;</span>Welcome!<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">  <span class="kw">&lt;section&gt;</span></a>
+<a class="sourceLine" id="cb4-14" title="14">    <span class="kw">&lt;form</span><span class="ot"> id=</span><span class="st">&quot;searchbar&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-15" title="15">      <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;search&quot;</span><span class="kw">&gt;</span>Search:<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb4-16" title="16">      <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;search&quot;</span><span class="ot"> id=</span><span class="st">&quot;search&quot;</span><span class="ot"> name=</span><span class="st">&quot;search&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-17" title="17">      <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="ot"> name=</span><span class="st">&quot;submit&quot;</span><span class="ot"> value=</span><span class="st">&quot;Go!&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-18" title="18">    <span class="kw">&lt;/form&gt;</span></a>
+<a class="sourceLine" id="cb4-19" title="19">  <span class="kw">&lt;/section&gt;</span></a>
+<a class="sourceLine" id="cb4-20" title="20"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="pp">#searchbar</span> {</a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">position</span>: <span class="dv">absolute</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">top</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">    <span class="kw">right</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">  }</a>
+<a class="sourceLine" id="cb5-7" title="7">  section {</a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="kw">position</span>: <span class="dv">relative</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">  }</a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">  <span class="kw">&lt;h1&gt;</span>Welcome!<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb5-13" title="13">  <span class="kw">&lt;section&gt;</span></a>
+<a class="sourceLine" id="cb5-14" title="14">    <span class="kw">&lt;form</span><span class="ot"> id=</span><span class="st">&quot;searchbar&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-15" title="15">      <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;search&quot;</span><span class="kw">&gt;</span>Search:<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb5-16" title="16">      <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;search&quot;</span><span class="ot"> id=</span><span class="st">&quot;search&quot;</span><span class="ot"> name=</span><span class="st">&quot;search&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-17" title="17">      <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="ot"> name=</span><span class="st">&quot;submit&quot;</span><span class="ot"> value=</span><span class="st">&quot;Go!&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-18" title="18">    <span class="kw">&lt;/form&gt;</span></a>
+<a class="sourceLine" id="cb5-19" title="19">  <span class="kw">&lt;/section&gt;</span></a>
+<a class="sourceLine" id="cb5-20" title="20"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>

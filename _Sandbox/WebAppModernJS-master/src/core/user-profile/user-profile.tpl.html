@@ -1,0 +1,31 @@
+<div>
+
+	<div class="row">
+
+		<div class="col-sm-3">
+		
+			<div ng-include src="'main-nav/main-nav.tpl.html'"></div>
+		
+		</div>
+		
+		<div class="col-sm-9">
+		
+			<p>Welcome to the best party-planning app around. Use the menu links on the left to start creating events and inviting your friends, or to find events happening near you.</p>
+			
+			<h2>Your Profile</h2>
+			
+			<img ng-if="user.thirdPartyUserData.profile_image_url" class="user-photo" ng-src="{{ user.thirdPartyUserData.profile_image_url }}" ng-alt="Profile photo for {{ user.displayName }}">
+
+			<img ng-if="!user.thirdPartyUserData.profile_image_url" class="user-photo" src="http://placekitten.com/300/300" alt="Upload your own profile picture soon!">
+			
+			<p><b>Name:</b> {{ user.displayName }}</p>
+			
+			<p ng-if="user.thirdPartyUserData.description"><b>About:</b> {{ user.thirdPartyUserData.description }}</p>
+			
+			<p ng-if="!user.thirdPartyUserData.description"><b>About:</b> <a href="">Tell us a little about yourself.</a></p>
+			
+		</div>
+
+	</div>
+
+</div>

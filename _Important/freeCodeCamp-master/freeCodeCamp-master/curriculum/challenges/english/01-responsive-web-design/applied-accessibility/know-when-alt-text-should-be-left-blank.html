@@ -1,0 +1,40 @@
+<h1 id="description">–description–</h1>
+<p>In the last challenge, you learned that including an <code>alt</code> attribute when using <code>img</code> tags is mandatory. However, sometimes images are grouped with a caption already describing them, or are used for decoration only. In these cases <code>alt</code> text may seem redundant or unnecessary.</p>
+<p>In situations when an image is already explained with text content, or does not add meaning to a page, the <code>img</code> still needs an <code>alt</code> attribute, but it can be set to an empty string. Here’s an example:</p>
+<p><code>&lt;img src="visualDecoration.jpeg" alt=""&gt;</code></p>
+<p>Background images usually fall under the ‘decorative’ label as well. However, they are typically applied with CSS rules, and therefore not part of the markup screen readers process.</p>
+<p><strong>Note:</strong> For images with a caption, you may still want to include <code>alt</code> text, since it helps search engines catalog the content of the image.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Camper Cat has coded a skeleton page for the blog part of his website. He’s planning to add a visual break between his two articles with a decorative image of a samurai sword. Add an <code>alt</code> attribute to the <code>img</code> tag and set it to an empty string. (Note that the image <code>src</code> doesn’t link to an actual file - don’t worry that there are no swords showing in the display.)</p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>img</code> tag should have an <code>alt</code> attribute.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="op">!</span>(<span class="at">$</span>(<span class="st">&#39;img&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;alt&#39;</span>) <span class="op">==</span> <span class="kw">undefined</span>))<span class="op">;</span></a></code></pre></div>
+<p>The <code>alt</code> attribute should be set to an empty string.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;img&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;alt&#39;</span>) <span class="op">==</span> <span class="st">&#39;&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;h1&gt;</span>Deep Thoughts with Master Camper Cat<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw">&lt;article&gt;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="kw">&lt;h2&gt;</span>Defeating your Foe: the Red Dot is Ours!<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="kw">&lt;p&gt;</span>To Come...<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="kw">&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb3-6" title="6"></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;samuraiSwords.jpeg&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb3-8" title="8"></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="kw">&lt;article&gt;</span></a>
+<a class="sourceLine" id="cb3-10" title="10">  <span class="kw">&lt;h2&gt;</span>Is Chuck Norris a Cat Person?<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb3-11" title="11">  <span class="kw">&lt;p&gt;</span>To Come...<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="kw">&lt;/article&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;h1&gt;</span>Deep Thoughts with Master Camper Cat<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">&lt;article&gt;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="kw">&lt;h2&gt;</span>Defeating your Foe: the Red Dot is Ours!<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">  <span class="kw">&lt;p&gt;</span>To Come...<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="kw">&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb4-6" title="6"></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;samuraiSwords.jpeg&quot;</span><span class="ot"> alt=</span><span class="st">&quot;&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-8" title="8"></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="kw">&lt;article&gt;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">  <span class="kw">&lt;h2&gt;</span>Is Chuck Norris a Cat Person?<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">  <span class="kw">&lt;p&gt;</span>To Come...<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="kw">&lt;/article&gt;</span></a></code></pre></div>

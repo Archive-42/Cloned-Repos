@@ -1,0 +1,18 @@
+<h1 id="description">–description–</h1>
+<p><dfn>Partials</dfn> in Sass are separate files that hold segments of CSS code. These are imported and used in other Sass files. This is a great way to group similar code into a module to keep it organized.</p>
+<p>Names for partials start with the underscore (<code>_</code>) character, which tells Sass it is a small segment of CSS and not to convert it into a CSS file. Also, Sass files end with the <code>.scss</code> file extension. To bring the code in the partial into another Sass file, use the <code>@import</code> directive.</p>
+<p>For example, if all your mixins are saved in a partial named “_mixins.scss”, and they are needed in the “main.scss” file, this is how to use them in the main file:</p>
+<pre class="scss"><code>// In the main.scss file
+
+@import &#39;mixins&#39;</code></pre>
+<p>Note that the underscore and file extension are not needed in the <code>import</code> statement - Sass understands it is a partial. Once a partial is imported into a file, all variables, mixins, and other code are available to use.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Write an <code>@import</code> statement to import a partial named <code>_variables.scss</code> into the main.scss file.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should use the <code>@import</code> directive, and should not include the underscore in the file name.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/@import</span><span class="sc">\s+?(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">variables</span><span class="sc">\1</span><span class="ss">/gi</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb3-1" title="1"><span class="co">&lt;!-- The main.scss file --&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1">@import &#39;variables&#39;</a></code></pre></div>

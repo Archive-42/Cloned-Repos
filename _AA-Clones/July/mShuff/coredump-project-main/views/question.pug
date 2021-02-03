@@ -1,0 +1,77 @@
+extends layout.pug
+block content
+  br
+  br
+  div.questionContainer(data-questionid=question.id)
+    div.containerSolo.box-width
+      div.questionRow1= question.questionSubject
+      div.questionRow2
+        div.questionVotes
+          span(style="font-size: 2em; color: lightblue;")
+            i(class="question fas fa-caret-up" data-questionid=question.id)
+            p.score(data-questionid=question.id) #{score}
+          span(style="font-size: 2em; color: lightblue;")
+            i(class="question fas fa-caret-down" data-questionid=question.id)
+        div.questionTextSolo
+          span !{question.questionText} <br>
+      div.questionRow3
+        if (currentUserId === question.userId)
+          span.deleteBtn: a(href=`${question.id}/delete`) Delete
+        span.author Author: #{question.author} </br> #{question.createdAt}
+      //- Author: #{question.userId} </br> Posted: #{question.createdAt}
+    div.numAnswers
+      if answers.length === 1
+        span #{answers.length} Answer
+      else if answers.length === 0
+        span No answers for this question
+      else
+        span #{answers.length} Answers
+    div.answersContainer
+      each answer in answers
+        div.containerSolo.box-width.answerBox
+          div.questionRow2(data-answerid=answer.id)
+            div.questionVotes
+              span(style="font-size: 2em; color: lightblue;")
+                i(class="questionAnswer fas fa-caret-up" data-answerid=answer.id)
+                p.score(data-answerid=answer.id) #{answer.score}
+              span(style="font-size: 2em; color: lightblue;")
+                i(class="questionAnswer fas fa-caret-down" data-answerid=answer.id)
+            p.questionTextSolo !{answer.answerText}
+          div.questionRow3.answerRow
+            if (currentUserId === answer.userId)
+              a.deleteBtn(href=`${question.id}/answers/${answer.id}/delete`) Delete
+            span.authorAnswer Author: #{answer.author} </br> #{answer.createdAt}
+    //-   div.mceContainer2
+    //-     div.mceErrors
+    //-     div.mceBox
+    //-       form(id="testForm" class='testForm' method="post" )
+    //-         input(type='hidden' id='questionId' value=question.id)
+    //-         input(type='hidden' name='_csrf' value=csrfToken)
+    //-         textarea(id="questionText" required value=answerText)
+    //-         button(type="submit" id="postAnswer" style="display:inline-block").mceSubmit SUBMIT ANSWER
+    //- script(src="https://cdn.tiny.cloud/1/imc1fcb65bpfltbfodzejv92t1z705gvnrekj1svi9uz6bgp/tinymce/5/tinymce.min.js" referrerpolicy="origin")
+    //- each answer in answers
+    //-   div.containerSolo.box-width.answerBox
+    //-     div.questionRow2(data-answerid=answer.id)
+    //-       div.questionVotes
+    //-         span(style="font-size: 2em; color: lightblue;")
+    //-           i(class="questionAnswer fas fa-caret-up")
+    //-           p.score #{answer.score}
+    //-         span(style="font-size: 2em; color: lightblue;")
+    //-           i(class="questionAnswer fas fa-caret-down")
+    //-       p.questionTextSolo !{answer.answerText}
+    //-     div.questionRow3
+    //-       if (currentUserId === answer.userId)
+    //-         a.deleteBtn(href=`${question.id}/answers/${answer.id}/delete`) Delete
+    //-       span.authorAnswer Author: #{answer.author} </br> #{answer.createdAt}
+    div.mceContainer2
+      div.mceErrors
+      div.mceBox
+        form(id="testForm" class='testForm' method="post" )
+          input(type='hidden' id='questionId' value=question.id)
+          input(type='hidden' name='_csrf' value=csrfToken)
+          textarea(id="questionText" required value=answerText)
+          button(type="submit" id="postAnswer" style="display:inline-block").mceSubmit SUBMIT ANSWER
+    script(src="https://cdn.tiny.cloud/1/241bsi4zsamorjiqpwh40svv455sqtdn98rmzlmvputgv1uf/tinymce/5/tinymce.min.js" referrerpolicy="origin")
+    script(type="text/javascript" src="/js/add-answer.js")
+    script(type="text/javascript" src="/js/votes.js")

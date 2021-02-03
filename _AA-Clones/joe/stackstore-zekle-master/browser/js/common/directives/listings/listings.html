@@ -1,0 +1,22 @@
+<div class="row">
+	<div class="col-md-12">
+		<h1 ng-show="listings.length>0 && !searchRes">Listings</h1>
+		<h1 ng-show="searchRes && listings.length">Search Results</h1>
+		<h1 ng-show="searchRes && !listings.length">Sorry, there are no results. </h1>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+	<div ng-repeat="listing in listings" class="col-lg-3 col-md-4 col-sm-6 listingContainer">
+			<div class="col-md-12 listing">
+				<h2 class="title">{{listing.title}}</h2>
+				<img class="img" src="{{listing.photoUrl}}" alt="">
+				<p class="description">{{listing.description | limitTo:letterLimit }}</p>
+				<h3 class="price">{{listing.price|currency}}</h3>
+				<button ng-click="getDetails(listing)" class="btn btn-primary">Product Details</button>
+				<!-- <a ui-sref="listingDetails">Details state?</a> -->
+				<button class="btn btn-primary">Add To Cart</button>
+			</div>
+		</div>
+	</div>
+</div>

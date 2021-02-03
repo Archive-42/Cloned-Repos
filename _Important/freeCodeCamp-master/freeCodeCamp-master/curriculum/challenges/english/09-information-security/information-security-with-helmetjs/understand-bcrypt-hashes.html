@@ -1,0 +1,44 @@
+<h1 id="description">–description–</h1>
+<p>For the following challenges, you will be working with a new starter project that is different from the previous one. You can find the new starter project on <a href="https://repl.it/github/freeCodeCamp/boilerplate-bcrypt">Repl.it</a>, or clone it from <a href="https://github.com/freeCodeCamp/boilerplate-bcrypt/">GitHub</a>.</p>
+<p>BCrypt hashes are very secure. A hash is basically a fingerprint of the original data- always unique. This is accomplished by feeding the original data into an algorithm and returning a fixed length result. To further complicate this process and make it more secure, you can also <em>salt</em> your hash. Salting your hash involves adding random data to the original data before the hashing process which makes it even harder to crack the hash.</p>
+<p>BCrypt hashes will always looks like <code>$2a$13$ZyprE5MRw2Q3WpNOGZWGbeG7ADUre1Q8QO.uUUtcbqloU0yvzavOm</code> which does have a structure. The first small bit of data <code>$2a</code> is defining what kind of hash algorithm was used. The next portion <code>$13</code> defines the <em>cost</em>. Cost is about how much power it takes to compute the hash. It is on a logarithmic scale of 2^cost and determines how many times the data is put through the hashing algorithm. For example, at a cost of 10 you are able to hash 10 passwords a second on an average computer, however at a cost of 15 it takes 3 seconds per hash… and to take it further, at a cost of 31 it would takes multiple days to complete a hash. A cost of 12 is considered very secure at this time. The last portion of your hash <code>$ZyprE5MRw2Q3WpNOGZWGbeG7ADUre1Q8QO.uUUtcbqloU0yvzavOm</code>, looks like one large string of numbers, periods, and letters but it is actually two separate pieces of information. The first 22 characters is the salt in plain text, and the rest is the hashed password!</p>
+<h1 id="instructions">–instructions–</h1>
+<p>To begin using BCrypt, add it as a dependency in your project and require it as ‘bcrypt’ in your server.</p>
+<p>Add all your code for these lessons in the <code>server.js</code> file between the code we have started you off with. Do not change or delete the code we have added for you.</p>
+<p>Submit your page when you think you’ve got it right.</p>
+<h1 id="hints">–hints–</h1>
+<p>BCrypt should be a dependency.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/package.json&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb1-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-4" title="4">      <span class="kw">var</span> packJson <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(data)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">      <span class="va">assert</span>.<span class="at">property</span>(</a>
+<a class="sourceLine" id="cb1-6" title="6">        <span class="va">packJson</span>.<span class="at">dependencies</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-7" title="7">        <span class="st">&#39;bcrypt&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-8" title="8">        <span class="st">&#39;Your project should list &quot;bcrypt&quot; as a dependency&#39;</span></a>
+<a class="sourceLine" id="cb1-9" title="9">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-10" title="10">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb1-11" title="11">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-12" title="12">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-13" title="13">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-14" title="14">  )<span class="op">;</span></a></code></pre></div>
+<p>BCrypt should be properly required.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/server.js&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb2-5" title="5">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-6" title="6">        <span class="ss">/bcrypt.</span><span class="sc">*</span><span class="ss">=.</span><span class="sc">*</span><span class="ss">require.</span><span class="sc">*(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">bcrypt</span><span class="sc">(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-7" title="7">        <span class="st">&#39;You should correctly require and instantiate socket.io as io.&#39;</span></a>
+<a class="sourceLine" id="cb2-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">*/</span></a></code></pre></div>

@@ -1,0 +1,25 @@
+html,body {
+    font-family: Helvetica;
+}
+
+puppy {
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+}
+
+puppy img {
+    display: block;
+    width: 200px;
+    margin: 0 auto;
+}
+
+puppy h1 {
+    font-size: 18px;
+    text-align: center;
+}
+
+puppy h2 {
+    font-size: 14px;
+    text-align: center;
+}

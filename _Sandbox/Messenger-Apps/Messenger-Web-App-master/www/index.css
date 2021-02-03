@@ -1,0 +1,94 @@
+
+body {
+    background-color: #2c3e50;
+
+    font-size: 12px;
+}
+
+/* Override Bootstrap's <pre> element styling */
+pre {
+    padding: inherit;
+    margin: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    word-break: inherit;
+    word-wrap: inherit;
+    background-color: inherit;
+    border: none;
+    border-radius: 0;
+    overflow: inherit;
+}
+
+.viewport {
+    min-width: 100px;
+    min-height: 200px;
+    border: 2px solid rgba(0,0,0,0.25);
+    box-shadow: 0 0 20px rgba(0,0,0,.5);
+}
+
+.viewport-header {
+    background: #446CB3;
+    border-bottom: 1px solid rgba(0,0,0,0.25);
+    box-shadow: 0 0 10px rgba(0,0,0,.5);
+    z-index: 100;
+
+    color: white;
+    font-size: 1.5em;
+    padding: 0.25em;
+}
+
+.viewport-body {
+    background: #ecf0f1;
+    padding: 1.5em;
+    z-index: 0;
+
+    /* scroll-y */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.viewport-footer {
+    background: #ecf0f1;
+    border-top: 1px solid rgba(0,0,0,0.25);
+    box-shadow: 0 0 10px rgba(0,0,0,.5);
+    z-index: 100;
+
+    font-size: 1.5em;
+    padding: 0.25em;
+}
+
+.go-to-tutorial-btn {
+    padding: 1em;
+    background: #446CB3;
+    color: #ffffff;
+    border: 1px solid rgba(0,0,0,0.33);
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.5);
+    cursor: pointer;
+
+    text-align: center;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.go-to-tutorial-btn:hover {
+    background: #385994;
+}
+
+.go-to-tutorial-btn-title {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+    display: block;
+}
+
+.go-to-tutorial-btn-body {
+    display: block;
+}
+
+
+

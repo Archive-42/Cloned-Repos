@@ -1,0 +1,28 @@
+<h1 id="description">–description–</h1>
+<p>Redux is a state management framework that can be used with a number of different web technologies, including React.</p>
+<p>In Redux, there is a single state object that’s responsible for the entire state of your application. This means if you had a React app with ten components, and each component had its own local state, the entire state of your app would be defined by a single state object housed in the Redux <code>store</code>. This is the first important principle to understand when learning Redux: the Redux store is the single source of truth when it comes to application state.</p>
+<p>This also means that any time any piece of your app wants to update state, it <strong>must</strong> do so through the Redux store. The unidirectional data flow makes it easier to track state management in your app.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>The Redux <code>store</code> is an object which holds and manages application <code>state</code>. There is a method called <code>createStore()</code> on the Redux object, which you use to create the Redux <code>store</code>. This method takes a <code>reducer</code> function as a required argument. The <code>reducer</code> function is covered in a later challenge, and is already defined for you in the code editor. It simply takes <code>state</code> as an argument and returns <code>state</code>.</p>
+<p>Declare a <code>store</code> variable and assign it to the <code>createStore()</code> method, passing in the <code>reducer</code> as an argument.</p>
+<p><strong>Note:</strong> The code in the editor uses ES6 default argument syntax to initialize this state to hold a value of <code>5</code>. If you’re not familiar with default arguments, you can refer to the <a href="https://learn.freecodecamp.org/javascript-algorithms-and-data-structures/es6/set-default-parameters-for-your-functions">ES6 section in the Curriculum</a> which covers this topic.</p>
+<h1 id="hints">–hints–</h1>
+<p>The redux store should exist.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="va">store</span>.<span class="at">getState</span> <span class="op">===</span> <span class="st">&#39;function&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>The redux store should have a value of 5 for the state.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">store</span>.<span class="at">getState</span>() <span class="op">===</span> <span class="dv">5</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">const</span> reducer <span class="op">=</span> (state <span class="op">=</span> <span class="dv">5</span>) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="cf">return</span> state<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="op">}</span></a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">// Redux methods are available from a Redux object</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="co">// For example: Redux.createStore()</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co">// Define the store here:</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">const</span> reducer <span class="op">=</span> (state <span class="op">=</span> <span class="dv">5</span>) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="cf">return</span> state<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="op">}</span></a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="kw">const</span> store <span class="op">=</span> <span class="va">Redux</span>.<span class="at">createStore</span>(reducer)<span class="op">;</span></a></code></pre></div>

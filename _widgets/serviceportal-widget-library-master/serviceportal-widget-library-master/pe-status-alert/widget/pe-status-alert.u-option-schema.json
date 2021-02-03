@@ -1,0 +1,1 @@
+[{ "name": "alert_sysid", "default_value": "", "label": "Anomaly Alert sys_id", "type": "string" }, { "instructions": "in percent", "name": "probability", "label": "Probability of outage", "type": "integer" }, { "instructions": "as datetime string", "name": "outage_eta", "label": "ETA of outage", "type": "string" }]

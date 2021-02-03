@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>Portfolio!</h1>
+<ul>
+    {% for project in projects %}
+    <li>
+        <div class="project">
+            <h3>{{ project.title }}</h3>
+            <img src="/images/{{ project.image }}" />
+            <ul class="project-collaborators">
+                {% for collaborator in project.collaborators %}
+                <li>{{ collaborator }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,55 @@
+{
+  "name": "You-Dont-Need-jQuery",
+  "version": "2.0.0",
+  "description": "Examples of how to do query, style, dom, ajax, event etc like jQuery with plain javascript.",
+  "scripts": {
+    "test": "karma start --single-run",
+    "tdd": "karma start --auto-watch --no-single-run",
+    "test-cov": "karma start --auto-watch --single-run --reporters progress,coverage",
+    "lint": "eslint src test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.4.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.17.1",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
+    "isparta": "^4.0.0",
+    "istanbul-instrumenter-loader": "^2.0.0",
+    "jquery": "^3.1.1",
+    "karma": "^1.5.0",
+    "karma-coverage": "^1.1.1",
+    "karma-firefox-launcher": "^1.0.1",
+    "karma-mocha": "^1.3.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.2",
+    "mocha": "^3.2.0",
+    "webpack": "^1.12.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oneuijs/You-Dont-Need-jQuery.git"
+  },
+  "keywords": [
+    "convertion guide",
+    "jQuery",
+    "es6",
+    "es2015",
+    "babel",
+    "OneUI Group"
+  ],
+  "author": "OneUI Group",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oneuijs/You-Dont-Need-jQuery/issues"
+  },
+  "homepage": "https://github.com/oneuijs/You-Dont-Need-jQuery"
+}

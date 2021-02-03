@@ -1,0 +1,83 @@
+<h1 id="description">–description–</h1>
+<p>The <code>font-size</code> property is used to specify how large the text is in a given element. This rule can be used for multiple elements to create visual consistency of text on a page. In this challenge, you’ll set the values for all <code>h1</code> through <code>h6</code> tags to balance the heading sizes.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>
+In the <code>style</code> tags, set the <code>font-size</code> of the:
+</p>
+<ul>
+<li>
+<code>h1</code> tag to 68px.
+</li>
+<li>
+<code>h2</code> tag to 52px.
+</li>
+<li>
+<code>h3</code> tag to 40px.
+</li>
+<li>
+<code>h4</code> tag to 32px.
+</li>
+<li>
+<code>h5</code> tag to 21px.
+</li>
+<li>
+<code>h6</code> tag to 14px.
+</li>
+</ul>
+<h1 id="hints">–hints–</h1>
+<p>Your code should set the <code>font-size</code> property for the <code>h1</code> tag to 68 pixels.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h1&#39;</span>).<span class="at">css</span>(<span class="st">&#39;font-size&#39;</span>) <span class="op">==</span> <span class="st">&#39;68px&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your code should set the <code>font-size</code> property for the <code>h2</code> tag to 52 pixels.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h2&#39;</span>).<span class="at">css</span>(<span class="st">&#39;font-size&#39;</span>) <span class="op">==</span> <span class="st">&#39;52px&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your code should set the <code>font-size</code> property for the <code>h3</code> tag to 40 pixels.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h3&#39;</span>).<span class="at">css</span>(<span class="st">&#39;font-size&#39;</span>) <span class="op">==</span> <span class="st">&#39;40px&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your code should set the <code>font-size</code> property for the <code>h4</code> tag to 32 pixels.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h4&#39;</span>).<span class="at">css</span>(<span class="st">&#39;font-size&#39;</span>) <span class="op">==</span> <span class="st">&#39;32px&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your code should set the <code>font-size</code> property for the <code>h5</code> tag to 21 pixels.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h5&#39;</span>).<span class="at">css</span>(<span class="st">&#39;font-size&#39;</span>) <span class="op">==</span> <span class="st">&#39;21px&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your code should set the <code>font-size</code> property for the <code>h6</code> tag to 14 pixels.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">const</span> regex <span class="op">=</span> <span class="ss">/h6</span><span class="sc">\s*\{\s*</span><span class="ss">font-size</span><span class="sc">\s*</span><span class="ss">:</span><span class="sc">\s*</span><span class="ss">14px</span><span class="sc">\s*(</span><span class="ss">;</span><span class="sc">\s*\}|\})</span><span class="ss">/i</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="kw">true</span><span class="op">,</span> <span class="va">regex</span>.<span class="at">test</span>(code))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb7-2" title="2"></a>
+<a class="sourceLine" id="cb7-3" title="3"></a>
+<a class="sourceLine" id="cb7-4" title="4"></a>
+<a class="sourceLine" id="cb7-5" title="5"></a>
+<a class="sourceLine" id="cb7-6" title="6"></a>
+<a class="sourceLine" id="cb7-7" title="7"></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb7-9" title="9"><span class="kw">&lt;h1&gt;</span>This is h1 text<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb7-10" title="10"><span class="kw">&lt;h2&gt;</span>This is h2 text<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb7-11" title="11"><span class="kw">&lt;h3&gt;</span>This is h3 text<span class="kw">&lt;/h3&gt;</span></a>
+<a class="sourceLine" id="cb7-12" title="12"><span class="kw">&lt;h4&gt;</span>This is h4 text<span class="kw">&lt;/h4&gt;</span></a>
+<a class="sourceLine" id="cb7-13" title="13"><span class="kw">&lt;h5&gt;</span>This is h5 text<span class="kw">&lt;/h5&gt;</span></a>
+<a class="sourceLine" id="cb7-14" title="14"><span class="kw">&lt;h6&gt;</span>This is h6 text<span class="kw">&lt;/h6&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb8"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  h1 {</a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="kw">font-size</span>: <span class="dv">68</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-4" title="4">  }</a>
+<a class="sourceLine" id="cb8-5" title="5">  h2 {</a>
+<a class="sourceLine" id="cb8-6" title="6">    <span class="kw">font-size</span>: <span class="dv">52</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-7" title="7">  }</a>
+<a class="sourceLine" id="cb8-8" title="8">  h3 {</a>
+<a class="sourceLine" id="cb8-9" title="9">    <span class="kw">font-size</span>: <span class="dv">40</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-10" title="10">  }</a>
+<a class="sourceLine" id="cb8-11" title="11">  h4 {</a>
+<a class="sourceLine" id="cb8-12" title="12">    <span class="kw">font-size</span>: <span class="dv">32</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-13" title="13">  }</a>
+<a class="sourceLine" id="cb8-14" title="14">  h5 {</a>
+<a class="sourceLine" id="cb8-15" title="15">    <span class="kw">font-size</span>: <span class="dv">21</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-16" title="16">  }</a>
+<a class="sourceLine" id="cb8-17" title="17">  h6 {</a>
+<a class="sourceLine" id="cb8-18" title="18">    <span class="kw">font-size</span>: <span class="dv">14</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-19" title="19">  }</a>
+<a class="sourceLine" id="cb8-20" title="20"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb8-21" title="21"><span class="kw">&lt;h1&gt;</span>This is h1 text<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb8-22" title="22"><span class="kw">&lt;h2&gt;</span>This is h2 text<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb8-23" title="23"><span class="kw">&lt;h3&gt;</span>This is h3 text<span class="kw">&lt;/h3&gt;</span></a>
+<a class="sourceLine" id="cb8-24" title="24"><span class="kw">&lt;h4&gt;</span>This is h4 text<span class="kw">&lt;/h4&gt;</span></a>
+<a class="sourceLine" id="cb8-25" title="25"><span class="kw">&lt;h5&gt;</span>This is h5 text<span class="kw">&lt;/h5&gt;</span></a>
+<a class="sourceLine" id="cb8-26" title="26"><span class="kw">&lt;h6&gt;</span>This is h6 text<span class="kw">&lt;/h6&gt;</span></a></code></pre></div>

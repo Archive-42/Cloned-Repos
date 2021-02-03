@@ -1,0 +1,60 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <base href="/">
+
+        <title>My Party-Planner App | The London Academy of IT</title>
+        <meta name="description" content="This is an example app that demonstrates the skills learned in the London Academy of IT's 'Build an App in a Day' workshop.">
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <link href="http://fonts.googleapis.com/css?family=Raleway:700,400" rel="stylesheet" type="text/css">
+        <!-- autoInclude: css !-->
+    
+    </head>
+
+    <body>
+
+        <div ng-controller="HeaderCtrl">
+        	<div class="container header">
+    			<div class="row">
+    				<div class="col-sm-4 col-md-3">
+    					<a href="http://www.londonacademyofit.co.uk" target="_blank"><img src="assets/img/london-academy-of-it.png" alt="The London Academy of IT - High quality and affordable IT Training courses"></a>
+    				</div>
+            		<div class="col-sm-8 col-md-9">
+        				<h1><a href="/">The LAIT Party-Planner App</a></h1>
+            			<div class="logout"><input type="button" class="btn btn-default btn-large" value="Logout"></div>
+            		</div>
+    			</div>
+        	</div>
+        </div>
+
+        <div class="container main-content" ng-view>
+
+        </div><!--.container-->
+
+    	<div class="container footer">
+			<div class="row">
+				<div class="col-sm-12">
+					<p>Find out more about what you can learn to create in a course at the <a href="http://www.londonacademyofit.co.uk" target="_blank">London&nbsp;Academy&nbsp;of&nbsp;IT</a>&nbsp;&raquo;</p>
+        			<hr>
+        			<h5>Privacy Information</h5>
+        			<p class="small">Please note that this is an example app created for demonstration and testing purposes. If you login to this app, your 'display name' from your social profile will be stored temporarily in the app's database. This database is cleared of all new user registrations on a regular basis. If you would like your name removed from the database immediately after testing the app, please email admin@londonacademyofit.co.uk.</p>
+				</div>
+			</div>
+    	</div>
+
+    	<script src="js/bower_components/firebase/firebase.js"></script>
+        <script src="js/bower_components/firebase-simple-login/firebase-simple-login.js"></script>
+        <script src="js/bower_components/angular/angular.js"></script>
+        <script src="js/bower_components/angular-route/angular-route.js"></script>
+        <script src="js/bower_components/angularfire/dist/angularfire.min.js"></script>
+    	<script src="js/bower_components/jquery/dist/jquery.min.js"></script>
+
+        <!-- autoInclude: jsApp !-->
+
+    </body>
+</html>

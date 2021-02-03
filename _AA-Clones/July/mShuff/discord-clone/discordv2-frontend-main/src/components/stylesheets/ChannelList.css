@@ -1,0 +1,57 @@
+.channelList__div {
+  display: flex;
+  max-height: 10%;
+  font-size: 1.2em;
+  width: 100%;
+  color: rgb(169, 169, 169);
+  justify-content: right;
+  margin: 20px 0px;
+  cursor: pointer;
+}
+
+.channelList__div:hover {
+  color: white;
+}
+
+.channelList__hash {
+  font-size: 30px;
+  font-weight: bold;
+  color: #c1c1c1;
+  padding: 0px 10px 0px;
+}
+
+.channelList__channel {
+  padding-top: 4px;
+  font-size: 1.2em;
+}
+
+.border-gradient {
+  padding: 4px;
+  background: #313232;
+  background: -moz-linear-gradient(-45deg, #313232 50%, #4f4f4f 50%);
+  background: -webkit-linear-gradient(-45deg, #313232 50%, #4f4f4f 50%);
+  background: linear-gradient(135deg, #313232 0%, #4f4f4f 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='##313232', endColorstr='#4f4f4f', GradientType=1);
+}
+
+.border-gradient>.margin-fix {
+  background-color: white;
+  padding: 1px;
+  margin: -1px;
+}
+
+.currentChannel {
+  color: white;
+}
+
+.MuiAvatar-root.channelList__addButton {
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  padding: 5px;
+  background: radial-gradient( circle, rgba(6, 31, 37, 0.8) 40%, rgba(114, 137, 218, 0.8) 100%);
+}
+
+.MuiAvatar-root.channelList__addButton:hover {
+  background: radial-gradient( circle, rgba(6, 31, 37, 1) 20%, rgb(119, 145, 238) 100%);
+}

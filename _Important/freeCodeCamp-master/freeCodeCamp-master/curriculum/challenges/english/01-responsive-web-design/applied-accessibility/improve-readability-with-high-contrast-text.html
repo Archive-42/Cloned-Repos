@@ -1,0 +1,49 @@
+<h1 id="description">–description–</h1>
+<p>Low contrast between the foreground and background colors can make text difficult to read. Sufficient contrast improves the readability of your content, but what exactly does “sufficient” mean?</p>
+<p>The Web Content Accessibility Guidelines (WCAG) recommend at least a 4.5 to 1 contrast ratio for normal text. The ratio is calculated by comparing the relative luminance values of two colors. This ranges from 1:1 for the same color, or no contrast, to 21:1 for white against black, the strongest contrast. There are many contrast checking tools available online that calculate this ratio for you.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Camper Cat’s choice of light gray text on a white background for his recent blog post has a 1.5:1 contrast ratio, making it hard to read. Change the <code>color</code> of the text from the current gray (<code>#D3D3D3</code>) to a darker gray (<code>#636363</code>) to improve the contrast ratio to 6:1.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should change the text <code>color</code> for the <code>body</code> to the darker gray.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;body&#39;</span>).<span class="at">css</span>(<span class="st">&#39;color&#39;</span>) <span class="op">==</span> <span class="st">&#39;rgb(99, 99, 99)&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your code should not change the <code>background-color</code> for the <code>body</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;body&#39;</span>).<span class="at">css</span>(<span class="st">&#39;background-color&#39;</span>) <span class="op">==</span> <span class="st">&#39;rgb(255, 255, 255)&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;head&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">  body {</a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="kw">color</span>: <span class="cn">#D3D3D3</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">    <span class="kw">background-color</span>: <span class="cn">#FFF</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">  }</a>
+<a class="sourceLine" id="cb3-7" title="7">  <span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="kw">&lt;/head&gt;</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb3-10" title="10">  <span class="kw">&lt;header&gt;</span></a>
+<a class="sourceLine" id="cb3-11" title="11">    <span class="kw">&lt;h1&gt;</span>Deep Thoughts with Master Camper Cat<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb3-12" title="12">  <span class="kw">&lt;/header&gt;</span></a>
+<a class="sourceLine" id="cb3-13" title="13">  <span class="kw">&lt;article&gt;</span></a>
+<a class="sourceLine" id="cb3-14" title="14">    <span class="kw">&lt;h2&gt;</span>A Word on the Recent Catnip Doping Scandal<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb3-15" title="15">    <span class="kw">&lt;p&gt;</span>The influence that catnip has on feline behavior is well-documented, and its use as an herbal supplement in competitive ninja circles remains controversial. Once again, the debate to ban the substance is brought to the public&#39;s attention after the high-profile win of Kittytron, a long-time proponent and user of the green stuff, at the Claw of Fury tournament.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb3-16" title="16">    <span class="kw">&lt;p&gt;</span>As I&#39;ve stated in the past, I firmly believe a true ninja&#39;s skills must come from within, with no external influences. My own catnip use shall continue as purely recreational.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb3-17" title="17">  <span class="kw">&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb3-18" title="18"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;head&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  body {</a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="kw">color</span>: <span class="cn">#636363</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="kw">background-color</span>: <span class="cn">#FFF</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">  }</a>
+<a class="sourceLine" id="cb4-7" title="7">  <span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="kw">&lt;/head&gt;</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">  <span class="kw">&lt;header&gt;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">    <span class="kw">&lt;h1&gt;</span>Deep Thoughts with Master Camper Cat<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">  <span class="kw">&lt;/header&gt;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">  <span class="kw">&lt;article&gt;</span></a>
+<a class="sourceLine" id="cb4-14" title="14">    <span class="kw">&lt;h2&gt;</span>A Word on the Recent Catnip Doping Scandal<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb4-15" title="15">    <span class="kw">&lt;p&gt;</span>The influence that catnip has on feline behavior is well-documented, and its use as an herbal supplement in competitive ninja circles remains controversial. Once again, the debate to ban the substance is brought to the public&#39;s attention after the high-profile win of Kittytron, a long-time proponent and user of the green stuff, at the Claw of Fury tournament.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb4-16" title="16">    <span class="kw">&lt;p&gt;</span>As I&#39;ve stated in the past, I firmly believe a true ninja&#39;s skills must come from within, with no external influences. My own catnip use shall continue as purely recreational.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb4-17" title="17">  <span class="kw">&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb4-18" title="18"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>

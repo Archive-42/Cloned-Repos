@@ -1,0 +1,91 @@
+<h1 id="description">–description–</h1>
+<p>Now we will look at how we can compose multiple React components together. Imagine you are building an App and have created three components, a <code>Navbar</code>, <code>Dashboard</code>, and <code>Footer</code>.</p>
+<p>To compose these components together, you could create an <code>App</code> <em>parent</em> component which renders each of these three components as <em>children</em>. To render a component as a child in a React component, you include the component name written as a custom HTML tag in the JSX. For example, in the <code>render</code> method you could write:</p>
+<pre class="jsx"><code>return (
+ &lt;App&gt;
+  &lt;Navbar /&gt;
+  &lt;Dashboard /&gt;
+  &lt;Footer /&gt;
+ &lt;/App&gt;
+)</code></pre>
+<p>When React encounters a custom HTML tag that references another component (a component name wrapped in <code>&lt; /&gt;</code> like in this example), it renders the markup for that component in the location of the tag. This should illustrate the parent/child relationship between the <code>App</code> component and the <code>Navbar</code>, <code>Dashboard</code>, and <code>Footer</code>.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>In the code editor, there is a simple functional component called <code>ChildComponent</code> and a class component called <code>ParentComponent</code>. Compose the two together by rendering the <code>ChildComponent</code> within the <code>ParentComponent</code>. Make sure to close the <code>ChildComponent</code> tag with a forward slash.</p>
+<p><strong>Note:</strong> <code>ChildComponent</code> is defined with an ES6 arrow function because this is a very common practice when using React. However, know that this is just a function. If you aren’t familiar with the arrow function syntax, please refer to the JavaScript section.</p>
+<h1 id="hints">–hints–</h1>
+<p>The React component should return a single <code>div</code> element.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">var</span> shallowRender <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">shallow</span>(<span class="va">React</span>.<span class="at">createElement</span>(ParentComponent))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="cf">return</span> <span class="va">shallowRender</span>.<span class="at">type</span>() <span class="op">===</span> <span class="st">&#39;div&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The component should return two nested elements.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">var</span> shallowRender <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">shallow</span>(<span class="va">React</span>.<span class="at">createElement</span>(ParentComponent))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="cf">return</span> <span class="va">shallowRender</span>.<span class="at">children</span>().<span class="at">length</span> <span class="op">===</span> <span class="dv">2</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The component should return the ChildComponent as its second child.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(ParentComponent))<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb4-5" title="5">      <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;ParentComponent&#39;</span>).<span class="at">find</span>(<span class="st">&#39;ChildComponent&#39;</span>).<span class="at">length</span> <span class="op">===</span></a>
+<a class="sourceLine" id="cb4-6" title="6">      <span class="dv">1</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb4-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;ParentComponent /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>const ChildComponent = () =&gt; {
+  return (
+    &lt;div&gt;
+      &lt;p&gt;I am the child&lt;/p&gt;
+    &lt;/div&gt;
+  );
+};
+
+class ParentComponent extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;I am the parent&lt;/h1&gt;
+        { /* Change code below this line */ }
+
+
+        { /* Change code above this line */ }
+      &lt;/div&gt;
+    );
+  }
+};</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>const ChildComponent = () =&gt; {
+  return (
+    &lt;div&gt;
+      &lt;p&gt;I am the child&lt;/p&gt;
+    &lt;/div&gt;
+  );
+};
+
+class ParentComponent extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;I am the parent&lt;/h1&gt;
+        { /* Change code below this line */ }
+        &lt;ChildComponent /&gt;
+        { /* Change code above this line */ }
+      &lt;/div&gt;
+    );
+  }
+};</code></pre>

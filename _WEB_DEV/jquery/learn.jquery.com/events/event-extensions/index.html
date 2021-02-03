@@ -1,0 +1,637 @@
+<!doctype html>
+<!--[if IE 7 ]>		 <html class="no-js ie ie7 lte7 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 8 ]>		 <html class="no-js ie ie8 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 9 ]>		 <html class="no-js ie ie9 lte9"> lang="en-US"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head data-live-domain="learn.jquery.com">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>jQuery Event Extensions | jQuery Learning Center</title>
+
+	<meta name="author" content="JS Foundation - js.foundation">
+	<meta name="description" content="">
+
+	<meta name="viewport" content="width=device-width">
+
+	<link rel="shortcut icon" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/i/favicon.ico">
+
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/base.css?v=2">
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/style.css">
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/modernizr.custom.2.8.3.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/main.js"></script>
+
+	<script src="https://use.typekit.net/wde1aof.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+	<!-- at the end of the HEAD -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/docsearch.css">
+
+<link rel='https://api.w.org/' href='//learn.jquery.com/wp-json/' />
+<meta name="generator" content="WordPress 4.5.2" />
+<link rel="alternate" type="application/json+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fevents%2Fevent-extensions%2F" />
+<link rel="alternate" type="text/xml+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fevents%2Fevent-extensions%2F&#038;format=xml" />
+
+</head>
+<body class="jquery-learn page page-id-71 page-child parent-pageid-13 page-template-default page-slug-event-extensions single-author singular">
+
+<header>
+	<section id="global-nav">
+		<nav>
+			<div class="constrain">
+				<ul class="projects">
+					<li class="project jquery"><a href="https://jquery.com/" title="jQuery">jQuery</a></li>
+					<li class="project jquery-ui"><a href="https://jqueryui.com/" title="jQuery UI">jQuery UI</a></li>
+					<li class="project jquery-mobile"><a href="https://jquerymobile.com/" title="jQuery Mobile">jQuery Mobile</a></li>
+					<li class="project sizzlejs"><a href="https://sizzlejs.com/" title="Sizzle">Sizzle</a></li>
+					<li class="project qunitjs"><a href="https://qunitjs.com/" title="QUnit">QUnit</a></li>
+				</ul>
+				<ul class="links">
+					<li><a href="https://plugins.jquery.com/">Plugins</a></li>
+					<li class="dropdown"><a href="https://contribute.jquery.org/">Contribute</a>
+						<ul>
+							<li><a href="https://js.foundation/CLA">CLA</a></li>
+							<li><a href="https://contribute.jquery.org/style-guide/">Style Guides</a></li>
+							<li><a href="https://contribute.jquery.org/triage/">Bug Triage</a></li>
+							<li><a href="https://contribute.jquery.org/code/">Code</a></li>
+							<li><a href="https://contribute.jquery.org/documentation/">Documentation</a></li>
+							<li><a href="https://contribute.jquery.org/web-sites/">Web Sites</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/events">Events</a>
+						<ul class="wide">
+																		</ul>
+					</li>
+					<li class="dropdown"><a href="https://jquery.org/support/">Support</a>
+						<ul>
+							<li><a href="https://learn.jquery.com/">Learning Center</a></li>
+							<li><a href="https://irc.jquery.org/">IRC/Chat</a></li>
+							<li><a href="https://forum.jquery.com/">Forums</a></li>
+							<li><a href="https://stackoverflow.com/tags/jquery/info">Stack Overflow</a></li>
+							<li><a href="https://jquery.org/support/">Commercial Support</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/">JS Foundation</a>
+						<ul>
+							<li><a href="https://js.foundation/about/join">Join</a></li>
+							<li><a href="https://js.foundation/about/members">Members</a></li>
+							<li><a href="https://js.foundation/about/leadership">Leadership</a></li>
+							<li><a href="https://js.foundation/community/code-of-conduct">Conduct</a></li>
+							<li><a href="https://js.foundation/about/donate">Donate</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</section>
+</header>
+
+<div id="banner-blm">
+	<h2>#BlackLivesMatter</h2>
+	<p>To Donate, see this <a href="https://bit.ly/fundthecommunity">list of organizations to support</a> from <a href="https://www.reclaimtheblock.org/">Reclaim the Block</a> 
+</div>
+
+<div id="container">
+	<div id="logo-events" class="constrain clearfix">
+		<h2 class="logo"><a href="/" title="jQuery Learning Center">jQuery Learning Center</a></h2>
+
+		<aside>
+			<div id="broadcast">
+				<a href="https://js.foundation/about/donate" title="Support the JS Foundation"><img src="/jquery-wp-content/themes/jquery/content/donate.png" title="Support the JS Foundation" alt="Support the JS Foundation" border="0" width="400" height="100"></a>
+			</div>
+		</aside>
+	</div>
+
+	<nav id="main" class="constrain clearfix">
+		<div class="menu-top-container">
+	<ul id="menu-top" class="menu">
+<li class="menu-item"><a href="https://learn.jquery.com">Home</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/about/">About</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/contributing/">Contributing</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/style-guide/">Style Guide</a></li>
+	</ul>
+</div>
+
+		<form method="get" class="searchform" action="//learn.jquery.com/">
+	<button type="submit" class="icon-search"><span class="visuallyhidden">search</span></button>
+	<label>
+		<span class="visuallyhidden">Search jQuery Learning Center</span>
+		<input type="text" name="s" value=""
+			placeholder="Search">
+	</label>
+</form>
+	</nav>
+
+	<div id="content-wrapper" class="clearfix row">
+
+<div class="beta-ribbon-wrapper"><div class="beta-ribbon"><a href="/about/#beta">Beta</a></div></div>
+<div class="content-right twelve columns">
+	<div id="content">
+		<div class="post-heirarchy">Posted in: <a href="https://learn.jquery.com/events/">Events</a></div><article id="post-71" class="post-71 page type-page status-publish hentry">
+	<header class="entry-header">
+		<h1 class="entry-title">jQuery Event Extensions</h1>
+	</header>
+
+	<div class="entry-content">
+		<p>jQuery offers several ways to extend its event system to provide custom functionality when events are attached to elements. Internally in jQuery, these extensions are primarily used to ensure that standard events such as <code>submit</code> and <code>change</code> behave consistently across browsers. However, they can also be used to define new events with custom behavior.</p>
+<p>This document covers the extensions available starting with jQuery 1.7; a sparsely documented subset of this functionality has been available since jQuery 1.3 but the differences in functionality are extensive. For an overview of special events in earlier versions, see <a href="http://benalman.com/news/2010/03/jquery-special-events/">Ben Alman&apos;s jQuery Special Events</a> article.</p>
+<div class="warning"><strong>Note:</strong> jQuery event extensions are an advanced feature; they require a deeper knowledge of both browser behavior and jQuery internals than most of the API. Most users of jQuery will not need to use event extensions, and those who do should use them with care. For example, on a large project with third-party plugins, changing the behavior of standard events such as <code>click</code> or <code>mouseover</code> can cause serious compatibility issues.</div>
+
+<h3 class="toc-linked"><a href="#events-overview-and-general-advice" id="events-overview-and-general-advice" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Events overview and general advice</h3><p>When writing an event extension, it is essential to understand the flow of events through jQuery&apos;s internal event system. For a description of the event system from the API level, including a discussion of event delegation, see the <a href="http://api.jquery.com/on/"><code>.on()</code></a> method.</p>
+<p>To simplify event management, jQuery only attaches a single event handler per element per event type (using <code>addEventListener</code> on W3C-compliant browsers or <code>attachEvent</code> on older IE) and then dispatches to event handlers that are attached via jQuery&apos;s APIs. For example, if three &quot;click&quot; event handlers are attached to an element, jQuery attaches its own handler when the first handler is attached and adds the user&apos;s event handler to a list to be executed when the event occurs. For subsequent event handlers, jQuery only adds them to its own internal list since it has already called the browser to attach its solitary handler. Conversely, jQuery removes its own event handler from the browser when the final event of a particular type is removed from the element.</p>
+<p>An event can be a <em>native</em> event defined by the W3C and fired by the browser in response to something such as a user clicking a mouse button or pressing a key. It can also be a <em>custom</em> event, triggered only by code via jQuery&apos;s <code>.trigger()</code> or <code>.triggerHandler()</code> methods. Code can also trigger native browser events, which is convenient for simulating user actions.</p>
+<p>In general, jQuery does not have intrinsic knowledge of whether an event name may be fired by a browser. So by default, jQuery always attaches an event to the browser when an API call is made to add an event handler for that event. If that event type is never generated by the browser, the only way the handler will be called is if JavaScript code triggers the event. Although there is generally no harm in attaching an unused event name to the browser, the default behavior can be overridden using the special event <code>setup</code> hook as described below.</p>
+<p>Whenever elements are removed from a document via jQuery, the event system tries to ensure that events and related data are removed from the elements to prevent memory leaks. (Older versions of Internet Explorer are notorious for leaking memory in these situations if not managed carefully.) If an event extension attaches events or creates new objects, it should detach those objects or clear the data when the event is removed by defining <code>remove</code> and <code>teardown</code> hooks.</p>
+<p>jQuery event extension developers should avoid using event names that have special meaning in a DOM setting. Event names such as &quot;click&quot;, &quot;change&quot;, or &quot;load&quot; have specific semantics defined by the W3C, so using them as custom events can cause unexpected behavior. Generally, jQuery event extensions should <em>only</em> be used for W3C-defined event names when the extension is normalizing behavior across browsers. A common convention to avoid collisions for custom events is to embed a colon or dash in the event type name, since no W3C events use those characters.</p>
+<p>Although jQuery&apos;s event system is oriented towards delivering DOM events to DOM elements, jQuery methods can be used to attach and trigger events on plain objects. For example, it can be used as a simple publish/subscribe mechanism. Developers of event extensions should attempt to avoid unwanted behavior if their extensions are used in a mixed scenario with DOM and plain objects. The canonical way that jQuery detects a DOM element is to check for <code>elem.nodeType === 1</code> on the object.</p>
+<h3 class="toc-linked"><a href="#jquery-event-props-array" id="jquery-event-props-array" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> jQuery.event.props: Array</h3><p>jQuery defines an <a href="https://api.jquery.com/category/events/event-object/">Event object</a> that represents a cross-browser subset of the information available when an event occurs. The <code>jQuery.event.props</code> property is an array of string names for properties that are always copied when jQuery processes a <em>native</em> browser event. (Events fired in code by <code>.trigger()</code> do not use this list, since the code can construct a <code>jQuery.Event</code> object with the needed values and trigger using that object.)</p>
+<p>To add a property name to this list, use <code>jQuery.event.props.push( &quot;newPropertyName&quot; )</code>. However, be aware that every event processed by jQuery will now attempt to copy this property name from the native browser event to jQuery&apos;s constructed event. If the property does not exist for that event type, it will get an undefined value. Adding many properties to this list can significantly reduce event delivery performance, so for infrequently-needed properties it is more efficient to use the value directly from <code>event.originalEvent</code> instead. If properties must be copied, you are strongly advised to use <code>jQuery.event.fixHooks</code> as of version 1.7.</p>
+<h3 class="toc-linked"><a href="#jquery-event-fixhooks-object" id="jquery-event-fixhooks-object" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> jQuery.event.fixHooks: Object</h3><p>The <code>fixHooks</code> interface provides a per-event-type way to extend or normalize the event object that jQuery creates when it processes a <em>native</em> browser event. A <code>fixHooks</code> entry is an object that has two properties, each being optional:</p>
+<p><code>props</code>: Array:
+Strings representing properties that should be copied from the browser&apos;s event object to the jQuery event object. If omitted, no additional properties are copied beyond the standard ones that jQuery copies and normalizes (e.g. <code>event.target</code> and <code>event.relatedTarget</code>).</p>
+<p><code>filter</code>: Function( event, originalEvent ):
+jQuery calls this function after it constructs the <code>jQuery.Event</code> object, copies standard properties from <code>jQuery.event.props</code>, and copies the <code>fixHooks</code>-specific props (if any) specified above. The function can create new properties on the event object or modify existing ones. The second argument is the browser&apos;s native event object, which is also available in <code>event.originalEvent</code>.</p>
+<p>Note that for all events, the browser&apos;s native event object is available in <code>event.originalEvent</code>; if the jQuery event handler examines the properties there instead of jQuery&apos;s normalized <code>event</code> object, there is no need to create a <code>fixHooks</code> entry to copy or modify the properties.</p>
+<p>For example, to set a hook for the &quot;drop&quot; event that copies the <code>dataTransfer</code> property, assign an object to <code>jQuery.event.fixHooks.drop</code>:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>jQuery.event.fixHooks.drop = {</code></div></div><div class="container"><div class="line"><code>    props: [ <span class="string">&quot;dataTransfer&quot;</span> ]</code></div></div><div class="container"><div class="line"><code>};</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Since <code>fixHooks</code> is an advanced feature and rarely used externally, jQuery does not include code or interfaces to deal with conflict resolution. If there is a chance that some other code may be assigning <code>fixHooks</code> to the same events, the code should check for an existing hook and take appropriate measures. A simple solution might look like this:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="keyword">if</span> ( jQuery.event.fixHooks.drop ) {</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">throw</span> <span class="keyword">new</span> Error( <span class="string">&quot;Someone else took the jQuery.event.fixHooks.drop hook!&quot;</span> );</code></div></div><div class="container"><div class="line"><code>}</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>jQuery.event.fixHooks.drop = {</code></div></div><div class="container"><div class="line"><code>    props: [ <span class="string">&quot;dataTransfer&quot;</span> ]</code></div></div><div class="container"><div class="line"><code>};</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>When there are known cases of different plugins wanting to attach to the drop hook, this solution might be more appropriate:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="keyword">var</span> existingHook = jQuery.event.fixHooks.drop;</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="keyword">if</span> ( !existingHook ) {</code></div></div><div class="container"><div class="line"><code>    jQuery.event.fixHooks.drop = {</code></div></div><div class="container"><div class="line"><code>        props: [ <span class="string">&quot;dataTransfer&quot;</span> ]</code></div></div><div class="container"><div class="line"><code>    };</code></div></div><div class="container"><div class="line"><code>} <span class="keyword">else</span> {</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">if</span> ( existingHook.props ) {</code></div></div><div class="container"><div class="line"><code>        existingHook.props.push( <span class="string">&quot;dataTransfer&quot;</span> );</code></div></div><div class="container"><div class="line"><code>    } <span class="keyword">else</span> {</code></div></div><div class="container"><div class="line"><code>        existingHook.props = [ <span class="string">&quot;dataTransfer&quot;</span> ];</code></div></div><div class="container"><div class="line"><code>    }</code></div></div><div class="container"><div class="line"><code>}</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<h3 class="toc-linked"><a href="#special-event-hooks" id="special-event-hooks" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Special event hooks</h3><p>The jQuery special event hooks are a set of per-event-name functions and properties that allow code to control the behavior of event processing within jQuery. The mechanism is similar to <code>fixHooks</code> in that the special event information is stored in <code>jQuery.event.special.NAME</code>, where <code>NAME</code> is the  name of the special event. Event names are case sensitive.</p>
+<p>As with <code>fixHooks</code>, the special event hooks design assumes it will be very rare that two unrelated pieces of code want to process the same event name. Special event authors who need to modify events with existing hooks will need to take precautions to avoid introducing unwanted side-effects by clobbering those hooks.</p>
+<h4 class="toc-linked"><a href="#nobubble-boolean" id="nobubble-boolean" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> noBubble: Boolean</h4><p>Indicates whether this event type should be bubbled when the <code>.trigger()</code> method is called; by default it is <code>false</code>, meaning that a triggered event will bubble to the element&apos;s parents up to the document (if attached to a document) and then to the window. Note that defining <code>noBubble</code> on an event will effectively prevent that event from being used for delegated events with <code>.trigger()</code>.</p>
+<h4 class="toc-linked"><a href="#bindtype-string-delegatetype-string" id="bindtype-string-delegatetype-string" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> bindType: String, delegateType: String</h4><p>When defined, these string properties specify that a special event should be handled like another event type until the event is delivered. The <code>bindType</code> is used if the event is attached directly, and the <code>delegateType</code> is used for delegated events. These types are generally DOM event types, and <em>should not</em> be a special event themselves.</p>
+<p>The behavior of these properties is easiest to see with an example. Assume a special event defined as follows:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>jQuery.event.special.pushy = {</code></div></div><div class="container"><div class="line"><code>    bindType: <span class="string">&quot;click&quot;</span>,</code></div></div><div class="container"><div class="line"><code>    delegateType: <span class="string">&quot;click&quot;</span></code></div></div><div class="container"><div class="line"><code>};</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>When these properties are defined, the following behavior occurs in the jQuery event system:</p>
+<ul>
+<li>Event handlers for the &quot;pushy&quot; event are actually attached to &quot;click&quot; &#x2014; both directly bound and delegated events.</li>
+<li>Special event hooks for &quot;click&quot; are called if they exist, <em>except</em> the <code>handle</code> hook for &quot;pushy&quot; is called when an event is delivered if one exists.</li>
+<li>Event handlers for &quot;pushy&quot; must be removed using the &quot;pushy&quot; event name, and are unaffected if &quot;click&quot; events are removed from the same elements.</li>
+</ul>
+<p>So given the special event above, this code shows that a pushy isn&apos;t removed by removing clicks. That might be an effective way to defend against an ill-behaved plugin that didn&apos;t namespace its removal of click events, for example:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+						<div class="line n17">17</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="keyword">var</span> elem = $( <span class="string">&quot;p&quot;</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>elem.on( <span class="string">&quot;click&quot;</span>, <span class="keyword">function</span>( event ) {</code></div></div><div class="container"><div class="line"><code>    $( <span class="string">&quot;body&quot;</span> ).append( <span class="string">&quot;I am a &quot;</span> + event.type + <span class="string">&quot;!&quot;</span> );</code></div></div><div class="container"><div class="line"><code>});</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>elem.on( <span class="string">&quot;pushy&quot;</span>, <span class="keyword">function</span>( event ) {</code></div></div><div class="container"><div class="line"><code>    $( <span class="string">&quot;body&quot;</span> ).append( <span class="string">&quot;I am pushy but still a &quot;</span> + event.type + <span class="string">&quot;!&quot;</span> );</code></div></div><div class="container"><div class="line"><code>});</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>elem.trigger( <span class="string">&quot;click&quot;</span> ); <span class="comment">// Triggers both handlers</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>elem.off( <span class="string">&quot;click&quot;</span> );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>elem.trigger( <span class="string">&quot;click&quot;</span> ); <span class="comment">// Still triggers &quot;pushy&quot;</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>elem.off( <span class="string">&quot;pushy&quot;</span> );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>These two properties are often used in conjunction with a <code>handle</code> hook function; the hook might, for example, change the event name from &quot;click&quot; to &quot;pushy&quot; before calling event handlers. See below for an example.</p>
+<h4 class="toc-linked"><a href="#the-handleobj-object" id="the-handleobj-object" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> The handleObj object</h4><p>Many of the special event hook functions below are passed a <code>handleObj</code> object that provides more information about the event, how it was attached, and its current state. This object and its contents should be treated as read-only data, and only the properties below are documented for use by special event handlers. For the discussion below, assume an event is attached with this code:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">&quot;.dialog&quot;</span> ).on( <span class="string">&quot;click.myPlugin&quot;</span>, <span class="string">&quot;button&quot;</span>, {</code></div></div><div class="container"><div class="line"><code>    mydata: <span class="number">42</span></code></div></div><div class="container"><div class="line"><code>}, myHandler );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p><code>type</code>: String:
+The type of event, such as <code>&quot;click&quot;</code>. When special event mapping is used via <code>bindType</code> or <code>delegateType</code>, this will be the mapped type.</p>
+<p><code>origType</code>: String:
+The original type name (in this case, <code>&quot;click&quot;</code>) regardless of whether it was mapped via <code>bindType</code> or <code>delegateType</code>. So when a &quot;pushy&quot; event is mapped to &quot;click&quot; its <code>origType</code> would be &quot;pushy&quot;. See the examples in those special event properties above for more detail.</p>
+<p><code>namespace</code>: String:
+Namespace(s), if any, provided when the event was attached, such as <code>&quot;myPlugin&quot;</code>. When multiple namespaces are given, they are separated by periods and sorted in ascending alphabetical order. If no namespaces are provided, this property is an empty string.</p>
+<p><code>selector</code>: String:
+For delegated events, this is the selector used to filter descendant elements and determine if the handler should be called. In the example it is <code>&quot;button&quot;</code>. For directly bound events, this property is <code>null</code>.</p>
+<p><code>data</code>: Object:
+The data, if any, passed to jQuery during event binding, e.g. <code>{ myData: 42 }</code>. If the data argument was omitted or <code>undefined</code>, this property is <code>undefined</code> as well.</p>
+<p><code>handler</code>: function( event: jQuery.Event ):
+Event handler function passed to jQuery during event binding; in the example it is a reference to <code>myHandler</code>. If <code>false</code> was passed during event binding, the handler refers to a single shared function that simply returns <code>false</code>.</p>
+<h4 class="toc-linked"><a href="#setup-function-data-object-namespaces-eventhandle-function" id="setup-function-data-object-namespaces-eventhandle-function" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> setup: function( data: Object, namespaces, eventHandle: function )</h4><p>The setup hook is called the first time an event of a particular type is attached to an element; this provides the hook an opportunity to do processing that will apply to all events of this type on this element. The <code>this</code> keyword will be a reference to the element where the event is being attached and <code>eventHandle</code> is jQuery&apos;s event handler function. In most cases the <code>namespaces</code> argument should not be used, since it only represents the namespaces of the <em>first</em> event being attached; subsequent events may not have this same namespaces.</p>
+<p>This hook can perform whatever processing it desires, including attaching its own event handlers to the element or to other elements and recording setup information on the element using the <code>jQuery.data()</code> method. If the setup hook wants jQuery to add a browser event (via <code>addEventListener</code> or <code>attachEvent</code>, depending on browser) it should return <code>false</code>. In all other cases, jQuery will not add the browser event, but will continue all its other bookkeeping for the event. This would be appropriate, for example, if the event was never fired by the browser but invoked by <code>.trigger()</code>. To attach the jQuery event handler in the setup hook, use the <code>eventHandle</code> argument.</p>
+<h4 class="toc-linked"><a href="#teardown-function" id="teardown-function" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> teardown: function()</h4><p>The teardown hook is called when the final event of a particular type is removed from an element. The <code>this</code> keyword will be a reference to the element where the event is being cleaned up. This hook should return <code>false</code> if it wants jQuery to remove the event from the browser&apos;s event system (via <code>removeEventListener</code> or <code>detachEvent</code>). In most cases, the setup and teardown hooks should return the same value.</p>
+<p>If the setup hook attached event handlers or added data to an element through a mechanism such as <code>jQuery.data()</code>, the teardown hook should reverse the process and remove them. jQuery will generally remove the data and events when an element is totally removed from the document, but failing to remove data or events on teardown will cause a memory leak if the element stays in the document.</p>
+<h4 class="toc-linked"><a href="#add-function-handleobj" id="add-function-handleobj" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> add: function( handleObj )</h4><p>Each time an event handler is added to an element through an API such as <code>.on()</code>, jQuery calls this hook. The <code>this</code> keyword will be the element to which the event handler is being added, and the <code>handleObj</code> argument is as described in the section above. The return value of this hook is ignored.</p>
+<h4 class="toc-linked"><a href="#remove-function-handleobj" id="remove-function-handleobj" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> remove: function( handleObj )</h4><p>When an event handler is removed from an element using an API such as <code>.off()</code>, this hook is called. The <code>this</code> keyword will be the element where the handler is being removed, and the <code>handleObj</code> argument is as described in the section above. The return value of this hook is ignored.</p>
+<h4 class="toc-linked"><a href="#trigger-function-event-jquery-event-data-object" id="trigger-function-event-jquery-event-data-object" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> trigger: function( event: jQuery.Event, data: Object )</h4><p>Called when the <code>.trigger()</code> or <code>.triggerHandler()</code> methods are used to trigger an event for the special type from code, as opposed to events that originate from within the browser. The <code>this</code> keyword will be the element being triggered, and the event argument will be a <code>jQuery.Event</code> object constructed from the caller&apos;s input. At minimum, the event type, data, namespace, and target properties are set on the event. The data argument represents additional data passed by <code>.trigger()</code> if present.</p>
+<p>The trigger hook is called early in the process of triggering an event, just after the <code>jQuery.Event</code> object is constructed and before any handlers have been called. It can process the triggered event in any way, for example by calling <code>event.stopPropagation()</code> or <code>event.preventDefault()</code> before returning. If the hook returns <code>false</code>, jQuery does not perform any further event triggering actions and returns immediately. Otherwise, it performs the normal trigger processing, calling any event handlers for the element and bubbling the event (unless propagation is stopped in advance or <code>noBubble</code> was specified for the special event) to call event handlers attached to parent elements.</p>
+<h4 class="toc-linked"><a href="#_default-function-event-jquery-event-data-object" id="_default-function-event-jquery-event-data-object" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> _default: function( event: jQuery.Event, data: Object )</h4><p>When the <code>.trigger()</code> method finishes running all the event handlers for an event, it also looks for and runs any method on the target object by the same name unless of the handlers called <code>event.preventDefault()</code>. So, <code>.trigger( &quot;submit&quot; )</code> will execute the <code>submit()</code> method on the element if one exists. When a <code>_default</code> hook is specified, the hook is called just prior to checking for and executing the element&apos;s default method. If this hook returns the value <code>false</code> the element&apos;s default method will be called; otherwise it is not.</p>
+<h4 class="toc-linked"><a href="#handle-function-event-jquery-event-data-object" id="handle-function-event-jquery-event-data-object" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> handle: function( event: jQuery.Event, data: Object )</h4><p>jQuery calls a handle hook when the event has occurred and jQuery would normally call the user&apos;s event handler specified by <code>.on()</code> or another event binding method. If the hook exists, jQuery calls it <em>instead of</em> that event handler, passing it the event and any data passed from <code>.trigger()</code> if it was not a native event. The <code>this</code> keyword is the DOM element being handled, and <code>event.handleObj</code> property has the detailed event information.</p>
+<p>Based in the information it has, the handle hook should decide whether to call the original handler function which is in <code>event.handleObj.handler</code>. It can modify information in the event object before calling the original handler, but <em>must restore</em> that data before returning or subsequent unrelated event handlers may act unpredictably. In most cases, the handle hook should return the result of the original handler, but that is at the discretion of the hook.
+The handle hook is unique in that it is the only special event function hook that is called under its original special event name when the type is mapped using <code>bindType</code> and <code>delegateType</code>. For that reason, it is almost always an error to have anything other than a handle hook present if the special event defines a <code>bindType</code> and <code>delegateType</code>, since those other hooks will never be called.</p>
+<h4 class="toc-linked"><a href="#example-multiclick-event" id="example-multiclick-event" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Example: Multiclick event</h4><p>This <code>multiclick</code> special event maps itself into a standard click event, but uses a handle hook so that it can monitor the event and only deliver it when the user clicks on the element a multiple of the number of times specified during event binding.</p>
+<p>The hook stores the current click count in the data object, so multiclick handlers on different elements don&apos;t interfere with each other. It changes the event type to the original &quot;multiclick&quot; type before calling the handler and restores it to the mapped &quot;click&quot; type before returning:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+						<div class="line n17">17</div>
+					
+						<div class="line n18">18</div>
+					
+						<div class="line n19">19</div>
+					
+						<div class="line n20">20</div>
+					
+						<div class="line n21">21</div>
+					
+						<div class="line n22">22</div>
+					
+						<div class="line n23">23</div>
+					
+						<div class="line n24">24</div>
+					
+						<div class="line n25">25</div>
+					
+						<div class="line n26">26</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>jQuery.event.special.multiclick = {</code></div></div><div class="container"><div class="line"><code>    delegateType: <span class="string">&quot;click&quot;</span>,</code></div></div><div class="container"><div class="line"><code>    bindType: <span class="string">&quot;click&quot;</span>,</code></div></div><div class="container"><div class="line"><code>    handle: <span class="keyword">function</span>( event ) {</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">var</span> handleObj = event.handleObj;</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">var</span> targetData = jQuery.data( event.target );</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">var</span> ret = <span class="literal">null</span>;</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>        <span class="comment">// If a multiple of the click count, run the handler</span></code></div></div><div class="container"><div class="line"><code>        targetData.clicks = ( targetData.clicks || <span class="number">0</span> ) + <span class="number">1</span>;</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>        <span class="keyword">if</span> ( targetData.clicks % event.data.clicks === <span class="number">0</span> ) {</code></div></div><div class="container"><div class="line"><code>            event.type = handleObj.origType;</code></div></div><div class="container"><div class="line"><code>            ret = handleObj.handler.apply( <span class="keyword">this</span>, arguments );</code></div></div><div class="container"><div class="line"><code>            event.type = handleObj.type;</code></div></div><div class="container"><div class="line"><code>            <span class="keyword">return</span> ret;</code></div></div><div class="container"><div class="line"><code>        }</code></div></div><div class="container"><div class="line"><code>    }</code></div></div><div class="container"><div class="line"><code>};</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="comment">// Sample usage</span></code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;p&quot;</span> ).on( <span class="string">&quot;multiclick&quot;</span>, {</code></div></div><div class="container"><div class="line"><code>    clicks: <span class="number">3</span></code></div></div><div class="container"><div class="line"><code>}, <span class="keyword">function</span>( event ) {</code></div></div><div class="container"><div class="line"><code>    alert( <span class="string">&quot;clicked 3 times&quot;</span> );</code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>					</div>
+
+	<div class="entry-meta row">
+				<div class="bottom-links row">
+							<div class="prev six columns">
+					<a href="https://learn.jquery.com/events/introduction-to-custom-events/">
+					<i class="icon-chevron-left"></i>
+					Introducing Custom Events					</a>
+				</div>
+										<div class="next six columns">
+					<a href="https://learn.jquery.com/effects/">
+					Effects					<i class="icon-chevron-right"></i>
+					</a>
+				</div>
+					</div>
+		
+		<aside class="meta-details six columns">
+			<h3>Last Updated</h3>
+			<ul>
+				<li class="icon-calendar icon-large" title="Last Updated"><span>December 17, 2015</span></li>
+			</ul>
+		</aside>
+		<aside class="github-feedback six columns">
+			<h3>Suggestions, Problems, Feedback?</h3>
+			<a class="button dark" href="https://github.com/jquery/learn.jquery.com/tree/master/page/events/event-extensions.md"><i class="icon-github"></i> Open an Issue or Submit a Pull Request on GitHub</a>
+		</aside>
+
+	</div>
+</article>
+	</div>
+
+	<div id="sidebar" class="widget-area" role="complementary">
+		
+		<aside id="chapter-listing" class="widget">
+			<h3 class="widget-title">Chapters</h3>
+			<ul>
+																		<li >
+						<a href="//learn.jquery.com/about-jquery/">
+															<i class="icon-certificate"></i>
+														About jQuery						</a>
+																																																																									</li>
+														<li >
+						<a href="//learn.jquery.com/using-jquery-core/">
+															<i class="icon-star-empty"></i>
+														Using jQuery Core						</a>
+																																																																																																																																																																																																																																																																																										<ul class="sub-chapter">
+																																																																																																																																																																																																																																																																																	<li >
+										<a href="//learn.jquery.com/using-jquery-core/faq/">
+											Frequently Asked Questions										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li class='active'>
+						<a href="//learn.jquery.com/events/">
+															<i class="icon-tasks"></i>
+														Events						</a>
+																																																																																																																																																																																																	</li>
+														<li >
+						<a href="//learn.jquery.com/effects/">
+															<i class="icon-picture"></i>
+														Effects						</a>
+																																																																																								</li>
+														<li >
+						<a href="//learn.jquery.com/ajax/">
+															<i class="icon-refresh"></i>
+														Ajax						</a>
+																																																																																																																						</li>
+														<li >
+						<a href="//learn.jquery.com/plugins/">
+															<i class="icon-bolt"></i>
+														Plugins						</a>
+																																																																																																							</li>
+														<li >
+						<a href="//learn.jquery.com/performance/">
+															<i class="icon-dashboard"></i>
+														Performance						</a>
+																																																																																																																																																				</li>
+														<li >
+						<a href="//learn.jquery.com/code-organization/">
+															<i class="icon-sitemap"></i>
+														Code Organization						</a>
+																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/code-organization/deferreds/">
+											Deferreds										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-ui/">
+															<i class="icon-magnet"></i>
+														jQuery UI						</a>
+																																																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/jquery-ui/widget-factory/">
+											Widget Factory										</a>
+									</li>
+																																												<li >
+										<a href="//learn.jquery.com/jquery-ui/environments/">
+											Using jQuery UI										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-mobile/">
+															<i class="icon-th-large"></i>
+														jQuery Mobile						</a>
+																																																																									</li>
+							</ul>
+		</aside>
+
+
+	</div><!-- #sidebar .widget-area -->
+</div>
+
+	</div>
+</div>
+
+<footer class="clearfix simple">
+	<div class="constrain">
+		<div class="row">
+			<div class="six columns offset-by-three">
+				<h3><span>Books</span></h3>
+				<ul class="books">
+					<li>
+						<a href="https://www.packtpub.com/web-development/learning-jquery-fourth-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/learning-jquery-4th-ed.jpg" alt="Learning jQuery 4th Edition by Karl Swedberg and Jonathan Chaffer" width="92" height="114">
+							Learning jQuery Fourth Edition
+							<cite>Karl Swedberg and Jonathan Chaffer</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.manning.com/books/jquery-in-action-third-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-in-action.jpg" alt="jQuery in Action by Bear Bibeault, Yehuda Katz, and Aurelio De Rosa" width="92" height="114">
+							jQuery in Action
+							<cite>Bear Bibeault, Yehuda Katz, and Aurelio De Rosa</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.syncfusion.com/ebooks/jquery">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-succinctly.jpg" alt="jQuery Succinctly by Cody Lindley" width="92" height="114">
+							jQuery Succinctly
+							<cite>Cody Lindley</cite>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		
+<div id="legal">
+	<ul class="footer-site-links">
+			<li><a class="icon-pencil" href="https://learn.jquery.com/">Learning Center</a></li>
+			<li><a class="icon-group" href="https://forum.jquery.com/">Forum</a></li>
+			<li><a class="icon-wrench" href="https://api.jquery.com/">API</a></li>
+			<li><a class="icon-twitter" href="https://twitter.com/jquery">Twitter</a></li>
+			<li><a class="icon-comments" href="https://irc.jquery.org/">IRC</a></li>
+			<li><a class="icon-github" href="https://github.com/jquery">GitHub</a></li>
+	</ul>
+	<p class="copyright">
+		Copyright 2021 <a href="https://openjsf.org/">OpenJS Foundation</a> and jQuery contributors. All rights reserved. See <a href="https://jquery.org/license/">jQuery License</a> for more information. The <a href="https://openjsf.org/">OpenJS Foundation</a> has registered trademarks and uses trademarks. For a list of trademarks of the <a href="https://openjsf.org/">OpenJS Foundation</a>, please see our <a href="https://trademark-policy.openjsf.org/">Trademark Policy</a> and <a href="https://trademark-list.openjsf.org/">Trademark List</a>. Trademarks and logos not indicated on the <a href="https://trademark-list.openjsf.org/">list of OpenJS Foundation trademarks</a> are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them. OpenJS Foundation <a href="https://terms-of-use.openjsf.org/">Terms of Use</a>, <a href="https://privacy-policy.openjsf.org/">Privacy</a>, and <a href="https://www.linuxfoundation.org/cookies">Cookie</a> Policies also apply.
+		<span class="sponsor-line"><a href="https://www.digitalocean.com" class="do-link">Web hosting by Digital Ocean</a> | <a href="https://www.stackpath.com" class="sp-link">CDN by StackPath</a></span>
+	</p>
+</div>
+
+	</div>
+</footer>
+
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/comment-reply.min.js?ver=4.5.2'></script>
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/wp-embed.min.js?ver=4.5.2'></script>
+	<!-- at the end of the BODY -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"  onload="document.querySelector('input[name=\'s\']') && docsearch({apiKey: '3cfde9aca378c8aab554d5bf1b23489b',
+		indexName: 'jquery',
+		inputSelector: 'input[name=\'s\']',
+		debug: true // Set debug to true if you want to inspect the dropdown
+	})" async></script>
+</body>
+</html>

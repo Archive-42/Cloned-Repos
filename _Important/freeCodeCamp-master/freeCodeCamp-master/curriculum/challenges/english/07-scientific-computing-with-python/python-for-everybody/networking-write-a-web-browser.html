@@ -1,0 +1,26 @@
+<h1 id="question">–question–</h1>
+<h2 id="text">–text–</h2>
+<p>What does the following code create?:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1"><span class="im">import</span> socket</a>
+<a class="sourceLine" id="cb1-2" title="2"></a>
+<a class="sourceLine" id="cb1-3" title="3">mysock <span class="op">=</span> socket.socket(socket.AF_INET, socket.SOCK_STREAM)</a>
+<a class="sourceLine" id="cb1-4" title="4">mysock.<span class="ex">connect</span>((<span class="st">&#39;data.pr4e.org&#39;</span>, <span class="dv">80</span>))</a>
+<a class="sourceLine" id="cb1-5" title="5">cmd <span class="op">=</span> <span class="st">&#39;GET http://data.pr4e.org/romeo.txt HTTP/1.0</span><span class="ch">\r\n\r\n</span><span class="st">&#39;</span>.encode()</a>
+<a class="sourceLine" id="cb1-6" title="6">mysock.send(cmd)</a>
+<a class="sourceLine" id="cb1-7" title="7"></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="cf">while</span> <span class="va">True</span>:</a>
+<a class="sourceLine" id="cb1-9" title="9">    data <span class="op">=</span> mysock.recv(<span class="dv">512</span>)</a>
+<a class="sourceLine" id="cb1-10" title="10">    <span class="cf">if</span> <span class="bu">len</span>(data) <span class="op">&lt;</span> <span class="dv">1</span>:</a>
+<a class="sourceLine" id="cb1-11" title="11">        <span class="cf">break</span></a>
+<a class="sourceLine" id="cb1-12" title="12">    <span class="bu">print</span>(data.decode(),end<span class="op">=</span><span class="st">&#39;&#39;</span>)</a>
+<a class="sourceLine" id="cb1-13" title="13">mysock.close()</a></code></pre></div>
+<h2 id="answers">–answers–</h2>
+<p>A simple web server.</p>
+<hr />
+<p>A simple email client.</p>
+<hr />
+<p>A simple todo list.</p>
+<hr />
+<p>A simple web browser.</p>
+<h2 id="video-solution">–video-solution–</h2>
+<p>4</p>

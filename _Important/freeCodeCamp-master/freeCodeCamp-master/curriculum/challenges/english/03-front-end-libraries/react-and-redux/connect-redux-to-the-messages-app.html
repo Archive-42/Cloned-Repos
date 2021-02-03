@@ -1,0 +1,254 @@
+<h1 id="description">–description–</h1>
+<p>Now that you understand how to use <code>connect</code> to connect React to Redux, you can apply what you’ve learned to your React component that handles messages.</p>
+<p>In the last lesson, the component you connected to Redux was named <code>Presentational</code>, and this wasn’t arbitrary. This term <em>generally</em> refers to React components that are not directly connected to Redux. They are simply responsible for the presentation of UI and do this as a function of the props they receive. By contrast, container components are connected to Redux. These are typically responsible for dispatching actions to the store and often pass store state to child components as props.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>The code editor has all the code you’ve written in this section so far. The only change is that the React component is renamed to <code>Presentational</code>. Create a new component held in a constant called <code>Container</code> that uses <code>connect</code> to connect the <code>Presentational</code> component to Redux. Then, in the <code>AppWrapper</code>, render the React Redux <code>Provider</code> component. Pass <code>Provider</code> the Redux <code>store</code> as a prop and render <code>Container</code> as a child. Once everything is setup, you will see the messages app rendered to the page again.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>AppWrapper</code> should render to the page.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(AppWrapper))<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;AppWrapper&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>Presentational</code> component should render to page.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(AppWrapper))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;Presentational&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>Presentational</code> component should render an <code>h2</code>, <code>input</code>, <code>button</code>, and <code>ul</code> elements.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(AppWrapper))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="kw">const</span> PresentationalComponent <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;Presentational&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb3-6" title="6">      <span class="va">PresentationalComponent</span>.<span class="at">find</span>(<span class="st">&#39;div&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-7" title="7">      <span class="va">PresentationalComponent</span>.<span class="at">find</span>(<span class="st">&#39;h2&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">      <span class="va">PresentationalComponent</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">      <span class="va">PresentationalComponent</span>.<span class="at">find</span>(<span class="st">&#39;ul&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-11" title="11">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-12" title="12">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>Presentational</code> component should receive <code>messages</code> from the Redux store as a prop.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(AppWrapper))<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="kw">const</span> PresentationalComponent <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;Presentational&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="kw">const</span> props <span class="op">=</span> <span class="va">PresentationalComponent</span>.<span class="at">props</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="cf">return</span> <span class="va">Array</span>.<span class="at">isArray</span>(<span class="va">props</span>.<span class="at">messages</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb4-8" title="8">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>Presentational</code> component should receive the <code>submitMessage</code> action creator as a prop.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(AppWrapper))<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">const</span> PresentationalComponent <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;Presentational&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">    <span class="kw">const</span> props <span class="op">=</span> <span class="va">PresentationalComponent</span>.<span class="at">props</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="cf">return</span> <span class="kw">typeof</span> <span class="va">props</span>.<span class="at">submitNewMessage</span> <span class="op">===</span> <span class="st">&#39;function&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb5-8" title="8">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;AppWrapper /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>// Redux:
+const ADD = &#39;ADD&#39;;
+
+const addMessage = (message) =&gt; {
+  return {
+    type: ADD,
+    message: message
+  }
+};
+
+const messageReducer = (state = [], action) =&gt; {
+  switch (action.type) {
+    case ADD:
+      return [
+        ...state,
+        action.message
+      ];
+    default:
+      return state;
+  }
+};
+
+const store = Redux.createStore(messageReducer);
+
+// React:
+class Presentational extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: &#39;&#39;,
+      messages: []
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.submitMessage = this.submitMessage.bind(this);
+  }
+  handleChange(event) {
+    this.setState({
+      input: event.target.value
+    });
+  }
+  submitMessage() {
+    this.setState((state) =&gt; {
+      const currentMessage = state.input;
+      return {
+        input: &#39;&#39;,
+        messages: state.messages.concat(currentMessage)
+      };
+    });
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h2&gt;Type in a new Message:&lt;/h2&gt;
+        &lt;input
+          value={this.state.input}
+          onChange={this.handleChange}/&gt;&lt;br/&gt;
+        &lt;button onClick={this.submitMessage}&gt;Submit&lt;/button&gt;
+        &lt;ul&gt;
+          {this.state.messages.map( (message, idx) =&gt; {
+              return (
+                 &lt;li key={idx}&gt;{message}&lt;/li&gt;
+              )
+            })
+          }
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    );
+  }
+};
+
+// React-Redux:
+const mapStateToProps = (state) =&gt; {
+  return { messages: state }
+};
+
+const mapDispatchToProps = (dispatch) =&gt; {
+  return {
+    submitNewMessage: (newMessage) =&gt; {
+       dispatch(addMessage(newMessage))
+    }
+  }
+};
+
+const Provider = ReactRedux.Provider;
+const connect = ReactRedux.connect;
+
+// Define the Container component here:
+
+
+class AppWrapper extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    // Complete the return statement:
+    return (null);
+  }
+};</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>// Redux:
+const ADD = &#39;ADD&#39;;
+
+const addMessage = (message) =&gt; {
+  return {
+    type: ADD,
+    message: message
+  }
+};
+
+const messageReducer = (state = [], action) =&gt; {
+  switch (action.type) {
+    case ADD:
+      return [
+        ...state,
+        action.message
+      ];
+    default:
+      return state;
+  }
+};
+
+const store = Redux.createStore(messageReducer);
+
+// React:
+class Presentational extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: &#39;&#39;,
+      messages: []
+    }
+ this.handleChange = this.handleChange.bind(this);
+ this.submitMessage = this.submitMessage.bind(this);
+  }
+  handleChange(event) {
+    this.setState({
+      input: event.target.value
+    });
+  }
+  submitMessage() {
+    this.setState((state) =&gt; {
+      const currentMessage = state.input;
+      return {
+        input: &#39;&#39;,
+        messages: state.messages.concat(currentMessage)
+      };
+    });
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h2&gt;Type in a new Message:&lt;/h2&gt;
+        &lt;input
+          value={this.state.input}
+          onChange={this.handleChange}/&gt;&lt;br/&gt;
+        &lt;button onClick={this.submitMessage}&gt;Submit&lt;/button&gt;
+        &lt;ul&gt;
+          {this.state.messages.map( (message, idx) =&gt; {
+              return (
+                 &lt;li key={idx}&gt;{message}&lt;/li&gt;
+              )
+            })
+          }
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    );
+  }
+};
+
+// React-Redux:
+const mapStateToProps = (state) =&gt; {
+  return { messages: state }
+};
+
+const mapDispatchToProps = (dispatch) =&gt; {
+  return {
+    submitNewMessage: (newMessage) =&gt; {
+       dispatch(addMessage(newMessage))
+    }
+  }
+};
+
+const Provider = ReactRedux.Provider;
+const connect = ReactRedux.connect;
+
+const Container = connect(mapStateToProps, mapDispatchToProps)(Presentational);
+
+class AppWrapper extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      &lt;Provider store={store}&gt;
+        &lt;Container/&gt;
+      &lt;/Provider&gt;
+    );
+  }
+};</code></pre>

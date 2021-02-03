@@ -1,0 +1,106 @@
+<h1 id="description">–description–</h1>
+<p>Since you already know what a binary search tree is, this challenge will establish how it is you can tell that a tree is a binary search tree or not.</p>
+<p>The main distinction of a binary search tree is that the nodes are ordered in an organized fashion. Nodes have at most 2 child nodes (placed to the right and/or left) based on if the child node’s value is greater than or equal to (right) or less than (left) the parent node.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>In this challenge, you will create a utility for your tree. Write a JavaScript method <code>isBinarySearchTree</code> which takes a tree as an input and returns a boolean value for whether the tree is a binary search tree or not. Use recursion whenever possible.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your Binary Search Tree should return true when checked with <code>isBinarySearchTree()</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> BinarySearchTree <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">BinarySearchTree</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-6" title="6">    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-7" title="7">      <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-9" title="9">    <span class="va">test</span>.<span class="at">push</span>(<span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-10" title="10">    <span class="va">test</span>.<span class="at">push</span>(<span class="dv">5</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-11" title="11">    <span class="va">test</span>.<span class="at">push</span>(<span class="dv">3</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-12" title="12">    <span class="va">test</span>.<span class="at">push</span>(<span class="dv">2</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-13" title="13">    <span class="va">test</span>.<span class="at">push</span>(<span class="dv">4</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-14" title="14">    <span class="cf">return</span> <span class="at">isBinarySearchTree</span>(test) <span class="op">==</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-15" title="15">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-16" title="16">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">BinarySearchTree</span>.<span class="va">prototype</span>.<span class="at">push</span> <span class="op">=</span> <span class="kw">function</span>(val) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="kw">var</span> root <span class="op">=</span> <span class="kw">this</span>.<span class="at">root</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-3" title="3"></a>
+<a class="sourceLine" id="cb2-4" title="4">  <span class="cf">if</span> (<span class="op">!</span>root) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-5" title="5">    <span class="kw">this</span>.<span class="at">root</span> <span class="op">=</span> <span class="kw">new</span> <span class="at">Node</span>(val)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    <span class="cf">return</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-7" title="7">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-8" title="8"></a>
+<a class="sourceLine" id="cb2-9" title="9">  <span class="kw">var</span> currentNode <span class="op">=</span> root<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-10" title="10">  <span class="kw">var</span> newNode <span class="op">=</span> <span class="kw">new</span> <span class="at">Node</span>(val)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-11" title="11"></a>
+<a class="sourceLine" id="cb2-12" title="12">  <span class="cf">while</span> (currentNode) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-13" title="13">    <span class="cf">if</span> (val <span class="op">&lt;</span> <span class="va">currentNode</span>.<span class="at">value</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-14" title="14">      <span class="cf">if</span> (<span class="op">!</span><span class="va">currentNode</span>.<span class="at">left</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-15" title="15">        <span class="va">currentNode</span>.<span class="at">left</span> <span class="op">=</span> newNode<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-16" title="16">        <span class="cf">break</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-17" title="17">      <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-18" title="18">        currentNode <span class="op">=</span> <span class="va">currentNode</span>.<span class="at">left</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-19" title="19">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-20" title="20">    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-21" title="21">      <span class="cf">if</span> (<span class="op">!</span><span class="va">currentNode</span>.<span class="at">right</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-22" title="22">        <span class="va">currentNode</span>.<span class="at">right</span> <span class="op">=</span> newNode<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-23" title="23">        <span class="cf">break</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-24" title="24">      <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-25" title="25">        currentNode <span class="op">=</span> <span class="va">currentNode</span>.<span class="at">right</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-26" title="26">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-27" title="27">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-28" title="28">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-29" title="29"><span class="op">};</span></a></code></pre></div>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">var</span> displayTree <span class="op">=</span> (tree) <span class="kw">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(<span class="va">JSON</span>.<span class="at">stringify</span>(tree<span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="dv">2</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw">function</span> <span class="at">Node</span>(value) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="kw">this</span>.<span class="at">value</span> <span class="op">=</span> value<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="kw">this</span>.<span class="at">left</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="kw">this</span>.<span class="at">right</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="op">}</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="kw">function</span> <span class="at">BinarySearchTree</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-8" title="8">  <span class="kw">this</span>.<span class="at">root</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="op">}</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="kw">function</span> <span class="at">isBinarySearchTree</span>(tree) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-11" title="11">  <span class="co">// Only change code below this line</span></a>
+<a class="sourceLine" id="cb3-12" title="12">  </a>
+<a class="sourceLine" id="cb3-13" title="13">  <span class="co">// Only change code above this line</span></a>
+<a class="sourceLine" id="cb3-14" title="14"><span class="op">}</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">var</span> displayTree <span class="op">=</span> (tree) <span class="kw">=&gt;</span> <span class="va">console</span>.<span class="at">log</span>(<span class="va">JSON</span>.<span class="at">stringify</span>(tree<span class="op">,</span> <span class="kw">null</span><span class="op">,</span> <span class="dv">2</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">function</span> <span class="at">Node</span>(value) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="kw">this</span>.<span class="at">value</span> <span class="op">=</span> value<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">  <span class="kw">this</span>.<span class="at">left</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="kw">this</span>.<span class="at">right</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="op">}</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="kw">function</span> <span class="at">BinarySearchTree</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-8" title="8">  <span class="kw">this</span>.<span class="at">root</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="op">}</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="kw">function</span> <span class="at">isBinarySearchTree</span>(tree) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-11" title="11">  <span class="cf">if</span> (<span class="va">tree</span>.<span class="at">root</span> <span class="op">==</span> <span class="kw">null</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-12" title="12">    <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-14" title="14">    <span class="kw">let</span> isBST <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-15" title="15">    <span class="kw">function</span> <span class="at">checkTree</span>(node) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-16" title="16">      <span class="cf">if</span> (<span class="va">node</span>.<span class="at">left</span> <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-17" title="17">        <span class="kw">const</span> left <span class="op">=</span> <span class="va">node</span>.<span class="at">left</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-18" title="18">        <span class="cf">if</span> (<span class="va">left</span>.<span class="at">value</span> <span class="op">&gt;</span> <span class="va">node</span>.<span class="at">value</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-19" title="19">          isBST <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-20" title="20">        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-21" title="21">          <span class="at">checkTree</span>(left)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-22" title="22">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-23" title="23">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-24" title="24">      <span class="cf">if</span> (<span class="va">node</span>.<span class="at">right</span> <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-25" title="25">        <span class="kw">const</span> right <span class="op">=</span> <span class="va">node</span>.<span class="at">right</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-26" title="26">        <span class="cf">if</span> (<span class="va">right</span>.<span class="at">value</span> <span class="op">&lt;</span> <span class="va">node</span>.<span class="at">value</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-27" title="27">          isBST <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-28" title="28">        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-29" title="29">          <span class="at">checkTree</span>(right)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-30" title="30">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-31" title="31">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-32" title="32">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-33" title="33">    <span class="at">checkTree</span>(<span class="va">tree</span>.<span class="at">root</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-34" title="34">    <span class="cf">return</span> isBST<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-35" title="35">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-36" title="36"><span class="op">};</span></a></code></pre></div>

@@ -1,0 +1,10 @@
+$red : #ff6775;
+body {
+  background: $red;
+}
+
+h1 {
+  font-family: Verdana;
+}
+
+@import 'navbar';

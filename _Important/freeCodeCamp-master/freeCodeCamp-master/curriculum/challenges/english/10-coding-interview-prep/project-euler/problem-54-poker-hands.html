@@ -1,0 +1,1115 @@
+<h1 id="description">–description–</h1>
+<p>In the card game poker, a hand consists of five cards and are ranked, from lowest to highest, in the following way:</p>
+<ul>
+<li>
+High Card: Highest value card.
+</li>
+<li>
+One Pair: Two cards of the same value.
+</li>
+<li>
+Two Pairs: Two different pairs.
+</li>
+<li>
+Three of a Kind: Three cards of the same value.
+</li>
+<li>
+Straight: All cards are consecutive values.
+</li>
+<li>
+Flush: All cards of the same suit.
+</li>
+<li>
+Full House: Three of a kind and a pair.
+</li>
+<li>
+Four of a Kind: Four cards of the same value.
+</li>
+<li>
+Straight Flush: All cards are consecutive values of same suit.
+</li>
+<li>
+Royal Flush: Ten, Jack, Queen, King, Ace, in same suit.
+</li>
+</ul>
+<p>The cards are valued in the order: 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King, Ace.</p>
+<p>If two players have the same ranked hands then the rank made up of the highest value wins; for example, a pair of eights beats a pair of fives (see example 1 below). But if two ranks tie, for example, both players have a pair of queens, then highest cards in each hand are compared (see example 4 below); if the highest cards tie then the next highest cards are compared, and so on.</p>
+<p>Consider the following five hands dealt to two players:</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 40%" />
+<col style="width: 41%" />
+<col style="width: 5%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Hand</th>
+<th>Player 1</th>
+<th>Player 2</th>
+<th>Winner</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1</strong></td>
+<td>5H 5C 6S 7S KD <br> Pair of Fives</td>
+<td>2C 3S 8S 8D TD <br> Pair of Eights</td>
+<td>Player 2</td>
+</tr>
+<tr class="even">
+<td><strong>2</strong></td>
+<td>5D 8C 9S JS AC <br> Highest card Ace</td>
+<td>2C 5C 7D 8S QH <br> Highest card Queen</td>
+<td>Player 1</td>
+</tr>
+<tr class="odd">
+<td><strong>3</strong></td>
+<td>2D 9C AS AH AC <br> Three Aces</td>
+<td>3D 6D 7D TD QD <br> Flush with Diamonds</td>
+<td>Player 2</td>
+</tr>
+<tr class="even">
+<td><strong>4</strong></td>
+<td>4D 6S 9H QH QC <br> Pair of Queens <br> Highest card Nine</td>
+<td>3D 6D 7H QD QS <br> Pair of Queens <br> Highest card Seven</td>
+<td>Player 1</td>
+</tr>
+<tr class="odd">
+<td><strong>5</strong></td>
+<td>2H 2D 4C 4D 4S <br> Full House <br> with Three Fours</td>
+<td>3C 3D 3S 9S 9D <br> Full House <br> with Three Threes</td>
+<td>Player 1</td>
+</tr>
+</tbody>
+</table>
+<p>The global array (<code>handsArr</code>) passed to the function, contains one-thousand random hands dealt to two players. Each line of the file contains ten cards (separated by a single space): the first five are Player 1’s cards and the last five are Player 2’s cards. You can assume that all hands are valid (no invalid characters or repeated cards), each player’s hand is in no specific order, and in each hand there is a clear winner.</p>
+<p>How many hands does Player 1 win?</p>
+<h1 id="hints">–hints–</h1>
+<p><code>pokerHands(testArr)</code> should return a number.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">pokerHands</span>(testArr) <span class="op">===</span> <span class="st">&#39;number&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>pokerHands(testArr)</code> should return 2.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">pokerHands</span>(testArr)<span class="op">,</span> <span class="dv">2</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>pokerHands(handsArr)</code> should return 376.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">pokerHands</span>(handsArr)<span class="op">,</span> <span class="dv">376</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="before-user-code">–before-user-code–</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">const</span> handsArr <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="st">&#39;8C TS KC 9H 4S 7D 2S 5D 3S AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="st">&#39;5C AD 5D AC 9C 7C 5H 8D TD KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-4" title="4">  <span class="st">&#39;3H 7H 6S KC JS QH TD JC 2D 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="st">&#39;TH 8H 5C QS TC 9H 4D JC KS JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-6" title="6">  <span class="st">&#39;7C 5H KC QH JD AS KH 4C AD 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-7" title="7">  <span class="st">&#39;5H KS 9C 7D 9H 8D 3S 5D 5C AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-8" title="8">  <span class="st">&#39;6H 4H 5C 3H 2H 3S QH 5S 6S AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-9" title="9">  <span class="st">&#39;TD 8C 4H 7C TC KC 4C 3H 7S KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-10" title="10">  <span class="st">&#39;7C 9C 6D KD 3H 4C QS QC AC KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-11" title="11">  <span class="st">&#39;JC 6S 5H 2H 2D KD 9D 7C AS JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-12" title="12">  <span class="st">&#39;AD QH TH 9D 8H TS 6D 3S AS AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-13" title="13">  <span class="st">&#39;2H 4S 5C 5S TC KC JD 6C TS 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-14" title="14">  <span class="st">&#39;QD AS 6H JS 2C 3D 9H KC 4H 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-15" title="15">  <span class="st">&#39;KD 8S 9S 7C 2S 3S 6D 6S 4H KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-16" title="16">  <span class="st">&#39;3C 8C 2D 7D 4D 9S 4S QH 4H JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-17" title="17">  <span class="st">&#39;8C KC 7S TC 2D TS 8H QD AC 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-18" title="18">  <span class="st">&#39;3D KH QD 6C 6S AD AS 8H 2H QS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-19" title="19">  <span class="st">&#39;6S 8D 4C 8S 6C QH TC 6D 7D 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-20" title="20">  <span class="st">&#39;2S 8D 8C 4C TS 9S 9D 9C AC 3D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-21" title="21">  <span class="st">&#39;3C QS 2S 4H JH 3D 2D TD 8S 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-22" title="22">  <span class="st">&#39;5H QS 8S 6D 3C 8C JD AS 7H 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-23" title="23">  <span class="st">&#39;6H TD 9D AS JH 6C QC 9S KD JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-24" title="24">  <span class="st">&#39;AH 8S QS 4D TH AC TS 3C 3D 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-25" title="25">  <span class="st">&#39;5S 4D JS 3D 8H 6C TS 3S AD 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-26" title="26">  <span class="st">&#39;6D 7C 5D 5H 3S 5C JC 2H 5S 3D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-27" title="27">  <span class="st">&#39;5H 6H 2S KS 3D 5D JD 7H JS 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-28" title="28">  <span class="st">&#39;KH 4H AS JS QS QC TC 6D 7C KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-29" title="29">  <span class="st">&#39;3D QS TS 2H JS 4D AS 9S JC KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-30" title="30">  <span class="st">&#39;QD 5H 4D 5D KH 7H 3D JS KD 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-31" title="31">  <span class="st">&#39;2C 9H 6H 5C 9D 6C JC 2D TH 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-32" title="32">  <span class="st">&#39;7D 6D AS QD JH 4D JS 7C QS 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-33" title="33">  <span class="st">&#39;3H KH QD AD 8C 8H 3S TH 9D 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-34" title="34">  <span class="st">&#39;AH 9S 4D 9D 8S 4H JS 3C TC 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-35" title="35">  <span class="st">&#39;2C KS 5H QD 3S TS 9H AH AD 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-36" title="36">  <span class="st">&#39;5C 7H 5D KD 9H 4D 3D 2D KS AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-37" title="37">  <span class="st">&#39;KS KC 9S 6D 2C QH 9D 9H TS TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-38" title="38">  <span class="st">&#39;9C 6H 5D QH 4D AD 6D QC JS KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-39" title="39">  <span class="st">&#39;9S 3H 9D JD 5C 4D 9H AS TC QH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-40" title="40">  <span class="st">&#39;2C 6D JC 9C 3C AD 9S KH 9D 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-41" title="41">  <span class="st">&#39;KC 9C 7C JC JS KD 3H AS 3C 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-42" title="42">  <span class="st">&#39;QD KH QS 2C 3S 8S 8H 9H 9C JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-43" title="43">  <span class="st">&#39;QH 8D 3C KC 4C 4H 6D AD 9H 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-44" title="44">  <span class="st">&#39;3S KS QS 7H KH 7D 5H 5D JD AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-45" title="45">  <span class="st">&#39;2H 2C 6H TH TC 7D 8D 4H 8C AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-46" title="46">  <span class="st">&#39;4S 2H AC QC 3S 6D TH 4D 4C KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-47" title="47">  <span class="st">&#39;4D TC KS AS 7C 3C 6D 2D 9H 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-48" title="48">  <span class="st">&#39;8C TD 5D QS 2C 7H 4C 9C 3H 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-49" title="49">  <span class="st">&#39;5H JH TS 7S TD 6H AD QD 8H 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-50" title="50">  <span class="st">&#39;5S AD 9C 8C 7C 8D 5H 9D 8S 2S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-51" title="51">  <span class="st">&#39;4H KH KS 9S 2S KC 5S AD 4S 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-52" title="52">  <span class="st">&#39;QS 9C QD 6H JS 5D AC 8D 2S AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-53" title="53">  <span class="st">&#39;KH AC JC 3S 9D 9S 3C 9C 5S JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-54" title="54">  <span class="st">&#39;AD 3C 3D KS 3S 5C 9C 8C TS 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-55" title="55">  <span class="st">&#39;JH 8D 5D 6H KD QS QD 3D 6C KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-56" title="56">  <span class="st">&#39;8S JD 6C 3S 8C TC QC 3C QH JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-57" title="57">  <span class="st">&#39;KC JC 8H 2S 9H 9C JH 8S 8C 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-58" title="58">  <span class="st">&#39;8S 2H QH 4D QC 9D KC AS TH 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-59" title="59">  <span class="st">&#39;8S 6H TH 7C 2H 6S 3C 3H AS 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-60" title="60">  <span class="st">&#39;QH 5S JS 4H 5H TS 8H AH AC JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-61" title="61">  <span class="st">&#39;9D 8H 2S 4S TC JC 3C 7H 3H 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-62" title="62">  <span class="st">&#39;3D AD 3C 3S 4C QC AS 5D TH 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-63" title="63">  <span class="st">&#39;6S 9D 4C JS KH AH TS JD 8H AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-64" title="64">  <span class="st">&#39;4C 6S 9D 7S AC 4D 3D 3S TC JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-65" title="65">  <span class="st">&#39;AD 7H 6H 4H JH KC TD TS 7D 6S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-66" title="66">  <span class="st">&#39;8H JH TC 3S 8D 8C 9S 2C 5C 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-67" title="67">  <span class="st">&#39;2C 9D KC QH TH QS JC 9C 4H TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-68" title="68">  <span class="st">&#39;QS 3C QD 8H KH 4H 8D TD 8S AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-69" title="69">  <span class="st">&#39;7C 3C TH 5S 8H 8C 9C JD TC KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-70" title="70">  <span class="st">&#39;QC TC JD TS 8C 3H 6H KD 7C TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-71" title="71">  <span class="st">&#39;JH QS KS 9C 6D 6S AS 9H KH 6H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-72" title="72">  <span class="st">&#39;2H 4D AH 2D JH 6H TD 5D 4H JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-73" title="73">  <span class="st">&#39;KD 8C 9S JH QD JS 2C QS 5C 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-74" title="74">  <span class="st">&#39;4S TC 7H 8D 2S 6H 7S 9C 7C KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-75" title="75">  <span class="st">&#39;8C 5D 7H 4S TD QC 8S JS 4H KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-76" title="76">  <span class="st">&#39;AD 8S JH 6D TD KD 7C 6C 2D 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-77" title="77">  <span class="st">&#39;JC 6H 6S JS 4H QH 9H AH 4C 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-78" title="78">  <span class="st">&#39;6H 5H AS 7C 7S 3D KH KC 5D 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-79" title="79">  <span class="st">&#39;JC 3D TD AS 4D 6D 6S QH JD KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-80" title="80">  <span class="st">&#39;8C 7S 8S QH 2S JD 5C 7H AH QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-81" title="81">  <span class="st">&#39;8S 3C 6H 6C 2C 8D TD 7D 4C 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-82" title="82">  <span class="st">&#39;5D QH KH 7C 2S 7H JS 6D QC QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-83" title="83">  <span class="st">&#39;AD 6C 6S 7D TH 6H 2H 8H KH 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-84" title="84">  <span class="st">&#39;KS JS KD 5D 2D KH 7D 9C 8C 3D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-85" title="85">  <span class="st">&#39;9C 6D QD 3C KS 3S 7S AH JD 2D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-86" title="86">  <span class="st">&#39;AH QH AS JC 8S 8H 4C KC TH 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-87" title="87">  <span class="st">&#39;JC 5H TD 7C 5D KD 4C AD 8H JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-88" title="88">  <span class="st">&#39;KC 2H AC AH 7D JH KH 5D 7S 6D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-89" title="89">  <span class="st">&#39;9S 5S 9C 6H 8S TD JD 9H 6C AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-90" title="90">  <span class="st">&#39;7D 8S 6D TS KD 7H AC 5S 7C 5D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-91" title="91">  <span class="st">&#39;AH QC JC 4C TC 8C 2H TS 2C 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-92" title="92">  <span class="st">&#39;KD KC 6S 3D 7D 2S 8S 3H 5S 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-93" title="93">  <span class="st">&#39;8S 5D 8H 4C 6H KC 3H 7C 5S KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-94" title="94">  <span class="st">&#39;JH 8C 3D 3C 6C KC TD 7H 7C 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-95" title="95">  <span class="st">&#39;JC KC 6H TS QS TD KS 8H 8C 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-96" title="96">  <span class="st">&#39;6C 5S 9C QH 7D AH KS KC 9S 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-97" title="97">  <span class="st">&#39;4D 4S 8H TD 9C 3S 7D 9D AS TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-98" title="98">  <span class="st">&#39;6S 7D 3C 6H 5D KD 2C 5C 9D 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-99" title="99">  <span class="st">&#39;2H KC 3D AD 3H QD QS 8D JC 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-100" title="100">  <span class="st">&#39;8C 3H 9C 7C AD 5D JC 9D JS AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-101" title="101">  <span class="st">&#39;5D 9H 5C 7H 6S 6C QC JC QD 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-102" title="102">  <span class="st">&#39;JC QS JH 2C 6S 9C QC 3D 4S TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-103" title="103">  <span class="st">&#39;4H 5S 8D 3D 4D 2S KC 2H JS 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-104" title="104">  <span class="st">&#39;TD 3S TH KD 4D 7H JH JS KS AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-105" title="105">  <span class="st">&#39;7S 8C 9S 2D 8S 7D 5C AD 9D AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-106" title="106">  <span class="st">&#39;8C 7H 2S 6C TH 3H 4C 3S 8H AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-107" title="107">  <span class="st">&#39;KD 5H JC 8H JD 2D 4H TD JH 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-108" title="108">  <span class="st">&#39;3D AS QH KS 7H JD 8S 5S 6D 5H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-109" title="109">  <span class="st">&#39;9S 6S TC QS JC 5C 5D 9C TH 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-110" title="110">  <span class="st">&#39;5H 3S JH 9H 2S 2C 6S 7S AS KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-111" title="111">  <span class="st">&#39;8C QD JC QS TC QC 4H AC KH 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-112" title="112">  <span class="st">&#39;TC 5H 7D JH 4H 2H 8D JC KS 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-113" title="113">  <span class="st">&#39;5S 9C KH KD 9H 5C TS 3D 7D 2D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-114" title="114">  <span class="st">&#39;5H AS TC 4D 8C 2C TS 9D 3H 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-115" title="115">  <span class="st">&#39;6H 8D 2D 9H JD 6C 4S 5H 5S 6D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-116" title="116">  <span class="st">&#39;AD 9C JC 7D 6H 9S 6D JS 9H 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-117" title="117">  <span class="st">&#39;AD JH TC QS 4C 5D 9S 7C 9C AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-118" title="118">  <span class="st">&#39;KD 6H 2H TH 8S QD KS 9D 9H AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-119" title="119">  <span class="st">&#39;4H 8H 8D 5H 6C AH 5S AS AD 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-120" title="120">  <span class="st">&#39;QS 5D 4S 2H TD KS 5H AC 3H JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-121" title="121">  <span class="st">&#39;9C 7D QD KD AC 6D 5H QH 6H 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-122" title="122">  <span class="st">&#39;KC AH QH 2H 7D QS 3H KS 7S JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-123" title="123">  <span class="st">&#39;6C 8S 3H 6D KS QD 5D 5C 8H TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-124" title="124">  <span class="st">&#39;9H 4D 4S 6S 9D KH QC 4H 6C JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-125" title="125">  <span class="st">&#39;TD 2D QH 4S 6H JH KD 3C QD 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-126" title="126">  <span class="st">&#39;4S 6H 7C QD 9D AS AH 6S AD 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-127" title="127">  <span class="st">&#39;2C KC TH 6H 8D AH 5C 6D 8S 5D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-128" title="128">  <span class="st">&#39;TD TS 7C AD JC QD 9H 3C KC 7H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-129" title="129">  <span class="st">&#39;5D 4D 5S 8H 4H 7D 3H JD KD 2D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-130" title="130">  <span class="st">&#39;JH TD 6H QS 4S KD 5C 8S 7D 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-131" title="131">  <span class="st">&#39;AC 3D AS 8C TD 7H KH 5D 6C JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-132" title="132">  <span class="st">&#39;9D KS 7C 6D QH TC JD KD AS KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-133" title="133">  <span class="st">&#39;JH 8S 5S 7S 7D AS 2D 3D AD 2H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-134" title="134">  <span class="st">&#39;2H 5D AS 3C QD KC 6H 9H 9S 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-135" title="135">  <span class="st">&#39;9D 5D TH 4C JH 3H 8D TC 8H 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-136" title="136">  <span class="st">&#39;6H KD 2C TD 2H 6C 9D 2D JS 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-137" title="137">  <span class="st">&#39;KD 7S 3C 7C AS QH TS AD 8C 2S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-138" title="138">  <span class="st">&#39;QS 8H 6C JS 4C 9S QC AD TD TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-139" title="139">  <span class="st">&#39;2H 7C TS TC 8C 3C 9H 2D 6D JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-140" title="140">  <span class="st">&#39;TC 2H 8D JH KS 6D 3H TD TH 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-141" title="141">  <span class="st">&#39;9D TD 9H QC 5D 6C 8H 8C KC TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-142" title="142">  <span class="st">&#39;2H 8C 3D AH 4D TH TC 7D 8H KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-143" title="143">  <span class="st">&#39;TS 5C 2D 8C 6S KH AH 5H 6H KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-144" title="144">  <span class="st">&#39;5S 5D AH TC 4C JD 8D 6H 8C 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-145" title="145">  <span class="st">&#39;KC QD 3D 8H 2D JC 9H 4H AD 2S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-146" title="146">  <span class="st">&#39;TD 6S 7D JS KD 4H QS 2S 3S 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-147" title="147">  <span class="st">&#39;4C 9H JH TS 3S 4H QC 5S 9S 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-148" title="148">  <span class="st">&#39;2C KD 9H JS 9S 3H JC TS 5D AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-149" title="149">  <span class="st">&#39;AS 2H 5D AD 5H JC 7S TD JS 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-150" title="150">  <span class="st">&#39;2D 4S 8H 3D 7D 2C AD KD 9C TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-151" title="151">  <span class="st">&#39;7H QD JH 5H JS AC 3D TH 4C 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-152" title="152">  <span class="st">&#39;6D KH KC QD 5C AD 7C 2D 4H AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-153" title="153">  <span class="st">&#39;3D 9D TC 8S QD 2C JC 4H JD AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-154" title="154">  <span class="st">&#39;6C TD 5S TC 8S AH 2C 5D AS AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-155" title="155">  <span class="st">&#39;TH 7S 3D AS 6C 4C 7H 7D 4H AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-156" title="156">  <span class="st">&#39;5C 2H KS 6H 7S 4H 5H 3D 3C 7H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-157" title="157">  <span class="st">&#39;3C 9S AC 7S QH 2H 3D 6S 3S 3H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-158" title="158">  <span class="st">&#39;2D 3H AS 2C 6H TC JS 6S 9C 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-159" title="159">  <span class="st">&#39;QH KD QD 6D AC 6H KH 2C TS 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-160" title="160">  <span class="st">&#39;8H 7D 3S 9H 5D 3H 4S QC 9S 5H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-161" title="161">  <span class="st">&#39;2D 9D 7H 6H 3C 8S 5H 4D 3S 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-162" title="162">  <span class="st">&#39;KD 9S 4S TC 7S QC 3S 8S 2H 7H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-163" title="163">  <span class="st">&#39;TC 3D 8C 3H 6C 2H 6H KS KD 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-164" title="164">  <span class="st">&#39;KC 3D 9S 3H JS 4S 8H 2D 6C 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-165" title="165">  <span class="st">&#39;6H QS 6C TC QD 9H 7D 7C 5H 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-166" title="166">  <span class="st">&#39;TD 9D 8D 6S 6C TC 5D TS JS 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-167" title="167">  <span class="st">&#39;4H KC JD 9H TC 2C 6S 5H 8H AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-168" title="168">  <span class="st">&#39;JS 9C 5C 6S 9D JD 8H KC 4C 6D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-169" title="169">  <span class="st">&#39;4D 8D 8S 6C 7C 6H 7H 8H 5C KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-170" title="170">  <span class="st">&#39;TC 3D JC 6D KS 9S 6H 7S 9C 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-171" title="171">  <span class="st">&#39;6C 3S KD 5H TS 7D 9H 9S 6H KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-172" title="172">  <span class="st">&#39;3D QD 4C 6H TS AC 3S 5C 2H KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-173" title="173">  <span class="st">&#39;4C AS JS 9S 7C TS 7H 9H JC KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-174" title="174">  <span class="st">&#39;4H 8C JD 3H 6H AD 9S 4S 5S KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-175" title="175">  <span class="st">&#39;4C 2C 7D 3D AS 9C 2S QS KC 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-176" title="176">  <span class="st">&#39;8S 5H 3D 2S AC 9D 6S 3S 4D TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-177" title="177">  <span class="st">&#39;QD TH 7S TS 3D AC 7H 6C 5D QC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-178" title="178">  <span class="st">&#39;TC QD AD 9C QS 5C 8D KD 3D 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-179" title="179">  <span class="st">&#39;9D 8H AS 3S 7C 8S JD 2D 8D KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-180" title="180">  <span class="st">&#39;4C TH AC QH JS 8D 7D 7S 9C KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-181" title="181">  <span class="st">&#39;9D 8D 4C JH 2C 2S QD KD TS 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-182" title="182">  <span class="st">&#39;4D 6D 5D 2D JH 3S 8S 3H TC KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-183" title="183">  <span class="st">&#39;AD 4D 2C QS 8C KD JH JD AH 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-184" title="184">  <span class="st">&#39;5C 6C 5H 2H JH 4H KS 7C TC 3H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-185" title="185">  <span class="st">&#39;3C 4C QC 5D JH 9C QD KH 8D TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-186" title="186">  <span class="st">&#39;3H 9C JS 7H QH AS 7C 9H 5H JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-187" title="187">  <span class="st">&#39;2D 5S QD 4S 3C KC 6S 6C 5C 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-188" title="188">  <span class="st">&#39;5D KH 2D TS 8S 9C AS 9S 7C 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-189" title="189">  <span class="st">&#39;7C AH 8C 8D 5S KD QH QS JH 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-190" title="190">  <span class="st">&#39;8C 9D AH 2H AC QC 5S 8H 7H 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-191" title="191">  <span class="st">&#39;QD 9H 5S QS QC 9C 5H JC TH 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-192" title="192">  <span class="st">&#39;6C 6S 3H 5H 3S 6H KS 8D AC 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-193" title="193">  <span class="st">&#39;AC QH 7H 8C 4S KC 6C 3D 3S TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-194" title="194">  <span class="st">&#39;9D 3D JS TH AC 5H 3H 8S 3S TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-195" title="195">  <span class="st">&#39;QD KH JS KS 9S QC 8D AH 3C AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-196" title="196">  <span class="st">&#39;5H 6C KH 3S 9S JH 2D QD AS 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-197" title="197">  <span class="st">&#39;6C 4D 7S 7H 5S JC 6S 9H 4H JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-198" title="198">  <span class="st">&#39;AH 5S 6H 9S AD 3S TH 2H 9D 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-199" title="199">  <span class="st">&#39;4C 8D 9H 7C QC AD 4S 9C KC 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-200" title="200">  <span class="st">&#39;9D 6H 4D TC 4C JH 2S 5D 3S AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-201" title="201">  <span class="st">&#39;2H 6C 7C KH 5C AD QS TH JD 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-202" title="202">  <span class="st">&#39;3S 4S 7S AH AS KC JS 2S AD TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-203" title="203">  <span class="st">&#39;JS KC 2S 7D 8C 5C 9C TS 5H 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-204" title="204">  <span class="st">&#39;7S 9S 4D TD JH JS KH 6H 5D 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-205" title="205">  <span class="st">&#39;JD JS JC TH 2D 3D QD 8C AC 5H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-206" title="206">  <span class="st">&#39;7S KH 5S 9D 5D TD 4S 6H 3C 2D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-207" title="207">  <span class="st">&#39;4S 5D AC 8D 4D 7C AD AS AH 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-208" title="208">  <span class="st">&#39;6S TH TS KS 2C QC AH AS 3C 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-209" title="209">  <span class="st">&#39;2H 8C 3S JC 5C 7C 3H 3C KH JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-210" title="210">  <span class="st">&#39;7S 3H JC 5S 6H 4C 2S 4D KC 7H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-211" title="211">  <span class="st">&#39;4D 7C 4H 9S 8S 6S AD TC 6C JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-212" title="212">  <span class="st">&#39;KH QS 3S TC 4C 8H 8S AC 3C TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-213" title="213">  <span class="st">&#39;QD QS TH 3C TS 7H 7D AH TD JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-214" title="214">  <span class="st">&#39;TD JD QC 4D 9S 7S TS AD 7D AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-215" title="215">  <span class="st">&#39;AH 7H 4S 6D 7C 2H 9D KS JC TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-216" title="216">  <span class="st">&#39;7C AH JD 4H 6D QS TS 2H 2C 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-217" title="217">  <span class="st">&#39;TC KC 8C 9S 4C JS 3C JC 6S AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-218" title="218">  <span class="st">&#39;AS 7D QC 3D 5S JC JD 9D TD KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-219" title="219">  <span class="st">&#39;TH 3C 2S 6H AH AC 5H 5C 7S 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-220" title="220">  <span class="st">&#39;QC 2D AC QD 2S 3S JD QS 6S 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-221" title="221">  <span class="st">&#39;KC 4H 3C 9D JS 6H 3S 8S AS 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-222" title="222">  <span class="st">&#39;7H KC 7D JD 2H JC QH 5S 3H QS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-223" title="223">  <span class="st">&#39;9H TD 3S 8H 7S AC 5C 6C AH 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-224" title="224">  <span class="st">&#39;8D 9H AH JD TD QS 7D 3S 9C 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-225" title="225">  <span class="st">&#39;AH QH 3C JD KC 4S 5S 5D TD KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-226" title="226">  <span class="st">&#39;9H 7H 6S JH TH 4C 7C AD 5C 2D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-227" title="227">  <span class="st">&#39;7C KD 5S TC 9D 6S 6C 5D 2S TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-228" title="228">  <span class="st">&#39;KC 9H 8D 5H 7H 4H QC 3D 7C AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-229" title="229">  <span class="st">&#39;6S 8S QC TD 4S 5C TH QS QD 2S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-230" title="230">  <span class="st">&#39;8S 5H TH QC 9H 6S KC 7D 7C 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-231" title="231">  <span class="st">&#39;7H KD AH 4D KH 5C 4S 2D KC QH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-232" title="232">  <span class="st">&#39;6S 2C TD JC AS 4D 6C 8C 4H 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-233" title="233">  <span class="st">&#39;JC TC JD 5S 6S 8D AS 9D AD 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-234" title="234">  <span class="st">&#39;6D 6H 5D 5S TC 3D 7D QS 9D QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-235" title="235">  <span class="st">&#39;4S 6C 8S 3S 7S AD KS 2D 7D 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-236" title="236">  <span class="st">&#39;KC QH JC AC QD 5D 8D QS 7H 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-237" title="237">  <span class="st">&#39;JS AH 8S 5H 3D TD 3H 4S 6C JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-238" title="238">  <span class="st">&#39;4S QS 7D AS 9H JS KS 6D TC 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-239" title="239">  <span class="st">&#39;2D 5C 6H TC 4D QH 3D 9H 8S 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-240" title="240">  <span class="st">&#39;6D 7H TC TH 5S JD 5C 9C KS KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-241" title="241">  <span class="st">&#39;8D TD QH 6S 4S 6C 8S KC 5C TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-242" title="242">  <span class="st">&#39;5S 3D KS AC 4S 7D QD 4C TH 2S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-243" title="243">  <span class="st">&#39;TS 8H 9S 6S 7S QH 3C AH 7H 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-244" title="244">  <span class="st">&#39;4C 8C TS JS QC 3D 7D 5D 7S JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-245" title="245">  <span class="st">&#39;8S 7S 9D QC AC 7C 6D 2H JH KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-246" title="246">  <span class="st">&#39;JS KD 3C 6S 4S 7C AH QC KS 5H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-247" title="247">  <span class="st">&#39;KS 6S 4H JD QS TC 8H KC 6H AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-248" title="248">  <span class="st">&#39;KH 7C TC 6S TD JC 5C 7D AH 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-249" title="249">  <span class="st">&#39;3H 4C 4H TC TH 6S 7H 6D 9C QH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-250" title="250">  <span class="st">&#39;7D 5H 4S 8C JS 4D 3D 8S QH KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-251" title="251">  <span class="st">&#39;3H 6S AD 7H 3S QC 8S 4S 7S JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-252" title="252">  <span class="st">&#39;3S JD KH TH 6H QS 9C 6C 2D QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-253" title="253">  <span class="st">&#39;4S QH 4D 5H KC 7D 6D 8D TH 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-254" title="254">  <span class="st">&#39;TD AD 6S 7H KD KH 9H 5S KC JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-255" title="255">  <span class="st">&#39;3H QC AS TS 4S QD KS 9C 7S KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-256" title="256">  <span class="st">&#39;TS 6S QC 6C TH TC 9D 5C 5D KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-257" title="257">  <span class="st">&#39;JS 3S 4H KD 4C QD 6D 9S JC 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-258" title="258">  <span class="st">&#39;8S JS 6D 4H JH 6H 6S 6C KS KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-259" title="259">  <span class="st">&#39;AC 7D 5D TC 9S KH 6S QD 6H AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-260" title="260">  <span class="st">&#39;AS 7H 6D QH 8D TH 2S KH 5C 5H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-261" title="261">  <span class="st">&#39;4C 7C 3D QC TC 4S KH 8C 2D JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-262" title="262">  <span class="st">&#39;6H 5D 7S 5H 9C 9H JH 8S TH 7H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-263" title="263">  <span class="st">&#39;AS JS 2S QD KH 8H 4S AC 8D 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-264" title="264">  <span class="st">&#39;3H 4C TD KD 8C JC 5C QS 2D JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-265" title="265">  <span class="st">&#39;TS 7D 5D 6C 2C QS 2H 3C AH KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-266" title="266">  <span class="st">&#39;4S 7C 9C 7D JH 6C 5C 8H 9D QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-267" title="267">  <span class="st">&#39;2S TD 7S 6D 9C 9S QS KH QH 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-268" title="268">  <span class="st">&#39;JC 6S 9C QH JH 8D 7S JS KH 2H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-269" title="269">  <span class="st">&#39;8D 5H TH KC 4D 4S 3S 6S 3D QS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-270" title="270">  <span class="st">&#39;2D JD 4C TD 7C 6D TH 7S JC AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-271" title="271">  <span class="st">&#39;QS 7S 4C TH 9D TS AD 4D 3H 6H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-272" title="272">  <span class="st">&#39;2D 3H 7D JD 3D AS 2S 9C QC 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-273" title="273">  <span class="st">&#39;4H 9H 9C 2C 7S JH KD 5C 5D 6H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-274" title="274">  <span class="st">&#39;TC 9H 8H JC 3C 9S 8D KS AD KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-275" title="275">  <span class="st">&#39;TS 5H JD QS QH QC 8D 5D KH AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-276" title="276">  <span class="st">&#39;5D AS 8S 6S 4C AH QC QD TH 7H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-277" title="277">  <span class="st">&#39;3H 4H 7D 6S 4S 9H AS 8H JS 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-278" title="278">  <span class="st">&#39;JD 8C 2C 9D 7D 5H 5S 9S JC KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-279" title="279">  <span class="st">&#39;KD 9C 4S QD AH 7C AD 9D AC TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-280" title="280">  <span class="st">&#39;6S 4H 4S 9C 8D KS TC 9D JH 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-281" title="281">  <span class="st">&#39;5S JC 5H 4S QH AC 2C JS 2S 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-282" title="282">  <span class="st">&#39;8C 5H AS QD AD 5C 7D 8S QC TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-283" title="283">  <span class="st">&#39;JC 4C 8D 5C KH QS 4D 6H 2H 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-284" title="284">  <span class="st">&#39;TH 4S 2D KC 3H QD AC 7H AD 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-285" title="285">  <span class="st">&#39;KH QD AS 8H TH KC 8D 7S QH 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-286" title="286">  <span class="st">&#39;JC 6C 7D 8C KH AD QS 2H 6S 2D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-287" title="287">  <span class="st">&#39;JC KH 2D 7D JS QC 5H 4C 5D AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-288" title="288">  <span class="st">&#39;TS 3S AD 4S TD 2D TH 6S 9H JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-289" title="289">  <span class="st">&#39;9H 2D QS 2C 4S 3D KH AS AC 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-290" title="290">  <span class="st">&#39;KH 6S 8H 4S KD 7D 9D TS QD QC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-291" title="291">  <span class="st">&#39;JH 5H AH KS AS AD JC QC 5S KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-292" title="292">  <span class="st">&#39;5D 7D 6D KS KD 3D 7C 4D JD 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-293" title="293">  <span class="st">&#39;AC JS 8D 5H 9C 3H 4H 4D TS 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-294" title="294">  <span class="st">&#39;6H KS KH 9D 7C 2S 6S 8S 2H 3D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-295" title="295">  <span class="st">&#39;6H AC JS 7S 3S TD 8H 3H 4H TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-296" title="296">  <span class="st">&#39;9H TC QC KC 5C KS 6H 4H AC 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-297" title="297">  <span class="st">&#39;TC 7D QH 4S JC TS 6D 6C AC KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-298" title="298">  <span class="st">&#39;QH 7D 7C JH QS QD TH 3H 5D KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-299" title="299">  <span class="st">&#39;3D 5S 8D JS 4C 2C KS 7H 9C 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-300" title="300">  <span class="st">&#39;5H 8S 4H TD 2C 3S QD QC 3H KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-301" title="301">  <span class="st">&#39;QC JS KD 9C AD 5S 9D 7D 7H TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-302" title="302">  <span class="st">&#39;8C JC KH 7C 7S 6C TS 2C QD TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-303" title="303">  <span class="st">&#39;5S 9D TH 3C 7S QH 8S 9C 2H 5H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-304" title="304">  <span class="st">&#39;5D 9H 6H 2S JS KH 3H 7C 2H 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-305" title="305">  <span class="st">&#39;JD 5D 5S 2C TC 2S 6S 6C 3C 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-306" title="306">  <span class="st">&#39;4D KH 8H 4H 2D KS 3H 5C 2S 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-307" title="307">  <span class="st">&#39;3S 2D TD 7H 8S 6H JD KC 9C 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-308" title="308">  <span class="st">&#39;6S QD JH 7C 9H 5H 8S 8H TH TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-309" title="309">  <span class="st">&#39;QS 7S TD 7D TS JC KD 7C 3C 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-310" title="310">  <span class="st">&#39;3C JD 8S 4H 2D 2S TD AS 4D AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-311" title="311">  <span class="st">&#39;AH KS 6C 4C 4S 7D 8C 9H 6H AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-312" title="312">  <span class="st">&#39;5S 3C 9S 2C QS KD 4D 4S AC 5D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-313" title="313">  <span class="st">&#39;2D TS 2C JS KH QH 5D 8C AS KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-314" title="314">  <span class="st">&#39;KD 3H 6C TH 8S 7S KH 6H 9S AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-315" title="315">  <span class="st">&#39;6H 7S 6C QS AH 2S 2H 4H 5D 5H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-316" title="316">  <span class="st">&#39;5H JC QD 2C 2S JD AS QC 6S 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-317" title="317">  <span class="st">&#39;6C TC AS KD 8H 9D 2C 7D JH 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-318" title="318">  <span class="st">&#39;2H 4C 6C AH 8S TD 3H TH 7C TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-319" title="319">  <span class="st">&#39;KD 4S TS 6C QH 8D 9D 9C AH 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-320" title="320">  <span class="st">&#39;6D JS 5C QD QC 9C 5D 8C 2H KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-321" title="321">  <span class="st">&#39;3C QH JH AD 6S AH KC 8S 6D 6H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-322" title="322">  <span class="st">&#39;3D 7C 4C 7S 5S 3S 6S 5H JC 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-323" title="323">  <span class="st">&#39;QH 7C 5H 3C 3S 8C TS 4C KD 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-324" title="324">  <span class="st">&#39;QD 3S 7S 5H 7H QH JC 7C 8C KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-325" title="325">  <span class="st">&#39;3C KD KH 2S 4C TS AC 6S 2C 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-326" title="326">  <span class="st">&#39;2C KH 3C 4C 6H 4D 5H 5S 7S QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-327" title="327">  <span class="st">&#39;4D 7C 8S QD TS 9D KS 6H KD 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-328" title="328">  <span class="st">&#39;QS 4D TS 7S 4C 3H QD 8D 9S TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-329" title="329">  <span class="st">&#39;TS QH AC 6S 3C 9H 9D QS 8S 6H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-330" title="330">  <span class="st">&#39;3S 7S 5D 4S JS 2D 6C QH 6S TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-331" title="331">  <span class="st">&#39;4C 4H AS JS 5D 3D TS 9C AC 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-332" title="332">  <span class="st">&#39;6S 9C 7C 3S 5C QS AD AS 6H 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-333" title="333">  <span class="st">&#39;9S 8C 7H 3H 6S 7C AS 9H JD KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-334" title="334">  <span class="st">&#39;3D 3H 7S 4D 6C 7C AC 2H 9C TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-335" title="335">  <span class="st">&#39;4H 5S 3H AC TC TH 9C 9H 9S 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-336" title="336">  <span class="st">&#39;8D 9H 5H 4D 6C 2H QD 6S 5D 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-337" title="337">  <span class="st">&#39;4C 5C JD QS 4D 3H TH AC QH 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-338" title="338">  <span class="st">&#39;QC 5S 3C 7H AD 4C KS 4H JD 6D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-339" title="339">  <span class="st">&#39;QS AH 3H KS 9H 2S JS JH 5H 2H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-340" title="340">  <span class="st">&#39;2H 5S TH 6S TS 3S KS 3C 5H JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-341" title="341">  <span class="st">&#39;2D 9S 7H 3D KC JH 6D 7D JS TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-342" title="342">  <span class="st">&#39;AC JS 8H 2C 8C JH JC 2D TH 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-343" title="343">  <span class="st">&#39;5D 9S 8H 2H 3D TC AH JC KD 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-344" title="344">  <span class="st">&#39;9D QD JC 2H 6D KH TS 9S QH TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-345" title="345">  <span class="st">&#39;2C 8D 4S JD 5H 3H TH TC 9C KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-346" title="346">  <span class="st">&#39;AS 3D 9H 7D 4D TH KH 2H 7S 3H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-347" title="347">  <span class="st">&#39;4H 7S KS 2S JS TS 8S 2H QD 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-348" title="348">  <span class="st">&#39;5S 6H JH KS 8H 2S QC AC 6S 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-349" title="349">  <span class="st">&#39;JC AS AD QS 8H 6C KH 4C 4D QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-350" title="350">  <span class="st">&#39;2S 3D TS TD 9S KS 6S QS 5C 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-351" title="351">  <span class="st">&#39;3C 6D 4S QC KC JH QD TH KH AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-352" title="352">  <span class="st">&#39;9H AH 4D KS 2S 8D JH JC 7C QS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-353" title="353">  <span class="st">&#39;2D 6C TH 3C 8H QD QH 2S 3S KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-354" title="354">  <span class="st">&#39;6H 5D 9S 4C TS TD JS QD 9D JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-355" title="355">  <span class="st">&#39;5H 8H KH 8S KS 7C TD AD 4S KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-356" title="356">  <span class="st">&#39;2C 7C JC 5S AS 6C 7D 8S 5H 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-357" title="357">  <span class="st">&#39;6S QD 9S TS KH QS 5S QH 3C KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-358" title="358">  <span class="st">&#39;7D 3H 3C KD 5C AS JH 7H 6H JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-359" title="359">  <span class="st">&#39;9D 5C 9H KC 8H KS 4S AD 4D 2S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-360" title="360">  <span class="st">&#39;3S JD QD 8D 2S 7C 5S 6S 5H TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-361" title="361">  <span class="st">&#39;6D 9S KC TD 3S 6H QD JD 5C 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-362" title="362">  <span class="st">&#39;5H 9D TS KD 8D 6H TD QC 4C 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-363" title="363">  <span class="st">&#39;6D 4S JD 9D AH 9S AS TD 9H QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-364" title="364">  <span class="st">&#39;2D 5S 2H 9C 6H 9S TD QC 7D TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-365" title="365">  <span class="st">&#39;3S 2H KS TS 2C 9C 8S JS 9D 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-366" title="366">  <span class="st">&#39;3C KC 6D 5D 6C 6H 8S AS 7S QS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-367" title="367">  <span class="st">&#39;JH 9S 2H 8D 4C 8H 9H AD TH KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-368" title="368">  <span class="st">&#39;QC AS 2S JS 5C 6H KD 3H 7H 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-369" title="369">  <span class="st">&#39;QD 8H 2S 8D 3S 6D AH 2C TC 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-370" title="370">  <span class="st">&#39;JD JS TS 8S 3H 5D TD KC JC 6H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-371" title="371">  <span class="st">&#39;6S QS TC 3H 5D AH JC 7C 7D 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-372" title="372">  <span class="st">&#39;7C 5D 8H 9C 2H 9H JH KH 5S 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-373" title="373">  <span class="st">&#39;9C 7H 6S TH 3S QC QD 4C AC JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-374" title="374">  <span class="st">&#39;2H 5D 9S 7D KC 3S QS 2D AS KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-375" title="375">  <span class="st">&#39;2S 4S 2H 7D 5C TD TH QH 9S 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-376" title="376">  <span class="st">&#39;6D 3S TS 6H 4H KS 9D 8H 5S 2D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-377" title="377">  <span class="st">&#39;9H KS 4H 3S 5C 5D KH 6H 6S JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-378" title="378">  <span class="st">&#39;KC AS 8C 4C JC KH QC TH QD AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-379" title="379">  <span class="st">&#39;6S KH 9S 2C 5H TC 3C 7H JC 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-380" title="380">  <span class="st">&#39;JD 4S 6S 5S 8D 7H 7S 4D 4C 2H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-381" title="381">  <span class="st">&#39;7H 9H 5D KH 9C 7C TS TC 7S 5H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-382" title="382">  <span class="st">&#39;4C 8D QC TS 4S 9H 3D AD JS 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-383" title="383">  <span class="st">&#39;8C QS 5C 5D 3H JS AH KC 4S 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-384" title="384">  <span class="st">&#39;TS JD 8S QS TH JH KH 2D QD JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-385" title="385">  <span class="st">&#39;JD QC 5D 6S 9H 3S 2C 8H 9S TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-386" title="386">  <span class="st">&#39;2S 4C AD 7H JC 5C 2D 6D 4H 3D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-387" title="387">  <span class="st">&#39;7S JS 2C 4H 8C AD QD 9C 3S TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-388" title="388">  <span class="st">&#39;JD TS 4C 6H 9H 7D QD 6D 3C AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-389" title="389">  <span class="st">&#39;AS 7C 4C 6S 5D 5S 5C JS QC 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-390" title="390">  <span class="st">&#39;KD 6S 9S 7C 3C 5S 7D JH QD JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-391" title="391">  <span class="st">&#39;4S 7S JH 2C 8S 5D 7H 3D QH AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-392" title="392">  <span class="st">&#39;TD 6H 2H 8D 4H 2D 7C AD KH 5D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-393" title="393">  <span class="st">&#39;TS 3S 5H 2C QD AH 2S 5C KH TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-394" title="394">  <span class="st">&#39;KC 4D 8C 5D AS 6C 2H 2S 9H 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-395" title="395">  <span class="st">&#39;KD JS QC TS QS KH JH 2C 5D AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-396" title="396">  <span class="st">&#39;3S 5H KC 6C 9H 3H 2H AD 7D 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-397" title="397">  <span class="st">&#39;7S JS JH KD 8S 7D 2S 9H 7C 2H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-398" title="398">  <span class="st">&#39;9H 2D 8D QC 6S AD AS 8H 5H 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-399" title="399">  <span class="st">&#39;2S 7H 6C 6D 7D 8C 5D 9D JC 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-400" title="400">  <span class="st">&#39;7C 9C 7H JD 2H KD 3S KH AD 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-401" title="401">  <span class="st">&#39;QH AS 9H 4D JD KS KD TS KH 5H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-402" title="402">  <span class="st">&#39;4C 8H 5S 3S 3D 7D TD AD 7S KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-403" title="403">  <span class="st">&#39;JS 8S 5S JC 8H TH 9C 4D 5D KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-404" title="404">  <span class="st">&#39;7C 5S 9C QD 2C QH JS 5H 8D KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-405" title="405">  <span class="st">&#39;TD 2S KS 3D AD KC 7S TC 3C 5D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-406" title="406">  <span class="st">&#39;4C 2S AD QS 6C 9S QD TH QH 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-407" title="407">  <span class="st">&#39;8C AD QS 2D 2S KC JD KS 6C JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-408" title="408">  <span class="st">&#39;8D 4D JS 2H 5D QD 7S 7D QH TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-409" title="409">  <span class="st">&#39;6S 7H 3S 8C 8S 9D QS 8H 6C 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-410" title="410">  <span class="st">&#39;4S TC 2S 5C QD 4D QS 6D TH 6S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-411" title="411">  <span class="st">&#39;3S 5C 9D 6H 8D 4C 7D TC 7C TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-412" title="412">  <span class="st">&#39;AH 6S AS 7H 5S KD 3H 5H AC 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-413" title="413">  <span class="st">&#39;8D 8S AH KS QS 2C AD 6H 7D 5D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-414" title="414">  <span class="st">&#39;6H 9H 9S 2H QS 8S 9C 5D 2D KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-415" title="415">  <span class="st">&#39;TS QC 5S JH 7D 7S TH 9S 9H AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-416" title="416">  <span class="st">&#39;7H 3H 6S KC 4D 6D 5C 4S QD TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-417" title="417">  <span class="st">&#39;TD 2S 7C QD 3H JH 9D 4H 7S 7H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-418" title="418">  <span class="st">&#39;KS 3D 4H 5H TC 2S AS 2D 6D 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-419" title="419">  <span class="st">&#39;8H 3C 7H TD 3H AD KC TH 9C KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-420" title="420">  <span class="st">&#39;TC 4C 2C 9S 9D 9C 5C 2H JD 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-421" title="421">  <span class="st">&#39;3H AC TS 5D AD 8D 6H QC 6S 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-422" title="422">  <span class="st">&#39;2S TS 3S JD 7H 8S QH 4C 5S 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-423" title="423">  <span class="st">&#39;AC 4S 6C 3C KH 3D 7C 2D 8S 2H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-424" title="424">  <span class="st">&#39;4H 6C 8S TH 2H 4S 8H 9S 3H 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-425" title="425">  <span class="st">&#39;7C 4C 9C 2C 5C AS 5D KD 4D QH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-426" title="426">  <span class="st">&#39;9H 4H TS AS 7D 8D 5D 9S 8C 2H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-427" title="427">  <span class="st">&#39;QC KD AC AD 2H 7S AS 3S 2D 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-428" title="428">  <span class="st">&#39;2H QC 8H TC 6D QD QS 5D KH 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-429" title="429">  <span class="st">&#39;TH JD QS 4C 2S 5S AD 7H 3S AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-430" title="430">  <span class="st">&#39;7H JS 3D 6C 3S 6D AS 9S AC QS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-431" title="431">  <span class="st">&#39;9C TS AS 8C TC 8S 6H 9D 8D 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-432" title="432">  <span class="st">&#39;4D JD 9C KC 7C 6D KS 3S 8C AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-433" title="433">  <span class="st">&#39;3H 6S TC 8D TS 3S KC 9S 7C AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-434" title="434">  <span class="st">&#39;8C QC 4H 4S 8S 6C 3S TC AH AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-435" title="435">  <span class="st">&#39;4D 7D 5C AS 2H 6S TS QC AD TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-436" title="436">  <span class="st">&#39;QD QC 8S 4S TH 3D AH TS JH 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-437" title="437">  <span class="st">&#39;5C 2D 9S 2C 3H 3C 9D QD QH 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-438" title="438">  <span class="st">&#39;KC 9H 6C KD 7S 3C 4D AS TC 2D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-439" title="439">  <span class="st">&#39;3D JS 4D 9D KS 7D TH QC 3H 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-440" title="440">  <span class="st">&#39;8D 5S 2H 9D 3H 8C 4C 4H 3C TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-441" title="441">  <span class="st">&#39;JC TH 4S 6S JD 2D 4D 6C 3D 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-442" title="442">  <span class="st">&#39;TS 3S 2D 4H AC 2C 6S 2H JH 6H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-443" title="443">  <span class="st">&#39;TD 8S AD TC AH AC JH 9S 6S 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-444" title="444">  <span class="st">&#39;6C KC 4S JD 8D 9H 5S 7H QH AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-445" title="445">  <span class="st">&#39;KD 8D TS JH 5C 5H 3H AD AS JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-446" title="446">  <span class="st">&#39;2D 4H 3D 6C 8C 7S AD 5D 5C 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-447" title="447">  <span class="st">&#39;TD 5D 7S 9C 4S 5H 6C 8C 4C 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-448" title="448">  <span class="st">&#39;JS QH 9C AS 5C QS JC 3D QC 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-449" title="449">  <span class="st">&#39;JC 9C KH JH QS QC 2C TS 3D AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-450" title="450">  <span class="st">&#39;5D JH AC 5C 9S TS 4C JD 8C KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-451" title="451">  <span class="st">&#39;KC AS 2D KH 9H 2C 5S 4D 3D 6H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-452" title="452">  <span class="st">&#39;TH AH 2D 8S JC 3D 8C QH 7S 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-453" title="453">  <span class="st">&#39;8H QD 4H JC AS KH KS 3C 9S 6D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-454" title="454">  <span class="st">&#39;9S QH 7D 9C 4S AC 7H KH 4D KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-455" title="455">  <span class="st">&#39;AH AD TH 6D 9C 9S KD KS QH 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-456" title="456">  <span class="st">&#39;QD 6H 9C 7C QS 6D 6S 9D 5S JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-457" title="457">  <span class="st">&#39;AH 8D 5H QD 2H JC KS 4H KH 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-458" title="458">  <span class="st">&#39;5C 2S JS 8D 9C 8C 3D AS KC AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-459" title="459">  <span class="st">&#39;JD 9S 2H QS 8H 5S 8C TH 5C 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-460" title="460">  <span class="st">&#39;QC QS 8C 2S 2C 3S 9C 4C KS KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-461" title="461">  <span class="st">&#39;2D 5D 8S AH AD TD 2C JS KS 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-462" title="462">  <span class="st">&#39;TC 5S 5H 8H QC 9H 6H JD 4H 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-463" title="463">  <span class="st">&#39;3C JH 4H 9H AH 4S 2H 4C 8D AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-464" title="464">  <span class="st">&#39;8S TH 4D 7D 6D QD QS 7S TC 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-465" title="465">  <span class="st">&#39;KH 6D 2D JD 5H JS QD JH 4H 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-466" title="466">  <span class="st">&#39;9C 7S JH 4S 3S TS QC 8C TC 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-467" title="467">  <span class="st">&#39;QH 9D 4D JH QS 3S 2C 7C 6C 2D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-468" title="468">  <span class="st">&#39;4H 9S JD 5C 5H AH 9D TS 2D 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-469" title="469">  <span class="st">&#39;KS JH TS 5D 2D AH JS 7H AS 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-470" title="470">  <span class="st">&#39;JS AH 8C AD KS 5S 8H 2C 6C TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-471" title="471">  <span class="st">&#39;2H 5D AD AC KS 3D 8H TS 6H QC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-472" title="472">  <span class="st">&#39;6D 4H TS 9C 5H JS JH 6S JD 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-473" title="473">  <span class="st">&#39;JH QH 4H 2C 6D 3C 5D 4C QS KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-474" title="474">  <span class="st">&#39;6H 4H 6C 7H 6S 2S 8S KH QC 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-475" title="475">  <span class="st">&#39;3H 3D 5D KS 4H TD AD 3S 4D TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-476" title="476">  <span class="st">&#39;5S 7C 8S 7D 2C KS 7S 6C 8C JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-477" title="477">  <span class="st">&#39;5D 2H 3S 7C 5C QD 5H 6D 9C 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-478" title="478">  <span class="st">&#39;JS 2S KD 9S 8D TD TS AC 8C 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-479" title="479">  <span class="st">&#39;5H QD 2S AC 8C 9H KS 7C 4S 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-480" title="480">  <span class="st">&#39;KH AS 3H 8S 9C JS QS 4S AD 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-481" title="481">  <span class="st">&#39;AS 2S TD AD 4D 9H JC 4C 5H QS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-482" title="482">  <span class="st">&#39;5D 7C 4H TC 2D 6C JS 4S KC 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-483" title="483">  <span class="st">&#39;4C 2C 5D AC 9H 3D JD 8S QS QH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-484" title="484">  <span class="st">&#39;2C 8S 6H 3C QH 6D TC KD AC AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-485" title="485">  <span class="st">&#39;QC 6C 3S QS 4S AC 8D 5C AD KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-486" title="486">  <span class="st">&#39;5S 4C AC KH AS QC 2C 5C 8D 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-487" title="487">  <span class="st">&#39;8H JD 3C KH 8D 5C 9C QD QH 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-488" title="488">  <span class="st">&#39;7H TS 2C 8C 4S TD JC 9C 5H QH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-489" title="489">  <span class="st">&#39;JS 4S 2C 7C TH 6C AS KS 7S JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-490" title="490">  <span class="st">&#39;JH 7C 9H 7H TC 5H 3D 6D 5D 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-491" title="491">  <span class="st">&#39;2C QD JH 2H 9D 5S 3D TD AD KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-492" title="492">  <span class="st">&#39;JD QH 3S 4D TH 7D 6S QS KS 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-493" title="493">  <span class="st">&#39;TC KS 5S 8D 8H AD 2S 2D 4C JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-494" title="494">  <span class="st">&#39;5S JH TC 3S 2D QS 9D 4C KD 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-495" title="495">  <span class="st">&#39;AC KH 3H AS 9D KC 9H QD 6C 6S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-496" title="496">  <span class="st">&#39;9H 7S 3D 5C 7D KC TD 8H 4H 6S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-497" title="497">  <span class="st">&#39;3C 7H 8H TC QD 4D 7S 6S QH 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-498" title="498">  <span class="st">&#39;6D AD 4C QD 6C 5D 7D 9D KS TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-499" title="499">  <span class="st">&#39;JH 2H JD 9S 7S TS KH 8D 5D 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-500" title="500">  <span class="st">&#39;2D 9S 4C 7D 9D 5H QD 6D AC 6S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-501" title="501">  <span class="st">&#39;7S 6D JC QD JH 4C 6S QS 2H 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-502" title="502">  <span class="st">&#39;8C TD JH KD 2H 5C QS 2C JS 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-503" title="503">  <span class="st">&#39;TC 5H 4H JH QD 3S 5S 5D 8S KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-504" title="504">  <span class="st">&#39;KS KH 7C 2C 5D JH 6S 9C 6D JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-505" title="505">  <span class="st">&#39;5H AH JD 9C JS KC 2H 6H 4D 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-506" title="506">  <span class="st">&#39;AS 3C TH QC 6H 9C 8S 8C TD 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-507" title="507">  <span class="st">&#39;KC 2C QD 9C KH 4D 7S 3C TS 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-508" title="508">  <span class="st">&#39;9C QC 2S TS 8C TD 9S QD 3S 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-509" title="509">  <span class="st">&#39;4D 9D TH JH AH 6S 2S JD QH JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-510" title="510">  <span class="st">&#39;QD 9H 6C KD 7D 7H 5D 6S 8H AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-511" title="511">  <span class="st">&#39;8H 3C 4S 2H 5H QS QH 7S 4H AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-512" title="512">  <span class="st">&#39;QS 3C 7S 9S 4H 3S AH KS 9D 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-513" title="513">  <span class="st">&#39;AD 5S 6S 2H 2D 5H TC 4S 3C 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-514" title="514">  <span class="st">&#39;QH TS 6S 4D JS KS JH AS 8S 6D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-515" title="515">  <span class="st">&#39;2C 8S 2S TD 5H AS TC TS 6C KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-516" title="516">  <span class="st">&#39;KC TS 8H 2H 3H 7C 4C 5S TH TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-517" title="517">  <span class="st">&#39;KD AD KH 7H 7S 5D 5H 5S 2D 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-518" title="518">  <span class="st">&#39;AD 9S 3D 7S 8C QC 7C 9C KD KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-519" title="519">  <span class="st">&#39;3C QC 9S 8C 4D 5C AS QD 6C 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-520" title="520">  <span class="st">&#39;2H KC 8S JD 7S AC 8D 5C 2S 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-521" title="521">  <span class="st">&#39;9D QH 3D 2S TC 3S KS 3C 9H TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-522" title="522">  <span class="st">&#39;KD 6S AC 2C 7H 5H 3S 6C 6H 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-523" title="523">  <span class="st">&#39;QH TC 8S 6S KH TH 4H 5D TS 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-524" title="524">  <span class="st">&#39;8C JS 4H 6H 2C 2H 7D AC QD 3D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-525" title="525">  <span class="st">&#39;QS KC 6S 2D 5S 4H TD 3H JH 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-526" title="526">  <span class="st">&#39;7S 5H 7H 8H KH 6H QS TH KD 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-527" title="527">  <span class="st">&#39;5H AD KD 7C KH 5S TD 6D 3C 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-528" title="528">  <span class="st">&#39;8C 9C 5H JD 7C KC KH 7H 2H 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-529" title="529">  <span class="st">&#39;7S 4H AD 4D 8S QS TH 3D 7H 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-530" title="530">  <span class="st">&#39;8D TC KS KD 9S 6D AD JD 5C 2S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-531" title="531">  <span class="st">&#39;7H 8H 6C QD 2H 6H 9D TC 9S 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-532" title="532">  <span class="st">&#39;8D 6D 4C 7C 6C 3C TH KH JS JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-533" title="533">  <span class="st">&#39;5S 3S 8S JS 9H AS AD 8H 7S KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-534" title="534">  <span class="st">&#39;JH 7C 2C KC 5H AS AD 9C 9S JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-535" title="535">  <span class="st">&#39;AD AC 2C 6S QD 7C 3H TH KS KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-536" title="536">  <span class="st">&#39;9D JD 4H 8H 4C KH 7S TS 8C KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-537" title="537">  <span class="st">&#39;3S 5S 2H 7S 6H 7D KS 5C 6D AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-538" title="538">  <span class="st">&#39;5S 8C 9H QS 7H 7S 2H 6C 7D TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-539" title="539">  <span class="st">&#39;QS 5S TD AC 9D KC 3D TC 2D 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-540" title="540">  <span class="st">&#39;TD 2H 7D JD QD 4C 7H 5D KC 3D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-541" title="541">  <span class="st">&#39;4C 3H 8S KD QH 5S QC 9H TC 5H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-542" title="542">  <span class="st">&#39;9C QD TH 5H TS 5C 9H AH QH 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-543" title="543">  <span class="st">&#39;4D 6S 3C AC 6C 3D 2C 2H TD TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-544" title="544">  <span class="st">&#39;AC 9C 5D QC 4D AD 8D 6D 8C KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-545" title="545">  <span class="st">&#39;AD 3C 4H AC 8D 8H 7S 9S TD JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-546" title="546">  <span class="st">&#39;4H 9H QH JS 2D TH TD TC KD KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-547" title="547">  <span class="st">&#39;5S 6S 9S 8D TH AS KH 5H 5C 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-548" title="548">  <span class="st">&#39;JD 2S 9S 6S 5S 8S 5D 7S 7H 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-549" title="549">  <span class="st">&#39;5D 8C 4C 9D AD TS 2C 7D KD TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-550" title="550">  <span class="st">&#39;8S QS 4D KC 5C 8D 4S KH JD KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-551" title="551">  <span class="st">&#39;AS 5C AD QH 7D 2H 9S 7H 7C TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-552" title="552">  <span class="st">&#39;2S 8S JD KH 7S 6C 6D AD 5D QC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-553" title="553">  <span class="st">&#39;9H 6H 3S 8C 8H AH TC 4H JS TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-554" title="554">  <span class="st">&#39;2C TS 4D 7H 2D QC 9C 5D TH 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-555" title="555">  <span class="st">&#39;6C 8H QC 5D TS JH 5C 5H 9H 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-556" title="556">  <span class="st">&#39;2D QC 7H AS JS 8S 2H 4C 4H 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-557" title="557">  <span class="st">&#39;JS 6S AC KD 3D 3C 4S 7H TH KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-558" title="558">  <span class="st">&#39;QH KH 6S QS 5S 4H 3C QD 3S 3H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-559" title="559">  <span class="st">&#39;7H AS KH 8C 4H 9C 5S 3D 6S TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-560" title="560">  <span class="st">&#39;9C 7C 3H 5S QD 2C 3D AD AC 5H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-561" title="561">  <span class="st">&#39;JH TD 2D 4C TS 3H KH AD 3S 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-562" title="562">  <span class="st">&#39;AS 4C 5H 4D 6S KD JC 3C 6H 2D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-563" title="563">  <span class="st">&#39;3H 6S 8C 2D TH 4S AH QH AD 5H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-564" title="564">  <span class="st">&#39;7C 2S 9H 7H KC 5C 6D 5S 3H JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-565" title="565">  <span class="st">&#39;3C TC 9C 4H QD TD JH 6D 9H 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-566" title="566">  <span class="st">&#39;7C 6S 5C 5D 6C 4S 7H 9H 6H AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-567" title="567">  <span class="st">&#39;AD 2H 7D KC 2C 4C 2S 9S 7H 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-568" title="568">  <span class="st">&#39;TH 4C 8S 6S 3S AD KS AS JH TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-569" title="569">  <span class="st">&#39;5C TD 4S 4D AD 6S 5D TC 9C 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-570" title="570">  <span class="st">&#39;8H 3S 4D 4S 5S 6H 5C AC 3H 3D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-571" title="571">  <span class="st">&#39;9H 3C AC 4S QS 8S 9D QH 5H 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-572" title="572">  <span class="st">&#39;JC 6C 5H TS AC 9C JD 8C 7C QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-573" title="573">  <span class="st">&#39;8S 8H 9C JD 2D QC QH 6H 3C 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-574" title="574">  <span class="st">&#39;KS JS 2H 6H 5H QH QS 3H 7C 6D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-575" title="575">  <span class="st">&#39;TC 3H 4S 7H QC 2H 3S 8C JS KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-576" title="576">  <span class="st">&#39;AH 8H 5S 4C 9H JD 3H 7S JC AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-577" title="577">  <span class="st">&#39;3C 2D 4C 5S 6C 4S QS 3S JD 3D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-578" title="578">  <span class="st">&#39;5H 2D TC AH KS 6D 7H AD 8C 6H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-579" title="579">  <span class="st">&#39;6C 7S 3C JD 7C 8H KS KH AH 6D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-580" title="580">  <span class="st">&#39;AH 7D 3H 8H 8S 7H QS 5H 9D 2D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-581" title="581">  <span class="st">&#39;JD AC 4H 7S 8S 9S KS AS 9D QH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-582" title="582">  <span class="st">&#39;7S 2C 8S 5S JH QS JC AH KD 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-583" title="583">  <span class="st">&#39;AH 2S 9H 4H 8D TS TD 6H QH JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-584" title="584">  <span class="st">&#39;4H JC 3H QS 6D 7S 9C 8S 9D 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-585" title="585">  <span class="st">&#39;5H TD 4S 9S 4C 8C 8D 7H 3H 3D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-586" title="586">  <span class="st">&#39;QS KH 3S 2C 2S 3C 7S TD 4S QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-587" title="587">  <span class="st">&#39;7C TD 4D 5S KH AC AS 7H 4C 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-588" title="588">  <span class="st">&#39;2S 5H 6D JD 9H QS 8S 2C 2H TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-589" title="589">  <span class="st">&#39;2S TS 6H 9H 7S 4H JC 4C 5D 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-590" title="590">  <span class="st">&#39;2C 5H 7D 4H 3S QH JC JS 6D 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-591" title="591">  <span class="st">&#39;4C QH 7C QD 3S AD TH 8S 5S TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-592" title="592">  <span class="st">&#39;9H TC 2S TD JC 7D 3S 3D TH QH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-593" title="593">  <span class="st">&#39;7D 4C 8S 5C JH 8H 6S 3S KC 3H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-594" title="594">  <span class="st">&#39;JC 3H KH TC QH TH 6H 2C AC 5H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-595" title="595">  <span class="st">&#39;QS 2H 9D 2C AS 6S 6C 2S 8C 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-596" title="596">  <span class="st">&#39;9H 7D QC TH 4H KD QS AC 7S 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-597" title="597">  <span class="st">&#39;4D JH 6S 5S 8H KS 9S QC 3S AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-598" title="598">  <span class="st">&#39;JD 2D 6S 7S TC 9H KC 3H 7D KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-599" title="599">  <span class="st">&#39;2H KH 7C 4D 4S 3H JS QD 7D KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-600" title="600">  <span class="st">&#39;4C JC AS 9D 3C JS 6C 8H QD 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-601" title="601">  <span class="st">&#39;AH JS 3S 6C 4C 3D JH 6D 9C 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-602" title="602">  <span class="st">&#39;9H 2D 8C 7H 5S KS 6H 9C 2S TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-603" title="603">  <span class="st">&#39;6C 8C AD 7H 6H 3D KH AS 5D TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-604" title="604">  <span class="st">&#39;KS 8C 3S TS 8S 4D 5S 9S 6C 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-605" title="605">  <span class="st">&#39;9H 4S 4H 5C 7D KC 2D 2H 9D JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-606" title="606">  <span class="st">&#39;5C JS TC 9D 9H 5H 7S KH JC 6S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-607" title="607">  <span class="st">&#39;7C 9H 8H 4D JC KH JD 2H TD TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-608" title="608">  <span class="st">&#39;8H 6C 2H 2C KH 6H 9D QS QH 5H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-609" title="609">  <span class="st">&#39;AC 7D 2S 3D QD JC 2D 8D JD JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-610" title="610">  <span class="st">&#39;2H JC 2D 7H 2C 3C 8D KD TD 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-611" title="611">  <span class="st">&#39;3S 4H 6D 8D TS 3H TD 3D 6H TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-612" title="612">  <span class="st">&#39;JH JC 3S AC QH 9H 7H 8S QC 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-613" title="613">  <span class="st">&#39;7H TD QS 4S 8S 9C 2S 5D 4D 2H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-614" title="614">  <span class="st">&#39;3D TS 3H 2S QC 8H 6H KC JC KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-615" title="615">  <span class="st">&#39;5D JD 7D TC 8C 6C 9S 3D 8D AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-616" title="616">  <span class="st">&#39;8H 6H JH 6C 5D 8D 8S 4H AD 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-617" title="617">  <span class="st">&#39;9D 4H 2D 2C 3S TS AS TC 3C 5D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-618" title="618">  <span class="st">&#39;4D TH 5H KS QS 6C 4S 2H 3D AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-619" title="619">  <span class="st">&#39;5C KC 6H 2C 5S 3C 4D 2D 9H 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-620" title="620">  <span class="st">&#39;JD 4C 3H TH QH 9H 5S AH 8S AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-621" title="621">  <span class="st">&#39;7D 9S 6S 2H TD 9C 4H 8H QS 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-622" title="622">  <span class="st">&#39;3C 6H 5D 4H 8C 9C KC 6S QD QS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-623" title="623">  <span class="st">&#39;3S 9H KD TC 2D JS 8C 6S 4H 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-624" title="624">  <span class="st">&#39;2S 4C 8S QS 6H KH 3H TH 8C 5D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-625" title="625">  <span class="st">&#39;2C KH 5S 3S 7S 7H 6C 9D QD 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-626" title="626">  <span class="st">&#39;8H KS AC 2D KH TS 6C JS KC 7H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-627" title="627">  <span class="st">&#39;9C KS 5C TD QC AH 6C 5H 9S 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-628" title="628">  <span class="st">&#39;5D 4D 3H 4H 6S 7C 7S AH QD TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-629" title="629">  <span class="st">&#39;2H 7D QC 6S TC TS AH 7S 9D 3H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-630" title="630">  <span class="st">&#39;TH 5H QD 9S KS 7S 7C 6H 8C TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-631" title="631">  <span class="st">&#39;TH 2D 4D QC 5C 7D JD AH 9C 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-632" title="632">  <span class="st">&#39;4H 3H AH 8D 6H QC QH 9H 2H 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-633" title="633">  <span class="st">&#39;2D AD 4C TS 6H 7S TH 4H QS TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-634" title="634">  <span class="st">&#39;3C KD 2H 3H QS JD TC QC 5D 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-635" title="635">  <span class="st">&#39;KS JC QD TH 9S KD 8D 8C 2D 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-636" title="636">  <span class="st">&#39;3C QD KD 6D 4D 8D AH AD QC 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-637" title="637">  <span class="st">&#39;8H 3S 9D 2S 3H KS 6H 4C 7C KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-638" title="638">  <span class="st">&#39;TH 9S 5C 3D 7D 6H AC 7S 4D 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-639" title="639">  <span class="st">&#39;5C 3D JD 4D 2D 6D 5H 9H 4C KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-640" title="640">  <span class="st">&#39;AS 7H TD 6C 2H 3D QD KS 4C 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-641" title="641">  <span class="st">&#39;JC 3C AC 7C JD JS 8H 9S QC 5D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-642" title="642">  <span class="st">&#39;JD 6S 5S 2H AS 8C 7D 5H JH 3D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-643" title="643">  <span class="st">&#39;8D TC 5S 9S 8S 3H JC 5H 7S AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-644" title="644">  <span class="st">&#39;5C TD 3D 7D 4H 8D 7H 4D 5D JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-645" title="645">  <span class="st">&#39;QS 9C KS TD 2S 8S 5C 2H 4H AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-646" title="646">  <span class="st">&#39;TH 7S 4H 7D 3H JD KD 5D 2S KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-647" title="647">  <span class="st">&#39;JD 7H 4S 8H 4C JS 6H QH 5S 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-648" title="648">  <span class="st">&#39;2C QS 8C 5S 3H QC 2S 6C QD AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-649" title="649">  <span class="st">&#39;8C 3D JD TC 4H 2H AD 5S AC 2S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-650" title="650">  <span class="st">&#39;5D 2C JS 2D AD 9D 3D 4C 4S JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-651" title="651">  <span class="st">&#39;8D 5H 5D 6H 7S 4D KS 9D TD JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-652" title="652">  <span class="st">&#39;3D 6D 9C 2S AS 7D 5S 5C 8H JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-653" title="653">  <span class="st">&#39;7C 8S 3S 6S 5H JD TC AD 7H 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-654" title="654">  <span class="st">&#39;2S 9D TS 4D AC 8D 6C QD JD 3H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-655" title="655">  <span class="st">&#39;9S KH 2C 3C AC 3D 5H 6H 8D 5D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-656" title="656">  <span class="st">&#39;KS 3D 2D 6S AS 4C 2S 7C 7H KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-657" title="657">  <span class="st">&#39;AC 2H 3S JC 5C QH 4D 2D 5H 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-658" title="658">  <span class="st">&#39;TS AS JD 8C 6H JC 8S 5S 2C 5D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-659" title="659">  <span class="st">&#39;7S QH 7H 6C QC 8H 2D 7C JD 2S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-660" title="660">  <span class="st">&#39;2C QD 2S 2H JC 9C 5D 2D JD JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-661" title="661">  <span class="st">&#39;7C 5C 9C 8S 7D 6D 8D 6C 9S JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-662" title="662">  <span class="st">&#39;2C AD 6S 5H 3S KS 7S 9D KH 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-663" title="663">  <span class="st">&#39;7H 6C 2C 5C TH 9D 8D 3S QC AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-664" title="664">  <span class="st">&#39;5S KC 6H TC 5H 8S TH 6D 3C AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-665" title="665">  <span class="st">&#39;9C KD 4H AD TD 9S 4S 7D 6H 5D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-666" title="666">  <span class="st">&#39;7H 5C 5H 6D AS 4C KD KH 4H 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-667" title="667">  <span class="st">&#39;3C 2S 5C 6C JD QS 2H 9D 7D 3H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-668" title="668">  <span class="st">&#39;AC 2S 6S 7S JS QD 5C QS 6H AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-669" title="669">  <span class="st">&#39;5H TH QC 7H TC 3S 7C 6D KC 3D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-670" title="670">  <span class="st">&#39;4H 3D QC 9S 8H 2C 3S JC KS 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-671" title="671">  <span class="st">&#39;4S 6S 2C 6H 8S 3S 3D 9H 3H JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-672" title="672">  <span class="st">&#39;4S 8C 4D 2D 8H 9H 7D 9D AH TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-673" title="673">  <span class="st">&#39;9S 2C 9H 4C 8D AS 7D 3D 6D 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-674" title="674">  <span class="st">&#39;6S 4C 7H 8C 3H 5H JC AH 9D 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-675" title="675">  <span class="st">&#39;2S 7C 5S JD 8C 3S 3D 4D 7D 6S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-676" title="676">  <span class="st">&#39;3C KC 4S 5D 7D 3D JD 7H 3H 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-677" title="677">  <span class="st">&#39;9C 9H 4H 4D TH 6D QD 8S 9S 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-678" title="678">  <span class="st">&#39;2H AC 8S 4S AD 8C 2C AH 7D TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-679" title="679">  <span class="st">&#39;TS 9H 3C AD KS TC 3D 8C 8H JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-680" title="680">  <span class="st">&#39;QC 8D 2C 3C 7D 7C JD 9H 9C 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-681" title="681">  <span class="st">&#39;AH 6S JS JH 5D AS QC 2C JD TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-682" title="682">  <span class="st">&#39;9H KD 2H 5D 2D 3S 7D TC AH TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-683" title="683">  <span class="st">&#39;TD 8H AS 5D AH QC AC 6S TC 5H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-684" title="684">  <span class="st">&#39;KS 4S 7H 4D 8D 9C TC 2H 6H 3H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-685" title="685">  <span class="st">&#39;3H KD 4S QD QH 3D 8H 8C TD 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-686" title="686">  <span class="st">&#39;8S JD TC AH JS QS 2D KH KS 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-687" title="687">  <span class="st">&#39;3C AD JC KD JS KH 4S TH 9H 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-688" title="688">  <span class="st">&#39;QC 5S JS 9S KS AS 7C QD 2S JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-689" title="689">  <span class="st">&#39;KC 5S QS 3S 2D AC 5D 9H 8H KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-690" title="690">  <span class="st">&#39;6H 9C TC AD 2C 6D 5S JD 6C 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-691" title="691">  <span class="st">&#39;QS KH TD QD 2C 3H 8S 2S QC AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-692" title="692">  <span class="st">&#39;9D 9H JH TC QH 3C 2S JS 5C 7H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-693" title="693">  <span class="st">&#39;6C 3S 3D 2S 4S QD 2D TH 5D 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-694" title="694">  <span class="st">&#39;2D 6H 6D 2S JC QH AS 7H 4H KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-695" title="695">  <span class="st">&#39;5H 6S KS AD TC TS 7C AC 4S 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-696" title="696">  <span class="st">&#39;AD 3C 4H QS 8C 9D KS 2H 2D 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-697" title="697">  <span class="st">&#39;4S 9D 6C 6D 9C AC 8D 3H 7H KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-698" title="698">  <span class="st">&#39;JC AH 6C TS JD 6D AD 3S 5D QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-699" title="699">  <span class="st">&#39;JC JH JD 3S 7S 8S JS QC 3H 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-700" title="700">  <span class="st">&#39;JD TH 5C 2C AD JS 7H 9S 2H 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-701" title="701">  <span class="st">&#39;8D 3S JH 4D QC AS JD 2C KC 6H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-702" title="702">  <span class="st">&#39;2C AC 5H KD 5S 7H QD JH AH 2D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-703" title="703">  <span class="st">&#39;JC QH 8D 8S TC 5H 5C AH 8C 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-704" title="704">  <span class="st">&#39;3H JS 8S QD JH 3C 4H 6D 5C 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-705" title="705">  <span class="st">&#39;6D 4S 4C AH 5H 5S 3H JD 7C 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-706" title="706">  <span class="st">&#39;8H AH 2H 3H JS 3C 7D QC 4H KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-707" title="707">  <span class="st">&#39;6S 2H KD 5H 8H 2D 3C 8S 7S QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-708" title="708">  <span class="st">&#39;2S 7S KC QC AH TC QS 6D 4C 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-709" title="709">  <span class="st">&#39;5S 9H 2C 3S QD 7S 6C 2H 7C 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-710" title="710">  <span class="st">&#39;3C 6C 5C 5S JD JC KS 3S 5D TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-711" title="711">  <span class="st">&#39;7C KS 6S 5S 2S 2D TC 2H 5H QS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-712" title="712">  <span class="st">&#39;AS 7H 6S TS 5H 9S 9D 3C KD 2H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-713" title="713">  <span class="st">&#39;4S JS QS 3S 4H 7C 2S AC 6S 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-714" title="714">  <span class="st">&#39;8C JH 2H 5H 7C 5D QH QS KH QC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-715" title="715">  <span class="st">&#39;3S TD 3H 7C KC 8D 5H 8S KH 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-716" title="716">  <span class="st">&#39;4H KH JD TS 3C 7H AS QC JS 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-717" title="717">  <span class="st">&#39;AH 9D 2C 8D 4D 2D 6H 6C KC 6S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-718" title="718">  <span class="st">&#39;2S 6H 9D 3S 7H 4D KH 8H KD 3D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-719" title="719">  <span class="st">&#39;9C TC AC JH KH 4D JD 5H TD 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-720" title="720">  <span class="st">&#39;7S 4H 9D AS 4C 7D QS 9S 2S KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-721" title="721">  <span class="st">&#39;3S 8D 8S KS 8C JC 5C KH 2H 5D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-722" title="722">  <span class="st">&#39;8S QH 2C 4D KC JS QC 9D AC 6H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-723" title="723">  <span class="st">&#39;8S 8C 7C JS JD 6S 4C 9C AC 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-724" title="724">  <span class="st">&#39;QH 5D 2C 7D JC 8S 2D JS JH 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-725" title="725">  <span class="st">&#39;JS 4C 7S TS JH KC KH 5H QD 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-726" title="726">  <span class="st">&#39;QD 8C 8D 2D 6S TD 9D AC QH 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-727" title="727">  <span class="st">&#39;QH QC JS 3D 3C 5C 4H KH 8S 7H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-728" title="728">  <span class="st">&#39;7C 2C 5S JC 8S 3H QC 5D 2H KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-729" title="729">  <span class="st">&#39;5S 8D KD 6H 4H QD QH 6D AH 3D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-730" title="730">  <span class="st">&#39;7S KS 6C 2S 4D AC QS 5H TS JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-731" title="731">  <span class="st">&#39;7C 2D TC 5D QS AC JS QC 6C KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-732" title="732">  <span class="st">&#39;2C KS 4D 3H TS 8S AD 4H 7S 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-733" title="733">  <span class="st">&#39;QD 9H QH 5H 4H 4D KH 3S JC AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-734" title="734">  <span class="st">&#39;4D AC KC 8D 6D 4C 2D KH 2C JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-735" title="735">  <span class="st">&#39;2C 9H 2D AH 3H 6D 9C 7D TC KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-736" title="736">  <span class="st">&#39;8C 3H KD 7C 5C 2S 4S 5H AS AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-737" title="737">  <span class="st">&#39;TH JD 4H KD 3H TC 5C 3S AC KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-738" title="738">  <span class="st">&#39;6D 7H AH 7S QC 6H 2D TD JD AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-739" title="739">  <span class="st">&#39;JH 5D 7H TC 9S 7D JC AS 5S KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-740" title="740">  <span class="st">&#39;2H 8C AD TH 6H QD KD 9H 6S 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-741" title="741">  <span class="st">&#39;QH KC 9D 4D 3S JS JH 4H 2C 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-742" title="742">  <span class="st">&#39;TC 7H KH 4H JC 7D 9S 3H QS 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-743" title="743">  <span class="st">&#39;AD 7D JH 6C 7H 4H 3S 3H 4D QH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-744" title="744">  <span class="st">&#39;JD 2H 5C AS 6C QC 4D 3C TC JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-745" title="745">  <span class="st">&#39;AC JD 3H 6H 4C JC AD 7D 7H 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-746" title="746">  <span class="st">&#39;4H TC TS 2C 8C 6S KS 2H JD 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-747" title="747">  <span class="st">&#39;4C 3H QS QC 9S 9H 6D KC 9D 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-748" title="748">  <span class="st">&#39;5C AD 8C 2C QH TH QD JC 8D 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-749" title="749">  <span class="st">&#39;QC 2C 2S QD 9C 4D 3S 8D JH QS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-750" title="750">  <span class="st">&#39;9D 3S 2C 7S 7C JC TD 3C TC 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-751" title="751">  <span class="st">&#39;3C TS 8H 5C 4C 2C 6S 8D 7C 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-752" title="752">  <span class="st">&#39;KS 7H 2H TC 4H 2C 3S AS AH QS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-753" title="753">  <span class="st">&#39;8C 2D 2H 2C 4S 4C 6S 7D 5S 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-754" title="754">  <span class="st">&#39;TH QC 5D TD 3C QS KD KC KS AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-755" title="755">  <span class="st">&#39;4D AH KD 9H KS 5C 4C 6H JC 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-756" title="756">  <span class="st">&#39;KC 4H 5C QS TC 2H JC 9S AH QH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-757" title="757">  <span class="st">&#39;4S 9H 3H 5H 3C QD 2H QC JH 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-758" title="758">  <span class="st">&#39;5D AS 7H 2C 3D JH 6H 4C 6S 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-759" title="759">  <span class="st">&#39;9C JD 9H AH JS 8S QH 3H KS 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-760" title="760">  <span class="st">&#39;3S AC QC TS 4D AD 3D AH 8S 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-761" title="761">  <span class="st">&#39;7H 3H QS 9C 9S 5H JH JS AH AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-762" title="762">  <span class="st">&#39;8D 3C JD 2H AC 9C 7H 5S 4D 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-763" title="763">  <span class="st">&#39;7C JH 9H 6C JS 9S 7H 8C 9D 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-764" title="764">  <span class="st">&#39;2D AS 9S 6H 4D JS JH 9H AD QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-765" title="765">  <span class="st">&#39;6H 7S JH KH AH 7H TD 5S 6S 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-766" title="766">  <span class="st">&#39;8H JH 6S 5H 5S 9D TC 4C QC 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-767" title="767">  <span class="st">&#39;7D 2C KD 3H 5H AS QD 7H JS 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-768" title="768">  <span class="st">&#39;TS QH 6C 8H TH 5H 3C 3H 9C 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-769" title="769">  <span class="st">&#39;AD KH JS 5D 3H AS AC 9S 5C KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-770" title="770">  <span class="st">&#39;2C KH 8C JC QS 6D AH 2D KC TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-771" title="771">  <span class="st">&#39;9D 3H 2S 7C 4D 6D KH KS 8D 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-772" title="772">  <span class="st">&#39;9H 2S TC JH AC QC 3H 5S 3S 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-773" title="773">  <span class="st">&#39;3S AS KD 8H 4C 3H 7C JH QH TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-774" title="774">  <span class="st">&#39;7S 6D 7H 9D JH 4C 3D 3S 6C AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-775" title="775">  <span class="st">&#39;4S 2H 2C 4C 8S 5H KC 8C QC QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-776" title="776">  <span class="st">&#39;3H 3S 6C QS QC 2D 6S 5D 2C 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-777" title="777">  <span class="st">&#39;2H 8D JH 2S 3H 2D 6C 5C 7S AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-778" title="778">  <span class="st">&#39;9H JS 5D QH 8S TS 2H 7S 6S AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-779" title="779">  <span class="st">&#39;6D QC 9S 7H 5H 5C 7D KC JD 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-780" title="780">  <span class="st">&#39;QC 5S 9H 9C 4D 6S KS 2S 4C 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-781" title="781">  <span class="st">&#39;9H 7C 4H 8D 3S 6H 5C 8H JS 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-782" title="782">  <span class="st">&#39;2D 6H JS TD 4H 4D JC TH 5H KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-783" title="783">  <span class="st">&#39;AC 7C 8D TH 3H 9S 2D 4C KC 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-784" title="784">  <span class="st">&#39;KD QS 9C 7S 3D KS AD TS 4C 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-785" title="785">  <span class="st">&#39;QH 9C 8H 2S 7D KS 7H 5D KD 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-786" title="786">  <span class="st">&#39;9C 2S 2H JC 6S 6C TC QC JH 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-787" title="787">  <span class="st">&#39;7S AC 8H KC 8S 6H QS JC 3D 6S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-788" title="788">  <span class="st">&#39;JS 2D JH 8C 4S 6H 8H 6D 5D AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-789" title="789">  <span class="st">&#39;6H 7D 2S 4H 9H 7C AS AC 8H 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-790" title="790">  <span class="st">&#39;3C JS 4S 6D 5H 2S QH 6S 9C 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-791" title="791">  <span class="st">&#39;3D 5S 6S 9S 4C QS 8D QD 8S TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-792" title="792">  <span class="st">&#39;9C 3D AH 9H 5S 2C 7D AD JC 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-793" title="793">  <span class="st">&#39;7H TC AS 3C 6S 6D 7S KH KC 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-794" title="794">  <span class="st">&#39;3S TC 8H 6S 5H JH 8C 7D AC 2S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-795" title="795">  <span class="st">&#39;QD 9D 9C 3S JC 8C KS 8H 5D 4D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-796" title="796">  <span class="st">&#39;JS AH JD 6D 9D 8C 9H 9S 8H 3H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-797" title="797">  <span class="st">&#39;2D 6S 4C 4D 8S AD 4S TC AH 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-798" title="798">  <span class="st">&#39;TS AC QC TH KC 6D 4H 7S 8C 2H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-799" title="799">  <span class="st">&#39;3C QD JS 9D 5S JC AH 2H TS 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-800" title="800">  <span class="st">&#39;3H 4D QH 5D 9C 5H 7D 4S JC 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-801" title="801">  <span class="st">&#39;8S TH 3H 7C 2H JD JS TS AC 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-802" title="802">  <span class="st">&#39;9C 2H TD KC JD 2S 8C 5S AD 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-803" title="803">  <span class="st">&#39;3D KD 7C 5H 4D QH QD TC 6H 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-804" title="804">  <span class="st">&#39;7H 2C KC 5S KD 6H AH QC 7S QH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-805" title="805">  <span class="st">&#39;6H 5C AC 5H 2C 9C 2D 7C TD 2S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-806" title="806">  <span class="st">&#39;4D 9D AH 3D 7C JD 4H 8C 4C KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-807" title="807">  <span class="st">&#39;TH 3C JS QH 8H 4C AS 3D QS QC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-808" title="808">  <span class="st">&#39;4D 7S 5H JH 6D 7D 6H JS KH 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-809" title="809">  <span class="st">&#39;QD 8S 7D 2H 2C 7C JC 2S 5H 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-810" title="810">  <span class="st">&#39;QH 8S 9D TC 2H AD 7C 8D QD 6S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-811" title="811">  <span class="st">&#39;3S 7C AD 9H 2H 9S JD TS 4C 2D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-812" title="812">  <span class="st">&#39;3S AS 4H QC 2C 8H 8S 7S TD TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-813" title="813">  <span class="st">&#39;JH TH TD 3S 4D 4H 5S 5D QS 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-814" title="814">  <span class="st">&#39;8C QD QH TC 6D 4S 9S 9D 4H QC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-815" title="815">  <span class="st">&#39;8C JS 9D 6H JD 3H AD 6S TD QC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-816" title="816">  <span class="st">&#39;KC 8S 3D 7C TD 7D 8D 9H 4S 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-817" title="817">  <span class="st">&#39;6C 4S 3D 9D KD TC KC KS AC 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-818" title="818">  <span class="st">&#39;7C 6S QH 3D JS KD 6H 6D 2D 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-819" title="819">  <span class="st">&#39;JD 2S 5S 4H 8S AC 2D 6S TS 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-820" title="820">  <span class="st">&#39;5H 8C 5S 3C 4S 3D 7C 8D AS 3H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-821" title="821">  <span class="st">&#39;AS TS 7C 3H AD 7D JC QS 6C 6H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-822" title="822">  <span class="st">&#39;3S 9S 4C AC QH 5H 5D 9H TS 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-823" title="823">  <span class="st">&#39;6C 5C 7H 7S TD AD JD 5S 2H 2S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-824" title="824">  <span class="st">&#39;7D 6C KC 3S JD 8D 8S TS QS KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-825" title="825">  <span class="st">&#39;8S QS 8D 6C TH AC AH 2C 8H 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-826" title="826">  <span class="st">&#39;7H TD KH QH 8S 3D 4D AH JD AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-827" title="827">  <span class="st">&#39;TS 3D 2H JC 2S JH KH 6C QC JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-828" title="828">  <span class="st">&#39;KC TH 2D 6H 7S 2S TC 8C 9D QS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-829" title="829">  <span class="st">&#39;3C 9D 6S KH 8H 6D 5D TH 2C 2H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-830" title="830">  <span class="st">&#39;6H TC 7D AD 4D 8S TS 9H TD 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-831" title="831">  <span class="st">&#39;JS 6D JD JC 2H AC 6C 3D KH 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-832" title="832">  <span class="st">&#39;KH JD 9S 5D 4H 4C 3H 7S QS 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-833" title="833">  <span class="st">&#39;4H JD 5D 3S 3C 4D KH QH QS 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-834" title="834">  <span class="st">&#39;JD TS 8S QD AH 4C 6H 3S 5S 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-835" title="835">  <span class="st">&#39;QS 3D JD AS 8D TH 7C 6S QC KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-836" title="836">  <span class="st">&#39;7S 2H 8C QC 7H AC 6D 2D TH KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-837" title="837">  <span class="st">&#39;5S 6C 7H KH 7D AH 8C 5C 7S 3D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-838" title="838">  <span class="st">&#39;3C KD AD 7D 6C 4D KS 2D 8C 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-839" title="839">  <span class="st">&#39;7C 8D 5S 2D 2S AH AD 2C 9D TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-840" title="840">  <span class="st">&#39;3C AD 4S KS JH 7C 5C 8C 9C TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-841" title="841">  <span class="st">&#39;AS TD 4D 7C JD 8C QH 3C 5H 9S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-842" title="842">  <span class="st">&#39;3H 9C 8S 9S 6S QD KS AH 5H JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-843" title="843">  <span class="st">&#39;QC 9C 5S 4H 2H TD 7D AS 8C 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-844" title="844">  <span class="st">&#39;8C 2C 9D KD TC 7S 3D KH QC 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-845" title="845">  <span class="st">&#39;4D AS 4C QS 5S 9D 6S JD QH KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-846" title="846">  <span class="st">&#39;6D AH 6C 4C 5H TS 9H 7D 3D 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-847" title="847">  <span class="st">&#39;QS JD 7C 8D 9C AC 3S 6S 6C KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-848" title="848">  <span class="st">&#39;8H JH 5D 9S 6D AS 6S 3S QC 7H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-849" title="849">  <span class="st">&#39;QD AD 5C JH 2H AH 4H AS KC 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-850" title="850">  <span class="st">&#39;JH 9C 2C 6H 2D JS 5D 9H KC 6D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-851" title="851">  <span class="st">&#39;7D 9D KD TH 3H AS 6S QC 6H AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-852" title="852">  <span class="st">&#39;JD 4H 7D KC 3H JS 3C TH 3D QS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-853" title="853">  <span class="st">&#39;4C 3H 8C QD 5H 6H AS 8H AD JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-854" title="854">  <span class="st">&#39;TH 8S KD 5D QC 7D JS 5S 5H TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-855" title="855">  <span class="st">&#39;7D KC 9D QS 3H 3C 6D TS 7S AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-856" title="856">  <span class="st">&#39;7C 4H 7H AH QC AC 4D 5D 6D TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-857" title="857">  <span class="st">&#39;3C 4H 2S KD 8H 5H JH TC 6C JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-858" title="858">  <span class="st">&#39;4S 8C 3D 4H JS TD 7S JH QS KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-859" title="859">  <span class="st">&#39;7C QC KD 4D 7H 6S AD TD TC KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-860" title="860">  <span class="st">&#39;5H 9H KC 3H 4D 3D AD 6S QD 6H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-861" title="861">  <span class="st">&#39;TH 7C 6H TS QH 5S 2C KC TD 6S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-862" title="862">  <span class="st">&#39;7C 4D 5S JD JH 7D AC KD KH 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-863" title="863">  <span class="st">&#39;7D 6C 8D 8H 5C JH 8S QD TH JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-864" title="864">  <span class="st">&#39;8D 7D 6C 7C 9D KD AS 5C QH JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-865" title="865">  <span class="st">&#39;9S 2C 8C 3C 4C KS JH 2D 8D 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-866" title="866">  <span class="st">&#39;7S 6C JH KH 8H 3H 9D 2D AH 6D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-867" title="867">  <span class="st">&#39;4D TC 9C 8D 7H TD KS TH KD 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-868" title="868">  <span class="st">&#39;JD 9H 8D QD AS KD 9D 2C 2S 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-869" title="869">  <span class="st">&#39;8D 3H 5C 7H KS 5H QH 2D 8C 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-870" title="870">  <span class="st">&#39;2D TH 6D QD 6C KC 3H 3S AD 4C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-871" title="871">  <span class="st">&#39;4H 3H JS 9D 3C TC 5H QH QC JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-872" title="872">  <span class="st">&#39;3D 5C 6H 3S 3C JC 5S 7S 2S QH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-873" title="873">  <span class="st">&#39;AC 5C 8C 4D 5D 4H 2S QD 3C 3H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-874" title="874">  <span class="st">&#39;2C TD AH 9C KD JS 6S QD 4C QC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-875" title="875">  <span class="st">&#39;QS 8C 3S 4H TC JS 3H 7C JC AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-876" title="876">  <span class="st">&#39;5H 4D 9C KS JC TD 9S TS 8S 9H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-877" title="877">  <span class="st">&#39;QD TS 7D AS AC 2C TD 6H 8H AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-878" title="878">  <span class="st">&#39;6S AD 8C 4S 9H 8D 9D KH 8S 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-879" title="879">  <span class="st">&#39;QS 4D 2D 7S KH JS JC AD 4C 3C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-880" title="880">  <span class="st">&#39;QS 9S 7H KC TD TH 5H JS AC JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-881" title="881">  <span class="st">&#39;6D AC 2S QS 7C AS KS 6S KH 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-882" title="882">  <span class="st">&#39;6D 8H KH 3C QS 2H 5C 9C 9D 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-883" title="883">  <span class="st">&#39;JS 2C 4C 6H 7D JC AC QD TD 3H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-884" title="884">  <span class="st">&#39;4H QC 8H JD 4C KD KS 5C KC 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-885" title="885">  <span class="st">&#39;6D 2D 3H 2S QD 5S 7H AS TH 6S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-886" title="886">  <span class="st">&#39;AS 6D 8D 2C 8S TD 8H QD JC AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-887" title="887">  <span class="st">&#39;9C 9H 2D TD QH 2H 5C TC 3D 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-888" title="888">  <span class="st">&#39;KC 8S 3D KH 2S TS TC 6S 4D JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-889" title="889">  <span class="st">&#39;9H 9D QS AC KC 6H 5D 4D 8D AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-890" title="890">  <span class="st">&#39;9S 5C QS 4H 7C 7D 2H 8S AD JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-891" title="891">  <span class="st">&#39;3D AC 9S AS 2C 2D 2H 3H JC KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-892" title="892">  <span class="st">&#39;7H QH KH JD TC KS 5S 8H 4C 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-893" title="893">  <span class="st">&#39;2H 7H 3S 2S 5H QS 3C AS 9H KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-894" title="894">  <span class="st">&#39;AD 3D JD 6H 5S 9C 6D AC 9S 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-895" title="895">  <span class="st">&#39;3D 5D 9C 2D AC 4S 2S AD 6C 6S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-896" title="896">  <span class="st">&#39;QC 4C 2D 3H 6S KC QH QD 2H JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-897" title="897">  <span class="st">&#39;QC 3C 8S 4D 9S 2H 5C 8H QS QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-898" title="898">  <span class="st">&#39;6D KD 6S 7H 3S KH 2H 5C JC 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-899" title="899">  <span class="st">&#39;3S 9S TC 6S 8H 2D AD 7S 8S TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-900" title="900">  <span class="st">&#39;3C 6H 9C 3H 5C JC 8H QH TD QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-901" title="901">  <span class="st">&#39;3C JS QD 5D TD 2C KH 9H TH AS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-902" title="902">  <span class="st">&#39;9S TC JD 3D 5C 5H AD QH 9H KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-903" title="903">  <span class="st">&#39;TC 7H 4H 8H 3H TD 6S AC 7C 2S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-904" title="904">  <span class="st">&#39;QS 9D 5D 3C JC KS 4D 6C JH 2S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-905" title="905">  <span class="st">&#39;9S 6S 3C 7H TS 4C KD 6D 3D 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-906" title="906">  <span class="st">&#39;2D 9H AH AC 7H 2S JH 3S 7C QC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-907" title="907">  <span class="st">&#39;QD 9H 3C 2H AC AS 8S KD 8C KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-908" title="908">  <span class="st">&#39;2D 7S TD TH 6D JD 8D 4D 2H 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-909" title="909">  <span class="st">&#39;8S QH KD JD QS JH 4D KC 5H 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-910" title="910">  <span class="st">&#39;3C KH QC 6D 8H 3S AH 7D TD 2D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-911" title="911">  <span class="st">&#39;5S 9H QH 4S 6S 6C 6D TS TH 7S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-912" title="912">  <span class="st">&#39;6C 4C 6D QS JS 9C TS 3H 8D 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-913" title="913">  <span class="st">&#39;JS 5C 7S AS 2C AH 2H AD 5S TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-914" title="914">  <span class="st">&#39;KD 6C 9C 9D TS 2S JC 4H 2C QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-915" title="915">  <span class="st">&#39;QS 9H TC 3H KC KS 4H 3C AD TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-916" title="916">  <span class="st">&#39;KH 9C 2H KD 9D TC 7S KC JH 2D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-917" title="917">  <span class="st">&#39;7C 3S KC AS 8C 5D 9C 9S QH 3H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-918" title="918">  <span class="st">&#39;2D 8C TD 4C 2H QC 5D TC 2C 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-919" title="919">  <span class="st">&#39;KS 4D 6C QH TD KH 5D 7C AD 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-920" title="920">  <span class="st">&#39;2S 9S 8S 4C 8C 3D 6H QD 7C 7H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-921" title="921">  <span class="st">&#39;6C 8S QH 5H TS 5C 3C 4S 2S 2H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-922" title="922">  <span class="st">&#39;8S 6S 2H JC 3S 3H 9D 8C 2S 7H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-923" title="923">  <span class="st">&#39;QC 2C 8H 9C AC JD 4C 4H 6S 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-924" title="924">  <span class="st">&#39;3H 3S 7D 4C 9S 5H 8H JC 3D TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-925" title="925">  <span class="st">&#39;QH 2S 2D 9S KD QD 9H AD 6D 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-926" title="926">  <span class="st">&#39;8D 2D KS 9S JC 4C JD KC 4S TH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-927" title="927">  <span class="st">&#39;KH TS 6D 4D 5C KD 5H AS 9H AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-928" title="928">  <span class="st">&#39;QD JS 7C 6D 5D 5C TH 5H QH QS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-929" title="929">  <span class="st">&#39;9D QH KH 5H JH 4C 4D TC TH 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-930" title="930">  <span class="st">&#39;KH AS TS 9D KD 9C 7S 4D 8H 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-931" title="931">  <span class="st">&#39;KH AS 2S 7D 9D 4C TS TH AH 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-932" title="932">  <span class="st">&#39;KS 4D AC 8S 9S 8D TH QH 9D 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-933" title="933">  <span class="st">&#39;5D 5C 8C QS TC 4C 3D 3S 2C 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-934" title="934">  <span class="st">&#39;9D KS 2D 3C KC 4S 8C KH 6C JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-935" title="935">  <span class="st">&#39;8H AH 6H 7D 7S QD 3C 4C 6C KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-936" title="936">  <span class="st">&#39;3H 2C QH 8H AS 7D 4C 8C 4H KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-937" title="937">  <span class="st">&#39;QD 5S 4H 2C TD AH JH QH 4C 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-938" title="938">  <span class="st">&#39;3H QS 5S JS 8H 2S 9H 9C 3S 2C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-939" title="939">  <span class="st">&#39;6H TS 7S JC QD AC TD KC 5S 3H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-940" title="940">  <span class="st">&#39;QH AS QS 7D JC KC 2C 4C 5C 5S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-941" title="941">  <span class="st">&#39;QH 3D AS JS 4H 8D 7H JC 2S 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-942" title="942">  <span class="st">&#39;5D 4D 2S 4S 9D 9C 2D QS 8H 7H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-943" title="943">  <span class="st">&#39;6D 7H 3H JS TS AC 2D JH 7C 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-944" title="944">  <span class="st">&#39;JH 5H KC 3C TC 5S 9H 4C 8H 9D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-945" title="945">  <span class="st">&#39;8S KC 5H 9H AD KS 9D KH 8D AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-946" title="946">  <span class="st">&#39;JC 2H 9H KS 6S 3H QC 5H AH 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-947" title="947">  <span class="st">&#39;5C KH 5S AD 6C JC 9H QC 9C TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-948" title="948">  <span class="st">&#39;5S 5D JC QH 2D KS 8H QS 2H TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-949" title="949">  <span class="st">&#39;JH 5H 5S AH 7H 3C 8S AS TD KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-950" title="950">  <span class="st">&#39;6H 3D JD 2C 4C KC 7S AH 6C JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-951" title="951">  <span class="st">&#39;4C KS 9D AD 7S KC 7D 8H 3S 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-952" title="952">  <span class="st">&#39;7H 5C 5H 3C 8H QC 3D KH 6D JC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-953" title="953">  <span class="st">&#39;2D 4H 5D 7D QC AD AH 9H QH 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-954" title="954">  <span class="st">&#39;KD 8C JS 9D 3S 3C 2H 5D 6D 2S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-955" title="955">  <span class="st">&#39;8S 6S TS 3C 6H 8D 5S 3H TD 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-956" title="956">  <span class="st">&#39;KS 3D JH 9C 7C 9S QS 5S 4H 6H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-957" title="957">  <span class="st">&#39;7S 6S TH 4S KC KD 3S JC JH KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-958" title="958">  <span class="st">&#39;7C 3C 2S 6D QH 2C 7S 5H 8H AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-959" title="959">  <span class="st">&#39;KC 8D QD 6D KH 5C 7H 9D 3D 9C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-960" title="960">  <span class="st">&#39;6H 2D 8S JS 9S 2S 6D KC 7C TC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-961" title="961">  <span class="st">&#39;KD 9C JH 7H KC 8S 2S 7S 3D 6H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-962" title="962">  <span class="st">&#39;4H 9H 2D 4C 8H 7H 5S 8S 2H 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-963" title="963">  <span class="st">&#39;AD 7C 3C 7S 5S 4D 9H 3D JC KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-964" title="964">  <span class="st">&#39;5D AS 7D 6D 9C JC 4C QH QS KH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-965" title="965">  <span class="st">&#39;KD JD 7D 3D QS QC 8S 6D JS QD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-966" title="966">  <span class="st">&#39;6S 8C 5S QH TH 9H AS AC 2C JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-967" title="967">  <span class="st">&#39;QC KS QH 7S 3C 4C 5C KC 5D AH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-968" title="968">  <span class="st">&#39;6C 4H 9D AH 2C 3H KD 3D TS 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-969" title="969">  <span class="st">&#39;TD 8S QS AS JS 3H KD AC 4H KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-970" title="970">  <span class="st">&#39;7D 5D TS 9H 4H 4C 9C 2H 8C QC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-971" title="971">  <span class="st">&#39;2C 7D 9H 4D KS 4C QH AD KD JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-972" title="972">  <span class="st">&#39;QD AD AH KH 9D JS 9H JC KD JD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-973" title="973">  <span class="st">&#39;8S 3C 4S TS 7S 4D 5C 2S 6H 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-974" title="974">  <span class="st">&#39;JS 7S 5C KD 6D QH 8S TD 2H 6S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-975" title="975">  <span class="st">&#39;QH 6C TC 6H TD 4C 9D 2H QC 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-976" title="976">  <span class="st">&#39;3D TS 4D 2H 6H 6S 2C 7H 8S 6C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-977" title="977">  <span class="st">&#39;9H 9D JD JH 3S AH 2C 6S 3H 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-978" title="978">  <span class="st">&#39;2C QS 8C 5S 3H 2S 7D 3C AD 4S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-979" title="979">  <span class="st">&#39;5C QC QH AS TS 4S 6S 4C 5H JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-980" title="980">  <span class="st">&#39;JH 5C TD 4C 6H JS KD KH QS 4H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-981" title="981">  <span class="st">&#39;TC KH JC 4D 9H 9D 8D KC 3C 8H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-982" title="982">  <span class="st">&#39;2H TC 8S AD 9S 4H TS 7H 2C 5C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-983" title="983">  <span class="st">&#39;4H 2S 6C 5S KS AH 9C 7C 8H KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-984" title="984">  <span class="st">&#39;TS QH TD QS 3C JH AH 2C 8D 7D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-985" title="985">  <span class="st">&#39;5D KC 3H 5S AC 4S 7H QS 4C 2H&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-986" title="986">  <span class="st">&#39;3D 7D QC KH JH 6D 6C TD TH KD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-987" title="987">  <span class="st">&#39;5S 8D TH 6C 9D 7D KH 8C 9S 6D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-988" title="988">  <span class="st">&#39;JD QS 7S QC 2S QH JC 4S KS 8D&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-989" title="989">  <span class="st">&#39;7S 5S 9S JD KD 9C JC AD 2D 7C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-990" title="990">  <span class="st">&#39;4S 5H AH JH 9C 5D TD 7C 2D 6S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-991" title="991">  <span class="st">&#39;KC 6C 7H 6S 9C QD 5S 4H KS TD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-992" title="992">  <span class="st">&#39;6S 8D KS 2D TH TD 9H JD TS 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-993" title="993">  <span class="st">&#39;KH JS 4H 5D 9D TC TD QC JD TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-994" title="994">  <span class="st">&#39;QS QD AC AD 4C 6S 2D AS 3H KC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-995" title="995">  <span class="st">&#39;4C 7C 3C TD QS 9C KC AS 8D AD&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-996" title="996">  <span class="st">&#39;KC 7H QC 6D 8H 6S 5S AH 7S 8C&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-997" title="997">  <span class="st">&#39;3S AD 9H JC 6D JD AS KH 6S JH&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-998" title="998">  <span class="st">&#39;AD 3D TS KS 7H JH 2D JS QD AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-999" title="999">  <span class="st">&#39;9C JD 7C 6D TC 6H 6C JC 3D 3S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-1000" title="1000">  <span class="st">&#39;QC KC 3S JC KD 2C 8D AH QS TS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-1001" title="1001">  <span class="st">&#39;AS KD 3D JD 8H 7C 8C 5C QD 6C&#39;</span></a>
+<a class="sourceLine" id="cb4-1002" title="1002">]<span class="op">;</span></a></code></pre></div>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">function</span> <span class="at">pokerHands</span>(arr) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-2" title="2"></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb5-5" title="5"></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="kw">const</span> testArr <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb5-7" title="7">  <span class="st">&#39;8C TS KC 9H 4S 7D 2S 5D 3S AC&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-8" title="8">  <span class="st">&#39;5C AD 5D AC 9C 7C 5H 8D TD KS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-9" title="9">  <span class="st">&#39;3H 7H 6S KC JS QH TD JC 2D 8S&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-10" title="10">  <span class="st">&#39;TH 8H 5C QS TC 9H 4D JC KS JS&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-11" title="11">  <span class="st">&#39;7C 5H KC QH JD AS KH 4C AD 4S&#39;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">]<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-13" title="13"></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="at">pokerHands</span>(testArr)<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="co">// solution required</span></a></code></pre></div>

@@ -1,0 +1,15 @@
+div(class="select-list-popup-holder")
+
+  div(class="select-list-popup-content")
+    div(class="close-popup")
+    h3(class="close-popup-btn") Close
+    div(class="clear-popup")
+    h3(class="instructions") Please Choose a List Before Adding a Task
+
+script(type="text/javascript").
+  const closeButtonPopup = document.querySelector(".close-popup-btn");
+  const popup = document.querySelector(".select-list-popup-holder")
+  closeButtonPopup.onclick = function() {
+    console.log('here')
+    popup.style.display = "none";
+  }

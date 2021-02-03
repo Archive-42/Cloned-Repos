@@ -1,0 +1,50 @@
+<h1 id="description">–description–</h1>
+<p>Creating the logout logic is easy. The route should just unauthenticate the user and redirect to the home page instead of rendering any view.</p>
+<p>In passport, unauthenticating a user is as easy as just calling <code>req.logout();</code> before redirecting.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">app</span>.<span class="at">route</span>(<span class="st">&#39;/logout&#39;</span>)</a>
+<a class="sourceLine" id="cb1-2" title="2">  .<span class="at">get</span>((req<span class="op">,</span> res) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="va">req</span>.<span class="at">logout</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="va">res</span>.<span class="at">redirect</span>(<span class="st">&#39;/&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
+<p>You may have noticed that we’re not handling missing pages (404). The common way to handle this in Node is with the following middleware. Go ahead and add this in after all your other routes:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">app</span>.<span class="at">use</span>((req<span class="op">,</span> res<span class="op">,</span> next) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">res</span>.<span class="at">status</span>(<span class="dv">404</span>)</a>
+<a class="sourceLine" id="cb2-3" title="3">    .<span class="at">type</span>(<span class="st">&#39;text&#39;</span>)</a>
+<a class="sourceLine" id="cb2-4" title="4">    .<span class="at">send</span>(<span class="st">&#39;Not Found&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
+<p>Submit your page when you think you’ve got it right. If you’re running into errors, you can check out the project completed up to this point <a href="https://gist.github.com/camperbot/c3eeb8a3ebf855e021fd0c044095a23b">here</a>.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>req.Logout</code> should be called in your <code>/logout</code> route.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/server.js&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb3-5" title="5">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-6" title="6">        <span class="ss">/req.logout/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">        <span class="st">&#39;You should be calling req.logout() in your /logout route&#39;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<p>Logout should redirect to the home page.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/logout&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb4-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-4" title="4">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb4-5" title="5">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-6" title="6">        <span class="ss">/Home page/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-7" title="7">        <span class="st">&#39;When a user logs out they should be redirected to the homepage&#39;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb4-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">*/</span></a></code></pre></div>

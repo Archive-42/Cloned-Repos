@@ -1,0 +1,83 @@
+<h1 id="description">–description–</h1>
+<p>The <code>tabindex</code> attribute also specifies the exact tab order of elements. This is achieved when the value of the attribute is set to a positive number of 1 or higher.</p>
+<p>Setting a <code>tabindex="1"</code> will bring keyboard focus to that element first. Then it cycles through the sequence of specified <code>tabindex</code> values (2, 3, etc.), before moving to default and <code>tabindex="0"</code> items.</p>
+<p>It’s important to note that when the tab order is set this way, it overrides the default order (which uses the HTML source). This may confuse users who are expecting to start navigation from the top of the page. This technique may be necessary in some circumstances, but in terms of accessibility, take care before applying it.</p>
+<p>Here’s an example:</p>
+<p><code>&lt;div tabindex="1"&gt;I get keyboard focus, and I get it first!&lt;/div&gt;</code></p>
+<p><code>&lt;div tabindex="2"&gt;I get keyboard focus, and I get it second!&lt;/div&gt;</code></p>
+<h1 id="instructions">–instructions–</h1>
+<p>Camper Cat has a search field on his Inspirational Quotes page that he plans to position in the upper right corner with CSS. He wants the search <code>input</code> and submit <code>input</code> form controls to be the first two items in the tab order. Add a <code>tabindex</code> attribute set to <code>"1"</code> to the search <code>input</code>, and a <code>tabindex</code> attribute set to <code>"2"</code> to the submit <code>input</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should add a <code>tabindex</code> attribute to the search <code>input</code> tag.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;#search&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;tabindex&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your code should add a <code>tabindex</code> attribute to the submit <code>input</code> tag.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;#submit&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;tabindex&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your code should set the <code>tabindex</code> attribute on the search <code>input</code> tag to a value of 1.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;#search&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;tabindex&#39;</span>) <span class="op">==</span> <span class="st">&#39;1&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your code should set the <code>tabindex</code> attribute on the submit <code>input</code> tag to a value of 2.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;#submit&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;tabindex&#39;</span>) <span class="op">==</span> <span class="st">&#39;2&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">&lt;header&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">&lt;h1&gt;</span>Even Deeper Thoughts with Master Camper Cat<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">&lt;nav&gt;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">      <span class="kw">&lt;ul&gt;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;&quot;</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;&quot;</span><span class="kw">&gt;</span>Blog<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;&quot;</span><span class="kw">&gt;</span>Training<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">      <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">    <span class="kw">&lt;/nav&gt;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">  <span class="kw">&lt;/header&gt;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">  <span class="kw">&lt;form&gt;</span></a>
+<a class="sourceLine" id="cb5-13" title="13">    <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;search&quot;</span><span class="kw">&gt;</span>Search:<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb5-14" title="14"></a>
+<a class="sourceLine" id="cb5-15" title="15"></a>
+<a class="sourceLine" id="cb5-16" title="16">    <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;search&quot;</span><span class="ot"> name=</span><span class="st">&quot;search&quot;</span><span class="ot"> id=</span><span class="st">&quot;search&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-17" title="17">    <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="ot"> name=</span><span class="st">&quot;submit&quot;</span><span class="ot"> value=</span><span class="st">&quot;Submit&quot;</span><span class="ot"> id=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-18" title="18"></a>
+<a class="sourceLine" id="cb5-19" title="19"></a>
+<a class="sourceLine" id="cb5-20" title="20">  <span class="kw">&lt;/form&gt;</span></a>
+<a class="sourceLine" id="cb5-21" title="21">  <span class="kw">&lt;h2&gt;</span>Inspirational Quotes<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb5-22" title="22">  <span class="kw">&lt;blockquote&gt;</span></a>
+<a class="sourceLine" id="cb5-23" title="23">    <span class="kw">&lt;p&gt;</span><span class="dv">&amp;ldquo;</span>There&#39;s no Theory of Evolution, just a list of creatures I&#39;ve allowed to live.<span class="dv">&amp;rdquo;</span><span class="kw">&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb5-24" title="24">    - Chuck Norris<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-25" title="25">  <span class="kw">&lt;/blockquote&gt;</span></a>
+<a class="sourceLine" id="cb5-26" title="26">  <span class="kw">&lt;blockquote&gt;</span></a>
+<a class="sourceLine" id="cb5-27" title="27">    <span class="kw">&lt;p&gt;</span><span class="dv">&amp;ldquo;</span>Wise men say forgiveness is divine, but never pay full price for late pizza.<span class="dv">&amp;rdquo;</span><span class="kw">&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb5-28" title="28">    - TMNT<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-29" title="29">  <span class="kw">&lt;/blockquote&gt;</span></a>
+<a class="sourceLine" id="cb5-30" title="30">  <span class="kw">&lt;footer&gt;</span><span class="dv">&amp;copy;</span> 2018 Camper Cat<span class="kw">&lt;/footer&gt;</span></a>
+<a class="sourceLine" id="cb5-31" title="31"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="kw">&lt;header&gt;</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">&lt;h1&gt;</span>Even Deeper Thoughts with Master Camper Cat<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="kw">&lt;nav&gt;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">      <span class="kw">&lt;ul&gt;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;&quot;</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-7" title="7">        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;&quot;</span><span class="kw">&gt;</span>Blog<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-8" title="8">        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;&quot;</span><span class="kw">&gt;</span>Training<span class="kw">&lt;/a&gt;&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">      <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">    <span class="kw">&lt;/nav&gt;</span></a>
+<a class="sourceLine" id="cb6-11" title="11">  <span class="kw">&lt;/header&gt;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">  <span class="kw">&lt;form&gt;</span></a>
+<a class="sourceLine" id="cb6-13" title="13">    <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;search&quot;</span><span class="kw">&gt;</span>Search:<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb6-14" title="14"></a>
+<a class="sourceLine" id="cb6-15" title="15"></a>
+<a class="sourceLine" id="cb6-16" title="16">    <span class="kw">&lt;input</span><span class="ot"> tabindex=</span><span class="st">&quot;1&quot;</span><span class="ot"> type=</span><span class="st">&quot;search&quot;</span><span class="ot"> name=</span><span class="st">&quot;search&quot;</span><span class="ot"> id=</span><span class="st">&quot;search&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-17" title="17">    <span class="kw">&lt;input</span><span class="ot"> tabindex=</span><span class="st">&quot;2&quot;</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="ot"> name=</span><span class="st">&quot;submit&quot;</span><span class="ot"> value=</span><span class="st">&quot;Submit&quot;</span><span class="ot"> id=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-18" title="18"></a>
+<a class="sourceLine" id="cb6-19" title="19"></a>
+<a class="sourceLine" id="cb6-20" title="20">  <span class="kw">&lt;/form&gt;</span></a>
+<a class="sourceLine" id="cb6-21" title="21">  <span class="kw">&lt;h2&gt;</span>Inspirational Quotes<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb6-22" title="22">  <span class="kw">&lt;blockquote&gt;</span></a>
+<a class="sourceLine" id="cb6-23" title="23">    <span class="kw">&lt;p&gt;</span><span class="dv">&amp;ldquo;</span>There&#39;s no Theory of Evolution, just a list of creatures I&#39;ve allowed to live.<span class="dv">&amp;rdquo;</span><span class="kw">&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb6-24" title="24">    - Chuck Norris<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb6-25" title="25">  <span class="kw">&lt;/blockquote&gt;</span></a>
+<a class="sourceLine" id="cb6-26" title="26">  <span class="kw">&lt;blockquote&gt;</span></a>
+<a class="sourceLine" id="cb6-27" title="27">    <span class="kw">&lt;p&gt;</span><span class="dv">&amp;ldquo;</span>Wise men say forgiveness is divine, but never pay full price for late pizza.<span class="dv">&amp;rdquo;</span><span class="kw">&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb6-28" title="28">    - TMNT<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb6-29" title="29">  <span class="kw">&lt;/blockquote&gt;</span></a>
+<a class="sourceLine" id="cb6-30" title="30">  <span class="kw">&lt;footer&gt;</span><span class="dv">&amp;copy;</span> 2018 Camper Cat<span class="kw">&lt;/footer&gt;</span></a>
+<a class="sourceLine" id="cb6-31" title="31"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>

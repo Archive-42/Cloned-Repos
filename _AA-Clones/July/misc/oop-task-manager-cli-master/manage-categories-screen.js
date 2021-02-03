@@ -1,0 +1,55 @@
+// IMPORTANT! IMPORTANT!
+// ---------------------------------------------------------------------
+// ALL SCREEN CLASSES HAVE A this.state INSTANCE VARIABLE THAT HOLDS THE
+// APPLICATION STATE CREATED IN THE program.js. WHENEVER YOUR CODE NEEDS
+// TO INTERACT WITH THE STATE IN ONE OF THE FOLLOWING CLASSES, DO IT
+// THROUGH THE this.state INSTANCE VARIABLE.
+
+class ManageCategoriesScreen {
+  constructor(rl, state) {
+    this.rl = rl;
+    this.state = state;
+
+  }
+
+  printUi() {
+    console.clear();
+    console.log("********************************************");
+    console.log("* CATEGORIES                    (c) 1987   *");
+    console.log("********************************************");
+    console.log();
+
+    // TODO: Print all five category names with a one-based index
+    //       like in the screen mockup in the project description.
+    const categoriesArray = ["Category 1", "Category 2", "Category 3", "Category 4", "Category 5"]
+    for (let i = 0; i < categoriesArray.length; i++){
+      let ele = categoriesArray[i]
+      console.log((i + 1) + `. ${ele}`)
+    }
+
+
+    console.log();
+    console.log("X. Go to main screen");
+    console.log();
+    console.log("Type a number to edit a category. Type an X");
+    console.log("to return to the main menu.");
+  }
+
+  show() {
+    this.printUi();
+    this.rl.question("> ", answer => {
+      if (["1", "2", "3", "4", "5"].includes(answer)) {
+        const index = Number.parseInt(answer) - 1;
+        new EditCategoryScreen(this.rl, this.state, index).show();
+      } else {
+        new MainScreen(this.rl, this.state).show();
+      }
+    });
+  }
+}
+
+exports.ManageCategoriesScreen = ManageCategoriesScreen;
+
+// Requires at bottom to prevent circular dependencies problems in node
+const { EditCategoryScreen } = require('./edit-category-screen');
+const { MainScreen } = require('./main-screen');

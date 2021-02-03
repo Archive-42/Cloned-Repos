@@ -1,0 +1,89 @@
+<h1 id="description">–description–</h1>
+<p>Most web developers, at some point, need to call an API endpoint to retrieve data. If you’re working with React, it’s important to know where to perform this action.</p>
+<p>The best practice with React is to place API calls or any calls to your server in the lifecycle method <code>componentDidMount()</code>. This method is called after a component is mounted to the DOM. Any calls to <code>setState()</code> here will trigger a re-rendering of your component. When you call an API in this method, and set your state with the data that the API returns, it will automatically trigger an update once you receive the data.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>There is a mock API call in <code>componentDidMount()</code>. It sets state after 2.5 seconds to simulate calling a server to retrieve data. This example requests the current total active users for a site. In the render method, render the value of <code>activeUsers</code> in the <code>h1</code> after the text <code>Active Users:</code>. Watch what happens in the preview, and feel free to change the timeout to see the different effects.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>MyComponent</code> should render a <code>div</code> element which wraps an <code>h1</code> tag.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (() <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyComponent))<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb1-5" title="5">      <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;div&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb1-6" title="6">      <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;h1&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb1-7" title="7">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<p>Component state should be updated with a timeout function in <code>componentDidMount</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (() <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyComponent))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="cf">return</span> <span class="kw">new</span> <span class="at">RegExp</span>(<span class="st">&#39;setTimeout(.|</span><span class="sc">\n</span><span class="st">)+setState(.|</span><span class="sc">\n</span><span class="st">)+activeUsers&#39;</span>).<span class="at">test</span>(</a>
+<a class="sourceLine" id="cb2-5" title="5">      <span class="at">String</span>(<span class="va">mockedComponent</span>.<span class="at">instance</span>().<span class="at">componentDidMount</span>)</a>
+<a class="sourceLine" id="cb2-6" title="6">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-7" title="7">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-8" title="8">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>h1</code> tag should render the <code>activeUsers</code> value from <code>MyComponent</code>’s state.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(() <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyComponent))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="kw">const</span> first <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="va">mockedComponent</span>.<span class="at">setState</span>(<span class="op">{</span> <span class="dt">activeUsers</span><span class="op">:</span> <span class="dv">1237</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;h1&#39;</span>).<span class="at">text</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb3-7" title="7">  <span class="kw">const</span> second <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-8" title="8">    <span class="va">mockedComponent</span>.<span class="at">setState</span>(<span class="op">{</span> <span class="dt">activeUsers</span><span class="op">:</span> <span class="dv">1000</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;h1&#39;</span>).<span class="at">text</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-10" title="10">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb3-11" title="11">  <span class="at">assert</span>(<span class="kw">new</span> <span class="at">RegExp</span>(<span class="st">&#39;1237&#39;</span>).<span class="at">test</span>(<span class="at">first</span>()) <span class="op">&amp;&amp;</span> <span class="kw">new</span> <span class="at">RegExp</span>(<span class="st">&#39;1000&#39;</span>).<span class="at">test</span>(<span class="at">second</span>()))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="op">}</span>)()<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;MyComponent /&gt;, document.getElementById(&#39;root&#39;));</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeUsers: null
+    };
+  }
+  componentDidMount() {
+    setTimeout(() =&gt; {
+      this.setState({
+        activeUsers: 1273
+      });
+    }, 2500);
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        {/* Change code below this line */}
+        &lt;h1&gt;Active Users: &lt;/h1&gt;
+        {/* Change code above this line */}
+      &lt;/div&gt;
+    );
+  }
+}</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeUsers: null
+    };
+  }
+  componentDidMount() {
+    setTimeout(() =&gt; {
+      this.setState({
+        activeUsers: 1273
+      });
+    }, 2500);
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;Active Users: {this.state.activeUsers}&lt;/h1&gt;
+      &lt;/div&gt;
+    );
+  }
+}</code></pre>

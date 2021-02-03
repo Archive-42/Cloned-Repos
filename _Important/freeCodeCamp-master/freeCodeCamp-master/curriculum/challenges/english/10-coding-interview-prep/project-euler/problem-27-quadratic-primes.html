@@ -1,0 +1,33 @@
+<h1 id="description">–description–</h1>
+<p>Euler discovered the remarkable quadratic formula:</p>
+<div style="margin-left: 4em;">
+<span class="math inline"><em>n</em><sup>2</sup> + <em>n</em> + 41</span>
+</div>
+<p>It turns out that the formula will produce 40 primes for the consecutive integer values <span class="math inline">$0 \\le n \\le 39$</span>. However, when <span class="math inline"><em>n</em> = 40, 40<sup>2</sup> + 40 + 41 = 40(40 + 1) + 41</span> is divisible by 41, and certainly when <span class="math inline"><em>n</em> = 41, 41<sup>2</sup> + 41 + 41</span> is clearly divisible by 41.</p>
+<p>The incredible formula <span class="math inline"><em>n</em><sup>2</sup> − 79<em>n</em> + 1601</span> was discovered, which produces 80 primes for the consecutive values <span class="math inline">$0 \\le n \\le 79$</span>. The product of the coefficients, −79 and 1601, is −126479.</p>
+<p>Considering quadratics of the form:</p>
+<div style="margin-left: 4em;">
+<p><span class="math inline"><em>n</em><sup>2</sup> + <em>a</em><em>n</em> + <em>b</em></span>, where <span class="math inline">|<em>a</em>| &lt; <em>r</em><em>a</em><em>n</em><em>g</em><em>e</em></span> and <span class="math inline">|<em>b</em>| ≤ <em>r</em><em>a</em><em>n</em><em>g</em><em>e</em></span><br> where <span class="math inline">|<em>n</em>|</span> is the modulus/absolute value of <span class="math inline"><em>n</em></span><br> e.g. <span class="math inline">|11| = 11</span> and <span class="math inline">| − 4| = 4</span><br></p>
+</div>
+<p>Find the product of the coefficients, <span class="math inline"><em>a</em></span> and <span class="math inline"><em>b</em></span>, for the quadratic expression that produces the maximum number of primes for consecutive values of <span class="math inline"><em>n</em></span>, starting with <span class="math inline"><em>n</em> = 0</span>.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>quadraticPrimes(200)</code> should return a number.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">quadraticPrimes</span>(<span class="dv">200</span>) <span class="op">===</span> <span class="st">&#39;number&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>quadraticPrimes(200)</code> should return -4925.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">quadraticPrimes</span>(<span class="dv">200</span>) <span class="op">==</span> <span class="dv">-4925</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>quadraticPrimes(500)</code> should return -18901.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">quadraticPrimes</span>(<span class="dv">500</span>) <span class="op">==</span> <span class="dv">-18901</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>quadraticPrimes(800)</code> should return -43835.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="at">quadraticPrimes</span>(<span class="dv">800</span>) <span class="op">==</span> <span class="dv">-43835</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>quadraticPrimes(1000)</code> should return -59231.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="at">quadraticPrimes</span>(<span class="dv">1000</span>) <span class="op">==</span> <span class="dv">-59231</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">function</span> <span class="at">quadraticPrimes</span>(range) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="cf">return</span> range<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb6-5" title="5"></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="at">quadraticPrimes</span>(<span class="dv">1000</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="co">// solution required</span></a></code></pre></div>

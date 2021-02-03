@@ -1,0 +1,100 @@
+.chat {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: #363a3f;
+  height: 100vh;
+  width: 80%;
+}
+
+.chat__messages {
+  flex: 1;
+  overflow-y: scroll;
+  flex-wrap: wrap;
+  overflow-wrap: anywhere;
+}
+
+.chat__messages::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
+}
+
+.chat__input {
+  color: lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 20px;
+  border-top: 1px solid gray;
+  background-color: #474b52;
+}
+
+.chat__input>form>input {
+  padding: 15px;
+  background: transparent;
+  border: none;
+  width: 100%;
+  outline-width: 0;
+  color: white;
+  font-size: large;
+}
+
+.chat__input>form {
+  flex: 1;
+}
+
+.chat__inputButton {
+  display: none;
+}
+
+.chat__inputIcons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat__inputIcons>.MuiSvgIcon-root {
+  padding: 5px 10px;
+}
+
+.border-gradient {
+  padding: 0px 5px;
+  background: #313232;
+  background: -moz-linear-gradient(-45deg, #313232 50%, #4f4f4f 50%);
+  background: -webkit-linear-gradient(-45deg, #313232 50%, #4f4f4f 50%);
+  background: linear-gradient(135deg, #313232 0%, #4f4f4f 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='##313232', endColorstr='#4f4f4f', GradientType=1);
+  background: rgba(56, 55, 56, 1);
+  background: -moz-linear-gradient( left, rgba(56, 55, 56, 1) 0%, rgba(94, 91, 94, 0.99) 10%, rgba(77, 76, 77, 0.99) 18%, rgba(64, 64, 64, 0.97) 50%, rgba(66, 66, 66, 0.95) 78%, rgba(66, 66, 66, 0.95) 83%, rgba(82, 82, 82, 0.95) 90%, rgba(79, 79, 79, 0.94) 94%, rgba(46, 45, 46, 0.94) 99%, rgba(19, 19, 19, 0.94) 100%);
+  background: -webkit-gradient( left top, right top, color-stop(0%, rgba(56, 55, 56, 1)), color-stop(10%, rgba(94, 91, 94, 0.99)), color-stop(18%, rgba(77, 76, 77, 0.99)), color-stop(50%, rgba(64, 64, 64, 0.97)), color-stop(78%, rgba(66, 66, 66, 0.95)), color-stop(83%, rgba(66, 66, 66, 0.95)), color-stop(90%, rgba(82, 82, 82, 0.95)), color-stop(94%, rgba(79, 79, 79, 0.94)), color-stop(99%, rgba(46, 45, 46, 0.94)), color-stop(100%, rgba(19, 19, 19, 0.94)));
+  background: -webkit-linear-gradient( left, rgba(56, 55, 56, 1) 0%, rgba(94, 91, 94, 0.99) 10%, rgba(77, 76, 77, 0.99) 18%, rgba(64, 64, 64, 0.97) 50%, rgba(66, 66, 66, 0.95) 78%, rgba(66, 66, 66, 0.95) 83%, rgba(82, 82, 82, 0.95) 90%, rgba(79, 79, 79, 0.94) 94%, rgba(46, 45, 46, 0.94) 99%, rgba(19, 19, 19, 0.94) 100%);
+  background: -o-linear-gradient( left, rgba(56, 55, 56, 1) 0%, rgba(94, 91, 94, 0.99) 10%, rgba(77, 76, 77, 0.99) 18%, rgba(64, 64, 64, 0.97) 50%, rgba(66, 66, 66, 0.95) 78%, rgba(66, 66, 66, 0.95) 83%, rgba(82, 82, 82, 0.95) 90%, rgba(79, 79, 79, 0.94) 94%, rgba(46, 45, 46, 0.94) 99%, rgba(19, 19, 19, 0.94) 100%);
+  background: -ms-linear-gradient( left, rgba(56, 55, 56, 1) 0%, rgba(94, 91, 94, 0.99) 10%, rgba(77, 76, 77, 0.99) 18%, rgba(64, 64, 64, 0.97) 50%, rgba(66, 66, 66, 0.95) 78%, rgba(66, 66, 66, 0.95) 83%, rgba(82, 82, 82, 0.95) 90%, rgba(79, 79, 79, 0.94) 94%, rgba(46, 45, 46, 0.94) 99%, rgba(19, 19, 19, 0.94) 100%);
+  background: linear-gradient( to right, rgba(56, 55, 56, 1) 0%, rgba(94, 91, 94, 0.99) 10%, rgba(77, 76, 77, 0.99) 18%, rgba(64, 64, 64, 0.97) 50%, rgba(66, 66, 66, 0.95) 78%, rgba(66, 66, 66, 0.95) 83%, rgba(82, 82, 82, 0.95) 90%, rgba(79, 79, 79, 0.94) 94%, rgba(46, 45, 46, 0.94) 99%, rgba(19, 19, 19, 0.94) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#383738', endColorstr='#131313', GradientType=1);
+}
+
+.border-gradient>.margin-fix {
+  background-color: white;
+  padding: 1px;
+  margin: -1px;
+}
+
+.MuiSvgIcon-root {
+  padding: 5px;
+}
+
+.MuiAvatar-colorDefault {
+  color: #ffffff;
+  background-color: rgba(6, 31, 37, 0.8);
+}
+
+.chat__topic {
+  display: flex;
+  justify-content: center;
+  font-size: 1.5em;
+  color: white;
+}

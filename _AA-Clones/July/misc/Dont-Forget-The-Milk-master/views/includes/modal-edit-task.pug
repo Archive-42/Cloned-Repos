@@ -1,0 +1,15 @@
+div(id="edit-task-modal")
+  div(class="task-modal-container") 
+    h5 Click to edit >
+    //- p no matches found
+    //- div(class="cross-btn")
+
+
+script(type="text/javascript").
+  const editTaskModal = document.getElementById("edit-task-modal");
+  const crossBtn = document.querySelector(".cross-btn");
+
+  crossBtn.onclick = function() {
+    editTaskModal.style.display = "none";
+  }
+

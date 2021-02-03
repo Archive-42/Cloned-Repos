@@ -1,0 +1,27 @@
+{
+    "title": "joe-mix",
+    "segments": [
+        {
+            "file": "bottle.mp3",
+            "cut": {
+                "start": 1000,
+                "end": 10000
+            }
+        },
+        {
+            "file": "15step.mp3",
+            "cut": {
+                "start": 5000,
+                "end": 15000
+            }
+        
+        },
+        {
+            "file": "bottle.mp3",
+            "cut": {
+                "start": 90000,
+                "end": 100000
+            }
+        }
+    ]
+}

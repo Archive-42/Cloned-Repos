@@ -1,0 +1,45 @@
+<h1 id="description">–description–</h1>
+<p>All square roots are periodic when written as continued fractions and can be written in the form:</p>
+<p><span class="math inline">$\\displaystyle \\quad \\quad \\sqrt{N}=a_0+\\frac 1 {a_1+\\frac 1 {a_2+ \\frac 1 {a3+ \\dots}}}$</span></p>
+<p>For example, let us consider <span class="math inline">$\\sqrt{23}:$</span>:</p>
+<p><span class="math inline">$\\quad \\quad \\sqrt{23}=4+\\sqrt{23}-4=4+\\frac 1 {\\frac 1 {\\sqrt{23}-4}}=4+\\frac 1 {1+\\frac{\\sqrt{23}-3}7}$</span></p>
+<p>If we continue we would get the following expansion:</p>
+<p><span class="math inline">$\\displaystyle \\quad \\quad \\sqrt{23}=4+\\frac 1 {1+\\frac 1 {3+ \\frac 1 {1+\\frac 1 {8+ \\dots}}}}$</span></p>
+<p>The process can be summarized as follows:</p>
+<p><span class="math inline">$\\quad \\quad a_0=4, \\frac 1 {\\sqrt{23}-4}=\\frac {\\sqrt{23}+4} 7=1+\\frac {\\sqrt{23}-3} 7$</span></p>
+<p><span class="math inline">$\\quad \\quad a_1=1, \\frac 7 {\\sqrt{23}-3}=\\frac {7(\\sqrt{23}+3)} {14}=3+\\frac {\\sqrt{23}-3} 2$</span></p>
+<p><span class="math inline">$\\quad \\quad a_2=3, \\frac 2 {\\sqrt{23}-3}=\\frac {2(\\sqrt{23}+3)} {14}=1+\\frac {\\sqrt{23}-4} 7$</span></p>
+<p><span class="math inline">$\\quad \\quad a_3=1, \\frac 7 {\\sqrt{23}-4}=\\frac {7(\\sqrt{23}+4)} 7=8+\\sqrt{23}-4$</span></p>
+<p><span class="math inline">$\\quad \\quad a_4=8, \\frac 1 {\\sqrt{23}-4}=\\frac {\\sqrt{23}+4} 7=1+\\frac {\\sqrt{23}-3} 7$</span></p>
+<p><span class="math inline">$\\quad \\quad a_5=1, \\frac 7 {\\sqrt{23}-3}=\\frac {7 (\\sqrt{23}+3)} {14}=3+\\frac {\\sqrt{23}-3} 2$</span></p>
+<p><span class="math inline">$\\quad \\quad a_6=3, \\frac 2 {\\sqrt{23}-3}=\\frac {2(\\sqrt{23}+3)} {14}=1+\\frac {\\sqrt{23}-4} 7$</span></p>
+<p><span class="math inline">$\\quad \\quad a_7=1, \\frac 7 {\\sqrt{23}-4}=\\frac {7(\\sqrt{23}+4)} {7}=8+\\sqrt{23}-4$</span></p>
+<p>It can be seen that the sequence is repeating. For conciseness, we use the notation <span class="math inline">$\\sqrt{23}=\[4;(1,3,1,8)]$</span>, to indicate that the block (1,3,1,8) repeats indefinitely.</p>
+<p>The first ten continued fraction representations of (irrational) square roots are:</p>
+<p><span class="math inline">$\\quad \\quad \\sqrt{2}=\[1;(2)]$</span>, period = 1</p>
+<p><span class="math inline">$\\quad \\quad \\sqrt{3}=\[1;(1,2)]$</span>, period = 2</p>
+<p><span class="math inline">$\\quad \\quad \\sqrt{5}=\[2;(4)]$</span>, period = 1</p>
+<p><span class="math inline">$\\quad \\quad \\sqrt{6}=\[2;(2,4)]$</span>, period = 2</p>
+<p><span class="math inline">$\\quad \\quad \\sqrt{7}=\[2;(1,1,1,4)]$</span>, period = 4</p>
+<p><span class="math inline">$\\quad \\quad \\sqrt{8}=\[2;(1,4)]$</span>, period = 2</p>
+<p><span class="math inline">$\\quad \\quad \\sqrt{10}=\[3;(6)]$</span>, period = 1</p>
+<p><span class="math inline">$\\quad \\quad \\sqrt{11}=\[3;(3,6)]$</span>, period = 2</p>
+<p><span class="math inline">$\\quad \\quad \\sqrt{12}=\[3;(2,6)]$</span>, period = 2</p>
+<p><span class="math inline">$\\quad \\quad \\sqrt{13}=\[3;(1,1,1,1,6)]$</span>, period = 5</p>
+<p>Exactly four continued fractions, for <span class="math inline">$N \\le 13$</span>, have an odd period.</p>
+<p>How many continued fractions for <span class="math inline">$N \\le 10\\,000$</span> have an odd period?</p>
+<h1 id="hints">–hints–</h1>
+<p><code>oddPeriodSqrts()</code> should return a number.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">oddPeriodSqrts</span>() <span class="op">===</span> <span class="st">&#39;number&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>oddPeriodSqrts()</code> should return 1322.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">oddPeriodSqrts</span>()<span class="op">,</span> <span class="dv">1322</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">function</span> <span class="at">oddPeriodSqrts</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb3-5" title="5"></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="at">oddPeriodSqrts</span>()<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="co">// solution required</span></a></code></pre></div>

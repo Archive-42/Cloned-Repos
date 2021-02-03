@@ -1,0 +1,26 @@
+div(class="edit-list-form-holder")
+  div(class="edit-list-form-content")
+    span(class="close-edit") &times
+    h3 Edit List Name
+    form(class="" id="edit-list-form")
+      div
+        label(for="editListName") List
+        input(class="listNameField" type='text' name="editListName" placeholder='')
+      button(class="edit-list-button" type="submit") Save
+
+
+script(type="text/javascript").
+
+  const editListForm = document.querySelector(".edit-list-form-holder");
+
+    window.onclick = function(event) {
+    if (event.target === editListForm) {
+      editListForm.style.display = "none";
+    }
+  }
+
+   const closeEditButton = document.getElementsByClassName("close-edit")[0];
+
+   closeEditButton.onclick = function() {
+      editListForm.style.display = "none";
+  }

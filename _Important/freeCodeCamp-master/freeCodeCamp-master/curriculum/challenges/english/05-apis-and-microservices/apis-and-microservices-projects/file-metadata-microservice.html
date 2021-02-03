@@ -1,0 +1,56 @@
+<h1 id="description">–description–</h1>
+<p>Build a full stack JavaScript app that is functionally similar to this: <a href="https://file-metadata-microservice.freecodecamp.rocks/" class="uri">https://file-metadata-microservice.freecodecamp.rocks/</a>. Working on this project will involve you writing your code using one of the following methods:</p>
+<ul>
+<li>Clone <a href="https://github.com/freeCodeCamp/boilerplate-project-filemetadata/">this GitHub repo</a> and complete your project locally.</li>
+<li>Use <a href="https://repl.it/github/freeCodeCamp/boilerplate-project-filemetadata">our repl.it starter project</a> to complete your project.</li>
+<li>Use a site builder of your choice to complete the project. Be sure to incorporate all the files from our GitHub repo.</li>
+</ul>
+<p>When you are done, make sure a working demo of your project is hosted somewhere public. Then submit the URL to it in the <code>Solution Link</code> field. Optionally, also submit a link to your projects source code in the <code>GitHub Link</code> field.</p>
+<h1 id="instructions">–instructions–</h1>
+<p><strong>HINT:</strong> You can use the <code>multer</code> npm package to handle file uploading.</p>
+<h1 id="hints">–hints–</h1>
+<p>You should provide your own project, not the example URL.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1">(getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="op">!</span><span class="ss">/.</span><span class="sc">*\/</span><span class="ss">file-metadata-microservice</span><span class="sc">\.</span><span class="ss">freecodecamp</span><span class="sc">\.</span><span class="ss">rocks/</span>.<span class="at">test</span>(</a>
+<a class="sourceLine" id="cb1-4" title="4">      <span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>)</a>
+<a class="sourceLine" id="cb1-5" title="5">    )</a>
+<a class="sourceLine" id="cb1-6" title="6">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="op">};</span></a></code></pre></div>
+<p>You can submit a form that includes a file upload.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="kw">const</span> site <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="va">site</span>.<span class="at">text</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">  <span class="kw">const</span> doc <span class="op">=</span> <span class="kw">new</span> <span class="at">DOMParser</span>().<span class="at">parseFromString</span>(data<span class="op">,</span> <span class="st">&#39;text/html&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">  <span class="at">assert</span>(<span class="va">doc</span>.<span class="at">querySelector</span>(<span class="st">&#39;input[type=&quot;file&quot;]&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="op">};</span></a></code></pre></div>
+<p>The form file input field has the <code>name</code> attribute set to <code>upfile</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="kw">const</span> site <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="va">site</span>.<span class="at">text</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="kw">const</span> doc <span class="op">=</span> <span class="kw">new</span> <span class="at">DOMParser</span>().<span class="at">parseFromString</span>(data<span class="op">,</span> <span class="st">&#39;text/html&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="at">assert</span>(<span class="va">doc</span>.<span class="at">querySelector</span>(<span class="st">&#39;input[name=&quot;upfile&quot;]&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="op">};</span></a></code></pre></div>
+<p>When you submit a file, you receive the file <code>name</code>, <code>type</code>, and <code>size</code> in bytes within the JSON response.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">const</span> formData <span class="op">=</span> <span class="kw">new</span> <span class="at">FormData</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="kw">const</span> fileData <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(</a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="st">&#39;https://cdn.freecodecamp.org/weather-icons/01d.png&#39;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">  <span class="kw">const</span> file <span class="op">=</span> <span class="cf">await</span> <span class="va">fileData</span>.<span class="at">blob</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">  <span class="va">formData</span>.<span class="at">append</span>(<span class="st">&#39;upfile&#39;</span><span class="op">,</span> file<span class="op">,</span> <span class="st">&#39;icon&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/fileanalyse&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-10" title="10">    <span class="dt">body</span><span class="op">:</span> formData</a>
+<a class="sourceLine" id="cb4-11" title="11">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">  <span class="va">assert</span>.<span class="at">property</span>(parsed<span class="op">,</span> <span class="st">&#39;size&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-14" title="14">  <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">parsed</span>.<span class="at">name</span><span class="op">,</span> <span class="st">&#39;icon&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-15" title="15">  <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">parsed</span>.<span class="at">type</span><span class="op">,</span> <span class="st">&#39;image/png&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="op">};</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">*/</span></a></code></pre></div>

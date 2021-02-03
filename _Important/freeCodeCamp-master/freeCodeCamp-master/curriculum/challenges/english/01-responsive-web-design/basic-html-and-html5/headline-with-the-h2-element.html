@@ -1,0 +1,26 @@
+<h1 id="description">–description–</h1>
+<p>Over the next few lessons, we’ll build an HTML5 cat photo web app piece-by-piece.</p>
+<p>The <code>h2</code> element you will be adding in this step will add a level two heading to the web page.</p>
+<p>This element tells the browser about the structure of your website. <code>h1</code> elements are often used for main headings, while <code>h2</code> elements are generally used for subheadings. There are also <code>h3</code>, <code>h4</code>, <code>h5</code> and <code>h6</code> elements to indicate different levels of subheadings.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Add an <code>h2</code> tag that says “CatPhotoApp” to create a second HTML element below your “Hello World” <code>h1</code> element.</p>
+<h1 id="hints">–hints–</h1>
+<p>You should create an <code>h2</code> element.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h2&#39;</span>).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h2</code> element should have a closing tag.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">h2&gt;/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">h2&gt;/g</span>).<span class="at">length</span> <span class="op">===</span> <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;h2&gt;/g</span>).<span class="at">length</span></a>
+<a class="sourceLine" id="cb2-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h2</code> element should have the text <code>CatPhotoApp</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">isTrue</span>(<span class="ss">/cat</span><span class="sc">(\s)?</span><span class="ss">photo</span><span class="sc">(\s)?</span><span class="ss">app/gi</span>.<span class="at">test</span>(<span class="at">$</span>(<span class="st">&#39;h2&#39;</span>).<span class="at">text</span>()))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h1</code> element should have the text <code>Hello World</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">isTrue</span>(<span class="ss">/hello</span><span class="sc">(\s)+</span><span class="ss">world/gi</span>.<span class="at">test</span>(<span class="at">$</span>(<span class="st">&#39;h1&#39;</span>).<span class="at">text</span>()))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h1</code> element should be before your <code>h2</code> element.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;h1&gt;</span><span class="sc">\s*?</span><span class="ss">.</span><span class="sc">*?\s*?</span><span class="ss">&lt;</span><span class="sc">\/</span><span class="ss">h1&gt;</span><span class="sc">\s*</span><span class="ss">&lt;h2&gt;</span><span class="sc">\s*?</span><span class="ss">.</span><span class="sc">*?\s*?</span><span class="ss">&lt;</span><span class="sc">\/</span><span class="ss">h2&gt;/gi</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;h1&gt;</span>Hello World<span class="kw">&lt;/h1&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">&lt;h1&gt;</span>Hello World<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a></code></pre></div>

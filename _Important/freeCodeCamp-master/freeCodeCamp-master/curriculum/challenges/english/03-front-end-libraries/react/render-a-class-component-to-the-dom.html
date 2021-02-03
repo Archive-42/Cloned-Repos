@@ -1,0 +1,116 @@
+<h1 id="description">–description–</h1>
+<p>You may remember using the ReactDOM API in an earlier challenge to render JSX elements to the DOM. The process for rendering React components will look very similar. The past few challenges focused on components and composition, so the rendering was done for you behind the scenes. However, none of the React code you write will render to the DOM without making a call to the ReactDOM API.</p>
+<p>Here’s a refresher on the syntax: <code>ReactDOM.render(componentToRender, targetNode)</code>. The first argument is the React component that you want to render. The second argument is the DOM node that you want to render that component within.</p>
+<p>React components are passed into <code>ReactDOM.render()</code> a little differently than JSX elements. For JSX elements, you pass in the name of the element that you want to render. However, for React components, you need to use the same syntax as if you were rendering a nested component, for example <code>ReactDOM.render(&lt;ComponentToRender /&gt;, targetNode)</code>. You use this syntax for both ES6 class components and functional components.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Both the <code>Fruits</code> and <code>Vegetables</code> components are defined for you behind the scenes. Render both components as children of the <code>TypesOfFood</code> component, then render <code>TypesOfFood</code> to the DOM. There is a <code>div</code> with <code>id='challenge-node'</code> available for you to use.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>TypesOfFood</code> component should return a single <code>div</code> element.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(TypesOfFood))<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">children</span>().<span class="at">type</span>() <span class="op">===</span> <span class="st">&#39;div&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>TypesOfFood</code> component should render the <code>Fruits</code> component after the <code>h1</code> element.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(TypesOfFood))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">children</span>().<span class="at">childAt</span>(<span class="dv">1</span>).<span class="at">name</span>() <span class="op">===</span> <span class="st">&#39;Fruits&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>TypesOfFood</code> component should render the <code>Vegetables</code> component after <code>Fruits</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(TypesOfFood))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">children</span>().<span class="at">childAt</span>(<span class="dv">2</span>).<span class="at">name</span>() <span class="op">===</span> <span class="st">&#39;Vegetables&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>TypesOfFood</code> component should render to the DOM within the <code>div</code> with the id <code>challenge-node</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">const</span> html <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&#39;challenge-node&#39;</span>).<span class="at">childNodes</span>[<span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb4-4" title="4">      .<span class="at">innerHTML</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb4-6" title="6">      <span class="va">html</span>.<span class="at">includes</span>(</a>
+<a class="sourceLine" id="cb4-7" title="7">        <span class="st">&#39;&lt;div&gt;&lt;h2&gt;Fruits:&lt;/h2&gt;&lt;h4&gt;Non-Citrus:&lt;/h4&gt;&lt;ul&gt;&lt;li&gt;Apples&lt;/li&gt;&lt;li&gt;Blueberries&lt;/li&gt;&lt;li&gt;Strawberries&lt;/li&gt;&lt;li&gt;Bananas&lt;/li&gt;&lt;/ul&gt;&lt;h4&gt;Citrus:&lt;/h4&gt;&lt;ul&gt;&lt;li&gt;Lemon&lt;/li&gt;&lt;li&gt;Lime&lt;/li&gt;&lt;li&gt;Orange&lt;/li&gt;&lt;li&gt;Grapefruit&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&#39;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">      ) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">      <span class="va">html</span>.<span class="at">includes</span>(</a>
+<a class="sourceLine" id="cb4-10" title="10">        <span class="st">&#39;&lt;div&gt;&lt;h2&gt;Vegetables:&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Brussel Sprouts&lt;/li&gt;&lt;li&gt;Broccoli&lt;/li&gt;&lt;li&gt;Squash&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&#39;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">      )</a>
+<a class="sourceLine" id="cb4-12" title="12">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb4-14" title="14">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="before-user-code">–before-user-code–</h2>
+<pre class="jsx"><code>const Fruits = () =&gt; {
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Fruits:&lt;/h2&gt;
+      &lt;h4&gt;Non-Citrus:&lt;/h4&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Apples&lt;/li&gt;
+          &lt;li&gt;Blueberries&lt;/li&gt;
+          &lt;li&gt;Strawberries&lt;/li&gt;
+          &lt;li&gt;Bananas&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;h4&gt;Citrus:&lt;/h4&gt;
+        &lt;ul&gt;
+          &lt;li&gt;Lemon&lt;/li&gt;
+          &lt;li&gt;Lime&lt;/li&gt;
+          &lt;li&gt;Orange&lt;/li&gt;
+          &lt;li&gt;Grapefruit&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+};
+const Vegetables = () =&gt; {
+  return (
+    &lt;div&gt;
+      &lt;h2&gt;Vegetables:&lt;/h2&gt;
+      &lt;ul&gt;
+        &lt;li&gt;Brussel Sprouts&lt;/li&gt;
+        &lt;li&gt;Broccoli&lt;/li&gt;
+        &lt;li&gt;Squash&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>class TypesOfFood extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;Types of Food:&lt;/h1&gt;
+        {/* Change code below this line */}
+
+        {/* Change code above this line */}
+      &lt;/div&gt;
+    );
+  }
+};
+
+// Change code below this line</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>class TypesOfFood extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;Types of Food:&lt;/h1&gt;
+        {/* Change code below this line */}
+          &lt;Fruits /&gt;
+           &lt;Vegetables /&gt;
+         {/* Change code above this line */}
+      &lt;/div&gt;
+    );
+  }
+};
+
+// Change code below this line
+ReactDOM.render(&lt;TypesOfFood /&gt;, document.getElementById(&#39;challenge-node&#39;));</code></pre>

@@ -1,0 +1,11 @@
+extends layout.pug
+block content
+  div.searchHeader Questions related to:
+  span.searchHeader.searchVal: strong "#{search}"
+  if relevantQuestions
+    div.questionContainer
+      each question in relevantQuestions
+        div.containerSolo.box-width.searchTextSolo
+          div.questionLink: a(href=`/questions/${question.id}`) #{question.questionSubject}
+          div.questionText #{question.questionText}
+          div.answerAmount #{question.answers.length} Answer(s), #{question.score} Voter Rating

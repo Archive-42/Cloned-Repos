@@ -1,0 +1,41 @@
+<h1 id="description">–description–</h1>
+<p>HTML5 introduces more descriptive HTML tags. These include <code>main</code>, <code>header</code>, <code>footer</code>, <code>nav</code>, <code>video</code>, <code>article</code>, <code>section</code> and others.</p>
+<p>These tags give a descriptive structure to your HTML, make your HTML easier to read, and help with Search Engine Optimization (SEO) and accessibility. The <code>main</code> HTML5 tag helps search engines and other developers find the main content of your page.</p>
+<p>Example usage, a <code>main</code> element with two child elements nested inside it:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">&lt;main&gt;</span> </a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="kw">&lt;h1&gt;</span>Hello World<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="kw">&lt;p&gt;</span>Hello Paragraph<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="kw">&lt;/main&gt;</span></a></code></pre></div>
+<p><strong>Note:</strong> Many of the new HTML5 tags and their benefits are covered in the Applied Accessibility section.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Create a second <code>p</code> element after the existing <code>p</code> element with the following kitty ipsum text: <code>Purr jump eat the grass rip the couch scratched sunbathe, shed everywhere rip the couch sleep in the sink fluffy fur catnip scratched.</code></p>
+<p>Then, create a <code>main</code> element and nest the two <code>p</code> elements inside the <code>main</code> element.</p>
+<h1 id="hints">–hints–</h1>
+<p>You should have 2 <code>p</code> elements with Kitty Ipsum text.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;p&#39;</span>).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>Each of your <code>p</code> elements should have a closing tag.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">p&gt;/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">p&gt;/g</span>).<span class="at">length</span> <span class="op">===</span> <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;p/g</span>).<span class="at">length</span></a>
+<a class="sourceLine" id="cb3-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>p</code> element should contain the first few words of the provided additional <code>kitty ipsum text</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">isTrue</span>(<span class="ss">/Purr</span><span class="sc">\s+</span><span class="ss">jump</span><span class="sc">\s+</span><span class="ss">eat/gi</span>.<span class="at">test</span>(<span class="at">$</span>(<span class="st">&#39;p&#39;</span>).<span class="at">text</span>()))<span class="op">;</span></a></code></pre></div>
+<p>Your code should have one <code>main</code> element.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;main&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>main</code> element should have two paragraph elements as children.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;main&#39;</span>).<span class="at">children</span>(<span class="st">&#39;p&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">2</span>)<span class="op">;</span></a></code></pre></div>
+<p>The opening <code>main</code> tag should come before the first paragraph tag.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;main&gt;</span><span class="sc">\s*?</span><span class="ss">&lt;p&gt;/g</span>))<span class="op">;</span></a></code></pre></div>
+<p>The closing <code>main</code> tag should come after the second closing paragraph tag.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">p&gt;</span><span class="sc">\s*?</span><span class="ss">&lt;</span><span class="sc">\/</span><span class="ss">main&gt;/g</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb9-2" title="2"></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="kw">&lt;p&gt;</span>Kitty ipsum dolor sit amet, shed everywhere shed everywhere stretching attack your ankles chase the red dot, hairball run catnip eat the grass sniff.<span class="kw">&lt;/p&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb10"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb10-3" title="3">  <span class="kw">&lt;p&gt;</span>Kitty ipsum dolor sit amet, shed everywhere shed everywhere stretching attack your ankles chase the red dot, hairball run catnip eat the grass sniff.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb10-4" title="4">  <span class="kw">&lt;p&gt;</span>Purr jump eat the grass rip the couch scratched sunbathe, shed everywhere rip the couch sleep in the sink fluffy fur catnip scratched.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="kw">&lt;/main&gt;</span></a></code></pre></div>

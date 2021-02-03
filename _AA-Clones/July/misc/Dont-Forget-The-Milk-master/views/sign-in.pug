@@ -1,0 +1,63 @@
+
+//- extends layout.pug
+
+//- append head
+//-   script(src='js/sign-in.js' type='module')
+
+//- block content
+doctype html
+html
+  head
+    link(rel='stylesheet' href='css/style.css')
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.css")
+    link(rel="icon" type="image/jpg" href="./images/favicon-32x32.png")
+    title Sign in
+  body(class="registration-page__body")
+    div(class="registration-page")
+      div(class="login-page__left-panel")
+        div(class="left-panel__login-logo-container")
+          img(class="left-panel__login-logo" src="./images/dtfm-logo-white.png")
+        div(class="left-panel__top-filler")
+        div(class="left-panel__inspiration-container")
+          blockquote(class='left-panel__blockquote')
+            p(class="left-panel__quote-text")
+            footer(class="left-panel__quoted-person")
+          div(class="left-panel__monkey")
+            img(src="./images/monkeybob.png" class="left-panel__monkey-picture")
+            p(class="left-panel__monkey-text")  Quotes curated by Bob A. Monkey, renowned productivity expert
+      div(class="registration-page__right-panel")
+        div(class="right-panel__elements-container")
+          div(class="right-panel__login-button-container")
+            a(href="/register" class="right-panel__login-button") Sign up for free
+          div(class="registration-container")
+            div(class="errors-container")
+            div(class="right-panel__welcome-group")
+              div(class="right-panel__welcome-text-container")
+                h3(class="right-panel__welcome-text") Been here before?
+                h3(class="right-panel__welcome-text") Welcome back!
+              img(class="right-panel__welcome-cow" src="./images/login-cow.png")
+            form(class="sign-in-form")
+              include includes/shared-form-fields.pug
+              div(class="right-panel__form-bottom")
+                div(class="right-panel__checkbox-container")
+                  //- label::before
+                  //- input(type="checkbox" class="right-panel__checkbox")
+                  //- p(class="right-panel__checkbox-text") Stay logged in
+                a(href="/reset-request" class="right-panel__reset-link") Forgot password?
+              div(class="registration-form__button-container")
+                button(type='submit' class='registration-form__login-button') Log in
+                button(type='button' class='registration-form__demo-button') Try me
+  footer(class="footer-link")
+    a(href="https://github.com/DerekInhoKim/Dont-Forget-The-Milk")
+      img(src="./images/GitHub-Mark-32px.png")
+    a(href="https://www.linkedin.com/in/derek-inho-kim/")
+      img(src="./images/linkedin-32x32.png")
+    a(href="https://www.linkedin.com/in/aleksandar-dordevic-418a39b5/")
+      img(src="./images/linkedin-32x32.png")
+    a(href="https://www.linkedin.com/in/ryan-matuszak-962440147/")
+      img(src="./images/linkedin-32x32.png")
+    a(href="https://www.linkedin.com/in/tj-taylor-6b9412196/")
+      img(src="./images/linkedin-32x32.png")
+    a(href="https://www.linkedin.com/in/andrew-c-340162201/")
+      img(src="./images/linkedin-32x32.png")
+  script(type='module' defer src='js/sign-in.js')

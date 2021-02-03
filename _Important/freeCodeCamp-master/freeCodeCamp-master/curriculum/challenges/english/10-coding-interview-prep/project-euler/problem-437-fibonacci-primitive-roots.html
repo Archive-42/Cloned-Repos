@@ -1,0 +1,28 @@
+<h1 id="description">–description–</h1>
+<p>When we calculate 8n modulo 11 for n=0 to 9 we get: 1, 8, 9, 6, 4, 10, 3, 2, 5, 7.</p>
+<p>As we see all possible values from 1 to 10 occur. So 8 is a primitive root of 11.</p>
+<p>But there is more:</p>
+<p>If we take a closer look we see:</p>
+<p>1+8=9</p>
+<p>8+9=17≡6 mod 11</p>
+<p>9+6=15≡4 mod 11</p>
+<p>6+4=10</p>
+<p>4+10=14≡3 mod 11</p>
+<p>10+3=13≡2 mod 11</p>
+<p>3+2=5</p>
+<p>2+5=7</p>
+<p>5+7=12≡1 mod 11.</p>
+<p>So the powers of 8 mod 11 are cyclic with period 10, and 8n + 8n+1 ≡ 8n+2 (mod 11). 8 is called a Fibonacci primitive root of 11. Not every prime has a Fibonacci primitive root. There are 323 primes less than 10000 with one or more Fibonacci primitive roots and the sum of these primes is 1480491. Find the sum of the primes less than 100,000,000 with at least one Fibonacci primitive root.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>euler437()</code> should return 74204709657207.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">euler437</span>()<span class="op">,</span> <span class="dv">74204709657207</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">function</span> <span class="at">euler437</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb2-5" title="5"></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="at">euler437</span>()<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">// solution required</span></a></code></pre></div>

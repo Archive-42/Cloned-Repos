@@ -1,0 +1,21 @@
+<h1 id="description">–description–</h1>
+<p>Our phone doesn’t have much vertical space.</p>
+<p>Let’s remove the unnecessary elements so we can start building our CatPhotoApp.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Delete your <code>h1</code> element so we can simplify our view.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>h1</code> element should be deleted.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="op">!</span><span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;h1&gt;/gi</span>) <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">h1&gt;/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h2</code> element should be on the page.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;h2&gt;</span><span class="sc">[\w\W]*</span><span class="ss">&lt;</span><span class="sc">\/</span><span class="ss">h2&gt;/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>p</code> element should be on the page.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;p&gt;</span><span class="sc">[\w\W]*</span><span class="ss">&lt;</span><span class="sc">\/</span><span class="ss">p&gt;/gi</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;h1&gt;</span>Hello World<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2"></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="kw">&lt;p&gt;</span>Kitty ipsum dolor sit amet, shed everywhere shed everywhere stretching attack your ankles chase the red dot, hairball run catnip eat the grass sniff.<span class="kw">&lt;/p&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;&lt;p&gt;</span>Kitty ipsum dolor sit amet, shed everywhere shed everywhere stretching attack your ankles chase the red dot, hairball run catnip eat the grass sniff.<span class="kw">&lt;/p&gt;</span></a></code></pre></div>

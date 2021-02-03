@@ -1,0 +1,45 @@
+<h1 id="description">–description–</h1>
+<p>You can add images to your website by using the <code>img</code> element, and point to a specific image’s URL using the <code>src</code> attribute.</p>
+<p>An example of this would be:</p>
+<p><code>&lt;img src="https://www.freecatphotoapp.com/your-image.jpg"&gt;</code></p>
+<p>Note that <code>img</code> elements are self-closing.</p>
+<p>All <code>img</code> elements <strong>must</strong> have an <code>alt</code> attribute. The text inside an <code>alt</code> attribute is used for screen readers to improve accessibility and is displayed if the image fails to load.</p>
+<p><strong>Note:</strong> If the image is purely decorative, using an empty <code>alt</code> attribute is a best practice.</p>
+<p>Ideally the <code>alt</code> attribute should not contain special characters unless needed.</p>
+<p>Let’s add an <code>alt</code> attribute to our <code>img</code> example above:</p>
+<p><code>&lt;img src="https://www.freecatphotoapp.com/your-image.jpg" alt="A business cat wearing a necktie."&gt;</code></p>
+<h1 id="instructions">–instructions–</h1>
+<p>Let’s try to add an image to our website:</p>
+<p>Within the existing <code>main</code> element, insert an <code>img</code> element before the existing <code>p</code> elements.</p>
+<p>Now set the <code>src</code> attribute so that it points to this url:</p>
+<p><code>https://bit.ly/fcc-relaxing-cat</code></p>
+<p>Finally, don’t forget to give your <code>img</code> element an <code>alt</code> attribute with applicable text.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your page should have an image element.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;img&#39;</span>).<span class="at">length</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your image should have a <code>src</code> attribute that points to the kitten image.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="ss">/</span><span class="sc">^</span><span class="ss">https:</span><span class="sc">\/\/</span><span class="ss">bit</span><span class="sc">\.</span><span class="ss">ly</span><span class="sc">\/</span><span class="ss">fcc-relaxing-cat</span><span class="sc">$</span><span class="ss">/i</span>.<span class="at">test</span>(<span class="at">$</span>(<span class="st">&#39;img&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;src&#39;</span>)))<span class="op">;</span></a></code></pre></div>
+<p>Your image element’s <code>alt</code> attribute should not be empty.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="at">$</span>(<span class="st">&#39;img&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;alt&#39;</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="at">$</span>(<span class="st">&#39;img&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;alt&#39;</span>).<span class="at">length</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="ss">/&lt;img</span><span class="sc">\S*</span><span class="ss">alt=</span><span class="sc">([&#39;&quot;])(?</span><span class="ss">!</span><span class="sc">\1|</span><span class="ss">&gt;</span><span class="sc">)\S+\1\S*\/?</span><span class="ss">&gt;/</span>.<span class="at">test</span>(</a>
+<a class="sourceLine" id="cb3-5" title="5">      <span class="va">__helpers</span>.<span class="at">removeWhiteSpace</span>(code)</a>
+<a class="sourceLine" id="cb3-6" title="6">    )</a>
+<a class="sourceLine" id="cb3-7" title="7">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb4-3" title="3"></a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="kw">&lt;p&gt;</span>Kitty ipsum dolor sit amet, shed everywhere shed everywhere stretching attack your ankles chase the red dot, hairball run catnip eat the grass sniff.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">  <span class="kw">&lt;p&gt;</span>Purr jump eat the grass rip the couch scratched sunbathe, shed everywhere rip the couch sleep in the sink fluffy fur catnip scratched.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="kw">&lt;/main&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-relaxing-cat&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A cute orange cat lying on its back.&quot;</span><span class="kw">&gt;&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">  <span class="kw">&lt;p&gt;</span>Kitty ipsum dolor sit amet, shed everywhere shed everywhere stretching attack your ankles chase the red dot, hairball run catnip eat the grass sniff.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">  <span class="kw">&lt;p&gt;</span>Purr jump eat the grass rip the couch scratched sunbathe, shed everywhere rip the couch sleep in the sink fluffy fur catnip scratched.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="kw">&lt;/main&gt;</span></a></code></pre></div>

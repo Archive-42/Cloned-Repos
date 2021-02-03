@@ -1,0 +1,106 @@
+<h1 id="description">–description–</h1>
+<p>You can tell the Redux store how to handle multiple action types. Say you are managing user authentication in your Redux store. You want to have a state representation for when users are logged in and when they are logged out. You represent this with a single state object with the property <code>authenticated</code>. You also need action creators that create actions corresponding to user login and user logout, along with the action objects themselves.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>The code editor has a store, actions, and action creators set up for you. Fill in the <code>reducer</code> function to handle multiple authentication actions. Use a JavaScript <code>switch</code> statement in the <code>reducer</code> to respond to different action events. This is a standard pattern in writing Redux reducers. The switch statement should switch over <code>action.type</code> and return the appropriate authentication state.</p>
+<p><strong>Note:</strong> At this point, don’t worry about state immutability, since it is small and simple in this example. For each action, you can return a new object — for example, <code>{authenticated: true}</code>. Also, don’t forget to write a <code>default</code> case in your switch statement that returns the current <code>state</code>. This is important because once your app has multiple reducers, they are all run any time an action dispatch is made, even when the action isn’t related to that reducer. In such a case, you want to make sure that you return the current <code>state</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>Calling the function <code>loginUser</code> should return an object with type property set to the string <code>LOGIN</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">loginUser</span>().<span class="at">type</span> <span class="op">===</span> <span class="st">&#39;LOGIN&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Calling the function <code>logoutUser</code> should return an object with type property set to the string <code>LOGOUT</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">logoutUser</span>().<span class="at">type</span> <span class="op">===</span> <span class="st">&#39;LOGOUT&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>The store should be initialized with an object with an <code>authenticated</code> property set to <code>false</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">store</span>.<span class="at">getState</span>().<span class="at">authenticated</span> <span class="op">===</span> <span class="kw">false</span>)<span class="op">;</span></a></code></pre></div>
+<p>Dispatching <code>loginUser</code> should update the <code>authenticated</code> property in the store state to <code>true</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">const</span> initialState <span class="op">=</span> <span class="va">store</span>.<span class="at">getState</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="va">store</span>.<span class="at">dispatch</span>(<span class="at">loginUser</span>())<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="kw">const</span> afterLogin <span class="op">=</span> <span class="va">store</span>.<span class="at">getState</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb4-7" title="7">      <span class="va">initialState</span>.<span class="at">authenticated</span> <span class="op">===</span> <span class="kw">false</span> <span class="op">&amp;&amp;</span> <span class="va">afterLogin</span>.<span class="at">authenticated</span> <span class="op">===</span> <span class="kw">true</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb4-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<p>Dispatching <code>logoutUser</code> should update the <code>authenticated</code> property in the store state to <code>false</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="va">store</span>.<span class="at">dispatch</span>(<span class="at">loginUser</span>())<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">const</span> loggedIn <span class="op">=</span> <span class="va">store</span>.<span class="at">getState</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">    <span class="va">store</span>.<span class="at">dispatch</span>(<span class="at">logoutUser</span>())<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="kw">const</span> afterLogout <span class="op">=</span> <span class="va">store</span>.<span class="at">getState</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb5-8" title="8">      <span class="va">loggedIn</span>.<span class="at">authenticated</span> <span class="op">===</span> <span class="kw">true</span> <span class="op">&amp;&amp;</span> <span class="va">afterLogout</span>.<span class="at">authenticated</span> <span class="op">===</span> <span class="kw">false</span></a>
+<a class="sourceLine" id="cb5-9" title="9">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb5-11" title="11">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>authReducer</code> function should handle multiple action types with a <code>switch</code> statement.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="at">getUserInput</span>(<span class="st">&#39;index&#39;</span>).<span class="at">toString</span>().<span class="at">includes</span>(<span class="st">&#39;switch&#39;</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">      <span class="at">getUserInput</span>(<span class="st">&#39;index&#39;</span>).<span class="at">toString</span>().<span class="at">includes</span>(<span class="st">&#39;case&#39;</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">      <span class="at">getUserInput</span>(<span class="st">&#39;index&#39;</span>).<span class="at">toString</span>().<span class="at">includes</span>(<span class="st">&#39;default&#39;</span>)</a>
+<a class="sourceLine" id="cb6-6" title="6">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">const</span> defaultState <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="dt">authenticated</span><span class="op">:</span> <span class="kw">false</span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="op">};</span></a>
+<a class="sourceLine" id="cb7-4" title="4"></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="kw">const</span> authReducer <span class="op">=</span> (state <span class="op">=</span> defaultState<span class="op">,</span> action) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-6" title="6">  <span class="co">// Change code below this line</span></a>
+<a class="sourceLine" id="cb7-7" title="7"></a>
+<a class="sourceLine" id="cb7-8" title="8">  <span class="co">// Change code above this line</span></a>
+<a class="sourceLine" id="cb7-9" title="9"><span class="op">};</span></a>
+<a class="sourceLine" id="cb7-10" title="10"></a>
+<a class="sourceLine" id="cb7-11" title="11"><span class="kw">const</span> store <span class="op">=</span> <span class="va">Redux</span>.<span class="at">createStore</span>(authReducer)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-12" title="12"></a>
+<a class="sourceLine" id="cb7-13" title="13"><span class="kw">const</span> loginUser <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-14" title="14">  <span class="cf">return</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-15" title="15">    <span class="dt">type</span><span class="op">:</span> <span class="st">&#39;LOGIN&#39;</span></a>
+<a class="sourceLine" id="cb7-16" title="16">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-17" title="17"><span class="op">};</span></a>
+<a class="sourceLine" id="cb7-18" title="18"></a>
+<a class="sourceLine" id="cb7-19" title="19"><span class="kw">const</span> logoutUser <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-20" title="20">  <span class="cf">return</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-21" title="21">    <span class="dt">type</span><span class="op">:</span> <span class="st">&#39;LOGOUT&#39;</span></a>
+<a class="sourceLine" id="cb7-22" title="22">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-23" title="23"><span class="op">};</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">const</span> defaultState <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="dt">authenticated</span><span class="op">:</span> <span class="kw">false</span></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="op">};</span></a>
+<a class="sourceLine" id="cb8-4" title="4"></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="kw">const</span> authReducer <span class="op">=</span> (state <span class="op">=</span> defaultState<span class="op">,</span> action) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-6" title="6"></a>
+<a class="sourceLine" id="cb8-7" title="7">  <span class="cf">switch</span> (<span class="va">action</span>.<span class="at">type</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-8" title="8"></a>
+<a class="sourceLine" id="cb8-9" title="9">    <span class="cf">case</span> <span class="st">&#39;LOGIN&#39;</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb8-10" title="10">      <span class="cf">return</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-11" title="11">        <span class="dt">authenticated</span><span class="op">:</span> <span class="kw">true</span></a>
+<a class="sourceLine" id="cb8-12" title="12">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-13" title="13"></a>
+<a class="sourceLine" id="cb8-14" title="14">    <span class="cf">case</span> <span class="st">&#39;LOGOUT&#39;</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb8-15" title="15">      <span class="cf">return</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-16" title="16">        <span class="dt">authenticated</span><span class="op">:</span> <span class="kw">false</span></a>
+<a class="sourceLine" id="cb8-17" title="17">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-18" title="18"></a>
+<a class="sourceLine" id="cb8-19" title="19">    <span class="cf">default</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb8-20" title="20">      <span class="cf">return</span> state<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-21" title="21"></a>
+<a class="sourceLine" id="cb8-22" title="22">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-23" title="23"></a>
+<a class="sourceLine" id="cb8-24" title="24"><span class="op">};</span></a>
+<a class="sourceLine" id="cb8-25" title="25"></a>
+<a class="sourceLine" id="cb8-26" title="26"><span class="kw">const</span> store <span class="op">=</span> <span class="va">Redux</span>.<span class="at">createStore</span>(authReducer)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-27" title="27"></a>
+<a class="sourceLine" id="cb8-28" title="28"><span class="kw">const</span> loginUser <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-29" title="29">  <span class="cf">return</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-30" title="30">    <span class="dt">type</span><span class="op">:</span> <span class="st">&#39;LOGIN&#39;</span></a>
+<a class="sourceLine" id="cb8-31" title="31">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-32" title="32"><span class="op">};</span></a>
+<a class="sourceLine" id="cb8-33" title="33"></a>
+<a class="sourceLine" id="cb8-34" title="34"><span class="kw">const</span> logoutUser <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-35" title="35">  <span class="cf">return</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-36" title="36">    <span class="dt">type</span><span class="op">:</span> <span class="st">&#39;LOGOUT&#39;</span></a>
+<a class="sourceLine" id="cb8-37" title="37">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-38" title="38"><span class="op">};</span></a></code></pre></div>

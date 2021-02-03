@@ -1,0 +1,12 @@
+<h1>Sign Up</h1>
+<form action="<%= users_url %>" method="POST">
+  <label>Username
+    <input type="text" name="user[username]">
+  </label>
+  <label>Password
+    <input type="password" name="user[password]">
+  </label>
+  <button>Sign Up</button>
+
+  <%= flash[:errors] = flash[:errors] %>
+</form>

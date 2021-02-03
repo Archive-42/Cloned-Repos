@@ -1,0 +1,90 @@
+<h1 id="description">–description–</h1>
+<p>As a reminder, this project is being built upon the following starter project on <a href="https://repl.it/github/freeCodeCamp/boilerplate-mochachai">Repl.it</a>, or cloned from <a href="https://github.com/freeCodeCamp/boilerplate-mochachai/">GitHub</a>.</p>
+<p>In the next example we’ll see how to send data in a request payload (body). We are going to test a PUT request. The <code>'/travellers'</code> endpoint accepts a JSON object taking the structure:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="dt">&quot;surname&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="er">last</span> <span class="er">name</span> <span class="er">of</span> <span class="er">a</span> <span class="er">traveller</span> <span class="er">of</span> <span class="er">the</span> <span class="er">past</span><span class="ot">]</span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="fu">}</span></a></code></pre></div>
+<p>The route responds with :</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb2-1" title="1"><span class="fu">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="er">first</span> <span class="er">name</span><span class="ot">]</span><span class="fu">,</span> <span class="dt">&quot;surname&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="er">last</span> <span class="er">name</span><span class="ot">]</span><span class="fu">,</span> <span class="dt">&quot;dates&quot;</span><span class="fu">:</span> <span class="ot">[</span><span class="er">birth</span> <span class="er">-</span> <span class="er">death</span> <span class="er">years</span><span class="ot">]</span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="fu">}</span></a></code></pre></div>
+<p>See the server code for more details.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Within <code>tests/2_functional-tests.js</code>, alter the <code>'send {surname: "Colombo"}'</code> test (<code>// #3</code>):</p>
+<p>Send the following JSON response as a payload:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb3-1" title="1"><span class="fu">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="dt">&quot;surname&quot;</span><span class="fu">:</span> <span class="st">&quot;Colombo&quot;</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="fu">}</span></a></code></pre></div>
+<p>Check for the following, within the <code>request.end</code> callback:</p>
+<ol type="1">
+<li><code>status</code></li>
+<li><code>type</code></li>
+<li><code>body.name</code></li>
+<li><code>body.surname</code></li>
+</ol>
+<p>Follow the assertion order above - we rely on it. Be sure to remove <code>assert.fail()</code>, once complete.</p>
+<h1 id="hints">–hints–</h1>
+<p>All tests should pass.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests?type=functional&amp;n=2&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb4-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">state</span><span class="op">,</span> <span class="st">&#39;passed&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-7" title="7">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-9" title="9">  )<span class="op">;</span></a></code></pre></div>
+<p>You should test for ‘res.status’ to be 200.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests?type=functional&amp;n=2&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb5-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">0</span>].<span class="at">method</span><span class="op">,</span> <span class="st">&#39;equal&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">0</span>].<span class="at">args</span>[<span class="dv">0</span>]<span class="op">,</span> <span class="st">&#39;res.status&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">0</span>].<span class="at">args</span>[<span class="dv">1</span>]<span class="op">,</span> <span class="st">&#39;200&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb5-8" title="8">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-9" title="9">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-11" title="11">  )<span class="op">;</span></a></code></pre></div>
+<p>You should test for ‘res.type’ to be ‘application/json’.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests?type=functional&amp;n=2&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb6-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">1</span>].<span class="at">method</span><span class="op">,</span> <span class="st">&#39;equal&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">1</span>].<span class="at">args</span>[<span class="dv">0</span>]<span class="op">,</span> <span class="st">&#39;res.type&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">      <span class="va">assert</span>.<span class="at">match</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">1</span>].<span class="at">args</span>[<span class="dv">1</span>]<span class="op">,</span> <span class="ss">/</span><span class="sc">(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">application</span><span class="sc">\/</span><span class="ss">json</span><span class="sc">\1</span><span class="ss">/</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-7" title="7">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-9" title="9">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-11" title="11">  )<span class="op">;</span></a></code></pre></div>
+<p>You should test for ‘res.body.name’ to be ‘Cristoforo’.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests?type=functional&amp;n=2&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb7-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">2</span>].<span class="at">method</span><span class="op">,</span> <span class="st">&#39;equal&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-5" title="5">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">2</span>].<span class="at">args</span>[<span class="dv">0</span>]<span class="op">,</span> <span class="st">&#39;res.body.name&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">      <span class="va">assert</span>.<span class="at">match</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">2</span>].<span class="at">args</span>[<span class="dv">1</span>]<span class="op">,</span> <span class="ss">/</span><span class="sc">(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">Cristoforo</span><span class="sc">\1</span><span class="ss">/</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-7" title="7">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb7-8" title="8">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-9" title="9">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-10" title="10">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-11" title="11">  )<span class="op">;</span></a></code></pre></div>
+<p>You should test for ‘res.body.surname’ to be ‘Colombo’.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests?type=functional&amp;n=2&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb8-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">3</span>].<span class="at">method</span><span class="op">,</span> <span class="st">&#39;equal&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-5" title="5">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">3</span>].<span class="at">args</span>[<span class="dv">0</span>]<span class="op">,</span> <span class="st">&#39;res.body.surname&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-6" title="6">      <span class="va">assert</span>.<span class="at">match</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">3</span>].<span class="at">args</span>[<span class="dv">1</span>]<span class="op">,</span> <span class="ss">/</span><span class="sc">(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">Colombo</span><span class="sc">\1</span><span class="ss">/</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-7" title="7">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb8-8" title="8">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-9" title="9">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-10" title="10">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-11" title="11">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co">*/</span></a></code></pre></div>

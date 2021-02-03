@@ -1,0 +1,64 @@
+<h1 id="description">–description–</h1>
+<p>It was proposed by Christian Goldbach that every odd composite number can be written as the sum of a prime and twice a square.</p>
+<div style="margin-left: 2em;">
+<p>9 = 7 + 2×1<sup>2</sup><br> 15 = 7 + 2×2<sup>2</sup><br> 21 = 3 + 2×3<sup>2</sup><br> 25 = 7 + 2×3<sup>2</sup><br> 27 = 19 + 2×2<sup>2</sup><br> 33 = 31 + 2×1<sup>2</sup></p>
+</div>
+<p>It turns out that the conjecture was false.</p>
+<p>What is the smallest odd composite that cannot be written as the sum of a prime and twice a square?</p>
+<h1 id="hints">–hints–</h1>
+<p><code>goldbachsOtherConjecture()</code> should return a number.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">goldbachsOtherConjecture</span>() <span class="op">===</span> <span class="st">&#39;number&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>goldbachsOtherConjecture()</code> should return 5777.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">goldbachsOtherConjecture</span>()<span class="op">,</span> <span class="dv">5777</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">function</span> <span class="at">goldbachsOtherConjecture</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb3-5" title="5"></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="at">goldbachsOtherConjecture</span>()<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">function</span> <span class="at">goldbachsOtherConjecture</span>() <span class="op">{</span>  <span class="kw">function</span> <span class="at">isPrime</span>(num) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">    <span class="cf">if</span> (num <span class="op">&lt;</span> <span class="dv">2</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">      <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> (num <span class="op">===</span> <span class="dv">2</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-5" title="5">      <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="kw">const</span> sqrtOfNum <span class="op">=</span> <span class="va">Math</span>.<span class="at">floor</span>(num <span class="op">**</span> <span class="fl">0.5</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">2</span><span class="op">;</span> i <span class="op">&lt;=</span> sqrtOfNum <span class="op">+</span> <span class="dv">1</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-9" title="9">      <span class="cf">if</span> (num <span class="op">%</span> i <span class="op">===</span> <span class="dv">0</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-10" title="10">        <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-13" title="13">    <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-14" title="14">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-15" title="15"></a>
+<a class="sourceLine" id="cb4-16" title="16">  <span class="kw">function</span> <span class="at">isSquare</span>(num) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-17" title="17">    <span class="cf">return</span> <span class="va">Math</span>.<span class="at">sqrt</span>(num) <span class="op">%</span> <span class="dv">1</span> <span class="op">===</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-18" title="18">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-19" title="19"></a>
+<a class="sourceLine" id="cb4-20" title="20">  <span class="co">// construct a list of prime numbers</span></a>
+<a class="sourceLine" id="cb4-21" title="21">  <span class="kw">const</span> primes <span class="op">=</span> []<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-22" title="22">  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">2</span><span class="op">;</span> <span class="va">primes</span>.<span class="at">length</span> <span class="op">&lt;</span> <span class="dv">1000</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-23" title="23">    <span class="cf">if</span> (<span class="at">isPrime</span>(i)) <span class="va">primes</span>.<span class="at">push</span>(i)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-24" title="24">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-25" title="25"></a>
+<a class="sourceLine" id="cb4-26" title="26">  <span class="kw">let</span> num <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-27" title="27">  <span class="kw">let</span> answer<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-28" title="28">  <span class="cf">while</span> (<span class="op">!</span>answer) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-29" title="29">    num <span class="op">+=</span> <span class="dv">2</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-30" title="30">    <span class="cf">if</span> (<span class="op">!</span><span class="at">isPrime</span>(num)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-31" title="31">      <span class="kw">let</span> found <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-32" title="32">      <span class="cf">for</span> (<span class="kw">let</span> primeI <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> primeI <span class="op">&lt;</span> <span class="va">primes</span>.<span class="at">length</span> <span class="op">&amp;&amp;</span> <span class="op">!</span>found<span class="op">;</span> primeI<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-33" title="33">        <span class="kw">const</span> square <span class="op">=</span> (num <span class="op">-</span> primes[primeI]) / <span class="dv">2</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-34" title="34">        <span class="cf">if</span> (<span class="at">isSquare</span>(square)) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-35" title="35">          found <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-36" title="36">          <span class="cf">break</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-37" title="37">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-38" title="38">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-39" title="39">      <span class="cf">if</span> (<span class="op">!</span>found) answer <span class="op">=</span> num<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-40" title="40">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-41" title="41">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-42" title="42">  <span class="cf">return</span> answer<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-43" title="43"><span class="op">}</span></a></code></pre></div>

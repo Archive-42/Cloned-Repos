@@ -1,0 +1,77 @@
+<h1 id="description">–description–</h1>
+<p>There is another way to access <code>state</code> in a component. In the <code>render()</code> method, before the <code>return</code> statement, you can write JavaScript directly. For example, you could declare functions, access data from <code>state</code> or <code>props</code>, perform computations on this data, and so on. Then, you can assign any data to variables, which you have access to in the <code>return</code> statement.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>In the <code>MyComponent</code> render method, define a <code>const</code> called <code>name</code> and set it equal to the name value in the component’s <code>state</code>. Because you can write JavaScript directly in this part of the code, you don’t have to enclose this reference in curly braces.</p>
+<p>Next, in the return statement, render this value in an <code>h1</code> tag using the variable <code>name</code>. Remember, you need to use the JSX syntax (curly braces for JavaScript) in the return statement.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>MyComponent</code> should have a key <code>name</code> with value <code>freeCodeCamp</code> stored in its state.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyComponent)).<span class="at">state</span>(<span class="st">&#39;name&#39;</span>) <span class="op">===</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="st">&#39;freeCodeCamp&#39;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p><code>MyComponent</code> should render an <code>h1</code> header enclosed in a single <code>div</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="ss">/&lt;div&gt;&lt;h1&gt;.</span><span class="sc">*</span><span class="ss">&lt;</span><span class="sc">\/</span><span class="ss">h1&gt;&lt;</span><span class="sc">\/</span><span class="ss">div&gt;/</span>.<span class="at">test</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyComponent)).<span class="at">html</span>()</a>
+<a class="sourceLine" id="cb2-4" title="4">  )</a>
+<a class="sourceLine" id="cb2-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>The rendered <code>h1</code> tag should include a reference to <code>{name}</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="at">assert</span>(<span class="ss">/&lt;h1&gt;</span><span class="sc">\n*\s*\{\s*</span><span class="ss">name</span><span class="sc">\s*\}\s*\n*</span><span class="ss">&lt;</span><span class="sc">\/</span><span class="ss">h1&gt;/</span>.<span class="at">test</span>(<span class="at">getUserInput</span>(<span class="st">&#39;index&#39;</span>)))<span class="op">;</span></a></code></pre></div>
+<p>The rendered <code>h1</code> header should contain text rendered from the component’s state.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">async</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">const</span> waitForIt <span class="op">=</span> (fn) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">new</span> <span class="at">Promise</span>((resolve<span class="op">,</span> reject) <span class="kw">=&gt;</span> <span class="at">setTimeout</span>(() <span class="kw">=&gt;</span> <span class="at">resolve</span>(<span class="at">fn</span>())<span class="op">,</span> <span class="dv">250</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">  <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyComponent))<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="kw">const</span> first <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="va">mockedComponent</span>.<span class="at">setState</span>(<span class="op">{</span> <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;TestName&#39;</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="cf">return</span> <span class="at">waitForIt</span>(() <span class="kw">=&gt;</span> <span class="va">mockedComponent</span>.<span class="at">html</span>())<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb4-9" title="9">  <span class="kw">const</span> firstValue <span class="op">=</span> <span class="cf">await</span> <span class="at">first</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">  <span class="at">assert</span>(firstValue <span class="op">===</span> <span class="st">&#39;&lt;div&gt;&lt;h1&gt;TestName&lt;/h1&gt;&lt;/div&gt;&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="op">};</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;MyComponent /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: &#39;freeCodeCamp&#39;
+    }
+  }
+  render() {
+    // Change code below this line
+
+    // Change code above this line
+    return (
+      &lt;div&gt;
+        { /* Change code below this line */ }
+
+        { /* Change code above this line */ }
+      &lt;/div&gt;
+    );
+  }
+};</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: &#39;freeCodeCamp&#39;
+    }
+  }
+  render() {
+    // Change code below this line
+    const name = this.state.name;
+    // Change code above this line
+    return (
+      &lt;div&gt;
+        { /* Change code below this line */ }
+        &lt;h1&gt;{name}&lt;/h1&gt;
+        { /* Change code above this line */ }
+      &lt;/div&gt;
+    );
+  }
+};</code></pre>

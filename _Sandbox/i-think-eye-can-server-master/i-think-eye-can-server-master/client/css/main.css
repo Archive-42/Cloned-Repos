@@ -1,0 +1,68 @@
+/*
+  Code Weekend materials.
+*/
+
+html {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 100%;
+}
+
+body {
+    padding: 50px 100px;
+}
+h1 {
+  /* This style applies to all the h1 tags used on the page */
+    font-size: 40px;
+    font-weight: lighter;
+    color: blue;
+}
+.red-text {
+  /* This style applies to all elememts with this class */
+    color: red;
+}
+#intro-para {
+  /* This style applies to a single element, with this ID */
+    border: 2px solid black;
+}
+
+#message-form {
+  margin-top: 1.5rem;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #D9D9D9;
+  border-radius: 3px;
+  min-height: 100px;
+  margin-bottom: 1rem;
+}
+
+button {
+  display: inline-block;
+  border-radius: 3px;
+  border: none;
+  font-size: 0.9rem;
+  padding: 0.6rem 1em;
+  color: white;
+  margin: 0 0.25rem;
+  text-align: center;
+  background: #BABABA;
+  border-bottom: 1px solid #999;
+}
+
+button[type="submit"] {
+  background: #86b32d;
+  border-bottom: 1px solid #5d7d1f;
+}
+
+button:hover {
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+.message-image {
+  max-width: 300px;
+  height: auto;
+}

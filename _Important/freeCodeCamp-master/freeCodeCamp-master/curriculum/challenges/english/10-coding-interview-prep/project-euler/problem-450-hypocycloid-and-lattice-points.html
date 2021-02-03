@@ -1,0 +1,26 @@
+<h1 id="description">–description–</h1>
+<p>A hypocycloid is the curve drawn by a point on a small circle rolling inside a larger circle. The parametric equations of a hypocycloid centered at the origin, and starting at the right most point is given by:</p>
+<p><span class="math inline">$x(t) = (R - r) \\cos(t) + r \\cos(\\frac {R - r} r t)$</span></p>
+<p><span class="math inline">$y(t) = (R - r) \\sin(t) - r \\sin(\\frac {R - r} r t)$</span></p>
+<p>Where R is the radius of the large circle and r the radius of the small circle.</p>
+<p>Let <span class="math inline"><em>C</em>(<em>R</em>, <em>r</em>)</span> be the set of distinct points with integer coordinates on the hypocycloid with radius R and r and for which there is a corresponding value of t such that <span class="math inline">$\\sin(t)$</span> and <span class="math inline">$\\cos(t)$</span> are rational numbers.</p>
+<p>Let <span class="math inline">$S(R, r) = \\sum\_{(x,y) \\in C(R, r)} |x| + |y|$</span> be the sum of the absolute values of the x and y coordinates of the points in <span class="math inline"><em>C</em>(<em>R</em>, <em>r</em>)</span>.</p>
+<p>Let <span class="math inline">$T(N) = \\sum*{R = 3}^N \\sum*{r=1}^{\\lfloor \\frac {R - 1} 2 \\rfloor} S(R, r)$</span> be the sum of <span class="math inline"><em>S</em>(<em>R</em>, <em>r</em>)</span> for R and r positive integers, <span class="math inline">$R\\leq N$</span> and <span class="math inline">$2r &amp;lt; R$</span>.</p>
+<p>You are given:C(3, 1) = {(3, 0), (-1, 2), (-1,0), (-1,-2)} C(2500, 1000) = {(2500, 0), (772, 2376), (772, -2376), (516, 1792), (516, -1792), (500, 0), (68, 504), (68, -504),(-1356, 1088), (-1356, -1088), (-1500, 1000), (-1500, -1000)}</p>
+<p>Note: (-625, 0) is not an element of C(2500, 1000) because <span class="math inline">$\\sin(t)$</span> is not a rational number for the corresponding values of t.</p>
+<p>S(3, 1) = (|3| + |0|) + (|-1| + |2|) + (|-1| + |0|) + (|-1| + |-2|) = 10</p>
+<p>T(3) = 10; T(10) = 524 ;T(100) = 580442; T(103) = 583108600.</p>
+<p>Find T(106).</p>
+<h1 id="hints">–hints–</h1>
+<p><code>euler450()</code> should return 583333163984220900.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">euler450</span>()<span class="op">,</span> <span class="dv">583333163984220900</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">function</span> <span class="at">euler450</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb2-5" title="5"></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="at">euler450</span>()<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">// solution required</span></a></code></pre></div>

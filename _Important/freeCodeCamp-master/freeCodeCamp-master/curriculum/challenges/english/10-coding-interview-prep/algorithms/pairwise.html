@@ -1,0 +1,71 @@
+<h1 id="description">–description–</h1>
+<p>Given an array <code>arr</code>, find element pairs whose sum equal the second argument <code>arg</code> and return the sum of their indices.</p>
+<p>You may use multiple pairs that have the same numeric elements but different indices. Each pair should use the lowest possible available indices. Once an element has been used it cannot be reused to pair with another element. For instance, <code>pairwise([1, 1, 2], 3)</code> creates a pair <code>[2, 1]</code> using the 1 at index 0 rather than the 1 at index 1, because 0+2 &lt; 1+2.</p>
+<p>For example <code>pairwise([7, 9, 11, 13, 15], 20)</code> returns <code>6</code>. The pairs that sum to 20 are <code>[7, 13]</code> and <code>[9, 11]</code>. We can then write out the array with their indices and values.</p>
+<div style="margin-left: 2em;">
+<table>
+<thead>
+<tr class="header">
+<th>Index</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Value</td>
+<td>7</td>
+<td>9</td>
+<td>11</td>
+<td>13</td>
+<td>15</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Below we’ll take their corresponding indices and add them.</p>
+<div style="margin-left: 2em;">
+<p>7 + 13 = 20 → Indices 0 + 3 = 3<br />
+9 + 11 = 20 → Indices 1 + 2 = 3<br />
+3 + 3 = 6 → Return <code>6</code></p>
+</div>
+<h1 id="hints">–hints–</h1>
+<p><code>pairwise([1, 4, 2, 3, 0, 5], 7)</code> should return 11.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(<span class="at">pairwise</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> <span class="dv">7</span>)<span class="op">,</span> <span class="dv">11</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>pairwise([1, 3, 2, 4], 4)</code> should return 1.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(<span class="at">pairwise</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">,</span> <span class="dv">4</span>)<span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>pairwise([1, 1, 1], 2)</code> should return 1.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(<span class="at">pairwise</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> <span class="dv">2</span>)<span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>pairwise([0, 0, 0, 0, 1, 1], 1)</code> should return 10.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(<span class="at">pairwise</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> <span class="dv">1</span>)<span class="op">,</span> <span class="dv">10</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>pairwise([], 100)</code> should return 0.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(<span class="at">pairwise</span>([]<span class="op">,</span> <span class="dv">100</span>)<span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">function</span> <span class="at">pairwise</span>(arr<span class="op">,</span> arg) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="cf">return</span> arg<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="op">}</span></a>
+<a class="sourceLine" id="cb6-4" title="4"></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="at">pairwise</span>([<span class="dv">1</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">5</span>]<span class="op">,</span> <span class="dv">7</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">function</span> <span class="at">pairwise</span>(arr<span class="op">,</span> arg) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="kw">var</span> sum <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-3" title="3">  <span class="va">arr</span>.<span class="at">forEach</span>(<span class="kw">function</span>(e<span class="op">,</span> i<span class="op">,</span> a) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-4" title="4">    <span class="cf">if</span> (e <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-5" title="5">      <span class="kw">var</span> diff <span class="op">=</span> arg<span class="op">-</span>e<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">      a[i] <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-7" title="7">      <span class="kw">var</span> dix <span class="op">=</span> <span class="va">a</span>.<span class="at">indexOf</span>(diff)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-8" title="8">      <span class="cf">if</span> (dix <span class="op">!==</span> <span class="dv">-1</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-9" title="9">        sum <span class="op">+=</span> dix<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-10" title="10">        sum <span class="op">+=</span> i<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-11" title="11">        a[dix] <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-12" title="12">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-13" title="13">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-14" title="14">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-15" title="15">  <span class="cf">return</span> sum<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-16" title="16"><span class="op">}</span></a>
+<a class="sourceLine" id="cb7-17" title="17"></a>
+<a class="sourceLine" id="cb7-18" title="18"><span class="at">pairwise</span>([<span class="dv">1</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">5</span>]<span class="op">,</span> <span class="dv">7</span>)<span class="op">;</span></a></code></pre></div>

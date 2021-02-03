@@ -1,0 +1,30 @@
+<h1 id="description">–description–</h1>
+<p>With the increase of internet connected devices, their sizes and specifications vary, and the displays they use could be different externally and internally. Pixel density is an aspect that could be different on one device from others and this density is known as Pixel Per Inch(PPI) or Dots Per Inch(DPI). The most famous such display is the one known as a “Retina Display” on the latest Apple MacBook Pro notebooks, and recently iMac computers. Due to the difference in pixel density between a “Retina” and “Non-Retina” displays, some images that have not been made with a High-Resolution Display in mind could look “pixelated” when rendered on a High-Resolution display.</p>
+<p>The simplest way to make your images properly appear on High-Resolution Displays, such as the MacBook Pros “retina display” is to define their <code>width</code> and <code>height</code> values as only half of what the original file is. Here is an example of an image that is only using half of the original height and width:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  img { <span class="kw">height</span>: <span class="dv">250</span><span class="dt">px</span><span class="op">;</span> <span class="kw">width</span>: <span class="dv">250</span><span class="dt">px</span><span class="op">;</span> }</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;coolPic500x500&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A most excellent picture&quot;</span><span class="kw">&gt;</span></a></code></pre></div>
+<h1 id="instructions">–instructions–</h1>
+<p>Set the <code>width</code> and <code>height</code> of the <code>img</code> tag to half of their original values. In this case, both the original <code>height</code> and the original <code>width</code> are <code>200px</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>img</code> tag should have a <code>width</code> of 100 pixels.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;img&#39;</span>).<span class="at">width</span> <span class="op">===</span> <span class="dv">100</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>img</code> tag should have a <code>height</code> of 100 pixels.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;img&#39;</span>).<span class="at">height</span> <span class="op">===</span> <span class="dv">100</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2"></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://s3.amazonaws.com/freecodecamp/FCCStickers-CamperBot200x200.jpg&quot;</span><span class="ot"> alt=</span><span class="st">&quot;freeCodeCamp sticker that says &#39;Because CamperBot Cares&#39;&quot;</span><span class="kw">&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  img { </a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">height</span>: <span class="dv">100</span><span class="dt">px</span><span class="op">;</span> </a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">width</span>: <span class="dv">100</span><span class="dt">px</span><span class="op">;</span> </a>
+<a class="sourceLine" id="cb5-5" title="5">  }</a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb5-7" title="7"></a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://s3.amazonaws.com/freecodecamp/FCCStickers-CamperBot200x200.jpg&quot;</span><span class="ot"> alt=</span><span class="st">&quot;freeCodeCamp sticker that says &#39;Because CamperBot Cares&#39;&quot;</span><span class="kw">&gt;</span></a></code></pre></div>

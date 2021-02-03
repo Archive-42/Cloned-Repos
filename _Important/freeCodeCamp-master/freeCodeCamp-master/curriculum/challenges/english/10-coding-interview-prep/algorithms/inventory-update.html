@@ -1,0 +1,185 @@
+<h1 id="description">–description–</h1>
+<p>Compare and update the inventory stored in a 2D array against a second 2D array of a fresh delivery. Update the current existing inventory item quantities (in <code>arr1</code>). If an item cannot be found, add the new item and quantity into the inventory array. The returned inventory array should be in alphabetical order by item.</p>
+<h1 id="hints">–hints–</h1>
+<p>The function <code>updateInventory</code> should return an array.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">assert</span>.<span class="at">isArray</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="at">updateInventory</span>(</a>
+<a class="sourceLine" id="cb1-3" title="3">    [</a>
+<a class="sourceLine" id="cb1-4" title="4">      [<span class="dv">21</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-5" title="5">      [<span class="dv">2</span><span class="op">,</span> <span class="st">&#39;Dirty Sock&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-6" title="6">      [<span class="dv">1</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-7" title="7">      [<span class="dv">5</span><span class="op">,</span> <span class="st">&#39;Microphone&#39;</span>]</a>
+<a class="sourceLine" id="cb1-8" title="8">    ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-9" title="9">    [</a>
+<a class="sourceLine" id="cb1-10" title="10">      [<span class="dv">2</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-11" title="11">      [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Half-Eaten Apple&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-12" title="12">      [<span class="dv">67</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-13" title="13">      [<span class="dv">7</span><span class="op">,</span> <span class="st">&#39;Toothpaste&#39;</span>]</a>
+<a class="sourceLine" id="cb1-14" title="14">    ]</a>
+<a class="sourceLine" id="cb1-15" title="15">  )</a>
+<a class="sourceLine" id="cb1-16" title="16">)<span class="op">;</span></a></code></pre></div>
+<p><code>updateInventory([[21, "Bowling Ball"], [2, "Dirty Sock"], [1, "Hair Pin"], [5, "Microphone"]], [[2, "Hair Pin"], [3, "Half-Eaten Apple"], [67, "Bowling Ball"], [7, "Toothpaste"]])</code> should return an array with a length of 6.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="at">updateInventory</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    [</a>
+<a class="sourceLine" id="cb2-4" title="4">      [<span class="dv">21</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      [<span class="dv">2</span><span class="op">,</span> <span class="st">&#39;Dirty Sock&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-6" title="6">      [<span class="dv">1</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-7" title="7">      [<span class="dv">5</span><span class="op">,</span> <span class="st">&#39;Microphone&#39;</span>]</a>
+<a class="sourceLine" id="cb2-8" title="8">    ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    [</a>
+<a class="sourceLine" id="cb2-10" title="10">      [<span class="dv">2</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-11" title="11">      [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Half-Eaten Apple&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-12" title="12">      [<span class="dv">67</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-13" title="13">      [<span class="dv">7</span><span class="op">,</span> <span class="st">&#39;Toothpaste&#39;</span>]</a>
+<a class="sourceLine" id="cb2-14" title="14">    ]</a>
+<a class="sourceLine" id="cb2-15" title="15">  ).<span class="at">length</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-16" title="16">  <span class="dv">6</span></a>
+<a class="sourceLine" id="cb2-17" title="17">)<span class="op">;</span></a></code></pre></div>
+<p><code>updateInventory([[21, "Bowling Ball"], [2, "Dirty Sock"], [1, "Hair Pin"], [5, "Microphone"]], [[2, "Hair Pin"], [3, "Half-Eaten Apple"], [67, "Bowling Ball"], [7, "Toothpaste"]])</code> should return <code>[[88, "Bowling Ball"], [2, "Dirty Sock"], [3, "Hair Pin"], [3, "Half-Eaten Apple"], [5, "Microphone"], [7, "Toothpaste"]]</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="at">updateInventory</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    [</a>
+<a class="sourceLine" id="cb3-4" title="4">      [<span class="dv">21</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      [<span class="dv">2</span><span class="op">,</span> <span class="st">&#39;Dirty Sock&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-6" title="6">      [<span class="dv">1</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">      [<span class="dv">5</span><span class="op">,</span> <span class="st">&#39;Microphone&#39;</span>]</a>
+<a class="sourceLine" id="cb3-8" title="8">    ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    [</a>
+<a class="sourceLine" id="cb3-10" title="10">      [<span class="dv">2</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-11" title="11">      [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Half-Eaten Apple&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-12" title="12">      [<span class="dv">67</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-13" title="13">      [<span class="dv">7</span><span class="op">,</span> <span class="st">&#39;Toothpaste&#39;</span>]</a>
+<a class="sourceLine" id="cb3-14" title="14">    ]</a>
+<a class="sourceLine" id="cb3-15" title="15">  )<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-16" title="16">  [</a>
+<a class="sourceLine" id="cb3-17" title="17">    [<span class="dv">88</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-18" title="18">    [<span class="dv">2</span><span class="op">,</span> <span class="st">&#39;Dirty Sock&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-19" title="19">    [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-20" title="20">    [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Half-Eaten Apple&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-21" title="21">    [<span class="dv">5</span><span class="op">,</span> <span class="st">&#39;Microphone&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-22" title="22">    [<span class="dv">7</span><span class="op">,</span> <span class="st">&#39;Toothpaste&#39;</span>]</a>
+<a class="sourceLine" id="cb3-23" title="23">  ]</a>
+<a class="sourceLine" id="cb3-24" title="24">)<span class="op">;</span></a></code></pre></div>
+<p><code>updateInventory([[21, "Bowling Ball"], [2, "Dirty Sock"], [1, "Hair Pin"], [5, "Microphone"]], [])</code> should return <code>[[21, "Bowling Ball"], [2, "Dirty Sock"], [1, "Hair Pin"], [5, "Microphone"]]</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="at">updateInventory</span>(</a>
+<a class="sourceLine" id="cb4-3" title="3">    [</a>
+<a class="sourceLine" id="cb4-4" title="4">      [<span class="dv">21</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-5" title="5">      [<span class="dv">2</span><span class="op">,</span> <span class="st">&#39;Dirty Sock&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-6" title="6">      [<span class="dv">1</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-7" title="7">      [<span class="dv">5</span><span class="op">,</span> <span class="st">&#39;Microphone&#39;</span>]</a>
+<a class="sourceLine" id="cb4-8" title="8">    ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    []</a>
+<a class="sourceLine" id="cb4-10" title="10">  )<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-11" title="11">  [</a>
+<a class="sourceLine" id="cb4-12" title="12">    [<span class="dv">21</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-13" title="13">    [<span class="dv">2</span><span class="op">,</span> <span class="st">&#39;Dirty Sock&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-14" title="14">    [<span class="dv">1</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-15" title="15">    [<span class="dv">5</span><span class="op">,</span> <span class="st">&#39;Microphone&#39;</span>]</a>
+<a class="sourceLine" id="cb4-16" title="16">  ]</a>
+<a class="sourceLine" id="cb4-17" title="17">)<span class="op">;</span></a></code></pre></div>
+<p><code>updateInventory([], [[2, "Hair Pin"], [3, "Half-Eaten Apple"], [67, "Bowling Ball"], [7, "Toothpaste"]])</code> should return <code>[[67, "Bowling Ball"], [2, "Hair Pin"], [3, "Half-Eaten Apple"], [7, "Toothpaste"]]</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="at">updateInventory</span>(</a>
+<a class="sourceLine" id="cb5-3" title="3">    []<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    [</a>
+<a class="sourceLine" id="cb5-5" title="5">      [<span class="dv">2</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-6" title="6">      [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Half-Eaten Apple&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-7" title="7">      [<span class="dv">67</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-8" title="8">      [<span class="dv">7</span><span class="op">,</span> <span class="st">&#39;Toothpaste&#39;</span>]</a>
+<a class="sourceLine" id="cb5-9" title="9">    ]</a>
+<a class="sourceLine" id="cb5-10" title="10">  )<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-11" title="11">  [</a>
+<a class="sourceLine" id="cb5-12" title="12">    [<span class="dv">67</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-13" title="13">    [<span class="dv">2</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-14" title="14">    [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Half-Eaten Apple&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-15" title="15">    [<span class="dv">7</span><span class="op">,</span> <span class="st">&#39;Toothpaste&#39;</span>]</a>
+<a class="sourceLine" id="cb5-16" title="16">  ]</a>
+<a class="sourceLine" id="cb5-17" title="17">)<span class="op">;</span></a></code></pre></div>
+<p><code>updateInventory([[0, "Bowling Ball"], [0, "Dirty Sock"], [0, "Hair Pin"], [0, "Microphone"]], [[1, "Hair Pin"], [1, "Half-Eaten Apple"], [1, "Bowling Ball"], [1, "Toothpaste"]])</code> should return <code>[[1, "Bowling Ball"], [0, "Dirty Sock"], [1, "Hair Pin"], [1, "Half-Eaten Apple"], [0, "Microphone"], [1, "Toothpaste"]]</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(</a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="at">updateInventory</span>(</a>
+<a class="sourceLine" id="cb6-3" title="3">    [</a>
+<a class="sourceLine" id="cb6-4" title="4">      [<span class="dv">0</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-5" title="5">      [<span class="dv">0</span><span class="op">,</span> <span class="st">&#39;Dirty Sock&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-6" title="6">      [<span class="dv">0</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-7" title="7">      [<span class="dv">0</span><span class="op">,</span> <span class="st">&#39;Microphone&#39;</span>]</a>
+<a class="sourceLine" id="cb6-8" title="8">    ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-9" title="9">    [</a>
+<a class="sourceLine" id="cb6-10" title="10">      [<span class="dv">1</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-11" title="11">      [<span class="dv">1</span><span class="op">,</span> <span class="st">&#39;Half-Eaten Apple&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-12" title="12">      [<span class="dv">1</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-13" title="13">      [<span class="dv">1</span><span class="op">,</span> <span class="st">&#39;Toothpaste&#39;</span>]</a>
+<a class="sourceLine" id="cb6-14" title="14">    ]</a>
+<a class="sourceLine" id="cb6-15" title="15">  )<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-16" title="16">  [</a>
+<a class="sourceLine" id="cb6-17" title="17">    [<span class="dv">1</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-18" title="18">    [<span class="dv">0</span><span class="op">,</span> <span class="st">&#39;Dirty Sock&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-19" title="19">    [<span class="dv">1</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-20" title="20">    [<span class="dv">1</span><span class="op">,</span> <span class="st">&#39;Half-Eaten Apple&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-21" title="21">    [<span class="dv">0</span><span class="op">,</span> <span class="st">&#39;Microphone&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-22" title="22">    [<span class="dv">1</span><span class="op">,</span> <span class="st">&#39;Toothpaste&#39;</span>]</a>
+<a class="sourceLine" id="cb6-23" title="23">  ]</a>
+<a class="sourceLine" id="cb6-24" title="24">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">function</span> <span class="at">updateInventory</span>(arr1<span class="op">,</span> arr2) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2">    <span class="cf">return</span> arr1<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="op">}</span></a>
+<a class="sourceLine" id="cb7-4" title="4"></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="co">// Example inventory lists</span></a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="kw">var</span> curInv <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb7-7" title="7">    [<span class="dv">21</span><span class="op">,</span> <span class="st">&quot;Bowling Ball&quot;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-8" title="8">    [<span class="dv">2</span><span class="op">,</span> <span class="st">&quot;Dirty Sock&quot;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-9" title="9">    [<span class="dv">1</span><span class="op">,</span> <span class="st">&quot;Hair Pin&quot;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-10" title="10">    [<span class="dv">5</span><span class="op">,</span> <span class="st">&quot;Microphone&quot;</span>]</a>
+<a class="sourceLine" id="cb7-11" title="11">]<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-12" title="12"></a>
+<a class="sourceLine" id="cb7-13" title="13"><span class="kw">var</span> newInv <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb7-14" title="14">    [<span class="dv">2</span><span class="op">,</span> <span class="st">&quot;Hair Pin&quot;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-15" title="15">    [<span class="dv">3</span><span class="op">,</span> <span class="st">&quot;Half-Eaten Apple&quot;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-16" title="16">    [<span class="dv">67</span><span class="op">,</span> <span class="st">&quot;Bowling Ball&quot;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-17" title="17">    [<span class="dv">7</span><span class="op">,</span> <span class="st">&quot;Toothpaste&quot;</span>]</a>
+<a class="sourceLine" id="cb7-18" title="18">]<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-19" title="19"></a>
+<a class="sourceLine" id="cb7-20" title="20"><span class="at">updateInventory</span>(curInv<span class="op">,</span> newInv)<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">function</span> <span class="at">updateInventory</span>(arr1<span class="op">,</span> arr2) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="va">arr2</span>.<span class="at">forEach</span>(<span class="kw">function</span>(item) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="at">createOrUpdate</span>(arr1<span class="op">,</span> item)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-4" title="4">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-5" title="5">  <span class="co">// All inventory must be accounted for or you&#39;re fired!</span></a>
+<a class="sourceLine" id="cb8-6" title="6">  <span class="cf">return</span> arr1<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="op">}</span></a>
+<a class="sourceLine" id="cb8-8" title="8"></a>
+<a class="sourceLine" id="cb8-9" title="9"><span class="kw">function</span> <span class="at">createOrUpdate</span>(arr1<span class="op">,</span> item) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-10" title="10">  <span class="kw">var</span> index <span class="op">=</span> <span class="dv">-1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-11" title="11">  <span class="cf">while</span> (<span class="op">++</span>index <span class="op">&lt;</span> <span class="va">arr1</span>.<span class="at">length</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-12" title="12">    <span class="cf">if</span> (arr1[index][<span class="dv">1</span>] <span class="op">===</span> item[<span class="dv">1</span>]) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-13" title="13">      arr1[index][<span class="dv">0</span>] <span class="op">+=</span> item[<span class="dv">0</span>]<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-14" title="14">      <span class="cf">return</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-15" title="15">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-16" title="16">    <span class="cf">if</span> (arr1[index][<span class="dv">1</span>] <span class="op">&gt;</span> item[<span class="dv">1</span>]) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-17" title="17">      <span class="cf">break</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-18" title="18">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-19" title="19">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-20" title="20">  <span class="va">arr1</span>.<span class="at">splice</span>(index<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> item)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-21" title="21"><span class="op">}</span></a>
+<a class="sourceLine" id="cb8-22" title="22"></a>
+<a class="sourceLine" id="cb8-23" title="23"><span class="co">// Example inventory lists</span></a>
+<a class="sourceLine" id="cb8-24" title="24"><span class="kw">var</span> curInv <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb8-25" title="25">    [<span class="dv">21</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-26" title="26">    [<span class="dv">2</span><span class="op">,</span> <span class="st">&#39;Dirty Sock&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-27" title="27">    [<span class="dv">1</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-28" title="28">    [<span class="dv">5</span><span class="op">,</span> <span class="st">&#39;Microphone&#39;</span>]</a>
+<a class="sourceLine" id="cb8-29" title="29">]<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-30" title="30"></a>
+<a class="sourceLine" id="cb8-31" title="31"><span class="kw">var</span> newInv <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb8-32" title="32">    [<span class="dv">2</span><span class="op">,</span> <span class="st">&#39;Hair Pin&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-33" title="33">    [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Half-Eaten Apple&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-34" title="34">    [<span class="dv">67</span><span class="op">,</span> <span class="st">&#39;Bowling Ball&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-35" title="35">    [<span class="dv">7</span><span class="op">,</span> <span class="st">&#39;Toothpaste&#39;</span>]</a>
+<a class="sourceLine" id="cb8-36" title="36">]<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-37" title="37"></a>
+<a class="sourceLine" id="cb8-38" title="38"><span class="at">updateInventory</span>(curInv<span class="op">,</span> newInv)<span class="op">;</span></a></code></pre></div>

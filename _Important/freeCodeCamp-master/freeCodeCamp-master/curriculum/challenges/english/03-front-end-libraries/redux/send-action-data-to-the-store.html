@@ -1,0 +1,76 @@
+<h1 id="description">–description–</h1>
+<p>By now you’ve learned how to dispatch actions to the Redux store, but so far these actions have not contained any information other than a <code>type</code>. You can also send specific data along with your actions. In fact, this is very common because actions usually originate from some user interaction and tend to carry some data with them. The Redux store often needs to know about this data.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>There’s a basic <code>notesReducer()</code> and an <code>addNoteText()</code> action creator defined in the code editor. Finish the body of the <code>addNoteText()</code> function so that it returns an <code>action</code> object. The object should include a <code>type</code> property with a value of <code>ADD_NOTE</code>, and also a <code>text</code> property set to the <code>note</code> data that’s passed into the action creator. When you call the action creator, you’ll pass in specific note information that you can access for the object.</p>
+<p>Next, finish writing the <code>switch</code> statement in the <code>notesReducer()</code>. You need to add a case that handles the <code>addNoteText()</code> actions. This case should be triggered whenever there is an action of type <code>ADD_NOTE</code> and it should return the <code>text</code> property on the incoming <code>action</code> as the new <code>state</code>.</p>
+<p>The action is dispatched at the bottom of the code. Once you’re finished, run the code and watch the console. That’s all it takes to send action-specific data to the store and use it when you update store <code>state</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>The action creator <code>addNoteText</code> should return an object with keys <code>type</code> and <code>text</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">const</span> addNoteFn <span class="op">=</span> <span class="at">addNoteText</span>(<span class="st">&#39;__TEST__NOTE&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">return</span> <span class="va">addNoteFn</span>.<span class="at">type</span> <span class="op">===</span> ADD_NOTE <span class="op">&amp;&amp;</span> <span class="va">addNoteFn</span>.<span class="at">text</span> <span class="op">===</span> <span class="st">&#39;__TEST__NOTE&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>Dispatching an action of type <code>ADD_NOTE</code> with the <code>addNoteText</code> action creator should update the <code>state</code> to the string passed to the action creator.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">const</span> initialState <span class="op">=</span> <span class="va">store</span>.<span class="at">getState</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="va">store</span>.<span class="at">dispatch</span>(<span class="at">addNoteText</span>(<span class="st">&#39;__TEST__NOTE&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">    <span class="kw">const</span> newState <span class="op">=</span> <span class="va">store</span>.<span class="at">getState</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    <span class="cf">return</span> initialState <span class="op">!==</span> newState <span class="op">&amp;&amp;</span> newState <span class="op">===</span> <span class="st">&#39;__TEST__NOTE&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-7" title="7">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-8" title="8">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">const</span> ADD_NOTE <span class="op">=</span> <span class="st">&#39;ADD_NOTE&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw">const</span> notesReducer <span class="op">=</span> (state <span class="op">=</span> <span class="st">&#39;Initial State&#39;</span><span class="op">,</span> action) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="cf">switch</span>(<span class="va">action</span>.<span class="at">type</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-5" title="5">    <span class="co">// Change code below this line</span></a>
+<a class="sourceLine" id="cb3-6" title="6"></a>
+<a class="sourceLine" id="cb3-7" title="7">    <span class="co">// Change code above this line</span></a>
+<a class="sourceLine" id="cb3-8" title="8">    <span class="cf">default</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb3-9" title="9">      <span class="cf">return</span> state<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-10" title="10">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="op">};</span></a>
+<a class="sourceLine" id="cb3-12" title="12"></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="kw">const</span> addNoteText <span class="op">=</span> (note) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-14" title="14">  <span class="co">// Change code below this line</span></a>
+<a class="sourceLine" id="cb3-15" title="15"></a>
+<a class="sourceLine" id="cb3-16" title="16">  <span class="co">// Change code above this line</span></a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="op">};</span></a>
+<a class="sourceLine" id="cb3-18" title="18"></a>
+<a class="sourceLine" id="cb3-19" title="19"><span class="kw">const</span> store <span class="op">=</span> <span class="va">Redux</span>.<span class="at">createStore</span>(notesReducer)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-20" title="20"></a>
+<a class="sourceLine" id="cb3-21" title="21"><span class="va">console</span>.<span class="at">log</span>(<span class="va">store</span>.<span class="at">getState</span>())<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-22" title="22"><span class="va">store</span>.<span class="at">dispatch</span>(<span class="at">addNoteText</span>(<span class="st">&#39;Hello!&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-23" title="23"><span class="va">console</span>.<span class="at">log</span>(<span class="va">store</span>.<span class="at">getState</span>())<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">const</span> ADD_NOTE <span class="op">=</span> <span class="st">&#39;ADD_NOTE&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-2" title="2"></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="kw">const</span> notesReducer <span class="op">=</span> (state <span class="op">=</span> <span class="st">&#39;Initial State&#39;</span><span class="op">,</span> action) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-4" title="4">  <span class="cf">switch</span>(<span class="va">action</span>.<span class="at">type</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="co">// Change code below this line</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="cf">case</span> <span class="dt">ADD_NOTE</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb4-7" title="7">      <span class="cf">return</span> <span class="va">action</span>.<span class="at">text</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    <span class="co">// Change code above this line</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    <span class="cf">default</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb4-10" title="10">      <span class="cf">return</span> state<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-12" title="12"><span class="op">};</span></a>
+<a class="sourceLine" id="cb4-13" title="13"></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="kw">const</span> addNoteText <span class="op">=</span> (note) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-15" title="15">  <span class="co">// Change code below this line</span></a>
+<a class="sourceLine" id="cb4-16" title="16">  <span class="cf">return</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-17" title="17">    <span class="dt">type</span><span class="op">:</span> ADD_NOTE<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-18" title="18">    <span class="dt">text</span><span class="op">:</span> note</a>
+<a class="sourceLine" id="cb4-19" title="19">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-20" title="20">  <span class="co">// Change code above this line</span></a>
+<a class="sourceLine" id="cb4-21" title="21"><span class="op">};</span></a>
+<a class="sourceLine" id="cb4-22" title="22"></a>
+<a class="sourceLine" id="cb4-23" title="23"><span class="kw">const</span> store <span class="op">=</span> <span class="va">Redux</span>.<span class="at">createStore</span>(notesReducer)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-24" title="24"></a>
+<a class="sourceLine" id="cb4-25" title="25"><span class="va">console</span>.<span class="at">log</span>(<span class="va">store</span>.<span class="at">getState</span>())<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-26" title="26"><span class="va">store</span>.<span class="at">dispatch</span>(<span class="at">addNoteText</span>(<span class="st">&#39;Hello Redux!&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-27" title="27"><span class="va">console</span>.<span class="at">log</span>(<span class="va">store</span>.<span class="at">getState</span>())<span class="op">;</span></a></code></pre></div>

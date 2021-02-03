@@ -1,0 +1,93 @@
+<h1 id="description">–description–</h1>
+<p>Build a full stack JavaScript app that is functionally similar to this: <a href="https://url-shortener-microservice.freecodecamp.rocks/" class="uri">https://url-shortener-microservice.freecodecamp.rocks/</a>. Working on this project will involve you writing your code using one of the following methods:</p>
+<ul>
+<li>Clone <a href="https://github.com/freeCodeCamp/boilerplate-project-urlshortener/">this GitHub repo</a> and complete your project locally.</li>
+<li>Use <a href="https://repl.it/github/freeCodeCamp/boilerplate-project-urlshortener">our repl.it starter project</a> to complete your project.</li>
+<li>Use a site builder of your choice to complete the project. Be sure to incorporate all the files from our GitHub repo.</li>
+</ul>
+<p>When you are done, make sure a working demo of your project is hosted somewhere public. Then submit the URL to it in the <code>Solution Link</code> field. Optionally, also submit a link to your projects source code in the <code>GitHub Link</code> field.</p>
+<h1 id="instructions">–instructions–</h1>
+<p><strong>HINT:</strong> Do not forget to use a body parsing middleware to handle the POST requests. Also, you can use the function <code>dns.lookup(host, cb)</code> from the <code>dns</code> core module to verify a submitted URL.</p>
+<h1 id="hints">–hints–</h1>
+<p>You should provide your own project, not the example URL.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1">(getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="op">!</span><span class="ss">/.</span><span class="sc">*\/</span><span class="ss">url-shortener-microservice</span><span class="sc">\.</span><span class="ss">freecodecamp</span><span class="sc">\.</span><span class="ss">rocks/</span>.<span class="at">test</span>(</a>
+<a class="sourceLine" id="cb1-4" title="4">      <span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>)</a>
+<a class="sourceLine" id="cb1-5" title="5">    )</a>
+<a class="sourceLine" id="cb1-6" title="6">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="op">};</span></a></code></pre></div>
+<p>You can POST a URL to <code>/api/shorturl/new</code> and get a JSON response with <code>original_url</code> and <code>short_url</code> properties. Here’s an example: <code>{ original_url : 'https://freeCodeCamp.org', short_url : 1}</code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="kw">const</span> url <span class="op">=</span> <span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="kw">const</span> urlVariable <span class="op">=</span> <span class="va">Date</span>.<span class="at">now</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">  <span class="kw">const</span> res <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(url <span class="op">+</span> <span class="st">&#39;/api/shorturl/new/&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-5" title="5">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    <span class="dt">headers</span><span class="op">:</span> <span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/x-www-form-urlencoded&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-7" title="7">    <span class="dt">body</span><span class="op">:</span> <span class="vs">`url=https://timestamp-microservice.freecodecamp.rocks/api/timestamp/</span><span class="sc">${</span>urlVariable<span class="sc">}</span><span class="vs">`</span></a>
+<a class="sourceLine" id="cb2-8" title="8">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">  <span class="cf">if</span> (<span class="va">res</span>.<span class="at">ok</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-10" title="10">    <span class="kw">const</span> <span class="op">{</span> short_url<span class="op">,</span> original_url <span class="op">}</span> <span class="op">=</span> <span class="cf">await</span> <span class="va">res</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-11" title="11">    <span class="va">assert</span>.<span class="at">isNotNull</span>(short_url)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-12" title="12">    <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb2-13" title="13">      original_url<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-14" title="14">      <span class="kw">new</span> <span class="at">RegExp</span>(</a>
+<a class="sourceLine" id="cb2-15" title="15">        <span class="vs">`https://timestamp-microservice.freecodecamp.rocks/api/timestamp/</span><span class="sc">${</span>urlVariable<span class="sc">}</span><span class="vs">`</span></a>
+<a class="sourceLine" id="cb2-16" title="16">      )</a>
+<a class="sourceLine" id="cb2-17" title="17">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-18" title="18">  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-19" title="19">    <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="vs">`</span><span class="sc">${</span><span class="va">res</span>.<span class="at">status</span><span class="sc">}</span><span class="vs"> </span><span class="sc">${</span><span class="va">res</span>.<span class="at">statusText</span><span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-20" title="20">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-21" title="21"><span class="op">};</span></a></code></pre></div>
+<p>When you visit <code>/api/shorturl/&lt;short_url&gt;</code>, you will be redirected to the original URL.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="kw">const</span> url <span class="op">=</span> <span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="kw">const</span> urlVariable <span class="op">=</span> <span class="va">Date</span>.<span class="at">now</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="kw">let</span> shortenedUrlVariable<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="kw">const</span> postResponse <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(url <span class="op">+</span> <span class="st">&#39;/api/shorturl/new/&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-6" title="6">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">    <span class="dt">headers</span><span class="op">:</span> <span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/x-www-form-urlencoded&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-8" title="8">    <span class="dt">body</span><span class="op">:</span> <span class="vs">`url=https://timestamp-microservice.freecodecamp.rocks/api/timestamp/</span><span class="sc">${</span>urlVariable<span class="sc">}</span><span class="vs">`</span></a>
+<a class="sourceLine" id="cb3-9" title="9">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-10" title="10">  <span class="cf">if</span> (<span class="va">postResponse</span>.<span class="at">ok</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-11" title="11">    <span class="kw">const</span> <span class="op">{</span> short_url <span class="op">}</span> <span class="op">=</span> <span class="cf">await</span> <span class="va">postResponse</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-12" title="12">    shortenedUrlVariable <span class="op">=</span> short_url<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-13" title="13">  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-14" title="14">    <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="vs">`</span><span class="sc">${</span><span class="va">postResponse</span>.<span class="at">status</span><span class="sc">}</span><span class="vs"> </span><span class="sc">${</span><span class="va">postResponse</span>.<span class="at">statusText</span><span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-15" title="15">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-16" title="16">  <span class="kw">const</span> getResponse <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(</a>
+<a class="sourceLine" id="cb3-17" title="17">    url <span class="op">+</span> <span class="st">&#39;/api/shorturl/&#39;</span> <span class="op">+</span> shortenedUrlVariable</a>
+<a class="sourceLine" id="cb3-18" title="18">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-19" title="19">  <span class="cf">if</span> (getResponse) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-20" title="20">    <span class="kw">const</span> <span class="op">{</span> redirected<span class="op">,</span> url <span class="op">}</span> <span class="op">=</span> getResponse<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-21" title="21">    <span class="va">assert</span>.<span class="at">isTrue</span>(redirected)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-22" title="22">    <span class="va">assert</span>.<span class="at">strictEqual</span>(</a>
+<a class="sourceLine" id="cb3-23" title="23">      url<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-24" title="24">      <span class="vs">`https://timestamp-microservice.freecodecamp.rocks/api/timestamp/</span><span class="sc">${</span>urlVariable<span class="sc">}</span><span class="vs">`</span></a>
+<a class="sourceLine" id="cb3-25" title="25">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-26" title="26">  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-27" title="27">    <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="vs">`</span><span class="sc">${</span><span class="va">getResponse</span>.<span class="at">status</span><span class="sc">}</span><span class="vs"> </span><span class="sc">${</span><span class="va">getResponse</span>.<span class="at">statusText</span><span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-28" title="28">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-29" title="29"><span class="op">};</span></a></code></pre></div>
+<p>If you pass an invalid URL that doesn’t follow the valid <code>http://www.example.com</code> format, the JSON response will contain <code>{ error: 'invalid url' }</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">const</span> url <span class="op">=</span> <span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="kw">const</span> res <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(url <span class="op">+</span> <span class="st">&#39;/api/shorturl/new/&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="dt">headers</span><span class="op">:</span> <span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/x-www-form-urlencoded&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="dt">body</span><span class="op">:</span> <span class="vs">`url=ftp:/john-doe.org`</span></a>
+<a class="sourceLine" id="cb4-7" title="7">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">  <span class="cf">if</span> (<span class="va">res</span>.<span class="at">ok</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    <span class="kw">const</span> <span class="op">{</span> error <span class="op">}</span> <span class="op">=</span> <span class="cf">await</span> <span class="va">res</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">    <span class="va">assert</span>.<span class="at">isNotNull</span>(error)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">    <span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="va">error</span>.<span class="at">toLowerCase</span>()<span class="op">,</span> <span class="st">&#39;invalid url&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">  <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-13" title="13">    <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="vs">`</span><span class="sc">${</span><span class="va">res</span>.<span class="at">status</span><span class="sc">}</span><span class="vs"> </span><span class="sc">${</span><span class="va">res</span>.<span class="at">statusText</span><span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-14" title="14">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-15" title="15"><span class="op">};</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">*/</span></a></code></pre></div>

@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    link(rel='stylesheet' href='css/style.css')
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.css")
+    title Page not found
+  body
+    block content
+      div(class="not-found-notify-container")
+        div(class="not-found-notify-container__text-container")
+          p(class="not-found-notify-container__text") The page you requested could not be found
+          img(src="./images/dtfm-not-found-cow.png" height="150px")
+        div(class="not-found-notify-container__button-container")
+          a(type="button" class="not-found-notify-container__button" href="/") Home

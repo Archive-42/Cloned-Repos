@@ -1,0 +1,56 @@
+<h1 id="description">–description–</h1>
+<p>After creating an area’s template for your grid container, as shown in the previous challenge, you can place an item in your custom area by referencing the name you gave it. To do this, you use the <code>grid-area</code> property on an item like this:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode css"><code class="sourceCode css"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">.item1</span> {</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="kw">grid-area</span>: header<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">}</a></code></pre></div>
+<p>This lets the grid know that you want the <code>item1</code> class to go in the area named <code>header</code>. In this case, the item will use the entire top row because that whole row is named as the header area.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Place an element with the <code>item5</code> class in the <code>footer</code> area using the <code>grid-area</code> property.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>item5</code> class should have a <code>grid-area</code> property that has the value of <code>footer</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  __helpers</a>
+<a class="sourceLine" id="cb2-3" title="3">    .<span class="at">removeCssComments</span>(code)</a>
+<a class="sourceLine" id="cb2-4" title="4">    .<span class="at">match</span>(<span class="ss">/.item5</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">[\s\S]*</span><span class="ss">grid-area</span><span class="sc">\s*?</span><span class="ss">:</span><span class="sc">\s*?</span><span class="ss">footer</span><span class="sc">\s*?</span><span class="ss">;</span><span class="sc">[\s\S]*</span><span class="ss">}/gi</span>)</a>
+<a class="sourceLine" id="cb2-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="fu">.item1</span>{<span class="kw">background</span>:<span class="cn">LightSkyBlue</span><span class="op">;</span>}</a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="fu">.item2</span>{<span class="kw">background</span>:<span class="cn">LightSalmon</span><span class="op">;</span>}</a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="fu">.item3</span>{<span class="kw">background</span>:<span class="cn">PaleTurquoise</span><span class="op">;</span>}</a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="fu">.item4</span>{<span class="kw">background</span>:<span class="cn">LightPink</span><span class="op">;</span>}</a>
+<a class="sourceLine" id="cb3-6" title="6"></a>
+<a class="sourceLine" id="cb3-7" title="7">  <span class="fu">.item5</span> {</a>
+<a class="sourceLine" id="cb3-8" title="8">    <span class="kw">background</span>: <span class="cn">PaleGreen</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="co">/* Only change code below this line */</span></a>
+<a class="sourceLine" id="cb3-10" title="10"></a>
+<a class="sourceLine" id="cb3-11" title="11">    </a>
+<a class="sourceLine" id="cb3-12" title="12">    <span class="co">/* Only change code above this line */</span></a>
+<a class="sourceLine" id="cb3-13" title="13">  }</a>
+<a class="sourceLine" id="cb3-14" title="14"></a>
+<a class="sourceLine" id="cb3-15" title="15">  <span class="fu">.container</span> {</a>
+<a class="sourceLine" id="cb3-16" title="16">    <span class="kw">font-size</span>: <span class="dv">40</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-17" title="17">    <span class="kw">min-height</span>: <span class="dv">300</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-18" title="18">    <span class="kw">width</span>: <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-19" title="19">    <span class="kw">background</span>: <span class="cn">LightGray</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-20" title="20">    <span class="kw">display</span>: grid<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-21" title="21">    <span class="kw">grid-template-columns</span>: <span class="dv">1</span>fr <span class="dv">1</span>fr <span class="dv">1</span>fr<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-22" title="22">    <span class="kw">grid-template-rows</span>: <span class="dv">1</span>fr <span class="dv">1</span>fr <span class="dv">1</span>fr<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-23" title="23">    <span class="kw">grid-gap</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-24" title="24">    <span class="kw">grid-template-areas</span>:</a>
+<a class="sourceLine" id="cb3-25" title="25">      <span class="st">&quot;header header header&quot;</span></a>
+<a class="sourceLine" id="cb3-26" title="26">      <span class="st">&quot;advert content content&quot;</span></a>
+<a class="sourceLine" id="cb3-27" title="27">      <span class="st">&quot;footer footer footer&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-28" title="28">  }</a>
+<a class="sourceLine" id="cb3-29" title="29"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb3-30" title="30"></a>
+<a class="sourceLine" id="cb3-31" title="31"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb3-32" title="32">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;item1&quot;</span><span class="kw">&gt;</span>1<span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb3-33" title="33">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;item2&quot;</span><span class="kw">&gt;</span>2<span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb3-34" title="34">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;item3&quot;</span><span class="kw">&gt;</span>3<span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb3-35" title="35">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;item4&quot;</span><span class="kw">&gt;</span>4<span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb3-36" title="36">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;item5&quot;</span><span class="kw">&gt;</span>5<span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb3-37" title="37"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;style&gt;</span><span class="fu">.item5</span> {<span class="kw">grid-area</span>: footer<span class="op">;</span>}<span class="kw">&lt;/style&gt;</span></a></code></pre></div>

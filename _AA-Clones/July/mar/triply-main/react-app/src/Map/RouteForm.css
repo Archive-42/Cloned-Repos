@@ -1,0 +1,42 @@
+.route_form {
+  display: flex;
+  flex-direction: column;
+  width:100dw;
+  height: 3.5em;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: .5em;
+  margin-right: 10em;
+}
+
+.route_input_container {
+  padding: .5em;
+}
+
+.route_form_input {
+  /* display: flex; */
+  /* justify-content: center; */
+  width: 30vw;
+  /* text-align: "center"; */
+  background-color: white;
+  outline-color: white;
+  /* height: 3em; */
+  border-radius: .75em;
+
+}
+
+.submit_route {
+  width: 8em;
+  height: 3.4em;
+}
+
+.submit_container {
+  width: 30vw;
+  text-align: center;
+  margin-top: 1.5em
+}
+
+.buttons {
+  width: 30vw;
+  text-align: center;
+}

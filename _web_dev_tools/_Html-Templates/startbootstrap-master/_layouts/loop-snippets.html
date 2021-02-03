@@ -1,0 +1,34 @@
+---
+layout: default
+---
+
+{% include masthead/masthead-page.html %}
+
+<div class="container">
+
+  <!-- Show paginated posts for the specified collection -->
+  <div class="row">
+    {% assign snippets_sorted = site.snippets | sort: 'rank' %}
+    {% for snippet in snippets_sorted %}
+
+    <div class="col-md-4">
+      <div class="item-preview mb-5">
+        <a class="item-preview-img box-shadow-lg d-block mb-3" href="{{ snippet.src }}">
+          <img class="lazy img-fluid" data-src="{{ snippet.img-thumbnail }}" alt="{{ snippet.img-desc }}">
+        </a>
+        <div class="item-preview-title">{{ snippet.title }}</div>
+        <div class="item-preview-description">{{ snippet.bump }}</div>
+      </div>
+    </div>
+
+    {% endfor %}
+
+    {% include survey.html %}
+
+  </div>
+  <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+{{ content }}

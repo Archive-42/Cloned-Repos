@@ -1,0 +1,24 @@
+<h1 id="description">–description–</h1>
+<p>One way to add texture and interest to a background and have it stand out more is to add a subtle pattern. The key is balance, as you don’t want the background to stand out too much, and take away from the foreground. The <code>background</code> property supports the <code>url()</code> function in order to link to an image of the chosen texture or pattern. The link address is wrapped in quotes inside the parentheses.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Using the url of <code>https://cdn-media-1.freecodecamp.org/imgr/MJAkxbh.png</code>, set the <code>background</code> of the whole page with the <code>body</code> selector.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>body</code> element should have a <code>background</code> property set to a <code>url()</code> with the given link.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="ss">/background:</span><span class="sc">\s*?</span><span class="ss">url</span><span class="sc">\(\s*(</span><span class="ss">&quot;</span><span class="sc">|</span><span class="ss">&#39;</span><span class="sc">|)</span><span class="ss">https:</span><span class="sc">\/\/</span><span class="ss">cdn-media-1</span><span class="sc">\.</span><span class="ss">freecodecamp</span><span class="sc">\.</span><span class="ss">org</span><span class="sc">\/</span><span class="ss">imgr</span><span class="sc">\/</span><span class="ss">MJAkxbh</span><span class="sc">\.</span><span class="ss">png</span><span class="sc">\1\s*\)</span><span class="ss">/gi</span></a>
+<a class="sourceLine" id="cb1-4" title="4">  )</a>
+<a class="sourceLine" id="cb1-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  body {</a>
+<a class="sourceLine" id="cb2-3" title="3"></a>
+<a class="sourceLine" id="cb2-4" title="4">  }</a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="kw">&lt;/style&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  body {</a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">background</span>: <span class="fu">url(</span><span class="st">&quot;https://cdn-media-1.freecodecamp.org/imgr/MJAkxbh.png&quot;</span><span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  }</a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="kw">&lt;/style&gt;</span></a></code></pre></div>

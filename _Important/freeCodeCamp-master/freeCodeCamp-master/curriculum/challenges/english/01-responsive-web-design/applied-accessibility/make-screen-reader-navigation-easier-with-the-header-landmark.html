@@ -1,0 +1,71 @@
+<h1 id="description">–description–</h1>
+<p>The next HTML5 element that adds semantic meaning and improves accessibility is the <code>header</code> tag. It’s used to wrap introductory information or navigation links for its parent tag and works well around content that’s repeated at the top on multiple pages.</p>
+<p><code>header</code> shares the embedded landmark feature you saw with <code>main</code>, allowing assistive technologies to quickly navigate to that content.</p>
+<p><strong>Note:</strong> The <code>header</code> is meant for use in the <code>body</code> tag of your HTML document. This is different than the <code>head</code> element, which contains the page’s title, meta information, etc.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Camper Cat is writing some great articles about ninja training, and wants to add a page for them to his site. Change the top <code>div</code> that currently contains the <code>h1</code> to a <code>header</code> tag instead.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should have one <code>header</code> tag.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;header&#39;</span>).<span class="at">length</span> <span class="op">==</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>header</code> tags should wrap around the <code>h1</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;header&#39;</span>).<span class="at">children</span>(<span class="st">&#39;h1&#39;</span>).<span class="at">length</span> <span class="op">==</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your code should not have any <code>div</code> tags.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;div&#39;</span>).<span class="at">length</span> <span class="op">==</span> <span class="dv">0</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>header</code> element should have a closing tag.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">header&gt;/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">header&gt;/g</span>).<span class="at">length</span> <span class="op">===</span> <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;header&gt;/g</span>).<span class="at">length</span></a>
+<a class="sourceLine" id="cb4-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2"></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="kw">&lt;div&gt;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">&lt;h1&gt;</span>Training with Camper Cat<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-6" title="6"></a>
+<a class="sourceLine" id="cb5-7" title="7"></a>
+<a class="sourceLine" id="cb5-8" title="8">  <span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">    <span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;stealth&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">      <span class="kw">&lt;h2&gt;</span>Stealth <span class="dv">&amp;amp;</span> Agility Training<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">      <span class="kw">&lt;article&gt;&lt;h3&gt;</span>Climb foliage quickly using a minimum spanning tree approach<span class="kw">&lt;/h3&gt;&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">      <span class="kw">&lt;article&gt;&lt;h3&gt;</span>No training is NP-complete without parkour<span class="kw">&lt;/h3&gt;&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb5-13" title="13">    <span class="kw">&lt;/section&gt;</span></a>
+<a class="sourceLine" id="cb5-14" title="14">    <span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;combat&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-15" title="15">      <span class="kw">&lt;h2&gt;</span>Combat Training<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb5-16" title="16">      <span class="kw">&lt;article&gt;&lt;h3&gt;</span>Dispatch multiple enemies with multithreaded tactics<span class="kw">&lt;/h3&gt;&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb5-17" title="17">      <span class="kw">&lt;article&gt;&lt;h3&gt;</span>Goodbye world: 5 proven ways to knock out an opponent<span class="kw">&lt;/h3&gt;&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb5-18" title="18">    <span class="kw">&lt;/section&gt;</span></a>
+<a class="sourceLine" id="cb5-19" title="19">    <span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;weapons&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-20" title="20">      <span class="kw">&lt;h2&gt;</span>Weapons Training<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb5-21" title="21">      <span class="kw">&lt;article&gt;&lt;h3&gt;</span>Swords: the best tool to literally divide and conquer<span class="kw">&lt;/h3&gt;&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb5-22" title="22">      <span class="kw">&lt;article&gt;&lt;h3&gt;</span>Breadth-first or depth-first in multi-weapon training?<span class="kw">&lt;/h3&gt;&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb5-23" title="23">    <span class="kw">&lt;/section&gt;</span></a>
+<a class="sourceLine" id="cb5-24" title="24">  <span class="kw">&lt;/main&gt;</span></a>
+<a class="sourceLine" id="cb5-25" title="25"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="kw">&lt;header&gt;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="kw">&lt;h1&gt;</span>Training with Camper Cat<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">  <span class="kw">&lt;/header&gt;</span></a>
+<a class="sourceLine" id="cb6-6" title="6"></a>
+<a class="sourceLine" id="cb6-7" title="7"></a>
+<a class="sourceLine" id="cb6-8" title="8">  <span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">    <span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;stealth&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">      <span class="kw">&lt;h2&gt;</span>Stealth <span class="dv">&amp;amp;</span> Agility Training<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb6-11" title="11">      <span class="kw">&lt;article&gt;&lt;h3&gt;</span>Climb foliage quickly using a minimum spanning tree approach<span class="kw">&lt;/h3&gt;&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">      <span class="kw">&lt;article&gt;&lt;h3&gt;</span>No training is NP-complete without parkour<span class="kw">&lt;/h3&gt;&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb6-13" title="13">    <span class="kw">&lt;/section&gt;</span></a>
+<a class="sourceLine" id="cb6-14" title="14">    <span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;combat&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-15" title="15">      <span class="kw">&lt;h2&gt;</span>Combat Training<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb6-16" title="16">      <span class="kw">&lt;article&gt;&lt;h3&gt;</span>Dispatch multiple enemies with multithreaded tactics<span class="kw">&lt;/h3&gt;&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb6-17" title="17">      <span class="kw">&lt;article&gt;&lt;h3&gt;</span>Goodbye world: 5 proven ways to knock out an opponent<span class="kw">&lt;/h3&gt;&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb6-18" title="18">    <span class="kw">&lt;/section&gt;</span></a>
+<a class="sourceLine" id="cb6-19" title="19">    <span class="kw">&lt;section</span><span class="ot"> id=</span><span class="st">&quot;weapons&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-20" title="20">      <span class="kw">&lt;h2&gt;</span>Weapons Training<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb6-21" title="21">      <span class="kw">&lt;article&gt;&lt;h3&gt;</span>Swords: the best tool to literally divide and conquer<span class="kw">&lt;/h3&gt;&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb6-22" title="22">      <span class="kw">&lt;article&gt;&lt;h3&gt;</span>Breadth-first or depth-first in multi-weapon training?<span class="kw">&lt;/h3&gt;&lt;/article&gt;</span></a>
+<a class="sourceLine" id="cb6-23" title="23">    <span class="kw">&lt;/section&gt;</span></a>
+<a class="sourceLine" id="cb6-24" title="24">  <span class="kw">&lt;/main&gt;</span></a>
+<a class="sourceLine" id="cb6-25" title="25"><span class="kw">&lt;/body&gt;</span></a></code></pre></div>

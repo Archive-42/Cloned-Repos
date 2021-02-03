@@ -1,0 +1,39 @@
+<div>
+
+	<div class="row">
+
+		<div class="col-sm-3">
+
+			<div ng-include src="'main-nav/main-nav.tpl.html'"></div>
+		
+		</div>
+		
+		<div class="col-sm-9">
+			
+			<h2>My Events</h2>
+
+			<label>Sort events by:</label>
+			<select class="form-control" ng-model="orderProp">
+				<option value="name">Name</option>
+				<option value="date">Date (soonest first)</option>
+			</select>
+			
+			<ul>
+				<li ng-repeat="(id, event) in events | filter:query | orderBy:orderProp">
+					<a ng-href="/event/{{ id }}">{{ event.name }}</a>
+					- 
+					<span>{{ event.date }}</span>
+					<a class="delete" ng-href="#" title="Delete event?" ng-click="removeEvent(id)">x</a>
+				</li>
+			</ul>
+			
+			<label>Filter events:</label>
+			<input type="text" class="form-control" placeholder="Type here to filter your events" ng-model="query">
+			
+			<p><a href="/create-new-event">Ready to create a new event?</a></p>
+		
+		</div>
+
+	</div>
+
+</div>

@@ -1,0 +1,20 @@
+<h1 id="description">–description–</h1>
+<p>For any set A of numbers, let sum(A) be the sum of the elements of A.</p>
+<p>Consider the set B = {1,3,6,8,10,11}. There are 20 subsets of B containing three elements, and their sums are:</p>
+<p>sum({1,3,6}) = 10, sum({1,3,8}) = 12, sum({1,3,10}) = 14, sum({1,3,11}) = 15, sum({1,6,8}) = 15, sum({1,6,10}) = 17, sum({1,6,11}) = 18, sum({1,8,10}) = 19, sum({1,8,11}) = 20, sum({1,10,11}) = 22, sum({3,6,8}) = 17, sum({3,6,10}) = 19, sum({3,6,11}) = 20, sum({3,8,10}) = 21, sum({3,8,11}) = 22, sum({3,10,11}) = 24, sum({6,8,10}) = 24, sum({6,8,11}) = 25, sum({6,10,11}) = 27, sum({8,10,11}) = 29.</p>
+<p>Some of these sums occur more than once, others are unique. For a set A, let U(A,k) be the set of unique sums of k-element subsets of A, in our example we find U(B,3) = {10,12,14,18,21,25,27,29} and sum(U(B,3)) = 156.</p>
+<p>Now consider the 100-element set S = {12, 22, … , 1002}. S has 100891344545564193334812497256 50-element subsets.</p>
+<p>Determine the sum of all integers which are the sum of exactly one of the 50-element subsets of S, i.e. find sum(U(S,50)).</p>
+<h1 id="hints">–hints–</h1>
+<p><code>euler201()</code> should return 115039000.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">euler201</span>()<span class="op">,</span> <span class="dv">115039000</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">function</span> <span class="at">euler201</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb2-5" title="5"></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="at">euler201</span>()<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">// solution required</span></a></code></pre></div>

@@ -1,0 +1,38 @@
+<div>
+
+	<div class="row">
+
+		<div class="col-sm-3">
+
+			<div ng-include src="'main-nav/main-nav.tpl.html'"></div>
+		
+		</div>
+		
+		<div class="col-sm-9">
+			
+			<h2>{{ event.name }}</h2>
+			<h3>on {{ event.date }} at {{ event.time }}.</h3>
+			
+			<p>{{ event.description }}</p>
+
+			<h3>Attendees</h3>
+				
+			<ul>
+				<li ng-repeat="user in invitedList">
+					{{ user.displayName }} <a href="" ng-click="uninviteUser(user);">Uninvite?</a>
+				</li>
+			</ul>
+
+			<h3>Invite Friends</h3>
+				
+			<ul>
+				<li ng-repeat="user in uninvitedList">
+					{{ user.displayName }} <a href="" ng-click="inviteUser(user);">Invite?</a>
+				</li>
+			</ul>
+		
+		</div>
+
+	</div>
+
+</div>

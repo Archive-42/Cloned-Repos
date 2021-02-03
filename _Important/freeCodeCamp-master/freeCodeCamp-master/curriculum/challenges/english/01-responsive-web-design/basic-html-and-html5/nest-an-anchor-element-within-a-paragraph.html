@@ -1,0 +1,83 @@
+<h1 id="description">–description–</h1>
+<p>You can nest links within other text elements.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">&lt;p&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  Here&#39;s a <span class="kw">&lt;a</span><span class="ot"> target=</span><span class="st">&quot;_blank&quot;</span><span class="ot"> href=</span><span class="st">&quot;http://freecodecamp.org&quot;</span><span class="kw">&gt;</span> link to freecodecamp.org<span class="kw">&lt;/a&gt;</span> for you to follow.</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">&lt;/p&gt;</span></a></code></pre></div>
+<p>Let’s break down the example: Normal text is wrapped in the <code>p</code> element:<br />
+<code>&lt;p&gt; Here's a ... for you to follow. &lt;/p&gt;</code> Next is the <em>anchor</em> element <code>&lt;a&gt;</code> (which requires a closing tag <code>&lt;/a&gt;</code>):<br />
+<code>&lt;a&gt; ... &lt;/a&gt;</code> <code>target</code> is an anchor tag attribute that specifies where to open the link and the value <code>"_blank"</code> specifies to open the link in a new tab <code>href</code> is an anchor tag attribute that contains the URL address of the link:<br />
+<code>&lt;a href="http://freecodecamp.org"&gt; ... &lt;/a&gt;</code> The text, <strong>“link to freecodecamp.org”</strong>, within the <code>a</code> element called <code>anchor text</code>, will display a link to click:<br />
+<code>&lt;a href=" ... "&gt;link to freecodecamp.org&lt;/a&gt;</code> The final output of the example will look like this:</p>
+<p>Here’s a <a href="http://freecodecamp.org">link to freecodecamp.org</a> for you to follow.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Nest the existing <code>a</code> element within a new <code>p</code> element. The new paragraph should have text that says “View more cat photos”, where “cat photos” is a link, and the rest is plain text.</p>
+<h1 id="hints">–hints–</h1>
+<p>You should have an <code>a</code> element that links to “<code>https://freecatphotoapp.com</code>”.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="at">$</span>(<span class="st">&#39;a[href=&quot;https://freecatphotoapp.com&quot;]&#39;</span>).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">||</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="at">$</span>(<span class="st">&#39;a[href=&quot;http://www.freecatphotoapp.com&quot;]&#39;</span>).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb2-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>a</code> element should have the anchor text of “cat photos”</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="at">$</span>(<span class="st">&#39;a&#39;</span>)</a>
+<a class="sourceLine" id="cb3-3" title="3">    .<span class="at">text</span>()</a>
+<a class="sourceLine" id="cb3-4" title="4">    .<span class="at">match</span>(<span class="ss">/cat</span><span class="sc">\s</span><span class="ss">photos/gi</span>)</a>
+<a class="sourceLine" id="cb3-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>You should create a new <code>p</code> element around your <code>a</code> element. There should be at least 3 total <code>p</code> tags in your HTML code.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;p&#39;</span>) <span class="op">&amp;&amp;</span> <span class="at">$</span>(<span class="st">&#39;p&#39;</span>).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">2</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>a</code> element should be nested within your new <code>p</code> element.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="at">$</span>(<span class="st">&#39;a[href=&quot;https://freecatphotoapp.com&quot;]&#39;</span>).<span class="at">parent</span>().<span class="at">is</span>(<span class="st">&#39;p&#39;</span>) <span class="op">||</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="at">$</span>(<span class="st">&#39;a[href=&quot;http://www.freecatphotoapp.com&quot;]&#39;</span>).<span class="at">parent</span>().<span class="at">is</span>(<span class="st">&#39;p&#39;</span>)</a>
+<a class="sourceLine" id="cb5-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>p</code> element should have the text “View more” (with a space after it).</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="at">$</span>(<span class="st">&#39;a[href=&quot;https://freecatphotoapp.com&quot;]&#39;</span>)</a>
+<a class="sourceLine" id="cb6-3" title="3">    .<span class="at">parent</span>()</a>
+<a class="sourceLine" id="cb6-4" title="4">    .<span class="at">text</span>()</a>
+<a class="sourceLine" id="cb6-5" title="5">    .<span class="at">match</span>(<span class="ss">/View</span><span class="sc">\s</span><span class="ss">more</span><span class="sc">\s</span><span class="ss">/gi</span>) <span class="op">||</span></a>
+<a class="sourceLine" id="cb6-6" title="6">    <span class="at">$</span>(<span class="st">&#39;a[href=&quot;http://www.freecatphotoapp.com&quot;]&#39;</span>)</a>
+<a class="sourceLine" id="cb6-7" title="7">      .<span class="at">parent</span>()</a>
+<a class="sourceLine" id="cb6-8" title="8">      .<span class="at">text</span>()</a>
+<a class="sourceLine" id="cb6-9" title="9">      .<span class="at">match</span>(<span class="ss">/View</span><span class="sc">\s</span><span class="ss">more</span><span class="sc">\s</span><span class="ss">/gi</span>)</a>
+<a class="sourceLine" id="cb6-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>a</code> element should <em>not</em> have the text “View more”.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="op">!</span><span class="at">$</span>(<span class="st">&#39;a&#39;</span>)</a>
+<a class="sourceLine" id="cb7-3" title="3">    .<span class="at">text</span>()</a>
+<a class="sourceLine" id="cb7-4" title="4">    .<span class="at">match</span>(<span class="ss">/View</span><span class="sc">\s</span><span class="ss">more/gi</span>)</a>
+<a class="sourceLine" id="cb7-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>Each of your <code>p</code> elements should have a closing tag.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">p&gt;/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;p/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb8-4" title="4">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">p&gt;/g</span>).<span class="at">length</span> <span class="op">===</span> <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;p/g</span>).<span class="at">length</span></a>
+<a class="sourceLine" id="cb8-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>Each of your <code>a</code> elements should have a closing tag.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb9-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">a&gt;/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb9-3" title="3">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;a/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb9-4" title="4">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">a&gt;/g</span>).<span class="at">length</span> <span class="op">===</span> <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;a/g</span>).<span class="at">length</span></a>
+<a class="sourceLine" id="cb9-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb10-3" title="3"></a>
+<a class="sourceLine" id="cb10-4" title="4">  <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;https://freecatphotoapp.com&quot;</span><span class="ot"> target=</span><span class="st">&quot;_blank&quot;</span><span class="kw">&gt;</span>cat photos<span class="kw">&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb10-5" title="5"></a>
+<a class="sourceLine" id="cb10-6" title="6">  <span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-relaxing-cat&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A cute orange cat lying on its back.&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb10-7" title="7"></a>
+<a class="sourceLine" id="cb10-8" title="8">  <span class="kw">&lt;p&gt;</span>Kitty ipsum dolor sit amet, shed everywhere shed everywhere stretching attack your ankles chase the red dot, hairball run catnip eat the grass sniff.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb10-9" title="9">  <span class="kw">&lt;p&gt;</span>Purr jump eat the grass rip the couch scratched sunbathe, shed everywhere rip the couch sleep in the sink fluffy fur catnip scratched.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb10-10" title="10"><span class="kw">&lt;/main&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb11"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb11-3" title="3">  <span class="kw">&lt;p&gt;</span>View more <span class="kw">&lt;a</span><span class="ot"> target=</span><span class="st">&quot;_blank&quot;</span><span class="ot"> href=</span><span class="st">&quot;https://freecatphotoapp.com&quot;</span><span class="kw">&gt;</span>cat photos<span class="kw">&lt;/a&gt;&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb11-4" title="4"></a>
+<a class="sourceLine" id="cb11-5" title="5">  <span class="kw">&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-relaxing-cat&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A cute orange cat lying on its back.&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb11-6" title="6"></a>
+<a class="sourceLine" id="cb11-7" title="7">  <span class="kw">&lt;p&gt;</span>Kitty ipsum dolor sit amet, shed everywhere shed everywhere stretching attack your ankles chase the red dot, hairball run catnip eat the grass sniff.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb11-8" title="8">  <span class="kw">&lt;p&gt;</span>Purr jump eat the grass rip the couch scratched sunbathe, shed everywhere rip the couch sleep in the sink fluffy fur catnip scratched.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb11-9" title="9"><span class="kw">&lt;/main&gt;</span></a></code></pre></div>

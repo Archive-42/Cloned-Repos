@@ -1,0 +1,98 @@
+<h1 id="description">–description–</h1>
+<p>When elements have a specified <code>position</code>, such as <code>fixed</code> or <code>relative</code>, the CSS offset properties <code>right</code>, <code>left</code>, <code>top</code>, and <code>bottom</code> can be used in animation rules to create movement.</p>
+<p>As shown in the example below, you can push the item downwards then upwards by setting the <code>top</code> property of the <code>50%</code> keyframe to 50px, but having it set to 0px for the first (<code>0%</code>) and the last (<code>100%</code>) keyframe.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode css"><code class="sourceCode css"><a class="sourceLine" id="cb1-1" title="1"><span class="im">@keyframes</span> rainbow {</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="dv">0%</span> {</a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">background-color</span>: <span class="cn">blue</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="kw">top</span>: <span class="dv">0</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  }</a>
+<a class="sourceLine" id="cb1-6" title="6">  <span class="dv">50%</span> {</a>
+<a class="sourceLine" id="cb1-7" title="7">    <span class="kw">background-color</span>: <span class="cn">green</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">    <span class="kw">top</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-9" title="9">  }</a>
+<a class="sourceLine" id="cb1-10" title="10">  <span class="dv">100%</span> {</a>
+<a class="sourceLine" id="cb1-11" title="11">    <span class="kw">background-color</span>: <span class="cn">yellow</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-12" title="12">    <span class="kw">top</span>: <span class="dv">0</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-13" title="13">  }</a>
+<a class="sourceLine" id="cb1-14" title="14">}</a></code></pre></div>
+<h1 id="instructions">–instructions–</h1>
+<p>Add a horizontal motion to the <code>div</code> animation. Using the <code>left</code> offset property, add to the <code>@keyframes</code> rule so rainbow starts at 0 pixels at <code>0%</code>, moves to 25 pixels at <code>50%</code>, and ends at -25 pixels at <code>100%</code>. Don’t replace the <code>top</code> property in the editor - the animation should have both vertical and horizontal motion.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>@keyframes</code> rule for <code>0%</code> should use the <code>left</code> offset of 0px.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/</span><span class="sc">[^50]</span><span class="ss">0%</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">[\s\S]*?</span><span class="ss">left:</span><span class="sc">\s*?</span><span class="ss">0px</span><span class="sc">(</span><span class="ss">;</span><span class="sc">[\s\S]*?|\s*?)</span><span class="ss">}/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>The <code>@keyframes</code> rule for <code>50%</code> should use the <code>left</code> offset of 25px.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/50%</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">[\s\S]*?</span><span class="ss">left:</span><span class="sc">\s*?</span><span class="ss">25px</span><span class="sc">(</span><span class="ss">;</span><span class="sc">[\s\S]*?|\s*?)</span><span class="ss">}/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>The <code>@keyframes</code> rule for <code>100%</code> should use the <code>left</code> offset of -25px.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/100%</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">[\s\S]*?</span><span class="ss">left:</span><span class="sc">\s*?</span><span class="ss">-25px</span><span class="sc">(</span><span class="ss">;</span><span class="sc">[\s\S]*?|\s*?)</span><span class="ss">}/gi</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  div {</a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">height</span>: <span class="dv">40</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">width</span>: <span class="dv">70</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">    <span class="kw">background</span>: <span class="cn">black</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="kw">margin</span>: <span class="dv">50</span><span class="dt">px</span> <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="kw">position</span>: <span class="dv">relative</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">  }</a>
+<a class="sourceLine" id="cb5-10" title="10"></a>
+<a class="sourceLine" id="cb5-11" title="11">  <span class="pp">#rect</span> {</a>
+<a class="sourceLine" id="cb5-12" title="12">    <span class="kw">animation-name</span>: rainbow<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-13" title="13">    <span class="kw">animation-duration</span>: <span class="dv">4</span><span class="dt">s</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-14" title="14">  }</a>
+<a class="sourceLine" id="cb5-15" title="15"></a>
+<a class="sourceLine" id="cb5-16" title="16">  <span class="im">@keyframes</span> rainbow {</a>
+<a class="sourceLine" id="cb5-17" title="17">    <span class="dv">0%</span> {</a>
+<a class="sourceLine" id="cb5-18" title="18">      <span class="kw">background-color</span>: <span class="cn">blue</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-19" title="19">      <span class="kw">top</span>: <span class="dv">0</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-20" title="20"></a>
+<a class="sourceLine" id="cb5-21" title="21">    }</a>
+<a class="sourceLine" id="cb5-22" title="22">    <span class="dv">50%</span> {</a>
+<a class="sourceLine" id="cb5-23" title="23">      <span class="kw">background-color</span>: <span class="cn">green</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-24" title="24">      <span class="kw">top</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-25" title="25"></a>
+<a class="sourceLine" id="cb5-26" title="26">    }</a>
+<a class="sourceLine" id="cb5-27" title="27">    <span class="dv">100%</span> {</a>
+<a class="sourceLine" id="cb5-28" title="28">      <span class="kw">background-color</span>: <span class="cn">yellow</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-29" title="29">      <span class="kw">top</span>: <span class="dv">0</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-30" title="30"></a>
+<a class="sourceLine" id="cb5-31" title="31">    }</a>
+<a class="sourceLine" id="cb5-32" title="32">  }</a>
+<a class="sourceLine" id="cb5-33" title="33"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb5-34" title="34"></a>
+<a class="sourceLine" id="cb5-35" title="35"><span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;rect&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  div {</a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">height</span>: <span class="dv">40</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="kw">width</span>: <span class="dv">70</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">    <span class="kw">background</span>: <span class="cn">black</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">    <span class="kw">margin</span>: <span class="dv">50</span><span class="dt">px</span> <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-7" title="7">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="kw">position</span>: <span class="dv">relative</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">  }</a>
+<a class="sourceLine" id="cb6-10" title="10"></a>
+<a class="sourceLine" id="cb6-11" title="11">  <span class="pp">#rect</span> {</a>
+<a class="sourceLine" id="cb6-12" title="12">    <span class="kw">animation-name</span>: rainbow<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-13" title="13">    <span class="kw">animation-duration</span>: <span class="dv">4</span><span class="dt">s</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-14" title="14">  }</a>
+<a class="sourceLine" id="cb6-15" title="15"></a>
+<a class="sourceLine" id="cb6-16" title="16">  <span class="im">@keyframes</span> rainbow {</a>
+<a class="sourceLine" id="cb6-17" title="17">    <span class="dv">0%</span> {</a>
+<a class="sourceLine" id="cb6-18" title="18">      <span class="kw">background-color</span>: <span class="cn">blue</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-19" title="19">      <span class="kw">top</span>: <span class="dv">0</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-20" title="20">      <span class="kw">left</span>: <span class="dv">0</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-21" title="21">    }</a>
+<a class="sourceLine" id="cb6-22" title="22">    <span class="dv">50%</span> {</a>
+<a class="sourceLine" id="cb6-23" title="23">      <span class="kw">background-color</span>: <span class="cn">green</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-24" title="24">      <span class="kw">top</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-25" title="25">      <span class="kw">left</span>: <span class="dv">25</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-26" title="26">    }</a>
+<a class="sourceLine" id="cb6-27" title="27">    <span class="dv">100%</span> {</a>
+<a class="sourceLine" id="cb6-28" title="28">      <span class="kw">background-color</span>: <span class="cn">yellow</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-29" title="29">      <span class="kw">top</span>: <span class="dv">0</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-30" title="30">      <span class="kw">left</span>: <span class="dv">-25</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-31" title="31">    }</a>
+<a class="sourceLine" id="cb6-32" title="32">  }</a>
+<a class="sourceLine" id="cb6-33" title="33"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb6-34" title="34"><span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;rect&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a></code></pre></div>

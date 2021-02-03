@@ -1,0 +1,116 @@
+<h1 id="description">–description–</h1>
+<p>Write a generalized version of <a href="https://rosettacode.org/wiki/FizzBuzz">FizzBuzz</a> that works for any list of factors, along with their words.</p>
+<p>This is basically a “fizzbuzz” implementation where the rules of the game are supplied to the user. Create a function to implement this. The function should take two parameters.</p>
+<p>The first will be an array with the FizzBuzz rules. For example: <code>[ [3, "Fizz"] , [5, "Buzz"] ]</code>.</p>
+<p>This indicates that <code>Fizz</code> should be printed if the number is a multiple of 3 and <code>Buzz</code> if it is a multiple of 5. If it is a multiple of both then the strings should be concatenated in the order specified in the array. In this case, <code>FizzBuzz</code> if the number is a multiple of 3 and 5.</p>
+<p>The second parameter is the number for which the function should return a string as stated above.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>genFizzBuzz</code> should be a function.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> genFizzBuzz <span class="op">==</span> <span class="st">&#39;function&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>genFizzBuzz([[3, "Fizz"],[5, "Buzz"]], 6)</code> should return a string.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="kw">typeof</span> <span class="at">genFizzBuzz</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    [</a>
+<a class="sourceLine" id="cb2-4" title="4">      [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Fizz&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      [<span class="dv">5</span><span class="op">,</span> <span class="st">&#39;Buzz&#39;</span>]</a>
+<a class="sourceLine" id="cb2-6" title="6">    ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-7" title="7">    <span class="dv">6</span></a>
+<a class="sourceLine" id="cb2-8" title="8">  ) <span class="op">==</span> <span class="st">&#39;string&#39;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<p><code>genFizzBuzz([[3, "Fizz"],[5, "Buzz"]], 6)</code> should return <code>"Fizz"</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="at">genFizzBuzz</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    [</a>
+<a class="sourceLine" id="cb3-4" title="4">      [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Fizz&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      [<span class="dv">5</span><span class="op">,</span> <span class="st">&#39;Buzz&#39;</span>]</a>
+<a class="sourceLine" id="cb3-6" title="6">    ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">    <span class="dv">6</span></a>
+<a class="sourceLine" id="cb3-8" title="8">  )<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-9" title="9">  <span class="st">&#39;Fizz&#39;</span></a>
+<a class="sourceLine" id="cb3-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<p><code>genFizzBuzz([[3, "Fizz"],[5, "Buzz"]], 10)</code> should return <code>"Buzz"</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="at">genFizzBuzz</span>(</a>
+<a class="sourceLine" id="cb4-3" title="3">    [</a>
+<a class="sourceLine" id="cb4-4" title="4">      [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Fizz&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-5" title="5">      [<span class="dv">5</span><span class="op">,</span> <span class="st">&#39;Buzz&#39;</span>]</a>
+<a class="sourceLine" id="cb4-6" title="6">    ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="dv">10</span></a>
+<a class="sourceLine" id="cb4-8" title="8">  )<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-9" title="9">  <span class="st">&#39;Buzz&#39;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<p><code>genFizzBuzz([[3, "Buzz"],[5, "Fizz"]], 12)</code> should return <code>"Buzz"</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="at">genFizzBuzz</span>(</a>
+<a class="sourceLine" id="cb5-3" title="3">    [</a>
+<a class="sourceLine" id="cb5-4" title="4">      [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Buzz&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-5" title="5">      [<span class="dv">5</span><span class="op">,</span> <span class="st">&#39;Fizz&#39;</span>]</a>
+<a class="sourceLine" id="cb5-6" title="6">    ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    <span class="dv">12</span></a>
+<a class="sourceLine" id="cb5-8" title="8">  )<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-9" title="9">  <span class="st">&#39;Buzz&#39;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<p><code>genFizzBuzz([[3, "Buzz"],[5, "Fizz"]], 13)</code> should return <code>"13"</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="at">genFizzBuzz</span>(</a>
+<a class="sourceLine" id="cb6-3" title="3">    [</a>
+<a class="sourceLine" id="cb6-4" title="4">      [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Buzz&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-5" title="5">      [<span class="dv">5</span><span class="op">,</span> <span class="st">&#39;Fizz&#39;</span>]</a>
+<a class="sourceLine" id="cb6-6" title="6">    ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-7" title="7">    <span class="dv">13</span></a>
+<a class="sourceLine" id="cb6-8" title="8">  )<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-9" title="9">  <span class="st">&#39;13&#39;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<p><code>genFizzBuzz([[3, "Buzz"],[5, "Fizz"]], 15)</code> should return <code>"BuzzFizz"</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="at">genFizzBuzz</span>(</a>
+<a class="sourceLine" id="cb7-3" title="3">    [</a>
+<a class="sourceLine" id="cb7-4" title="4">      [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Buzz&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-5" title="5">      [<span class="dv">5</span><span class="op">,</span> <span class="st">&#39;Fizz&#39;</span>]</a>
+<a class="sourceLine" id="cb7-6" title="6">    ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-7" title="7">    <span class="dv">15</span></a>
+<a class="sourceLine" id="cb7-8" title="8">  )<span class="op">,</span></a>
+<a class="sourceLine" id="cb7-9" title="9">  <span class="st">&#39;BuzzFizz&#39;</span></a>
+<a class="sourceLine" id="cb7-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<p><code>genFizzBuzz([[3, "Fizz"],[5, "Buzz"]], 15)</code> should return <code>"FizzBuzz"</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="at">genFizzBuzz</span>(</a>
+<a class="sourceLine" id="cb8-3" title="3">    [</a>
+<a class="sourceLine" id="cb8-4" title="4">      [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Fizz&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-5" title="5">      [<span class="dv">5</span><span class="op">,</span> <span class="st">&#39;Buzz&#39;</span>]</a>
+<a class="sourceLine" id="cb8-6" title="6">    ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-7" title="7">    <span class="dv">15</span></a>
+<a class="sourceLine" id="cb8-8" title="8">  )<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-9" title="9">  <span class="st">&#39;FizzBuzz&#39;</span></a>
+<a class="sourceLine" id="cb8-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<p><code>genFizzBuzz([[3, "Fizz"],[5, "Buzz"],[7, "Baxx"]], 105)</code> should return <code>"FizzBuzzBaxx"</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb9-2" title="2">  <span class="at">genFizzBuzz</span>(</a>
+<a class="sourceLine" id="cb9-3" title="3">    [</a>
+<a class="sourceLine" id="cb9-4" title="4">      [<span class="dv">3</span><span class="op">,</span> <span class="st">&#39;Fizz&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb9-5" title="5">      [<span class="dv">5</span><span class="op">,</span> <span class="st">&#39;Buzz&#39;</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb9-6" title="6">      [<span class="dv">7</span><span class="op">,</span> <span class="st">&#39;Baxx&#39;</span>]</a>
+<a class="sourceLine" id="cb9-7" title="7">    ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb9-8" title="8">    <span class="dv">105</span></a>
+<a class="sourceLine" id="cb9-9" title="9">  )<span class="op">,</span></a>
+<a class="sourceLine" id="cb9-10" title="10">  <span class="st">&#39;FizzBuzzBaxx&#39;</span></a>
+<a class="sourceLine" id="cb9-11" title="11">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">function</span> <span class="at">genFizzBuzz</span>(rules<span class="op">,</span> num) <span class="op">{</span></a>
+<a class="sourceLine" id="cb10-2" title="2"></a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="op">}</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb11"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">function</span> <span class="at">genFizzBuzz</span>(rules<span class="op">,</span> num) <span class="op">{</span></a>
+<a class="sourceLine" id="cb11-2" title="2">  <span class="kw">let</span> res<span class="op">=</span><span class="st">&#39;&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb11-3" title="3">  <span class="va">rules</span>.<span class="at">forEach</span>(<span class="kw">function</span> (e) <span class="op">{</span></a>
+<a class="sourceLine" id="cb11-4" title="4">    <span class="cf">if</span>(num <span class="op">%</span> e[<span class="dv">0</span>] <span class="op">==</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb11-5" title="5">      res<span class="op">+=</span>e[<span class="dv">1</span>]<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-6" title="6">  <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb11-7" title="7"></a>
+<a class="sourceLine" id="cb11-8" title="8">  <span class="cf">if</span>(res<span class="op">==</span><span class="st">&#39;&#39;</span>)<span class="op">{</span></a>
+<a class="sourceLine" id="cb11-9" title="9">    res<span class="op">=</span><span class="va">num</span>.<span class="at">toString</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-10" title="10">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb11-11" title="11"></a>
+<a class="sourceLine" id="cb11-12" title="12">  <span class="cf">return</span> res<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-13" title="13"><span class="op">}</span></a></code></pre></div>

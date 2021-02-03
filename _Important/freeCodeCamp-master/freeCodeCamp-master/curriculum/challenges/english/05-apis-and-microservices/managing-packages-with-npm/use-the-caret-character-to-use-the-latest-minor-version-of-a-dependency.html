@@ -1,0 +1,45 @@
+<h1 id="description">–description–</h1>
+<p>Similar to how the tilde we learned about in the last challenge allows npm to install the latest PATCH for a dependency, the caret (<code>^</code>) allows npm to install future updates as well. The difference is that the caret will allow both MINOR updates and PATCHes.</p>
+<p>Your current version of moment should be “~2.10.2” which allows npm to install to the latest 2.10.x version. If you were to use the caret (^) as a version prefix instead, npm would be allowed to update to any 2.x.x version.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb1-1" title="1"><span class="er">&quot;package&quot;:</span> <span class="er">&quot;^1.3.8&quot;</span></a></code></pre></div>
+<p>This would allow updates to any 1.x.x version of the package.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Use the caret (<code>^</code>) to prefix the version of moment in your dependencies and allow npm to update it to any new MINOR release.</p>
+<p><strong>Note:</strong> The version numbers themselves should not be changed.</p>
+<h1 id="hints">–hints–</h1>
+<p>“dependencies” should include “moment”</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/package.json&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="kw">var</span> packJson <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(data)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      <span class="va">assert</span>.<span class="at">property</span>(</a>
+<a class="sourceLine" id="cb2-6" title="6">        <span class="va">packJson</span>.<span class="at">dependencies</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-7" title="7">        <span class="st">&#39;moment&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-8" title="8">        <span class="st">&#39;&quot;dependencies&quot; does not include &quot;moment&quot;&#39;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-10" title="10">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-11" title="11">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-12" title="12">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-13" title="13">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-14" title="14">  )<span class="op">;</span></a></code></pre></div>
+<p>“moment” version should match “^2.x.x”</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/package.json&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="kw">var</span> packJson <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(data)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb3-6" title="6">        <span class="va">packJson</span>.<span class="va">dependencies</span>.<span class="at">moment</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">        <span class="ss">/</span><span class="sc">^\^</span><span class="ss">2</span><span class="sc">\.</span><span class="ss">/</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-8" title="8">        <span class="st">&#39;Wrong version of &quot;moment&quot;. It should be ^2.10.2&#39;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-11" title="11">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-12" title="12">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-13" title="13">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-14" title="14">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">*/</span></a></code></pre></div>

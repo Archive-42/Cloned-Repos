@@ -1,0 +1,45 @@
+<h1 id="description">–description–</h1>
+<p>React also has an option to set default props. You can assign default props to a component as a property on the component itself and React assigns the default prop if necessary. This allows you to specify what a prop value should be if no value is explicitly provided. For example, if you declare <code>MyComponent.defaultProps = { location: 'San Francisco' }</code>, you have defined a location prop that’s set to the string <code>San Francisco</code>, unless you specify otherwise. React assigns default props if props are undefined, but if you pass <code>null</code> as the value for a prop, it will remain <code>null</code>.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>The code editor shows a <code>ShoppingCart</code> component. Define default props on this component which specify a prop <code>items</code> with a value of <code>0</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>ShoppingCart</code> component should render.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(ShoppingCart))<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;ShoppingCart&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>ShoppingCart</code> component should have a default prop of <code>{ items: 0 }</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(ShoppingCart))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="va">mockedComponent</span>.<span class="at">setProps</span>(<span class="op">{</span> <span class="dt">items</span><span class="op">:</span> <span class="kw">undefined</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;ShoppingCart&#39;</span>).<span class="at">props</span>().<span class="at">items</span> <span class="op">===</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-7" title="7">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;ShoppingCart /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>const ShoppingCart = (props) =&gt; {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Shopping Cart Component&lt;/h1&gt;
+    &lt;/div&gt;
+  )
+};
+// Change code below this line</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>const ShoppingCart = (props) =&gt; {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Shopping Cart Component&lt;/h1&gt;
+    &lt;/div&gt;
+  )
+};
+
+// Change code below this line
+ShoppingCart.defaultProps = {
+  items: 0
+}</code></pre>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promises</title>
+    <style>
+        select {
+            display: block;
+            font-size: 25px;
+        }
+        img {
+            display: block;
+            width: 33%;
+            float: left;
+        }
+    </style>
+</head>
+<body ng-app="PuppiesObv" ng-controller="MainCtrl">
+
+    <select
+            ng-model="chosenBreed"
+            ng-change="getBreedPhotos(chosenBreed)"
+            ng-options="breed for breed in breeds">
+    </select>
+
+    <img ng-src="{{ photo }}" ng-repeat="photo in photos" />
+
+    <h1 ng-show="error">{{ error }}</h1>
+
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>

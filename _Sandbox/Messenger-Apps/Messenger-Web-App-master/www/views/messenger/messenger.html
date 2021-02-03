@@ -1,0 +1,66 @@
+<div class="viewport">
+    <div class="flex-column fill-parent">
+
+        <!-- Header -->
+        <div class="flex-item-static flex-row viewport-header">
+            <div class="flex-item-dynamic"></div>
+            <div class="flex-item-static">
+                <span>{{app.title}}</span>
+            </div>
+            <div class="flex-item-dynamic"></div>
+        </div>
+
+        <!-- Body -->
+        <div id="viewport-body" class="flex-item-dynamic flex-column viewport-body">
+
+            <!-- Development Tutorial -->
+            <div class="flex-item-dynamic" ng-hide="user.registered"></div>
+            <div class="flex-item-static flex-row" ng-hide="user.registered">
+                <div class="flex-item-dynamic"></div>
+                <div class="flex-item-static go-to-tutorial-btn" ng-click="goTo('tutorial')">
+                    <span class="go-to-tutorial-btn-title">Development Tutorial</span>
+                    <img src="/../../images/tutorial-icon.png" alt="tutorial-icon" style="width:25%; margin-bottom: 1em;">
+                    <span class="go-to-tutorial-btn-body">Click here to learn how this app was made.</span>
+                </div>
+                <div class="flex-item-dynamic"></div>
+            </div>
+            <div class="flex-item-dynamic" ng-hide="user.registered"></div>
+
+            <!-- Messages -->
+            <div class="flex-item-static flex-row" ng-repeat="message in app.messages | orderBy:id" ng-show="user.registered">
+                <div class="flex-item-dynamic" ng-show="user.username === message.user"></div>
+                <div class="flex-item-static message" ng-class="app.messageClass(message.user)" ng-style="app.messageStyle(0, message.user, message.color)">
+                    <pre class="message-body">{{message.msg}}</pre>
+                    <span class="message-footer">{{message.user}} • {{app.getDate(message.id)}}</span>
+                    <div ng-show="user.username === message.user" style="height: 0.5em" ng-style="app.messageStyle(1, message.user, message.color)"></div>
+                </div>
+                <div class="flex-item-dynamic" ng-hide="user.username === message.user"></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div id="viewport-footer" class="flex-item-static viewport-footer">
+
+            <!-- Registration -->
+            <form class="input-group" ng-hide="user.registered" ng-submit="register()">
+                <span class="input-group-addon">Username</span>
+                <span id="username-exists-popover" data-toggle="popover" data-placement="top"
+                   data-trigger="focus" data-content="Username already exists"></span>
+                <input class="form-control" type="text" ng-model="user.username" placeholder="John Doe" maxlength="10"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Submit</button>
+                </span>
+            </form>
+
+            <!-- Messaging -->
+            <form class="input-group" ng-show="user.registered" ng-submit="send()">
+                <span class="input-group-addon">{{user.username}}</span>
+                <input class="form-control" type="text" ng-model="user.message" placeholder="Message..." autofocus/>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Send</button>
+                </span>
+            </form>
+        </div>
+
+    </div>
+</div>

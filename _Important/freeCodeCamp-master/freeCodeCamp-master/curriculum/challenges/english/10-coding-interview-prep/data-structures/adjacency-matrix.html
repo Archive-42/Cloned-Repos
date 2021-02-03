@@ -1,0 +1,56 @@
+<h1 id="description">–description–</h1>
+<p>Another way to represent a graph is to put it in an <dfn>adjacency matrix</dfn>. An <dfn>adjacency matrix</dfn> is a two-dimensional (2D) array where each nested array has the same number of elements as the outer array. In other words, it is a matrix or grid of numbers, where the numbers represent the edges.</p>
+<p><strong>Note</strong>: The numbers to the top and left of the matrix are just labels for the nodes. Inside the matrix, ones mean there exists an edge between the vertices (nodes) representing the row and column. Finally, zeros mean there is no edge or relationship.</p>
+<pre>
+    1 2 3
+  \------
+1 | 0 1 1
+2 | 1 0 0
+3 | 1 0 0
+</pre>
+<p>Above is a very simple, undirected graph where you have three nodes, where the first node is connected to the second and third node. Below is a JavaScript implementation of the same thing.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">var</span> adjMat <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb1-2" title="2">  [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  [<span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-4" title="4">  [<span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb1-5" title="5">]<span class="op">;</span></a></code></pre></div>
+<p>Unlike an adjacency list, each “row” of the matrix has to have the same number of elements as nodes in the graph. Here we have a three by three matrix, which means we have three nodes in our graph. A directed graph would look similar. Below is a graph where the first node has an edge pointing toward the second node, and then the second node has an edge pointing to the third node.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">var</span> adjMatDirected <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb2-2" title="2">  [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-3" title="3">  [<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-4" title="4">  [<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb2-5" title="5">]<span class="op">;</span></a></code></pre></div>
+<p>Graphs can also have <dfn>weights</dfn> on their edges. So far, we have <dfn>unweighted</dfn> edges where just the presence and lack of edge is binary (<code>0</code> or <code>1</code>). You can have different weights depending on your application.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Create an adjacency matrix of an undirected graph with five nodes. This matrix should be in a multi-dimensional array. These five nodes have relationships between the first and fourth node, the first and third node, the third and fifth node, and the fourth and fifth node. All edge weights are one.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>undirectedAdjList</code> should only contain five nodes.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">adjMatUndirected</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">5</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    adjMatUndirected</a>
+<a class="sourceLine" id="cb3-4" title="4">      .<span class="at">map</span>(<span class="kw">function</span> (x) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-5" title="5">        <span class="cf">return</span> <span class="va">x</span>.<span class="at">length</span> <span class="op">===</span> <span class="dv">5</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">      <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb3-7" title="7">      .<span class="at">reduce</span>(<span class="kw">function</span> (a<span class="op">,</span> b) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-8" title="8">        <span class="cf">return</span> a <span class="op">&amp;&amp;</span> b<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">      <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb3-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<p>There should be an edge between the first and fourth node.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(adjMatUndirected[<span class="dv">0</span>][<span class="dv">3</span>] <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> adjMatUndirected[<span class="dv">3</span>][<span class="dv">0</span>] <span class="op">===</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>There should be an edge between the first and third node.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(adjMatUndirected[<span class="dv">0</span>][<span class="dv">2</span>] <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> adjMatUndirected[<span class="dv">2</span>][<span class="dv">0</span>] <span class="op">===</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>There should be an edge between the third and fifth node.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(adjMatUndirected[<span class="dv">2</span>][<span class="dv">4</span>] <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> adjMatUndirected[<span class="dv">4</span>][<span class="dv">2</span>] <span class="op">===</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>There should be an edge between the fourth and fifth node.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="at">assert</span>(adjMatUndirected[<span class="dv">3</span>][<span class="dv">4</span>] <span class="op">===</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span> adjMatUndirected[<span class="dv">4</span>][<span class="dv">3</span>] <span class="op">===</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">var</span> adjMatUndirected <span class="op">=</span> []<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">var</span> adjMatUndirected <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb9-2" title="2">  [<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb9-3" title="3">  [<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb9-4" title="4">  [<span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb9-5" title="5">  [<span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb9-6" title="6">  [<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb9-7" title="7">]<span class="op">;</span></a></code></pre></div>

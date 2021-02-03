@@ -1,0 +1,23 @@
+<head>
+  <title>image-uploads</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+
+<body>
+  {{> example}}
+</body>
+
+<template name="example">
+	<input type="file" id="imgupload" />
+	<a id="imgupload-button" class="btn btn-success"><i class="fa fa-camera fa-3x"></i></a>
+	<b class="intro">Upload Photos Effortlessly</b>
+	<div id="upload-progress-container">
+		<div id="upload-progress-bar">
+			<div id="upload-progress-percent"><b>0</b>%</div>
+		</div>
+	</div>
+
+	<div id="thumbnails">
+	</div>
+</template>

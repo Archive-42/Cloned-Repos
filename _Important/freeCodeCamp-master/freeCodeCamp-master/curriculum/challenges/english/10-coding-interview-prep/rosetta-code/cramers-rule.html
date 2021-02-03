@@ -1,0 +1,122 @@
+<h1 id="description">–description–</h1>
+<p>In <a href="https://en.wikipedia.org/wiki/linear%20algebra" title="wp: linear algebra">linear algebra</a>, <a href="https://en.wikipedia.org/wiki/Cramer&#39;s%20rule" title="wp: Cramer&#39;s rule">Cramer’s rule</a> is an explicit formula for the solution of a <a href="https://en.wikipedia.org/wiki/system%20of%20linear%20equations" title="wp: system of linear equations">system of linear equations</a> with as many equations as unknowns, valid whenever the system has a unique solution. It expresses the solution in terms of the determinants of the (square) coefficient matrix and of matrices obtained from it by replacing one column by the vector of right hand sides of the equations.</p>
+<p>Given</p>
+<p><span class="math inline">$\\left\\{\\begin{matrix}a_1x + b_1y + c_1z&amp;= {\\color{red}d_1}\\\\a_2x + b_2y + c_2z&amp;= {\\color{red}d_2}\\\\a_3x + b_3y + c_3z&amp;= {\\color{red}d_3}\\end{matrix}\\right.$</span></p>
+<p>which in matrix format is</p>
+<p><span class="math inline">$\\begin{bmatrix} a_1 &amp; b_1 &amp; c_1 \\\\ a_2 &amp; b_2 &amp; c_2 \\\\ a_3 &amp; b_3 &amp; c_3 \\end{bmatrix}\\begin{bmatrix} x \\\\ y \\\\ z \\end{bmatrix}=\\begin{bmatrix} {\\color{red}d_1} \\\\ {\\color{red}d_2} \\\\ {\\color{red}d_3} \\end{bmatrix}.$</span></p>
+<p>Then the values of <span class="math inline"><em>x</em>, <em>y</em></span> and <span class="math inline"><em>z</em></span> can be found as follows:</p>
+<p><span class="math inline">$x = \\frac{\\begin{vmatrix} {\\color{red}d_1} &amp; b_1 &amp; c_1 \\\\ {\\color{red}d_2} &amp; b_2 &amp; c_2 \\\\ {\\color{red}d_3} &amp; b_3 &amp; c_3 \\end{vmatrix} } { \\begin{vmatrix} a_1 &amp; b_1 &amp; c_1 \\\\ a_2 &amp; b_2 &amp; c_2 \\\\ a_3 &amp; b_3 &amp; c_3 \\end{vmatrix}}, \\quad y = \\frac {\\begin{vmatrix} a_1 &amp; {\\color{red}d_1} &amp; c_1 \\\\ a_2 &amp; {\\color{red}d_2} &amp; c_2 \\\\ a_3 &amp; {\\color{red}d_3} &amp; c_3 \\end{vmatrix}} {\\begin{vmatrix} a_1 &amp; b_1 &amp; c_1 \\\\ a_2 &amp; b_2 &amp; c_2 \\\\ a_3 &amp; b_3 &amp; c_3 \\end{vmatrix}}, \\text{ and }z = \\frac { \\begin{vmatrix} a_1 &amp; b_1 &amp; {\\color{red}d_1} \\\\ a_2 &amp; b_2 &amp; {\\color{red}d_2} \\\\ a_3 &amp; b_3 &amp; {\\color{red}d_3} \\end{vmatrix}} {\\begin{vmatrix} a_1 &amp; b_1 &amp; c_1 \\\\ a_2 &amp; b_2 &amp; c_2 \\\\ a_3 &amp; b_3 &amp; c_3 \\end{vmatrix} }.$</span></p>
+<h1 id="instructions">–instructions–</h1>
+<p>Given the following system of equations:</p>
+<p><span class="math inline">$\\begin{cases} 2w-x+5y+z=-3 \\\\ 3w+2x+2y-6z=-32 \\\\ w+3x+3y-z=-47 \\\\ 5w-2x-3y+3z=49 \\\\ \\end{cases}$</span></p>
+<p>solve for <span class="math inline"><em>w</em></span>, <span class="math inline"><em>x</em></span>, <span class="math inline"><em>y</em></span> and <span class="math inline"><em>z</em></span>, using Cramer’s rule.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>cramersRule</code> should be a function.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> cramersRule <span class="op">===</span> <span class="st">&#39;function&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>cramersRule([[2, -1, 5, 1], [3, 2, 2, -6], [1, 3, 3, -1], [5, -2, -3, 3]], [-3, -32, -47, 49])</code> should return <code>[2, -12, -4, 1]</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(<span class="at">cramersRule</span>(matrices[<span class="dv">0</span>]<span class="op">,</span> freeTerms[<span class="dv">0</span>])<span class="op">,</span> answers[<span class="dv">0</span>])<span class="op">;</span></a></code></pre></div>
+<p><code>cramersRule([[3, 1, 1], [2, 2, 5], [1, -3, -4]], [3, -1, 2])</code> should return <code>[1, 1, -1]</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">deepEqual</span>(<span class="at">cramersRule</span>(matrices[<span class="dv">1</span>]<span class="op">,</span> freeTerms[<span class="dv">1</span>])<span class="op">,</span> answers[<span class="dv">1</span>])<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">const</span> matrices <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb4-2" title="2">  [</a>
+<a class="sourceLine" id="cb4-3" title="3">    [<span class="dv">2</span><span class="op">,</span> <span class="dv">-1</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    [<span class="dv">3</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">-6</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    [<span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">-1</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    [<span class="dv">5</span><span class="op">,</span> <span class="dv">-2</span><span class="op">,</span> <span class="dv">-3</span><span class="op">,</span> <span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb4-7" title="7">  ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-8" title="8">  [</a>
+<a class="sourceLine" id="cb4-9" title="9">    [<span class="dv">3</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-10" title="10">    [<span class="dv">2</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-11" title="11">    [<span class="dv">1</span><span class="op">,</span> <span class="dv">-3</span><span class="op">,</span> <span class="dv">-4</span>]</a>
+<a class="sourceLine" id="cb4-12" title="12">  ]</a>
+<a class="sourceLine" id="cb4-13" title="13">]<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="kw">const</span> freeTerms <span class="op">=</span> [[<span class="op">-</span><span class="dv">3</span><span class="op">,</span> <span class="dv">-32</span><span class="op">,</span> <span class="dv">-47</span><span class="op">,</span> <span class="dv">49</span>]<span class="op">,</span> [<span class="dv">3</span><span class="op">,</span> <span class="dv">-1</span><span class="op">,</span> <span class="dv">2</span>]]<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-15" title="15"></a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="kw">const</span> answers <span class="op">=</span> [[<span class="dv">2</span><span class="op">,</span> <span class="dv">-12</span><span class="op">,</span> <span class="dv">-4</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">-1</span>]]<span class="op">;</span></a></code></pre></div>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">function</span> <span class="at">cramersRule</span>(matrix<span class="op">,</span> freeTerms) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-2" title="2"></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="op">}</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="co"> * Compute Cramer&#39;s Rule</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="co"> * </span><span class="an">@param</span><span class="co">  </span><span class="cv">{array}</span><span class="co"> matrix    x,y,z, etc. terms</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="co"> * </span><span class="an">@param</span><span class="co">  </span><span class="cv">{array}</span><span class="co"> freeTerms</span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="co"> * </span><span class="an">@return</span><span class="co"> {array}           solution for x,y,z, etc.</span></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="co"> */</span></a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="kw">function</span> <span class="at">cramersRule</span>(matrix<span class="op">,</span> freeTerms) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-8" title="8">  <span class="kw">const</span> det <span class="op">=</span> <span class="at">detr</span>(matrix)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">  <span class="kw">const</span> returnArray <span class="op">=</span> []<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">  <span class="kw">let</span> i<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-11" title="11"></a>
+<a class="sourceLine" id="cb6-12" title="12">  <span class="cf">for</span> (i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> matrix[<span class="dv">0</span>].<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-13" title="13">    <span class="kw">const</span> tmpMatrix <span class="op">=</span> <span class="at">insertInTerms</span>(matrix<span class="op">,</span> freeTerms<span class="op">,</span> i)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-14" title="14">    <span class="va">returnArray</span>.<span class="at">push</span>(<span class="at">detr</span>(tmpMatrix) / det)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-15" title="15">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-16" title="16">  <span class="cf">return</span> returnArray<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-17" title="17"><span class="op">}</span></a>
+<a class="sourceLine" id="cb6-18" title="18"></a>
+<a class="sourceLine" id="cb6-19" title="19"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb6-20" title="20"><span class="co"> * Inserts single dimensional array into</span></a>
+<a class="sourceLine" id="cb6-21" title="21"><span class="co"> * </span><span class="an">@param</span><span class="co">  </span><span class="cv">{array}</span><span class="co"> matrix multidimensional array to have ins inserted into</span></a>
+<a class="sourceLine" id="cb6-22" title="22"><span class="co"> * </span><span class="an">@param</span><span class="co">  </span><span class="cv">{array}</span><span class="co"> ins single dimensional array to be inserted vertically into matrix</span></a>
+<a class="sourceLine" id="cb6-23" title="23"><span class="co"> * </span><span class="an">@param</span><span class="co">  </span><span class="cv">{array}</span><span class="co"> at  zero based offset for ins to be inserted into matrix</span></a>
+<a class="sourceLine" id="cb6-24" title="24"><span class="co"> * </span><span class="an">@return</span><span class="co"> {array}     New multidimensional array with ins replacing the at column in matrix</span></a>
+<a class="sourceLine" id="cb6-25" title="25"><span class="co"> */</span></a>
+<a class="sourceLine" id="cb6-26" title="26"><span class="kw">function</span> <span class="at">insertInTerms</span>(matrix<span class="op">,</span> ins<span class="op">,</span> at) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-27" title="27">  <span class="kw">const</span> tmpMatrix <span class="op">=</span> <span class="at">clone</span>(matrix)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-28" title="28">  <span class="kw">let</span> i<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-29" title="29">  <span class="cf">for</span> (i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">matrix</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-30" title="30">    tmpMatrix[i][at] <span class="op">=</span> ins[i]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-31" title="31">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-32" title="32">  <span class="cf">return</span> tmpMatrix<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-33" title="33"><span class="op">}</span></a>
+<a class="sourceLine" id="cb6-34" title="34"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb6-35" title="35"><span class="co"> * Compute the determinate of a matrix.  No protection, assumes square matrix</span></a>
+<a class="sourceLine" id="cb6-36" title="36"><span class="co"> * function borrowed, and adapted from MIT Licensed numericjs library (www.numericjs.com)</span></a>
+<a class="sourceLine" id="cb6-37" title="37"><span class="co"> * </span><span class="an">@param</span><span class="co">  </span><span class="cv">{array}</span><span class="co"> m Input Matrix (multidimensional array)</span></a>
+<a class="sourceLine" id="cb6-38" title="38"><span class="co"> * </span><span class="an">@return</span><span class="co"> {number}   result rounded to 2 decimal</span></a>
+<a class="sourceLine" id="cb6-39" title="39"><span class="co"> */</span></a>
+<a class="sourceLine" id="cb6-40" title="40"><span class="kw">function</span> <span class="at">detr</span>(m) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-41" title="41">  <span class="kw">let</span> ret <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-42" title="42">  <span class="kw">let</span> j<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-43" title="43">  <span class="kw">let</span> k<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-44" title="44">  <span class="kw">const</span> A <span class="op">=</span> <span class="at">clone</span>(m)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-45" title="45">  <span class="kw">const</span> n <span class="op">=</span> m[<span class="dv">0</span>].<span class="at">length</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-46" title="46">  <span class="kw">let</span> alpha<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-47" title="47"></a>
+<a class="sourceLine" id="cb6-48" title="48">  <span class="cf">for</span> (j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> n <span class="op">-</span> <span class="dv">1</span><span class="op">;</span> j<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-49" title="49">    k <span class="op">=</span> j<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-50" title="50">    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> j <span class="op">+</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span> <span class="cf">if</span> (<span class="va">Math</span>.<span class="at">abs</span>(A[i][j]) <span class="op">&gt;</span> <span class="va">Math</span>.<span class="at">abs</span>(A[k][j])) <span class="op">{</span> k <span class="op">=</span> i<span class="op">;</span> <span class="op">}</span> <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-51" title="51">    <span class="cf">if</span> (k <span class="op">!==</span> j) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-52" title="52">      <span class="kw">const</span> temp <span class="op">=</span> A[k]<span class="op">;</span> A[k] <span class="op">=</span> A[j]<span class="op">;</span> A[j] <span class="op">=</span> temp<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-53" title="53">      ret <span class="op">*=</span> <span class="dv">-1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-54" title="54">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-55" title="55">    <span class="kw">const</span> Aj <span class="op">=</span> A[j]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-56" title="56">    <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> j <span class="op">+</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-57" title="57">      <span class="kw">const</span> Ai <span class="op">=</span> A[i]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-58" title="58">      alpha <span class="op">=</span> Ai[j] / Aj[j]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-59" title="59">      <span class="cf">for</span> (k <span class="op">=</span> j <span class="op">+</span> <span class="dv">1</span><span class="op">;</span> k <span class="op">&lt;</span> n <span class="op">-</span> <span class="dv">1</span><span class="op">;</span> k <span class="op">+=</span> <span class="dv">2</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-60" title="60">        <span class="kw">const</span> k1 <span class="op">=</span> k <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-61" title="61">        Ai[k] <span class="op">-=</span> Aj[k] <span class="op">*</span> alpha<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-62" title="62">        Ai[k1] <span class="op">-=</span> Aj[k1] <span class="op">*</span> alpha<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-63" title="63">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-64" title="64">      <span class="cf">if</span> (k <span class="op">!==</span> n) <span class="op">{</span> Ai[k] <span class="op">-=</span> Aj[k] <span class="op">*</span> alpha<span class="op">;</span> <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-65" title="65">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-66" title="66">    <span class="cf">if</span> (Aj[j] <span class="op">===</span> <span class="dv">0</span>) <span class="op">{</span> <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span> <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-67" title="67">    ret <span class="op">*=</span> Aj[j]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-68" title="68">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-69" title="69">  <span class="cf">return</span> <span class="va">Math</span>.<span class="at">round</span>(ret <span class="op">*</span> A[j][j] <span class="op">*</span> <span class="dv">100</span>) / <span class="dv">100</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-70" title="70"><span class="op">}</span></a>
+<a class="sourceLine" id="cb6-71" title="71"></a>
+<a class="sourceLine" id="cb6-72" title="72"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb6-73" title="73"><span class="co"> * Clone two dimensional Array using ECMAScript 5 map function and EcmaScript 3 slice</span></a>
+<a class="sourceLine" id="cb6-74" title="74"><span class="co"> * </span><span class="an">@param</span><span class="co">  </span><span class="cv">{array}</span><span class="co"> m Input matrix (multidimensional array) to clone</span></a>
+<a class="sourceLine" id="cb6-75" title="75"><span class="co"> * </span><span class="an">@return</span><span class="co"> {array}   New matrix copy</span></a>
+<a class="sourceLine" id="cb6-76" title="76"><span class="co"> */</span></a>
+<a class="sourceLine" id="cb6-77" title="77"><span class="kw">function</span> <span class="at">clone</span>(m) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-78" title="78">  <span class="cf">return</span> <span class="va">m</span>.<span class="at">map</span>(a <span class="kw">=&gt;</span> <span class="va">a</span>.<span class="at">slice</span>())<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-79" title="79"><span class="op">}</span></a></code></pre></div>

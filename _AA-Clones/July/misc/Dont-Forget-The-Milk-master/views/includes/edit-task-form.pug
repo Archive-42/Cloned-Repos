@@ -1,0 +1,32 @@
+div(class="edit-task-form-holder")
+  div(class="edit-task-form-content")
+    span(class="close-edit-task-form") Close
+    div(class="clear")
+    h3 Edit task
+    form(class="" id="edit-task-form")
+      div
+        label(for='taskName') Task
+        input(class="taskNameField" type='text' name='taskName' placeholder='')
+      <br>
+      div
+        label(for='dueDate') Due Date
+        input(class="dueDateField" type='text', name="dueDate", placeholder='')
+      <br>
+      div
+        label(for='status') Completion Status
+        select(class="status"  name="status", placeholder='')
+          option(value="false") Incomplete
+          option(value="true") Complete
+      <br>
+      div
+        label(for='description') Description
+        textarea(class="descriptionField" name="description", placeholder='')
+      <br>
+      button(class="gen-button ") Update
+script(type="text/javascript").
+  const editTaskForm = document.querySelector(".edit-task-form-holder")
+  const closeButton = document.querySelector(".close-edit-task-form");
+
+    closeButton.onclick = function() {
+      editTaskForm.style.display = "none";
+    }

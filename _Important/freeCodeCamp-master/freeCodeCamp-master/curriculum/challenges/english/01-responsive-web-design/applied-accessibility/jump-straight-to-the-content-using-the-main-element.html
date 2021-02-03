@@ -1,0 +1,29 @@
+<h1 id="description">–description–</h1>
+<p>HTML5 introduced a number of new elements that give developers more options while also incorporating accessibility features. These tags include <code>main</code>, <code>header</code>, <code>footer</code>, <code>nav</code>, <code>article</code>, and <code>section</code>, among others.</p>
+<p>By default, a browser renders these elements similarly to the humble <code>div</code>. However, using them where appropriate gives additional meaning in your markup. The tag name alone can indicate the type of information it contains, which adds semantic meaning to that content. Assistive technologies can access this information to provide better page summary or navigation options to their users.</p>
+<p>The <code>main</code> element is used to wrap (you guessed it) the main content, and there should be only one per page. It’s meant to surround the information that’s related to the central topic of your page. It’s not meant to include items that repeat across pages, like navigation links or banners.</p>
+<p>The <code>main</code> tag also has an embedded landmark feature that assistive technology can use to quickly navigate to the main content. If you’ve ever seen a “Jump to Main Content” link at the top of a page, using a main tag automatically gives assistive devices that functionality.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Camper Cat has some big ideas for his ninja weapons page. Help him set up his markup by adding opening and closing <code>main</code> tags between the <code>header</code> and <code>footer</code> (covered in other challenges). Keep the <code>main</code> tags empty for now.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should have one <code>main</code> tag.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;main&#39;</span>).<span class="at">length</span> <span class="op">==</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>main</code> tags should be between the closing <code>header</code> tag and the opening <code>footer</code> tag.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">header&gt;</span><span class="sc">\s*?</span><span class="ss">&lt;main&gt;</span><span class="sc">\s*?</span><span class="ss">&lt;</span><span class="sc">\/</span><span class="ss">main&gt;/gi</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;header&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="kw">&lt;h1&gt;</span>Weapons of the Ninja<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw">&lt;/header&gt;</span></a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5"></a>
+<a class="sourceLine" id="cb3-6" title="6"></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="kw">&lt;footer&gt;&lt;/footer&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;header&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">&lt;h1&gt;</span>Weapons of the Ninja<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="kw">&lt;/header&gt;</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb4-5" title="5"></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="kw">&lt;/main&gt;</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="kw">&lt;footer&gt;&lt;/footer&gt;</span></a></code></pre></div>

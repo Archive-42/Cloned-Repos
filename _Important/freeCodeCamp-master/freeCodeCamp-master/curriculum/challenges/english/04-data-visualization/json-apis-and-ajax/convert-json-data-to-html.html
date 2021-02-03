@@ -1,0 +1,154 @@
+<h1 id="description">–description–</h1>
+<p>Now that you’re getting data from a JSON API, you can display it in the HTML.</p>
+<p>You can use a <code>forEach</code> method to loop through the data since the cat photo objects are held in an array. As you get to each item, you can modify the HTML elements.</p>
+<p>First, declare an html variable with <code>let html = "";</code>.</p>
+<p>Then, loop through the JSON, adding HTML to the variable that wraps the key names in <code>strong</code> tags, followed by the value. When the loop is finished, you render it.</p>
+<p>Here’s the code that does this:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">let</span> html <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="va">json</span>.<span class="at">forEach</span>(<span class="kw">function</span>(val) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="kw">const</span> keys <span class="op">=</span> <span class="va">Object</span>.<span class="at">keys</span>(val)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">  html <span class="op">+=</span> <span class="st">&quot;&lt;div class = &#39;cat&#39;&gt;&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="va">keys</span>.<span class="at">forEach</span>(<span class="kw">function</span>(key) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-6" title="6">    html <span class="op">+=</span> <span class="st">&quot;&lt;strong&gt;&quot;</span> <span class="op">+</span> key <span class="op">+</span> <span class="st">&quot;&lt;/strong&gt;: &quot;</span> <span class="op">+</span> val[key] <span class="op">+</span> <span class="st">&quot;&lt;br&gt;&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-7" title="7">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">  html <span class="op">+=</span> <span class="st">&quot;&lt;/div&gt;&lt;br&gt;&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
+<p><strong>Note:</strong> For this challenge, you need to add new HTML elements to the page, so you cannot rely on <code>textContent</code>. Instead, you need to use <code>innerHTML</code>, which can make a site vulnerable to Cross-site scripting attacks.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Add a <code>forEach</code> method to loop over the JSON data and create the HTML elements to display it.</p>
+<p>Here is some example JSON</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb2-1" title="1"><span class="ot">[</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="fu">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="dt">&quot;id&quot;</span><span class="fu">:</span><span class="dv">0</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="dt">&quot;imageLink&quot;</span><span class="fu">:</span><span class="st">&quot;https://s3.amazonaws.com/freecodecamp/funny-cat.jpg&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      <span class="dt">&quot;altText&quot;</span><span class="fu">:</span><span class="st">&quot;A white cat wearing a green helmet shaped melon on its head. &quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb2-6" title="6">      <span class="dt">&quot;codeNames&quot;</span><span class="fu">:</span><span class="ot">[</span> <span class="st">&quot;Juggernaut&quot;</span><span class="ot">,</span> <span class="st">&quot;Mrs. Wallace&quot;</span><span class="ot">,</span> <span class="st">&quot;Buttercup&quot;</span></a>
+<a class="sourceLine" id="cb2-7" title="7">    <span class="ot">]</span></a>
+<a class="sourceLine" id="cb2-8" title="8">  <span class="fu">}</span></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="ot">]</span></a></code></pre></div>
+<h1 id="hints">–hints–</h1>
+<p>Your code should store the data in the <code>html</code> variable</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/html</span><span class="sc">\s+?(\+</span><span class="ss">=</span><span class="sc">|</span><span class="ss">=</span><span class="sc">\s</span><span class="ss">html</span><span class="sc">\s\+)</span><span class="ss">/g</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your code should use a <code>forEach</code> method to loop over the JSON data from the API.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/json</span><span class="sc">\.</span><span class="ss">forEach/g</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your code should wrap the key names in <code>strong</code> tags.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;strong&gt;.</span><span class="sc">+</span><span class="ss">&lt;</span><span class="sc">\/</span><span class="ss">strong&gt;/g</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;script&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="va">document</span>.<span class="at">addEventListener</span>(<span class="st">&#39;DOMContentLoaded&#39;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&#39;getMessage&#39;</span>).<span class="at">onclick</span> <span class="op">=</span> <span class="kw">function</span>()<span class="op">{</span></a>
+<a class="sourceLine" id="cb6-4" title="4">      <span class="kw">const</span> req <span class="op">=</span> <span class="kw">new</span> <span class="at">XMLHttpRequest</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">      <span class="va">req</span>.<span class="at">open</span>(<span class="st">&quot;GET&quot;</span><span class="op">,</span><span class="st">&#39;/json/cats.json&#39;</span><span class="op">,</span><span class="kw">true</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">      <span class="va">req</span>.<span class="at">send</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-7" title="7">      <span class="va">req</span>.<span class="at">onload</span> <span class="op">=</span> <span class="kw">function</span>()<span class="op">{</span></a>
+<a class="sourceLine" id="cb6-8" title="8">        <span class="kw">const</span> json <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(<span class="va">req</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">        <span class="kw">let</span> html <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">        <span class="co">// Add your code below this line</span></a>
+<a class="sourceLine" id="cb6-11" title="11"></a>
+<a class="sourceLine" id="cb6-12" title="12"></a>
+<a class="sourceLine" id="cb6-13" title="13">        <span class="co">// Add your code above this line</span></a>
+<a class="sourceLine" id="cb6-14" title="14">        <span class="va">document</span>.<span class="at">getElementsByClassName</span>(<span class="st">&#39;message&#39;</span>)[<span class="dv">0</span>].<span class="at">innerHTML</span> <span class="op">=</span> html<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-15" title="15">      <span class="op">};</span></a>
+<a class="sourceLine" id="cb6-16" title="16">    <span class="op">};</span></a>
+<a class="sourceLine" id="cb6-17" title="17">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-18" title="18"><span class="kw">&lt;/script&gt;</span></a>
+<a class="sourceLine" id="cb6-19" title="19"></a>
+<a class="sourceLine" id="cb6-20" title="20"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb6-21" title="21">  body {</a>
+<a class="sourceLine" id="cb6-22" title="22">    <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-23" title="23">    <span class="kw">font-family</span>: <span class="st">&quot;Helvetica&quot;</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-24" title="24">  }</a>
+<a class="sourceLine" id="cb6-25" title="25">  h1 {</a>
+<a class="sourceLine" id="cb6-26" title="26">    <span class="kw">font-size</span>: <span class="dv">2</span><span class="dt">em</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-27" title="27">    <span class="kw">font-weight</span>: <span class="dv">bold</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-28" title="28">  }</a>
+<a class="sourceLine" id="cb6-29" title="29">  <span class="fu">.box</span> {</a>
+<a class="sourceLine" id="cb6-30" title="30">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-31" title="31">    <span class="kw">background-color</span>: <span class="cn">#eee</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-32" title="32">    <span class="kw">padding</span>: <span class="dv">20</span><span class="dt">px</span> <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-33" title="33">  }</a>
+<a class="sourceLine" id="cb6-34" title="34">  button {</a>
+<a class="sourceLine" id="cb6-35" title="35">    <span class="kw">color</span>: <span class="cn">white</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-36" title="36">    <span class="kw">background-color</span>: <span class="cn">#4791d0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-37" title="37">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-38" title="38">    <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#4791d0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-39" title="39">    <span class="kw">padding</span>: <span class="dv">5</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-40" title="40">  }</a>
+<a class="sourceLine" id="cb6-41" title="41">  button<span class="in">:hover</span> {</a>
+<a class="sourceLine" id="cb6-42" title="42">    <span class="kw">background-color</span>: <span class="cn">#0F5897</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-43" title="43">    <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#0F5897</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-44" title="44">  }</a>
+<a class="sourceLine" id="cb6-45" title="45"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb6-46" title="46"></a>
+<a class="sourceLine" id="cb6-47" title="47"><span class="kw">&lt;h1&gt;</span>Cat Photo Finder<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb6-48" title="48"><span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&quot;message box&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-49" title="49">  The message will go here</a>
+<a class="sourceLine" id="cb6-50" title="50"><span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb6-51" title="51"><span class="kw">&lt;p&gt;</span></a>
+<a class="sourceLine" id="cb6-52" title="52">  <span class="kw">&lt;button</span><span class="ot"> id=</span><span class="st">&quot;getMessage&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-53" title="53">    Get Message</a>
+<a class="sourceLine" id="cb6-54" title="54">  <span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb6-55" title="55"><span class="kw">&lt;/p&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">&lt;script&gt;</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="va">document</span>.<span class="at">addEventListener</span>(<span class="st">&#39;DOMContentLoaded&#39;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span></a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&#39;getMessage&#39;</span>).<span class="at">onclick</span> <span class="op">=</span> <span class="kw">function</span>()<span class="op">{</span></a>
+<a class="sourceLine" id="cb7-4" title="4">      <span class="kw">const</span> req <span class="op">=</span> <span class="kw">new</span> <span class="at">XMLHttpRequest</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-5" title="5">      <span class="va">req</span>.<span class="at">open</span>(<span class="st">&quot;GET&quot;</span><span class="op">,</span><span class="st">&#39;/json/cats.json&#39;</span><span class="op">,</span><span class="kw">true</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">      <span class="va">req</span>.<span class="at">send</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-7" title="7">      <span class="va">req</span>.<span class="at">onload</span> <span class="op">=</span> <span class="kw">function</span>()<span class="op">{</span></a>
+<a class="sourceLine" id="cb7-8" title="8">        <span class="kw">const</span> json <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(<span class="va">req</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-9" title="9">        <span class="kw">let</span> html <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-10" title="10">        <span class="co">// Add your code below this line</span></a>
+<a class="sourceLine" id="cb7-11" title="11">        <span class="va">json</span>.<span class="at">forEach</span>(<span class="kw">function</span>(val) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-12" title="12">          <span class="kw">var</span> keys <span class="op">=</span> <span class="va">Object</span>.<span class="at">keys</span>(val)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-13" title="13">          html <span class="op">+=</span> <span class="st">&quot;&lt;div class = &#39;cat&#39;&gt;&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-14" title="14">          <span class="va">keys</span>.<span class="at">forEach</span>(<span class="kw">function</span>(key) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-15" title="15">          html <span class="op">+=</span> <span class="st">&quot;&lt;strong&gt;&quot;</span> <span class="op">+</span> key <span class="op">+</span> <span class="st">&quot;&lt;/strong&gt;: &quot;</span> <span class="op">+</span> val[key] <span class="op">+</span> <span class="st">&quot;&lt;br&gt;&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-16" title="16">        <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-17" title="17">        html <span class="op">+=</span> <span class="st">&quot;&lt;/div&gt;&lt;br&gt;&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-18" title="18">        <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-19" title="19">        <span class="co">// Add your code above this line</span></a>
+<a class="sourceLine" id="cb7-20" title="20">        <span class="va">document</span>.<span class="at">getElementsByClassName</span>(<span class="st">&#39;message&#39;</span>)[<span class="dv">0</span>].<span class="at">innerHTML</span> <span class="op">=</span> html<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-21" title="21">      <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-22" title="22">    <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-23" title="23">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-24" title="24"><span class="kw">&lt;/script&gt;</span></a>
+<a class="sourceLine" id="cb7-25" title="25"></a>
+<a class="sourceLine" id="cb7-26" title="26"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb7-27" title="27">  body {</a>
+<a class="sourceLine" id="cb7-28" title="28">    <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-29" title="29">    <span class="kw">font-family</span>: <span class="st">&quot;Helvetica&quot;</span><span class="op">,</span> <span class="dv">sans-serif</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-30" title="30">  }</a>
+<a class="sourceLine" id="cb7-31" title="31">  h1 {</a>
+<a class="sourceLine" id="cb7-32" title="32">    <span class="kw">font-size</span>: <span class="dv">2</span><span class="dt">em</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-33" title="33">    <span class="kw">font-weight</span>: <span class="dv">bold</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-34" title="34">  }</a>
+<a class="sourceLine" id="cb7-35" title="35">  <span class="fu">.box</span> {</a>
+<a class="sourceLine" id="cb7-36" title="36">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-37" title="37">    <span class="kw">background-color</span>: <span class="cn">#eee</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-38" title="38">    <span class="kw">padding</span>: <span class="dv">20</span><span class="dt">px</span> <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-39" title="39">  }</a>
+<a class="sourceLine" id="cb7-40" title="40">  button {</a>
+<a class="sourceLine" id="cb7-41" title="41">    <span class="kw">color</span>: <span class="cn">white</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-42" title="42">    <span class="kw">background-color</span>: <span class="cn">#4791d0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-43" title="43">    <span class="kw">border-radius</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-44" title="44">    <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#4791d0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-45" title="45">    <span class="kw">padding</span>: <span class="dv">5</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span> <span class="dv">8</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-46" title="46">  }</a>
+<a class="sourceLine" id="cb7-47" title="47">  button<span class="in">:hover</span> {</a>
+<a class="sourceLine" id="cb7-48" title="48">    <span class="kw">background-color</span>: <span class="cn">#0F5897</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-49" title="49">    <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#0F5897</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-50" title="50">  }</a>
+<a class="sourceLine" id="cb7-51" title="51"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb7-52" title="52"></a>
+<a class="sourceLine" id="cb7-53" title="53"><span class="kw">&lt;h1&gt;</span>Cat Photo Finder<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb7-54" title="54"><span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&quot;message&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb7-55" title="55">  The message will go here</a>
+<a class="sourceLine" id="cb7-56" title="56"><span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb7-57" title="57"><span class="kw">&lt;p&gt;</span></a>
+<a class="sourceLine" id="cb7-58" title="58">  <span class="kw">&lt;button</span><span class="ot"> id=</span><span class="st">&quot;getMessage&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb7-59" title="59">    Get Message</a>
+<a class="sourceLine" id="cb7-60" title="60">  <span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb7-61" title="61"><span class="kw">&lt;/p&gt;</span></a></code></pre></div>

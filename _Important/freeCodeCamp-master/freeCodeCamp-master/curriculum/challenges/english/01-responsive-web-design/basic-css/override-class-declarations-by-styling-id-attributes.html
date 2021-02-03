@@ -1,0 +1,62 @@
+<h1 id="description">–description–</h1>
+<p>We just proved that browsers read CSS from top to bottom in order of their declaration. That means that, in the event of a conflict, the browser will use whichever CSS declaration came last. Notice that if we even had put <code>blue-text</code> before <code>pink-text</code> in our <code>h1</code> element’s classes, it would still look at the declaration order and not the order of their use!</p>
+<p>But we’re not done yet. There are other ways that you can override CSS. Do you remember id attributes?</p>
+<p>Let’s override your <code>pink-text</code> and <code>blue-text</code> classes, and make your <code>h1</code> element orange, by giving the <code>h1</code> element an id and then styling that id.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Give your <code>h1</code> element the <code>id</code> attribute of <code>orange-text</code>. Remember, id styles look like this:</p>
+<p><code>&lt;h1 id="orange-text"&gt;</code></p>
+<p>Leave the <code>blue-text</code> and <code>pink-text</code> classes on your <code>h1</code> element.</p>
+<p>Create a CSS declaration for your <code>orange-text</code> id in your <code>style</code> element. Here’s an example of what this looks like:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode css"><code class="sourceCode css"><a class="sourceLine" id="cb1-1" title="1"><span class="pp">#brown-text</span> {</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="kw">color</span>: <span class="cn">brown</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">}</a></code></pre></div>
+<p><strong>Note:</strong> It doesn’t matter whether you declare this CSS above or below pink-text class, since id attribute will always take precedence.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>h1</code> element should have the class <code>pink-text</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h1&#39;</span>).<span class="at">hasClass</span>(<span class="st">&#39;pink-text&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h1</code> element should have the class <code>blue-text</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h1&#39;</span>).<span class="at">hasClass</span>(<span class="st">&#39;blue-text&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h1</code> element should have the id of <code>orange-text</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h1&#39;</span>).<span class="at">attr</span>(<span class="st">&#39;id&#39;</span>) <span class="op">===</span> <span class="st">&#39;orange-text&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>There should be only one <code>h1</code> element.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h1&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>orange-text</code> id should have a CSS declaration.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/#orange-text</span><span class="sc">\s*</span><span class="ss">{/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h1</code> should not have any <code>style</code> attributes.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="at">assert</span>(<span class="op">!</span><span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;h1.</span><span class="sc">*</span><span class="ss">style.</span><span class="sc">*</span><span class="ss">&gt;/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h1</code> element should be orange.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;h1&#39;</span>).<span class="at">css</span>(<span class="st">&#39;color&#39;</span>) <span class="op">===</span> <span class="st">&#39;rgb(255, 165, 0)&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb9-2" title="2">  body {</a>
+<a class="sourceLine" id="cb9-3" title="3">    <span class="kw">background-color</span>: <span class="cn">black</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-4" title="4">    <span class="kw">font-family</span>: <span class="dv">monospace</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-5" title="5">    <span class="kw">color</span>: <span class="cn">green</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-6" title="6">  }</a>
+<a class="sourceLine" id="cb9-7" title="7">  <span class="fu">.pink-text</span> {</a>
+<a class="sourceLine" id="cb9-8" title="8">    <span class="kw">color</span>: <span class="cn">pink</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-9" title="9">  }</a>
+<a class="sourceLine" id="cb9-10" title="10">  <span class="fu">.blue-text</span> {</a>
+<a class="sourceLine" id="cb9-11" title="11">    <span class="kw">color</span>: <span class="cn">blue</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-12" title="12">  }</a>
+<a class="sourceLine" id="cb9-13" title="13"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb9-14" title="14"><span class="kw">&lt;h1</span><span class="ot"> class=</span><span class="st">&quot;pink-text blue-text&quot;</span><span class="kw">&gt;</span>Hello World!<span class="kw">&lt;/h1&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb10"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb10-2" title="2">  body {</a>
+<a class="sourceLine" id="cb10-3" title="3">    <span class="kw">background-color</span>: <span class="cn">black</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-4" title="4">    <span class="kw">font-family</span>: <span class="dv">monospace</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-5" title="5">    <span class="kw">color</span>: <span class="cn">green</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-6" title="6">  }</a>
+<a class="sourceLine" id="cb10-7" title="7">  <span class="fu">.pink-text</span> {</a>
+<a class="sourceLine" id="cb10-8" title="8">    <span class="kw">color</span>: <span class="cn">pink</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-9" title="9">  }</a>
+<a class="sourceLine" id="cb10-10" title="10">  <span class="fu">.blue-text</span> {</a>
+<a class="sourceLine" id="cb10-11" title="11">    <span class="kw">color</span>: <span class="cn">blue</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-12" title="12">  }</a>
+<a class="sourceLine" id="cb10-13" title="13">  <span class="pp">#orange-text</span> {</a>
+<a class="sourceLine" id="cb10-14" title="14">    <span class="kw">color</span>: <span class="cn">orange</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-15" title="15">  }  </a>
+<a class="sourceLine" id="cb10-16" title="16"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb10-17" title="17"><span class="kw">&lt;h1</span><span class="ot"> id=</span><span class="st">&quot;orange-text&quot;</span><span class="ot">  class=</span><span class="st">&quot;pink-text blue-text&quot;</span><span class="kw">&gt;</span>Hello World!<span class="kw">&lt;/h1&gt;</span></a></code></pre></div>

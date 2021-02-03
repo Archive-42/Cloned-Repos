@@ -1,0 +1,17 @@
+{
+  "name": "FullstackAssessment",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test/*.spec.js"
+  },
+  "dependencies": {
+    "bluebird": "^2.9.24",
+    "lodash": "^3.6.0",
+    "mongoose": "~4.0.1"
+  },
+  "devDependencies": {
+    "should": "*",
+    "mocha": "*"
+  }
+}

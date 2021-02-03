@@ -1,0 +1,22 @@
+<h1 id="description">–description–</h1>
+<p>Web developers traditionally use <dfn>lorem ipsum text</dfn> as placeholder text. The lorem ipsum text is randomly scraped from a famous passage by Cicero of Ancient Rome.</p>
+<p>Lorem ipsum text has been used as placeholder text by typesetters since the 16th century, and this tradition continues on the web.</p>
+<p>Well, 5 centuries is long enough. Since we’re building a CatPhotoApp, let’s use something called “kitty ipsum text”.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Replace the text inside your <code>p</code> element with the first few words of this kitty ipsum text: <code>Kitty ipsum dolor sit amet, shed everywhere shed everywhere stretching attack your ankles chase the red dot, hairball run catnip eat the grass sniff.</code></p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>p</code> element should contain the first few words of the provided <code>kitty ipsum text</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">assert</span>.<span class="at">isTrue</span>(<span class="ss">/Kitty</span><span class="sc">(\s)+</span><span class="ss">ipsum/gi</span>.<span class="at">test</span>(<span class="at">$</span>(<span class="st">&#39;p&#39;</span>).<span class="at">text</span>()))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">&lt;h1&gt;</span>Hello World<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb2-4" title="4"></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="kw">&lt;p&gt;</span>Hello Paragraph<span class="kw">&lt;/p&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">&lt;h1&gt;</span>Hello World<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb3-4" title="4"></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="kw">&lt;p&gt;</span>Kitty ipsum dolor sit amet, shed everywhere shed everywhere stretching attack your ankles chase the red dot, hairball run catnip eat the grass sniff<span class="kw">&lt;/p&gt;</span></a></code></pre></div>

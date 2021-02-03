@@ -1,0 +1,60 @@
+<h1 id="description">–description–</h1>
+<p>The <code>repeating-linear-gradient()</code> function is very similar to <code>linear-gradient()</code> with the major difference that it repeats the specified gradient pattern. <code>repeating-linear-gradient()</code> accepts a variety of values, but for simplicity, you’ll work with an angle value and color stop values in this challenge.</p>
+<p>The angle value is the direction of the gradient. Color stops are like width values that mark where a transition takes place, and are given with a percentage or a number of pixels.</p>
+<p>In the example demonstrated in the code editor, the gradient starts with the color <code>yellow</code> at 0 pixels which blends into the second color <code>blue</code> at 40 pixels away from the start. Since the next color stop is also at 40 pixels, the gradient immediately changes to the third color <code>green</code>, which itself blends into the fourth color value <code>red</code> as that is 80 pixels away from the beginning of the gradient.</p>
+<p>For this example, it helps to think about the color stops as pairs where every two colors blend together.</p>
+<p><code>0px [yellow -- blend -- blue] 40px [green -- blend -- red] 80px</code></p>
+<p>If every two color stop values are the same color, the blending isn’t noticeable because it’s between the same color, followed by a hard transition to the next color, so you end up with stripes.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Make stripes by changing the <code>repeating-linear-gradient()</code> to use a gradient angle of <code>45deg</code>, then set the first two color stops to <code>yellow</code>, and finally the second two color stops to <code>black</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>The angle of the <code>repeating-linear-gradient()</code> should be 45deg.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/background:</span><span class="sc">\s*?</span><span class="ss">repeating-linear-gradient</span><span class="sc">\(\s*?</span><span class="ss">45deg/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>The angle of the <code>repeating-linear-gradient()</code> should no longer be 90deg</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="op">!</span><span class="va">code</span>.<span class="at">match</span>(<span class="ss">/90deg/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>The color stop at 0 pixels should be <code>yellow</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/yellow</span><span class="sc">\s+?</span><span class="ss">0</span><span class="sc">(</span><span class="ss">px</span><span class="sc">)?</span><span class="ss">/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>One color stop at 40 pixels should be <code>yellow</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/yellow</span><span class="sc">\s+?</span><span class="ss">40px/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>The second color stop at 40 pixels should be <code>black</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/yellow</span><span class="sc">\s+?</span><span class="ss">40px,</span><span class="sc">\s*?</span><span class="ss">black</span><span class="sc">\s+?</span><span class="ss">40px/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>The last color stop at 80 pixels should be <code>black</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/black</span><span class="sc">\s+?</span><span class="ss">80px/gi</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb7-2" title="2"></a>
+<a class="sourceLine" id="cb7-3" title="3">  div{</a>
+<a class="sourceLine" id="cb7-4" title="4">    <span class="kw">border-radius</span>: <span class="dv">20</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-5" title="5">    <span class="kw">width</span>: <span class="dv">70</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">    <span class="kw">height</span>: <span class="dv">400</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-7" title="7">    <span class="kw">margin</span>:  <span class="dv">50</span> <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-8" title="8">    <span class="kw">background</span>: <span class="fu">repeating-linear-gradient(</span></a>
+<a class="sourceLine" id="cb7-9" title="9">      <span class="dv">90</span><span class="dt">deg</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-10" title="10">      <span class="cn">yellow</span> <span class="dv">0</span><span class="dt">px</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-11" title="11">      <span class="cn">blue</span> <span class="dv">40</span><span class="dt">px</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-12" title="12">      <span class="cn">green</span> <span class="dv">40</span><span class="dt">px</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-13" title="13">      <span class="cn">red</span> <span class="dv">80</span><span class="dt">px</span></a>
+<a class="sourceLine" id="cb7-14" title="14">    <span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-15" title="15">  }</a>
+<a class="sourceLine" id="cb7-16" title="16"></a>
+<a class="sourceLine" id="cb7-17" title="17"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb7-18" title="18"></a>
+<a class="sourceLine" id="cb7-19" title="19"><span class="kw">&lt;div&gt;&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb8"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  div{</a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="kw">border-radius</span>: <span class="dv">20</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-4" title="4">    <span class="kw">width</span>: <span class="dv">70</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-5" title="5">    <span class="kw">height</span>: <span class="dv">400</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-6" title="6">    <span class="kw">margin</span>:  <span class="dv">50</span> <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-7" title="7">    <span class="kw">background</span>: <span class="fu">repeating-linear-gradient(</span></a>
+<a class="sourceLine" id="cb8-8" title="8">      <span class="dv">45</span><span class="dt">deg</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb8-9" title="9">      <span class="cn">yellow</span> <span class="dv">0</span><span class="dt">px</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb8-10" title="10">      <span class="cn">yellow</span> <span class="dv">40</span><span class="dt">px</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb8-11" title="11">      <span class="cn">black</span> <span class="dv">40</span><span class="dt">px</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb8-12" title="12">      <span class="cn">black</span> <span class="dv">80</span><span class="dt">px</span></a>
+<a class="sourceLine" id="cb8-13" title="13">    <span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-14" title="14">  }</a>
+<a class="sourceLine" id="cb8-15" title="15"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb8-16" title="16"><span class="kw">&lt;div&gt;&lt;/div&gt;</span></a></code></pre></div>

@@ -1,0 +1,283 @@
+<h1 id="description">–description–</h1>
+<p>Build a full stack JavaScript app that is functionally similar to this: <a href="https://sudoku-solver.freecodecamp.rocks/" class="uri">https://sudoku-solver.freecodecamp.rocks/</a>. Working on this project will involve you writing your code using one of the following methods:</p>
+<ul>
+<li>Clone <a href="https://github.com/freecodecamp/boilerplate-project-sudoku-solver">this GitHub repo</a> and complete your project locally.</li>
+<li>Use <a href="https://repl.it/github/freeCodeCamp/boilerplate-project-sudoku-solver">our repl.it starter project</a> to complete your project.</li>
+<li>Use a site builder of your choice to complete the project. Be sure to incorporate all the files from our GitHub repo.</li>
+</ul>
+<p>When you are done, make sure a working demo of your project is hosted somewhere public. Then submit the URL to it in the <code>Solution Link</code> field. Optionally, also submit a link to your project’s source code in the <code>GitHub Link</code> field.</p>
+<h1 id="instructions">–instructions–</h1>
+<ul>
+<li>All puzzle logic can go into <code>/controllers/sudoku-solver.js</code></li>
+<li>All routing logic can go into <code>/routes/api.js</code></li>
+<li>See the <code>puzzle-strings.js</code> file in <code>/controllers</code> for some sample puzzles your application should solve</li>
+<li>To run the challenge tests on this page, set <code>NODE_ENV</code> to <code>test</code> without quotes in the <code>.env</code> file</li>
+<li>To run the tests in the console, use the command <code>npm run test</code>. To open the Repl.it console, press Ctrl+Shift+P (Cmd if on a Mac) and type “open shell”</li>
+</ul>
+<p>Write the following tests in <code>tests/1_unit-tests.js</code>:</p>
+<ul>
+<li>Logic handles a valid puzzle string of 81 characters</li>
+<li>Logic handles a puzzle string with invalid characters (not 1-9 or <code>.</code>)</li>
+<li>Logic handles a puzzle string that is not 81 characters in length</li>
+<li>Logic handles a valid row placement</li>
+<li>Logic handles an invalid row placement</li>
+<li>Logic handles a valid column placement</li>
+<li>Logic handles an invalid column placement</li>
+<li>Logic handles a valid region (3x3 grid) placement</li>
+<li>Logic handles an invalid region (3x3 grid) placement</li>
+<li>Valid puzzle strings pass the solver</li>
+<li>Invalid puzzle strings fail the solver</li>
+<li>Solver returns the the expected solution for an incomplete puzzzle</li>
+</ul>
+<p>Write the following tests in <code>tests/2_functional-tests.js</code></p>
+<ul>
+<li>Solve a puzzle with valid puzzle string: POST request to <code>/api/solve</code></li>
+<li>Solve a puzzle with missing puzzle string: POST request to <code>/api/solve</code></li>
+<li>Solve a puzzle with invalid characters: POST request to <code>/api/solve</code></li>
+<li>Solve a puzzle with incorrect length: POST request to <code>/api/solve</code></li>
+<li>Solve a puzzle that cannot be solved: POST request to <code>/api/solve</code></li>
+<li>Check a puzzle placement with all fields: POST request to <code>/api/check</code></li>
+<li>Check a puzzle placement with single placement conflict: POST request to <code>/api/check</code></li>
+<li>Check a puzzle placement with multiple placement conflicts: POST request to <code>/api/check</code></li>
+<li>Check a puzzle placement with all placement conflicts: POST request to <code>/api/check</code></li>
+<li>Check a puzzle placement with missing required fields: POST request to <code>/api/check</code></li>
+<li>Check a puzzle placement with invalid characters: POST request to <code>/api/check</code></li>
+<li>Check a puzzle placement with incorrect length: POST request to <code>/api/check</code></li>
+<li>Check a puzzle placement with invalid placement coordinate: POST request to <code>/api/check</code></li>
+<li>Check a puzzle placement with invalid placement value: POST request to <code>/api/check</code></li>
+</ul>
+<h1 id="hints">–hints–</h1>
+<p>You should provide your own project, not the example URL.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1">(getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="kw">const</span> url <span class="op">=</span> <span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="at">assert</span>(<span class="op">!</span><span class="ss">/.</span><span class="sc">*\/</span><span class="ss">sudoku-solver</span><span class="sc">\.</span><span class="ss">freecodecamp</span><span class="sc">\.</span><span class="ss">rocks/</span>.<span class="at">test</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>)))<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="op">};</span></a></code></pre></div>
+<p>You can <code>POST</code> <code>/api/solve</code> with form data containing <code>puzzle</code> which will be a string containing a combination of numbers (1-9) and periods <code>.</code> to represent empty spaces. The returned object will contain a <code>solution</code> property with the solved puzzle.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="kw">const</span> input <span class="op">=</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="st">&#39;..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">  <span class="kw">const</span> output <span class="op">=</span></a>
+<a class="sourceLine" id="cb2-5" title="5">    <span class="st">&#39;769235418851496372432178956174569283395842761628713549283657194516924837947381625&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/solve&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-7" title="7">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-8" title="8">    <span class="dt">headers</span><span class="op">:</span> <span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/json&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> <span class="dt">puzzle</span><span class="op">:</span> input <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb2-10" title="10">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-11" title="11">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-12" title="12">  <span class="va">assert</span>.<span class="at">property</span>(parsed<span class="op">,</span> <span class="st">&#39;solution&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-13" title="13">  <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">parsed</span>.<span class="at">solution</span><span class="op">,</span> output)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-14" title="14"><span class="op">};</span></a></code></pre></div>
+<p>If the object submitted to <code>/api/solve</code> is missing <code>puzzle</code>, the returned value will be <code>{ error: 'Required field missing' }</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="kw">const</span> input <span class="op">=</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="st">&#39;..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="kw">const</span> output <span class="op">=</span> <span class="st">&#39;Required field missing&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/solve&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-6" title="6">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">    <span class="dt">headers</span><span class="op">:</span> <span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/json&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-8" title="8">    <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> <span class="dt">notpuzzle</span><span class="op">:</span> input <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb3-9" title="9">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-10" title="10">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-11" title="11">  <span class="va">assert</span>.<span class="at">property</span>(parsed<span class="op">,</span> <span class="st">&#39;error&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-12" title="12">  <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">parsed</span>.<span class="at">error</span><span class="op">,</span> output)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="op">};</span></a></code></pre></div>
+<p>If the puzzle submitted to <code>/api/solve</code> contains values which are not numbers or periods, the returned value will be <code>{ error: 'Invalid characters in puzzle' }</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">const</span> input <span class="op">=</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="st">&#39;AA9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">  <span class="kw">const</span> output <span class="op">=</span> <span class="st">&#39;Invalid characters in puzzle&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/solve&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="dt">headers</span><span class="op">:</span> <span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/json&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> <span class="dt">puzzle</span><span class="op">:</span> input <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb4-9" title="9">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">  <span class="va">assert</span>.<span class="at">property</span>(parsed<span class="op">,</span> <span class="st">&#39;error&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">  <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">parsed</span>.<span class="at">error</span><span class="op">,</span> output)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="op">};</span></a></code></pre></div>
+<p>If the puzzle submitted to <code>/api/solve</code> is greater or less than 81 characters, the returned value will be <code>{ error: 'Expected puzzle to be 81 characters long' }</code></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">const</span> input <span class="op">=</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="st">&#39;9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">  <span class="kw">const</span> output <span class="op">=</span> <span class="st">&#39;Expected puzzle to be 81 characters long&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/solve&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    <span class="dt">headers</span><span class="op">:</span> <span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/json&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> <span class="dt">puzzle</span><span class="op">:</span> input <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb5-9" title="9">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">  <span class="va">assert</span>.<span class="at">property</span>(parsed<span class="op">,</span> <span class="st">&#39;error&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">  <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">parsed</span>.<span class="at">error</span><span class="op">,</span> output)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-13" title="13"><span class="op">};</span></a></code></pre></div>
+<p>If the puzzle submitted to <code>/api/solve</code> is invalid or cannot be solved, the returned value will be <code>{ error: 'Puzzle cannot be solved' }</code></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="kw">const</span> input <span class="op">=</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="st">&#39;9.9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">  <span class="kw">const</span> output <span class="op">=</span> <span class="st">&#39;Puzzle cannot be solved&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/solve&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-6" title="6">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-7" title="7">    <span class="dt">headers</span><span class="op">:</span> <span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/json&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> <span class="dt">puzzle</span><span class="op">:</span> input <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb6-9" title="9">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-11" title="11">  <span class="va">assert</span>.<span class="at">property</span>(parsed<span class="op">,</span> <span class="st">&#39;error&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">  <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">parsed</span>.<span class="at">error</span><span class="op">,</span> output)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-13" title="13"><span class="op">};</span></a></code></pre></div>
+<p>You can <code>POST</code> to <code>/api/check</code> an object containing <code>puzzle</code>, <code>coordinate</code>, and <code>value</code> where the <code>coordinate</code> is the letter A-I indicating the row, followed by a number 1-9 indicating the column, and <code>value</code> is a number from 1-9.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="kw">const</span> input <span class="op">=</span></a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="st">&#39;..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-4" title="4">  <span class="kw">const</span> coordinate <span class="op">=</span> <span class="st">&#39;A1&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-5" title="5">  <span class="kw">const</span> value <span class="op">=</span> <span class="st">&#39;7&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/check&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-7" title="7">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-8" title="8">    <span class="dt">headers</span><span class="op">:</span> <span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/json&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb7-9" title="9">    <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> <span class="dt">puzzle</span><span class="op">:</span> input<span class="op">,</span> coordinate<span class="op">,</span> value <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb7-10" title="10">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-11" title="11">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-12" title="12">  <span class="va">assert</span>.<span class="at">property</span>(parsed<span class="op">,</span> <span class="st">&#39;valid&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-13" title="13">  <span class="va">assert</span>.<span class="at">isTrue</span>(<span class="va">parsed</span>.<span class="at">valid</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-14" title="14"><span class="op">};</span></a></code></pre></div>
+<p>The return value from the <code>POST</code> to <code>/api/check</code> will be an object containing a <code>valid</code> property, which is <code>true</code> if the number may be placed at the provided coordinate and <code>false</code> if the number may not. If false, the returned object will also contain a <code>conflict</code> property which is an array containing the strings <code>"row"</code>, <code>"column"</code>, and/or <code>"region"</code> depending on which makes the placement invalid.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="kw">const</span> input <span class="op">=</span></a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="st">&#39;..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-4" title="4">  <span class="kw">const</span> coordinate <span class="op">=</span> <span class="st">&#39;A1&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-5" title="5">  <span class="kw">const</span> value <span class="op">=</span> <span class="st">&#39;1&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-6" title="6">  <span class="kw">const</span> conflict <span class="op">=</span> [<span class="st">&#39;row&#39;</span><span class="op">,</span> <span class="st">&#39;column&#39;</span>]<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-7" title="7">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/check&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-8" title="8">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb8-9" title="9">    <span class="dt">headers</span><span class="op">:</span> <span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/json&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb8-10" title="10">    <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> <span class="dt">puzzle</span><span class="op">:</span> input<span class="op">,</span> coordinate<span class="op">,</span> value <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb8-11" title="11">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-12" title="12">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-13" title="13">  <span class="va">assert</span>.<span class="at">property</span>(parsed<span class="op">,</span> <span class="st">&#39;valid&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-14" title="14">  <span class="va">assert</span>.<span class="at">isFalse</span>(<span class="va">parsed</span>.<span class="at">valid</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-15" title="15">  <span class="va">assert</span>.<span class="at">property</span>(parsed<span class="op">,</span> <span class="st">&#39;conflict&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-16" title="16">  <span class="va">assert</span>.<span class="at">include</span>(<span class="va">parsed</span>.<span class="at">conflict</span><span class="op">,</span> <span class="st">&#39;row&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-17" title="17">  <span class="va">assert</span>.<span class="at">include</span>(<span class="va">parsed</span>.<span class="at">conflict</span><span class="op">,</span> <span class="st">&#39;column&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-18" title="18"><span class="op">};</span></a></code></pre></div>
+<p>If the puzzle submitted to <code>/api/check</code> contains values which are not numbers or periods, the returned value will be <code>{ error: 'Invalid characters in puzzle' }</code></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-2" title="2">  <span class="kw">const</span> input <span class="op">=</span></a>
+<a class="sourceLine" id="cb9-3" title="3">    <span class="st">&#39;AA9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-4" title="4">  <span class="kw">const</span> coordinate <span class="op">=</span> <span class="st">&#39;A1&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-5" title="5">  <span class="kw">const</span> value <span class="op">=</span> <span class="st">&#39;1&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-6" title="6">  <span class="kw">const</span> output <span class="op">=</span> <span class="st">&#39;Invalid characters in puzzle&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-7" title="7">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/check&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-8" title="8">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb9-9" title="9">    <span class="dt">headers</span><span class="op">:</span> <span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/json&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb9-10" title="10">    <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> <span class="dt">puzzle</span><span class="op">:</span> input<span class="op">,</span> coordinate<span class="op">,</span> value <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb9-11" title="11">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-12" title="12">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-13" title="13">  <span class="va">assert</span>.<span class="at">property</span>(parsed<span class="op">,</span> <span class="st">&#39;error&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-14" title="14">  <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">parsed</span>.<span class="at">error</span><span class="op">,</span> output)<span class="op">;</span></a>
+<a class="sourceLine" id="cb9-15" title="15"><span class="op">};</span></a></code></pre></div>
+<p>If the puzzle submitted to <code>/api/check</code> is greater or less than 81 characters, the returned value will be <code>{ error&amp;#58; 'Expected puzzle to be 81 characters long' }</code></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb10-2" title="2">  <span class="kw">const</span> input <span class="op">=</span></a>
+<a class="sourceLine" id="cb10-3" title="3">    <span class="st">&#39;9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-4" title="4">  <span class="kw">const</span> coordinate <span class="op">=</span> <span class="st">&#39;A1&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-5" title="5">  <span class="kw">const</span> value <span class="op">=</span> <span class="st">&#39;1&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-6" title="6">  <span class="kw">const</span> output <span class="op">=</span> <span class="st">&#39;Expected puzzle to be 81 characters long&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-7" title="7">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/check&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb10-8" title="8">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb10-9" title="9">    <span class="dt">headers</span><span class="op">:</span> <span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/json&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb10-10" title="10">    <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> <span class="dt">puzzle</span><span class="op">:</span> input<span class="op">,</span> coordinate<span class="op">,</span> value <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb10-11" title="11">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb10-12" title="12">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb10-13" title="13">  <span class="va">assert</span>.<span class="at">property</span>(parsed<span class="op">,</span> <span class="st">&#39;error&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb10-14" title="14">  <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">parsed</span>.<span class="at">error</span><span class="op">,</span> output)<span class="op">;</span></a>
+<a class="sourceLine" id="cb10-15" title="15"><span class="op">};</span></a></code></pre></div>
+<p>If the object submitted to <code>/api/check</code> is missing <code>puzzle</code>, <code>coordinate</code> or <code>value</code>, the returned value will be <code>{ error: Required field(s) missing }</code></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb11-2" title="2">  <span class="kw">const</span> input <span class="op">=</span></a>
+<a class="sourceLine" id="cb11-3" title="3">    <span class="st">&#39;..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb11-4" title="4">  <span class="kw">const</span> output <span class="op">=</span> <span class="st">&#39;Required field(s) missing&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb11-5" title="5">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/check&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb11-6" title="6">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb11-7" title="7">    <span class="dt">headers</span><span class="op">:</span> <span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/json&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb11-8" title="8">    <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> <span class="dt">puzzle</span><span class="op">:</span> input <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb11-9" title="9">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-10" title="10">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-11" title="11">  <span class="va">assert</span>.<span class="at">property</span>(parsed<span class="op">,</span> <span class="st">&#39;error&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-12" title="12">  <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">parsed</span>.<span class="at">error</span><span class="op">,</span> output)<span class="op">;</span></a>
+<a class="sourceLine" id="cb11-13" title="13"><span class="op">};</span></a></code></pre></div>
+<p>If the coordinate submitted to <code>api/check</code> does not point to an existing grid cell, the returned value will be <code>{ error: 'Invalid coordinate'}</code></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb12-2" title="2">  <span class="kw">const</span> input <span class="op">=</span></a>
+<a class="sourceLine" id="cb12-3" title="3">    <span class="st">&#39;..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb12-4" title="4">  <span class="kw">const</span> output <span class="op">=</span> <span class="st">&#39;Invalid coordinate&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb12-5" title="5">  <span class="kw">const</span> coordinate <span class="op">=</span> <span class="st">&#39;XZ18&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb12-6" title="6">  <span class="kw">const</span> value <span class="op">=</span> <span class="st">&#39;7&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb12-7" title="7">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/check&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb12-8" title="8">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb12-9" title="9">    <span class="dt">headers</span><span class="op">:</span> <span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/json&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb12-10" title="10">    <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> <span class="dt">puzzle</span><span class="op">:</span> input<span class="op">,</span> coordinate<span class="op">,</span> value <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb12-11" title="11">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb12-12" title="12">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb12-13" title="13">  <span class="va">assert</span>.<span class="at">property</span>(parsed<span class="op">,</span> <span class="st">&#39;error&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb12-14" title="14">  <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">parsed</span>.<span class="at">error</span><span class="op">,</span> output)<span class="op">;</span></a>
+<a class="sourceLine" id="cb12-15" title="15"><span class="op">};</span></a></code></pre></div>
+<p>If the <code>value</code> submitted to <code>/api/check</code> is not a number between 1 and 9, the returned values will be <code>{ error: 'Invalid value' }</code></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb13-2" title="2">  <span class="kw">const</span> input <span class="op">=</span></a>
+<a class="sourceLine" id="cb13-3" title="3">    <span class="st">&#39;..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb13-4" title="4">  <span class="kw">const</span> output <span class="op">=</span> <span class="st">&#39;Invalid value&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb13-5" title="5">  <span class="kw">const</span> coordinate <span class="op">=</span> <span class="st">&#39;A1&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb13-6" title="6">  <span class="kw">const</span> value <span class="op">=</span> <span class="st">&#39;X&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb13-7" title="7">  <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> <span class="at">fetch</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/api/check&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb13-8" title="8">    <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb13-9" title="9">    <span class="dt">headers</span><span class="op">:</span> <span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/json&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb13-10" title="10">    <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> <span class="dt">puzzle</span><span class="op">:</span> input<span class="op">,</span> coordinate<span class="op">,</span> value <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb13-11" title="11">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb13-12" title="12">  <span class="kw">const</span> parsed <span class="op">=</span> <span class="cf">await</span> <span class="va">data</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb13-13" title="13">  <span class="va">assert</span>.<span class="at">property</span>(parsed<span class="op">,</span> <span class="st">&#39;error&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb13-14" title="14">  <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">parsed</span>.<span class="at">error</span><span class="op">,</span> output)<span class="op">;</span></a>
+<a class="sourceLine" id="cb13-15" title="15"><span class="op">};</span></a></code></pre></div>
+<p>All 12 unit tests are complete and passing. See <code>/tests/1_unit-tests.js</code> for the expected behavior you should write tests for.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb14-2" title="2">  <span class="cf">try</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb14-3" title="3">    <span class="kw">const</span> getTests <span class="op">=</span> <span class="cf">await</span> <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb14-4" title="4">    <span class="va">assert</span>.<span class="at">isArray</span>(getTests)<span class="op">;</span></a>
+<a class="sourceLine" id="cb14-5" title="5">    <span class="kw">const</span> units <span class="op">=</span> <span class="va">getTests</span>.<span class="at">filter</span>((el) <span class="kw">=&gt;</span> <span class="va">el</span>.<span class="va">context</span>.<span class="at">includes</span>(<span class="st">&#39;UnitTests&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb14-6" title="6">    <span class="va">assert</span>.<span class="at">isAtLeast</span>(<span class="va">units</span>.<span class="at">length</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="st">&#39;At least 12 tests passed&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb14-7" title="7">    <span class="va">units</span>.<span class="at">forEach</span>((test) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb14-8" title="8">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">test</span>.<span class="at">state</span><span class="op">,</span> <span class="st">&#39;passed&#39;</span><span class="op">,</span> <span class="st">&#39;Test in Passed State&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb14-9" title="9">      <span class="va">assert</span>.<span class="at">isAtLeast</span>(</a>
+<a class="sourceLine" id="cb14-10" title="10">        <span class="va">test</span>.<span class="va">assertions</span>.<span class="at">length</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb14-11" title="11">        <span class="dv">1</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb14-12" title="12">        <span class="st">&#39;At least one assertion per test&#39;</span></a>
+<a class="sourceLine" id="cb14-13" title="13">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb14-14" title="14">    <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb14-15" title="15">  <span class="op">}</span> <span class="cf">catch</span> (err) <span class="op">{</span></a>
+<a class="sourceLine" id="cb14-16" title="16">    <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">err</span>.<span class="at">responseText</span> <span class="op">||</span> <span class="va">err</span>.<span class="at">message</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb14-17" title="17">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb14-18" title="18"><span class="op">};</span></a></code></pre></div>
+<p>All 14 functional tests are complete and passing. See <code>/tests/2_functional-tests.js</code> for the functionality you should write tests for.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">async</span> (getUserInput) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb15-2" title="2">  <span class="cf">try</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb15-3" title="3">    <span class="kw">const</span> getTests <span class="op">=</span> <span class="cf">await</span> <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb15-4" title="4">    <span class="va">assert</span>.<span class="at">isArray</span>(getTests)<span class="op">;</span></a>
+<a class="sourceLine" id="cb15-5" title="5">    <span class="kw">const</span> funcs <span class="op">=</span> <span class="va">getTests</span>.<span class="at">filter</span>((el) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb15-6" title="6">      <span class="va">el</span>.<span class="va">context</span>.<span class="at">includes</span>(<span class="st">&#39;Functional Tests&#39;</span>)</a>
+<a class="sourceLine" id="cb15-7" title="7">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb15-8" title="8">    <span class="va">assert</span>.<span class="at">isAtLeast</span>(<span class="va">funcs</span>.<span class="at">length</span><span class="op">,</span> <span class="dv">14</span><span class="op">,</span> <span class="st">&#39;At least 14 tests passed&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb15-9" title="9">    <span class="va">funcs</span>.<span class="at">forEach</span>((test) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb15-10" title="10">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">test</span>.<span class="at">state</span><span class="op">,</span> <span class="st">&#39;passed&#39;</span><span class="op">,</span> <span class="st">&#39;Test in Passed State&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb15-11" title="11">      <span class="va">assert</span>.<span class="at">isAtLeast</span>(</a>
+<a class="sourceLine" id="cb15-12" title="12">        <span class="va">test</span>.<span class="va">assertions</span>.<span class="at">length</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb15-13" title="13">        <span class="dv">1</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb15-14" title="14">        <span class="st">&#39;At least one assertion per test&#39;</span></a>
+<a class="sourceLine" id="cb15-15" title="15">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb15-16" title="16">    <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb15-17" title="17">  <span class="op">}</span> <span class="cf">catch</span> (err) <span class="op">{</span></a>
+<a class="sourceLine" id="cb15-18" title="18">    <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">err</span>.<span class="at">responseText</span> <span class="op">||</span> <span class="va">err</span>.<span class="at">message</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb15-19" title="19">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb15-20" title="20"><span class="op">};</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb16"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb16-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions,</span></a>
+<a class="sourceLine" id="cb16-3" title="3"><span class="co">  because they would need to be tested against a full working project.</span></a>
+<a class="sourceLine" id="cb16-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb16-5" title="5"><span class="co">*/</span></a></code></pre></div>

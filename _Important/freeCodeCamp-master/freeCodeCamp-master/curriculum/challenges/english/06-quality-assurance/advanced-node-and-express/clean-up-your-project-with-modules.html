@@ -1,0 +1,37 @@
+<h1 id="description">–description–</h1>
+<p>Right now, everything you have is in your <code>server.js</code> file. This can lead to hard to manage code that isn’t very expandable. Create 2 new files: <code>routes.js</code> and <code>auth.js</code></p>
+<p>Both should start with the following code:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">module</span>.<span class="at">exports</span> <span class="op">=</span> <span class="kw">function</span> (app<span class="op">,</span> myDataBase) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2"></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="op">}</span></a></code></pre></div>
+<p>Now, in the top of your server file, require these files like so: <code>const routes = require('./routes.js');</code> Right after you establish a successful connection with the database, instantiate each of them like so: <code>routes(app, myDataBase)</code></p>
+<p>Finally, take all of the routes in your server and paste them into your new files, and remove them from your server file. Also take the <code>ensureAuthenticated</code> function, since it was specifically created for routing. Now, you will have to correctly add the dependencies in which are used, such as <code>const passport = require('passport');</code>, at the very top, above the export line in your <code>routes.js</code> file.</p>
+<p>Keep adding them until no more errors exist, and your server file no longer has any routing (<strong>except for the route in the catch block</strong>)!</p>
+<p>Now do the same thing in your auth.js file with all of the things related to authentication such as the serialization and the setting up of the local strategy and erase them from your server file. Be sure to add the dependencies in and call <code>auth(app, myDataBase)</code> in the server in the same spot.</p>
+<p>Submit your page when you think you’ve got it right. If you’re running into errors, you can check out an example of the completed project <a href="https://gist.github.com/camperbot/2d06ac5c7d850d8cf073d2c2c794cc92">here</a>.</p>
+<h1 id="hints">–hints–</h1>
+<p>Modules should be present.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/server.js&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb2-5" title="5">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-6" title="6">        <span class="ss">/require</span><span class="sc">\s*\((</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)\.\/</span><span class="ss">routes</span><span class="sc">(\.</span><span class="ss">js</span><span class="sc">)?\1\)</span><span class="ss">/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-7" title="7">        <span class="st">&#39;You should have required your new files&#39;</span></a>
+<a class="sourceLine" id="cb2-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb2-10" title="10">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-11" title="11">        <span class="ss">/client.db</span><span class="sc">[^]*</span><span class="ss">routes/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-12" title="12">        <span class="st">&#39;Your new modules should be called after your connection to the database&#39;</span></a>
+<a class="sourceLine" id="cb2-13" title="13">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-14" title="14">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-15" title="15">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-16" title="16">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-17" title="17">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-18" title="18">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="co">*/</span></a></code></pre></div>

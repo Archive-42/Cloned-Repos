@@ -1,0 +1,68 @@
+.loginbox {
+  box-sizing: border-box;
+  width: 357px;
+  border: 1px solid white;
+  border-radius: 25px;
+  background-color: white;
+  opacity: 0.7;
+}
+
+.errors-container {
+box-sizing:border-box;
+width: 250px;
+height: 15px;
+}
+
+.log-in-container{
+  padding: 14%;
+  padding-top: 8%;
+  padding-bottom: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginhead {
+  font-size: 24px;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 10%;
+}
+
+.label-email {
+margin-top: 20px;
+}
+
+.email, .password {
+  width: 250px;
+  border-radius: 10px;
+  border: 1px solid grey;
+  height: 35px;
+  margin-top: 10px;
+  padding-left: 10px;
+}
+
+.email {
+  margin-bottom: 20px;
+}
+
+.password {
+  margin-bottom: 30px;
+}
+
+.link-signup {
+  margin-top: 40px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  color: #AB7ED6;
+  text-align: center;
+}
+
+ .btn-login {
+  margin-left: 40%;
+}
+
+.footer {
+margin-top: 3%;
+}

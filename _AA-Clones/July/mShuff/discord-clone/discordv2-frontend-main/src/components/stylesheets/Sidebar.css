@@ -1,0 +1,126 @@
+.MuiAvatar-circle {
+  margin: 15px 10px;
+}
+
+.MuiAvatar-root.sidebar__serverBtn {
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  padding: 5px;
+  background: radial-gradient(
+    circle,
+    rgba(6, 31, 37, 0.8) 40%,
+    rgba(114, 137, 218, 0.8) 100%
+  );
+}
+
+.gradient-2 {
+  background: rgba(56, 55, 56, 1);
+  background: -moz-linear-gradient(
+    left,
+    rgba(56, 55, 56, 1) 0%,
+    rgba(94, 91, 94, 1) 10%,
+    rgba(54, 54, 54, 1) 19%,
+    rgba(46, 45, 46, 1) 29%,
+    rgba(51, 49, 51, 1) 83%,
+    rgba(66, 66, 66, 1) 86%,
+    rgba(97, 97, 97, 1) 93%,
+    rgba(102, 100, 102, 1) 94%,
+    rgba(59, 57, 59, 1) 99%,
+    rgba(19, 19, 19, 1) 100%
+  );
+  background: -webkit-gradient(
+    left top,
+    right top,
+    color-stop(0%, rgba(56, 55, 56, 1)),
+    color-stop(10%, rgba(94, 91, 94, 1)),
+    color-stop(19%, rgba(54, 54, 54, 1)),
+    color-stop(29%, rgba(46, 45, 46, 1)),
+    color-stop(83%, rgba(51, 49, 51, 1)),
+    color-stop(86%, rgba(66, 66, 66, 1)),
+    color-stop(93%, rgba(97, 97, 97, 1)),
+    color-stop(94%, rgba(102, 100, 102, 1)),
+    color-stop(99%, rgba(59, 57, 59, 1)),
+    color-stop(100%, rgba(19, 19, 19, 1))
+  );
+  background: -webkit-linear-gradient(
+    left,
+    rgba(56, 55, 56, 1) 0%,
+    rgba(94, 91, 94, 1) 10%,
+    rgba(54, 54, 54, 1) 19%,
+    rgba(46, 45, 46, 1) 29%,
+    rgba(51, 49, 51, 1) 83%,
+    rgba(66, 66, 66, 1) 86%,
+    rgba(97, 97, 97, 1) 93%,
+    rgba(102, 100, 102, 1) 94%,
+    rgba(59, 57, 59, 1) 99%,
+    rgba(19, 19, 19, 1) 100%
+  );
+  background: -o-linear-gradient(
+    left,
+    rgba(56, 55, 56, 1) 0%,
+    rgba(94, 91, 94, 1) 10%,
+    rgba(54, 54, 54, 1) 19%,
+    rgba(46, 45, 46, 1) 29%,
+    rgba(51, 49, 51, 1) 83%,
+    rgba(66, 66, 66, 1) 86%,
+    rgba(97, 97, 97, 1) 93%,
+    rgba(102, 100, 102, 1) 94%,
+    rgba(59, 57, 59, 1) 99%,
+    rgba(19, 19, 19, 1) 100%
+  );
+  background: -ms-linear-gradient(
+    left,
+    rgba(56, 55, 56, 1) 0%,
+    rgba(94, 91, 94, 1) 10%,
+    rgba(54, 54, 54, 1) 19%,
+    rgba(46, 45, 46, 1) 29%,
+    rgba(51, 49, 51, 1) 83%,
+    rgba(66, 66, 66, 1) 86%,
+    rgba(97, 97, 97, 1) 93%,
+    rgba(102, 100, 102, 1) 94%,
+    rgba(59, 57, 59, 1) 99%,
+    rgba(19, 19, 19, 1) 100%
+  );
+  background: linear-gradient(
+    to right,
+    rgba(56, 55, 56, 1) 0%,
+    rgba(94, 91, 94, 1) 10%,
+    rgba(54, 54, 54, 1) 19%,
+    rgba(46, 45, 46, 1) 29%,
+    rgba(51, 49, 51, 1) 83%,
+    rgba(66, 66, 66, 1) 86%,
+    rgba(97, 97, 97, 1) 93%,
+    rgba(102, 100, 102, 1) 94%,
+    rgba(59, 57, 59, 1) 99%,
+    rgba(19, 19, 19, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#383738', endColorstr='#131313', GradientType=1 );
+}
+
+.MuiAvatar-root.sidebar__serverBtn:hover,
+.MuiAvatar-root.sidebar__addButton:hover {
+  background: radial-gradient(
+    circle,
+    rgba(6, 31, 37, 1) 20%,
+    rgb(119, 145, 238) 100%
+  );
+}
+
+.MuiAvatar-root.sidebar__addButton {
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  padding: 5px;
+  background: radial-gradient(
+    circle,
+    rgba(6, 31, 37, 0.8) 40%,
+    rgba(114, 137, 218, 0.8) 100%
+  );
+}
+
+#sidebarJoinServer__button {
+  font-weight: 600;
+  color: #879aff;
+  border-width: 0px;
+}

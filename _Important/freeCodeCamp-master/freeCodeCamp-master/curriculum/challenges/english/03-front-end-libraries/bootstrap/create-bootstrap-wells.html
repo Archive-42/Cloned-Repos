@@ -1,0 +1,39 @@
+<h1 id="description">–description–</h1>
+<p>Bootstrap has a class called <code>well</code> that can create a visual sense of depth for your columns.</p>
+<p>Nest one <code>div</code> element with the class <code>well</code> within each of your <code>col-xs-6</code> <code>div</code> elements.</p>
+<h1 id="hints">–hints–</h1>
+<p>You should add a <code>div</code> element with the class <code>well</code> inside each of your <code>div</code> elements with the class <code>"col-xs-6"</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;div.col-xs-6&#39;</span>).<span class="at">not</span>(<span class="st">&#39;:has(&gt;div.well)&#39;</span>).<span class="at">length</span> <span class="op">&lt;</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>Both of your <code>div</code> elements with the class <code>"col-xs-6"</code> should be nested within your <code>div</code> element with the class <code>"row"</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;div.row &gt; div.col-xs-6&#39;</span>).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>All your <code>div</code> elements should have closing tags.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">div&gt;/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;div/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">div&gt;/g</span>).<span class="at">length</span> <span class="op">===</span> <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;div/g</span>).<span class="at">length</span></a>
+<a class="sourceLine" id="cb3-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container-fluid&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="kw">&lt;h3</span><span class="ot"> class=</span><span class="st">&quot;text-primary text-center&quot;</span><span class="kw">&gt;</span>jQuery Playground<span class="kw">&lt;/h3&gt;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;row&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-6&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-5" title="5"></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-6&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb4-8" title="8"></a>
+<a class="sourceLine" id="cb4-9" title="9">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container-fluid&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">&lt;h3</span><span class="ot"> class=</span><span class="st">&quot;text-primary text-center&quot;</span><span class="kw">&gt;</span>jQuery Playground<span class="kw">&lt;/h3&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;row&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-6&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">      <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;well&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;col-xs-6&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">      <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;well&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">    <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>

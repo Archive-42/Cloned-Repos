@@ -1,0 +1,34 @@
+<h1 id="description">–description–</h1>
+<p>The <code>h1</code> to <code>h6</code> heading elements are used to signify the importance of content below them. The lower the number, the higher the importance, so <code>h2</code> elements have less importance than <code>h1</code> elements. Only use one <code>h1</code> element per page and place lower importance headings below higher importance headings.</p>
+<p>Add an <code>h2</code> element below the <code>h1</code> element that says <code>Cat Photos</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>h1</code> element should have an opening tag. Opening tags have this syntax: <code>&lt;elementName&gt;</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;h1&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h1</code> element should have a closing tag. Closing tags have a <code>/</code> just after the <code>&lt;</code> character.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">h1</span><span class="sc">\&gt;</span><span class="ss">/</span>))<span class="op">;</span></a></code></pre></div>
+<p>You should only have one <code>h1</code> element. Remove the extra.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;h1&#39;</span>) <span class="op">&amp;&amp;</span> <span class="va">document</span>.<span class="at">querySelectorAll</span>(<span class="st">&#39;h1&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb3-3" title="3">)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h1</code> element’s text should be ‘CatPhotoApp’. You have either omitted the text or have a typo.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;h1&#39;</span>).<span class="va">innerText</span>.<span class="at">toLowerCase</span>() <span class="op">===</span> <span class="st">&#39;catphotoapp&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h2</code> element should have an opening tag. Opening tags have this syntax: <code>&lt;elementName&gt;</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;h2&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h2</code> element should have a closing tag. Closing tags have a <code>/</code> just after the <code>&lt;</code> character.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">h2</span><span class="sc">\&gt;</span><span class="ss">/</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h2</code> element’s text should be ‘Cat Photos’. Only place the text <code>Cat Photos</code> between the opening and closing <code>h2</code> tags.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="at">assert</span>(<span class="va">document</span>.<span class="at">querySelector</span>(<span class="st">&#39;h2&#39;</span>).<span class="va">innerText</span>.<span class="at">toLowerCase</span>() <span class="op">===</span> <span class="st">&#39;cat photos&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>h2</code> element should be below the <code>h1</code> element. The <code>h1</code> element has greater importance and must be above the <code>h2</code> element.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">const</span> collection <span class="op">=</span> [...<span class="va">document</span>.<span class="at">querySelectorAll</span>(<span class="st">&#39;h1,h2&#39;</span>)].<span class="at">map</span>(</a>
+<a class="sourceLine" id="cb8-2" title="2">  (node) <span class="kw">=&gt;</span> <span class="va">node</span>.<span class="at">nodeName</span></a>
+<a class="sourceLine" id="cb8-3" title="3">)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="at">assert</span>(<span class="va">collection</span>.<span class="at">indexOf</span>(<span class="st">&#39;H1&#39;</span>) <span class="op">&lt;</span> <span class="va">collection</span>.<span class="at">indexOf</span>(<span class="st">&#39;H2&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">&lt;html&gt;</span></a>
+<a class="sourceLine" id="cb9-2" title="2">  <span class="kw">&lt;body&gt;</span></a>
+<a class="sourceLine" id="cb9-3" title="3">--fcc-editable-region--</a>
+<a class="sourceLine" id="cb9-4" title="4">    <span class="kw">&lt;h1&gt;</span>CatPhotoApp<span class="kw">&lt;/h1&gt;</span></a>
+<a class="sourceLine" id="cb9-5" title="5">--fcc-editable-region--</a>
+<a class="sourceLine" id="cb9-6" title="6">  <span class="kw">&lt;/body&gt;</span></a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="kw">&lt;/html&gt;</span></a></code></pre></div>

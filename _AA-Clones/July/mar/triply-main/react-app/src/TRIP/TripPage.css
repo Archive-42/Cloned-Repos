@@ -1,0 +1,81 @@
+.trip__container {
+  display: flex;
+}
+
+.trip__container--inner {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: 98vh;
+  width: 42vw;
+  align-items: center;
+  padding: 5px;
+}
+
+.trip__container--initial {
+  position: fixed;
+  z-index: 99999;
+  text-align-last: start;
+  -webkit-text-stroke-width: medium;
+  padding: 10px;
+  width: fit-content;
+  height: fit-content;
+}
+
+.trip__map {
+  height: fit-content;
+  border-right: 1px solid black;
+  width: 100%;
+}
+
+.trip_summary_container {
+  text-align: center;
+  padding: 20px;
+}
+
+.trip_customize_container {
+  padding: 5px 10px 5px 10px;
+  text-align: center;
+}
+
+.trip_summary_details {
+  text-align: left;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 75%;
+  margin: auto;
+}
+
+.trip_mini_detail {
+  display: flex;
+}
+
+.trip_summary_table tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.StartOfTripForm {
+  margin: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.endmodal__container {
+  display: flex;
+  justify-content: space-between;
+  width: 800px;
+  height: 35vh;
+  padding: 80px 100px 80px 100px;
+}
+
+.endmodal__qr {
+  margin: 20px;
+  width: 100%;
+}
+
+.endmodal__email {
+  margin: 20px;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}

@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab|Ubuntu|Montserrat');
+@import url('https://use.fontawesome.com/releases/v5.7.0/css/all.css');
+@import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@1.206/distr/fira_code.css);
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html body {
+	background: #fbfbfb;
+	font-family: 'Montserrat', sans-serif;
+	line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Roboto Slab', sans-serif;
+	font-weight: 900;
+	color: #105e7e;
+}
+
+hr {
+	margin: 10px 0px;
+}
+
+.container {
+	margin: 0 auto;
+	max-width: 50rem;
+	padding: 2.625rem 1.3125rem;
+}
+
+.logo{
+	height: 100px;
+}
+
+.author-info{
+	display: flex;
+}
+
+.author-info .profile-pic {
+	height: 70px;
+	border-radius: 50%;
+	border: 3px solid #f16063;
+}
+
+.author-info .text{
+	margin: 0 1rem;
+	font-size: 1.1rem;
+	color: #105e7e;
+
+}
+
+.author-info ul {
+	list-style-type: none;
+	display: flex;
+}
+
+.author-info ul li {
+	margin: 10px 20px 10px 0px;
+}
+
+.author-info a{
+	color: #447489;
+}
+
+.author-info a:hover{
+	color: #105e7e;
+}
+
+.list-blogs {
+	margin: 3rem auto;
+	border-radius: 5px;
+	padding: 1rem;
+}
+
+.list-blogs a{
+	color: #105e7e;
+	text-decoration: none;
+}
+
+.list-blogs h2{
+	font-size: 1.3rem;
+	line-height: 1.3;
+}
+
+.list-blogs p {
+	margin: 0.5rem 0 1rem 0;
+	line-height: 1.2;
+	color: #474747;
+	font-size: 0.9rem;
+}
+
+.list-blogs .subtitle{
+	font-size: 1.1rem;
+}
+
+footer {
+	border-top: 1px solid #105e7e;
+	color: #105e7e;
+	font-weight: 500;
+	padding-top: 10px;
+}
+
+/* Blog Page */
+
+.blog{
+	margin: 2rem 0;
+}
+
+.blog h1, h2 h3, h4, h5, h6{
+	margin: 10px 0px;
+}
+
+.blog h1{
+	font-size: 2rem;
+}
+
+.blog h2{
+	font-size: 1.7rem;
+	margin-top: 2rem;
+}
+
+.blog h3{
+	font-size: 1.5rem;
+	margin-top: 2rem;
+}
+
+.blog a{
+	color: #3b6374;;
+	text-decoration: underline;
+}
+.blog a:hover{
+	color: #105e7e;
+	text-decoration: none;
+	font-weight: 500;
+}
+
+.blog-content{
+	margin-top: 2rem;
+}
+
+.blog p{
+	margin: 10px 0px;
+	font-size: 1.1rem;
+}
+
+.blog img{
+	margin: 15px auto;
+    display: block;
+}
+
+@media only screen and (max-width: 500px) {
+	h1, .blog h1 {
+		font-size: 1.7rem;
+	}
+
+	.text p{
+		font-size: 1.1rem;
+	}
+
+	h3, .blog h3 {
+		font-size: 1.3rem;
+	}
+
+	.list-blogs .subtitle{
+		font-size: 1rem;
+	}
+
+	.blog h1, h2, h3, h4, h5, h6{
+		margin: 5px 0px;
+	}
+
+	.list-blogs h2{
+		font-size: 1.2rem;
+	}
+	.blog p{
+		margin: 15px 0px;
+		font-size: 1rem;
+	}
+
+	.blog ul, .blog ol{
+		margin-bottom: 15px 0px;
+	}
+}

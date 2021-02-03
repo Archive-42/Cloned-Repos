@@ -1,0 +1,62 @@
+<h1 id="description">–description–</h1>
+<p>You may have noticed in the last challenge that there were several other syntax differences from HTML inline styles in addition to the <code>style</code> attribute set to a JavaScript object. First, the names of certain CSS style properties use camel case. For example, the last challenge set the size of the font with <code>fontSize</code> instead of <code>font-size</code>. Hyphenated words like <code>font-size</code> are invalid syntax for JavaScript object properties, so React uses camel case. As a rule, any hyphenated style properties are written using camel case in JSX.</p>
+<p>All property value length units (like <code>height</code>, <code>width</code>, and <code>fontSize</code>) are assumed to be in <code>px</code> unless otherwise specified. If you want to use <code>em</code>, for example, you wrap the value and the units in quotes, like <code>{fontSize: "4em"}</code>. Other than the length values that default to <code>px</code>, all other property values should be wrapped in quotes.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>If you have a large set of styles, you can assign a style <code>object</code> to a constant to keep your code organized. Initialize a <code>styles</code> constant and assign an <code>object</code> with three style properties and their values to it. Give the <code>div</code> a color of <code>"purple"</code>, a font-size of <code>40</code>, and a border of <code>"2px solid purple"</code>. Then set the <code>style</code> attribute equal to the <code>styles</code> constant.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>styles</code> variable should be an <code>object</code> with three properties.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="va">Object</span>.<span class="at">keys</span>(styles).<span class="at">length</span> <span class="op">===</span> <span class="dv">3</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>styles</code> variable should have a <code>color</code> property set to a value of <code>purple</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">styles</span>.<span class="at">color</span> <span class="op">===</span> <span class="st">&#39;purple&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>styles</code> variable should have a <code>fontSize</code> property set to a value of <code>40</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">styles</span>.<span class="at">fontSize</span> <span class="op">===</span> <span class="dv">40</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>styles</code> variable should have a <code>border</code> property set to a value of <code>2px solid purple</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="va">styles</span>.<span class="at">border</span> <span class="op">===</span> <span class="st">&#39;2px solid purple&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>The component should render a <code>div</code> element.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">shallow</span>(<span class="va">React</span>.<span class="at">createElement</span>(Colorful))<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">type</span>() <span class="op">===</span> <span class="st">&#39;div&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb5-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>div</code> element should have its styles defined by the <code>styles</code> object.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb6-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">shallow</span>(<span class="va">React</span>.<span class="at">createElement</span>(Colorful))<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb6-5" title="5">      <span class="va">mockedComponent</span>.<span class="at">props</span>().<span class="va">style</span>.<span class="at">color</span> <span class="op">===</span> <span class="st">&#39;purple&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">      <span class="va">mockedComponent</span>.<span class="at">props</span>().<span class="va">style</span>.<span class="at">fontSize</span> <span class="op">===</span> <span class="dv">40</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-7" title="7">      <span class="va">mockedComponent</span>.<span class="at">props</span>().<span class="va">style</span>.<span class="at">border</span> <span class="op">===</span> <span class="st">&#39;2px solid purple&#39;</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb6-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;Colorful /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>// Change code above this line
+class Colorful extends React.Component {
+  render() {
+    // Change code below this line
+    return (
+      &lt;div style={{color: &quot;yellow&quot;, fontSize: 24}}&gt;Style Me!&lt;/div&gt;
+    );
+    // Change code above this line
+  }
+};</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>const styles = {
+  color: &quot;purple&quot;,
+  fontSize: 40,
+  border: &quot;2px solid purple&quot;
+};
+// Change code above this line
+class Colorful extends React.Component {
+  render() {
+    // Change code below this line
+    return (
+      &lt;div style={styles}&gt;Style Me!&lt;/div&gt;
+    );
+    // Change code above this line
+  }
+};</code></pre>

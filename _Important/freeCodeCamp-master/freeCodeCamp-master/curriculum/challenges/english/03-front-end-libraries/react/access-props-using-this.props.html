@@ -1,0 +1,119 @@
+<h1 id="description">–description–</h1>
+<p>The last several challenges covered the basic ways to pass props to child components. But what if the child component that you’re passing a prop to is an ES6 class component, rather than a stateless functional component? The ES6 class component uses a slightly different convention to access props.</p>
+<p>Anytime you refer to a class component within itself, you use the <code>this</code> keyword. To access props within a class component, you preface the code that you use to access it with <code>this</code>. For example, if an ES6 class component has a prop called <code>data</code>, you write <code>{this.props.data}</code> in JSX.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Render an instance of the <code>ReturnTempPassword</code> component in the parent component <code>ResetPassword</code>. Here, give <code>ReturnTempPassword</code> a prop of <code>tempPassword</code> and assign it a value of a string that is at least 8 characters long. Within the child, <code>ReturnTempPassword</code>, access the <code>tempPassword</code> prop within the <code>strong</code> tags to make sure the user sees the temporary password.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>ResetPassword</code> component should return a single <code>div</code> element.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(ResetPassword))<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">children</span>().<span class="at">type</span>() <span class="op">===</span> <span class="st">&#39;div&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The fourth child of <code>ResetPassword</code> should be the <code>ReturnTempPassword</code> component.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(ResetPassword))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb2-5" title="5">      <span class="va">mockedComponent</span>.<span class="at">children</span>().<span class="at">childAt</span>(<span class="dv">3</span>).<span class="at">name</span>() <span class="op">===</span> <span class="st">&#39;ReturnTempPassword&#39;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-7" title="7">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-8" title="8">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>ReturnTempPassword</code> component should have a prop called <code>tempPassword</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(ResetPassword))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;ReturnTempPassword&#39;</span>).<span class="at">props</span>().<span class="at">tempPassword</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>tempPassword</code> prop of <code>ReturnTempPassword</code> should be equal to a string of at least <code>8</code> characters.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(ResetPassword))<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="kw">const</span> temp <span class="op">=</span> <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;ReturnTempPassword&#39;</span>).<span class="at">props</span>()</a>
+<a class="sourceLine" id="cb4-5" title="5">      .<span class="at">tempPassword</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="cf">return</span> <span class="kw">typeof</span> temp <span class="op">===</span> <span class="st">&#39;string&#39;</span> <span class="op">&amp;&amp;</span> <span class="va">temp</span>.<span class="at">length</span> <span class="op">&gt;=</span> <span class="dv">8</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb4-8" title="8">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>ReturnTempPassword</code> component should display the password you create as the <code>tempPassword</code> prop within <code>strong</code> tags.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(ResetPassword))<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb5-5" title="5">      <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;strong&#39;</span>).<span class="at">text</span>() <span class="op">===</span></a>
+<a class="sourceLine" id="cb5-6" title="6">      <span class="va">mockedComponent</span>.<span class="at">find</span>(<span class="st">&#39;ReturnTempPassword&#39;</span>).<span class="at">props</span>().<span class="at">tempPassword</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb5-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;ResetPassword /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>class ReturnTempPassword extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
+  render() {
+    return (
+        &lt;div&gt;
+            { /* Change code below this line */ }
+            &lt;p&gt;Your temporary password is: &lt;strong&gt;&lt;/strong&gt;&lt;/p&gt;
+            { /* Change code above this line */ }
+        &lt;/div&gt;
+    );
+  }
+};
+
+class ResetPassword extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
+  render() {
+    return (
+        &lt;div&gt;
+          &lt;h2&gt;Reset Password&lt;/h2&gt;
+          &lt;h3&gt;We&#39;ve generated a new temporary password for you.&lt;/h3&gt;
+          &lt;h3&gt;Please reset this password from your account settings ASAP.&lt;/h3&gt;
+          { /* Change code below this line */ }
+
+          { /* Change code above this line */ }
+        &lt;/div&gt;
+    );
+  }
+};</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>class ReturnTempPassword extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
+  render() {
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Your temporary password is: &lt;strong&gt;{this.props.tempPassword}&lt;/strong&gt;&lt;/p&gt;
+        &lt;/div&gt;
+    );
+  }
+};
+
+class ResetPassword extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
+  render() {
+    return (
+        &lt;div&gt;
+          &lt;h2&gt;Reset Password&lt;/h2&gt;
+          &lt;h3&gt;We&#39;ve generated a new temporary password for you.&lt;/h3&gt;
+          &lt;h3&gt;Please reset this password from your account settings ASAP.&lt;/h3&gt;
+          { /* Change code below this line */ }
+          &lt;ReturnTempPassword tempPassword=&quot;serrPbqrPnzc&quot; /&gt;
+          { /* Change code above this line */ }
+        &lt;/div&gt;
+    );
+  }
+};</code></pre>

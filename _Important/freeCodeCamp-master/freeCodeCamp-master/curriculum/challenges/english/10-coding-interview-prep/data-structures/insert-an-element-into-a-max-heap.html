@@ -1,0 +1,106 @@
+<h1 id="description">–description–</h1>
+<p>Now we will move on to another tree data structure, the binary heap. A binary heap is a partially ordered binary tree which satisfies the heap property. The heap property specifies a relationship between parent and child nodes. You may have a max heap, in which all parent nodes are greater than or equal to their child nodes, or a min heap, in which the reverse is true. Binary heaps are also complete binary trees. This means that all levels of the tree are fully filled and if the last level is partially filled it is filled from left to right.</p>
+<p>While binary heaps may be implemented as tree structures with nodes that contain left and right references, the partial ordering according to the heap property allows us to represent the heap with an array. The parent-children relationship is what we’re interested in and with simple arithmetic we can compute the children of any parent and the parent of any child node.</p>
+<p>For instance, consider this array representation of a binary min heap:</p>
+<p><code>[ 6, 22, 30, 37, 63, 48, 42, 76 ]</code></p>
+<p>The root node is the first element, <code>6</code>. Its children are <code>22</code> and <code>30</code>. If we look at the relationship between the array indices of these values, for index <code>i</code> the children are <code>2 * i + 1</code> and <code>2 * i + 2</code>. Similarly, the element at index <code>0</code> is the parent of these two children at indices <code>1</code> and <code>2</code>. More generally, we can find the parent of a node at any index with the following: <code>Math.floor((i - 1) / 2)</code>. These patterns will hold true as the binary tree grows to any size. Finally, we can make a slight adjustment to make this arithmetic even easier by skipping the first element in the array. Doing this creates the following relationship for any element at a given index <code>i</code>:</p>
+<p>Example array representation:</p>
+<p><code>[ null, 6, 22, 30, 37, 63, 48, 42, 76 ]</code></p>
+<p>An element’s left child: <code>i * 2</code></p>
+<p>An element’s right child: <code>i * 2 + 1</code></p>
+<p>An element’s parent: <code>Math.floor(i / 2)</code></p>
+<p>Once you wrap your head around the math, using an array representation is very useful because node locations can be quickly determined with this arithmetic and memory usage is diminished because you don’t need to maintain references to child nodes.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Instructions: Here we will create a max heap. Start by just creating an <code>insert</code> method which adds elements to our heap. During insertion, it is important to always maintain the heap property. For a max heap this means the root element should always have the greatest value in the tree and all parent nodes should be greater than their children. For an array implementation of a heap, this is typically accomplished in three steps:</p>
+<ol>
+<li>
+Add the new element to the end of the array.
+</li>
+<li>
+If the element is larger than its parent, switch them.
+</li>
+<li>
+Continue switching until the new element is either smaller than its parent or you reach the root of the tree.
+</li>
+</ol>
+<p>Finally, add a <code>print</code> method which returns an array of all the items that have been added to the heap.</p>
+<h1 id="hints">–hints–</h1>
+<p>The MaxHeap data structure should exist.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> MaxHeap <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">MaxHeap</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-6" title="6">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb1-7" title="7">    <span class="cf">return</span> <span class="kw">typeof</span> test <span class="op">==</span> <span class="st">&#39;object&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-9" title="9">)<span class="op">;</span></a></code></pre></div>
+<p>MaxHeap should have a method called insert.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> MaxHeap <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">MaxHeap</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-7" title="7">      <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-8" title="8">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    <span class="cf">return</span> <span class="kw">typeof</span> <span class="va">test</span>.<span class="at">insert</span> <span class="op">==</span> <span class="st">&#39;function&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-10" title="10">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-11" title="11">)<span class="op">;</span></a></code></pre></div>
+<p>MaxHeap should have a method called print.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> MaxHeap <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">MaxHeap</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-6" title="6">    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-7" title="7">      <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="cf">return</span> <span class="kw">typeof</span> <span class="va">test</span>.<span class="at">print</span> <span class="op">==</span> <span class="st">&#39;function&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-10" title="10">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-11" title="11">)<span class="op">;</span></a></code></pre></div>
+<p>The insert method should add elements according to the max heap property.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">var</span> test <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="cf">if</span> (<span class="kw">typeof</span> MaxHeap <span class="op">!==</span> <span class="st">&#39;undefined&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-5" title="5">      test <span class="op">=</span> <span class="kw">new</span> <span class="at">MaxHeap</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-7" title="7">      <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    <span class="va">test</span>.<span class="at">insert</span>(<span class="dv">50</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">    <span class="va">test</span>.<span class="at">insert</span>(<span class="dv">100</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">    <span class="va">test</span>.<span class="at">insert</span>(<span class="dv">700</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">    <span class="va">test</span>.<span class="at">insert</span>(<span class="dv">32</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">    <span class="va">test</span>.<span class="at">insert</span>(<span class="dv">51</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-14" title="14">    <span class="kw">let</span> result <span class="op">=</span> <span class="va">test</span>.<span class="at">print</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-15" title="15">    <span class="cf">return</span> <span class="va">result</span>.<span class="at">length</span> <span class="op">==</span> <span class="dv">5</span> <span class="op">?</span> result[<span class="dv">0</span>] <span class="op">==</span> <span class="dv">700</span> : result[<span class="dv">1</span>] <span class="op">==</span> <span class="dv">700</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-16" title="16">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb4-17" title="17">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">var</span> MaxHeap <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="co">// Only change code below this line</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    </a>
+<a class="sourceLine" id="cb5-4" title="4">  <span class="co">// Only change code above this line</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="op">};</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">var</span> MaxHeap <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2">    <span class="co">// Only change code below this line</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">this</span>.<span class="at">heap</span> <span class="op">=</span> [<span class="kw">null</span>]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="kw">this</span>.<span class="at">insert</span> <span class="op">=</span> (ele) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-5" title="5">        <span class="kw">var</span> index <span class="op">=</span> <span class="kw">this</span>.<span class="va">heap</span>.<span class="at">length</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">        <span class="kw">var</span> arr <span class="op">=</span> [...<span class="va">this</span>.<span class="at">heap</span>]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-7" title="7">        <span class="va">arr</span>.<span class="at">push</span>(ele)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-8" title="8">        <span class="cf">while</span> (ele <span class="op">&gt;</span> arr[<span class="va">Math</span>.<span class="at">floor</span>(index / <span class="dv">2</span>)] <span class="op">&amp;&amp;</span> index <span class="op">&gt;</span> <span class="dv">1</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-9" title="9">            arr[index] <span class="op">=</span> arr[<span class="va">Math</span>.<span class="at">floor</span>(index / <span class="dv">2</span>)]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">            arr[<span class="va">Math</span>.<span class="at">floor</span>(index / <span class="dv">2</span>)] <span class="op">=</span> ele<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-11" title="11">            index <span class="op">=</span> arr[<span class="va">Math</span>.<span class="at">floor</span>(index / <span class="dv">2</span>)]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-13" title="13">        <span class="kw">this</span>.<span class="at">heap</span> <span class="op">=</span> arr<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-14" title="14">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-15" title="15">    <span class="kw">this</span>.<span class="at">print</span> <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-16" title="16">        <span class="cf">return</span> <span class="kw">this</span>.<span class="va">heap</span>.<span class="at">slice</span>(<span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-17" title="17">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-18" title="18">    <span class="co">// Only change code above this line</span></a>
+<a class="sourceLine" id="cb6-19" title="19"><span class="op">};</span></a></code></pre></div>

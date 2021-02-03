@@ -1,0 +1,15 @@
+
+<div class="input-group" id="search">
+	<!-- <select ng-model="search.category" name="" id="">
+		<option value="{{category._id}}"ng-repeat="category in categories">{{category.name}}</option>
+	</select> -->
+
+	 <input id="searchCategory"type="text" placeholder = "Category" ng-model="search.category" typeahead="category as category.name for category in categories| filter:{name:$viewValue}" class="form-control">
+	<input id="searchStr" ng-model="search.input" placeholder="For what are you looking?" type="text" class="form-control" aria-label="...">
+	<span class="input-group-btn">
+		<button ng-click="fireSearch()" class="btn btn-default">Search</button>
+	</span>
+
+
+
+</div><!-- /input-group -->

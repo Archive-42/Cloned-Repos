@@ -1,0 +1,78 @@
+<h1 id="description">–description–</h1>
+<p>Sass has a feature called <code>extend</code> that makes it easy to borrow the CSS rules from one element and build upon them in another.</p>
+<p>For example, the below block of CSS rules style a <code>.panel</code> class. It has a <code>background-color</code>, <code>height</code> and <code>border</code>.</p>
+<pre class="scss"><code>.panel{
+  background-color: red;
+  height: 70px;
+  border: 2px solid green;
+}</code></pre>
+<p>Now you want another panel called <code>.big-panel</code>. It has the same base properties as <code>.panel</code>, but also needs a <code>width</code> and <code>font-size</code>. It’s possible to copy and paste the initial CSS rules from <code>.panel</code>, but the code becomes repetitive as you add more types of panels. The <code>extend</code> directive is a simple way to reuse the rules written for one element, then add more for another:</p>
+<pre class="scss"><code>.big-panel{
+  @extend .panel;
+  width: 150px;
+  font-size: 2em;
+}</code></pre>
+<p>The <code>.big-panel</code> will have the same properties as <code>.panel</code> in addition to the new styles.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Make a class <code>.info-important</code> that extends <code>.info</code> and also has a <code>background-color</code> set to magenta.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your <code>info-important</code> class should have a <code>background-color</code> set to <code>magenta</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="ss">/</span><span class="sc">\.</span><span class="ss">info-important</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">[\s\S]*</span><span class="ss">background-color</span><span class="sc">\s*?</span><span class="ss">:</span><span class="sc">\s*?</span><span class="ss">magenta</span><span class="sc">\s*?</span><span class="ss">;</span><span class="sc">[\s\S]*</span><span class="ss">}/gi</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  )</a>
+<a class="sourceLine" id="cb3-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>info-important</code> class should use <code>@extend</code> to inherit the styling from the <code>info</code> class.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/</span><span class="sc">\.</span><span class="ss">info-important</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">[\s\S]*</span><span class="ss">@extend</span><span class="sc">\s*?</span><span class="ss">.info</span><span class="sc">\s*?</span><span class="ss">;</span><span class="sc">[\s\S]*</span><span class="ss">/gi</span>)</a>
+<a class="sourceLine" id="cb4-3" title="3">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;style</span><span class="ot"> type=</span><span class="st">&#39;text/scss&#39;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  h3{</a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">  }</a>
+<a class="sourceLine" id="cb5-5" title="5">  <span class="fu">.info</span>{</a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="kw">width</span>: <span class="dv">200</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">black</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="kw">margin</span>: <span class="dv">0</span> <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">  }</a>
+<a class="sourceLine" id="cb5-10" title="10"></a>
+<a class="sourceLine" id="cb5-11" title="11"></a>
+<a class="sourceLine" id="cb5-12" title="12"></a>
+<a class="sourceLine" id="cb5-13" title="13"></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb5-15" title="15"><span class="kw">&lt;h3&gt;</span>Posts<span class="kw">&lt;/h3&gt;</span></a>
+<a class="sourceLine" id="cb5-16" title="16"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;info-important&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-17" title="17">  <span class="kw">&lt;p&gt;</span>This is an important post. It should extend the class &quot;.info&quot; and have its own CSS styles.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-18" title="18"><span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-19" title="19"></a>
+<a class="sourceLine" id="cb5-20" title="20"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;info&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-21" title="21">  <span class="kw">&lt;p&gt;</span>This is a simple post. It has basic styling and can be extended for other uses.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-22" title="22"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;style</span><span class="ot"> type=</span><span class="st">&#39;text/scss&#39;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  h3{</a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">text-align</span>: <span class="dv">center</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">  }</a>
+<a class="sourceLine" id="cb6-5" title="5">  <span class="fu">.info</span>{</a>
+<a class="sourceLine" id="cb6-6" title="6">    <span class="kw">width</span>: <span class="dv">200</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-7" title="7">    <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">black</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="kw">margin</span>: <span class="dv">0</span> <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">  }</a>
+<a class="sourceLine" id="cb6-10" title="10">  <span class="fu">.info-important</span>{</a>
+<a class="sourceLine" id="cb6-11" title="11">    <span class="im">@extend</span> <span class="dv">.</span>info<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">    <span class="kw">background-color</span>: <span class="cn">magenta</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-13" title="13">  }</a>
+<a class="sourceLine" id="cb6-14" title="14"></a>
+<a class="sourceLine" id="cb6-15" title="15"></a>
+<a class="sourceLine" id="cb6-16" title="16"></a>
+<a class="sourceLine" id="cb6-17" title="17"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb6-18" title="18"><span class="kw">&lt;h3&gt;</span>Posts<span class="kw">&lt;/h3&gt;</span></a>
+<a class="sourceLine" id="cb6-19" title="19"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;info-important&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-20" title="20">  <span class="kw">&lt;p&gt;</span>This is an important post. It should extend the class &quot;.info&quot; and have its own CSS styles.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb6-21" title="21"><span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-22" title="22"></a>
+<a class="sourceLine" id="cb6-23" title="23"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;info&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-24" title="24">  <span class="kw">&lt;p&gt;</span>This is a simple post. It has basic styling and can be extended for other uses.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb6-25" title="25"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>

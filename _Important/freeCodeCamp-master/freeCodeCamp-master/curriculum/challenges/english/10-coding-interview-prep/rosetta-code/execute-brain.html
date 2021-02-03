@@ -1,0 +1,186 @@
+<h1 id="description">–description–</h1>
+<p>Write a function to implement a Brain**** interpreter. The function will take a string as a parameter and should return a string as the output. More details are given below:</p>
+<p>RCBF is a set of <a href="https://rosettacode.org/wiki/Brainf***" title="Brainf***">Brainf***</a> compilers and interpreters written for Rosetta Code in a variety of languages.</p>
+<p>Below are links to each of the versions of RCBF.</p>
+<p>An implementation need only properly implement the following instructions:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>&gt;</code></td>
+<td>Move the pointer to the right</td>
+</tr>
+<tr class="even">
+<td><code>&lt;</code></td>
+<td>Move the pointer to the left</td>
+</tr>
+<tr class="odd">
+<td><code>+</code></td>
+<td>Increment the memory cell under the pointer</td>
+</tr>
+<tr class="even">
+<td><code>-</code></td>
+<td>Decrement the memory cell under the pointer</td>
+</tr>
+<tr class="odd">
+<td><code>.</code></td>
+<td>Output the character signified by the cell at the pointer</td>
+</tr>
+<tr class="even">
+<td><code>,</code></td>
+<td>Input a character and store it in the cell at the pointer</td>
+</tr>
+<tr class="odd">
+<td><code>[</code></td>
+<td>Jump past the matching <code>]</code> if the cell under the pointer is 0</td>
+</tr>
+<tr class="even">
+<td><code>]</code></td>
+<td>Jump back to the matching <code>[</code> if the cell under the pointer is nonzero</td>
+</tr>
+</tbody>
+</table>
+<p>Any cell size is allowed, EOF (<em>E</em>nd-<em>O</em>-<em>F</em>ile) support is optional, as is whether you have bounded or unbounded memory.</p>
+<h1 id="hints">–hints–</h1>
+<p><code>brain(bye)</code> should return a string</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">brain</span>(bye) <span class="op">===</span> <span class="st">&#39;string&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>brain("++++++[&gt;++++++++++&lt;-]&gt;+++++.")</code> should return “A”</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">brain</span>(<span class="st">&#39;++++++[&gt;++++++++++&lt;-]&gt;+++++.&#39;</span>)<span class="op">,</span> <span class="st">&#39;A&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>brain(bye)</code> should return <code>Goodbye, World!\r\n</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">brain</span>(bye)<span class="op">,</span> <span class="st">&#39;Goodbye, World!</span><span class="sc">\r\n</span><span class="st">&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>brain(hello)</code> should return <code>Hello World!\n</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">brain</span>(hello)<span class="op">,</span> <span class="st">&#39;Hello World!</span><span class="sc">\n</span><span class="st">&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>brain(fib)</code> should return <code>1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89</code></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">brain</span>(fib)<span class="op">,</span> <span class="st">&#39;1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="before-user-code">–before-user-code–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">let</span> fib<span class="op">=</span><span class="vs">`+</span></a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="vs">++</span></a>
+<a class="sourceLine" id="cb6-4" title="4"></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="vs">+++</span></a>
+<a class="sourceLine" id="cb6-6" title="6"></a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="vs">++++</span></a>
+<a class="sourceLine" id="cb6-8" title="8"></a>
+<a class="sourceLine" id="cb6-9" title="9"><span class="vs">+&gt;+&gt;&gt;</span></a>
+<a class="sourceLine" id="cb6-10" title="10"></a>
+<a class="sourceLine" id="cb6-11" title="11"><span class="vs">&gt;&gt;++++</span></a>
+<a class="sourceLine" id="cb6-12" title="12"></a>
+<a class="sourceLine" id="cb6-13" title="13"><span class="vs">+++++++</span></a>
+<a class="sourceLine" id="cb6-14" title="14"></a>
+<a class="sourceLine" id="cb6-15" title="15"><span class="vs">++++++++</span></a>
+<a class="sourceLine" id="cb6-16" title="16"></a>
+<a class="sourceLine" id="cb6-17" title="17"><span class="vs">+++++++++</span></a>
+<a class="sourceLine" id="cb6-18" title="18"></a>
+<a class="sourceLine" id="cb6-19" title="19"><span class="vs">++++++++++</span></a>
+<a class="sourceLine" id="cb6-20" title="20"></a>
+<a class="sourceLine" id="cb6-21" title="21"><span class="vs">++++++&gt;++++</span></a>
+<a class="sourceLine" id="cb6-22" title="22"></a>
+<a class="sourceLine" id="cb6-23" title="23"><span class="vs">++++++++++++</span></a>
+<a class="sourceLine" id="cb6-24" title="24"></a>
+<a class="sourceLine" id="cb6-25" title="25"><span class="vs">+++++++++++++</span></a>
+<a class="sourceLine" id="cb6-26" title="26"></a>
+<a class="sourceLine" id="cb6-27" title="27"><span class="vs">+++&lt;&lt;&lt;&lt;&lt;&lt;[&gt;[&gt;&gt;</span></a>
+<a class="sourceLine" id="cb6-28" title="28"></a>
+<a class="sourceLine" id="cb6-29" title="29"><span class="vs">&gt;&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;&lt;&lt;&lt;-</span></a>
+<a class="sourceLine" id="cb6-30" title="30"></a>
+<a class="sourceLine" id="cb6-31" title="31"><span class="vs">]&gt;&gt;&gt;&gt;&gt;&gt;&gt;[&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span></a>
+<a class="sourceLine" id="cb6-32" title="32"></a>
+<a class="sourceLine" id="cb6-33" title="33"><span class="vs">+&gt;&gt;&gt;&gt;&gt;&gt;&gt;-]&lt;[&gt;++++</span></a>
+<a class="sourceLine" id="cb6-34" title="34"></a>
+<a class="sourceLine" id="cb6-35" title="35"><span class="vs">++++++[-&lt;-[&gt;&gt;+&gt;+&lt;&lt;</span></a>
+<a class="sourceLine" id="cb6-36" title="36"></a>
+<a class="sourceLine" id="cb6-37" title="37"><span class="vs">&lt;-]&gt;&gt;&gt;[&lt;&lt;&lt;+&gt;&gt;&gt;-]+&lt;[</span></a>
+<a class="sourceLine" id="cb6-38" title="38"></a>
+<a class="sourceLine" id="cb6-39" title="39"><span class="vs">&gt;[-]&lt;[-]]&gt;[&lt;&lt;[&gt;&gt;&gt;+&lt;&lt;</span></a>
+<a class="sourceLine" id="cb6-40" title="40"></a>
+<a class="sourceLine" id="cb6-41" title="41"><span class="vs">&lt;-]&gt;&gt;[-]]&lt;&lt;]&gt;&gt;&gt;[&gt;&gt;+&gt;+</span></a>
+<a class="sourceLine" id="cb6-42" title="42"></a>
+<a class="sourceLine" id="cb6-43" title="43"><span class="vs">&lt;&lt;&lt;-]&gt;&gt;&gt;[&lt;&lt;&lt;+&gt;&gt;&gt;-]+&lt;[&gt;</span></a>
+<a class="sourceLine" id="cb6-44" title="44"></a>
+<a class="sourceLine" id="cb6-45" title="45"><span class="vs">[-]&lt;[-]]&gt;[&lt;&lt;+&gt;&gt;[-]]&lt;&lt;&lt;&lt;</span></a>
+<a class="sourceLine" id="cb6-46" title="46"></a>
+<a class="sourceLine" id="cb6-47" title="47"><span class="vs">&lt;&lt;&lt;]&gt;&gt;&gt;&gt;&gt;[++++++++++++++</span></a>
+<a class="sourceLine" id="cb6-48" title="48"></a>
+<a class="sourceLine" id="cb6-49" title="49"><span class="vs">+++++++++++++++++++++++++</span></a>
+<a class="sourceLine" id="cb6-50" title="50"></a>
+<a class="sourceLine" id="cb6-51" title="51"><span class="vs">+++++++++.[-]]++++++++++&lt;[</span></a>
+<a class="sourceLine" id="cb6-52" title="52"></a>
+<a class="sourceLine" id="cb6-53" title="53"><span class="vs">-&gt;-&lt;]&gt;+++++++++++++++++++++</span></a>
+<a class="sourceLine" id="cb6-54" title="54"></a>
+<a class="sourceLine" id="cb6-55" title="55"><span class="vs">+++++++++++++++++++++++++++.</span></a>
+<a class="sourceLine" id="cb6-56" title="56"></a>
+<a class="sourceLine" id="cb6-57" title="57"><span class="vs">[-]&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;[&gt;&gt;&gt;+&gt;+&lt;&lt;&lt;&lt;-]&gt;</span></a>
+<a class="sourceLine" id="cb6-58" title="58"></a>
+<a class="sourceLine" id="cb6-59" title="59"><span class="vs">&gt;&gt;&gt;[&lt;&lt;&lt;&lt;+&gt;&gt;&gt;&gt;-]&lt;-[&gt;&gt;.&gt;.&lt;&lt;&lt;[-]]</span></a>
+<a class="sourceLine" id="cb6-60" title="60"></a>
+<a class="sourceLine" id="cb6-61" title="61"><span class="vs">&lt;&lt;[&gt;&gt;+&gt;+&lt;&lt;&lt;-]&gt;&gt;&gt;[&lt;&lt;&lt;+&gt;&gt;&gt;-]&lt;&lt;[&lt;+</span></a>
+<a class="sourceLine" id="cb6-62" title="62"></a>
+<a class="sourceLine" id="cb6-63" title="63"><span class="vs">&gt;-]&gt;[&lt;+&gt;-]&lt;&lt;&lt;-]`</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-64" title="64"><span class="kw">let</span> hello<span class="op">=</span><span class="st">&#39;++++++++[&gt;++++[&gt;++&gt;+++&gt;+++&gt;+&lt;&lt;&lt;&lt;-]&gt;+&gt;+&gt;-&gt;&gt;+[&lt;]&lt;-]&gt;&gt;.&gt;---.+++++++..+++.&gt;&gt;.&lt;-.&lt;.+++.------.--------.&gt;&gt;+.&gt;++.&#39;</span></a>
+<a class="sourceLine" id="cb6-65" title="65"><span class="kw">let</span> bye<span class="op">=</span><span class="st">&#39;++++++++++[&gt;+&gt;+++&gt;++++&gt;+++++++&gt;++++++++&gt;+++++++++&gt;++++++++++&gt;+++++++++++&gt;++++++++++++&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;-]&gt;&gt;&gt;&gt;+.&gt;&gt;&gt;&gt;+..&lt;.&lt;++++++++.&gt;&gt;&gt;+.&lt;&lt;+.&lt;&lt;&lt;&lt;++++.&lt;++.&gt;&gt;&gt;+++++++.&gt;&gt;&gt;.+++.&lt;+++++++.--------.&lt;&lt;&lt;&lt;&lt;+.&lt;+++.---.&#39;</span><span class="op">;</span></a></code></pre></div>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">function</span> <span class="at">brain</span>(prog) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2"></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="op">}</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">function</span> <span class="at">brain</span>(prog)<span class="op">{</span></a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="kw">var</span> output<span class="op">=</span><span class="st">&quot;&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="kw">var</span> code<span class="op">;</span> <span class="co">// formatted code</span></a>
+<a class="sourceLine" id="cb8-4" title="4">  <span class="kw">var</span> ip <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="co">// current instruction within code</span></a>
+<a class="sourceLine" id="cb8-5" title="5">  <span class="kw">var</span> nest <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="co">// current bracket nesting (for Out button)</span></a>
+<a class="sourceLine" id="cb8-6" title="6">  <span class="kw">var</span> ahead <span class="op">=</span> []<span class="op">;</span> <span class="co">// locations of matching brackets</span></a>
+<a class="sourceLine" id="cb8-7" title="7"></a>
+<a class="sourceLine" id="cb8-8" title="8">  <span class="kw">var</span> data <span class="op">=</span> [<span class="dv">0</span>]<span class="op">;</span> <span class="co">// data array (mod by +, -)</span></a>
+<a class="sourceLine" id="cb8-9" title="9">  <span class="kw">var</span> dp <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="co">// index into data (mod by &lt;, &gt;)</span></a>
+<a class="sourceLine" id="cb8-10" title="10"></a>
+<a class="sourceLine" id="cb8-11" title="11">  <span class="kw">var</span> inp <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="co">// current input character (fetch with ,)</span></a>
+<a class="sourceLine" id="cb8-12" title="12">  <span class="kw">var</span> quit <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-13" title="13">    <span class="kw">var</span> commands <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-14" title="14">    <span class="st">&#39;&gt;&#39;</span><span class="op">:</span><span class="kw">function</span>() <span class="op">{</span> <span class="cf">if</span> (<span class="op">++</span>dp <span class="op">&gt;=</span> <span class="va">data</span>.<span class="at">length</span>) data[dp]<span class="op">=</span><span class="dv">0</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb8-15" title="15">    <span class="st">&#39;&lt;&#39;</span><span class="op">:</span><span class="kw">function</span>() <span class="op">{</span> <span class="cf">if</span> (<span class="op">--</span>dp <span class="op">&lt;</span> <span class="dv">0</span>) quit<span class="op">++</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb8-16" title="16">    <span class="st">&#39;+&#39;</span><span class="op">:</span><span class="kw">function</span>() <span class="op">{</span> <span class="op">++</span>data[dp] <span class="op">},</span></a>
+<a class="sourceLine" id="cb8-17" title="17">    <span class="st">&#39;-&#39;</span><span class="op">:</span><span class="kw">function</span>() <span class="op">{</span> <span class="op">--</span>data[dp] <span class="op">},</span></a>
+<a class="sourceLine" id="cb8-18" title="18">    <span class="st">&#39;[&#39;</span><span class="op">:</span><span class="kw">function</span>() <span class="op">{</span> <span class="cf">if</span> (<span class="op">!</span>data[dp]) ip <span class="op">=</span> ahead[ip]<span class="op">;</span> <span class="cf">else</span> <span class="op">++</span>nest <span class="op">},</span></a>
+<a class="sourceLine" id="cb8-19" title="19">    <span class="st">&#39;]&#39;</span><span class="op">:</span><span class="kw">function</span>() <span class="op">{</span> <span class="cf">if</span> ( data[dp]) ip <span class="op">=</span> ahead[ip]<span class="op">;</span> <span class="cf">else</span> <span class="op">--</span>nest <span class="op">},</span></a>
+<a class="sourceLine" id="cb8-20" title="20">    <span class="st">&#39;,&#39;</span><span class="op">:</span><span class="kw">function</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-21" title="21">        <span class="kw">var</span> c <span class="op">=</span> <span class="va">document</span>.<span class="at">getElementById</span>(<span class="st">&quot;input&quot;</span>).<span class="va">value</span>.<span class="at">charCodeAt</span>(inp<span class="op">++</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-22" title="22">        data[dp] <span class="op">=</span> <span class="at">isNaN</span>(c) <span class="op">?</span> <span class="dv">0</span> : c<span class="op">;</span> <span class="co">// EOF: other options are -1 or no change</span></a>
+<a class="sourceLine" id="cb8-23" title="23">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb8-24" title="24">    <span class="st">&#39;.&#39;</span><span class="op">:</span><span class="kw">function</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-25" title="25">            output<span class="op">+=</span><span class="va">String</span>.<span class="at">fromCharCode</span>(data[dp])<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-26" title="26">            <span class="co">/*var s = document.getElementById(&quot;output&quot;).innerHTML)</span></a>
+<a class="sourceLine" id="cb8-27" title="27"><span class="co">             + String.fromCharCode(data[dp]);</span></a>
+<a class="sourceLine" id="cb8-28" title="28"><span class="co">            s = s.replace(/\n/g,&quot;&lt;br&gt;&quot;).replace(/ /g,&quot;&amp;amp;nbsp;&quot;);</span></a>
+<a class="sourceLine" id="cb8-29" title="29"><span class="co">            document.getElementById(&quot;output&quot;).innerHTML = s;*/</span></a>
+<a class="sourceLine" id="cb8-30" title="30">        <span class="op">},</span></a>
+<a class="sourceLine" id="cb8-31" title="31">    <span class="op">};</span></a>
+<a class="sourceLine" id="cb8-32" title="32"></a>
+<a class="sourceLine" id="cb8-33" title="33">    <span class="kw">let</span> ar<span class="op">=</span><span class="va">prog</span>.<span class="at">split</span>(<span class="st">&#39;&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-34" title="34">    <span class="kw">var</span> st <span class="op">=</span> []<span class="op">,</span> back<span class="op">,</span> error <span class="op">=</span> <span class="dv">-1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-35" title="35">    <span class="cf">for</span> (ip<span class="op">=</span><span class="dv">0</span><span class="op">;</span> ip<span class="op">&lt;</span><span class="va">ar</span>.<span class="at">length</span><span class="op">;</span> ip<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-36" title="36">        <span class="cf">switch</span>(ar[ip]) <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-37" title="37">        <span class="cf">case</span> <span class="st">&#39;[&#39;</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb8-38" title="38">            <span class="va">st</span>.<span class="at">push</span>(ip)<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-39" title="39">            <span class="cf">break</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-40" title="40">        <span class="cf">case</span> <span class="st">&#39;]&#39;</span><span class="op">:</span></a>
+<a class="sourceLine" id="cb8-41" title="41">            <span class="cf">if</span> (<span class="va">st</span>.<span class="at">length</span> <span class="op">==</span> <span class="dv">0</span>) error <span class="op">=</span> ip<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-42" title="42">            back <span class="op">=</span> <span class="va">st</span>.<span class="at">pop</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-43" title="43">            ahead[ip] <span class="op">=</span> back<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-44" title="44">            ahead[back] <span class="op">=</span> ip<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-45" title="45">            <span class="cf">break</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb8-46" title="46">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-47" title="47">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-48" title="48"></a>
+<a class="sourceLine" id="cb8-49" title="49">    <span class="cf">for</span>(ip<span class="op">=</span><span class="dv">0</span><span class="op">;</span>ip<span class="op">&lt;</span><span class="va">ar</span>.<span class="at">length</span><span class="op">;</span>ip<span class="op">++</span>)<span class="op">{</span></a>
+<a class="sourceLine" id="cb8-50" title="50">    <span class="cf">if</span>(<span class="va">commands</span>.<span class="at">hasOwnProperty</span>(ar[ip]))</a>
+<a class="sourceLine" id="cb8-51" title="51">          commands[ar[ip]]()<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-52" title="52">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb8-53" title="53"></a>
+<a class="sourceLine" id="cb8-54" title="54">    <span class="cf">return</span> output<span class="op">;</span></a>
+<a class="sourceLine" id="cb8-55" title="55"><span class="op">}</span></a></code></pre></div>

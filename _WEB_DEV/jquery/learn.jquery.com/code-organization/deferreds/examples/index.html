@@ -1,0 +1,1091 @@
+<!doctype html>
+<!--[if IE 7 ]>		 <html class="no-js ie ie7 lte7 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 8 ]>		 <html class="no-js ie ie8 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 9 ]>		 <html class="no-js ie ie9 lte9"> lang="en-US"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head data-live-domain="learn.jquery.com">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>Deferred examples | jQuery Learning Center</title>
+
+	<meta name="author" content="JS Foundation - js.foundation">
+	<meta name="description" content="">
+
+	<meta name="viewport" content="width=device-width">
+
+	<link rel="shortcut icon" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/i/favicon.ico">
+
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/base.css?v=2">
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/style.css">
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/modernizr.custom.2.8.3.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/main.js"></script>
+
+	<script src="https://use.typekit.net/wde1aof.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+	<!-- at the end of the HEAD -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/docsearch.css">
+
+<link rel='https://api.w.org/' href='//learn.jquery.com/wp-json/' />
+<meta name="generator" content="WordPress 4.5.2" />
+<link rel="alternate" type="application/json+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fcode-organization%2Fdeferreds%2Fexamples%2F" />
+<link rel="alternate" type="text/xml+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fcode-organization%2Fdeferreds%2Fexamples%2F&#038;format=xml" />
+
+</head>
+<body class="jquery-learn page page-id-228 page-child parent-pageid-227 page-template-default page-slug-examples single-author singular">
+
+<header>
+	<section id="global-nav">
+		<nav>
+			<div class="constrain">
+				<ul class="projects">
+					<li class="project jquery"><a href="https://jquery.com/" title="jQuery">jQuery</a></li>
+					<li class="project jquery-ui"><a href="https://jqueryui.com/" title="jQuery UI">jQuery UI</a></li>
+					<li class="project jquery-mobile"><a href="https://jquerymobile.com/" title="jQuery Mobile">jQuery Mobile</a></li>
+					<li class="project sizzlejs"><a href="https://sizzlejs.com/" title="Sizzle">Sizzle</a></li>
+					<li class="project qunitjs"><a href="https://qunitjs.com/" title="QUnit">QUnit</a></li>
+				</ul>
+				<ul class="links">
+					<li><a href="https://plugins.jquery.com/">Plugins</a></li>
+					<li class="dropdown"><a href="https://contribute.jquery.org/">Contribute</a>
+						<ul>
+							<li><a href="https://js.foundation/CLA">CLA</a></li>
+							<li><a href="https://contribute.jquery.org/style-guide/">Style Guides</a></li>
+							<li><a href="https://contribute.jquery.org/triage/">Bug Triage</a></li>
+							<li><a href="https://contribute.jquery.org/code/">Code</a></li>
+							<li><a href="https://contribute.jquery.org/documentation/">Documentation</a></li>
+							<li><a href="https://contribute.jquery.org/web-sites/">Web Sites</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/events">Events</a>
+						<ul class="wide">
+																		</ul>
+					</li>
+					<li class="dropdown"><a href="https://jquery.org/support/">Support</a>
+						<ul>
+							<li><a href="https://learn.jquery.com/">Learning Center</a></li>
+							<li><a href="https://irc.jquery.org/">IRC/Chat</a></li>
+							<li><a href="https://forum.jquery.com/">Forums</a></li>
+							<li><a href="https://stackoverflow.com/tags/jquery/info">Stack Overflow</a></li>
+							<li><a href="https://jquery.org/support/">Commercial Support</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/">JS Foundation</a>
+						<ul>
+							<li><a href="https://js.foundation/about/join">Join</a></li>
+							<li><a href="https://js.foundation/about/members">Members</a></li>
+							<li><a href="https://js.foundation/about/leadership">Leadership</a></li>
+							<li><a href="https://js.foundation/community/code-of-conduct">Conduct</a></li>
+							<li><a href="https://js.foundation/about/donate">Donate</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</section>
+</header>
+
+<div id="banner-blm">
+	<h2>#BlackLivesMatter</h2>
+	<p>To Donate, see this <a href="https://bit.ly/fundthecommunity">list of organizations to support</a> from <a href="https://www.reclaimtheblock.org/">Reclaim the Block</a> 
+</div>
+
+<div id="container">
+	<div id="logo-events" class="constrain clearfix">
+		<h2 class="logo"><a href="/" title="jQuery Learning Center">jQuery Learning Center</a></h2>
+
+		<aside>
+			<div id="broadcast">
+				<a href="https://js.foundation/about/donate" title="Support the JS Foundation"><img src="/jquery-wp-content/themes/jquery/content/donate.png" title="Support the JS Foundation" alt="Support the JS Foundation" border="0" width="400" height="100"></a>
+			</div>
+		</aside>
+	</div>
+
+	<nav id="main" class="constrain clearfix">
+		<div class="menu-top-container">
+	<ul id="menu-top" class="menu">
+<li class="menu-item"><a href="https://learn.jquery.com">Home</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/about/">About</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/contributing/">Contributing</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/style-guide/">Style Guide</a></li>
+	</ul>
+</div>
+
+		<form method="get" class="searchform" action="//learn.jquery.com/">
+	<button type="submit" class="icon-search"><span class="visuallyhidden">search</span></button>
+	<label>
+		<span class="visuallyhidden">Search jQuery Learning Center</span>
+		<input type="text" name="s" value=""
+			placeholder="Search">
+	</label>
+</form>
+	</nav>
+
+	<div id="content-wrapper" class="clearfix row">
+
+<div class="beta-ribbon-wrapper"><div class="beta-ribbon"><a href="/about/#beta">Beta</a></div></div>
+<div class="content-right twelve columns">
+	<div id="content">
+		<div class="post-heirarchy">Posted in: <a href="https://learn.jquery.com/code-organization/">Code Organization</a> > <a href="https://learn.jquery.com/code-organization/deferreds/">Deferreds</a></div><article id="post-228" class="post-228 page type-page status-publish hentry">
+	<header class="entry-header">
+		<h1 class="entry-title">Deferred examples</h1>
+	</header>
+
+	<div class="entry-content">
+		<h2 class="toc-linked"><a href="#further-deferreds-examples" id="further-deferreds-examples" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Further Deferreds examples</h2><p>Deferreds are used behind the hood in Ajax but it doesn&apos;t mean they can&apos;t also be used elsewhere. This section describes situations where deferreds will help abstract away asynchronous behavior and decouple our code.</p>
+<h3 class="toc-linked"><a href="#caching" id="caching" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Caching</h3><h4 class="toc-linked"><a href="#asynchronous-cache" id="asynchronous-cache" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Asynchronous cache</h4><p>When it comes to asynchronous tasks, caching can be a bit demanding since you have to make sure a task is only performed once for a given key. As a consequence, the code has to somehow keep track of inbound tasks.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.cachedGetScript( url, callback1 );</code></div></div><div class="container"><div class="line"><code>$.cachedGetScript( url, callback2 );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>The caching mechanism has to make sure the URL is only requested once even if the script isn&apos;t in cache yet. This shows some logic to keep track of callbacks bound to a given URL in order for the cache system to properly handle both complete and inbound requests.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="keyword">var</span> cachedScriptPromises = {};</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>$.cachedGetScript = <span class="keyword">function</span>( url, callback ) {</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">if</span> ( !cachedScriptPromises[ url ] ) {</code></div></div><div class="container"><div class="line"><code>        cachedScriptPromises[ url ] = $.Deferred(<span class="keyword">function</span>( defer ) {</code></div></div><div class="container"><div class="line"><code>            $.getScript( url ).then( defer.resolve, defer.reject );</code></div></div><div class="container"><div class="line"><code>        }).promise();</code></div></div><div class="container"><div class="line"><code>    }</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">return</span> cachedScriptPromises[ url ].done( callback );</code></div></div><div class="container"><div class="line"><code>};</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>One promise is cached per URL. If there is no promise for the given URL yet, then a deferred is created and the request is issued. When the request is complete, the deferred is resolved (with <code>defer.resolve</code>); if an error occurs, the deferred is rejected (with <code>defer.reject</code>). If the promise already exists, the callback is attached to the existing deferred; otherwise, the promise is first created and then the callback is attached. The big advantage of this solution is that it will handle both complete and inbound requests transparently. Another advantage is that a deferred-based cache will deal with failure gracefully. The promise will end up rejected which can be tested for by providing an error callback:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.cachedGetScript( url ).then( successCallback, errorCallback );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<h4 class="toc-linked"><a href="#generic-asynchronous-cache" id="generic-asynchronous-cache" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Generic asynchronous cache</h4><p>It is also possible to make the code completely generic and build a cache factory that will abstract out the actual task to be performed when a key isn&apos;t in the cache yet:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.createCache = <span class="keyword">function</span>( requestFunction ) {</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">var</span> cache = {};</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">return</span> <span class="keyword">function</span>( key, callback ) {</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">if</span> ( !cache[ key ] ) {</code></div></div><div class="container"><div class="line"><code>            cache[ key ] = $.Deferred(<span class="keyword">function</span>( defer ) {</code></div></div><div class="container"><div class="line"><code>                requestFunction( defer, key );</code></div></div><div class="container"><div class="line"><code>            }).promise();</code></div></div><div class="container"><div class="line"><code>        }</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">return</span> cache[ key ].done( callback );</code></div></div><div class="container"><div class="line"><code>    };</code></div></div><div class="container"><div class="line"><code>};</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Now that the request logic is abstracted away, <code>$.cachedGetScript()</code> can be rewritten as follows:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.cachedGetScript = $.createCache(<span class="keyword">function</span>( defer, url ) {</code></div></div><div class="container"><div class="line"><code>    $.getScript( url ).then( defer.resolve, defer.reject );</code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>This will work because every call to <code>$.createCache()</code> will create a new cache repository and return a new cache-retrieval function.</p>
+<h4 class="toc-linked"><a href="#image-loading" id="image-loading" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Image loading</h4><p>A cache can be used to ensure that the same image is not loaded multiple times.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.loadImage = $.createCache(<span class="keyword">function</span>( defer, url ) {</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">var</span> image = <span class="keyword">new</span> Image();</code></div></div><div class="container"><div class="line"><code>    <span class="function"><span class="keyword">function</span> <span class="title">cleanUp</span><span class="params">()</span> {</span></code></div></div><div class="container"><div class="line"><code>        image.onload = image.onerror = <span class="literal">null</span>;</code></div></div><div class="container"><div class="line"><code>    }</code></div></div><div class="container"><div class="line"><code>    defer.then( cleanUp, cleanUp );</code></div></div><div class="container"><div class="line"><code>    image.onload = <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>        defer.resolve( url );</code></div></div><div class="container"><div class="line"><code>    };</code></div></div><div class="container"><div class="line"><code>    image.onerror = defer.reject;</code></div></div><div class="container"><div class="line"><code>    image.src = url;</code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Again, the following snippet:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.loadImage( <span class="string">&quot;my-image.png&quot;</span> ).done( callback1 );</code></div></div><div class="container"><div class="line"><code>$.loadImage( <span class="string">&quot;my-image.png&quot;</span> ).done( callback2 );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>will work regardless of whether <code>my-image.png</code> has already been loaded or not, or if it is actually in the process of being loaded.</p>
+<h4 class="toc-linked"><a href="#caching-data-api-responses" id="caching-data-api-responses" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Caching Data API responses</h4><p>API requests that are considered immutable during the lifetime of your page are also perfect candidates. For instance, the following:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.searchTwitter = $.createCache(<span class="keyword">function</span>( defer, query ) {</code></div></div><div class="container"><div class="line"><code>    $.ajax({</code></div></div><div class="container"><div class="line"><code>        url: <span class="string">&quot;http://search.twitter.com/search.json&quot;</span>,</code></div></div><div class="container"><div class="line"><code>        data: {</code></div></div><div class="container"><div class="line"><code>            q: query</code></div></div><div class="container"><div class="line"><code>        },</code></div></div><div class="container"><div class="line"><code>        dataType: <span class="string">&quot;jsonp&quot;</span>,</code></div></div><div class="container"><div class="line"><code>        success: defer.resolve,</code></div></div><div class="container"><div class="line"><code>        error: defer.reject</code></div></div><div class="container"><div class="line"><code>    });</code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>will allow you to perform searches on Twitter and cache them at the same time:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.searchTwitter( <span class="string">&quot;jQuery Deferred&quot;</span>, callback1 );</code></div></div><div class="container"><div class="line"><code>$.searchTwitter( <span class="string">&quot;jQuery Deferred&quot;</span>, callback2 );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<h4 class="toc-linked"><a href="#timing" id="timing" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Timing</h4><p>This deferred-based cache is not limited to network requests; it can also be used for timing purposes.</p>
+<p>For instance, you may need to perform an action on the page after a given amount of time so as to attract the user&apos;s attention to a specific feature they may not be aware of or deal with a timeout (for a quiz question for instance). While <code>setTimeout()</code> is good for most use-cases it doesn&apos;t handle the situation when the timer is asked for later, even after it has theoretically expired. We can handle that with the following caching system:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+						<div class="line n17">17</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="keyword">var</span> readyTime;</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>$(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>    readyTime = jQuery.now();</code></div></div><div class="container"><div class="line"><code>});</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>$.afterDOMReady = $.createCache(<span class="keyword">function</span>( defer, delay ) {</code></div></div><div class="container"><div class="line"><code>    delay = delay || <span class="number">0</span>;</code></div></div><div class="container"><div class="line"><code>    $(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">var</span> delta = $.now() - readyTime;</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">if</span> ( delta &gt;= delay ) {</code></div></div><div class="container"><div class="line"><code>            defer.resolve();</code></div></div><div class="container"><div class="line"><code>        } <span class="keyword">else</span> {</code></div></div><div class="container"><div class="line"><code>            setTimeout( defer.resolve, delay - delta );</code></div></div><div class="container"><div class="line"><code>        }</code></div></div><div class="container"><div class="line"><code>    });</code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>The new <code>$.afterDOMReady()</code> helper method provides proper timing after the DOM is ready while ensuring the bare minimum of timers will be used. If the delay is already expired, any callback will be called right away.</p>
+<h3 class="toc-linked"><a href="#one-time-event" id="one-time-event" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> One-time event</h3><p>While jQuery offers all the event binding one may need, it can become a bit cumbersome to handle events that are only supposed to be dealt with once.</p>
+<p>For instance, you may wish to have a button that will open a panel the first time it is clicked and leave it open afterward or take special initialization actions the first time said button is clicked. When dealing with such a situation, one usually ends up with code like this:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="keyword">var</span> buttonClicked = <span class="literal">false</span>;</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>$( <span class="string">&quot;#myButton&quot;</span> ).click(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">if</span> ( !buttonClicked ) {</code></div></div><div class="container"><div class="line"><code>        buttonClicked = <span class="literal">true</span>;</code></div></div><div class="container"><div class="line"><code>        initializeData();</code></div></div><div class="container"><div class="line"><code>        showPanel();</code></div></div><div class="container"><div class="line"><code>    }</code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>then, later on, you may wish to take actions, but only if the panel is opened:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="keyword">if</span> ( buttonClicked ) {</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Perform specific action</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>}</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>This is a very coupled solution. If you want to add some other action, you have to edit the bind code or just duplicate it all. If you don&apos;t, your only option is to test for <code>buttonClicked</code> and you may lose that new action because the <code>buttonClicked</code> variable may be <code>false</code> and your new code may never be executed.</p>
+<p>We can do much better using deferreds (for simplification sake, the following code will only work for a single element and a single event type, but it can be easily generalized for full-fledged collections with multiple event types):</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.fn.bindOnce = <span class="keyword">function</span>( event, callback ) {</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">var</span> element = $( <span class="keyword">this</span>[ <span class="number">0</span> ] ),</code></div></div><div class="container"><div class="line"><code>        defer = element.data( <span class="string">&quot;bind_once_defer_&quot;</span> + event );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="keyword">if</span> ( !defer ) {</code></div></div><div class="container"><div class="line"><code>        defer = $.Deferred();</code></div></div><div class="container"><div class="line"><code>        <span class="function"><span class="keyword">function</span> <span class="title">deferCallback</span><span class="params">()</span> {</span></code></div></div><div class="container"><div class="line"><code>            element.unbind( event, deferCallback );</code></div></div><div class="container"><div class="line"><code>            defer.resolveWith( <span class="keyword">this</span>, arguments );</code></div></div><div class="container"><div class="line"><code>        }</code></div></div><div class="container"><div class="line"><code>        element.bind( event, deferCallback )</code></div></div><div class="container"><div class="line"><code>        element.data( <span class="string">&quot;bind_once_defer_&quot;</span> + event , defer );</code></div></div><div class="container"><div class="line"><code>    }</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="keyword">return</span> defer.done( callback ).promise();</code></div></div><div class="container"><div class="line"><code>};</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>The code works as follows:</p>
+<ul>
+<li>Check if the element already has a deferred attached for the given event</li>
+<li>if not, create it and make it so it is resolved when the event is fired the first time around</li>
+<li>then attach the given callback to the deferred and return the promise</li>
+</ul>
+<p>While the code is definitely more verbose, it makes dealing with the problem at hand much simpler in a compartmentalized and decoupled way. But let&apos;s define a helper method first:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$.fn.firstClick = <span class="keyword">function</span>( callback ) {</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">return</span> <span class="keyword">this</span>.bindOnce( <span class="string">&quot;click&quot;</span>, callback );</code></div></div><div class="container"><div class="line"><code>};</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Then the logic can be re-factored as follows:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="keyword">var</span> openPanel = $( <span class="string">&quot;#myButton&quot;</span> ).firstClick();</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>openPanel.done( initializeData );</code></div></div><div class="container"><div class="line"><code>openPanel.done( showPanel );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>If an action should be performed only when a panel is opened later on:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>openPanel.done(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    <span class="comment">// Perform specific action</span></code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Nothing is lost if the panel isn&apos;t opened yet, the action will just get deferred until the button is clicked.</p>
+<h3 class="toc-linked"><a href="#combining-helpers" id="combining-helpers" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Combining helpers</h3><p>All of the samples above can seem a bit limited when looked at separately. However, the true power of promises comes into play when you mix them together.</p>
+<h4 class="toc-linked"><a href="#requesting-panel-content-on-first-click-and-opening-said-panel" id="requesting-panel-content-on-first-click-and-opening-said-panel" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Requesting panel content on first click and opening said panel</h4><p>Following is the code for a button that, when clicked, opens a panel. It requests its content over the wire and then fades the content in. Using the helpers defined earlier, it could be defined as:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">&quot;#myButton&quot;</span> ).firstClick(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">var</span> panel = $( <span class="string">&quot;#myPanel&quot;</span> );</code></div></div><div class="container"><div class="line"><code>    $.when(</code></div></div><div class="container"><div class="line"><code>        $.get( <span class="string">&quot;panel.html&quot;</span> ),</code></div></div><div class="container"><div class="line"><code>        panel.slideDownPromise()</code></div></div><div class="container"><div class="line"><code>    ).done(<span class="keyword">function</span>( ajaxResponse ) {</code></div></div><div class="container"><div class="line"><code>        panel.html( ajaxResponse[ <span class="number">0</span> ] ).fadeIn();</code></div></div><div class="container"><div class="line"><code>    });</code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<h4 class="toc-linked"><a href="#loading-images-in-a-panel-on-first-click-and-opening-said-panel" id="loading-images-in-a-panel-on-first-click-and-opening-said-panel" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Loading images in a panel on first click and opening said panel</h4><p>Another possible goal is to have the panel fade in, only after the button has been clicked and after all of the images have been loaded.</p>
+<p>The HTML code for this would look something like:</p>
+<div class="syntaxhighlighter xml">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">&quot;myPanel&quot;</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">data-src</span>=<span class="value">&quot;image1.png&quot;</span> <span class="attribute">alt</span>=<span class="value">&quot;&quot;</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">data-src</span>=<span class="value">&quot;image2.png&quot;</span> <span class="attribute">alt</span>=<span class="value">&quot;&quot;</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">data-src</span>=<span class="value">&quot;image3.png&quot;</span> <span class="attribute">alt</span>=<span class="value">&quot;&quot;</span>&gt;</span></code></div></div><div class="container"><div class="line"><code>    <span class="tag">&lt;<span class="title">img</span> <span class="attribute">data-src</span>=<span class="value">&quot;image4.png&quot;</span> <span class="attribute">alt</span>=<span class="value">&quot;&quot;</span>&gt;</span></code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;/<span class="title">div</span>&gt;</span></code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>We use the <code>data-src</code> attribute to keep track of the real image location. The code to handle our use case using our promise helpers is as follows:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+						<div class="line n17">17</div>
+					
+						<div class="line n18">18</div>
+					
+						<div class="line n19">19</div>
+					
+						<div class="line n20">20</div>
+					
+						<div class="line n21">21</div>
+					
+						<div class="line n22">22</div>
+					
+						<div class="line n23">23</div>
+					
+						<div class="line n24">24</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">&quot;#myButton&quot;</span> ).firstClick(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">var</span> panel = $( <span class="string">&quot;#myPanel&quot;</span> ),</code></div></div><div class="container"><div class="line"><code>        promises = [];</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    panel.find( <span class="string">&quot;img&quot;</span> ).each(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">var</span> image = $( <span class="keyword">this</span> ),</code></div></div><div class="container"><div class="line"><code>            src = element.attr( <span class="string">&quot;data-src&quot;</span> );</code></div></div><div class="container"><div class="line"><code>        <span class="keyword">if</span> ( src ) {</code></div></div><div class="container"><div class="line"><code>            promises.push(</code></div></div><div class="container"><div class="line"><code>                $.loadImage( src ).then(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>                    image.attr( <span class="string">&quot;src&quot;</span>, src );</code></div></div><div class="container"><div class="line"><code>                }, <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>                    image.attr( <span class="string">&quot;src&quot;</span>, <span class="string">&quot;error.png&quot;</span> );</code></div></div><div class="container"><div class="line"><code>                })</code></div></div><div class="container"><div class="line"><code>            );</code></div></div><div class="container"><div class="line"><code>        }</code></div></div><div class="container"><div class="line"><code>    });</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    promises.push( panel.slideDownPromise() );</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>    $.when.apply( <span class="literal">null</span>, promises ).done(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>        panel.fadeIn();</code></div></div><div class="container"><div class="line"><code>    });</code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>The trick here is to keep track of all the <code>$.loadImage()</code> promises. We later join them with the panel <code>.slideDown()</code> animation using <code>$.when()</code>. So when the button is first clicked, the panel will slide down and the images will start loading. Once the panel has finished sliding down and all the images have been loaded, then, and only then, will the panel fade in.</p>
+<h4 class="toc-linked"><a href="#loading-images-on-the-page-after-a-specific-delay" id="loading-images-on-the-page-after-a-specific-delay" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> Loading images on the page after a specific delay</h4><p>In order to implement deferred image display on the entire page, the following format in HTML can be used.</p>
+<div class="syntaxhighlighter xml">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">img</span> <span class="attribute">data-src</span>=<span class="value">&quot;image1.png&quot;</span> <span class="attribute">data-after</span>=<span class="value">&quot;1000&quot;</span> <span class="attribute">src</span>=<span class="value">&quot;placeholder.png&quot;</span> <span class="attribute">alt</span>=<span class="value">&quot;&quot;</span>&gt;</span></code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">img</span> <span class="attribute">data-src</span>=<span class="value">&quot;image2.png&quot;</span> <span class="attribute">data-after</span>=<span class="value">&quot;1000&quot;</span> <span class="attribute">src</span>=<span class="value">&quot;placeholder.png&quot;</span> <span class="attribute">alt</span>=<span class="value">&quot;&quot;</span>&gt;</span></code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">img</span> <span class="attribute">data-src</span>=<span class="value">&quot;image1.png&quot;</span> <span class="attribute">src</span>=<span class="value">&quot;placeholder.png&quot;</span> <span class="attribute">alt</span>=<span class="value">&quot;&quot;</span>&gt;</span></code></div></div><div class="container"><div class="line"><code><span class="tag">&lt;<span class="title">img</span> <span class="attribute">data-src</span>=<span class="value">&quot;image2.png&quot;</span> <span class="attribute">data-after</span>=<span class="value">&quot;2000&quot;</span> <span class="attribute">src</span>=<span class="value">&quot;placeholder.png&quot;</span> <span class="attribute">alt</span>=<span class="value">&quot;&quot;</span>&gt;</span></code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>What it says is pretty straight-forward:</p>
+<ul>
+<li>Load <code>image1.png</code> and show it immediately for the third image and after one second for the first one</li>
+<li>Load <code>image2.png</code> and show it after one second for the second image and after two seconds for the fourth image</li>
+</ul>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+						<div class="line n17">17</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">&quot;img&quot;</span> ).each(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">var</span> element = $( <span class="keyword">this</span> ),</code></div></div><div class="container"><div class="line"><code>        src = element.attr( <span class="string">&quot;data-src&quot;</span> ),</code></div></div><div class="container"><div class="line"><code>        after = element.attr( <span class="string">&quot;data-after&quot;</span> );</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">if</span> ( src ) {</code></div></div><div class="container"><div class="line"><code>        $.when(</code></div></div><div class="container"><div class="line"><code>            $.loadImage( src ),</code></div></div><div class="container"><div class="line"><code>            $.afterDOMReady( after )</code></div></div><div class="container"><div class="line"><code>        ).then(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>            element.attr( <span class="string">&quot;src&quot;</span>, src );</code></div></div><div class="container"><div class="line"><code>        }, <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>            element.attr( <span class="string">&quot;src&quot;</span>, <span class="string">&quot;error.png&quot;</span> );</code></div></div><div class="container"><div class="line"><code>        }).done(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>            element.fadeIn();</code></div></div><div class="container"><div class="line"><code>        });</code></div></div><div class="container"><div class="line"><code>    }</code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>In order to delay the loading of the images themselves:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code>$( <span class="string">&quot;img&quot;</span> ).each(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">var</span> element = $( <span class="keyword">this</span> ),</code></div></div><div class="container"><div class="line"><code>        src = element.attr( <span class="string">&quot;data-src&quot;</span> ),</code></div></div><div class="container"><div class="line"><code>        after = element.attr( <span class="string">&quot;data-after&quot;</span> );</code></div></div><div class="container"><div class="line"><code>    <span class="keyword">if</span> ( src ) {</code></div></div><div class="container"><div class="line"><code>        $.afterDOMReady( after, <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>            $.loadImage( src ).then(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>                element.attr( <span class="string">&quot;src&quot;</span>, src );</code></div></div><div class="container"><div class="line"><code>            }, <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>                element.attr( <span class="string">&quot;src&quot;</span>, <span class="string">&quot;error.png&quot;</span> );</code></div></div><div class="container"><div class="line"><code>            }).done(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>                element.fadeIn();</code></div></div><div class="container"><div class="line"><code>            });</code></div></div><div class="container"><div class="line"><code>        });</code></div></div><div class="container"><div class="line"><code>    }</code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>Here, after the delay to be fulfilled then the image is loaded. It can make a lot of sense when you want to limit the number or network requests on page load.</p>					</div>
+
+	<div class="entry-meta row">
+				<div class="bottom-links row">
+							<div class="prev six columns">
+					<a href="https://learn.jquery.com/code-organization/deferreds/jquery-deferreds/">
+					<i class="icon-chevron-left"></i>
+					jQuery Deferreds					</a>
+				</div>
+										<div class="next six columns">
+					<a href="https://learn.jquery.com/jquery-ui/">
+					jQuery UI					<i class="icon-chevron-right"></i>
+					</a>
+				</div>
+					</div>
+		
+		<aside class="meta-details six columns">
+			<h3>Last Updated</h3>
+			<ul>
+				<li class="icon-calendar icon-large" title="Last Updated"><span>March 14, 2016</span></li>
+			</ul>
+		</aside>
+		<aside class="github-feedback six columns">
+			<h3>Suggestions, Problems, Feedback?</h3>
+			<a class="button dark" href="https://github.com/jquery/learn.jquery.com/tree/master/page/code-organization/deferreds/examples.md"><i class="icon-github"></i> Open an Issue or Submit a Pull Request on GitHub</a>
+		</aside>
+
+	</div>
+</article>
+	</div>
+
+	<div id="sidebar" class="widget-area" role="complementary">
+		
+		<aside id="chapter-listing" class="widget">
+			<h3 class="widget-title">Chapters</h3>
+			<ul>
+																		<li >
+						<a href="//learn.jquery.com/about-jquery/">
+															<i class="icon-certificate"></i>
+														About jQuery						</a>
+																																																																									</li>
+														<li >
+						<a href="//learn.jquery.com/using-jquery-core/">
+															<i class="icon-star-empty"></i>
+														Using jQuery Core						</a>
+																																																																																																																																																																																																																																																																																										<ul class="sub-chapter">
+																																																																																																																																																																																																																																																																																	<li >
+										<a href="//learn.jquery.com/using-jquery-core/faq/">
+											Frequently Asked Questions										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/events/">
+															<i class="icon-tasks"></i>
+														Events						</a>
+																																																																																																																																																																																																	</li>
+														<li >
+						<a href="//learn.jquery.com/effects/">
+															<i class="icon-picture"></i>
+														Effects						</a>
+																																																																																								</li>
+														<li >
+						<a href="//learn.jquery.com/ajax/">
+															<i class="icon-refresh"></i>
+														Ajax						</a>
+																																																																																																																						</li>
+														<li >
+						<a href="//learn.jquery.com/plugins/">
+															<i class="icon-bolt"></i>
+														Plugins						</a>
+																																																																																																							</li>
+														<li >
+						<a href="//learn.jquery.com/performance/">
+															<i class="icon-dashboard"></i>
+														Performance						</a>
+																																																																																																																																																				</li>
+														<li >
+						<a href="//learn.jquery.com/code-organization/">
+															<i class="icon-sitemap"></i>
+														Code Organization						</a>
+																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li class='active'>
+										<a href="//learn.jquery.com/code-organization/deferreds/">
+											Deferreds										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-ui/">
+															<i class="icon-magnet"></i>
+														jQuery UI						</a>
+																																																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/jquery-ui/widget-factory/">
+											Widget Factory										</a>
+									</li>
+																																												<li >
+										<a href="//learn.jquery.com/jquery-ui/environments/">
+											Using jQuery UI										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-mobile/">
+															<i class="icon-th-large"></i>
+														jQuery Mobile						</a>
+																																																																									</li>
+							</ul>
+		</aside>
+
+
+	</div><!-- #sidebar .widget-area -->
+</div>
+
+	</div>
+</div>
+
+<footer class="clearfix simple">
+	<div class="constrain">
+		<div class="row">
+			<div class="six columns offset-by-three">
+				<h3><span>Books</span></h3>
+				<ul class="books">
+					<li>
+						<a href="https://www.packtpub.com/web-development/learning-jquery-fourth-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/learning-jquery-4th-ed.jpg" alt="Learning jQuery 4th Edition by Karl Swedberg and Jonathan Chaffer" width="92" height="114">
+							Learning jQuery Fourth Edition
+							<cite>Karl Swedberg and Jonathan Chaffer</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.manning.com/books/jquery-in-action-third-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-in-action.jpg" alt="jQuery in Action by Bear Bibeault, Yehuda Katz, and Aurelio De Rosa" width="92" height="114">
+							jQuery in Action
+							<cite>Bear Bibeault, Yehuda Katz, and Aurelio De Rosa</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.syncfusion.com/ebooks/jquery">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-succinctly.jpg" alt="jQuery Succinctly by Cody Lindley" width="92" height="114">
+							jQuery Succinctly
+							<cite>Cody Lindley</cite>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		
+<div id="legal">
+	<ul class="footer-site-links">
+			<li><a class="icon-pencil" href="https://learn.jquery.com/">Learning Center</a></li>
+			<li><a class="icon-group" href="https://forum.jquery.com/">Forum</a></li>
+			<li><a class="icon-wrench" href="https://api.jquery.com/">API</a></li>
+			<li><a class="icon-twitter" href="https://twitter.com/jquery">Twitter</a></li>
+			<li><a class="icon-comments" href="https://irc.jquery.org/">IRC</a></li>
+			<li><a class="icon-github" href="https://github.com/jquery">GitHub</a></li>
+	</ul>
+	<p class="copyright">
+		Copyright 2021 <a href="https://openjsf.org/">OpenJS Foundation</a> and jQuery contributors. All rights reserved. See <a href="https://jquery.org/license/">jQuery License</a> for more information. The <a href="https://openjsf.org/">OpenJS Foundation</a> has registered trademarks and uses trademarks. For a list of trademarks of the <a href="https://openjsf.org/">OpenJS Foundation</a>, please see our <a href="https://trademark-policy.openjsf.org/">Trademark Policy</a> and <a href="https://trademark-list.openjsf.org/">Trademark List</a>. Trademarks and logos not indicated on the <a href="https://trademark-list.openjsf.org/">list of OpenJS Foundation trademarks</a> are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them. OpenJS Foundation <a href="https://terms-of-use.openjsf.org/">Terms of Use</a>, <a href="https://privacy-policy.openjsf.org/">Privacy</a>, and <a href="https://www.linuxfoundation.org/cookies">Cookie</a> Policies also apply.
+		<span class="sponsor-line"><a href="https://www.digitalocean.com" class="do-link">Web hosting by Digital Ocean</a> | <a href="https://www.stackpath.com" class="sp-link">CDN by StackPath</a></span>
+	</p>
+</div>
+
+	</div>
+</footer>
+
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/comment-reply.min.js?ver=4.5.2'></script>
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/wp-embed.min.js?ver=4.5.2'></script>
+	<!-- at the end of the BODY -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"  onload="document.querySelector('input[name=\'s\']') && docsearch({apiKey: '3cfde9aca378c8aab554d5bf1b23489b',
+		indexName: 'jquery',
+		inputSelector: 'input[name=\'s\']',
+		debug: true // Set debug to true if you want to inspect the dropdown
+	})" async></script>
+</body>
+</html>

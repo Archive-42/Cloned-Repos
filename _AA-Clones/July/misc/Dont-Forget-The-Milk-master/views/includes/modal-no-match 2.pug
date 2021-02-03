@@ -1,0 +1,15 @@
+div(id="gen-modal")
+  div(class="container") 
+    img(class="check" src="images/check-2.png")
+    h3 Sorry...
+    p no matches found
+    div(class="cross-btn")
+
+
+script(type="text/javascript").
+  const genModal = document.getElementById("gen-modal");
+  const crossBtn = document.querySelector(".cross-btn");
+  crossBtn.onclick = function() {
+    genModal.style.display = "none";
+  }
+ 

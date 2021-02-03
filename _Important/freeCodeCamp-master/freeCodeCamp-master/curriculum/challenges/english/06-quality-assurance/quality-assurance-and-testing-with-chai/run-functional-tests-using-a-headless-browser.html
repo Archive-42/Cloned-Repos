@@ -1,0 +1,98 @@
+<h1 id="description">–description–</h1>
+<p>As a reminder, this project is being built upon the following starter project on <a href="https://repl.it/github/freeCodeCamp/boilerplate-mochachai">Repl.it</a>, or cloned from <a href="https://github.com/freeCodeCamp/boilerplate-mochachai/">GitHub</a>.</p>
+<p>In the HTML main view we provided a input form. It sends data to the <code>PUT /travellers</code> endpoint that we used above with an Ajax request. When the request successfully completes, the client code appends a <code>&lt;div&gt;</code> containing the info returned by the call to the DOM. Here is an example of how to interact with this form:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">test</span>(<span class="st">&#39;#test - submit the input &quot;surname&quot; : &quot;Polo&quot;&#39;</span><span class="op">,</span> <span class="kw">function</span> (done) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="va">browser</span>.<span class="at">fill</span>(<span class="st">&#39;surname&#39;</span><span class="op">,</span> <span class="st">&#39;Polo&#39;</span>).<span class="at">pressButton</span>(<span class="st">&#39;submit&#39;</span><span class="op">,</span> <span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="va">browser</span>.<span class="va">assert</span>.<span class="at">success</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="va">browser</span>.<span class="va">assert</span>.<span class="at">text</span>(<span class="st">&#39;span#name&#39;</span><span class="op">,</span> <span class="st">&#39;Marco&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">    <span class="va">browser</span>.<span class="va">assert</span>.<span class="at">text</span>(<span class="st">&#39;span#surname&#39;</span><span class="op">,</span> <span class="st">&#39;Polo&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-6" title="6">    <span class="va">browser</span>.<span class="va">assert</span>.<span class="at">element</span>(<span class="st">&#39;span#dates&#39;</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-7" title="7">    <span class="at">done</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="op">}</span></a></code></pre></div>
+<p>First, the <code>fill</code> method of the <code>browser</code> object fills the <code>surname</code> field of the form with the value <code>'Polo'</code>. Immediately after, the <code>pressButton</code> method invokes the <code>submit</code> event listener of the form. The <code>pressButton</code> method is asynchronous.</p>
+<p>Then, once a response is received from the AJAX request, a few assertions are made confirming:</p>
+<ol type="1">
+<li>The status of the response is <code>200</code></li>
+<li>The text within the <code>&lt;span id='name'&gt;&lt;/span&gt;</code> element matches <code>'Marco'</code></li>
+<li>The text within the <code>&lt;span id='surname'&gt;&lt;/span&gt;</code> element matches <code>'Polo'</code></li>
+<li>The there is <code>1</code> <code>&lt;span id='dates'&gt;&lt;/span&gt;</code> element.</li>
+</ol>
+<p>Finally, the <code>done</code> callback is invoked, which is needed due to the asynchronous test.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Within <code>tests/2_functional-tests.js</code>, in the <code>'submit "surname" : "Colombo" - write your e2e test...'</code> test (<code>// #5</code>), automate filling-in and submitting the form:</p>
+<ol type="1">
+<li>Fill in the form</li>
+<li>Submit it pressing <code>'submit'</code> button.</li>
+</ol>
+<p>Within the callback:</p>
+<ol type="1">
+<li>assert that status is OK <code>200</code></li>
+<li>assert that the text inside the element <code>span#name</code> is <code>'Cristoforo'</code></li>
+<li>assert that the text inside the element <code>span#surname</code> is <code>'Colombo'</code></li>
+<li>assert that the element(s) <code>span#dates</code> exist and their count is <code>1</code></li>
+</ol>
+<p>Do not forget to to remove the <code>assert.fail()</code> call.</p>
+<h1 id="hints">–hints–</h1>
+<p>All tests should pass.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests?type=functional&amp;n=4&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">state</span><span class="op">,</span> <span class="st">&#39;passed&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-7" title="7">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-8" title="8">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb2-9" title="9">  )<span class="op">;</span></a></code></pre></div>
+<p>You should assert that the headless browser request succeeded.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests?type=functional&amp;n=4&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">0</span>].<span class="at">method</span><span class="op">,</span> <span class="st">&#39;browser.success&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-6" title="6">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-7" title="7">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-9" title="9">  )<span class="op">;</span></a></code></pre></div>
+<p>You should assert that the text inside the element ‘span#name’ is ‘Cristoforo’.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests?type=functional&amp;n=4&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb4-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">1</span>].<span class="at">method</span><span class="op">,</span> <span class="st">&#39;browser.text&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">      <span class="va">assert</span>.<span class="at">match</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">1</span>].<span class="at">args</span>[<span class="dv">0</span>]<span class="op">,</span> <span class="ss">/</span><span class="sc">(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">span#name</span><span class="sc">\1</span><span class="ss">/</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">      <span class="va">assert</span>.<span class="at">match</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">1</span>].<span class="at">args</span>[<span class="dv">1</span>]<span class="op">,</span> <span class="ss">/</span><span class="sc">(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">Cristoforo</span><span class="sc">\1</span><span class="ss">/</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-9" title="9">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-11" title="11">  )<span class="op">;</span></a></code></pre></div>
+<p>You should assert that the text inside the element ‘span#surname’ is ‘Colombo’.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests?type=functional&amp;n=4&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb5-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">2</span>].<span class="at">method</span><span class="op">,</span> <span class="st">&#39;browser.text&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">      <span class="va">assert</span>.<span class="at">match</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">2</span>].<span class="at">args</span>[<span class="dv">0</span>]<span class="op">,</span> <span class="ss">/</span><span class="sc">(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">span#surname</span><span class="sc">\1</span><span class="ss">/</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">      <span class="va">assert</span>.<span class="at">match</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">2</span>].<span class="at">args</span>[<span class="dv">1</span>]<span class="op">,</span> <span class="ss">/</span><span class="sc">(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">Colombo</span><span class="sc">\1</span><span class="ss">/</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb5-8" title="8">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-9" title="9">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-11" title="11">  )<span class="op">;</span></a></code></pre></div>
+<p>You should assert that the element ‘span#dates’ exist and its count is 1.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/get-tests?type=functional&amp;n=4&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb6-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-4" title="4">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">3</span>].<span class="at">method</span><span class="op">,</span> <span class="st">&#39;browser.element&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">      <span class="va">assert</span>.<span class="at">match</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">3</span>].<span class="at">args</span>[<span class="dv">0</span>]<span class="op">,</span> <span class="ss">/</span><span class="sc">(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">span#dates</span><span class="sc">\1</span><span class="ss">/</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">assertions</span>[<span class="dv">3</span>].<span class="at">args</span>[<span class="dv">1</span>]<span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-7" title="7">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-9" title="9">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-11" title="11">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="co">*/</span></a></code></pre></div>

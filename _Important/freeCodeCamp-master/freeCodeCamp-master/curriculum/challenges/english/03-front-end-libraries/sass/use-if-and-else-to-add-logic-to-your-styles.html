@@ -1,0 +1,93 @@
+<h1 id="description">–description–</h1>
+<p>The <code>@if</code> directive in Sass is useful to test for a specific case - it works just like the <code>if</code> statement in JavaScript.</p>
+<pre class="scss"><code>@mixin make-bold($bool) {
+  @if $bool == true {
+    font-weight: bold;
+  }
+}</code></pre>
+<p>And just like in JavaScript, <code>@else if</code> and <code>@else</code> test for more conditions:</p>
+<pre class="scss"><code>@mixin text-effect($val) {
+  @if $val == danger {
+    color: red;
+  }
+  @else if $val == alert {
+    color: yellow;
+  }
+  @else if $val == success {
+    color: green;
+  }
+  @else {
+    color: black;
+  }
+}</code></pre>
+<h1 id="instructions">–instructions–</h1>
+<p>Create a mixin called <code>border-stroke</code> that takes a parameter <code>$val</code>. The mixin should check for the following conditions using <code>@if</code>, <code>@else if</code>, and <code>@else</code>:</p>
+<pre class="scss"><code>light - 1px solid black
+medium - 3px solid black
+heavy - 6px solid black</code></pre>
+<p>If <code>$val</code> is not <code>light</code>, <code>medium</code>, or <code>heavy</code>, the border should be set to <code>none</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>Your code should declare a mixin named <code>border-stroke</code> which has a parameter named <code>$val</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/@mixin</span><span class="sc">\s+?</span><span class="ss">border-stroke</span><span class="sc">\s*?\(\s*?\$</span><span class="ss">val</span><span class="sc">\s*?\)\s*?</span><span class="ss">{/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your mixin should have an <code>@if</code> statement to check if <code>$val</code> is light, and to set the <code>border</code> to 1px solid black.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="ss">/@if</span><span class="sc">\s+?\$</span><span class="ss">val</span><span class="sc">\s*?</span><span class="ss">===</span><span class="sc">?\s*?</span><span class="ss">light</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">border</span><span class="sc">\s*?</span><span class="ss">:</span><span class="sc">\s*?</span><span class="ss">1px</span><span class="sc">\s+?</span><span class="ss">solid</span><span class="sc">\s+?</span><span class="ss">black</span><span class="sc">\s*?</span><span class="ss">;</span><span class="sc">\s*?</span><span class="ss">}/gi</span></a>
+<a class="sourceLine" id="cb5-4" title="4">  )</a>
+<a class="sourceLine" id="cb5-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>Your mixin should have an <code>@else if</code> statement to check if <code>$val</code> is medium, and to set the <code>border</code> to 3px solid black.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="ss">/@else</span><span class="sc">\s+?</span><span class="ss">if</span><span class="sc">\s+?\$</span><span class="ss">val</span><span class="sc">\s*?</span><span class="ss">===</span><span class="sc">?\s*?</span><span class="ss">medium</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">border</span><span class="sc">\s*?</span><span class="ss">:</span><span class="sc">\s*?</span><span class="ss">3px</span><span class="sc">\s+?</span><span class="ss">solid</span><span class="sc">\s+?</span><span class="ss">black</span><span class="sc">\s*?</span><span class="ss">;</span><span class="sc">\s*?</span><span class="ss">}/gi</span></a>
+<a class="sourceLine" id="cb6-4" title="4">  )</a>
+<a class="sourceLine" id="cb6-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>Your mixin should have an <code>@else if</code> statement to check if <code>$val</code> is heavy, and to set the <code>border</code> to 6px solid black.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="ss">/@else</span><span class="sc">\s+?</span><span class="ss">if</span><span class="sc">\s+?\$</span><span class="ss">val</span><span class="sc">\s*?</span><span class="ss">===</span><span class="sc">?\s*?</span><span class="ss">heavy</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">border</span><span class="sc">\s*?</span><span class="ss">:</span><span class="sc">\s*?</span><span class="ss">6px</span><span class="sc">\s+?</span><span class="ss">solid</span><span class="sc">\s+?</span><span class="ss">black</span><span class="sc">\s*?</span><span class="ss">;</span><span class="sc">\s*?</span><span class="ss">}/gi</span></a>
+<a class="sourceLine" id="cb7-4" title="4">  )</a>
+<a class="sourceLine" id="cb7-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>Your mixin should have an <code>@else</code> statement to set the <code>border</code> to none.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/@else</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">border</span><span class="sc">\s*?</span><span class="ss">:</span><span class="sc">\s*?</span><span class="ss">none</span><span class="sc">\s*?</span><span class="ss">;</span><span class="sc">\s*?</span><span class="ss">}/gi</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">&lt;style</span><span class="ot"> type=</span><span class="st">&#39;text/scss&#39;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb9-2" title="2"></a>
+<a class="sourceLine" id="cb9-3" title="3"></a>
+<a class="sourceLine" id="cb9-4" title="4"></a>
+<a class="sourceLine" id="cb9-5" title="5">  <span class="pp">#box</span> {</a>
+<a class="sourceLine" id="cb9-6" title="6">    <span class="kw">width</span>: <span class="dv">150</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-7" title="7">    <span class="kw">height</span>: <span class="dv">150</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-8" title="8">    <span class="kw">background-color</span>: <span class="cn">red</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-9" title="9">    <span class="im">@include</span> border-stroke<span class="fu">(</span><span class="dv">medium</span><span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb9-10" title="10">  }</a>
+<a class="sourceLine" id="cb9-11" title="11"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb9-12" title="12"></a>
+<a class="sourceLine" id="cb9-13" title="13"><span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;box&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb10"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">&lt;style</span><span class="ot"> type=</span><span class="st">&#39;text/scss&#39;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb10-2" title="2">  <span class="im">@mixin</span> border-stroke<span class="fu">(</span>$val<span class="fu">)</span> {</a>
+<a class="sourceLine" id="cb10-3" title="3">    <span class="im">@if</span> $val == <span class="dv">light</span> {</a>
+<a class="sourceLine" id="cb10-4" title="4">      <span class="kw">border</span>: <span class="dv">1</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">black</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-5" title="5">    }</a>
+<a class="sourceLine" id="cb10-6" title="6">    <span class="im">@else</span> if $val == <span class="dv">medium</span> {</a>
+<a class="sourceLine" id="cb10-7" title="7">      <span class="kw">border</span>: <span class="dv">3</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">black</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-8" title="8">    }</a>
+<a class="sourceLine" id="cb10-9" title="9">    <span class="im">@else</span> if $val == heavy {</a>
+<a class="sourceLine" id="cb10-10" title="10">      <span class="kw">border</span>: <span class="dv">6</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">black</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-11" title="11">    }</a>
+<a class="sourceLine" id="cb10-12" title="12">    <span class="im">@else</span> {</a>
+<a class="sourceLine" id="cb10-13" title="13">      <span class="kw">border</span>: <span class="dv">none</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-14" title="14">    }</a>
+<a class="sourceLine" id="cb10-15" title="15">  }</a>
+<a class="sourceLine" id="cb10-16" title="16"></a>
+<a class="sourceLine" id="cb10-17" title="17"></a>
+<a class="sourceLine" id="cb10-18" title="18">  <span class="pp">#box</span> {</a>
+<a class="sourceLine" id="cb10-19" title="19">    <span class="kw">width</span>: <span class="dv">150</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-20" title="20">    <span class="kw">height</span>: <span class="dv">150</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-21" title="21">    <span class="kw">background-color</span>: <span class="cn">red</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-22" title="22">    <span class="im">@include</span> border-stroke<span class="fu">(</span><span class="dv">medium</span><span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb10-23" title="23">  }</a>
+<a class="sourceLine" id="cb10-24" title="24"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb10-25" title="25"></a>
+<a class="sourceLine" id="cb10-26" title="26"><span class="kw">&lt;div</span><span class="ot"> id=</span><span class="st">&quot;box&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a></code></pre></div>

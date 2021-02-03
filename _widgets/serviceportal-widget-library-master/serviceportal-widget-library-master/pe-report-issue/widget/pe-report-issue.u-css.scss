@@ -1,0 +1,29 @@
+.pe-report-issue {
+  p {
+    color: #1b485e;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    .item {
+      margin-top: 40px;
+      text-align: center;
+      width: 33%;
+      .icon {
+        align-items: center;
+        display: flex;
+        height: 40px;
+        justify-content: center;
+      }
+      .name {
+        color: #5a5d61;
+        font-size: 18px;
+        margin-top: 15px;
+      }
+    }
+  }
+}

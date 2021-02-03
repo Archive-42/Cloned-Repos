@@ -1,0 +1,15 @@
+{
+  "name": "chat-room",
+  "version": "0.0.1",
+  "description": "A simple web app where users can connect to this app's server and interact with others in the chat app through the browser.",
+  "author": {
+    "name": "Emilio Borges"
+  },
+  "scripts": {
+    "postinstall": "bower install"
+  },
+  "dependencies": {
+    "express": "~3.3.4",
+    "socket.io": "0.9.16"
+  }
+}

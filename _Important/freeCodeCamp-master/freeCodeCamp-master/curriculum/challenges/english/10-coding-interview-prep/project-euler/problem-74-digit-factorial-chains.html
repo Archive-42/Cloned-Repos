@@ -1,0 +1,30 @@
+<h1 id="description">–description–</h1>
+<p>The number 145 is well known for the property that the sum of the factorial of its digits is equal to 145:</p>
+<div style="margin-left: 4em;">
+1! + 4! + 5! = 1 + 24 + 120 = 145
+</div>
+<p>Perhaps less well known is 169, in that it produces the longest chain of numbers that link back to 169; it turns out that there are only three such loops that exist:</p>
+<div style="margin-left: 4em;">
+<p>169 → 363601 → 1454 → 169<br> 871 → 45361 → 871<br> 872 → 45362 → 872<br></p>
+</div>
+<p>It is not difficult to prove that EVERY starting number will eventually get stuck in a loop. For example,</p>
+<div style="margin-left: 4em;">
+<p>69 → 363600 → 1454 → 169 → 363601 (→ 1454)<br> 78 → 45360 → 871 → 45361 (→ 871)<br> 540 → 145 (→ 145)<br></p>
+</div>
+<p>Starting with 69 produces a chain of five non-repeating terms, but the longest non-repeating chain with a starting number below one million is sixty terms.</p>
+<p>How many chains, with a starting number below one million, contain exactly sixty non-repeating terms?</p>
+<h1 id="hints">–hints–</h1>
+<p><code>digitFactorialChains()</code> should return a number.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">digitFactorialChains</span>() <span class="op">===</span> <span class="st">&#39;number&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>digitFactorialChains()</code> should return 402.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="at">digitFactorialChains</span>()<span class="op">,</span> <span class="dv">402</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">function</span> <span class="at">digitFactorialChains</span>() <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb3-5" title="5"></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="at">digitFactorialChains</span>()<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="co">// solution required</span></a></code></pre></div>

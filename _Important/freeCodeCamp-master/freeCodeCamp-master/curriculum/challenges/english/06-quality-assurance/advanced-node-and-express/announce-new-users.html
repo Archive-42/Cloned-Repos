@@ -1,0 +1,58 @@
+<h1 id="description">–description–</h1>
+<p>Many chat rooms are able to announce when a user connects or disconnects and then display that to all of the connected users in the chat. Seeing as though you already are emitting an event on connect and disconnect, you will just have to modify this event to support such a feature. The most logical way of doing so is sending 3 pieces of data with the event: the name of the user who connected/disconnected, the current user count, and if that name connected or disconnected.</p>
+<p>Change the event name to <code>'user'</code>, and pass an object along containing the fields ‘name’, ‘currentUsers’, and ‘connected’ (to be <code>true</code> in case of connection, or <code>false</code> for disconnection of the user sent). Be sure to change both ‘user count’ events and set the disconnect one to send <code>false</code> for the field ‘connected’ instead of <code>true</code> like the event emitted on connect.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">io</span>.<span class="at">emit</span>(<span class="st">&#39;user&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="dt">name</span><span class="op">:</span> <span class="va">socket</span>.<span class="va">request</span>.<span class="va">user</span>.<span class="at">name</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  currentUsers<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-4" title="4">  <span class="dt">connected</span><span class="op">:</span> <span class="kw">true</span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
+<p>Now your client will have all the necessary information to correctly display the current user count and announce when a user connects or disconnects! To handle this event on the client side we should listen for <code>'user'</code>, then update the current user count by using jQuery to change the text of <code>#num-users</code> to <code>'{NUMBER} users online'</code>, as well as append a <code>&lt;li&gt;</code> to the unordered list with id <code>messages</code> with <code>'{NAME} has {joined/left} the chat.'</code>.</p>
+<p>An implementation of this could look like the following:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">socket</span>.<span class="at">on</span>(<span class="st">&#39;user&#39;</span><span class="op">,</span> data <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="at">$</span>(<span class="st">&#39;#num-users&#39;</span>).<span class="at">text</span>(<span class="va">data</span>.<span class="at">currentUsers</span> <span class="op">+</span> <span class="st">&#39; users online&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="kw">let</span> message <span class="op">=</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="va">data</span>.<span class="at">name</span> <span class="op">+</span></a>
+<a class="sourceLine" id="cb2-5" title="5">    (<span class="va">data</span>.<span class="at">connected</span> <span class="op">?</span> <span class="st">&#39; has joined the chat.&#39;</span> : <span class="st">&#39; has left the chat.&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-6" title="6">  <span class="at">$</span>(<span class="st">&#39;#messages&#39;</span>).<span class="at">append</span>(<span class="at">$</span>(<span class="st">&#39;&lt;li&gt;&#39;</span>).<span class="at">html</span>(<span class="st">&#39;&lt;b&gt;&#39;</span> <span class="op">+</span> message <span class="op">+</span> <span class="st">&#39;&lt;/b&gt;&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
+<p>Submit your page when you think you’ve got it right. If you’re running into errors, you can check out the project completed up to this point <a href="https://gist.github.com/camperbot/bf95a0f74b756cf0771cd62c087b8286">here</a>.</p>
+<h1 id="hints">–hints–</h1>
+<p>Event <code>'user'</code> should be emitted with name, currentUsers, and connected.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/server.js&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb3-5" title="5">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-6" title="6">        <span class="ss">/io.emit.</span><span class="sc">*(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">user</span><span class="sc">\1</span><span class="ss">.</span><span class="sc">*</span><span class="ss">name.</span><span class="sc">*</span><span class="ss">currentUsers.</span><span class="sc">*</span><span class="ss">connected/gis</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">        <span class="st">&#39;You should have an event emitted named user sending name, currentUsers, and connected&#39;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-11" title="11">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-12" title="12">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-13" title="13">  )<span class="op">;</span></a></code></pre></div>
+<p>Client should properly handle and display the new data from event <code>'user'</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">$</span>.<span class="at">get</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/public/client.js&#39;</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb4-3" title="3">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-4" title="4">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb4-5" title="5">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-6" title="6">        <span class="ss">/socket.on.</span><span class="sc">*(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">user</span><span class="sc">\1[^]*</span><span class="ss">num-users/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-7" title="7">        <span class="st">&#39;You should change the text of &quot;#num-users&quot; within on your client within the &quot;user&quot; event listener to show the current users connected&#39;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">      <span class="va">assert</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb4-10" title="10">        data<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-11" title="11">        <span class="ss">/socket.on.</span><span class="sc">*(</span><span class="ss">&#39;</span><span class="sc">|</span><span class="ss">&quot;</span><span class="sc">)</span><span class="ss">user</span><span class="sc">\1[^]*</span><span class="ss">messages.</span><span class="sc">*</span><span class="ss">li/gi</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-12" title="12">        <span class="st">&#39;You should append a list item to &quot;#messages&quot; on your client within the &quot;user&quot; event listener to announce a user came or went&#39;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-14" title="14">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb4-15" title="15">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-16" title="16">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-17" title="17">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-18" title="18">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">*/</span></a></code></pre></div>

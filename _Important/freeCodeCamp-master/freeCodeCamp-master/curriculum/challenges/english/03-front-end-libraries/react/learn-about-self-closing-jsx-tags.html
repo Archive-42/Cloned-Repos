@@ -1,0 +1,34 @@
+<h1 id="description">–description–</h1>
+<p>So far, you’ve seen how JSX differs from HTML in a key way with the use of <code>className</code> vs. <code>class</code> for defining HTML classes.</p>
+<p>Another important way in which JSX differs from HTML is in the idea of the self-closing tag.</p>
+<p>In HTML, almost all tags have both an opening and closing tag: <code>&lt;div&gt;&lt;/div&gt;</code>; the closing tag always has a forward slash before the tag name that you are closing. However, there are special instances in HTML called “self-closing tags”, or tags that don’t require both an opening and closing tag before another tag can start.</p>
+<p>For example the line-break tag can be written as <code>&lt;br&gt;</code> or as <code>&lt;br /&gt;</code>, but should never be written as <code>&lt;br&gt;&lt;/br&gt;</code>, since it doesn’t contain any content.</p>
+<p>In JSX, the rules are a little different. Any JSX element can be written with a self-closing tag, and every element must be closed. The line-break tag, for example, must always be written as <code>&lt;br /&gt;</code> in order to be valid JSX that can be transpiled. A <code>&lt;div&gt;</code>, on the other hand, can be written as <code>&lt;div /&gt;</code> or <code>&lt;div&gt;&lt;/div&gt;</code>. The difference is that in the first syntax version there is no way to include anything in the <code>&lt;div /&gt;</code>. You will see in later challenges that this syntax is useful when rendering React components.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Fix the errors in the code editor so that it is valid JSX and successfully transpiles. Make sure you don’t change any of the content - you only need to close tags where they are needed.</p>
+<h1 id="hints">–hints–</h1>
+<p>The constant <code>JSX</code> should return a <code>div</code> element.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(<span class="va">JSX</span>.<span class="at">type</span><span class="op">,</span> <span class="st">&#39;div&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>div</code> should contain a <code>br</code> tag.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">Enzyme</span>.<span class="at">shallow</span>(JSX).<span class="at">find</span>(<span class="st">&#39;br&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>div</code> should contain an <code>hr</code> tag.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">Enzyme</span>.<span class="at">shallow</span>(JSX).<span class="at">find</span>(<span class="st">&#39;hr&#39;</span>).<span class="at">length</span> <span class="op">===</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(JSX, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>const JSX = (
+  &lt;div&gt;
+    &lt;h2&gt;Welcome to React!&lt;/h2&gt; &lt;br &gt;
+    &lt;p&gt;Be sure to close all tags!&lt;/p&gt;
+    &lt;hr &gt;
+  &lt;/div&gt;
+);</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>const JSX = (
+&lt;div&gt;
+  &lt;h2&gt;Welcome to React!&lt;/h2&gt; &lt;br /&gt;
+  &lt;p&gt;Be sure to close all tags!&lt;/p&gt;
+  &lt;hr /&gt;
+&lt;/div&gt;
+);</code></pre>

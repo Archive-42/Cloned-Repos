@@ -1,0 +1,52 @@
+<h1 id="description">–description–</h1>
+<p>By manipulating different selectors and properties, you can make interesting shapes. One of the easier ones to try is a crescent moon shape. For this challenge you need to work with the <code>box-shadow</code> property that sets the shadow of an element, along with the <code>border-radius</code> property that controls the roundness of the element’s corners.</p>
+<p>You will create a round, transparent object with a crisp shadow that is slightly offset to the side - the shadow is actually going to be the moon shape you see.</p>
+<p>In order to create a round object, the <code>border-radius</code> property should be set to a value of 50%.</p>
+<p>You may recall from an earlier challenge that the <code>box-shadow</code> property takes values for <code>offset-x</code>, <code>offset-y</code>, <code>blur-radius</code>, <code>spread-radius</code> and a color value in that order. The <code>blur-radius</code> and <code>spread-radius</code> values are optional.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Manipulate the square element in the editor to create the moon shape. First, change the <code>background-color</code> to transparent, then set the <code>border-radius</code> property to 50% to make the circular shape. Finally, change the <code>box-shadow</code> property to set the <code>offset-x</code> to 25px, the <code>offset-y</code> to 10px, <code>blur-radius</code> to 0, <code>spread-radius</code> to 0, and color to blue.</p>
+<h1 id="hints">–hints–</h1>
+<p>The value of the <code>background-color</code> property should be set to <code>transparent</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/background-color:</span><span class="sc">\s*?</span><span class="ss">transparent;/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>The value of the <code>border-radius</code> property should be set to <code>50%</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/border-radius:</span><span class="sc">\s*?</span><span class="ss">50%;/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>The value of the <code>box-shadow</code> property should be set to 25px for <code>offset-x</code>, 10px for <code>offset-y</code>, 0 for <code>blur-radius</code>, 0 for <code>spread-radius</code>, and finally blue for the color.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/box-shadow:</span><span class="sc">\s*?</span><span class="ss">25px</span><span class="sc">\s+?</span><span class="ss">10px</span><span class="sc">\s+?</span><span class="ss">0</span><span class="sc">(</span><span class="ss">px</span><span class="sc">)?\s+?</span><span class="ss">0</span><span class="sc">(</span><span class="ss">px</span><span class="sc">)?\s+?</span><span class="ss">blue</span><span class="sc">\s*?</span><span class="ss">;/gi</span>)</a>
+<a class="sourceLine" id="cb3-3" title="3">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="fu">.center</span> {</a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">position</span>: <span class="dv">absolute</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="kw">margin</span>: <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">    <span class="kw">top</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">    <span class="kw">right</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="kw">bottom</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    <span class="kw">left</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    <span class="kw">width</span>: <span class="dv">100</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">    <span class="kw">height</span>: <span class="dv">100</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">    <span class="kw">background-color</span>: <span class="cn">blue</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">    <span class="kw">border-radius</span>: <span class="dv">0</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">    <span class="kw">box-shadow</span>: <span class="dv">25</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span> <span class="cn">green</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-14" title="14">  }</a>
+<a class="sourceLine" id="cb4-15" title="15"></a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb4-17" title="17"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;center&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="fu">.center</span> {</a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="kw">position</span>: <span class="dv">absolute</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">margin</span>: <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">    <span class="kw">top</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="kw">right</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    <span class="kw">bottom</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="kw">left</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">    <span class="kw">width</span>: <span class="dv">100</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">    <span class="kw">height</span>: <span class="dv">100</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-11" title="11">    <span class="kw">background-color</span>: <span class="dv">transparent</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">    <span class="kw">border-radius</span>: <span class="dv">50</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-13" title="13">    <span class="kw">box-shadow</span>: <span class="dv">25</span><span class="dt">px</span> <span class="dv">10</span><span class="dt">px</span> <span class="dv">0</span> <span class="dv">0</span> <span class="cn">blue</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-14" title="14">  }</a>
+<a class="sourceLine" id="cb5-15" title="15"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb5-16" title="16"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;center&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a></code></pre></div>
