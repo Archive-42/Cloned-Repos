@@ -30,7 +30,7 @@
     "jshint-stylish": "^1.0.1",
     "lodash": "^3.3.0",
     "mongodb": "^3.6.3",
-    "mongoose": "^3.8.23",
+    "mongoose": "^5.11.14",
     "morgan": "^1.5.1",
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
