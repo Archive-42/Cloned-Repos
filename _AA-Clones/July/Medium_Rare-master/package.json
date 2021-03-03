@@ -45,7 +45,7 @@
     "node-fetch": "^2.6.1",
     "per-env": "^1.0.2",
     "pg": "^8.4.0",
-    "pug": "^2.0.4",
+    "pug": "^3.0.2",
     "quill": "^1.3.7",
     "quill-delta-to-html": "^0.12.0",
     "sequelize": "^5.22.3",
