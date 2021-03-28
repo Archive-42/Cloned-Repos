@@ -1,0 +1,74 @@
+/*
+  THEME
+*/
+
+/* default */
+.cm-s-kwdark.CodeMirror       { color: white!important; background: #282c34; } 
+/* .cm-s-kwdark .box pre       { color: white!important; } */
+
+/* e.g. var, function */
+.cm-s-kwdark .cm-keyword    { color: #ddca7e!important; }
+
+/* e.g. #id */
+.cm-s-kwdark .cm-atom       { color: rgb(157, 165, 172)!important; }
+.cm-s-kwdark .cm-builtin       { color: #a00!important; }
+
+/* e.g. 20 */
+.cm-s-kwdark .cm-number     { color: #d0782a!important; }
+
+/* e.g. px, em */
+.cm-s-kwdark .cm-unit       { color: #d0782a!important; }
+
+/* e.g. @include, [this] */
+.cm-s-kwdark .cm-def       { color: rgb(168, 105, 189)!important; }
+
+/* e.g. $, i */ 
+.cm-s-kwdark .cm-variable   { color: #BBB081!important; }
+
+/* e.g. for key in [this], Markdown li */ 
+.cm-s-kwdark .cm-variable-2 { color: #809bbd!important; }
+
+/* e.g. getElementbyId, CSS properties */ 
+.cm-s-kwdark .cm-property       { color: rgb(75, 150, 161)!important; }
+
+/* e.g. CoffeeScript ->, CSS colons */ 
+.cm-s-kwdark .cm-operator   { color: #cccccc!important; }
+
+/* e.g. // comments */ 
+.cm-s-kwdark .cm-comment    { color: #666666!important; }
+
+/* e.g. "string" */ 
+.cm-s-kwdark .cm-string     { color: #96b38a!important; }
+
+/* e.g. some CSS values */ 
+.cm-s-kwdark .cm-string-2   { color: #FFFFFF!important; }
+
+/* e.g. @font-face */ 
+.cm-s-kwdark .cm-meta       { color: rgb(168, 105, 189)!important; }
+
+/* e.g. HTML elements */ 
+.cm-s-kwdark .cm-tag       { color: rgb(136, 173, 151)!important; }
+.cm-s-kwdark .cm-bracket       { color: rgb(157, 165, 180)!important; }
+
+/* e.g. class="" id="" */ 
+.cm-s-kwdark .cm-attribute       { color: rgb(209, 154, 102)!important; }
+
+/* e.g. .box */ 
+.cm-s-kwdark .cm-qualifier       { color: rgb(157, 165, 172)!important; }
+
+/* active line */ 
+.cm-s-kwdark .CodeMirror-activeline-background    { background: rgb(44, 50, 59)!important; }
+
+
+.cm-s-kwdark .CodeMirror-linenumber {
+  color: rgb(75, 83, 99)!important;
+  background: transparent!important;
+}
+.cm-s-kwdark .CodeMirror-linenumbers, .CodeMirror-gutters, .CodeMirror-gutter {
+  border: 0!important;
+  background: transparent!important;
+}
+
+.box {
+  background: rgb(33, 37, 43)!important;
+}

@@ -1,0 +1,50 @@
+<h1 id="description">–description–</h1>
+<p>If <code>p</code> is the perimeter of a right angle triangle with integral length sides, {a,b,c}, there are exactly three solutions for p = 120.</p>
+<p>{20,48,52}, {24,45,51}, {30,40,50}</p>
+<p>For which value of <code>p</code> ≤ <code>n</code>, is the number of solutions maximized?</p>
+<h1 id="hints">–hints–</h1>
+<p><code>intRightTriangles(500)</code> should return a number.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">intRightTriangles</span>(<span class="dv">500</span>) <span class="op">===</span> <span class="st">&#39;number&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>intRightTriangles(500)</code> should return 420.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">intRightTriangles</span>(<span class="dv">500</span>) <span class="op">==</span> <span class="dv">420</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>intRightTriangles(800)</code> should return 720.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">intRightTriangles</span>(<span class="dv">800</span>) <span class="op">==</span> <span class="dv">720</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>intRightTriangles(900)</code> should return 840.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="at">intRightTriangles</span>(<span class="dv">900</span>) <span class="op">==</span> <span class="dv">840</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>intRightTriangles(1000)</code> should return 840.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="at">intRightTriangles</span>(<span class="dv">1000</span>) <span class="op">==</span> <span class="dv">840</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">function</span> <span class="at">intRightTriangles</span>(n) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="cf">return</span> n<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="op">}</span></a>
+<a class="sourceLine" id="cb6-5" title="5"></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="at">intRightTriangles</span>(<span class="dv">500</span>)<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="co">// Original idea for this solution came from</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="co">// https://www.xarg.org/puzzle/project-euler/problem-39/</span></a>
+<a class="sourceLine" id="cb7-3" title="3"></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="kw">function</span> <span class="at">intRightTriangles</span>(n) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-5" title="5">  <span class="co">// store the number of triangles with a given perimeter</span></a>
+<a class="sourceLine" id="cb7-6" title="6">  <span class="kw">let</span> triangles <span class="op">=</span> <span class="op">{};</span></a>
+<a class="sourceLine" id="cb7-7" title="7">  <span class="co">// a is the shortest side</span></a>
+<a class="sourceLine" id="cb7-8" title="8">  <span class="cf">for</span> (<span class="kw">let</span> a <span class="op">=</span> <span class="dv">3</span><span class="op">;</span> a <span class="op">&lt;</span> n / <span class="dv">3</span><span class="op">;</span> a<span class="op">++</span>)</a>
+<a class="sourceLine" id="cb7-9" title="9">  <span class="co">// o is the opposite side and is at least as long as a</span></a>
+<a class="sourceLine" id="cb7-10" title="10">    <span class="cf">for</span> (<span class="kw">let</span> o <span class="op">=</span> a<span class="op">;</span> o <span class="op">&lt;</span> n / <span class="dv">2</span><span class="op">;</span> o<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-11" title="11">      <span class="kw">let</span> h <span class="op">=</span> <span class="va">Math</span>.<span class="at">sqrt</span>(a <span class="op">*</span> a <span class="op">+</span> o <span class="op">*</span> o)<span class="op">;</span> <span class="co">// hypotenuse</span></a>
+<a class="sourceLine" id="cb7-12" title="12">      <span class="kw">let</span> p <span class="op">=</span> a <span class="op">+</span> o <span class="op">+</span> h<span class="op">;</span>  <span class="co">// perimeter</span></a>
+<a class="sourceLine" id="cb7-13" title="13">      <span class="cf">if</span> ((h <span class="op">%</span> <span class="dv">1</span>) <span class="op">===</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> p <span class="op">&lt;=</span> n) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-14" title="14">        triangles[p] <span class="op">=</span> (triangles[p] <span class="op">||</span> <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-15" title="15">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-16" title="16">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-17" title="17"></a>
+<a class="sourceLine" id="cb7-18" title="18">  <span class="kw">let</span> max <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> maxp <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-19" title="19">  <span class="cf">for</span> (<span class="kw">let</span> p <span class="kw">in</span> triangles) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-20" title="20">    <span class="cf">if</span> (max <span class="op">&lt;</span> triangles[p]) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-21" title="21">      max <span class="op">=</span> triangles[p]<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-22" title="22">      maxp <span class="op">=</span> <span class="at">parseInt</span>(p)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-23" title="23">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-24" title="24">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-25" title="25">  <span class="cf">return</span> maxp<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-26" title="26"><span class="op">}</span></a></code></pre></div>

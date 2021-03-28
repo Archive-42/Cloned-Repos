@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Discrete notes</title>
+    <description>Blog</description>
+    <link>https://discrete-notes.github.io/</link>
+    <atom:link href="https://discrete-notes.github.io//feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>December notes</title>
+        <description>&lt;p&gt;&lt;img src=&quot;assets/arbre.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; height=&quot;500px&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;karchmer-wigderson-theorem&quot;&gt;Karchmer-Wigderson theorem&lt;/h2&gt;
+
+&lt;p&gt;Karchmer-Wigderson theorem makes a precise link between circuit and 
+communication complexity. More precisely it 
+ relates the depth of a boolean
+circuit computing some function $f$, to the communication complexity of a game 
+based on $f$. The game is the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Inputs: Alice has an input $x$ such that $f(x)=1$, 
+and Bob has another input $y$ such that $f(y)=0$.&lt;/li&gt;
+  &lt;li&gt;Task: find $i$ such that $x_i \neq y_i$ (such an $i$ must exist).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The way to go from the circuit to a communication protocol is the following. 
+Alice and Bob each run the circuit on their inputs, the usual bottom-up way. 
+Thus each of them knows the 
+evaluation after each gate (“after this gate, this wire holds a 0, after this 
+one it’s a 1” etc.). Now the protocol will go top-down.
+As after the final gate (that is, the top gate), 
+Alice gets a 1 and Bob gets a 0, we know that the two wires 
+entering this gate cannot both have the same value for Alice and Bob. 
+Alice and Bob can communicate to agree on one wire that has different value. 
+This takes constant number of bits. And then you just follow the wire to the 
+next gate and continue. At the end Alice and Bob agree on an input wire that has different 
+value and they win the game. The communication complexity is the circuit depth.&lt;/p&gt;
+
+&lt;p&gt;For the other direction, see the Internet.&lt;/p&gt;
+
+&lt;p&gt;(I learnt about Karchmer-Wigderson theorem recently by watching parts of an 
+&lt;a href=&quot;https://www.youtube.com/watch?v=t1EsRm1dmw0&quot;&gt;online talk&lt;/a&gt; by 
+&lt;a href=&quot;http://www.math.ias.edu/~mika/&quot;&gt;Mika Göös&lt;/a&gt;.)&lt;/p&gt;
+
+&lt;h2 id=&quot;counting-crows&quot;&gt;Counting crows&lt;/h2&gt;
+
+&lt;p&gt;These days I often cross the 
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Jardin_des_plantes&quot;&gt;Jardin des Plantes&lt;/a&gt;
+in Paris, and I saw a sign giving information about the counting of crows in 
+Paris. Basically a large number of crows now have a ring with a specific number. 
+The problem is that the rings tend to fall, disappear etc. To evaluate this 
+loss rate, the birds are rung with two rings. Then 
+by counting the number of crows with zero, one and two rings, one can evaluate 
+the loss rate, and then the population.&lt;/p&gt;
+
+&lt;p&gt;This sounded very much like CS to me, for example in networks, 
+sending packets that may disappear, and trying to know the message loss for 
+example.&lt;/p&gt;
+
+&lt;h2 id=&quot;minimum-degree-spanning-tree&quot;&gt;Minimum degree spanning tree&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Degree-constrained_spanning_tree&quot;&gt;Minimum-degree spanning tree&lt;/a&gt;, 
+consists in finding a spanning tree of a graph, 
+with the constraint that the maximum degree of the tree should be as small as 
+possible. This problem is NP-hard, because if the answer is 2 then it means that 
+you have an Hamiltonian path. But one can get an approximation with additive 
+constant 1.
+The algorithm (from 
+&lt;a href=&quot;https://doi.org/10.1006%2Fjagm.1994.1042&quot;&gt;this paper&lt;/a&gt;, explained in 
+&lt;a href=&quot;http://pages.cs.wisc.edu/~shuchi/courses/880-S07/scribe-notes/lecture08.pdf&quot;&gt;these lecture notes&lt;/a&gt;)
+consists in a local search, with swapping of edges to as local moves.&lt;/p&gt;
+
+&lt;p&gt;This problems looks very natural and potentially very useful. I’d be curious 
+to know if there are real-world applications.&lt;/p&gt;
+
+&lt;p&gt;(I discovered this problem in
+&lt;a href=&quot;https://doi.org/10.1109/ICDCS.2015.66&quot;&gt;this distributed computing paper&lt;/a&gt;.)&lt;/p&gt;
+
+&lt;h2 id=&quot;cycle-cover&quot;&gt;Cycle cover&lt;/h2&gt;
+&lt;p&gt;An &lt;a href=&quot;https://en.wikipedia.org/wiki/Edge_cycle_cover&quot;&gt;(edge) cycle-cover&lt;/a&gt;
+is a set of cycles of a graph, such that every edge of the graph 
+is contained in at least one cycle. There are several problems associated with 
+this object, for example related to the total length of the cycles in such a 
+cover. I want to mention a super-cute-super-hard open problem: the 
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Cycle_double_cover&quot;&gt;cycle double cover conjecture&lt;/a&gt;. 
+The conjecture is: in every graph with no 
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Bridge_(graph_theory)&quot;&gt;bridge&lt;/a&gt;, 
+there is a list of cycles so that every edge is 
+contained in exactly two.&lt;/p&gt;
+
+&lt;p&gt;If you think “How can this be open?!”, I’ll just add that it is listed in the 
+&lt;a href=&quot;http://www.openproblemgarden.org/op/cycle_double_cover_conjecture&quot;&gt;open problem garden&lt;/a&gt; 
+has of “outstanding importance”. See there, or on the wikipedia page linked above 
+for the details.&lt;/p&gt;
+
+&lt;p&gt;(&lt;a href=&quot;https://arxiv.org/abs/1812.04492&quot;&gt;A paper about cycle covers&lt;/a&gt; recently 
+appeared on the arxiv, reminded me this problem.)&lt;/p&gt;
+
+&lt;h2 id=&quot;mst-algorithms&quot;&gt;MST algorithms&lt;/h2&gt;
+&lt;p&gt;Consider the following algorithm for finding a minimum weight spanning tree, similar to 
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Bor%C5%AFvka%27s_algorithm&quot;&gt;Borůvka’s algorithm&lt;/a&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Every node begins has a so-called fragment.&lt;/li&gt;
+  &lt;li&gt;Until there is only one fragment: choose an arbitrary fragment, find the 
+lightest edge linking a node of 
+this fragment to another fragment, merge the two fragments into a new one by 
+adding this edge.&lt;/li&gt;
+  &lt;li&gt;Output the final fragment.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This algorithm is actually a generalization of Borůvka, Prim and Kruskal algorithm! 
+For Borůvka’s algorithm, one would basically choose an 
+outgoing edge for all fragments in parallel. For Prim, one would always choose 
+the same fragment to enlarge. F	or Kruskal, one would choose the lightest 
+outgoing edge of all the fragments.&lt;/p&gt;
+
+&lt;p&gt;This can probably be explained with red-blue rules, but I like this point of
+view with a kind of scheduler, with different strategies.&lt;/p&gt;
+
+&lt;p&gt;(I’m working again on some minimum spanning tree distributed problems, and it 
+reminded me about this fact, that I discovered a few years ago, but that I’ve 
+never seen in undergraduate courses.)&lt;/p&gt;
+
+&lt;h2 id=&quot;squashed-cube-conjecture-and-distance-labelling&quot;&gt;Squashed cube conjecture and distance labelling&lt;/h2&gt;
+&lt;p&gt;Distance labelling are labels given to the nodes of a graph such that given the 
+labels of two arbitrary nodes $u$ and $v$, and without seeing the graph, one can compute 
+the distance between $u$ and $v$. One usually tries to minimize the size of 
+the labels.
+A strategy for this is to find some metric embedding of the graph, because then 
+one can 
+simply give the coordinates of the nodes as labels. 
+In this direction, a natural thing to do is to try the embed the graph in an 
+hypercube with the Hamming distance. This cannot be done in general, but the 
+squashed cube conjecture (that is actually a theorem) provides a result close to 
+this.&lt;/p&gt;
+
+&lt;p&gt;Consider that instead of two symbols, there are three: 0, 1, and *, and 
+that the “distance” between $x$ and $y$ is the number of indices such that $x=0$ 
+and $y=1$ or $x=1$ and $y=0$. That is * is at distance zero from 0 and 1. 
+(Note that this distance is not a proper distance.)
+Now how many symbols do you need to have a distance preserving embedding? 
+Exactly $n-1$, as proved in &lt;a href=&quot;https://doi.org/10.1007/BF02579350&quot;&gt;this paper&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;(I discovered this in the related works section of 
+&lt;a href=&quot;https://doi.org/10.1007/3-540-44676-1_40&quot;&gt;this paper&lt;/a&gt;.)&lt;/p&gt;
+
+&lt;h2 id=&quot;jaccard-metric&quot;&gt;Jaccard metric&lt;/h2&gt;
+&lt;p&gt;Lipton and Regan talk about the 
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Jaccard_index&quot;&gt;Jaccard metric&lt;/a&gt; in 
+&lt;a href=&quot;https://rjlipton.wordpress.com/2018/12/14/explaining-the-jaccard-metric/&quot;&gt;a post&lt;/a&gt;
+of their blog, &lt;em&gt;Gödel’s lost letter&lt;/em&gt;, in particular why it is a metric. I didn’t 
+know about this distance over sets, so here is the definition.&lt;/p&gt;
+
+&lt;p&gt;Let $A$ and $B$ 
+be two sets, the distance is:
+&lt;script type=&quot;math/tex&quot;&gt;d(A,B)=1-\frac{|A \cap B|}{|A \cup B|}.&lt;/script&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;preprints&quot;&gt;Preprints&lt;/h2&gt;
+&lt;p&gt;I have two new preprints this month:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1812.05913&quot;&gt;Graph classes and forbidden patterns on three vertices&lt;/a&gt;
+with &lt;a href=&quot;https://www.irif.fr/~habib/&quot;&gt;Michel Habib&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;xxx&quot;&gt;Lower bounds for text indexing with mismatches and differences&lt;/a&gt; with
+&lt;a href=&quot;https://www.di.ens.fr/~vcohen/&quot;&gt;Vincent Cohen-Addad&lt;/a&gt; and 
+&lt;a href=&quot;https://starikovskaya.github.io/homepage/&quot;&gt;Tatiana Starikoskaya&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I really like both papers, I hope I’ll find some time to blog about it soon.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 18 Dec 2018 00:00:00 +0100</pubDate>
+        <link>https://discrete-notes.github.io///december-2018-notes</link>
+        <guid isPermaLink="true">https://discrete-notes.github.io///december-2018-notes</guid>
+      </item>
+    
+      <item>
+        <title>November notes</title>
+        <description>&lt;p&gt;A few notes for November 2018.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;a-new-paper-on-descriptive-complexity-of-distributed-computing&quot;&gt;A new paper on descriptive complexity of distributed computing&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Descriptive_complexity_theory&quot;&gt;Descriptive complexity&lt;/a&gt; 
+basically aims at characterizing complexity classes through logic. A classic 
+results is &lt;a href=&quot;https://en.wikipedia.org/wiki/Descriptive_complexity_theory&quot;&gt;Fagin’s Theorem&lt;/a&gt;
+that characterizes NP. 
+Descriptive complexity for distributed computing is a relatively new topic,&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;
+and a &lt;a href=&quot;https://arxiv.org/abs/1811.08197&quot;&gt;new paper&lt;/a&gt; just came out on arxiv.
+I’m not a specialist, but from what I understood, the classic assumption of the
+LOCAL model that there are unique identifiers, is pretty difficult to transfer 
+into logic, and this paper seems to make a step in this direction.&lt;/p&gt;
+
+&lt;h2 id=&quot;a-map-of-the-theory-of-distributed-computing-community&quot;&gt;A map of the theory of distributed computing community&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://users.ics.aalto.fi/suomela/&quot;&gt;Jukka Suomela&lt;/a&gt; published
+&lt;a href=&quot;https://plus.google.com/+JukkaSuomela/posts/JgWYFk4XzWW&quot;&gt;a nice map&lt;/a&gt; of the 
+PODC/DISC communities. (PODC and DISC are the two main conferences in theory 
+of distributed computing.)&lt;br /&gt;
+It is a graph where the nodes are the authors, and the edges between them 
+have different thickness, 
+depending on how much they have collaborated, or have had papers in the same 
+sessions. There are strong thematic clusters, which is no surprise.&lt;/p&gt;
+
+&lt;h2 id=&quot;symmetries-in-lps-and-sos&quot;&gt;Symmetries in LPs and SOS&lt;/h2&gt;
+&lt;p&gt;I attended the PhD defense of 
+&lt;a href=&quot;https://www.lip6.fr/actualite/personnes-fiche.php?ident=D1634&quot;&gt;Cécile Rottner&lt;/a&gt;
+who was a student in the OR team of &lt;a href=&quot;https://www.lip6.fr/?LANG=en&quot;&gt;LIP6&lt;/a&gt;. 
+Her thesis was about a problem that
+any electric utility company faces: how to manage the different the power plants
+to meet the demand while using the less energy possible, given that there are 
+many constraints on these plants (a nuclear reactor cannot be switched on and 
+off in a minute, some other stuff has to cool down, etc.). As often in OR (as far as
+I know) this is done by having big LPs and playing with them, adding new 
+inequalities, trying to use the structure to speed the computation, having 
+branch and cut routines etc.&lt;/p&gt;
+
+&lt;p&gt;One of the big challenges that one has to tackle when solving these big LPs 
+in an industrial context is to break the symmetries.
+Suppose you have two identical 
+nuclear reactors in your system. Then if you use one or the other in your solution, 
+you will have the same cost. This implies that you can have many many optimal 
+solutions. This is bad for a branch and cut 
+strategy, where the ideal case is to have only one optimal solution, and to be 
+cutting all the other branches quickly. Cécile showed ways to solve this problem.&lt;/p&gt;
+
+&lt;p&gt;This reminded me of another PhD defense with symmetries: the one of 
+&lt;a href=&quot;https://sites.google.com/view/vverdugo/&quot;&gt;Victor Verdugo&lt;/a&gt;. Victor had a part of 
+his PhD work on how to break symmetry for 
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Sum-of-squares_optimization&quot;&gt;sum-of-squares&lt;/a&gt;. The
+timing for this blog post is pretty good: the paper of Victor on this topic 
+just appeared on arxiv, 
+&lt;a href=&quot;https://arxiv.org/abs/1811.08539&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;double-blind-for-disc&quot;&gt;Double-blind for DISC&lt;/h2&gt;
+&lt;p&gt;The conference &lt;a href=&quot;http://www.disc-conference.org/wp/&quot;&gt;DISC&lt;/a&gt; will go 
+double-blind next year (that is the names of both the reviewers and the authors will
+be anonymized).&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; At first I was sceptical about this idea, 
+because of the usual reasons: extra-care in the process (e.g. when talking to 
+people) with probably no big impact, etc. But recently I reviewed a paper by 
+authors from a university I had never heard of, and I felt that before even 
+starting I had a negative bias. I think double-blind is exactly about 
+protecting authors from this bias.&lt;/p&gt;
+
+&lt;p&gt;I heard many times that the 
+problem is that well-known people get their papers accepted although 
+they are not good enough, and I think this cannot really change (because 
+of arxiv, favourite topics, writing style), but it’s the other side of the 
+spectrum that can be made more fair. So let’s see how it goes.&lt;/p&gt;
+
+&lt;h2 id=&quot;a-few-points-on-networks-and-games&quot;&gt;A few points on networks and games&lt;/h2&gt;
+&lt;p&gt;I attended a talk at LIP6 by 
+&lt;a href=&quot;http://webee.technion.ac.il/Sites/People/ArielOrda/&quot;&gt;Ariel Orda&lt;/a&gt; on game theory 
+and networks. The talk described two very interesting works, but 
+I just picked a few non-specific things that caught my interest.&lt;/p&gt;
+
+&lt;h3 id=&quot;network-formation-games&quot;&gt;Network formation games&lt;/h3&gt;
+&lt;p&gt;The first topic is about understanding the structure of real-world networks, by 
+finding ways to build algorithmically networks that have similar properties. 
+A well-known generation algorithm is the 
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model&quot;&gt;Barabási–Albert model&lt;/a&gt; 
+where nodes basically arrive one by one and choose who to be linked to, 
+based on the degree of the nodes that already arrived. There is a second 
+type of network formation model that I didn’t know,&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;sup&gt;,&lt;/sup&gt;&lt;sup id=&quot;fnref:4&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt; which is to start 
+with a fixed set of nodes, and to make them play a game to decide 
+which edges are in the graph. 
+For example, the nodes want to maximize their pay-offs in a game where every 
+link cost something, but having short paths to every node is rewarded. 
+These are called network formation games.&lt;/p&gt;
+
+&lt;h3 id=&quot;monetary-transfer&quot;&gt;Monetary transfer&lt;/h3&gt;
+&lt;p&gt;The second idea is about introducing money in games.
+Suppose you have a Nash equilibrium 
+that is very bad (for some definition of bad) because each player, when 
+maximizing its gain, is hurting the other players a lot. Then you can introduce
+monetary transfer, that consists for two players A and B to agree that if the 
+A does this thing that decreases its pay-off but increases the pay-off 
+of B, then B will give part of its 
+pay-off to reimburse A, and both will be happier. Natural idea to 
+consider, but that I had never heard of.&lt;/p&gt;
+
+&lt;h3 id=&quot;using-motifs-to-validate-a-model&quot;&gt;Using motifs to validate a model&lt;/h3&gt;
+&lt;p&gt;I knew that people studying social 
+networks are obsessed with finding motifs (small graphs that appear more 
+often than others), but I was not sure why. It could be just to have 
+more knowledge about the relationships, but in Orda’s talk, it was 
+also a way to validate a model. Basically: in real-world graphs this and that 
+motifs are very common, we don’t know why, and previous generative 
+models did not have this property, but their model could capture this. 
+As far as I know, parameters such as the diameter, or the clustering 
+coefficient are more classic ways to validate such models.&lt;/p&gt;
+
+&lt;h3 id=&quot;about-the-price-of-anarchy-selfishness-and-collaboration&quot;&gt;About the price of anarchy, selfishness and collaboration&lt;/h3&gt;
+&lt;p&gt;The &lt;a href=&quot;https://en.wikipedia.org/wiki/Price_of_anarchy&quot;&gt;price of anarchy&lt;/a&gt;, 
+is the ratio between the social cost when each players tries to optimize 
+its own pay-off, and when all the players play the strategy that minimize 
+the social cost. It is often said that this price is the price to pay 
+when players are selfish. But it is not completely true, it is also the 
+price of not collaborating. You can image scenarios in which players have
+the option of collaborating but each player will agree only if it ensures 
+ a better pay-off. That is the players are still selfish but 
+they can talk to each other and make agreements. 
+This can change the outcome a lot. Then one 
+will consider what is called a Nash bargaining solution.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h4&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;If you are interested, see &lt;a href=&quot;https://arxiv.org/abs/1805.06238&quot;&gt;Fabian Reiter’s very nice PhD thesis&lt;/a&gt;, and the &lt;a href=&quot;https://semidoc.github.io/reiter-dga&quot;&gt;gentle introduction&lt;/a&gt; to the topic I wrote on semidoc.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;See &lt;a href=&quot;https://twitter.com/JukkaSuomela/status/1065259077738082304&quot;&gt;this tweet&lt;/a&gt;&amp;nbsp;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:3&quot;&gt;
+      &lt;p&gt;There seems that there is no third well-known way to generate networks, at least in the &lt;a href=&quot;https://en.wikipedia.org/wiki/Network_formation&quot;&gt;wikipedia article about network formation&lt;/a&gt;.&amp;nbsp;&lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:4&quot;&gt;
+      &lt;p&gt;Actually I somehow knew because of &lt;a href=&quot;https://dl.acm.org/citation.cfm?doid=3178876.3186122&quot;&gt;this paper&lt;/a&gt; by my PhD advisor and colleges, but I had forgotten.&amp;nbsp;&lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Fri, 30 Nov 2018 00:00:00 +0100</pubDate>
+        <link>https://discrete-notes.github.io///november-2018-notes</link>
+        <guid isPermaLink="true">https://discrete-notes.github.io///november-2018-notes</guid>
+      </item>
+    
+      <item>
+        <title>Popular matchings</title>
+        <description>&lt;p&gt;&lt;em&gt;Popular matchings&lt;/em&gt; are a nice variant of the classic
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Stable_marriage_problem&quot;&gt;stable matchings&lt;/a&gt;. 
+In this post introduce these matchings, and give some bits of information about 
+them.&lt;/p&gt;
+
+&lt;h2 id=&quot;stable-matchings&quot;&gt;Stable matchings&lt;/h2&gt;
+&lt;p&gt;Remember what a stable matching is. There is bipartite graph, where 
+every node holds an ordering of its neighbours, known as the &lt;em&gt;preference list&lt;/em&gt;. 
+A matching $M$ in this graph is stable, if no edge $(u,v)$ that is &lt;em&gt;not&lt;/em&gt; in $M$ 
+is such that both $u$ and $v$, would prefer to be matched together instead of 
+the way they are matched (or unmatched) in $M$. Note that such matchings are 
+maximal.&lt;/p&gt;
+
+&lt;p&gt;A stable matching always exists and can be computed in linear-time using the 
+famous Gale-Shapley algorithm. Something frustrating with stable matchings is 
+that they may be small with respect to the maximum matching (if one forgets 
+about the preference lists). For example, in the following picture, the stable 
+matching matches the top node on the left, with the bottom node on the right, 
+and prevent the two other nodes from being matched, although all could be 
+matched.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;assets/popular.png&quot; alt=&quot;&quot; class=&quot;center-image&quot; height=&quot;300px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This example shows that the size of a stable matching can be half of the size of 
+a maximum matching. 
+If you are in a context where you would like to (at least partially) satisfy 
+the nodes in terms of preference lists, but you would also like to satisfy as many 
+nodes as possible, then you need another form of optimality, and (max-size) 
+popular matchings is a good one.&lt;/p&gt;
+
+&lt;h2 id=&quot;popular-matchings&quot;&gt;Popular matchings&lt;/h2&gt;
+&lt;p&gt;With a stable matching the matched nodes are happy, because they are at a kind 
+of equilibrium, but the other nodes are unhappy because they are not matched at 
+all. 
+What happens if you make the nodes vote for their favourite matching? 
+This makes sense if you do a tournament: for every couple of matchings you make 
+an election, and the winner is the matching that is prefered by the majority of 
+the nodes. In such an election the vertices perfer to be 
+matched, and if matched consider their preference list. Also if there is an 
+ex-eaquo then both matchings win.
+A matching is popular if it wins every election.&lt;/p&gt;
+
+&lt;h2 id=&quot;relation-with-stable-matchings-and-size-considerations&quot;&gt;Relation with stable matchings and size considerations&lt;/h2&gt;
+&lt;p&gt;It is known that every stable matching is popular. 
+Thus popularity is a relaxation of stability. 
+Unlike stable matchings, popular matchings can have different sizes, and in 
+particular they can be
+larger the stable matchings (that why we look at them in the first place).
+Actually, stable matchings are the worst popular matchings with respect to size: 
+stable matchings are the popular matchings of minimum size.&lt;/p&gt;
+
+&lt;p&gt;We then look for &lt;em&gt;max-size popular matching&lt;/em&gt;.
+The good news it that a max-size popular matching can be computed in polynomial 
+time, and that they have size at least 2/3 of the maximum size matching.&lt;/p&gt;
+
+&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
+&lt;p&gt;I got aware of this topic at a seminar of 
+&lt;a href=&quot;http://www.tcs.tifr.res.in/~kavitha/&quot;&gt;Telikepalli Kavitha&lt;/a&gt; at &lt;a href=&quot;https://www.irif.fr&quot;&gt;IRIF&lt;/a&gt; 
+in September. After a nice introduction, she told us about her recent papers on 
+the topic (there is a lot to say, with many relevant variants and nice 
+algorithmic techniques).&lt;/p&gt;
+
+&lt;p&gt;The concept of popular matchings was introduced by Gärdenfors in the seventies, 
+who also proved that stable matchings are popular.&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; 
+The polynomial algorithm for computing a max-size popular matching is much more 
+recent, it was designed by Telikepalli and Chien-Chung Huang in 2011.&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; 
+And popular matchings are still a hot topic.&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;footnotes&quot;&gt;Footnotes&lt;/h4&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;P. Gärdenfors, &lt;a href=&quot;https://doi.org/10.1002/bs.3830200304&quot;&gt;Match making: Assignments based on bilateral preferences&lt;/a&gt;. (I couldn’t find it on Google Scholar, but it is accessible on Wiley.)&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;T. Kavitha, C. Huang, &lt;a href=&quot;https://doi.org/10.1016/j.ic.2012.10.012&quot;&gt;Popular matchings in the stable marriage problem&lt;/a&gt;.S&amp;nbsp;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:3&quot;&gt;
+      &lt;p&gt;See &lt;a href=&quot;https://dblp.uni-trier.de/search?q=popular+matching&quot;&gt;DBLP “popular matching” search&lt;/a&gt;.&amp;nbsp;&lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Tue, 13 Nov 2018 00:00:00 +0100</pubDate>
+        <link>https://discrete-notes.github.io///popular-matchings</link>
+        <guid isPermaLink="true">https://discrete-notes.github.io///popular-matchings</guid>
+      </item>
+    
+      <item>
+        <title>Start</title>
+        <description>&lt;p&gt;Hello. The start of the new blog.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 24 Sep 2018 00:00:00 +0200</pubDate>
+        <link>https://discrete-notes.github.io///start</link>
+        <guid isPermaLink="true">https://discrete-notes.github.io///start</guid>
+      </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,19 @@
+<h1 id="english-messages-for-react-admin">English Messages for React-Admin</h1>
+<p>English messages for <a href="https://github.com/marmelab/react-admin">react-admin</a>, the frontend framework for building admin applications on top of REST/GraphQL services.</p>
+<p><a href="https://vimeo.com/268958716"><img src="https://marmelab.com/react-admin/img/react-admin-demo-still.png" alt="react-admin-demo" /></a></p>
+<h2 id="installation">Installation</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="ex">npm</span> install --save ra-language-english</a></code></pre></div>
+<h2 id="usage">Usage</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="im">import</span> englishMessages <span class="im">from</span> <span class="st">&#39;ra-language-english&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="im">import</span> polyglotI18nProvider <span class="im">from</span> <span class="st">&#39;ra-i18n-polyglot&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-3" title="3"></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="kw">const</span> messages <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-5" title="5">    <span class="st">&#39;en&#39;</span><span class="op">:</span> englishMessages<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="op">};</span></a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="kw">const</span> i18nProvider <span class="op">=</span> <span class="at">polyglotI18nProvider</span>(locale <span class="kw">=&gt;</span> messages[locale])<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-8" title="8"></a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="op">&lt;</span>Admin locale<span class="op">=</span><span class="st">&quot;en&quot;</span> i18nProvider<span class="op">={</span>i18nProvider<span class="op">}&gt;</span></a>
+<a class="sourceLine" id="cb2-10" title="10">  ...</a>
+<a class="sourceLine" id="cb2-11" title="11">&lt;/Admin<span class="op">&gt;</span></a></code></pre></div>
+<h2 id="license">License</h2>
+<p>This translation is licensed under the MIT License, and sponsored by <a href="https://marmelab.com">marmelab</a>.</p>

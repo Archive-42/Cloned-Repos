@@ -1,0 +1,76 @@
+<h1 id="fakerest-data-provider-for-react-admin">FakeRest Data Provider For React-Admin</h1>
+<p>Client-side data provider for <a href="https://github.com/marmelab/react-admin">react-admin</a>, the frontend framework for building admin applications on top of REST/GraphQL services.</p>
+<p>This package takes a JSON object as input, then creates a client-side data provider around it - no backend involved. The provider issues no HTTP requests, every operation happens locally in the browser. It’s ideal to run e2e tests without an API server, or to showcase an admin only with a static server.</p>
+<p>All operations carried out in react-admin are local to the browser, and last only for the current browser session. A browser refresh erases all modifications.</p>
+<p><a href="https://vimeo.com/268958716"><img src="https://marmelab.com/react-admin/img/react-admin-demo-still.png" alt="react-admin-demo" /></a></p>
+<h2 id="installation">Installation</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="ex">npm</span> install --save ra-data-fakerest</a></code></pre></div>
+<h2 id="usage">Usage</h2>
+<p>Pass a JSON object to the provider constructor:</p>
+<pre class="jsx"><code>// in src/App.js
+import * as React from &quot;react&quot;;
+import { Admin, Resource } from &#39;react-admin&#39;;
+import fakeDataProvider from &#39;ra-data-fakerest&#39;;
+
+const dataProvider = fakeDataProvider({
+    posts: [
+        { id: 0, title: &#39;Hello, world!&#39; },
+        { id: 1, title: &#39;FooBar&#39; },
+    ],
+    comments: [
+        { id: 0, post_id: 0, author: &#39;John Doe&#39;, body: &#39;Sensational!&#39; },
+        { id: 1, post_id: 0, author: &#39;Jane Doe&#39;, body: &#39;I agree&#39; },
+    ],
+})
+
+import { PostList } from &#39;./posts&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={dataProvider}&gt;
+        &lt;Resource name=&quot;posts&quot; list={PostList} /&gt;
+    &lt;/Admin&gt;
+);
+
+export default App;</code></pre>
+<p>Additionally, you can turn on console logging of fake requests by passing <code>true</code> as second parameter of the constructor.</p>
+<h2 id="input-format">Input Format</h2>
+<p>The main parameter must be an object literal with one key for each resource type. Values are arrays of resources. Resources must be object literals with at least an <code>id</code> key.</p>
+<p>Foreign keys are also supported: just name the field <code>{related_resource_name}_id</code> and give an existing value.</p>
+<p>Here is an example input:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb3-1" title="1"><span class="fu">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2">    <span class="dt">&quot;posts&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb3-3" title="3">        <span class="fu">{</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span> <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="er">&#39;Hello</span><span class="fu">,</span> <span class="er">world!&#39;</span> <span class="fu">}</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-4" title="4">        <span class="fu">{</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="er">&#39;FooBar&#39;</span> <span class="fu">}</span></a>
+<a class="sourceLine" id="cb3-5" title="5">    <span class="ot">]</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-6" title="6">    <span class="dt">&quot;comments&quot;</span><span class="fu">:</span> <span class="ot">[</span></a>
+<a class="sourceLine" id="cb3-7" title="7">        <span class="fu">{</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span> <span class="dt">&quot;post_id&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span> <span class="dt">&quot;author&quot;</span><span class="fu">:</span> <span class="er">&#39;John</span> <span class="er">Doe&#39;</span><span class="fu">,</span> <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="er">&#39;Sensational!&#39;</span> <span class="fu">}</span><span class="ot">,</span></a>
+<a class="sourceLine" id="cb3-8" title="8">        <span class="fu">{</span> <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">&quot;post_id&quot;</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span> <span class="dt">&quot;author&quot;</span><span class="fu">:</span> <span class="er">&#39;Jane</span> <span class="er">Doe&#39;</span><span class="fu">,</span> <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="er">&#39;I</span> <span class="er">agree&#39;</span> <span class="fu">}</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="ot">]</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="fu">}</span></a></code></pre></div>
+<p>You can find a more sophisticated example in <a href="https://raw.githubusercontent.com/marmelab/ng-admin-demo/master/js/data.js">the Posters Galore demo</a>.</p>
+<h2 id="logging">Logging</h2>
+<p>Pass <code>true</code> as second argument to log the requests made to the provider in the console. This is very helpful to debug the requests made by an app using this data provider.</p>
+<pre class="jsx"><code>// in src/App.js
+import * as React from &quot;react&quot;;
+import { Admin, Resource } from &#39;react-admin&#39;;
+import fakeDataProvider from &#39;ra-data-fakerest&#39;;
+
+const dataProvider = fakeDataProvider({ /* data here */ }, true);
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={dataProvider}&gt;
+        // ...
+    &lt;/Admin&gt;
+);</code></pre>
+<h2 id="features">Features</h2>
+<p>This data provider uses <a href="https://github.com/marmelab/FakeRest">FakeRest</a> under the hood. That means that it offers the same features:</p>
+<ul>
+<li>pagination</li>
+<li>sorting</li>
+<li>filtering by column</li>
+<li>filtering by the <code>q</code> full-text search</li>
+<li>filtering numbers and dates greater or less than a value</li>
+<li>embedding related resources</li>
+</ul>
+<h2 id="license">License</h2>
+<p>This data provider is licensed under the MIT License, and sponsored by <a href="https://marmelab.com">marmelab</a>.</p>

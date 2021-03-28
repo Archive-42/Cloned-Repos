@@ -1,0 +1,38 @@
+.flip-enter,
+.flip-appear {
+    transform: rotateX(90deg);
+}
+
+.flip-enter-active {
+    transform: rotateX(45deg);
+    transition: transform 250ms;
+}
+
+.flip-enter-done {
+    transform: rotateX(0deg);
+    transition: transform 250ms;
+}
+
+.flip-exit {
+    transform: rotateX(0deg);
+}
+
+.flip-exit-active {
+    transform: rotateX(-45deg);
+    transition: transform 250ms;
+}
+
+.flip-exit-done {
+    transform: rotateX(-90deg);
+    transition: transform 250ms;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(100vh);
+    }
+}

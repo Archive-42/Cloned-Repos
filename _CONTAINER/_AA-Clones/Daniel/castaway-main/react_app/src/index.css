@@ -1,0 +1,49 @@
+/* TODO Add site wide styles */
+body {
+    font-family: "Montserrat", sans-serif;
+    background-color: #fafafa;
+    margin: 0;
+}
+
+.animate__animated.animate__tada {
+    --animate-delay: 5s;
+    --animate-duration: 30s;
+}
+.boat-detail-icon {
+    margin-right: 0px;
+    margin-left: 25px;
+}
+
+.main__header {
+    --animate-duration: 2s;
+}
+
+.sub__header {
+    --animate-duration: 3s;
+}
+
+.animate__animated.animate__jackInTheBox {
+    --animate-delay: 4s;
+}
+.footer__container {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 3%;
+    padding: 10px 40px;
+}
+
+.footer-link {
+    text-decoration: None;
+    margin: 15px;
+    color: #3f51b5;
+    font-size: 0.8rem;
+}
+
+#landing-nav {
+    background-color: unset;
+}

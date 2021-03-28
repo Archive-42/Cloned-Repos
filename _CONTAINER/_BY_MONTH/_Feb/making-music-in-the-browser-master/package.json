@@ -1,0 +1,22 @@
+{
+  "name": "making-music-in-the-browser",
+  "version": "1.0.0",
+  "description": "Making music in the browser using the Web Audio API",
+  "main": "index.js",
+  "scripts": {
+    "scss": "node-sass --watch styles/scss -o styles/css",
+    "clean": "rm -rf dist/ && mkdir dist/",
+    "build": "cp -R scripts styles dist/ && cp index.html dist/",
+    "deploy": "gh-pages -d dist"
+  },
+  "author": "Maria D. Campbell",
+  "license": "MIT",
+  "dependencies": {
+    "gh-pages": "^2.2.0",
+    "node-sass": "^4.13.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/interglobalmedia/local-storage-session-storage-fun-form.git"
+  }
+}

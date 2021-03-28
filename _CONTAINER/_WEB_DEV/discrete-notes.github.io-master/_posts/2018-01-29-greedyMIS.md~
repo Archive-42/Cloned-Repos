@@ -1,0 +1,96 @@
+---
+layout: post
+title: Greedy algorithm for maximum independent set
+redirect_from: "/2018/01/29/greedyMIS/"
+permalink: greedyMIS
+---
+
+One more post of our GT CoA series. The introductory post is 
+[here](https://semidoc.github.io/information-communication). 
+We skip the third talk, _Lempel-Ziv: a “one-bit catastrophe” but not a tragedy_ 
+because we have already covered this paper, see 
+[this post](https://semidoc.github.io/lagarde-catastrophe). The fourth talk of 
+the meeting was about greedy algorithms for maximum independent set, presented 
+by [Mathieu Mari](http://www.di.ens.fr/~mmari/index.html). Once again, the text 
+will not deal much with the actual  work of the speaker, but more with the 
+background of it. 
+
+----
+
+## Maximum independent sets are hard to find
+[Maximum independent set](https://en.wikipedia.org/wiki/Independent_set_(graph_theory)) 
+is an algorithmic problem, which asks to find the maximum set of nodes of the 
+input graph such that not two nodes of the set are adjacent. As the problem is 
+[NP-hard](https://en.wikipedia.org/wiki/NP-hardness), one naturally look for 
+[approximation algorithms](https://en.wikipedia.org/wiki/Approximation_algorithm). 
+Unfortunately it is impossible to design a non-trivial polynomial-time 
+approximation algorithm, unless you know what happens[^1].
+
+On the other hand, these hardness results are for worst-case general graphs, and 
+it is still interesting to study the behaviour of very simple algorithms. 
+This post is about greedy algorithms. 
+
+## A greedy algorithm and when it fails
+A greedy algorithm for maximum independent set is the following:
+
+Start with all nodes unlabelled.<br />
+Until all nodes are labelled:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;Choose an unlabelled node with the minimum of unlabelled neighbours; <br />
+&nbsp;&nbsp;&nbsp;&nbsp;Label this node with 1, and its unlabelled neighbours with 0; <br />
+Output the set of nodes labelled with 1.
+
+The idea of choosing a node whose degree in the remaining unlabelled part of the 
+graph comes 
+from a simple intuition: if I choose a node with high degree, I will label 
+a lot of nodes in one step, which is bad because it decreases a lot the 
+number of nodes that are candidates to be in the independent set. But because of 
+what we said before, we know that this has to fail sometimes. Here is an example. 
+There are three sets of nodes : $\{x\}$, $\{a_1,...., a_k\}$ and 
+$\{b_1,...,b_k\}$. The vertex $x$ is linked to every $a_i$, every 
+$a_i$ is linked to every $b_j$, and the $b_j$ form a clique. On this graph, the 
+algorithm will first pick $x$, and then pick a node 
+in $\{b_1,...,b_k\}$, and stop. The independent set returned has size 2, but 
+$\{a_1,...., a_k\}$ is an independent set of size $k$, therefore the approximation 
+ratio is roughly the size of the instance. 
+
+## And when it succeeds
+The first thing one can say about this graph, is that it uses very high degree 
+nodes. What happens if we consider bounded degree graphs? Then for maximum degree 
+$\Delta$, greedy achieves the approximation of ratio $\frac{\Delta+2}{3}$[^2], 
+which is not that bad. 
+A second thing one can say, is that this graph does not seem generic, for example 
+it does not look like a random graph. And greedy is quite good on random graphs 
+actually, it achieves a ratio 2 in expectation[^3]. 
+
+Random graph are not that common in applications though, either on real-world 
+graphs or on network architecture. What about trees, what about planar graphs? 
+Once again greedy is a good choice: it provides a 6-approximation on planar 
+graphs, and is optimal for trees. 
+
+There is a general method to prove that greedy is optimal for 
+trees, and also on other graph classes, such as 
+[maximal outerplanar graphs](https://en.wikipedia.org/wiki/Outerplanar_graph), 
+[cographs](https://en.wikipedia.org/wiki/Cograph), and 
+[split graphs](https://en.wikipedia.org/wiki/Split_graph). 
+First note that if there is a node $v$ in the graph 
+such that its neighbours and itself form a clique, then this node belongs to one of 
+the maximum independent sets. Indeed only one node from the clique can be in the 
+set, and we can always take the node $v$, because there cannot be a conflict 
+with a node outside the clique. If the class of graphs at hand has the property 
+that the nodes with the lowest degree have such clique neighbourhoods, then the 
+greedy algorithm never makes a bad choice, and is optimal. In trees, the lowest 
+degree nodes are the leaves, and they have such a property, because they have 
+only one neighbour, thus the greedy algorithm is optimal.
+
+## How good is greedy on a particular graph?
+Ok, so greedy can be very bad, but it can also be good. And this can depend not 
+only on the graph but also on the choices made by the algorithm : at every step 
+there can be several nodes with minimum degree, and the choice can dramatically 
+change the output. But can we predict how good or bad greedy can be? Can we 
+know which execution of the algorithm will give the best outcome, without 
+running it ? Mathieu and his co-author's answer is basically "no".
+
+### Footnotes ###
+[^1]: Some precisions about the non-approximability results. The precise results is that it is NP-hard to get a $n^{1-\epsilon}$ approximation of the maximum independent set. It comes from the paper [Clique is hard to approximate within $n^{1–\epsilon}$](https://pdfs.semanticscholar.org/5be6/a7e25c5e4cb0f1ece182042dc6275e438bbd.pdf) by [Johan Håstad](https://en.wikipedia.org/wiki/Johan_H%C3%A5stad) and is proved with the [PCP machinery](https://en.wikipedia.org/wiki/PCP_theorem). Note that the title of the paper is about the maximum clique problem and not the independent set, but for general graphs this is the same problem: just take the complement of the input graph.
+[^2]: See [Greed is good: Approximating independent sets in sparse and bounded-degree graphs](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.452.5619&rep=rep1&type=pdf) by Halldórsson and Radhakrishnan.
+[^3]: See [On independent sets in random graphs](https://arxiv.org/pdf/1007.1378) by Coja-Oghlan and Efthymiou.

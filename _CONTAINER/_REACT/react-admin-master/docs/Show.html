@@ -1,0 +1,355 @@
+<h1 id="the-show-view">The Show View</h1>
+<p>The Show view displays a record fetched from the API in a read-only fashion. It delegates the actual rendering of the record to a layout component - usually <code>&lt;SimpleShowLayout&gt;</code>. This layout component uses its children (<a href="./Fields.md"><code>&lt;Fields&gt;</code></a> components) to render each record field.</p>
+<figure>
+<img src="./img/show-view.png" alt="post show view" /><figcaption>post show view</figcaption>
+</figure>
+<h2 id="the-show-component">The <code>&lt;Show&gt;</code> component</h2>
+<p>The <code>&lt;Show&gt;</code> component renders the page title and actions, and fetches the record from the REST API. It is not responsible for rendering the actual record - that’s the job of its child component (usually <code>&lt;SimpleShowLayout&gt;</code>), to which they pass the <code>record</code> as prop.</p>
+<p>Here are all the props accepted by the <code>&lt;Show&gt;</code> component:</p>
+<ul>
+<li><a href="#page-title"><code>title</code></a></li>
+<li><a href="#actions"><code>actions</code></a></li>
+<li><a href="#aside-component"><code>aside</code></a></li>
+<li><a href="#component"><code>component</code></a></li>
+</ul>
+<h3 id="css-api">CSS API</h3>
+<p>The <code>&lt;Show&gt;</code> component accepts the usual <code>className</code> prop but you can override many class names injected to the inner components by React-admin thanks to the <code>classes</code> property (as most Material UI components, see their <a href="https://material-ui.com/customization/components/#overriding-styles-with-classes">documentation about it</a>). This property accepts the following keys:</p>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 89%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rule name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>root</code></td>
+<td>Alternative to using <code>className</code>. Applied to the root element</td>
+</tr>
+<tr class="even">
+<td><code>main</code></td>
+<td>Applied to the main container</td>
+</tr>
+<tr class="odd">
+<td><code>noActions</code></td>
+<td>Applied to the main container when <code>actions</code> prop is <code>false</code></td>
+</tr>
+<tr class="even">
+<td><code>card</code></td>
+<td>Applied to the child component inside the main container (Material UI’s <code>Card</code> by default)</td>
+</tr>
+</tbody>
+</table>
+<p>To override the style of all instances of <code>&lt;Show&gt;</code> using the <a href="https://material-ui.com/customization/globals/#css">material-ui style overrides</a>, use the <code>RaShow</code> key.</p>
+<p>Here is the minimal code necessary to display a view to show a post:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>// in src/App.js
+import * as React from &quot;react&quot;;
+import { Admin, Resource } from &#39;react-admin&#39;;
+import jsonServerProvider from &#39;ra-data-json-server&#39;;
+
+import { PostCreate, PostEdit, PostShow } from &#39;./posts&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={jsonServerProvider(&#39;https://jsonplaceholder.typicode.com&#39;)}&gt;
+        &lt;Resource name=&quot;posts&quot; show={PostShow} create={PostCreate} edit={PostEdit} /&gt;
+    &lt;/Admin&gt;
+);
+
+export default App;
+
+// in src/posts.js
+import * as React from &quot;react&quot;;
+import { Show, SimpleShowLayout, TextField, DateField, RichTextField } from &#39;react-admin&#39;;
+
+export const PostShow = (props) =&gt; (
+    &lt;Show {...props}&gt;
+        &lt;SimpleShowLayout&gt;
+            &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;TextField source=&quot;teaser&quot; /&gt;
+            &lt;RichTextField source=&quot;body&quot; /&gt;
+            &lt;DateField label=&quot;Publication date&quot; source=&quot;created_at&quot; /&gt;
+        &lt;/SimpleShowLayout&gt;
+    &lt;/Show&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p>That’s enough to display the post show view:</p>
+<figure>
+<img src="./img/post-show.png" alt="post show view" /><figcaption>post show view</figcaption>
+</figure>
+<h3 id="page-title">Page Title</h3>
+<p>By default, the title for the Show view is “[resource_name] #[record_id]”.</p>
+<p>You can customize this title by specifying a custom <code>title</code> prop:</p>
+<pre class="jsx"><code>export const PostShow = (props) =&gt; (
+    &lt;Show title=&quot;Post view&quot; {...props}&gt;
+        ...
+    &lt;/Show&gt;
+);</code></pre>
+<p>More interestingly, you can pass a component as <code>title</code>. React-admin clones this component and, in the <code>&lt;ShowView&gt;</code>, injects the current <code>record</code>. This allows to customize the title according to the current record:</p>
+<pre class="jsx"><code>const PostTitle = ({ record }) =&gt; {
+    return &lt;span&gt;Post {record ? `&quot;${record.title}&quot;` : &#39;&#39;}&lt;/span&gt;;
+};
+export const PostShow = (props) =&gt; (
+    &lt;Show title={&lt;PostTitle /&gt;} {...props}&gt;
+        ...
+    &lt;/Show&gt;
+);</code></pre>
+<h3 id="actions">Actions</h3>
+<p>You can replace the list of default actions by your own component using the <code>actions</code> prop:</p>
+<pre class="jsx"><code>import Button from &#39;@material-ui/core/Button&#39;;
+import { EditButton, TopToolbar } from &#39;react-admin&#39;;
+
+const PostShowActions = ({ basePath, data, resource }) =&gt; (
+    &lt;TopToolbar&gt;
+        &lt;EditButton basePath={basePath} record={data} /&gt;
+        {/* Add your custom actions */}
+        &lt;Button color=&quot;primary&quot; onClick={customAction}&gt;Custom Action&lt;/Button&gt;
+    &lt;/TopToolbar&gt;
+);
+
+export const PostShow = (props) =&gt; (
+    &lt;Show actions={&lt;PostShowActions /&gt;} {...props}&gt;
+        ...
+    &lt;/Show&gt;
+);</code></pre>
+<h3 id="aside-component">Aside component</h3>
+<p>You may want to display additional information on the side of the resource detail. Use the <code>aside</code> prop for that, passing the component of your choice:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>const Aside = () =&gt; (
+    &lt;div style={{ width: 200, margin: &#39;1em&#39; }}&gt;
+        &lt;Typography variant=&quot;h6&quot;&gt;Post details&lt;/Typography&gt;
+        &lt;Typography variant=&quot;body2&quot;&gt;
+            Posts will only be published once an editor approves them
+        &lt;/Typography&gt;
+    &lt;/div&gt;
+);
+
+const PostShow = props =&gt; (
+    &lt;Show aside={Aside} {...props}&gt;
+        ...
+    &lt;/Show&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p>The <code>aside</code> component receives the same props as the <code>Show</code> child component: <code>basePath</code>, <code>record</code>, <code>resource</code>, and <code>version</code>. That means you can display secondary details of the current record in the aside component:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>const Aside = ({ record }) =&gt; (
+    &lt;div style={{ width: 200, margin: &#39;1em&#39; }}&gt;
+        &lt;Typography variant=&quot;h6&quot;&gt;Post details&lt;/Typography&gt;
+        {record &amp;&amp; (
+            &lt;Typography variant=&quot;body2&quot;&gt;
+                Creation date: {record.createdAt}
+            &lt;/Typography&gt;
+        )}
+    &lt;/div&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p><strong>Tip</strong>: Always test the <code>record</code> is defined before using it, as react-admin starts rendering the UI before the API call is over.</p>
+<h3 id="component">Component</h3>
+<p>By default, the Show view renders the main content area inside a material-ui <code>&lt;Card&gt;</code> element. The actual layout of the area depends on the <code>ShowLayout</code> component you’re using (<code>&lt;SimpleShowLayout&gt;</code>, <code>&lt;TabbedShowLayout&gt;</code>, or a custom layout component).</p>
+<p>Some layouts also use <code>Card</code>, in which case the user ends up seeing a card inside a card, which is bad UI. To avoid that, you can override the main area container by passing a <code>component</code> prop:</p>
+<pre class="jsx"><code>// use a div as root component
+const PostShow = props =&gt; (
+    &lt;Show component=&quot;div&quot; {...props}&gt;
+        ...
+    &lt;/Show&gt;
+);
+
+// use a custom component as root component 
+const PostShow = props =&gt; (
+    &lt;Show component={MyComponent} {...props}&gt;
+        ...
+    &lt;/Show&gt;
+);</code></pre>
+<p>The default value for the <code>component</code> prop is <code>Card</code>.</p>
+<h2 id="the-showguesser-component">The <code>&lt;ShowGuesser&gt;</code> component</h2>
+<p>Instead of a custom <code>Show</code>, you can use the <code>ShowGuesser</code> to determine which fields to use based on the data returned by the API.</p>
+<pre class="jsx"><code>// in src/App.js
+import * as React from &quot;react&quot;;
+import { Admin, Resource, ShowGuesser } from &#39;react-admin&#39;;
+import jsonServerProvider from &#39;ra-data-json-server&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={jsonServerProvider(&#39;https://jsonplaceholder.typicode.com&#39;)}&gt;
+        &lt;Resource name=&quot;posts&quot; show={ShowGuesser} /&gt;
+    &lt;/Admin&gt;
+);</code></pre>
+<p>Just like <code>Show</code>, <code>ShowGuesser</code> fetches the data. It then analyzes the response, and guesses the fields it should use to display a basic page with the data. It also dumps the components it has guessed in the console, where you can copy it into your own code. Use this feature to quickly bootstrap a <code>Show</code> on top of an existing API, without adding the inputs one by one.</p>
+<figure>
+<img src="./img/guessed-show.png" alt="Guessed Show" /><figcaption>Guessed Show</figcaption>
+</figure>
+<p>React-admin provides guessers for the <code>List</code> view (<code>ListGuesser</code>), the <code>Edit</code> view (<code>EditGuesser</code>), and the <code>Show</code> view (<code>ShowGuesser</code>).</p>
+<p><strong>Tip</strong>: Do not use the guessers in production. They are slower than manually-defined components, because they have to infer types based on the content. Besides, the guesses are not always perfect.</p>
+<h2 id="useshowcontroller"><code>useShowController</code></h2>
+<p>The <code>&lt;Show&gt;</code> component takes care of two things:</p>
+<ol type="1">
+<li>(the “controller”) Fetching data based on the URL and transforming it</li>
+<li>(the “view”) Rendering the page title, the actions, the content and aside areas</li>
+</ol>
+<p>In some cases, you may want to customize the view entirely (i.e. keep the code for step 1, and provide your own code for step 2). For these cases, react-admin provides a hook called <code>useShowController()</code>, which contains just the controller part of the <code>&lt;Show&gt;</code> component.</p>
+<p>This hook takes one object as input (the props passed to a <code>&lt;Show&gt;</code> component) and returns the fetched data for the Show view. You can use it to create your own custom Show view, like this one:</p>
+<pre class="jsx"><code>import { useShowController, SimpleShowLayout } from &#39;react-admin&#39;;
+
+const MyShow = props =&gt; {
+    const {
+        basePath, // deduced from the location, useful for action buttons
+        defaultTitle, // the translated title based on the resource, e.g. &#39;Post #123&#39;
+        loaded, // boolean that is false until the record is available
+        loading, // boolean that is true on mount, and false once the record was fetched
+        record, // record fetched via dataProvider.getOne() based on the id from the location
+        resource, // the resource name, deduced from the location. e.g. &#39;posts&#39;
+        version, // integer used by the refresh feature
+    } = useShowController(props);
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;{defaultTitle}&lt;/h1&gt;
+            {cloneElement(props.children, {
+                basePath,
+                record,
+                resource,
+                version,
+            })}
+        &lt;/div&gt;
+    );
+}
+
+const PostShow = props =&gt; (
+    &lt;MyShow {...props}&gt;
+        &lt;SimpleShowLayout&gt;
+            ...
+        &lt;/SimpleShowLayout&gt;
+    &lt;/MyShow&gt;
+)</code></pre>
+<p>This custom Show view has no action buttons or aside component - it’s up to you to add them in pure React.</p>
+<p><strong>Tip</strong>: You don’t have to clone the child element. If you can’t reuse an existing form component like <code>&lt;SimpleShowLayout&gt;</code>, feel free to write the form code inside your custom <code>MyShow</code> component.</p>
+<h2 id="the-simpleshowlayout-component">The <code>&lt;SimpleShowLayout&gt;</code> component</h2>
+<p>The <code>&lt;SimpleShowLayout&gt;</code> component receives the <code>record</code> as prop from its parent component. It is responsible for rendering the actual view.</p>
+<p>The <code>&lt;SimpleShowLayout&gt;</code> renders its child components line by line (within <code>&lt;div&gt;</code> components) inside a material-ui <code>&lt;CardContent/&gt;</code>.</p>
+<pre class="jsx"><code>export const PostShow = (props) =&gt; (
+    &lt;Show {...props}&gt;
+        &lt;SimpleShowLayout&gt;
+            &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;RichTextField source=&quot;body&quot; /&gt;
+            &lt;NumberField source=&quot;nb_views&quot; /&gt;
+        &lt;/SimpleShowLayout&gt;
+    &lt;/Show&gt;
+);</code></pre>
+<p>It accepts a <code>className</code> prop to let you override the style of the <code>&lt;CardContent/&gt;</code>.</p>
+<h2 id="the-tabbedshowlayout-component">The <code>&lt;TabbedShowLayout&gt;</code> component</h2>
+<p>Just like <code>&lt;SimpleShowLayout&gt;</code>, <code>&lt;TabbedShowLayout&gt;</code> receives the <code>record</code> prop and renders the actual view. However, the <code>&lt;TabbedShowLayout&gt;</code> component renders fields grouped by tab. The tabs are set by using <code>&lt;Tab&gt;</code> components, which expect a <code>label</code> and an optional <code>icon</code> prop. Switching tabs will update the current url. By default, it uses the tabs indexes and the first tab will be displayed at the root url. You can customize the path by providing a <code>path</code> prop to each <code>Tab</code> component. If you’d like the first one to act as an index page, just omit the <code>path</code> prop.</p>
+<figure>
+<img src="./img/tabbed-show.gif" alt="tabbed show" /><figcaption>tabbed show</figcaption>
+</figure>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import { TabbedShowLayout, Tab } from &#39;react-admin&#39;
+
+export const PostShow = (props) =&gt; (
+    &lt;Show {...props}&gt;
+        &lt;TabbedShowLayout&gt;
+            &lt;Tab label=&quot;summary&quot;&gt;
+                &lt;TextField label=&quot;Id&quot; source=&quot;id&quot; /&gt;
+                &lt;TextField source=&quot;title&quot; /&gt;
+                &lt;TextField source=&quot;teaser&quot; /&gt;
+            &lt;/Tab&gt;
+            &lt;Tab label=&quot;body&quot; path=&quot;body&quot;&gt;
+                &lt;RichTextField source=&quot;body&quot; addLabel={false} /&gt;
+            &lt;/Tab&gt;
+            &lt;Tab label=&quot;Miscellaneous&quot; path=&quot;miscellaneous&quot;&gt;
+                &lt;TextField label=&quot;Password (if protected post)&quot; source=&quot;password&quot; type=&quot;password&quot; /&gt;
+                &lt;DateField label=&quot;Publication date&quot; source=&quot;published_at&quot; /&gt;
+                &lt;NumberField source=&quot;average_note&quot; /&gt;
+                &lt;BooleanField label=&quot;Allow comments?&quot; source=&quot;commentable&quot; defaultValue /&gt;
+                &lt;TextField label=&quot;Nb views&quot; source=&quot;views&quot; /&gt;
+            &lt;/Tab&gt;
+            &lt;Tab label=&quot;comments&quot; path=&quot;comments&quot;&gt;
+                &lt;ReferenceManyField reference=&quot;comments&quot; target=&quot;post_id&quot; addLabel={false}&gt;
+                    &lt;Datagrid&gt;
+                        &lt;TextField source=&quot;body&quot; /&gt;
+                        &lt;DateField source=&quot;created_at&quot; /&gt;
+                        &lt;EditButton /&gt;
+                    &lt;/Datagrid&gt;
+                &lt;/ReferenceManyField&gt;
+            &lt;/Tab&gt;
+        &lt;/TabbedShowLayout&gt;
+    &lt;/Show&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p>To style the tabs, the <code>&lt;Tab&gt;</code> component accepts two props:</p>
+<ul>
+<li><code>className</code> is passed to the tab <em>header</em></li>
+<li><code>contentClassName</code> is passed to the tab <em>content</em></li>
+</ul>
+<h3 id="tabs-element">Tabs element</h3>
+<p>By default, <code>&lt;TabbedShowLayout&gt;</code> renders its tabs using <code>&lt;TabbedShowLayoutTabs&gt;</code>, an internal react-admin component. You can pass a custom component as the <code>tabs</code> prop to override that default. Also, props passed to <code>&lt;TabbedShowLayoutTabs&gt;</code> are passed to the material-ui’s <code>&lt;Tabs&gt;</code> component inside <code>&lt;TabbedShowLayoutTabs&gt;</code>. That means you can create a custom <code>tabs</code> component without copying several components from the react-admin source.</p>
+<p>For instance, to make use of scrollable <code>&lt;Tabs&gt;</code>, you can pass a <code>variant="scrollable"</code> prop to <code>&lt;TabbedShowLayoutTabs&gt;</code> and use it in the <code>tabs</code> prop from <code>&lt;TabbedShowLayout&gt;</code> as follows:</p>
+<pre class="jsx"><code>import {
+    Show,
+    TabbedShowLayout,
+    TabbedShowLayoutTabs,
+} from &#39;react-admin&#39;;
+
+const ScrollableTabbedShowLayout = props =&gt; (
+    &lt;Show{...props}&gt;
+        &lt;TabbedShowLayout tabs={&lt;TabbedShowLayoutTabs variant=&quot;scrollable&quot; {...props} /&gt;}&gt;
+            ...
+        &lt;/TabbedShowLayout&gt;
+    &lt;/Show&gt;
+);
+
+export default ScrollableTabbedShowLayout;
+</code></pre>
+<h2 id="third-party-components">Third-Party Components</h2>
+<p>You can find components for react-admin in third-party repositories.</p>
+<ul>
+<li><a href="https://github.com/ValentinnDimitroff/ra-compact-ui#layouts">ra-compact-ui</a>: plugin that allows to have custom styled show layouts.</li>
+</ul>
+<h2 id="displaying-fields-depending-on-the-user-permissions">Displaying Fields depending on the user permissions</h2>
+<p>You might want to display some fields only to users with specific permissions.</p>
+<p>Before rendering the <code>Show</code> component, react-admin calls the <code>authProvider.getPermissions()</code> method, and passes the result to the component as the <code>permissions</code> prop. It’s up to your <code>authProvider</code> to return whatever you need to check roles and permissions inside your component.</p>
+<p>Here’s an example inside a <code>Show</code> view with a <code>SimpleShowLayout</code> and a custom <code>actions</code> component:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import TopToolbar from &#39;@material-ui/core/TopToolbar&#39;;
+import Button from &#39;@material-ui/core/Button&#39;;
+import { EditButton, DeleteButton } from &#39;react-admin&#39;;
+
+const PostShowActions = ({ permissions, basePath, data, resource }) =&gt; (
+    &lt;TopToolbar&gt;
+        &lt;EditButton basePath={basePath} record={data} /&gt;
+        {permissions === &#39;admin&#39; &amp;&amp;
+            &lt;DeleteButton basePath={basePath} record={data} resource={resource} /&gt;
+        }
+    &lt;/TopToolbar&gt;
+);
+
+export const PostShow = ({ permissions, ...props }) =&gt; (
+    &lt;Show actions={&lt;PostShowActions permissions={permissions} /&gt;} {...props}&gt;
+        &lt;SimpleShowLayout&gt;
+            &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;RichTextField source=&quot;body&quot; /&gt;
+            {permissions === &#39;admin&#39; &amp;&amp;
+                &lt;NumberField source=&quot;nb_views&quot; /&gt;
+            }
+        &lt;/SimpleShowLayout&gt;
+    &lt;/Show&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p><strong>Tip</strong> Note how the <code>permissions</code> prop is passed down to the custom <code>actions</code> component.</p>
+<p>This also works inside a <code>TabbedShowLayout</code>, and you can hide a <code>Tab</code> completely:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>export const UserShow = ({ permissions, ...props }) =&gt;
+    &lt;Show {...props}&gt;
+        &lt;TabbedShowLayout&gt;
+            &lt;Tab label=&quot;user.form.summary&quot;&gt;
+                {permissions === &#39;admin&#39; &amp;&amp; &lt;TextField source=&quot;id&quot; /&gt;}
+                &lt;TextField source=&quot;name&quot; /&gt;
+            &lt;/Tab&gt;
+            {permissions === &#39;admin&#39; &amp;&amp;
+                &lt;Tab label=&quot;user.form.security&quot;&gt;
+                    &lt;TextField source=&quot;role&quot; /&gt;
+                &lt;/Tab&gt;}
+        &lt;/TabbedShowLayout&gt;
+    &lt;/Show&gt;;</code></pre>
+<p>{% endraw %}</p>

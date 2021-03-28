@@ -1,0 +1,35 @@
+{
+	"Generate interview problem snippet in Java": {
+		"prefix": "javasol",
+		"scope": "java",
+		"body": [
+		  "/**",
+		  " * PROBLEM DESCRIPTION",
+		  " */",
+		  "public class Solution {",
+		  "    public static void main(String... args) {",
+		  "        ",
+		  "    }",
+		  "}"
+		],
+		"description": "Generate interview problem snippet in Java"
+	},
+
+	"Generate interview problem snippet in Python": {
+		"prefix": "pythonsol",
+		"scope": "python",
+		"body": [
+		  "\"\"\"",
+		  "\" PROBLEM DESCRIPTION",
+		  "\"\"\"",
+		  "class Solution():",
+		  "",
+		  "",
+		  "\"\"\"",
+		  "\" MAIN PROGRAM",
+		  "\"\"\"",
+		  "if __name__ == '__main__':"
+		],
+		"description": "Generate interview problem snippet in Python"
+	}
+}

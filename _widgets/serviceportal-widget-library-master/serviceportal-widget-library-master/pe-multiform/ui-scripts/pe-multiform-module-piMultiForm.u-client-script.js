@@ -1,1 +1,0 @@
-var PiMf = angular.module('PiMultiForm', []);

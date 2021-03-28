@@ -1,0 +1,140 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "interview": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "changeDetection": "OnPush"
+        }
+      },
+      "root": "projects/interview",
+      "sourceRoot": "projects/interview/src",
+      "prefix": "ds",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/interview",
+            "index": "projects/interview/src/index.html",
+            "main": "projects/interview/src/main.ts",
+            "polyfills": "projects/interview/src/polyfills.ts",
+            "tsConfig": "projects/interview/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/interview/src/favicon.ico",
+              "projects/interview/src/assets"
+            ],
+            "styles": [
+              "projects/interview/src/styles.scss"
+            ],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/interview/src/styles"
+              ]
+            }
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/interview/src/environments/environment.ts",
+                  "with": "projects/interview/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "interview:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "interview:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "interview:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/interview/src/test.ts",
+            "polyfills": "projects/interview/src/polyfills.ts",
+            "tsConfig": "projects/interview/tsconfig.spec.json",
+            "karmaConfig": "projects/interview/karma.conf.js",
+            "assets": [
+              "projects/interview/src/favicon.ico",
+              "projects/interview/src/assets"
+            ],
+            "styles": [
+              "projects/interview/src/styles.scss"
+            ],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/interview/src/styles"
+              ]
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/interview/tsconfig.app.json",
+              "projects/interview/tsconfig.spec.json",
+              "projects/interview/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/interview/e2e/protractor.conf.js",
+            "devServerTarget": "interview:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "interview:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "interview"
+}

@@ -1,0 +1,90 @@
+/*  scss variables */
+html,
+body {
+  background: darkmagenta;
+  height: 100%; }
+
+body {
+  font-family: 'Share Tech Mono', monospace; }
+
+h1 {
+  color: #d6ed17; }
+
+.circle {
+  background: yellow;
+  display: none;
+  height: 10px;
+  position: absolute;
+  width: 10px; }
+
+div.title {
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  display: inline-block;
+  top: 0;
+  left: 0;
+  padding: 0;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: lighter;
+  font-size: 4.75vw;
+  font-family: 'Inconsolata', monospace;
+  letter-spacing: 0.1em; }
+
+div.title:before {
+  width: 100%;
+  font-size: 4.75vw;
+  padding: 0;
+  content: attr(data-text);
+  position: absolute;
+  overflow: hidden;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  width: 0;
+  color: #d6ed17;
+  animation: fill-orange 2.5s infinite;
+  font-family: 'Inconsolata', monospace;
+  font-weight: lighter; }
+
+@keyframes fill-orange {
+  0% {
+    width: 0; }
+  100% {
+    width: 100%; } }
+
+/* Sticky Footer Styling */
+.site-footer {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  font-size: 100%;
+  color: #00ddfd; }
+  @media (min-width: 411px) {
+    .site-footer {
+      font-size: 120%; } }
+  @media (min-width: 600px) {
+    .site-footer {
+      font-size: 130%; } }
+
+:root {
+  --space: 1.5em 0;
+  --space: 2em 0; }
+
+.Site {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; }
+
+.Site-content {
+  flex: 1 0 auto;
+  padding: var(--space) var(--space) 0;
+  width: 100%; }
+
+.Site-content:after {
+  content: "\00a0";
+  display: block;
+  margin-top: var(--space);
+  height: 0;
+  visibility: hidden; }

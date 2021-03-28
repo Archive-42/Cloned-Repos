@@ -1,0 +1,197 @@
+<h1 id="react-admin-build-status-fossa-status-gitpod-ready-to-code">react-admin <a href="https://travis-ci.org/marmelab/react-admin"><img src="https://travis-ci.org/marmelab/react-admin.svg?branch=master" alt="Build Status" /></a> <a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fmarmelab%2Freact-admin?ref=badge_shield"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmarmelab%2Freact-admin.svg?type=shield" alt="FOSSA Status" /></a> <a href="https://gitpod.io/#https://github.com/marmelab/react-admin"><img src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Gitpod ready-to-code" /></a></h1>
+<p>A frontend Framework for building data-driven applications running in the browser on top of REST/GraphQL APIs, using ES6, <a href="https://facebook.github.io/react/">React</a> and <a href="https://material.io/">Material Design</a>. Previously named <a href="https://github.com/marmelab/admin-on-rest">admin-on-rest</a>. Open sourced and maintained by <a href="https://marmelab.com/">marmelab</a>.</p>
+<p><a href="https://marmelab.com/react-admin/">Home page</a> - <a href="https://marmelab.com/react-admin/Tutorial.html">Documentation</a> - <a href="https://marmelab.com/react-admin-demo/">Demo</a> - <a href="https://marmelab.com/en/blog/#react-admin">Blog</a> - <a href="https://github.com/marmelab/react-admin/releases">Releases</a> - <a href="https://stackoverflow.com/questions/tagged/react-admin">Support</a></p>
+<p><a href="https://vimeo.com/474999017"><img src="https://marmelab.com/react-admin/img/react-admin-demo-still.png" alt="react-admin-demo" /></a></p>
+<h2 id="features">Features</h2>
+<ul>
+<li>Adapts to any backend (REST, GraphQL, SOAP, etc.)</li>
+<li>Powered by <a href="https://material-ui.com/">material-ui</a>, <a href="https://redux.js.org/">redux</a>, <a href="https://final-form.org/react">react-final-form</a>, <a href="https://reacttraining.com/react-router/">react-router</a> and a few more</li>
+<li>Super-fast UI thanks to optimistic rendering (renders before the server returns)</li>
+<li>Undo updates and deletes for a few seconds</li>
+<li>Relationships (many to one, one to many)</li>
+<li>Data Validation</li>
+<li>Internationalization (i18n)</li>
+<li>Themeable, Highly customizable interface</li>
+<li>Supports any authentication provider (REST API, OAuth, Basic Auth, …)</li>
+<li>Full-featured datagrid (sort, pagination, filters)</li>
+<li>Large library of components for various data types: boolean, number, rich text, etc.</li>
+<li>Conditional formatting</li>
+<li>Filter-as-you-type</li>
+<li>Supports any form layout (simple, tabbed, etc.)</li>
+<li>Custom actions</li>
+<li>WYSIWYG editor</li>
+<li>Customize dashboard, menu, layout</li>
+<li>Super easy to extend and override (it’s just React components)</li>
+<li>Can be included in another React app</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p>React-admin is available from npm. You can install it (and its required dependencies) using:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="ex">npm</span> install react-admin</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="co">#or</span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="ex">yarn</span> add react-admin</a></code></pre></div>
+<h2 id="documentation">Documentation</h2>
+<p>Read the <a href="https://marmelab.com/react-admin/Tutorial.html">Tutorial</a> for a 30 minutes introduction. After that, head to the <a href="https://marmelab.com/react-admin/Readme.html">Documentation</a>, or checkout the <a href="https://github.com/marmelab/react-admin-demo">source code of the demo</a> for an example usage.</p>
+<h2 id="at-a-glance">At a Glance</h2>
+<pre class="jsx"><code>// in app.js
+import * as React from &quot;react&quot;;
+import { render } from &#39;react-dom&#39;;
+import { Admin, Resource } from &#39;react-admin&#39;;
+import restProvider from &#39;ra-data-simple-rest&#39;;
+
+import { PostList, PostEdit, PostCreate, PostIcon } from &#39;./posts&#39;;
+
+render(
+    &lt;Admin dataProvider={restProvider(&#39;http://localhost:3000&#39;)}&gt;
+        &lt;Resource name=&quot;posts&quot; list={PostList} edit={PostEdit} create={PostCreate} icon={PostIcon} /&gt;
+    &lt;/Admin&gt;,
+    document.getElementById(&#39;root&#39;)
+);</code></pre>
+<p>The <code>&lt;Resource&gt;</code> component is a configuration component that allows to define sub components for each of the admin view: <code>list</code>, <code>edit</code>, and <code>create</code>. These components use Material UI and custom components from react-admin:</p>
+<pre class="jsx"><code>// in posts.js
+import * as React from &quot;react&quot;;
+import { List, Datagrid, Edit, Create, SimpleForm, DateField, TextField, EditButton, TextInput, DateInput } from &#39;react-admin&#39;;
+import BookIcon from &#39;@material-ui/core/svg-icons/action/book&#39;;
+export const PostIcon = BookIcon;
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid&gt;
+            &lt;TextField source=&quot;id&quot; /&gt;
+            &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;DateField source=&quot;published_at&quot; /&gt;
+            &lt;TextField source=&quot;average_note&quot; /&gt;
+            &lt;TextField source=&quot;views&quot; /&gt;
+            &lt;EditButton basePath=&quot;/posts&quot; /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);
+
+const PostTitle = ({ record }) =&gt; {
+    return &lt;span&gt;Post {record ? `&quot;${record.title}&quot;` : &#39;&#39;}&lt;/span&gt;;
+};
+
+export const PostEdit = (props) =&gt; (
+    &lt;Edit title={&lt;PostTitle /&gt;} {...props}&gt;
+        &lt;SimpleForm&gt;
+            &lt;TextInput disabled source=&quot;id&quot; /&gt;
+            &lt;TextInput source=&quot;title&quot; /&gt;
+            &lt;TextInput source=&quot;teaser&quot; options={{ multiLine: true }} /&gt;
+            &lt;TextInput multiline source=&quot;body&quot; /&gt;
+            &lt;DateInput label=&quot;Publication date&quot; source=&quot;published_at&quot; /&gt;
+            &lt;TextInput source=&quot;average_note&quot; /&gt;
+            &lt;TextInput disabled label=&quot;Nb views&quot; source=&quot;views&quot; /&gt;
+        &lt;/SimpleForm&gt;
+    &lt;/Edit&gt;
+);
+
+export const PostCreate = (props) =&gt; (
+    &lt;Create title=&quot;Create a Post&quot; {...props}&gt;
+        &lt;SimpleForm&gt;
+            &lt;TextInput source=&quot;title&quot; /&gt;
+            &lt;TextInput source=&quot;teaser&quot; options={{ multiLine: true }} /&gt;
+            &lt;TextInput multiline source=&quot;body&quot; /&gt;
+            &lt;TextInput label=&quot;Publication date&quot; source=&quot;published_at&quot; /&gt;
+            &lt;TextInput source=&quot;average_note&quot; /&gt;
+        &lt;/SimpleForm&gt;
+    &lt;/Create&gt;
+);</code></pre>
+<h2 id="does-it-work-with-my-api">Does It Work With My API?</h2>
+<p>Yes.</p>
+<p>React-admin uses an adapter approach, with a concept called <em>Data Providers</em>. Existing providers can be used as a blueprint to design your API, or you can write your own Data Provider to query an existing API. Writing a custom Data Provider is a matter of hours.</p>
+<figure>
+<img src="https://marmelab.com/react-admin/img/data-provider.png" alt="Data Provider architecture" /><figcaption>Data Provider architecture</figcaption>
+</figure>
+<p>See the <a href="https://marmelab.com/react-admin/DataProviders.html">Data Providers documentation</a> for details.</p>
+<h2 id="batteries-included-but-removable">Batteries Included But Removable</h2>
+<p>React-admin is designed as a library of loosely coupled React components built on top of <a href="https://material-ui.com/">material-ui</a>, in addition to custom react hooks exposing reusable controller logic. It is very easy to replace one part of react-admin with your own, e.g. to use a custom datagrid, GraphQL instead of REST, or Bootstrap instead of Material Design.</p>
+<h2 id="examples">Examples</h2>
+<p>There are several examples inside the <code>examples</code> folder:</p>
+<ul>
+<li><code>simple</code> (<a href="https://codesandbox.io/s/github/marmelab/react-admin/tree/master/examples/simple">CodeSandbox</a>): a simple application with posts, comments and users that we use for our e2e tests.</li>
+<li><code>tutorial</code> (<a href="https://codesandbox.io/s/github/marmelab/react-admin/tree/master/examples/tutorial">CodeSandbox</a>): the application built while following the tutorial.</li>
+<li><code>demo</code>: (<a href="https://marmelab.com/react-admin-demo/">Live</a>) A fictional poster shop admin, serving as the official react-admin demo.</li>
+</ul>
+<p>You can run those example applications by calling:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># At the react-admin project root</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="fu">make</span> install</a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co"># or</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="ex">yarn</span> install</a>
+<a class="sourceLine" id="cb4-5" title="5"></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="co"># Run the simple application</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="fu">make</span> run-simple</a>
+<a class="sourceLine" id="cb4-8" title="8"></a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="co"># Run the tutorial application</span></a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="fu">make</span> build</a>
+<a class="sourceLine" id="cb4-11" title="11"><span class="fu">make</span> run-tutorial</a>
+<a class="sourceLine" id="cb4-12" title="12"></a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="co"># Run the demo application</span></a>
+<a class="sourceLine" id="cb4-14" title="14"><span class="fu">make</span> build</a>
+<a class="sourceLine" id="cb4-15" title="15"><span class="fu">make</span> run-demo</a></code></pre></div>
+<p>And then browse to the URL displayed in your console.</p>
+<h2 id="support">Support</h2>
+<p>You can get professional support from Marmelab via <a href="https://marmelab.com/ra-enterprise">React-Admin Enterprise Edition</a>, or community support via <a href="https://stackoverflow.com/questions/tagged/react-admin">StackOverflow</a>.</p>
+<h2 id="versions-in-this-repository">Versions In This Repository</h2>
+<ul>
+<li><p><a href="https://github.com/marmelab/react-admin/commits/master">master</a> - commits that will be included in the next <em>patch</em> release</p></li>
+<li><p><a href="https://github.com/marmelab/react-admin/commits/next">next</a> - commits that will be included in the next <em>major</em> or <em>minor</em> release</p></li>
+</ul>
+<p>Bugfix PRs that don’t break BC should be made against <strong>master</strong>. All other PRs (new features, bugfix with BC break) should be made against <strong>next</strong>.</p>
+<h2 id="contributing">Contributing</h2>
+<p>If you want to give a hand: Thank you! There are many things you can do to help making react-admin better.</p>
+<p>The easiest task is <strong>bug triaging</strong>. Check that new issues on GitHub follow the issue template and give a way to reproduce the issue. If not, comment on the issue to ask precisions. Then, try and reproduce the issue following the description. If you managed to reproduce the issue, add a comment to say it. Otherwise, add a comment to say that something is missing.</p>
+<p>The second way to contribute is to <strong>answer support questions on <a href="https://stackoverflow.com/questions/tagged/react-admin">StackOverflow</a></strong>. There are many beginner questions there, so even if you’re not super experienced with react-admin, there is someone you can help there.</p>
+<p>Pull requests for <strong>bug fixes</strong> are welcome on the <a href="https://github.com/marmelab/react-admin">GitHub repository</a>. There is always a bunch of <a href="https://github.com/marmelab/react-admin/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22">issues labeled “Good First Issue”</a> in the bug tracker - start with these.</p>
+<p>If you want to <strong>add a feature</strong>, you can open a Pull request on the <code>next</code> branch. We don’t accept all features - we try to keep the react-admin code small and manageable. Try and see if your feature can’t be built as an additional <code>npm</code> package. If you’re in doubt, open a “Feature Request” issue to see if the core team would accept your feature before developing it.</p>
+<p>For all Pull requests, you must follow the coding style of the existing files (based on <a href="https://github.com/prettier/prettier">prettier</a>), and include unit tests and documentation. Be prepared for a thorough code review, and be patient for the merge - this is an open-source initiative.</p>
+<p><strong>Tip</strong>: Most of the commands used by the react-admin developers are automated in the <code>makefile</code>. Feel free to type <code>make</code> without argument to see a list of the available commands.</p>
+<h3 id="setup">Setup</h3>
+<p>Clone this repository and run <code>make install</code> to grab the dependencies, then <code>make build</code> to compile the sources from TypeScript to JS.</p>
+<h3 id="online-one-click-setup">Online one-click Setup</h3>
+<p>You can use Gitpod(An Online Open Source VS Code like IDE which is free for Open Source) for working on issues and making PRs. With a single click it will launch a workspace and automatically clone the repo, run <code>make install</code> and <code>make start</code> so that you can start straight away.</p>
+<p><a href="https://gitpod.io/from-referrer/"><img src="https://gitpod.io/button/open-in-gitpod.svg" alt="Open in Gitpod" /></a></p>
+<h3 id="testing-your-changes-in-the-example-apps">Testing Your Changes In The Example Apps</h3>
+<p>When developing, most of the time we use the <strong>simple example</strong> to do visual check. It’s the same application that we use in CodeSandbox to reproduce errors (see https://codesandbox.io/s/github/marmelab/react-admin/tree/master/examples/simple). The source is located under <code>examples/simple/</code>. Call <code>make run</code> to launch that example on port 8080 (http://localhost:8080). This command includes a <code>watch</code> on the react-admin source, so any of the changes you make to the react-admin packages triggers a live update of the simple example in your browser.</p>
+<p>However, the simple example is sometimes too limited. You can use the <strong>demo example</strong> (the source for https://marmelab.com/react-admin-demo/), which is more complete. The source is located under <code>examples/demo/</code>. Call <code>make run-demo</code> to launch the demo example with a REST dataProvider, or <code>make run-graphql-demo</code> to run it with a GraphQL dataProvider. Unfortunately, due to the fact that we use Create React App for this demo, these commands don’t watch the changes made in the packages. You’ll have to rebuild the react-admin packages after a change (using <code>make build</code>, or the more targeted <code>make build-ra-core</code>, <code>make build-ra-ui-materialui</code>, etc) to see the effect in the demo app.</p>
+<p>Both of these examples work without server - the API is simulated on the client-side.</p>
+<h3 id="testing-your-changes-in-your-app">Testing Your Changes In Your App</h3>
+<p>Using <code>yarn link</code>, you can have your project use a local checkout of the react-admn package instead of npm. This allows you to test react-admin changes in your app:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># Register your local react-admin as a linkable package</span></a>
+<a class="sourceLine" id="cb5-2" title="2">$ <span class="bu">cd</span> /code/path/to/react-admin/packages/react-admin <span class="kw">&amp;&amp;</span> <span class="ex">yarn</span> link</a>
+<a class="sourceLine" id="cb5-3" title="3"></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co"># Replace the npm-installed version with a symlink to your local version </span></a>
+<a class="sourceLine" id="cb5-5" title="5">$ <span class="bu">cd</span> /code/path/to/myapp/ <span class="kw">&amp;&amp;</span> <span class="ex">yarn</span> link react-admin</a>
+<a class="sourceLine" id="cb5-6" title="6"></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="co"># If you run into issues with React red-screen, then you need to register your app&#39;s version of React as a linkable package </span></a>
+<a class="sourceLine" id="cb5-8" title="8"></a>
+<a class="sourceLine" id="cb5-9" title="9">$ <span class="bu">cd</span> /code/path/to/myapp/node_modules/react <span class="kw">&amp;&amp;</span> <span class="ex">yarn</span> link</a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="co"># And then replace the npm-installed version of React with a symlink to your app&#39;s node_modules version</span></a>
+<a class="sourceLine" id="cb5-11" title="11">$ <span class="bu">cd</span> /code/path/to/react-admin/ <span class="kw">&amp;&amp;</span> <span class="ex">yarn</span> link react</a>
+<a class="sourceLine" id="cb5-12" title="12"></a>
+<a class="sourceLine" id="cb5-13" title="13"><span class="co"># Rebuild the packages with the same version of React</span></a>
+<a class="sourceLine" id="cb5-14" title="14">$ <span class="bu">cd</span> /code/path/to/react-admin/ <span class="kw">&amp;&amp;</span> <span class="fu">make</span> build</a>
+<a class="sourceLine" id="cb5-15" title="15"></a>
+<a class="sourceLine" id="cb5-16" title="16"><span class="co"># Return to your app and ensure all dependencies have resolved </span></a>
+<a class="sourceLine" id="cb5-17" title="17">$ <span class="bu">cd</span> /code/path/to/myapp/ <span class="kw">&amp;&amp;</span> <span class="ex">yarn</span> install</a>
+<a class="sourceLine" id="cb5-18" title="18"></a>
+<a class="sourceLine" id="cb5-19" title="19"><span class="co"># Start your app</span></a>
+<a class="sourceLine" id="cb5-20" title="20">$ <span class="ex">yarn</span> start</a></code></pre></div>
+<h3 id="automated-tests">Automated Tests</h3>
+<p>Automated tests are also crucial in our development process. You can run all the tests (linting, unit and functional tests) by calling:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" title="1"><span class="fu">make</span> test</a></code></pre></div>
+<p>Unit tests use <code>jest</code>, so you should be able to run a subset of tests, or run tests continuously on change, by passing options to</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" title="1"><span class="ex">yarn</span> jest</a></code></pre></div>
+<p>Besides, tests related to the modified files are ran automatically at commit using a git pre-commit hook. This means you won’t be able to commit your changes if they break the tests.</p>
+<p>When working on the end to end tests, you can leverage <a href="https://www.cypress.io/">cypress</a> runner by starting the simple example yourself (<code>make run-simple</code> or <code>yarn run-simple</code>) and starting cypress in another terminal (<code>make test-e2e-local</code> or <code>yarn test-e2e-local</code>).</p>
+<h3 id="coding-standards">Coding Standards</h3>
+<p>If you have coding standards problems, you can fix them automatically using <code>prettier</code> by calling</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" title="1"><span class="fu">make</span> prettier</a></code></pre></div>
+<p>However, these commands are ran automatically at each commit so you shouldn’t have to worry about them.</p>
+<h3 id="documentation-1">Documentation</h3>
+<p>If you want to contribute to the documentation, install <a href="https://jekyllrb.com/docs/home/">jekyll</a>, then call</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb9-1" title="1"><span class="fu">make</span> doc</a></code></pre></div>
+<p>And then browse to <a href="http://localhost:4000/">http://localhost:4000/</a></p>
+<h2 id="license">License</h2>
+<p>React-admin is licensed under the <a href="https://github.com/marmelab/react-admin/blob/master/LICENSE.md">MIT License</a>, sponsored and supported by <a href="https://marmelab.com">marmelab</a>.</p>
+<p><a href="https://app.fossa.io/projects/git%2Bgithub.com%2Fmarmelab%2Freact-admin?ref=badge_large"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmarmelab%2Freact-admin.svg?type=large" alt="FOSSA Status" /></a></p>
+<h2 id="donate">Donate</h2>
+<p>This library is free to use, even for commercial purpose. If you want to give back, please talk about it, <a href="https://stackoverflow.com/questions/tagged/react-admin">help newcomers</a>, or contribute code. But the best way to give back is to <strong>donate to a charity</strong>. We recommend <a href="https://www.doctorswithoutborders.org/">Doctors Without Borders</a>.</p>

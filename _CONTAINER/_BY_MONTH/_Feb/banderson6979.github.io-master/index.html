@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+		<link rel="stylesheet" type="text/css" href="css/site.css">
+		<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" media="screen and (max-width: 480px)" href="css/small.css" />
+		<title></title>
+		<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<nav>
+			<ul data-content="social">
+
+			</ul>
+		</nav>
+
+		<div id="content">
+			<div class="first" id="viewJson">
+				<span class="right"><a href="resume.json">View as JSON</a></span>
+			</div>
+
+			<section>
+				<h1 data-content="name" class="name"></h1>
+				<h2 data-content="title"></h2>
+				<section id="contact">
+				</section>
+			</section>
+
+			<section id="objective">
+				<h1>Objective</h1>
+				<p data-content="objective"></p>
+			</section>
+
+			<!-- <section id="aboutme">
+				<h1>Executive Summary</h1>
+				<p data-content="aboutme"></p>
+			</section> -->
+
+			<section id="skills">
+				<h1>Skills / Languages</h1>
+				<ul data-content="skills" class="double">
+				</ul>
+			</section>
+
+			<section id="frameworks">
+				<h1>Frameworks / Libraries / Data Formats</h1>
+				<ul data-content="frameworks" class="double">
+
+				</ul>
+			</section>
+
+			<section id="projects">
+				<h1>Projects</h1>
+				<ul data-content="projects">
+				</ul>
+			</section>
+
+			<section id="experience">
+				<h1>Experience</h1>
+				<ul data-content="experience">
+
+				</ul>
+			</section>
+
+			<!-- <section id="speaking">
+				<h1>Speaking Engagements</h1>
+				<ul data-content="speaking">
+				</ul>
+			</section> -->
+
+			<section id="education">
+				<h1>Education</h1>
+				<ul data-content="education">
+				</ul>
+			</section>
+		</div>
+
+		<footer>
+			Last updated on: 06-13-2017
+		</footer>
+
+		<script type="text/template" id="skills-template">
+			<li>
+				${skills}
+			</li>
+		</script>
+
+		<script type="text/template" id="frameworks-template">
+			<li>
+				${frameworks}
+			</li>
+		</script>
+
+		<script type="text/template" id="speaking-template">
+			<li>
+				<section>
+					<ul>
+						<li>
+							<div class="label">Title:</div>
+							<div class="content">${title}</div>
+						</li>
+						<li>
+							<div class="label">location:</div>
+							<div class="content">${location}</div>
+						</li>
+						<li>
+							<div class="label">Link:</div>
+							<div class="content"><a href="${link}" target="_blank">open</a></div>
+						</li>
+					</ul>
+				</section>
+			</li>
+		</script>
+
+		<script type="text/template" id="projects-template">
+			<li>
+				<section>
+					<ul>
+						<li>
+							<div class="label">Name:</div>
+							<div class="content">${name}</div>
+						</li>
+						<li>
+							<div class="label">Technologies:</div>
+							<div class="content">${technologies}</div>
+						</li>
+						<li>
+							<div class="label">Description:</div>
+							<div class="content">${description}</div>
+						</li>
+					</ul>
+				</section>
+			</li>
+		</script>
+
+		<script type="text/template" id="education-template">
+			<li>
+				<section>
+					<ul>
+						<li>
+							<div class="label">School:</div>
+							<div class="content">${school}</div>
+						</li>
+						<li>
+							<div class="label">Program:</div>
+							<div class="content">${program}</div>
+						</li>
+						<li>
+							<div class="label">Dates Attended:</div>
+							<div class="content">${startDate} - ${endDate}</div>
+						</li>
+						<li>
+							<div class="label">Achievements:</div>
+							<div class="content">${achievements}</div>
+						</li>
+					</ul>
+				</section>
+			</li>
+		</script>
+
+		<script type="text/template" id="experience-template">
+			<li>
+				<section>
+					<ul>
+                        <li>
+                            <div class="label">Company</div>
+                            <div class="content">${company}</div>
+                        </li>
+                        <li>
+                            <div class="label">Title:</div>
+                            <div class="content">${title}</div>
+                        </li>
+                        <li>
+                            <div class="label">Tenure:</div>
+                            <div class="content">${startDate} - ${endDate}</div>
+                        </li>
+                        <li>
+							<div class="label">Responsibilities:</div>
+							<div class="content">${responsibilities}</div>
+						</li>
+						<li>
+							<div class="label">Achievements:</div>
+							<div class="content">${achievements}</div>
+						</li>
+					</ul>
+				</section>
+			</li>
+		</script>
+
+		<script type="text/template" id="social-template">
+			<li><a href="${link}" target="_blank">${name}</a></li>
+		</script>
+
+		<script type="text/javascript" src="js/jsonme.min.js"></script>
+		<script type="text/javascript">
+			snack.ready( function( ) {
+				window.app.loadData( );
+			} )
+		</script>
+	</body>
+</html>

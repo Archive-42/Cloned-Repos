@@ -1,0 +1,88 @@
+<h1 id="the-resource-component">The <code>&lt;Resource&gt;</code> component</h1>
+<p>A <code>&lt;Resource&gt;</code> component maps one API endpoint to a CRUD interface. For instance, the following admin app offers a read-only interface to the resources exposed by the JSONPlaceholder API at <a href="https://jsonplaceholder.typicode.com/posts">https://jsonplaceholder.typicode.com/posts</a> and <a href="https://jsonplaceholder.typicode.com/users">https://jsonplaceholder.typicode.com/users</a>:</p>
+<pre class="jsx"><code>// in src/App.js
+import * as React from &quot;react&quot;;
+import { Admin, Resource } from &#39;react-admin&#39;;
+import jsonServerProvider from &#39;ra-data-json-server&#39;;
+
+import { PostList } from &#39;./posts&#39;;
+import { UserList } from &#39;./users&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={jsonServerProvider(&#39;https://jsonplaceholder.typicode.com&#39;)}&gt;
+        &lt;Resource name=&quot;posts&quot; list={PostList} /&gt;
+        &lt;Resource name=&quot;users&quot; list={UserList} /&gt;
+    &lt;/Admin&gt;
+);</code></pre>
+<p><code>&lt;Resource&gt;</code> allows you to define a component for each CRUD operation, using the following prop names:</p>
+<ul>
+<li><code>list</code> (if defined, the resource is displayed on the Menu)</li>
+<li><code>create</code></li>
+<li><code>edit</code></li>
+<li><code>show</code></li>
+</ul>
+<p>Here is a more complete admin, with components for all the CRUD operations:</p>
+<pre class="jsx"><code>import * as React from &quot;react&quot;;
+import { Admin, Resource } from &#39;react-admin&#39;;
+import jsonServerProvider from &#39;ra-data-json-server&#39;;
+
+import { PostList, PostCreate, PostEdit, PostShow, PostIcon } from &#39;./posts&#39;;
+import { UserList } from &#39;./posts&#39;;
+import { CommentList, CommentEdit, CommentCreate, CommentIcon } from &#39;./comments&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={jsonServerProvider(&#39;https://jsonplaceholder.typicode.com&#39;)}&gt;
+        &lt;Resource name=&quot;posts&quot; list={PostList} create={PostCreate} edit={PostEdit} show={PostShow} icon={PostIcon} /&gt;
+        &lt;Resource name=&quot;users&quot; list={UserList} /&gt;
+        &lt;Resource name=&quot;comments&quot; list={CommentList} create={CommentCreate} edit={CommentEdit} icon={CommentIcon} /&gt;
+        &lt;Resource name=&quot;tags&quot; /&gt;
+    &lt;/Admin&gt;
+);</code></pre>
+<p><strong>Tip</strong>: Under the hood, the <code>&lt;Resource&gt;</code> component uses <a href="https://reactrouter.com/web/guides/quick-start">react-router</a> to create several routes:</p>
+<ul>
+<li><code>/</code> maps to the <code>list</code> component</li>
+<li><code>/create</code> maps to the <code>create</code> component</li>
+<li><code>/:id</code> maps to the <code>edit</code> component</li>
+<li><code>/:id/show</code> maps to the <code>show</code> component</li>
+</ul>
+<p><strong>Tip</strong>: You must add a <code>&lt;Resource&gt;</code> when you declare a reference (via <code>&lt;ReferenceField&gt;</code>, <code>&lt;ReferenceArrayField&gt;</code>, <code>&lt;ReferenceManyField&gt;</code>, <code>&lt;ReferenceInput&gt;</code> or <code>&lt;ReferenceArrayInput&gt;</code>), because react-admin uses resources to define the data store structure. That’s why there is an empty <code>tag</code> resource in the example above.</p>
+<p><code>&lt;Resource&gt;</code> also accepts additional props:</p>
+<ul>
+<li><a href="#name"><code>name</code></a></li>
+<li><a href="#icon"><code>icon</code></a></li>
+<li><a href="#icon"><code>options</code></a></li>
+</ul>
+<h2 id="name"><code>name</code></h2>
+<p>React-admin uses the <code>name</code> prop both to determine the API endpoint (passed to the <code>dataProvider</code>), and to form the URL for the resource.</p>
+<pre class="jsx"><code>&lt;Resource name=&quot;posts&quot; list={PostList} create={PostCreate} edit={PostEdit} show={PostShow} /&gt;</code></pre>
+<p>For this resource react-admin will fetch the <code>https://jsonplaceholder.typicode.com/posts</code> endpoint for data.</p>
+<p>The routing will map the component as follows:</p>
+<ul>
+<li><code>/posts/</code> maps to <code>PostList</code></li>
+<li><code>/posts/create</code> maps to <code>PostCreate</code></li>
+<li><code>/posts/:id</code> maps to <code>PostEdit</code></li>
+<li><code>/posts/:id/show</code> maps to <code>PostShow</code></li>
+</ul>
+<p><strong>Tip</strong>: If you want to use a special API endpoint (e.g. ‘https://jsonplaceholder.typicode.com/my-custom-posts-endpoint’) without altering the URL in the react-admin application (so still use <code>/posts</code>), write the mapping from the resource <code>name</code> (<code>posts</code>) to the API endpoint (<code>my-custom-posts-endpoint</code>) in your own <a href="./Admin.md#dataprovider"><code>dataProvider</code></a></p>
+<h2 id="icon"><code>icon</code></h2>
+<p>React-admin will render the <code>icon</code> prop component in the menu:</p>
+<pre class="jsx"><code>// in src/App.js
+import * as React from &quot;react&quot;;
+import PostIcon from &#39;@material-ui/icons/Book&#39;;
+import UserIcon from &#39;@material-ui/icons/People&#39;;
+import { Admin, Resource } from &#39;react-admin&#39;;
+import jsonServerProvider from &#39;ra-data-json-server&#39;;
+
+import { PostList } from &#39;./posts&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={jsonServerProvider(&#39;https://jsonplaceholder.typicode.com&#39;)}&gt;
+        &lt;Resource name=&quot;posts&quot; list={PostList} icon={PostIcon} /&gt;
+        &lt;Resource name=&quot;users&quot; list={UserList} icon={UserIcon} /&gt;
+    &lt;/Admin&gt;
+);</code></pre>
+<h2 id="options">options</h2>
+<p><code>options.label</code> allows to customize the display name of a given resource in the menu.</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>&lt;Resource name=&quot;v2/posts&quot; options={{ label: &#39;Posts&#39; }} list={PostList} /&gt;</code></pre>
+<p>{% endraw %}</p>

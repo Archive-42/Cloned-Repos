@@ -1,0 +1,122 @@
+@import './styles/partials/variables';
+.App {
+    margin: 2rem auto 0;
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+}
+
+// Spinner styling 
+.loader,
+.loader:before,
+.loader:after {
+    background: $CadetBlue;
+    -webkit-animation: load1 1s infinite ease-in-out;
+    animation: load1 1s infinite ease-in-out;
+    width: 1em;
+    height: 4em;
+}
+
+.loader {
+    color: $CadetBlue;
+    text-indent: -9999em;
+    margin: 88px auto;
+    position: relative;
+    font-size: 11px;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+.loader:before,
+.loader:after {
+    position: absolute;
+    top: 0;
+    content: '';
+}
+
+.loader:before {
+    left: -1.5em;
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+
+.loader:after {
+    left: 1.5em;
+}
+
+@-webkit-keyframes load1 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 0;
+        height: 4em;
+    }
+    40% {
+        box-shadow: 0 -2em;
+        height: 5em;
+    }
+}
+
+@keyframes load1 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 0;
+        height: 4em;
+    }
+    40% {
+        box-shadow: 0 -2em;
+        height: 5em;
+    }
+}
+
+
+/* footer basic styling */
+
+.footercontainer {
+    margin-bottom: -25px;
+}
+
+.sitefooter {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 0.5rem;
+    padding-top: 20px;
+}
+
+.identity {
+    text-align: center;
+    font-size: 1rem;
+    letter-spacing: .1em;
+}
+
+
+/* Flexbox Sticky Footer Styling */
+
+root {
+    --space: 1.5em 0;
+    --space: 2em 0
+}
+
+.Site {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh
+}
+
+.Sitecontent {
+    flex: 1 0 auto;
+    padding: var(--space) var(--space) 0;
+    width: 100%
+}
+
+.Sitecontent:after {
+    content: "\A0";
+    display: block;
+    margin-top: var(--space);
+    height: 0;
+    visibility: hidden
+}

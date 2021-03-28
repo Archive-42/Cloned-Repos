@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap');
+
+@font-face {
+  font-family: 'Visby CF';
+  font-display: swap;
+  font-weight: bold;
+  src: url('fonts/VisbyCF-Bold.woff2') format('woff2'),
+    url('fonts/VisbyCF-Bold.ttf') format('truetype'),
+    url('fonts/VisbyCF-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Visby CF';
+  font-display: swap;
+  font-weight: normal;
+  src: url('fonts/VisbyCF-Normal.woff2') format('woff2'),
+    url('fonts/VisbyCF-Normal.ttf') format('truetype'),
+    url('fonts/VisbyCF-Normal.woff') format('woff');
+}
+
+:root {
+  /* maximum width of section content before auto margins are applied
+     (prevents content or text from getting too wide on large monitors) */
+  --content-max-width: 120rem;
+  /* height of nav bar (useful to prevent nav bar from going over the content) */
+  --nav-height: 7rem;
+
+  /* colors */
+  --backing-pink: #fffdfc;
+  --backing-pink-pronounced: #fbf6f2;
+  --section-color-pink: #fcf0eb;
+  --section-color-yellow: #fff3db;
+  --primary-red: #ff7574;
+  --primary: #f38d6a;
+  --primary-yellow: #ffc55a;
+  --text-color: #514b33;
+  --black: #333;
+
+  /* font sizing */
+  --header-1-desktop: 64px;
+  --header-1-mobile: 48px;
+  --header-2-desktop: 48px;
+  --header-2-mobile: 32px;
+  --header-3-desktop: 34px;
+  --header-3-mobile: 24px;
+  --body: 16px;
+  --body-large: 20px;
+  --body-xl: 24px;
+
+  /* font families */
+  --header-font: 'Visby CF', Roboto, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+  --body-font: 'Open Sans', Roboto, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+
+  /* box shadows */
+  --shadow-hover: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  --shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--header-font);
+  font-weight: bold;
+  line-height: 1.2;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+}
+h1,
+h2 {
+  font-size: var(--header-1-desktop);
+}
+h3 {
+  font-size: var(--header-2-desktop);
+}
+h4 {
+  font-family: inherit;
+  font-size: var(--body-xl);
+}
+
+@media (max-width: 600px) {
+  h1,
+  h2 {
+    font-size: var(--header-1-mobile);
+  }
+  h3 {
+    font-size: var(--header-2-mobile);
+  }
+}
+
+p {
+  font-size: var(--body);
+  color: var(--text-color);
+}
+
+section {
+  margin-bottom: 10rem;
+  max-width: var(--content-max-width);
+  margin: auto;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0;
+  font-family: inherit;
+  font-weight: bold;
+}
+
+input,
+textarea {
+  border: none;
+  border-bottom: 2px solid #eee;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-bottom: 2px solid var(--primary);
+  transition: border 0.2s;
+}
+
+a,
+a:visited {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+a:hover,
+a:active {
+  color: var(--primary-yellow);
+}
+
+body {
+  margin: 0;
+  font-family: var(--body-font);
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.5;
+  color: #333;
+}
+
+body,
+input,
+textarea {
+  letter-spacing: 0.03em;
+}
+
+code {
+  font-family: menlo, inconsolata, monospace;
+  font-size: calc(1em - 2px);
+  color: #555;
+  background-color: #f0f0f0;
+  padding: 0.2em 0.4em;
+  border-radius: 2px;
+}

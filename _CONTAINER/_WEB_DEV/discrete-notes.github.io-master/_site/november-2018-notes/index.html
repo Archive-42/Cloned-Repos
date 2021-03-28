@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        jax: ["input/TeX","output/HTML-CSS"],
+        extensions: ["tex2jax.js"],
+        tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+        },
+     "HTML-CSS": {
+      styles: {
+        ".MathJax .mo, .MathJax .mi": {}
+      }
+    }
+    });
+    </script>
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+    });
+
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+    </script>
+
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <title>
+    
+      November notes &middot; Discrete notes
+    
+  </title>
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/theorems.css">
+
+  <!-- Icons -->
+  <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">-->
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+  <link href='http://semidoc.github.io/feed.xml' rel='alternate' type='application/atom+xml'>
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <div class="masthead">
+        <h3 class="masthead-title">
+          <a href="/" title="Home">Discrete notes</a>
+
+          
+              &nbsp;&nbsp;&nbsp;<small><a href="/about/">About</a></small>
+          
+              &nbsp;&nbsp;&nbsp;<small><a href="/archive/">Archive</a></small>
+          
+
+        </h3>
+      </div>
+
+      <div class="post">
+  <h1 class="post-title">November notes</h1>
+  <span class="post-date">30 Nov 2018</span>
+  <p>A few notes for November 2018.</p>
+
+<hr />
+
+<h2 id="a-new-paper-on-descriptive-complexity-of-distributed-computing">A new paper on descriptive complexity of distributed computing</h2>
+<p><a href="https://en.wikipedia.org/wiki/Descriptive_complexity_theory">Descriptive complexity</a> 
+basically aims at characterizing complexity classes through logic. A classic 
+results is <a href="https://en.wikipedia.org/wiki/Descriptive_complexity_theory">Fagin’s Theorem</a>
+that characterizes NP. 
+Descriptive complexity for distributed computing is a relatively new topic,<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>
+and a <a href="https://arxiv.org/abs/1811.08197">new paper</a> just came out on arxiv.
+I’m not a specialist, but from what I understood, the classic assumption of the
+LOCAL model that there are unique identifiers, is pretty difficult to transfer 
+into logic, and this paper seems to make a step in this direction.</p>
+
+<h2 id="a-map-of-the-theory-of-distributed-computing-community">A map of the theory of distributed computing community</h2>
+<p><a href="https://users.ics.aalto.fi/suomela/">Jukka Suomela</a> published
+<a href="https://plus.google.com/+JukkaSuomela/posts/JgWYFk4XzWW">a nice map</a> of the 
+PODC/DISC communities. (PODC and DISC are the two main conferences in theory 
+of distributed computing.)<br />
+It is a graph where the nodes are the authors, and the edges between them 
+have different thickness, 
+depending on how much they have collaborated, or have had papers in the same 
+sessions. There are strong thematic clusters, which is no surprise.</p>
+
+<h2 id="symmetries-in-lps-and-sos">Symmetries in LPs and SOS</h2>
+<p>I attended the PhD defense of 
+<a href="https://www.lip6.fr/actualite/personnes-fiche.php?ident=D1634">Cécile Rottner</a>
+who was a student in the OR team of <a href="https://www.lip6.fr/?LANG=en">LIP6</a>. 
+Her thesis was about a problem that
+any electric utility company faces: how to manage the different the power plants
+to meet the demand while using the less energy possible, given that there are 
+many constraints on these plants (a nuclear reactor cannot be switched on and 
+off in a minute, some other stuff has to cool down, etc.). As often in OR (as far as
+I know) this is done by having big LPs and playing with them, adding new 
+inequalities, trying to use the structure to speed the computation, having 
+branch and cut routines etc.</p>
+
+<p>One of the big challenges that one has to tackle when solving these big LPs 
+in an industrial context is to break the symmetries.
+Suppose you have two identical 
+nuclear reactors in your system. Then if you use one or the other in your solution, 
+you will have the same cost. This implies that you can have many many optimal 
+solutions. This is bad for a branch and cut 
+strategy, where the ideal case is to have only one optimal solution, and to be 
+cutting all the other branches quickly. Cécile showed ways to solve this problem.</p>
+
+<p>This reminded me of another PhD defense with symmetries: the one of 
+<a href="https://sites.google.com/view/vverdugo/">Victor Verdugo</a>. Victor had a part of 
+his PhD work on how to break symmetry for 
+<a href="https://en.wikipedia.org/wiki/Sum-of-squares_optimization">sum-of-squares</a>. The
+timing for this blog post is pretty good: the paper of Victor on this topic 
+just appeared on arxiv, 
+<a href="https://arxiv.org/abs/1811.08539">here</a>.</p>
+
+<h2 id="double-blind-for-disc">Double-blind for DISC</h2>
+<p>The conference <a href="http://www.disc-conference.org/wp/">DISC</a> will go 
+double-blind next year (that is the names of both the reviewers and the authors will
+be anonymized).<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup> At first I was sceptical about this idea, 
+because of the usual reasons: extra-care in the process (e.g. when talking to 
+people) with probably no big impact, etc. But recently I reviewed a paper by 
+authors from a university I had never heard of, and I felt that before even 
+starting I had a negative bias. I think double-blind is exactly about 
+protecting authors from this bias.</p>
+
+<p>I heard many times that the 
+problem is that well-known people get their papers accepted although 
+they are not good enough, and I think this cannot really change (because 
+of arxiv, favourite topics, writing style), but it’s the other side of the 
+spectrum that can be made more fair. So let’s see how it goes.</p>
+
+<h2 id="a-few-points-on-networks-and-games">A few points on networks and games</h2>
+<p>I attended a talk at LIP6 by 
+<a href="http://webee.technion.ac.il/Sites/People/ArielOrda/">Ariel Orda</a> on game theory 
+and networks. The talk described two very interesting works, but 
+I just picked a few non-specific things that caught my interest.</p>
+
+<h3 id="network-formation-games">Network formation games</h3>
+<p>The first topic is about understanding the structure of real-world networks, by 
+finding ways to build algorithmically networks that have similar properties. 
+A well-known generation algorithm is the 
+<a href="https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model">Barabási–Albert model</a> 
+where nodes basically arrive one by one and choose who to be linked to, 
+based on the degree of the nodes that already arrived. There is a second 
+type of network formation model that I didn’t know,<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup><sup>,</sup><sup id="fnref:4"><a href="#fn:4" class="footnote">4</a></sup> which is to start 
+with a fixed set of nodes, and to make them play a game to decide 
+which edges are in the graph. 
+For example, the nodes want to maximize their pay-offs in a game where every 
+link cost something, but having short paths to every node is rewarded. 
+These are called network formation games.</p>
+
+<h3 id="monetary-transfer">Monetary transfer</h3>
+<p>The second idea is about introducing money in games.
+Suppose you have a Nash equilibrium 
+that is very bad (for some definition of bad) because each player, when 
+maximizing its gain, is hurting the other players a lot. Then you can introduce
+monetary transfer, that consists for two players A and B to agree that if the 
+A does this thing that decreases its pay-off but increases the pay-off 
+of B, then B will give part of its 
+pay-off to reimburse A, and both will be happier. Natural idea to 
+consider, but that I had never heard of.</p>
+
+<h3 id="using-motifs-to-validate-a-model">Using motifs to validate a model</h3>
+<p>I knew that people studying social 
+networks are obsessed with finding motifs (small graphs that appear more 
+often than others), but I was not sure why. It could be just to have 
+more knowledge about the relationships, but in Orda’s talk, it was 
+also a way to validate a model. Basically: in real-world graphs this and that 
+motifs are very common, we don’t know why, and previous generative 
+models did not have this property, but their model could capture this. 
+As far as I know, parameters such as the diameter, or the clustering 
+coefficient are more classic ways to validate such models.</p>
+
+<h3 id="about-the-price-of-anarchy-selfishness-and-collaboration">About the price of anarchy, selfishness and collaboration</h3>
+<p>The <a href="https://en.wikipedia.org/wiki/Price_of_anarchy">price of anarchy</a>, 
+is the ratio between the social cost when each players tries to optimize 
+its own pay-off, and when all the players play the strategy that minimize 
+the social cost. It is often said that this price is the price to pay 
+when players are selfish. But it is not completely true, it is also the 
+price of not collaborating. You can image scenarios in which players have
+the option of collaborating but each player will agree only if it ensures 
+ a better pay-off. That is the players are still selfish but 
+they can talk to each other and make agreements. 
+This can change the outcome a lot. Then one 
+will consider what is called a Nash bargaining solution.</p>
+
+<hr />
+
+<h4 id="footnotes">Footnotes</h4>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>If you are interested, see <a href="https://arxiv.org/abs/1805.06238">Fabian Reiter’s very nice PhD thesis</a>, and the <a href="https://semidoc.github.io/reiter-dga">gentle introduction</a> to the topic I wrote on semidoc.&nbsp;<a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>See <a href="https://twitter.com/JukkaSuomela/status/1065259077738082304">this tweet</a>&nbsp;<a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:3">
+      <p>There seems that there is no third well-known way to generate networks, at least in the <a href="https://en.wikipedia.org/wiki/Network_formation">wikipedia article about network formation</a>.&nbsp;<a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:4">
+      <p>Actually I somehow knew because of <a href="https://dl.acm.org/citation.cfm?doid=3178876.3186122">this paper</a> by my PhD advisor and colleges, but I had forgotten.&nbsp;<a href="#fnref:4" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/december-2018-notes">
+            December notes
+            <small>18 Dec 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/popular-matchings">
+            Popular matchings
+            <small>13 Nov 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/start">
+            Start
+            <small>24 Sep 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      
+
+
+
+      <div class="footer">
+        <p>
+          &copy; 2018. All rights reserved.
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

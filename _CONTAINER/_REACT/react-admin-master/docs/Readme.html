@@ -1,0 +1,116 @@
+<h1 id="react-admin">react-admin</h1>
+<p>A frontend Framework for building admin applications running in the browser, on top of REST/GraphQL APIs, using ES6, <a href="https://facebook.github.io/react/">React</a> and <a href="https://material.io/">Material Design</a>. Open sourced and maintained by <a href="https://marmelab.com/">marmelab</a>.</p>
+<p><a href="https://vimeo.com/474999017"><img src="https://marmelab.com/react-admin/img/react-admin-demo-still.png" alt="react-admin-demo" /></a></p>
+<h2 id="installation">Installation</h2>
+<p>React-admin is available from npm. You can install it (and its required dependencies) using:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="ex">npm</span> install react-admin</a></code></pre></div>
+<h2 id="usage">Usage</h2>
+<p>Read the <a href="./Tutorial.md">Tutorial</a> for a 30 minutes introduction. After that, continue reading the <a href="./DataProviders.md">Documentation</a>, or checkout the <a href="https://github.com/marmelab/react-admin/tree/master/examples/demo">source code of the demo</a> for an example usage.</p>
+<h2 id="at-a-glance">At a Glance</h2>
+<pre class="jsx"><code>// in app.js
+import * as React from &quot;react&quot;;
+import { render } from &#39;react-dom&#39;;
+import { Admin, Resource } from &#39;react-admin&#39;;
+import simpleRestProvider from &#39;ra-data-simple-rest&#39;;
+
+import { PostList, PostEdit, PostCreate, PostIcon } from &#39;./posts&#39;;
+
+render(
+    &lt;Admin dataProvider={simpleRestProvider(&#39;http://localhost:3000&#39;)}&gt;
+        &lt;Resource name=&quot;posts&quot; list={PostList} edit={PostEdit} create={PostCreate} icon={PostIcon}/&gt;
+    &lt;/Admin&gt;,
+    document.getElementById(&#39;root&#39;)
+);</code></pre>
+<p>The <code>&lt;Resource&gt;</code> component is a configuration component that allows defining sub components for each of the admin view: <code>list</code>, <code>edit</code>, and <code>create</code>. These components use Material UI and custom components from react-admin:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>// in posts.js
+import * as React from &quot;react&quot;;
+import { List, Datagrid, Edit, Create, SimpleForm, DateField, TextField, EditButton, TextInput, DateInput } from &#39;react-admin&#39;;
+import BookIcon from &#39;@material-ui/icons/Book&#39;;
+export const PostIcon = BookIcon;
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid&gt;
+            &lt;TextField source=&quot;id&quot; /&gt;
+            &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;DateField source=&quot;published_at&quot; /&gt;
+            &lt;TextField source=&quot;average_note&quot; /&gt;
+            &lt;TextField source=&quot;views&quot; /&gt;
+            &lt;EditButton basePath=&quot;/posts&quot; /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);
+
+const PostTitle = ({ record }) =&gt; {
+    return &lt;span&gt;Post {record ? `&quot;${record.title}&quot;` : &#39;&#39;}&lt;/span&gt;;
+};
+
+export const PostEdit = (props) =&gt; (
+    &lt;Edit title={&lt;PostTitle /&gt;} {...props}&gt;
+        &lt;SimpleForm&gt;
+            &lt;TextInput disabled source=&quot;id&quot; /&gt;
+            &lt;TextInput source=&quot;title&quot; /&gt;
+            &lt;TextInput source=&quot;teaser&quot; options={{ multiline: true }} /&gt;
+            &lt;TextInput multiline source=&quot;body&quot; /&gt;
+            &lt;DateInput label=&quot;Publication date&quot; source=&quot;published_at&quot; /&gt;
+            &lt;TextInput source=&quot;average_note&quot; /&gt;
+            &lt;TextInput disabled label=&quot;Nb views&quot; source=&quot;views&quot; /&gt;
+        &lt;/SimpleForm&gt;
+    &lt;/Edit&gt;
+);
+
+export const PostCreate = (props) =&gt; (
+    &lt;Create title=&quot;Create a Post&quot; {...props}&gt;
+        &lt;SimpleForm&gt;
+            &lt;TextInput source=&quot;title&quot; /&gt;
+            &lt;TextInput source=&quot;teaser&quot; options={{ multiline: true }} /&gt;
+            &lt;TextInput multiline source=&quot;body&quot; /&gt;
+            &lt;TextInput label=&quot;Publication date&quot; source=&quot;published_at&quot; /&gt;
+            &lt;TextInput source=&quot;average_note&quot; /&gt;
+        &lt;/SimpleForm&gt;
+    &lt;/Create&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<h2 id="does-it-work-with-my-api">Does It Work With My API?</h2>
+<p>Yes.</p>
+<p>React-admin uses an adapter approach, with a concept called <em>Data Providers</em>. Existing providers can be used as a blueprint to design your API, or you can write your own Data Provider to query an existing API. Writing a custom Data Provider is a matter of hours.</p>
+<figure>
+<img src="./img/data-provider.png" alt="Data Provider architecture" /><figcaption>Data Provider architecture</figcaption>
+</figure>
+<p>See the <a href="./DataProviders.md">Data Providers documentation</a> for details.</p>
+<h2 id="batteries-included-but-removable">Batteries Included But Removable</h2>
+<p>React-admin is designed as a library of loosely coupled React components built on top of <a href="https://material-ui.com/">material-ui</a>, in addition to controller functions implemented the Redux way. It is very easy to replace one part of react-admin with your own, e.g. to use a custom Datagrid, GraphQL instead of REST, or bootstrap instead of Material Design.</p>
+<h2 id="support">Support</h2>
+<p>You can get professional support from Marmelab via <a href="https://marmelab.com/ra-enterprise">React-Admin Enterprise Edition</a>, or community support via <a href="https://stackoverflow.com/questions/tagged/react-admin">StackOverflow</a>.</p>
+<h2 id="enterprise-edition">Enterprise Edition</h2>
+<p>The <a href="https://marmelab.com/ra-enterprise">React-Admin Enterprise Edition</a> <img class="icon" src="./img/premium.svg" /> offers additional features and services for react-admin:</p>
+<ul>
+<li>Save weeks of development thanks to the <strong>Private Modules</strong>, valid on an unlimited number of domains and projects.
+<ul>
+<li><code>ra-preferences</code>: Persist user preferences (language, theme, filters, datagrid columns, sidebar position, etc) in local storage.</li>
+<li><code>ra-navigation</code>: Multi-level menu and breadcrumb, with the ability to define a custom path for your resources.</li>
+<li><code>ra-realtime</code>: Display live notifications, auto-update content on the screen, lock content when editing, with adapters for real-time backends.</li>
+<li><code>ra-editable-datagrid</code>: Edit data directly in the list view, for better productivity. Excel-like editing experience.</li>
+<li><code>ra-form-layout</code>: New form layouts for complex data entry tasks (accordion, wizard, etc.)</li>
+<li><code>ra-relationships</code>: Visualize and edit complex relationships, including many-to-many relationships.</li>
+<li><code>ra-tree</code>: Edit and visualize tree structures. Reorganize by drag and drop. Adapts to any data structure on the backend (parent_id, children, nested sets, etc).</li>
+<li><code>ra-tour</code>: Guided tours for react-admin applications. Step-by-step instructions, Material-ui skin.</li>
+<li><code>ra-markdown</code>: Read Markdown data, and edit it using a WYSIWYG editor in your admin</li>
+</ul></li>
+<li>Get <strong>Support</strong> from experienced react and react-admin developers, who will help you find the right information and troubleshoot your bugs.</li>
+<li>Get a <strong>50% Discount on Professional Services</strong> in case you need coaching, audit, or custom development by our experts.</li>
+<li>Get access to exclusive <strong>Learning Material</strong>, including a Storybook full of examples, and a dedicated demo app.</li>
+<li>Prioritize your needs in the react-admin <strong>Development Roadmap</strong> thanks to a priority vote.</li>
+</ul>
+<p><a href="https://marmelab.com/ra-enterprise/"><img src="https://marmelab.com/ra-enterprise/assets/ra-enterprise-demo.png" alt="React-admin enterprise Edition" /></a></p>
+<h2 id="contributing">Contributing</h2>
+<p>If you want to give a hand: Thank you! There are many things you can do to help making react-admin better.</p>
+<p>The easiest task is <strong>bug triaging</strong>. Check that new issues on GitHub follow the issue template and give a way to reproduce the issue. If not, comment on the issue to ask precisions. Then, try and reproduce the issue following the description. If you managed to reproduce the issue, add a comment to say it. Otherwise, add a comment to say that something is missing.</p>
+<p>The second way to contribute is to <strong>answer support questions on <a href="https://stackoverflow.com/questions/tagged/react-admin">StackOverflow</a></strong>. There are many beginner questions there, so even if you’re not super experienced with react-admin, there is someone you can help there.</p>
+<p>Pull requests for <strong>bug fixes</strong> are welcome on the <a href="https://github.com/marmelab/react-admin">GitHub repository</a>. There is always a bunch of <a href="https://github.com/marmelab/react-admin/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22">issues labeled “Good First Issue”</a> in the bug tracker - start with these. Check the contributing guidelines in <a href="https://github.com/marmelab/react-admin#contributing">the repository README</a>.</p>
+<p>If you want to <strong>add a feature</strong>, you can open a Pull request on the <code>next</code> branch. We don’t accept all features - we try to keep the react-admin code small and manageable. Try and see if your feature can be built as an additional <code>npm</code> package. If you’re in doubt, open a “Feature Request” issue to see if the core team would accept your feature before developing it.</p>
+<h2 id="license">License</h2>
+<p>React-admin is licensed under the <a href="https://github.com/marmelab/react-admin/blob/master/LICENSE.md">MIT Licence</a>, sponsored and supported by <a href="https://marmelab.com">marmelab</a>.</p>
+<h2 id="donate">Donate</h2>
+<p>This library is free to use, even for commercial purpose. If you want to give back, please talk about it, help newcomers, or contribute code. But the best way to give back is to <strong>donate to a charity</strong>. We recommend <a href="https://www.doctorswithoutborders.org/">Doctors Without Borders</a>.</p>

@@ -1,0 +1,92 @@
+/*!
+ * Copyright (C) 2020 DS Co., dba dsco - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential.
+ */
+
+@import "vars";
+
+// Nav Colors
+$navBG: #282B33;
+$navFG: $lightText;
+$navHeaderColor: #233040;
+
+$navHover: #53555C;
+$navActive: #62646c;
+$navSelected: #3E4148;
+
+$navWidthOpen: 200px;
+$navWidthClosed: 40px;
+
+nav {
+  color: $navFG;
+  background: $navBG;
+  box-sizing: border-box;
+  width: $navWidthOpen;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  transition: width .3s ease;
+  z-index: 2;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+// These are the actual nav links
+a {
+  display: block;
+  padding: $smallPadding $largePadding;
+  color: $navFG;
+  text-decoration: none;
+  font-size: 16px;
+  white-space: nowrap;
+
+  &.selected {
+    background: $navSelected
+  }
+
+  &:hover {
+    background: $navHover;
+  }
+
+  &:active {
+    background: $navActive;
+  }
+}
+
+header, footer {
+  background: $navHeaderColor;
+}
+
+main {
+  margin-left: $navWidthOpen;
+  transition: margin-left .3s ease;
+}
+
+@include mobile-only {
+  nav {
+    width: $navWidthClosed;
+  }
+  a {
+    padding: $smallPadding 0;
+    text-align: center;
+  }
+  img {
+    width: 16px;
+  }
+  main {
+    margin-left: $navWidthClosed;
+  }
+}
+
+@include desktop-only {
+  i {
+    padding-right: $smallPadding;
+  }
+
+  img {
+    height: 30px;
+  }
+;
+}

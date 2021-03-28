@@ -1,4 +1,0 @@
-01-intro-why.md
-01-analogies.md
-99-bibliography.md
-images/credits.md

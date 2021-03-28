@@ -1,0 +1,41 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "strict": true,
+    "target": "es2016",
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "incremental": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "paths": {
+      "@utils/*": [
+        "./projects/utils/*"
+      ],
+      "@models/*": [
+        "./projects/models/*"
+      ],
+      "@requests/*": [
+        "./projects/requests/*"
+      ]
+    },
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
+}

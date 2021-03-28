@@ -1,0 +1,821 @@
+<h1 id="react-admin-tutorial">React-Admin Tutorial</h1>
+<p>This 30 minutes tutorial will expose how to create a new admin app based on an existing REST API.</p>
+<h2 id="setting-up">Setting Up</h2>
+<p>React-admin uses React. We’ll use <a href="https://github.com/facebookincubator/create-react-app">create-react-app</a> to create an empty React app, and install the <code>react-admin</code> package:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="ex">yarn</span> create react-app test-admin</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="bu">cd</span> test-admin/</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="ex">yarn</span> add react-admin ra-data-json-server prop-types</a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="ex">yarn</span> start</a></code></pre></div>
+<p>You should be up and running with an empty React application on port 3000.</p>
+<h2 id="using-an-api-as-data-source">Using an API As Data Source</h2>
+<p>React-admin runs in the browser, and relies on data it fetches from APIs.</p>
+<p>We’ll be using <a href="https://jsonplaceholder.typicode.com/">JSONPlaceholder</a>, a fake REST API designed for testing and prototyping, as the datasource for the application. Here is what it looks like:</p>
+<pre><code>curl https://jsonplaceholder.typicode.com/users/2</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb3-1" title="1"><span class="fu">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">2</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-3" title="3">  <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Ervin Howell&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  <span class="dt">&quot;username&quot;</span><span class="fu">:</span> <span class="st">&quot;Antonette&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="dt">&quot;email&quot;</span><span class="fu">:</span> <span class="st">&quot;Shanna@melissa.tv&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-6" title="6">  <span class="dt">&quot;address&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
+<a class="sourceLine" id="cb3-7" title="7">    <span class="dt">&quot;street&quot;</span><span class="fu">:</span> <span class="st">&quot;Victor Plains&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-8" title="8">    <span class="dt">&quot;suite&quot;</span><span class="fu">:</span> <span class="st">&quot;Suite 879&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="dt">&quot;city&quot;</span><span class="fu">:</span> <span class="st">&quot;Wisokyburgh&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    <span class="dt">&quot;zipcode&quot;</span><span class="fu">:</span> <span class="st">&quot;90566-7771&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-11" title="11">    <span class="dt">&quot;geo&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
+<a class="sourceLine" id="cb3-12" title="12">      <span class="dt">&quot;lat&quot;</span><span class="fu">:</span> <span class="st">&quot;-43.9509&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-13" title="13">      <span class="dt">&quot;lng&quot;</span><span class="fu">:</span> <span class="st">&quot;-34.4618&quot;</span></a>
+<a class="sourceLine" id="cb3-14" title="14">    <span class="fu">}</span></a>
+<a class="sourceLine" id="cb3-15" title="15">  <span class="fu">},</span></a>
+<a class="sourceLine" id="cb3-16" title="16">  <span class="dt">&quot;phone&quot;</span><span class="fu">:</span> <span class="st">&quot;010-692-6593 x09125&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-17" title="17">  <span class="dt">&quot;website&quot;</span><span class="fu">:</span> <span class="st">&quot;anastasia.net&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-18" title="18">  <span class="dt">&quot;company&quot;</span><span class="fu">:</span> <span class="fu">{</span></a>
+<a class="sourceLine" id="cb3-19" title="19">    <span class="dt">&quot;name&quot;</span><span class="fu">:</span> <span class="st">&quot;Deckow-Crist&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-20" title="20">    <span class="dt">&quot;catchPhrase&quot;</span><span class="fu">:</span> <span class="st">&quot;Proactive didactic contingency&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb3-21" title="21">    <span class="dt">&quot;bs&quot;</span><span class="fu">:</span> <span class="st">&quot;synergize scalable supply-chains&quot;</span></a>
+<a class="sourceLine" id="cb3-22" title="22">  <span class="fu">}</span></a>
+<a class="sourceLine" id="cb3-23" title="23"><span class="fu">}</span></a></code></pre></div>
+<p>JSONPlaceholder provides endpoints for users, posts, and comments. The admin we’ll build should allow to Create, Retrieve, Update, and Delete (CRUD) these resources.</p>
+<h2 id="making-contact-with-the-api-using-a-data-provider">Making Contact With The API Using a Data Provider</h2>
+<p>Bootstrap the admin app by replacing the <code>src/App.js</code> by the following code:</p>
+<pre class="jsx"><code>// in src/App.js
+import * as React from &quot;react&quot;;
+import { Admin } from &#39;react-admin&#39;;
+import jsonServerProvider from &#39;ra-data-json-server&#39;;
+
+const dataProvider = jsonServerProvider(&#39;https://jsonplaceholder.typicode.com&#39;);
+const App = () =&gt; &lt;Admin dataProvider={dataProvider} /&gt;;
+
+export default App;</code></pre>
+<p>That’s enough for react-admin to render an empty app and confirm that the setup is done:</p>
+<figure>
+<img src="./img/tutorial_empty.png" alt="Empty Admin" /><figcaption>Empty Admin</figcaption>
+</figure>
+<p>The <code>App</code> component renders an <code>&lt;Admin&gt;</code> component, which is the root component of a react-admin application. This component expects a <code>dataProvider</code> prop - a function capable of fetching data from an API. Since there is no standard for data exchanges between computers, you will probably have to write a custom provider to connect react-admin to your own APIs - but we’ll dive into Data Providers later. For now, let’s take advantage of the <code>ra-data-json-server</code> data provider, which speaks the same REST dialect as JSONPlaceholder.</p>
+<p>Now it’s time to add features!</p>
+<h2 id="mapping-api-endpoints-with-resources">Mapping API Endpoints With Resources</h2>
+<p>We’ll start by adding a list of users.</p>
+<p>The <code>&lt;Admin&gt;</code> component expects one or more <code>&lt;Resource&gt;</code> child components. Each resource maps a name to an endpoint in the API. Edit the <code>App.js</code> file to add a resource named <code>users</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb5-1" title="1">// in src/App.js</a>
+<a class="sourceLine" id="cb5-2" title="2">import * as React from &quot;react&quot;;</a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="st">-import { Admin } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="va">+import { Admin, Resource, ListGuesser } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">import jsonServerProvider from &#39;ra-data-json-server&#39;;</a>
+<a class="sourceLine" id="cb5-6" title="6"></a>
+<a class="sourceLine" id="cb5-7" title="7">const dataProvider = jsonServerProvider(&#39;https://jsonplaceholder.typicode.com&#39;);</a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="st">-const App = () =&gt; &lt;Admin dataProvider={dataProvider} /&gt;;</span></a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="va">+const App = () =&gt; (</span></a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="va">+    &lt;Admin dataProvider={dataProvider}&gt;</span></a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="va">+        &lt;Resource name=&quot;users&quot; list={ListGuesser} /&gt;</span></a>
+<a class="sourceLine" id="cb5-12" title="12"><span class="va">+    &lt;/Admin&gt;</span></a>
+<a class="sourceLine" id="cb5-13" title="13"><span class="va">+);</span></a>
+<a class="sourceLine" id="cb5-14" title="14"></a>
+<a class="sourceLine" id="cb5-15" title="15">export default App;</a></code></pre></div>
+<p>The line <code>&lt;Resource name="users" /&gt;</code> informs react-admin to fetch the “users” records from the <a href="https://jsonplaceholder.typicode.com/users">https://jsonplaceholder.typicode.com/users</a> URL. <code>&lt;Resource&gt;</code> also defines the React components to use for each CRUD operation (<code>list</code>, <code>create</code>, <code>edit</code>, and <code>show</code>).</p>
+<p>The <code>list={ListGuesser}</code> prop means that react-admin should use the <code>&lt;ListGuesser&gt;</code> component to display the list of posts. This component <em>guesses</em> the format to use for the columns of the list based on the data fetched from the API.</p>
+<p>The app can now display a list of users:</p>
+<figure>
+<img src="./img/tutorial_users_list.png" alt="Users List" /><figcaption>Users List</figcaption>
+</figure>
+<p>If you look at the network tab in the browser developer tools, you’ll notice that the application fetched the <code>https://jsonplaceholder.typicode.com/users</code> URL, then used the results to build the Datagrid. That’s basically how react-admin works.</p>
+<p>The list is already functional: you can reorder it by clicking on column headers, or change pages by using the bottom pagination controls. The <code>ra-data-json-server</code> data provider translates these actions to a query string that JSONPlaceholder understands.</p>
+<h2 id="selecting-columns">Selecting Columns</h2>
+<p>The <code>&lt;ListGuesser&gt;</code> component is not meant to be used in production - it’s just a way to quickly bootstrap an admin. That means you’ll have to replace the <code>ListGuesser</code> component in the <code>users</code> resource by a custom React component. Fortunately, <code>ListGuesser</code> dumps the code of the list it has guessed to the console:</p>
+<figure>
+<img src="./img/tutorial_guessed_list.png" alt="Guessed Users List" /><figcaption>Guessed Users List</figcaption>
+</figure>
+<p>Let’s copy this code, and create a new <code>UserList</code> component, in a new file named <code>users.js</code>:</p>
+<pre class="jsx"><code>// in src/users.js
+import * as React from &quot;react&quot;;
+import { List, Datagrid, TextField, EmailField } from &#39;react-admin&#39;;
+
+export const UserList = props =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid rowClick=&quot;edit&quot;&gt;
+            &lt;TextField source=&quot;id&quot; /&gt;
+            &lt;TextField source=&quot;name&quot; /&gt;
+            &lt;TextField source=&quot;username&quot; /&gt;
+            &lt;EmailField source=&quot;email&quot; /&gt;
+            &lt;TextField source=&quot;address.street&quot; /&gt;
+            &lt;TextField source=&quot;phone&quot; /&gt;
+            &lt;TextField source=&quot;website&quot; /&gt;
+            &lt;TextField source=&quot;company.name&quot; /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);</code></pre>
+<p>Then, edit the <code>App.js</code> file to use this new component instead of <code>ListGuesser</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb7-1" title="1">// in src/App.js</a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="st">-import { Admin, Resource, ListGuesser } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="va">+import { Admin, Resource } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="va">+import { UserList } from &#39;./users&#39;;</span></a>
+<a class="sourceLine" id="cb7-5" title="5"></a>
+<a class="sourceLine" id="cb7-6" title="6">const App = () =&gt; (</a>
+<a class="sourceLine" id="cb7-7" title="7">    &lt;Admin dataProvider={dataProvider}&gt;</a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="st">-       &lt;Resource name=&quot;users&quot; list={ListGuesser} /&gt;</span></a>
+<a class="sourceLine" id="cb7-9" title="9"><span class="va">+       &lt;Resource name=&quot;users&quot; list={UserList} /&gt;</span></a>
+<a class="sourceLine" id="cb7-10" title="10">    &lt;/Admin&gt;</a>
+<a class="sourceLine" id="cb7-11" title="11">);</a></code></pre></div>
+<figure>
+<img src="./img/tutorial_users_list.png" alt="Users List" /><figcaption>Users List</figcaption>
+</figure>
+<p>There is no visible change in the browser - except now, the app uses a component that you can customize.</p>
+<p>The main component of the users list is a <code>&lt;List&gt;</code> component, responsible for grabbing the information from the API, displaying the page title, and handling pagination. This component then delegates the display of the actual list of users to its child. In this case, that’s a <code>&lt;Datagrid&gt;</code> component, which renders a table with one row for each record. The Datagrid uses its child components (here, a list of <code>&lt;TextField&gt;</code> and <code>&lt;EmailField&gt;</code>) to determine the columns to render. Each Field component maps a different field in the API response, specified by the <code>source</code> prop.</p>
+<p>The <code>ListGuesser</code> created one column for every field in the response. That’s a bit too much for a usable grid, so let’s remove a couple <code>&lt;TextField&gt;</code> from the Datagrid and see the effect:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb8-1" title="1">// in src/users.js</a>
+<a class="sourceLine" id="cb8-2" title="2">import * as React from &quot;react&quot;;</a>
+<a class="sourceLine" id="cb8-3" title="3">import { List, Datagrid, TextField, EmailField } from &#39;react-admin&#39;;</a>
+<a class="sourceLine" id="cb8-4" title="4"></a>
+<a class="sourceLine" id="cb8-5" title="5">export const UserList = props =&gt; (</a>
+<a class="sourceLine" id="cb8-6" title="6">    &lt;List {...props}&gt;</a>
+<a class="sourceLine" id="cb8-7" title="7">        &lt;Datagrid rowClick=&quot;edit&quot;&gt;</a>
+<a class="sourceLine" id="cb8-8" title="8">            &lt;TextField source=&quot;id&quot; /&gt;</a>
+<a class="sourceLine" id="cb8-9" title="9">            &lt;TextField source=&quot;name&quot; /&gt;</a>
+<a class="sourceLine" id="cb8-10" title="10"><span class="st">-           &lt;TextField source=&quot;username&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb8-11" title="11">            &lt;EmailField source=&quot;email&quot; /&gt;</a>
+<a class="sourceLine" id="cb8-12" title="12"><span class="st">-           &lt;TextField source=&quot;address.street&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb8-13" title="13">            &lt;TextField source=&quot;phone&quot; /&gt;</a>
+<a class="sourceLine" id="cb8-14" title="14">            &lt;TextField source=&quot;website&quot; /&gt;</a>
+<a class="sourceLine" id="cb8-15" title="15">            &lt;TextField source=&quot;company.name&quot; /&gt;</a>
+<a class="sourceLine" id="cb8-16" title="16">        &lt;/Datagrid&gt;</a>
+<a class="sourceLine" id="cb8-17" title="17">    &lt;/List&gt;</a>
+<a class="sourceLine" id="cb8-18" title="18">);</a></code></pre></div>
+<figure>
+<img src="./img/tutorial_users_list_selected_columns.png" alt="Users List" /><figcaption>Users List</figcaption>
+</figure>
+<p>What you’ve just done reflects the early stages of development with react-admin: let the guesser do the job, select only the fields you want, and start customizing types.</p>
+<h2 id="using-field-types">Using Field Types</h2>
+<p>You’ve just met the <code>&lt;TextField&gt;</code> and the <code>&lt;EmailField&gt;</code> components. React-admin provides <a href="./Fields.md">many more Field components</a>, mapping various data types: number, date, image, HTML, array, reference, etc.</p>
+<p>For instance, the <code>website</code> field looks like a URL. Instead of displaying it as text, why not display it using a clickable link? That’s exactly what the <code>&lt;UrlField&gt;</code> does:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb9-1" title="1">// in src/users.js</a>
+<a class="sourceLine" id="cb9-2" title="2">import * as React from &quot;react&quot;;</a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="st">-import { List, Datagrid, TextField, EmailField } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="va">+import { List, Datagrid, TextField, EmailField, UrlField } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb9-5" title="5"></a>
+<a class="sourceLine" id="cb9-6" title="6">export const UserList = props =&gt; (</a>
+<a class="sourceLine" id="cb9-7" title="7">    &lt;List {...props}&gt;</a>
+<a class="sourceLine" id="cb9-8" title="8">        &lt;Datagrid rowClick=&quot;edit&quot;&gt;</a>
+<a class="sourceLine" id="cb9-9" title="9">            &lt;TextField source=&quot;id&quot; /&gt;</a>
+<a class="sourceLine" id="cb9-10" title="10">            &lt;TextField source=&quot;name&quot; /&gt;</a>
+<a class="sourceLine" id="cb9-11" title="11">            &lt;EmailField source=&quot;email&quot; /&gt;</a>
+<a class="sourceLine" id="cb9-12" title="12">            &lt;TextField source=&quot;phone&quot; /&gt;</a>
+<a class="sourceLine" id="cb9-13" title="13"><span class="st">-           &lt;TextField source=&quot;website&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb9-14" title="14"><span class="va">+           &lt;UrlField source=&quot;website&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb9-15" title="15">            &lt;TextField source=&quot;company.name&quot; /&gt;</a>
+<a class="sourceLine" id="cb9-16" title="16">        &lt;/Datagrid&gt;</a>
+<a class="sourceLine" id="cb9-17" title="17">    &lt;/List&gt;</a>
+<a class="sourceLine" id="cb9-18" title="18">);</a></code></pre></div>
+<figure>
+<img src="./img/tutorial_url_field.png" alt="Url Field" /><figcaption>Url Field</figcaption>
+</figure>
+<p>In react-admin, fields are simple React components. At runtime, they receive the <code>record</code> fetched from the API (e.g. <code>{ "id": 2, "name": "Ervin Howell", "website": "anastasia.net", ... }</code>), and the <code>source</code> field they should display (e.g. <code>website</code>).</p>
+<p>That means that writing a custom Field component is really straightforward. For instance, here is a simplified version of the <code>UrlField</code>:</p>
+<pre class="jsx"><code>// in src/MyUrlField.js
+import * as React from &quot;react&quot;;
+
+const MyUrlField = ({ record = {}, source }) =&gt;
+    &lt;a href={record[source]}&gt;
+        {record[source]}
+    &lt;/a&gt;;
+
+export default MyUrlField;</code></pre>
+<p>You can use this component in <code>&lt;UserList&gt;</code>, instead of react-admin’s <code>&lt;UrlField&gt;</code> component, and it will work just the same.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb11-1" title="1">// in src/users.js</a>
+<a class="sourceLine" id="cb11-2" title="2">import * as React from &quot;react&quot;;</a>
+<a class="sourceLine" id="cb11-3" title="3"><span class="st">-import { List, Datagrid, TextField, EmailField, UrlField } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb11-4" title="4"><span class="va">+import { List, Datagrid, TextField, EmailField } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb11-5" title="5"><span class="va">+import MyUrlField from &#39;./MyUrlField&#39;;</span></a>
+<a class="sourceLine" id="cb11-6" title="6"></a>
+<a class="sourceLine" id="cb11-7" title="7">export const UserList = props =&gt; (</a>
+<a class="sourceLine" id="cb11-8" title="8">    &lt;List {...props}&gt;</a>
+<a class="sourceLine" id="cb11-9" title="9">        &lt;Datagrid rowClick=&quot;edit&quot;&gt;</a>
+<a class="sourceLine" id="cb11-10" title="10">            &lt;TextField source=&quot;id&quot; /&gt;</a>
+<a class="sourceLine" id="cb11-11" title="11">            &lt;TextField source=&quot;name&quot; /&gt;</a>
+<a class="sourceLine" id="cb11-12" title="12">            &lt;EmailField source=&quot;email&quot; /&gt;</a>
+<a class="sourceLine" id="cb11-13" title="13">            &lt;TextField source=&quot;phone&quot; /&gt;</a>
+<a class="sourceLine" id="cb11-14" title="14"><span class="st">-           &lt;UrlField source=&quot;website&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb11-15" title="15"><span class="va">+           &lt;MyUrlField source=&quot;website&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb11-16" title="16">            &lt;TextField source=&quot;company.name&quot; /&gt;</a>
+<a class="sourceLine" id="cb11-17" title="17">        &lt;/Datagrid&gt;</a>
+<a class="sourceLine" id="cb11-18" title="18">    &lt;/List&gt;</a>
+<a class="sourceLine" id="cb11-19" title="19">);</a></code></pre></div>
+<p>Yes, you can replace any of react-admin’s components with your own! That means react-admin never blocks you: if one react-admin component doesn’t perfectly suit your needs, you can easily swap it with your own version.</p>
+<h2 id="customizing-styles">Customizing Styles</h2>
+<p>The <code>MyUrlField</code> component is a perfect opportunity to illustrate how to customize styles. React-admin relies on <a href="https://material-ui.com/">material-ui</a>, a set of React components modeled after Google’s <a href="https://material.io/">Material Design UI Guidelines</a>. Material-ui uses <a href="https://github.com/cssinjs/jss">JSS</a>, a CSS-in-JS solution, for styling components. Let’s take advantage of the capabilities of JSS to remove the underline from the link and add an icon:</p>
+<pre class="jsx"><code>// in src/MyUrlField.js
+import * as React from &quot;react&quot;;
+import { makeStyles } from &#39;@material-ui/core/styles&#39;;
+import LaunchIcon from &#39;@material-ui/icons/Launch&#39;;
+
+const useStyles = makeStyles({
+    link: {
+        textDecoration: &#39;none&#39;,
+    },
+    icon: {
+        width: &#39;0.5em&#39;,
+        paddingLeft: 2,
+    },
+});
+
+const MyUrlField = ({ record = {}, source }) =&gt; {
+    const classes = useStyles();
+    return (
+        &lt;a href={record[source]} className={classes.link}&gt;
+            {record[source]}
+            &lt;LaunchIcon className={classes.icon} /&gt;
+        &lt;/a&gt;
+    );
+}
+
+export default MyUrlField;</code></pre>
+<figure>
+<img src="./img/tutorial_custom_styles.png" alt="Custom styles" /><figcaption>Custom styles</figcaption>
+</figure>
+<p>In JSS, you define styles as a JavaScript object, using the JS variants of the CSS property names (e.g. <code>textDecoration</code> instead of <code>text-decoration</code>). To pass these styles to the component, use <code>makeStyles</code> to build a React hook. The hook will create new class names for these styles, and return the new class names in the <code>classes</code> object. Then, use these names in a <code>className</code> prop, as you would with a regular CSS class.</p>
+<p><strong>Tip</strong>: There is much more to JSS than what this tutorial covers. Read the <a href="https://material-ui.com/styles/basics">material-ui documentation</a> to learn more about theming, vendor prefixes, responsive utilities, etc.</p>
+<p><strong>Tip</strong>: Material-ui supports other CSS-in-JS solutions, including <a href="https://material-ui.com/styles/basics/#styled-components-api">Styled components</a>.</p>
+<h2 id="handling-relationships">Handling Relationships</h2>
+<p>In JSONPlaceholder, each <code>post</code> record includes a <code>userId</code> field, which points to a <code>user</code>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode json"><code class="sourceCode json"><a class="sourceLine" id="cb13-1" title="1"><span class="fu">{</span></a>
+<a class="sourceLine" id="cb13-2" title="2">    <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb13-3" title="3">    <span class="dt">&quot;title&quot;</span><span class="fu">:</span> <span class="st">&quot;sunt aut facere repellat provident occaecati excepturi optio reprehenderit&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb13-4" title="4">    <span class="dt">&quot;body&quot;</span><span class="fu">:</span> <span class="st">&quot;quia et suscipit</span><span class="ch">\n</span><span class="st">suscipit recusandae consequuntur expedita et cum</span><span class="ch">\n</span><span class="st">reprehenderit molestiae ut ut quas totam</span><span class="ch">\n</span><span class="st">nostrum rerum est autem sunt rem eveniet architecto&quot;</span><span class="fu">,</span></a>
+<a class="sourceLine" id="cb13-5" title="5">    <span class="dt">&quot;userId&quot;</span><span class="fu">:</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb13-6" title="6"><span class="fu">}</span></a></code></pre></div>
+<p>React-admin knows how to take advantage of these foreign keys to fetch references. Let’s see how the <code>ListGuesser</code> manages them by creating a new <code>&lt;Resource&gt;</code> for the <code>/posts</code> API endpoint:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb14-1" title="1">// in src/App.js</a>
+<a class="sourceLine" id="cb14-2" title="2">import * as React from &quot;react&quot;;</a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="st">-import { Admin, Resource } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="va">+import { Admin, Resource, ListGuesser } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb14-5" title="5">import jsonServerProvider from &#39;ra-data-json-server&#39;;</a>
+<a class="sourceLine" id="cb14-6" title="6">import { UserList } from &#39;./users&#39;;</a>
+<a class="sourceLine" id="cb14-7" title="7"></a>
+<a class="sourceLine" id="cb14-8" title="8">const App = () =&gt; (</a>
+<a class="sourceLine" id="cb14-9" title="9">    &lt;Admin dataProvider={dataProvider}&gt;</a>
+<a class="sourceLine" id="cb14-10" title="10"><span class="va">+       &lt;Resource name=&quot;posts&quot; list={ListGuesser} /&gt;</span></a>
+<a class="sourceLine" id="cb14-11" title="11">        &lt;Resource name=&quot;users&quot; list={UserList} /&gt;</a>
+<a class="sourceLine" id="cb14-12" title="12">    &lt;/Admin&gt;</a>
+<a class="sourceLine" id="cb14-13" title="13">);</a>
+<a class="sourceLine" id="cb14-14" title="14"></a>
+<a class="sourceLine" id="cb14-15" title="15">export default App;</a></code></pre></div>
+<figure>
+<img src="./img/tutorial_guessed_post_list.png" alt="Guessed Post List" /><figcaption>Guessed Post List</figcaption>
+</figure>
+<p>The <code>ListGuesser</code> suggests using a <code>&lt;ReferenceField&gt;</code> for the <code>userId</code> field. Let’s play with this new field by creating the <code>PostList</code> component based on the code dumped by the guesser:</p>
+<pre class="jsx"><code>// in src/posts.js
+import * as React from &quot;react&quot;;
+import { List, Datagrid, TextField, ReferenceField } from &#39;react-admin&#39;;
+
+export const PostList = props =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid rowClick=&quot;edit&quot;&gt;
+            &lt;ReferenceField source=&quot;userId&quot; reference=&quot;users&quot;&gt;
+                &lt;TextField source=&quot;id&quot; /&gt;
+            &lt;/ReferenceField&gt;
+            &lt;TextField source=&quot;id&quot; /&gt;
+            &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;TextField source=&quot;body&quot; /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb16-1" title="1">// in src/App.js</a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="st">-import { Admin, Resource, ListGuesser } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb16-3" title="3"><span class="va">+import { Admin, Resource } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb16-4" title="4"><span class="va">+import { PostList } from &#39;./posts&#39;;</span></a>
+<a class="sourceLine" id="cb16-5" title="5">import { UserList } from &#39;./users&#39;;</a>
+<a class="sourceLine" id="cb16-6" title="6"></a>
+<a class="sourceLine" id="cb16-7" title="7">const App = () =&gt; (</a>
+<a class="sourceLine" id="cb16-8" title="8">    &lt;Admin dataProvider={dataProvider}&gt;</a>
+<a class="sourceLine" id="cb16-9" title="9"><span class="st">-       &lt;Resource name=&quot;posts&quot; list={ListGuesser} /&gt;</span></a>
+<a class="sourceLine" id="cb16-10" title="10"><span class="va">+       &lt;Resource name=&quot;posts&quot; list={PostList} /&gt;</span></a>
+<a class="sourceLine" id="cb16-11" title="11">        &lt;Resource name=&quot;users&quot; list={UserList} /&gt;</a>
+<a class="sourceLine" id="cb16-12" title="12">    &lt;/Admin&gt;</a>
+<a class="sourceLine" id="cb16-13" title="13">);</a></code></pre></div>
+<p>When displaying the posts list, the app displays the <code>id</code> of the post author as a <code>&lt;TextField&gt;</code>. This <code>id</code> field doesn’t mean much, let’s use the user <code>name</code> instead:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb17-1" title="1">// in src/posts.js</a>
+<a class="sourceLine" id="cb17-2" title="2">export const PostList = props =&gt; (</a>
+<a class="sourceLine" id="cb17-3" title="3">    &lt;List {...props}&gt;</a>
+<a class="sourceLine" id="cb17-4" title="4">        &lt;Datagrid rowClick=&quot;edit&quot;&gt;</a>
+<a class="sourceLine" id="cb17-5" title="5">            &lt;ReferenceField source=&quot;userId&quot; reference=&quot;users&quot;&gt;</a>
+<a class="sourceLine" id="cb17-6" title="6"><span class="st">-               &lt;TextField source=&quot;id&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb17-7" title="7"><span class="va">+               &lt;TextField source=&quot;name&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb17-8" title="8">            &lt;/ReferenceField&gt;</a>
+<a class="sourceLine" id="cb17-9" title="9">            &lt;TextField source=&quot;id&quot; /&gt;</a>
+<a class="sourceLine" id="cb17-10" title="10">            &lt;TextField source=&quot;title&quot; /&gt;</a>
+<a class="sourceLine" id="cb17-11" title="11">            &lt;TextField source=&quot;body&quot; /&gt;</a>
+<a class="sourceLine" id="cb17-12" title="12">        &lt;/Datagrid&gt;</a>
+<a class="sourceLine" id="cb17-13" title="13">    &lt;/List&gt;</a>
+<a class="sourceLine" id="cb17-14" title="14">);</a></code></pre></div>
+<p>The post list now displays the user names on each line.</p>
+<figure>
+<img src="./img/tutorial_list_user_name.png" alt="Post List With User Names" /><figcaption>Post List With User Names</figcaption>
+</figure>
+<p><strong>Tip</strong>: The <code>&lt;ReferenceField&gt;</code> component alone doesn’t display anything. It just fetches the reference data, and passes it as a <code>record</code> to its child component (a <code>&lt;TextField&gt;</code> in our case). Just like the <code>&lt;List&gt;</code> component, all <code>&lt;Reference&gt;</code> components are only responsible for fetching and preparing data, and delegate rendering to their children.</p>
+<p><strong>Tip</strong>: Look at the network tab of your browser again: react-admin deduplicates requests for users, and aggregates them in order to make only <em>one</em> HTTP request to the <code>/users</code> endpoint for the whole Datagrid. That’s one of many optimizations that keep the UI fast and responsive.</p>
+<p>To finish the post list, place the post <code>id</code> field as first column, and remove the <code>body</code> field. From a UX point of view, fields containing large chunks of text should not appear in a Datagrid, only in detail views. Also, to make the Edit action stand out, let’s replace the <code>rowClick</code> action by an explicit action button:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb18-1" title="1">// in src/posts.js</a>
+<a class="sourceLine" id="cb18-2" title="2">import * as React from &quot;react&quot;;</a>
+<a class="sourceLine" id="cb18-3" title="3"><span class="st">-import { List, Datagrid, TextField, ReferenceField } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb18-4" title="4"><span class="va">+import { List, Datagrid, TextField, ReferenceField, EditButton } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb18-5" title="5"></a>
+<a class="sourceLine" id="cb18-6" title="6">export const PostList = props =&gt; (</a>
+<a class="sourceLine" id="cb18-7" title="7">    &lt;List {...props}&gt;</a>
+<a class="sourceLine" id="cb18-8" title="8"><span class="st">-       &lt;Datagrid rowClick=&quot;edit&quot;&gt;</span></a>
+<a class="sourceLine" id="cb18-9" title="9"><span class="va">+       &lt;Datagrid&gt;</span></a>
+<a class="sourceLine" id="cb18-10" title="10"><span class="va">+           &lt;TextField source=&quot;id&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb18-11" title="11">            &lt;ReferenceField source=&quot;userId&quot; reference=&quot;users&quot;&gt;</a>
+<a class="sourceLine" id="cb18-12" title="12">                &lt;TextField source=&quot;name&quot; /&gt;</a>
+<a class="sourceLine" id="cb18-13" title="13">            &lt;/ReferenceField&gt;</a>
+<a class="sourceLine" id="cb18-14" title="14"><span class="st">-           &lt;TextField source=&quot;id&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb18-15" title="15">            &lt;TextField source=&quot;title&quot; /&gt;</a>
+<a class="sourceLine" id="cb18-16" title="16"><span class="st">-           &lt;TextField source=&quot;body&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb18-17" title="17"><span class="va">+           &lt;EditButton /&gt;</span></a>
+<a class="sourceLine" id="cb18-18" title="18">        &lt;/Datagrid&gt;</a>
+<a class="sourceLine" id="cb18-19" title="19">    &lt;/List&gt;</a>
+<a class="sourceLine" id="cb18-20" title="20">);</a></code></pre></div>
+<figure>
+<img src="./img/tutorial_post_list_less_columns.png" alt="Post List With Less Columns" /><figcaption>Post List With Less Columns</figcaption>
+</figure>
+<h2 id="adding-creation-and-editing-capabilities">Adding Creation and Editing Capabilities</h2>
+<p>An admin interface isn’t just about displaying remote data, it should also allow editing records. React-admin provides an <code>&lt;Edit&gt;</code> components for that purpose ; let’s use the <code>&lt;EditGuesser&gt;</code> to help bootstrap it.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb19-1" title="1">// in src/App.js</a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="st">-import { Admin, Resource } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb19-3" title="3"><span class="va">+import { Admin, Resource, EditGuesser } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb19-4" title="4">import { PostList } from &#39;./posts&#39;;</a>
+<a class="sourceLine" id="cb19-5" title="5">import { UserList } from &#39;./users&#39;;</a>
+<a class="sourceLine" id="cb19-6" title="6"></a>
+<a class="sourceLine" id="cb19-7" title="7">const App = () =&gt; (</a>
+<a class="sourceLine" id="cb19-8" title="8">    &lt;Admin dataProvider={dataProvider}&gt;</a>
+<a class="sourceLine" id="cb19-9" title="9"><span class="st">-       &lt;Resource name=&quot;posts&quot; list={PostList} /&gt;</span></a>
+<a class="sourceLine" id="cb19-10" title="10"><span class="va">+       &lt;Resource name=&quot;posts&quot; list={PostList} edit={EditGuesser} /&gt;</span></a>
+<a class="sourceLine" id="cb19-11" title="11">        &lt;Resource name=&quot;users&quot; list={UserList} /&gt;</a>
+<a class="sourceLine" id="cb19-12" title="12">    &lt;/Admin&gt;</a>
+<a class="sourceLine" id="cb19-13" title="13">);</a></code></pre></div>
+<figure>
+<img src="./img/tutorial_edit_guesser.gif" alt="Post Edit Guesser" /><figcaption>Post Edit Guesser</figcaption>
+</figure>
+<p>Users can display the edit page just by clicking on the Edit button. The form rendered is already functional; it issues <code>PUT</code> requests to the REST API upon submission.</p>
+<p>Copy the <code>PostEdit</code> code dumped by the guesser in the console to the <code>posts.js</code> file so that you can customize the view. Don’t forget to <code>import</code> the new components from react-admin:</p>
+<pre class="jsx"><code>// in src/posts.js
+import * as React from &quot;react&quot;;
+import {
+    List,
+    Datagrid,
+    TextField,
+    ReferenceField,
+    EditButton,
+    Edit,
+    SimpleForm,
+    ReferenceInput,
+    SelectInput,
+    TextInput,
+} from &#39;react-admin&#39;;
+
+export const PostList = props =&gt; (
+  { /* ... */ }
+);
+
+export const PostEdit = props =&gt; (
+    &lt;Edit {...props}&gt;
+        &lt;SimpleForm&gt;
+            &lt;ReferenceInput source=&quot;userId&quot; reference=&quot;users&quot;&gt;
+                &lt;SelectInput optionText=&quot;id&quot; /&gt;
+            &lt;/ReferenceInput&gt;
+            &lt;TextInput source=&quot;id&quot; /&gt;
+            &lt;TextInput source=&quot;title&quot; /&gt;
+            &lt;TextInput source=&quot;body&quot; /&gt;
+        &lt;/SimpleForm&gt;
+    &lt;/Edit&gt;
+);</code></pre>
+<p>You can now adjust the <code>PostEdit</code> component to disable the edition of the primary key (<code>id</code>), place it first, use the user <code>name</code> instead of the user <code>id</code> in the reference, and use a longer text input for the <code>body</code> field, as follows:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb21-1" title="1">// in src/posts.js</a>
+<a class="sourceLine" id="cb21-2" title="2">export const PostEdit = props =&gt; (</a>
+<a class="sourceLine" id="cb21-3" title="3">    &lt;Edit {...props}&gt;</a>
+<a class="sourceLine" id="cb21-4" title="4">        &lt;SimpleForm&gt;</a>
+<a class="sourceLine" id="cb21-5" title="5"><span class="va">+           &lt;TextInput disabled source=&quot;id&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb21-6" title="6">            &lt;ReferenceInput source=&quot;userId&quot; reference=&quot;users&quot;&gt;</a>
+<a class="sourceLine" id="cb21-7" title="7"><span class="st">-               &lt;SelectInput optionText=&quot;id&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb21-8" title="8"><span class="va">+               &lt;SelectInput optionText=&quot;name&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb21-9" title="9">            &lt;/ReferenceInput&gt;</a>
+<a class="sourceLine" id="cb21-10" title="10"><span class="st">-           &lt;TextInput source=&quot;id&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb21-11" title="11">            &lt;TextInput source=&quot;title&quot; /&gt;</a>
+<a class="sourceLine" id="cb21-12" title="12"><span class="st">-           &lt;TextInput source=&quot;body&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb21-13" title="13"><span class="va">+           &lt;TextInput multiline source=&quot;body&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb21-14" title="14">        &lt;/SimpleForm&gt;</a>
+<a class="sourceLine" id="cb21-15" title="15">    &lt;/Edit&gt;</a>
+<a class="sourceLine" id="cb21-16" title="16">);</a></code></pre></div>
+<p>If you’ve understood the <code>&lt;List&gt;</code> component, the <code>&lt;Edit&gt;</code> component will be no surprise. It’s responsible for fetching the record, and displaying the page title. It passes the record down to the <code>&lt;SimpleForm&gt;</code> component, which is responsible for the form layout, default values, and validation. Just like <code>&lt;Datagrid&gt;</code>, <code>&lt;SimpleForm&gt;</code> uses its children to determine the form inputs to display. It expects <em>input components</em> as children. <code>&lt;TextInput&gt;</code>, <code>&lt;ReferenceInput&gt;</code>, and <code>&lt;SelectInput&gt;</code> are such inputs.</p>
+<p>The <code>&lt;ReferenceInput&gt;</code> takes the same props as the <code>&lt;ReferenceField&gt;</code> (used earlier in the <code>PostList</code> page). <code>&lt;ReferenceInput&gt;</code> uses these props to fetch the API for possible references related to the current record (in this case, possible <code>users</code> for the current <code>post</code>). It then passes these possible references to the child component (<code>&lt;SelectInput&gt;</code>), which is responsible for displaying them (via their <code>name</code> in that case), and letting the user select one. <code>&lt;SelectInput&gt;</code> renders as a <code>&lt;select&gt;</code> tag in HTML.</p>
+<p>Before you can use that custom component in the <code>App.js</code>, copy the <code>PostEdit</code> component into a <code>PostCreate</code>, and replace <code>Edit</code> by <code>Create</code>:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb22-1" title="1">// in src/posts.js</a>
+<a class="sourceLine" id="cb22-2" title="2">import * as React from &quot;react&quot;;</a>
+<a class="sourceLine" id="cb22-3" title="3">import {</a>
+<a class="sourceLine" id="cb22-4" title="4">    List,</a>
+<a class="sourceLine" id="cb22-5" title="5">    Datagrid,</a>
+<a class="sourceLine" id="cb22-6" title="6">    TextField,</a>
+<a class="sourceLine" id="cb22-7" title="7">    ReferenceField,</a>
+<a class="sourceLine" id="cb22-8" title="8">    EditButton,</a>
+<a class="sourceLine" id="cb22-9" title="9">    Edit,</a>
+<a class="sourceLine" id="cb22-10" title="10"><span class="va">+   Create,</span></a>
+<a class="sourceLine" id="cb22-11" title="11">    SimpleForm,</a>
+<a class="sourceLine" id="cb22-12" title="12">    ReferenceInput,</a>
+<a class="sourceLine" id="cb22-13" title="13">    SelectInput,</a>
+<a class="sourceLine" id="cb22-14" title="14">    TextInput,</a>
+<a class="sourceLine" id="cb22-15" title="15">} from &#39;react-admin&#39;;</a>
+<a class="sourceLine" id="cb22-16" title="16"></a>
+<a class="sourceLine" id="cb22-17" title="17">export const PostList = props =&gt; (</a>
+<a class="sourceLine" id="cb22-18" title="18">    // ...</a>
+<a class="sourceLine" id="cb22-19" title="19">);</a>
+<a class="sourceLine" id="cb22-20" title="20"></a>
+<a class="sourceLine" id="cb22-21" title="21">export const PostEdit = props =&gt; (</a>
+<a class="sourceLine" id="cb22-22" title="22">    // ...</a>
+<a class="sourceLine" id="cb22-23" title="23">);</a>
+<a class="sourceLine" id="cb22-24" title="24"></a>
+<a class="sourceLine" id="cb22-25" title="25"><span class="va">+export const PostCreate = props =&gt; (</span></a>
+<a class="sourceLine" id="cb22-26" title="26"><span class="va">+    &lt;Create {...props}&gt;</span></a>
+<a class="sourceLine" id="cb22-27" title="27"><span class="va">+        &lt;SimpleForm&gt;</span></a>
+<a class="sourceLine" id="cb22-28" title="28"><span class="va">+            &lt;ReferenceInput source=&quot;userId&quot; reference=&quot;users&quot;&gt;</span></a>
+<a class="sourceLine" id="cb22-29" title="29"><span class="va">+                &lt;SelectInput optionText=&quot;name&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb22-30" title="30"><span class="va">+            &lt;/ReferenceInput&gt;</span></a>
+<a class="sourceLine" id="cb22-31" title="31"><span class="va">+            &lt;TextInput source=&quot;title&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb22-32" title="32"><span class="va">+            &lt;TextInput multiline source=&quot;body&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb22-33" title="33"><span class="va">+        &lt;/SimpleForm&gt;</span></a>
+<a class="sourceLine" id="cb22-34" title="34"><span class="va">+    &lt;/Create&gt;</span></a>
+<a class="sourceLine" id="cb22-35" title="35"><span class="va">+);</span></a></code></pre></div>
+<p><strong>Tip</strong>: The <code>&lt;PostEdit&gt;</code> and the <code>&lt;PostCreate&gt;</code> components use almost the same child form, except for the additional <code>id</code> input in <code>&lt;PostEdit&gt;</code>. In most cases, the forms for creating and editing a record are a bit different, because most APIs create primary keys server-side. But if the forms are the same, you can share a common form component in <code>&lt;PostEdit&gt;</code> and <code>&lt;PostCreate&gt;</code>.</p>
+<p>To use the new <code>&lt;PostEdit&gt;</code> and <code>&lt;PostCreate&gt;</code> components in the posts resource, just add them as <code>edit</code> and <code>create</code> attributes in the <code>&lt;Resource name="posts"&gt;</code> component:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb23-1" title="1">// in src/App.js</a>
+<a class="sourceLine" id="cb23-2" title="2"><span class="st">-import { Admin, Resource, EditGuesser } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb23-3" title="3"><span class="va">+import { Admin, Resource } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb23-4" title="4"><span class="st">-import { PostList } from &#39;./posts&#39;;</span></a>
+<a class="sourceLine" id="cb23-5" title="5"><span class="va">+import { PostList, PostEdit, PostCreate } from &#39;./posts&#39;;</span></a>
+<a class="sourceLine" id="cb23-6" title="6">import { UserList } from &#39;./users&#39;;</a>
+<a class="sourceLine" id="cb23-7" title="7"></a>
+<a class="sourceLine" id="cb23-8" title="8">const App = () =&gt; (</a>
+<a class="sourceLine" id="cb23-9" title="9">    &lt;Admin dataProvider={dataProvider}&gt;</a>
+<a class="sourceLine" id="cb23-10" title="10"><span class="st">-       &lt;Resource name=&quot;posts&quot; list={PostList} edit={EditGuesser} /&gt;</span></a>
+<a class="sourceLine" id="cb23-11" title="11"><span class="va">+       &lt;Resource name=&quot;posts&quot; list={PostList} edit={PostEdit} create={PostCreate} /&gt;</span></a>
+<a class="sourceLine" id="cb23-12" title="12">        &lt;Resource name=&quot;users&quot; list={UserList} /&gt;</a>
+<a class="sourceLine" id="cb23-13" title="13">    &lt;/Admin&gt;</a>
+<a class="sourceLine" id="cb23-14" title="14">);</a></code></pre></div>
+<figure>
+<img src="./img/tutorial_post_create.gif" alt="Post Creation" /><figcaption>Post Creation</figcaption>
+</figure>
+<p>React-admin automatically adds a “create” button on top of the posts list to give access to the <code>&lt;PostCreate&gt;</code> component. And the creation form works ; it issues a <code>POST</code> request to the REST API upon submission.</p>
+<h2 id="optimistic-rendering-and-undo">Optimistic Rendering And Undo</h2>
+<p>Unfortunately, JSONPlaceholder is a read-only API; although it seems to accept <code>POST</code> and <code>PUT</code> requests, it doesn’t take into account the creations and edits - that’s why, in this particular case, you will see errors after creation, and you won’t see your edits after you save them. It’s just an artifact of JSONPlaceholder.</p>
+<p>But then, how come the newly created post appears in the list just after creation in the screencast above?</p>
+<p>That’s because react-admin uses <em>optimistic rendering</em>. When a user edits a record and hits the “Save” button, the UI shows a confirmation and displays the updated data <em>before sending the update query to server</em>. The main benefit is that UI changes are immediate - no need to wait for the server response. It’s a great comfort for users.</p>
+<p>But there is an additional benefit: it also allows the “Undo” feature. Undo is already functional in the admin at that point. Try editing a record, then hit the “Undo” link in the black confirmation box before it slides out. You’ll see that the app does not send the <code>UPDATE</code> query to the API, and displays the non-modified data.</p>
+<figure>
+<img src="./img/tutorial_post_edit_undo.gif" alt="Undo Post Editing" /><figcaption>Undo Post Editing</figcaption>
+</figure>
+<p>Even though updates appear immediately due to Optimistic Rendering, React-admin only sends them to the server after a short delay (about 5 seconds). During this delay, the user can undo the action, and react-admin will never send the update.</p>
+<p>Optimistic Rendering and Undo require no specific code on the API side - react-admin handles them purely on the client-side. That means that you’ll get them for free with your own API!</p>
+<p><strong>Note</strong>: When you add the ability to edit an item, you also add the ability to delete it. The “Delete” button in the edit view is fully working out of the box - and it is also “Undo”-able .</p>
+<p>The post editing page has a slight problem: it uses the post id as main title (the text displayed in the top bar). Let’s customize the view title with a title component:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb24-1" title="1">// in src/posts.js</a>
+<a class="sourceLine" id="cb24-2" title="2"><span class="va">+const PostTitle = ({ record }) =&gt; {</span></a>
+<a class="sourceLine" id="cb24-3" title="3"><span class="va">+    return &lt;span&gt;Post {record ? `&quot;${record.title}&quot;` : &#39;&#39;}&lt;/span&gt;;</span></a>
+<a class="sourceLine" id="cb24-4" title="4"><span class="va">+};</span></a>
+<a class="sourceLine" id="cb24-5" title="5"></a>
+<a class="sourceLine" id="cb24-6" title="6">export const PostEdit = props =&gt; (</a>
+<a class="sourceLine" id="cb24-7" title="7"><span class="st">-   &lt;Edit {...props}&gt;</span></a>
+<a class="sourceLine" id="cb24-8" title="8"><span class="va">+   &lt;Edit title={&lt;PostTitle /&gt;} {...props}&gt;</span></a>
+<a class="sourceLine" id="cb24-9" title="9">        // ...</a>
+<a class="sourceLine" id="cb24-10" title="10">    &lt;/Edit&gt;</a>
+<a class="sourceLine" id="cb24-11" title="11">);</a></code></pre></div>
+<figure>
+<img src="./img/tutorial_post_title.png" alt="Post Edit Title" /><figcaption>Post Edit Title</figcaption>
+</figure>
+<h2 id="adding-search-and-filters-to-the-list">Adding Search And Filters To The List</h2>
+<p>Let’s get back to the post list for a minute. It offers sorting and pagination, but one feature is missing: the ability to search content.</p>
+<p>React-admin can use Input components to create a multi-criteria search engine in the list view. First, create a <code>&lt;Filter&gt;</code> component just like you would write a <code>&lt;SimpleForm&gt;</code> component, using input components as children. Then, add it to the list using the <code>filters</code> prop:</p>
+<pre class="jsx"><code>// in src/posts.js
+import { Filter, ReferenceInput, SelectInput, TextInput, List } from &#39;react-admin&#39;;
+
+const PostFilter = (props) =&gt; (
+    &lt;Filter {...props}&gt;
+        &lt;TextInput label=&quot;Search&quot; source=&quot;q&quot; alwaysOn /&gt;
+        &lt;ReferenceInput label=&quot;User&quot; source=&quot;userId&quot; reference=&quot;users&quot; allowEmpty&gt;
+            &lt;SelectInput optionText=&quot;name&quot; /&gt;
+        &lt;/ReferenceInput&gt;
+    &lt;/Filter&gt;
+);
+
+export const PostList = (props) =&gt; (
+    &lt;List filters={&lt;PostFilter /&gt;} {...props}&gt;
+        // ...
+    &lt;/List&gt;
+);</code></pre>
+<p>The first filter, ‘q’, takes advantage of a full-text functionality offered by JSONPlaceholder. It is <code>alwaysOn</code>, so it always appears on the screen. Users can add the second filter, <code>userId</code>, thanks to the “add filter” button, located on the top of the list. As it’s a <code>&lt;ReferenceInput&gt;</code>, it’s already populated with possible users.</p>
+<figure>
+<img src="./img/filters.gif" alt="posts search engine" /><figcaption>posts search engine</figcaption>
+</figure>
+<p>Filters are “search-as-you-type”, meaning that when the user enters new values in the filter form, the list refreshes (via an API request) immediately.</p>
+<p><strong>Tip</strong>: Note that the <code>label</code> property can be used on any field to customize the field label.</p>
+<h2 id="customizing-the-menu-icons">Customizing the Menu Icons</h2>
+<p>The sidebar menu shows the same icon for both posts and users. Customizing the menu icon is just a matter of passing an <code>icon</code> attribute to each <code>&lt;Resource&gt;</code>:</p>
+<pre class="jsx"><code>// in src/App.js
+import PostIcon from &#39;@material-ui/icons/Book&#39;;
+import UserIcon from &#39;@material-ui/icons/Group&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={dataProvider}&gt;
+        &lt;Resource name=&quot;posts&quot; list={PostList} edit={PostEdit} create={PostCreate} icon={PostIcon} /&gt;
+        &lt;Resource name=&quot;users&quot; list={UserList} icon={UserIcon} /&gt;
+    &lt;/Admin&gt;
+);</code></pre>
+<figure>
+<img src="./img/custom-menu.gif" alt="custom menu icons" /><figcaption>custom menu icons</figcaption>
+</figure>
+<h2 id="using-a-custom-home-page">Using a Custom Home Page</h2>
+<p>By default, react-admin displays the list page of the first <code>Resource</code> element as home page. If you want to display a custom component instead, pass it in the <code>dashboard</code> prop of the <code>&lt;Admin&gt;</code> component.</p>
+<pre class="jsx"><code>// in src/Dashboard.js
+import * as React from &quot;react&quot;;
+import { Card, CardContent, CardHeader } from &#39;@material-ui/core&#39;;
+
+export default () =&gt; (
+    &lt;Card&gt;
+        &lt;CardHeader title=&quot;Welcome to the administration&quot; /&gt;
+        &lt;CardContent&gt;Lorem ipsum sic dolor amet...&lt;/CardContent&gt;
+    &lt;/Card&gt;
+);</code></pre>
+<pre class="jsx"><code>// in src/App.js
+import Dashboard from &#39;./Dashboard&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dashboard={Dashboard} dataProvider={dataProvider}&gt;
+        // ...
+    &lt;/Admin&gt;
+);</code></pre>
+<figure>
+<img src="./img/dashboard.png" alt="Custom home page" /><figcaption>Custom home page</figcaption>
+</figure>
+<h2 id="adding-a-login-page">Adding a Login Page</h2>
+<p>Most admin apps require authentication. React-admin can check user credentials before displaying a page, and redirect to a login form when the REST API returns a 403 error code.</p>
+<p><em>What</em> those credentials are, and <em>how</em> to get them, are questions that you, as a developer, must answer. React-admin makes no assumption about your authentication strategy (basic auth, OAuth, custom route, etc), but gives you the ability to plug your logic at the right place - using the <code>authProvider</code> object.</p>
+<p>For this tutorial, since there is no public authentication API, we can use a fake authentication provider that accepts every login request, and stores the <code>username</code> in <code>localStorage</code>. Each page change will require that <code>localStorage</code> contains a <code>username</code> item.</p>
+<p>The <code>authProvider</code> must expose 5 methods, each returning a <code>Promise</code>:</p>
+<pre class="jsx"><code>// in src/authProvider.js
+export default {
+    // called when the user attempts to log in
+    login: ({ username }) =&gt; {
+        localStorage.setItem(&#39;username&#39;, username);
+        // accept all username/password combinations
+        return Promise.resolve();
+    },
+    // called when the user clicks on the logout button
+    logout: () =&gt; {
+        localStorage.removeItem(&#39;username&#39;);
+        return Promise.resolve();
+    },
+    // called when the API returns an error
+    checkError: ({ status }) =&gt; {
+        if (status === 401 || status === 403) {
+            localStorage.removeItem(&#39;username&#39;);
+            return Promise.reject();
+        }
+        return Promise.resolve();
+    },
+    // called when the user navigates to a new location, to check for authentication
+    checkAuth: () =&gt; {
+        return localStorage.getItem(&#39;username&#39;)
+            ? Promise.resolve()
+            : Promise.reject();
+    },
+    // called when the user navigates to a new location, to check for permissions / roles
+    getPermissions: () =&gt; Promise.resolve(),
+};</code></pre>
+<p><strong>Tip</strong>: As the <code>authProvider</code> calls are asynchronous, you can easily fetch an authentication server in there.</p>
+<p>To enable this authentication strategy, pass the client as the <code>authProvider</code> prop in the <code>&lt;Admin&gt;</code> component:</p>
+<pre class="jsx"><code>// in src/App.js
+import Dashboard from &#39;./Dashboard&#39;;
+import authProvider from &#39;./authProvider&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dashboard={Dashboard} authProvider={authProvider} dataProvider={dataProvider}&gt;
+        // ...
+    &lt;/Admin&gt;
+);</code></pre>
+<p>Once the app reloads, it’s now behind a login form that accepts everyone:</p>
+<figure>
+<img src="./img/login.gif" alt="Login form" /><figcaption>Login form</figcaption>
+</figure>
+<h2 id="supporting-mobile-devices">Supporting Mobile Devices</h2>
+<p>The react-admin layout is already responsive. Try to resize your browser to see how the sidebar switches to a drawer on smaller screens.</p>
+<p>But a responsive layout is not enough to make a responsive app. Datagrid components work well on desktop, but are absolutely not adapted to mobile devices. If your admin must be used on mobile devices, you’ll have to provide an alternative component for small screens.</p>
+<p>First, you should know that you don’t have to use the <code>&lt;Datagrid&gt;</code> component as <code>&lt;List&gt;</code> child. You can use any other component you like. For instance, the <code>&lt;SimpleList&gt;</code> component:</p>
+<pre class="jsx"><code>// in src/posts.js
+import * as React from &quot;react&quot;;
+import { List, SimpleList } from &#39;react-admin&#39;;
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props}&gt;
+        &lt;SimpleList
+            primaryText={record =&gt; record.title}
+            secondaryText={record =&gt; `${record.views} views`}
+            tertiaryText={record =&gt; new Date(record.published_at).toLocaleDateString()}
+        /&gt;
+    &lt;/List&gt;
+);</code></pre>
+<figure>
+<img src="./img/tutorial_mobile_post_list.gif" alt="Mobile post list" /><figcaption>Mobile post list</figcaption>
+</figure>
+<p>The <code>&lt;SimpleList&gt;</code> component uses <a href="https://material-ui.com/components/lists">material-ui’s <code>&lt;List&gt;</code> and <code>&lt;ListItem&gt;</code> components</a>, and expects functions as <code>primaryText</code>, <code>secondaryText</code>, and <code>tertiaryText</code> props.</p>
+<p><strong>Note:</strong> Since JSONRestServer doesn’t provide <code>views</code> or <code>published_at</code> values for posts, we switched to a custom API for those screenshots in order to demonstrate how to use some of the <code>SimpleList</code> component props.</p>
+<p>That works fine on mobile, but now the desktop user experience is worse. The best compromise would be to use <code>&lt;SimpleList&gt;</code> on small screens, and <code>&lt;Datagrid&gt;</code> on other screens. That’s where the <code>useMediaQuery</code> hook comes in:</p>
+<pre class="jsx"><code>// in src/posts.js
+import * as React from &quot;react&quot;;
+import { useMediaQuery } from &#39;@material-ui/core&#39;;
+import { List, SimpleList, Datagrid, TextField, ReferenceField, EditButton } from &#39;react-admin&#39;;
+
+export const PostList = (props) =&gt; {
+    const isSmall = useMediaQuery(theme =&gt; theme.breakpoints.down(&#39;sm&#39;));
+    return (
+        &lt;List {...props}&gt;
+            {isSmall ? (
+                &lt;SimpleList
+                    primaryText={record =&gt; record.title}
+                    secondaryText={record =&gt; `${record.views} views`}
+                    tertiaryText={record =&gt; new Date(record.published_at).toLocaleDateString()}
+                /&gt;
+            ) : (
+                &lt;Datagrid&gt;
+                    &lt;TextField source=&quot;id&quot; /&gt;
+                    &lt;ReferenceField label=&quot;User&quot; source=&quot;userId&quot; reference=&quot;users&quot;&gt;
+                        &lt;TextField source=&quot;name&quot; /&gt;
+                    &lt;/ReferenceField&gt;
+                    &lt;TextField source=&quot;title&quot; /&gt;
+                    &lt;TextField source=&quot;body&quot; /&gt;
+                    &lt;EditButton /&gt;
+                &lt;/Datagrid&gt;
+            )}
+        &lt;/List&gt;
+    );
+}</code></pre>
+<p>This works exactly the way you expect. The lesson here is that react-admin takes care of responsive web design for the layout, but it’s your job to use <code>useMediaQuery()</code> in pages.</p>
+<figure>
+<img src="./img/responsive-list.gif" alt="Responsive List" /><figcaption>Responsive List</figcaption>
+</figure>
+<h2 id="connecting-to-a-real-api">Connecting To A Real API</h2>
+<p>Here is the elephant in the room of this tutorial. In real world projects, the dialect of your API (REST? GraphQL? Something else?) won’t match the JSONPlaceholder dialect. Writing a Data Provider is probably the first thing you’ll have to do to make react-admin work. Depending on your API, this can require a few hours of additional work.</p>
+<p>React-admin delegates every data query to a Data Provider object, which acts as an adapter to your API. This makes react-admin capable of mapping any API dialect, using endpoints from several domains, etc.</p>
+<p>For instance, let’s imagine you have to use the <code>my.api.url</code> REST API, which expects the following parameters:</p>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Action</th>
+<th>Expected API request</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Get list</td>
+<td><code>GET http://my.api.url/posts?sort=["title","ASC"]&amp;range=[0, 24]&amp;filter={"title":"bar"}</code></td>
+</tr>
+<tr class="even">
+<td>Get one record</td>
+<td><code>GET http://my.api.url/posts/123</code></td>
+</tr>
+<tr class="odd">
+<td>Get several records</td>
+<td><code>GET http://my.api.url/posts?filter={"id":[123,456,789]}</code></td>
+</tr>
+<tr class="even">
+<td>Get related records</td>
+<td><code>GET http://my.api.url/posts?filter={"author_id":345}</code></td>
+</tr>
+<tr class="odd">
+<td>Create a record</td>
+<td><code>POST http://my.api.url/posts</code></td>
+</tr>
+<tr class="even">
+<td>Update a record</td>
+<td><code>PUT http://my.api.url/posts/123</code></td>
+</tr>
+<tr class="odd">
+<td>Update records</td>
+<td><code>PUT http://my.api.url/posts?filter={"id":[123,124,125]}</code></td>
+</tr>
+<tr class="even">
+<td>Delete a record</td>
+<td><code>DELETE http://my.api.url/posts/123</code></td>
+</tr>
+<tr class="odd">
+<td>Delete records</td>
+<td><code>DELETE http://my.api.url/posts?filter={"id":[123,124,125]}</code></td>
+</tr>
+</tbody>
+</table>
+<p>React-admin calls the Data Provider with one method for each of the actions of this list, and expects a Promise in return. These methods are called <code>getList</code>, <code>getOne</code>, <code>getMany</code>, <code>getManyReference</code>, <code>create</code>, <code>update</code>, <code>updateMany</code>, <code>delete</code>, and <code>deleteMany</code>. It’s the Data Provider’s job to emit HTTP requests and transform the response into the format expected by react-admin.</p>
+<p>The code for a Data Provider for the <code>my.api.url</code> API is as follows:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb33-1" title="1"><span class="im">import</span> <span class="op">{</span> fetchUtils <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;react-admin&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb33-2" title="2"><span class="im">import</span> <span class="op">{</span> stringify <span class="op">}</span> <span class="im">from</span> <span class="st">&#39;query-string&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb33-3" title="3"></a>
+<a class="sourceLine" id="cb33-4" title="4"><span class="kw">const</span> apiUrl <span class="op">=</span> <span class="st">&#39;https://my.api.com/&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb33-5" title="5"><span class="kw">const</span> httpClient <span class="op">=</span> <span class="va">fetchUtils</span>.<span class="at">fetchJson</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb33-6" title="6"></a>
+<a class="sourceLine" id="cb33-7" title="7"><span class="im">export</span> <span class="im">default</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-8" title="8">    <span class="dt">getList</span><span class="op">:</span> (resource<span class="op">,</span> params) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-9" title="9">        <span class="kw">const</span> <span class="op">{</span> page<span class="op">,</span> perPage <span class="op">}</span> <span class="op">=</span> <span class="va">params</span>.<span class="at">pagination</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb33-10" title="10">        <span class="kw">const</span> <span class="op">{</span> field<span class="op">,</span> order <span class="op">}</span> <span class="op">=</span> <span class="va">params</span>.<span class="at">sort</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb33-11" title="11">        <span class="kw">const</span> query <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-12" title="12">            <span class="dt">sort</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>([field<span class="op">,</span> order])<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-13" title="13">            <span class="dt">range</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>([(page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> perPage<span class="op">,</span> page <span class="op">*</span> perPage <span class="op">-</span> <span class="dv">1</span>])<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-14" title="14">            <span class="dt">filter</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="va">params</span>.<span class="at">filter</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-15" title="15">        <span class="op">};</span></a>
+<a class="sourceLine" id="cb33-16" title="16">        <span class="kw">const</span> url <span class="op">=</span> <span class="vs">`</span><span class="sc">${</span>apiUrl<span class="sc">}</span><span class="vs">/</span><span class="sc">${</span>resource<span class="sc">}</span><span class="vs">?</span><span class="sc">${</span><span class="at">stringify</span>(query)<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb33-17" title="17"></a>
+<a class="sourceLine" id="cb33-18" title="18">        <span class="cf">return</span> <span class="at">httpClient</span>(url).<span class="at">then</span>((<span class="op">{</span> headers<span class="op">,</span> json <span class="op">}</span>) <span class="kw">=&gt;</span> (<span class="op">{</span></a>
+<a class="sourceLine" id="cb33-19" title="19">            <span class="dt">data</span><span class="op">:</span> json<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-20" title="20">            <span class="dt">total</span><span class="op">:</span> <span class="at">parseInt</span>(<span class="va">headers</span>.<span class="at">get</span>(<span class="st">&#39;content-range&#39;</span>).<span class="at">split</span>(<span class="st">&#39;/&#39;</span>).<span class="at">pop</span>()<span class="op">,</span> <span class="dv">10</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-21" title="21">        <span class="op">}</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb33-22" title="22">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb33-23" title="23"></a>
+<a class="sourceLine" id="cb33-24" title="24">    <span class="dt">getOne</span><span class="op">:</span> (resource<span class="op">,</span> params) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb33-25" title="25">        <span class="at">httpClient</span>(<span class="vs">`</span><span class="sc">${</span>apiUrl<span class="sc">}</span><span class="vs">/</span><span class="sc">${</span>resource<span class="sc">}</span><span class="vs">/</span><span class="sc">${</span><span class="va">params</span>.<span class="at">id</span><span class="sc">}</span><span class="vs">`</span>).<span class="at">then</span>((<span class="op">{</span> json <span class="op">}</span>) <span class="kw">=&gt;</span> (<span class="op">{</span></a>
+<a class="sourceLine" id="cb33-26" title="26">            <span class="dt">data</span><span class="op">:</span> json<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-27" title="27">        <span class="op">}</span>))<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-28" title="28"></a>
+<a class="sourceLine" id="cb33-29" title="29">    <span class="dt">getMany</span><span class="op">:</span> (resource<span class="op">,</span> params) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-30" title="30">        <span class="kw">const</span> query <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-31" title="31">            <span class="dt">filter</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> <span class="dt">id</span><span class="op">:</span> <span class="va">params</span>.<span class="at">ids</span> <span class="op">}</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-32" title="32">        <span class="op">};</span></a>
+<a class="sourceLine" id="cb33-33" title="33">        <span class="kw">const</span> url <span class="op">=</span> <span class="vs">`</span><span class="sc">${</span>apiUrl<span class="sc">}</span><span class="vs">/</span><span class="sc">${</span>resource<span class="sc">}</span><span class="vs">?</span><span class="sc">${</span><span class="at">stringify</span>(query)<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb33-34" title="34">        <span class="cf">return</span> <span class="at">httpClient</span>(url).<span class="at">then</span>((<span class="op">{</span> json <span class="op">}</span>) <span class="kw">=&gt;</span> (<span class="op">{</span> <span class="dt">data</span><span class="op">:</span> json <span class="op">}</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb33-35" title="35">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb33-36" title="36"></a>
+<a class="sourceLine" id="cb33-37" title="37">    <span class="dt">getManyReference</span><span class="op">:</span> (resource<span class="op">,</span> params) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-38" title="38">        <span class="kw">const</span> <span class="op">{</span> page<span class="op">,</span> perPage <span class="op">}</span> <span class="op">=</span> <span class="va">params</span>.<span class="at">pagination</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb33-39" title="39">        <span class="kw">const</span> <span class="op">{</span> field<span class="op">,</span> order <span class="op">}</span> <span class="op">=</span> <span class="va">params</span>.<span class="at">sort</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb33-40" title="40">        <span class="kw">const</span> query <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-41" title="41">            <span class="dt">sort</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>([field<span class="op">,</span> order])<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-42" title="42">            <span class="dt">range</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>([(page <span class="op">-</span> <span class="dv">1</span>) <span class="op">*</span> perPage<span class="op">,</span> page <span class="op">*</span> perPage <span class="op">-</span> <span class="dv">1</span>])<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-43" title="43">            <span class="dt">filter</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span></a>
+<a class="sourceLine" id="cb33-44" title="44">                ...<span class="va">params</span>.<span class="at">filter</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb33-45" title="45">                [<span class="va">params</span>.<span class="at">target</span>]<span class="op">:</span> <span class="va">params</span>.<span class="at">id</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb33-46" title="46">            <span class="op">}</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-47" title="47">        <span class="op">};</span></a>
+<a class="sourceLine" id="cb33-48" title="48">        <span class="kw">const</span> url <span class="op">=</span> <span class="vs">`</span><span class="sc">${</span>apiUrl<span class="sc">}</span><span class="vs">/</span><span class="sc">${</span>resource<span class="sc">}</span><span class="vs">?</span><span class="sc">${</span><span class="at">stringify</span>(query)<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb33-49" title="49"></a>
+<a class="sourceLine" id="cb33-50" title="50">        <span class="cf">return</span> <span class="at">httpClient</span>(url).<span class="at">then</span>((<span class="op">{</span> headers<span class="op">,</span> json <span class="op">}</span>) <span class="kw">=&gt;</span> (<span class="op">{</span></a>
+<a class="sourceLine" id="cb33-51" title="51">            <span class="dt">data</span><span class="op">:</span> json<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-52" title="52">            <span class="dt">total</span><span class="op">:</span> <span class="at">parseInt</span>(<span class="va">headers</span>.<span class="at">get</span>(<span class="st">&#39;content-range&#39;</span>).<span class="at">split</span>(<span class="st">&#39;/&#39;</span>).<span class="at">pop</span>()<span class="op">,</span> <span class="dv">10</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-53" title="53">        <span class="op">}</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb33-54" title="54">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb33-55" title="55"></a>
+<a class="sourceLine" id="cb33-56" title="56">    <span class="dt">update</span><span class="op">:</span> (resource<span class="op">,</span> params) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb33-57" title="57">        <span class="at">httpClient</span>(<span class="vs">`</span><span class="sc">${</span>apiUrl<span class="sc">}</span><span class="vs">/</span><span class="sc">${</span>resource<span class="sc">}</span><span class="vs">/</span><span class="sc">${</span><span class="va">params</span>.<span class="at">id</span><span class="sc">}</span><span class="vs">`</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-58" title="58">            <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;PUT&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb33-59" title="59">            <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="va">params</span>.<span class="at">data</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-60" title="60">        <span class="op">}</span>).<span class="at">then</span>((<span class="op">{</span> json <span class="op">}</span>) <span class="kw">=&gt;</span> (<span class="op">{</span> <span class="dt">data</span><span class="op">:</span> json <span class="op">}</span>))<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-61" title="61"></a>
+<a class="sourceLine" id="cb33-62" title="62">    <span class="dt">updateMany</span><span class="op">:</span> (resource<span class="op">,</span> params) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-63" title="63">        <span class="kw">const</span> query <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-64" title="64">            <span class="dt">filter</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> <span class="dt">id</span><span class="op">:</span> <span class="va">params</span>.<span class="at">ids</span><span class="op">}</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-65" title="65">        <span class="op">};</span></a>
+<a class="sourceLine" id="cb33-66" title="66">        <span class="cf">return</span> <span class="at">httpClient</span>(<span class="vs">`</span><span class="sc">${</span>apiUrl<span class="sc">}</span><span class="vs">/</span><span class="sc">${</span>resource<span class="sc">}</span><span class="vs">?</span><span class="sc">${</span><span class="at">stringify</span>(query)<span class="sc">}</span><span class="vs">`</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-67" title="67">            <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;PUT&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb33-68" title="68">            <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="va">params</span>.<span class="at">data</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-69" title="69">        <span class="op">}</span>).<span class="at">then</span>((<span class="op">{</span> json <span class="op">}</span>) <span class="kw">=&gt;</span> (<span class="op">{</span> <span class="dt">data</span><span class="op">:</span> json <span class="op">}</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb33-70" title="70">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb33-71" title="71"></a>
+<a class="sourceLine" id="cb33-72" title="72">    <span class="dt">create</span><span class="op">:</span> (resource<span class="op">,</span> params) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb33-73" title="73">        <span class="at">httpClient</span>(<span class="vs">`</span><span class="sc">${</span>apiUrl<span class="sc">}</span><span class="vs">/</span><span class="sc">${</span>resource<span class="sc">}</span><span class="vs">`</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-74" title="74">            <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb33-75" title="75">            <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="va">params</span>.<span class="at">data</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-76" title="76">        <span class="op">}</span>).<span class="at">then</span>((<span class="op">{</span> json <span class="op">}</span>) <span class="kw">=&gt;</span> (<span class="op">{</span></a>
+<a class="sourceLine" id="cb33-77" title="77">            <span class="dt">data</span><span class="op">:</span> <span class="op">{</span> ...<span class="va">params</span>.<span class="at">data</span><span class="op">,</span> <span class="dt">id</span><span class="op">:</span> <span class="va">json</span>.<span class="at">id</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb33-78" title="78">        <span class="op">}</span>))<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-79" title="79"></a>
+<a class="sourceLine" id="cb33-80" title="80">    <span class="kw">delete</span><span class="op">:</span> (resource<span class="op">,</span> params) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb33-81" title="81">        <span class="at">httpClient</span>(<span class="vs">`</span><span class="sc">${</span>apiUrl<span class="sc">}</span><span class="vs">/</span><span class="sc">${</span>resource<span class="sc">}</span><span class="vs">/</span><span class="sc">${</span><span class="va">params</span>.<span class="at">id</span><span class="sc">}</span><span class="vs">`</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-82" title="82">            <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;DELETE&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb33-83" title="83">        <span class="op">}</span>).<span class="at">then</span>((<span class="op">{</span> json <span class="op">}</span>) <span class="kw">=&gt;</span> (<span class="op">{</span> <span class="dt">data</span><span class="op">:</span> json <span class="op">}</span>))<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-84" title="84"></a>
+<a class="sourceLine" id="cb33-85" title="85">    <span class="dt">deleteMany</span><span class="op">:</span> (resource<span class="op">,</span> params) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-86" title="86">        <span class="kw">const</span> query <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-87" title="87">            <span class="dt">filter</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> <span class="dt">id</span><span class="op">:</span> <span class="va">params</span>.<span class="at">ids</span><span class="op">}</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-88" title="88">        <span class="op">};</span></a>
+<a class="sourceLine" id="cb33-89" title="89">        <span class="cf">return</span> <span class="at">httpClient</span>(<span class="vs">`</span><span class="sc">${</span>apiUrl<span class="sc">}</span><span class="vs">/</span><span class="sc">${</span>resource<span class="sc">}</span><span class="vs">?</span><span class="sc">${</span><span class="at">stringify</span>(query)<span class="sc">}</span><span class="vs">`</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb33-90" title="90">            <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;DELETE&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb33-91" title="91">            <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="va">params</span>.<span class="at">data</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb33-92" title="92">        <span class="op">}</span>).<span class="at">then</span>((<span class="op">{</span> json <span class="op">}</span>) <span class="kw">=&gt;</span> (<span class="op">{</span> <span class="dt">data</span><span class="op">:</span> json <span class="op">}</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb33-93" title="93">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb33-94" title="94"><span class="op">};</span></a></code></pre></div>
+<p><strong>Tip</strong>: <code>fetchUtils.fetchJson()</code> is just a shortcut for <code>fetch().then(r =&gt; r.json())</code>, plus a control of the HTTP response code to throw an <code>HTTPError</code> in case of 4xx or 5xx response. Feel free to use <code>fetch()</code> directly if it doesn’t suit your needs.</p>
+<p>Using this provider instead of the previous <code>jsonServerProvider</code> is just a matter of switching a function:</p>
+<pre class="jsx"><code>// in src/app.js
+import dataProvider from &#39;./dataProvider&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={dataProvider}&gt;
+        // ...
+    &lt;/Admin&gt;
+);</code></pre>
+<h2 id="conclusion">Conclusion</h2>
+<p>React-admin was built with customization in mind. You can replace any react-admin component with a component of your own, for instance to display a custom list layout, or a different edit form for a given resource.</p>
+<p>Now that you’ve completed the tutorial, continue reading the <a href="https://marmelab.com/react-admin/Readme.html">react-admin documentation</a>, and read the <a href="https://material-ui.com/">Material UI components documentation</a>.</p>

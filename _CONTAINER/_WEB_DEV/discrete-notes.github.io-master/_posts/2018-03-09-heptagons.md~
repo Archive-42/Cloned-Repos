@@ -1,0 +1,96 @@
+---
+layout: post
+title: No tiling by convex heptagons
+redirect_from: "/2018/03/09/heptagons/"
+permalink: heptagons
+---
+
+Fourth post of the GT CoA series, see 
+[here](https://semidoc.github.io/information-communication) for the introduction. 
+
+The talk related to this post was given by 
+[Michaël Rao](https://perso.ens-lyon.fr/michael.rao/) on his recent result 
+about [pentagonal tilings](https://en.wikipedia.org/wiki/Pentagonal_tiling). 
+This topic has been covered in many places (see for example
+[Quanta magazine](https://www.quantamagazine.org/pentagon-tiling-proof-solves-century-old-math-problem-20170711/)[^1] 
+and this [video](https://lejournal.cnrs.fr/videos/le-theoreme-du-carreleur). 
+This post will focus on another aspect: what about heptagonal tilings?
+More precisely, how to show that there is no tiling of the plane with a convex 
+heptagonal tile?
+
+We first present a simple heurisitic proof that gives the intuition about why this holds, 
+and then a more detailed proof. The first one uses simple geometry, the second is 
+graph theoretical.
+
+# First (heuristic) proof via double-counting of the angles
+
+Let a _contact point_ be a place where three or more tiles meet. Without loss of 
+generality wa can assume that tiles only meet at vertices, that is there is no 
+contact point in the interior of an edge, it is always at an endpoint.[^2] 
+
+As the [sum of the interior angles of an $n$-gon](https://en.wikipedia.org/wiki/Polygon#Angles) 
+is $(n-2)\times 180$ degrees, for an heptagon it is $5\times 180=900$ degrees. 
+The average degree is $900/7\approx 129$ degrees. Which means that at one 
+contact point there are in average $360/129\approx 2.8 $ heptagons meeting. 
+This does not make sense because at every contact point there should be at least 
+three tiles. 
+
+# Second proof with planar graphs.
+
+## First attempt via the degree
+Take an infinite tiling, and draw the following graph. In the middle of each 
+tile draw a vertex, and between two vertices that represent adjacent tiles, draw 
+an edge. This graph is infinite and planar. As the tiles are convex, there are at 
+least seven different tiles adjacent to it, and then the minimum degree of a 
+vertex in the graph is seven.
+
+If you are used to planar graphs, you may think that this is enough to conclude. 
+Indeed, it is known that the average degree of panar graphs is strictly smaller 
+than six 
+(see for example [here](https://en.wikipedia.org/wiki/Planar_graph#Average_degree)), 
+and the contradiction follows. Actually this is not enough because this average 
+degree upper bound holds only in finite graph. As a counter-example to this in 
+infinite graphs, consider an infinite regular tree with arbitrary large degree $d$ ; 
+it is a planar graph and it has average degree $d$.
+
+## Euler formula on the dual
+The degree bound comes form the classic tool for planar graphs,
+[Euler's formula](https://en.wikipedia.org/wiki/Euler_characteristic#Plane_graphs). 
+It states that  $|V|-|E|+|F|=2$ for finite planar graphs, where $V$ is the set of 
+nodes, $E$ is the set of edges, and $F$ is the set of faces. The problem 
+is that it works only for finite graphs. We will consider a large enough part of 
+the infinite graph and use Euler formula to prove the result. 
+
+This can probably be achieved in the graph we have defined, but it is more 
+convenient on its dual. Given a tiling, consider every place where three 
+or more tiles meet as a vertex, and the edges of the tiles are the edges of the 
+graph. Basically drawing the tiling is drawing the graph. 
+
+Now consider a ball of radius $r$ much larger than the size of the tile, and the 
+tiles that are at least partilly in this ball. There 
+is order of $r^2$ tiles strictly inside the ball and $O(r)$ tiles at the boundary.
+Note that the tiles are the faces of the planar graph (except the outer face 
+that is not a tile). A similar thing holds for 
+vertices: there are $\Theta(r)$ vertices that are at the boundary, call them 
+boundary nodes ($V_b$), and order of  $r^2$ that are strictly inside the graph, 
+called interior nodes ($V_i$).
+
+We double-count edges. For every edge, divide it lengthwise into two 
+half-edges. There are clearly $2|E|$ half-edges. Also every face except the 
+outerface is a tile, so contributes seven half-edges. The number of half-edges 
+of the outerface is in $O(r)$. Thus $2|E|=7|F|+O(r)$.
+
+We now count the corners (or interior angles) of tiles. Every tile has seven 
+corners, thus this number is exactly $7|F|$. As every interior node contributes 
+at least three corners, $7|F|\geq 3|V_i|$.
+
+Now using that $|V|=|V_i|+|V_b|$, then $|E|=\frac{7}{2}|F|+O(r)$ and finally 
+$|F|\geq \frac{3}{7}|V_i|$ one gets: $-\frac{15}{14}V_i+V_b-O(r)\geq 2$. This is 
+not possible because $V_i$ has a higher order of magnitude than the two other 
+terms, thus the asymptotics should go to $-\infty$. 
+
+#### Notes et footnotes
+Thanks to Michaël Rao for discussions, on which this post is based. 
+
+[^1]: There exists a translation in French, in [Pour la science](https://www.pourlascience.fr/sd/mathematiques/un-point-final-au-probleme-des-pavages-pentagonaux-du-plan-12669.php).
+[^2]: This would need a proof, but roughly, having a contact point in the middle of an edge only make the argument stronger, as it forces the other angles to be small.

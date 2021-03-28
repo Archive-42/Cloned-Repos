@@ -1,0 +1,40 @@
+/*!
+ * Copyright (C) 2020 DS Co., dba dsco - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential.
+ */
+
+@import 'vars';
+
+:host {
+  width: 50px;
+  text-align: center;
+}
+
+div {
+  width: 10px;
+  height: 10px;
+  background-color: $mainColor;
+
+  border-radius: 100%;
+  display: inline-block;
+  margin-right: 2px;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.bounce1 {
+  animation-delay: -0.32s;
+}
+
+.bounce2 {
+  animation-delay: -0.16s;
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1.0);
+  }
+}

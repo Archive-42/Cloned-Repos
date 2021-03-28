@@ -1,0 +1,85 @@
+<h1 id="description">–description–</h1>
+<p>HTML has another special element for creating <dfn>ordered lists</dfn>, or numbered lists.</p>
+<p>Ordered lists start with an opening <code>&lt;ol&gt;</code> element, followed by any number of <code>&lt;li&gt;</code> elements. Finally, ordered lists are closed with the <code>&lt;/ol&gt;</code> tag.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">&lt;ol&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="kw">&lt;li&gt;</span>Garfield<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="kw">&lt;li&gt;</span>Sylvester<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="kw">&lt;/ol&gt;</span></a></code></pre></div>
+<p>would create a numbered list of “Garfield” and “Sylvester”.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Create an ordered list of the top 3 things cats hate the most.</p>
+<h1 id="hints">–hints–</h1>
+<p>You should have an ordered list for <code>Top 3 things cats hate:</code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="ss">/Top 3 things cats hate:/i</span>.<span class="at">test</span>(<span class="at">$</span>(<span class="st">&#39;ol&#39;</span>).<span class="at">prev</span>().<span class="at">text</span>()))<span class="op">;</span></a></code></pre></div>
+<p>You should have an unordered list for <code>Things cats love:</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="ss">/Things cats love:/i</span>.<span class="at">test</span>(<span class="at">$</span>(<span class="st">&#39;ul&#39;</span>).<span class="at">prev</span>().<span class="at">text</span>()))<span class="op">;</span></a></code></pre></div>
+<p>You should have only one <code>ul</code> element.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">$</span>(<span class="st">&#39;ul&#39;</span>).<span class="at">length</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>You should have only one <code>ol</code> element.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">$</span>(<span class="st">&#39;ol&#39;</span>).<span class="at">length</span><span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></a></code></pre></div>
+<p>You should have three <code>li</code> elements within your <code>ul</code> element.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">$</span>(<span class="st">&#39;ul li&#39;</span>).<span class="at">length</span><span class="op">,</span> <span class="dv">3</span>)<span class="op">;</span></a></code></pre></div>
+<p>You should have three <code>li</code> elements within your <code>ol</code> element.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">$</span>(<span class="st">&#39;ol li&#39;</span>).<span class="at">length</span><span class="op">,</span> <span class="dv">3</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>ul</code> element should have a closing tag.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb8-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">ul&gt;/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">ul&gt;/g</span>).<span class="at">length</span> <span class="op">===</span> <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;ul&gt;/g</span>).<span class="at">length</span></a>
+<a class="sourceLine" id="cb8-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>ol</code> element should have a closing tag.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb9-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">ol&gt;/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb9-3" title="3">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">ol&gt;/g</span>).<span class="at">length</span> <span class="op">===</span> <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;ol&gt;/g</span>).<span class="at">length</span></a>
+<a class="sourceLine" id="cb9-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>li</code> element should have a closing tag.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb10-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb10-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">li&gt;/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb10-3" title="3">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;li&gt;/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb10-4" title="4">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">li&gt;/g</span>).<span class="at">length</span> <span class="op">===</span> <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;li&gt;/g</span>).<span class="at">length</span></a>
+<a class="sourceLine" id="cb10-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>li</code> elements in your unordered list should not be empty.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb11-1" title="1"><span class="at">$</span>(<span class="st">&#39;ul li&#39;</span>).<span class="at">each</span>((i<span class="op">,</span> val) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb11-2" title="2">  <span class="at">assert</span>(<span class="va">__helpers</span>.<span class="at">removeWhiteSpace</span>(<span class="va">val</span>.<span class="at">textContent</span>))</a>
+<a class="sourceLine" id="cb11-3" title="3">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>li</code> elements in your ordered list should not be empty.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb12-1" title="1"><span class="at">$</span>(<span class="st">&#39;ol li&#39;</span>).<span class="at">each</span>((i<span class="op">,</span> val) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb12-2" title="2">  <span class="at">assert</span>(<span class="op">!!</span><span class="va">__helpers</span>.<span class="at">removeWhiteSpace</span>(<span class="va">val</span>.<span class="at">textContent</span>))</a>
+<a class="sourceLine" id="cb12-3" title="3">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb13-3" title="3">  <span class="kw">&lt;p&gt;</span>Click here to view more <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>cat photos<span class="kw">&lt;/a&gt;</span>.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb13-4" title="4"></a>
+<a class="sourceLine" id="cb13-5" title="5">  <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-relaxing-cat&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A cute orange cat lying on its back.&quot;</span><span class="kw">&gt;&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb13-6" title="6"></a>
+<a class="sourceLine" id="cb13-7" title="7">  <span class="kw">&lt;p&gt;</span>Things cats love:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb13-8" title="8">  <span class="kw">&lt;ul&gt;</span></a>
+<a class="sourceLine" id="cb13-9" title="9">    <span class="kw">&lt;li&gt;</span>cat nip<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb13-10" title="10">    <span class="kw">&lt;li&gt;</span>laser pointers<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb13-11" title="11">    <span class="kw">&lt;li&gt;</span>lasagna<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb13-12" title="12">  <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb13-13" title="13">  <span class="kw">&lt;p&gt;</span>Top 3 things cats hate:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb13-14" title="14"></a>
+<a class="sourceLine" id="cb13-15" title="15"><span class="kw">&lt;/main&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb14"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb14-3" title="3">  <span class="kw">&lt;p&gt;</span>Click here to view more <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>cat photos<span class="kw">&lt;/a&gt;</span>.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb14-4" title="4"></a>
+<a class="sourceLine" id="cb14-5" title="5">  <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-relaxing-cat&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A cute orange cat lying on its back.&quot;</span><span class="kw">&gt;&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb14-6" title="6"></a>
+<a class="sourceLine" id="cb14-7" title="7">  <span class="kw">&lt;p&gt;</span>Things cats love:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb14-8" title="8">  <span class="kw">&lt;ul&gt;</span></a>
+<a class="sourceLine" id="cb14-9" title="9">    <span class="kw">&lt;li&gt;</span>cat nip<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb14-10" title="10">    <span class="kw">&lt;li&gt;</span>laser pointers<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb14-11" title="11">    <span class="kw">&lt;li&gt;</span>lasagna<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb14-12" title="12">  <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb14-13" title="13">  <span class="kw">&lt;p&gt;</span>Top 3 things cats hate:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb14-14" title="14">  <span class="kw">&lt;ol&gt;</span></a>
+<a class="sourceLine" id="cb14-15" title="15">    <span class="kw">&lt;li&gt;</span>hate 1<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb14-16" title="16">    <span class="kw">&lt;li&gt;</span>hate 2<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb14-17" title="17">    <span class="kw">&lt;li&gt;</span>hate 3<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb14-18" title="18">  <span class="kw">&lt;/ol&gt;</span></a>
+<a class="sourceLine" id="cb14-19" title="19"><span class="kw">&lt;/main&gt;</span></a></code></pre></div>

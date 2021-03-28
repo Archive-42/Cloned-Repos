@@ -1,0 +1,42 @@
+.main-nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 5px;
+}
+
+.left-nav > ul,
+.right-nav > ul {
+  display: flex;
+  align-items: normal;
+}
+
+.left-nav > ul > li {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+  padding: 10px;
+}
+
+.right-nav > ul > li {
+  padding: 10px;
+}
+
+.right-nav > ul > li:last-of-type {
+
+}
+
+.left-nav > ul > li:hover,
+.right-nav > ul > li:last-of-type:hover {
+  background-color: #f7f7f5;
+
+}
+
+.left-nav span {
+  margin: 20px;
+}
+
+
+.right-nav i {
+  font-size: 20px;
+  margin: 3px;
+}

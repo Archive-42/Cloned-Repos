@@ -1,0 +1,27 @@
+/*!
+ * Copyright (C) 2020 DS Co., dba dsco - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential.
+ */
+
+@import "vars";
+
+input {
+  display: block;
+  box-sizing: border-box;
+
+  border: 2px solid $darkBorder;
+  font-size: 20px;
+  padding: $smallPadding $largePadding;
+  border-radius: 10px;
+  outline: none;
+  background: white;
+  color: $darkText;
+  width: 100%;
+  transition: border-color .3s ease;
+
+  &:focus {
+    box-shadow: 0 0 3px $mainColor;
+    border-color: $mainColor;
+  }
+}

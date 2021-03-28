@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "year": "12/16",
+        "title": "BA in Music",
+        "content": "Getting my Bachelors in Music gave me the self-discipline, creativity, and introspection needed to be an outstanding problem-solver."
+    },
+    {
+        "id": 2,
+        "year": "02/20",
+        "title": "AppAcademy",
+        "content": "AppAcademy is an rigorous 24-week course that taught me the technologies I would need to help me land my first Software Development job."
+    },
+    {
+        "id": 3,
+        "year": "08/20",
+        "title": "Instructor (IA)",
+        "content": "After completing AppAcademy, I was asked to join the team! I helped students by answering questions, lecturing, and debugging code, all while diving deeper into the technologies AppAcademy teaches."
+    },
+    {
+        "id": 4,
+        "year": "2021",
+        "title": "Next Step",
+        "content": "I am currently looking for Software Developer positions I can add to my journey!"
+    }
+]

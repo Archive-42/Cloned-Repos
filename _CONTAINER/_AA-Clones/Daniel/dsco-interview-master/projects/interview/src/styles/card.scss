@@ -1,0 +1,25 @@
+/*!
+ * Copyright (C) 2020 DS Co., dba dsco - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential.
+ */
+
+@import "vars";
+
+.card {
+  margin: $largePadding;
+  padding: $largePadding;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.44);
+}
+
+
+.card-title {
+  font-weight: 300;
+  font-size: 20px;
+  padding: $largePadding;
+  margin: -$largePadding;
+  margin-bottom: $largePadding;
+
+  border-bottom: 1px solid $lightBorder;
+}

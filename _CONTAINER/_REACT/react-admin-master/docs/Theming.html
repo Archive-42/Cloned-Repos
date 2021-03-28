@@ -1,0 +1,905 @@
+<h1 id="theming">Theming</h1>
+<p>Whether you need to adjust a CSS rule for a single component, or change the color of the labels in the entire app, you’re covered!</p>
+<h2 id="overriding-a-component-style">Overriding A Component Style</h2>
+<p>Every react-admin component provides a <code>className</code> property, which is always applied to the root element.</p>
+<p>Here is an example customizing an <code>EditButton</code> component inside a <code>Datagrid</code>, using its <code>className</code> property and the <code>makeStyles</code> hook from Material-UI:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { NumberField, List, Datagrid, TextField, EditButton } from &#39;react-admin&#39;;
+import { makeStyles } from &#39;@material-ui/core/styles&#39;;
+
+const useStyles = makeStyles({
+    button: {
+        fontWeight: &#39;bold&#39;,
+        // This is JSS syntax to target a deeper element using css selector, here the svg icon for this button
+        &#39;&amp; svg&#39;: { color: &#39;orange&#39; }
+    },
+});
+
+const MyEditButton = props =&gt; {
+    const classes = useStyles();
+    return &lt;EditButton className={classes.button} {...props} /&gt;;
+};
+
+export const ProductList = (props) =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid&gt;
+            &lt;TextField source=&quot;sku&quot; /&gt;
+            &lt;TextField source=&quot;price&quot; /&gt;
+            &lt;MyEditButton /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p>For some components, you may want to override not only the root component style, but also the style of components inside the root. In this case, the <code>className</code> property isn’t enough. You can take advantage of the <code>classes</code> property to customize the classes that the component uses internally.</p>
+<p>Here is an example using the <code>classes</code> property of the <code>Filter</code> and <code>List</code> components:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import {
+    BooleanField,
+    Datagrid,
+    DateField,
+    DateInput,
+    EditButton,
+    Filter,
+    List,
+    NullableBooleanInput,
+    NumberField,
+    TextInput,
+} from &#39;react-admin&#39;;
+import Icon from &#39;@material-ui/icons/Person&#39;;
+import { makeStyles } from &#39;@material-ui/core/styles&#39;;
+
+export const VisitorIcon = Icon;
+
+// The Filter component supports the `form` and `button` CSS classes. Here we override the `form` class
+const useFilterStyles = makeStyles({
+    form: {
+        backgroundColor: &#39;Lavender&#39;,
+    },
+});
+
+const VisitorFilter = props =&gt; {
+    const classes = useFilterStyles();
+    return (
+        &lt;Filter classes={classes} {...props}&gt;
+            &lt;TextInput
+                className={classes.searchInput}
+                label=&quot;pos.search&quot;
+                source=&quot;q&quot;
+                alwaysOn
+            /&gt;
+            &lt;DateInput source=&quot;last_seen_gte&quot; /&gt;
+            &lt;NullableBooleanInput source=&quot;has_ordered&quot; /&gt;
+            &lt;NullableBooleanInput source=&quot;has_newsletter&quot; defaultValue /&gt;
+        &lt;/Filter&gt;
+    );
+};
+
+// The `List` component supports the `root`, `header`, `actions` and `noResults` CSS classes. Here we override the `header` and `actions` classes
+const useListStyles = makeStyles({
+    actions: {
+        backgroundColor: &#39;Lavender&#39;,
+    },
+    header: {
+        backgroundColor: &#39;Lavender&#39;,
+    },
+});
+
+export const VisitorList = props =&gt; {
+    const classes = useListStyles();
+    return (
+        &lt;List
+            classes={classes}
+            {...props}
+            filters={&lt;VisitorFilter /&gt;}
+            sort={{ field: &#39;last_seen&#39;, order: &#39;DESC&#39; }}
+            perPage={25}
+        &gt;
+            &lt;Datagrid classes={classes} {...props}&gt;
+                &lt;DateField source=&quot;last_seen&quot; type=&quot;date&quot; /&gt;
+                &lt;NumberField
+                    source=&quot;nb_commands&quot;
+                    label=&quot;resources.customers.fields.commands&quot;
+                /&gt;
+                &lt;NumberField
+                    source=&quot;total_spent&quot;
+                    options={{ style: &#39;currency&#39;, currency: &#39;USD&#39; }}
+                /&gt;
+                &lt;DateField source=&quot;latest_purchase&quot; showTime /&gt;
+                &lt;BooleanField source=&quot;has_newsletter&quot; label=&quot;News.&quot; /&gt;
+                &lt;EditButton /&gt;
+            &lt;/Datagrid&gt;
+        &lt;/List&gt;
+    )
+};</code></pre>
+<p>{% endraw %}</p>
+<p>This example results in:</p>
+<figure>
+<img src="./img/list_with_customized_css.png" alt="Visitor List with customized CSS classes" /><figcaption>Visitor List with customized CSS classes</figcaption>
+</figure>
+<p>Take a look at a component documentation and source code to know which classes are available for styling. For instance, you can have a look at the <a href="./List.md#the-datagrid-component">Datagrid CSS documentation</a>.</p>
+<p>If you need more control over the HTML code, you can also create your own <a href="./Fields.md#writing-your-own-field-component">Field</a> and <a href="./Inputs.md#writing-your-own-input-component">Input</a> components.</p>
+<h2 id="conditional-formatting">Conditional Formatting</h2>
+<p>Sometimes you want the format to depend on the value. The following example shows how to create a new custom <code>NumberField</code> component which highlight its text in red when its value is 100 or higher.</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { NumberField, List, Datagrid, TextField, EditButton } from &#39;react-admin&#39;;
+import { makeStyles } from &#39;@material-ui/core/styles&#39;;
+import classnames from &#39;classnames&#39;;
+
+const useStyles = makeStyles({
+    small: { color: &#39;black&#39; },
+    big: { color: &#39;red&#39; },
+});
+
+const ColoredNumberField = props =&gt; {
+    const classes = useStyles();
+    return (
+        &lt;NumberField
+            className={classnames({
+                [classes.small]: props.record[props.source] &lt; 100,
+                [classes.big]: props.record[props.source] &gt;= 100,
+            })}
+            {...props}
+        /&gt;
+    );
+};
+
+// Ensure the original component defaultProps are still applied as they may be used by its parents (such as the `Show` component):
+ColoredNumberField.defaultProps = NumberField.defaultProps;
+
+export const PostList = props =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid&gt;
+            &lt;TextField source=&quot;id&quot; /&gt;
+            ...
+            &lt;ColoredNumberField source=&quot;nb_views&quot; /&gt;
+            &lt;EditButton /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p>Furthermore, you may extract this highlighting strategy into a Higher Order Component if you’d like to reuse it for other components as well:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { NumberField, List, Datagrid, TextField, EditButton } from &#39;react-admin&#39;;
+import { makeStyles } from &#39;@material-ui/core/styles&#39;;
+import classnames from &#39;classnames&#39;;
+
+const useStyles = makeStyles({
+    small: { color: &#39;black&#39; },
+    big: { color: &#39;red&#39; },
+});
+
+const colored = WrappedComponent =&gt; props =&gt; {
+    const classes = useStyles();
+    return (
+        &lt;WrappedComponent
+            className={classnames({
+                [classes.small]: props.record[props.source] &lt; 500,
+                [classes.big]: props.record[props.source] &gt;= 500,
+            })}
+            {...props}
+        /&gt;
+    )
+};
+
+
+const ColoredNumberField = colored(NumberField);
+// Ensure the original component defaultProps are still applied as they may be used by its parents (such as the `Show` component):
+ColoredNumberField.defaultProps = NumberField.defaultProps;
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid&gt;
+            &lt;TextField source=&quot;id&quot; /&gt;
+            ...
+            &lt;ColoredNumberField source=&quot;nb_views&quot; /&gt;
+            &lt;EditButton /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p>If you want to read more about higher-order components, check out this SitePoint tutorial: <a href="https://www.sitepoint.com/react-higher-order-components/">Higher Order Components: A React Application Design Pattern</a></p>
+<h2 id="usemediaquery-hook"><code>useMediaQuery</code> Hook</h2>
+<p>To provide an optimized experience on mobile, tablet, and desktop devices, you often need to display different components depending on the screen size. Material-ui provides a hook dedicated to help such responsive layouts: <a href="https://material-ui.com/components/use-media-query/#usemediaquery">useMediaQuery</a>.</p>
+<p>It expects a function receiving the material-ui theme as a parameter, and returning a media query. Use the theme breakpoints to check for common screen sizes. The hook returns a boolean indicating if the current screen matches the media query or not.</p>
+<pre class="jsx"><code>const isXSmall = useMediaQuery(theme =&gt; theme.breakpoints.down(&#39;xs&#39;));
+const isSmall = useMediaQuery(theme =&gt; theme.breakpoints.down(&#39;sm&#39;));
+const isDesktop = useMediaQuery(theme =&gt; theme.breakpoints.up(&#39;md&#39;));</code></pre>
+<p>You can also pass a custom media query as a screen.</p>
+<pre class="jsx"><code>const isSmall = useMediaQuery(&#39;(min-width:600px)&#39;);</code></pre>
+<p>Here is an example for a responsive list of posts, displaying a <code>SimpleList</code> on mobile, and a <code>Datagrid</code> otherwise:</p>
+<pre class="jsx"><code>// in src/posts.js
+import * as React from &#39;react&#39;;
+import { useMediaQuery } from &#39;@material-ui/core&#39;;
+import { List, SimpleList, Datagrid, TextField, ReferenceField, EditButton } from &#39;react-admin&#39;;
+
+export const PostList = (props) =&gt; {
+    const isSmall = useMediaQuery(theme =&gt; theme.breakpoints.down(&#39;sm&#39;));
+    return (
+        &lt;List {...props}&gt;
+            {isSmall ? (
+                &lt;SimpleList
+                    primaryText={record =&gt; record.title}
+                    secondaryText={record =&gt; `${record.views} views`}
+                    tertiaryText={record =&gt; new Date(record.published_at).toLocaleDateString()}
+                /&gt;
+            ) : (
+                &lt;Datagrid&gt;
+                    &lt;TextField source=&quot;id&quot; /&gt;
+                    &lt;ReferenceField label=&quot;User&quot; source=&quot;userId&quot; reference=&quot;users&quot;&gt;
+                        &lt;TextField source=&quot;name&quot; /&gt;
+                    &lt;/ReferenceField&gt;
+                    &lt;TextField source=&quot;title&quot; /&gt;
+                    &lt;TextField source=&quot;body&quot; /&gt;
+                    &lt;EditButton /&gt;
+                &lt;/Datagrid&gt;
+            )}
+        &lt;/List&gt;
+    );
+};</code></pre>
+<p><strong>Tip</strong>: Previous versions of react-admin shipped a <code>&lt;Responsive&gt;</code> component to do media queries. This component is now deprecated. Use <code>useMediaQuery</code> instead.</p>
+<h2 id="using-a-predefined-theme">Using a Predefined Theme</h2>
+<p>Material UI also supports <a href="https://material-ui.com/customization/themes">complete theming</a> out of the box. Material UI ships two base themes: light and dark. React-admin uses the light one by default. To use the dark one, pass it to the <code>&lt;Admin&gt;</code> component, in the <code>theme</code> prop (along with <code>createMuiTheme()</code>).</p>
+<pre class="jsx"><code>import { createMuiTheme } from &#39;@material-ui/core/styles&#39;;
+
+const theme = createMuiTheme({
+  palette: {
+    type: &#39;dark&#39;, // Switching the dark mode on is a single property value change.
+  },
+});
+
+const App = () =&gt; (
+    &lt;Admin theme={theme} dataProvider={simpleRestProvider(&#39;http://path.to.my.api&#39;)}&gt;
+        // ...
+    &lt;/Admin&gt;
+);</code></pre>
+<figure>
+<img src="./img/dark-theme.png" alt="Dark theme" /><figcaption>Dark theme</figcaption>
+</figure>
+<h2 id="writing-a-custom-theme">Writing a Custom Theme</h2>
+<p>If you need more fine-tuning, you’ll need to write your own <code>theme</code> object, following <a href="https://material-ui.com/customization/themes/">Material UI themes documentation</a>.</p>
+<p>For instance, here is how to override the default react-admin theme:</p>
+<pre class="jsx"><code>import { defaultTheme } from &#39;react-admin&#39;;
+import merge from &#39;lodash/merge&#39;;
+import indigo from &#39;@material-ui/core/colors/indigo&#39;;
+import pink from &#39;@material-ui/core/colors/pink&#39;;
+import red from &#39;@material-ui/core/colors/red&#39;;
+
+const myTheme = merge({}, defaultTheme, {
+    palette: {
+        primary: indigo,
+        secondary: pink,
+        error: red,
+        contrastThreshold: 3,
+        tonalOffset: 0.2,
+    },
+    typography: {
+        // Use the system font instead of the default Roboto font.
+        fontFamily: [&#39;-apple-system&#39;, &#39;BlinkMacSystemFont&#39;, &#39;&quot;Segoe UI&quot;&#39;, &#39;Arial&#39;, &#39;sans-serif&#39;].join(&#39;,&#39;),
+    },
+    overrides: {
+        MuiButton: { // override the styles of all instances of this component
+            root: { // Name of the rule
+                color: &#39;white&#39;, // Some CSS
+            },
+        },
+    },
+});</code></pre>
+<p>A <code>theme</code> object can contain the following keys:</p>
+<ul>
+<li><code>breakpoints</code></li>
+<li><code>direction</code></li>
+<li><code>mixins</code></li>
+<li><code>overrides</code></li>
+<li><code>palette</code></li>
+<li><code>props</code></li>
+<li><code>shadows</code></li>
+<li><code>spacing</code></li>
+<li><code>transitions</code></li>
+<li><code>typography</code></li>
+<li><code>zIndex</code></li>
+</ul>
+<p><strong>Tip</strong>: Check <a href="https://material-ui.com/customization/default-theme/">Material UI default theme documentation</a> to see the default values and meaning for these keys.</p>
+<p>Once your theme is defined, pass it to the <code>&lt;Admin&gt;</code> component, in the <code>theme</code> prop.</p>
+<pre class="jsx"><code>const App = () =&gt; (
+    &lt;Admin theme={myTheme} dataProvider={simpleRestProvider(&#39;http://path.to.my.api&#39;)}&gt;
+        // ...
+    &lt;/Admin&gt;
+);</code></pre>
+<h2 id="using-a-custom-layout">Using a Custom Layout</h2>
+<p>Instead of the default layout, you can use your own component as the admin layout. Just use the <code>layout</code> prop of the <code>&lt;Admin&gt;</code> component:</p>
+<pre class="jsx"><code>// in src/App.js
+import MyLayout from &#39;./MyLayout&#39;;
+
+const App = () =&gt; (
+    &lt;Admin layout={MyLayout} dataProvider={simpleRestProvider(&#39;http://path.to.my.api&#39;)}&gt;
+        // ...
+    &lt;/Admin&gt;
+);</code></pre>
+<p>Your custom layout can extend the default <code>&lt;Layout&gt;</code> component if you only want to override the sidebar, the appBar, the menu, the notification component or the error page. For instance:</p>
+<pre class="jsx"><code>// in src/MyLayout.js
+import { Layout } from &#39;react-admin&#39;;
+import MyAppBar from &#39;./MyAppBar&#39;;
+import MySidebar from &#39;./MySidebar&#39;;
+import MyMenu from &#39;./MyMenu&#39;;
+import MyNotification from &#39;./MyNotification&#39;;
+
+const MyLayout = props =&gt; &lt;Layout
+    {...props}
+    appBar={MyAppBar}
+    sidebar={MySidebar}
+    menu={MyMenu}
+    notification={MyNotification}
+/&gt;;
+
+export default MyLayout;</code></pre>
+<h3 id="usermenu-customization">UserMenu Customization</h3>
+<p>You can replace the default user menu by your own by setting the <code>userMenu</code> prop of the <code>&lt;AppBar&gt;</code> component. For instance, to add custom menu items, just decorate the default <code>&lt;UserMenu&gt;</code> by adding children to it:</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { AppBar, UserMenu, MenuItemLink } from &#39;react-admin&#39;;
+import SettingsIcon from &#39;@material-ui/icons/Settings&#39;;
+
+const ConfigurationMenu = forwardRef(({ onClick }, ref) =&gt; (
+    &lt;MenuItemLink
+        ref={ref}
+        to=&quot;/configuration&quot;
+        primaryText=&quot;Configuration&quot;
+        leftIcon={&lt;SettingsIcon /&gt;}
+        onClick={onClick} // close the menu on click
+    /&gt;
+));
+
+const MyUserMenu = props =&gt; (
+    &lt;UserMenu {...props}&gt;
+        &lt;ConfigurationMenu /&gt;
+    &lt;/UserMenu&gt;
+);
+
+const MyAppBar = props =&gt; &lt;AppBar {...props} userMenu={&lt;MyUserMenu /&gt;} /&gt;;
+
+const MyLayout = props =&gt; &lt;Layout {...props} appBar={MyAppBar} /&gt;;</code></pre>
+<p>You can also remove the <code>&lt;UserMenu&gt;</code> from the <code>&lt;AppBar&gt;</code> by passing <code>false</code> to the <code>userMenu</code> prop:</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { AppBar } from &#39;react-admin&#39;;
+
+const MyAppBar = props =&gt; &lt;AppBar {...props} userMenu={false} /&gt;;
+
+const MyLayout = props =&gt; &lt;Layout {...props} appBar={MyAppBar} /&gt;;</code></pre>
+<p>You can also customize the default icon by setting the <code>icon</code> prop to the <code>&lt;UserMenu /&gt;</code> component.</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import { AppBar, UserMenu } from &#39;react-admin&#39;;
+import { makeStyles } from &#39;@material-ui/core/styles&#39;;
+import Avatar from &#39;@material-ui/core/Avatar&#39;;
+
+const useStyles = makeStyles({
+    avatar: {
+        height: 30,
+        width: 30,
+    },
+});
+
+const MyCustomIcon = () =&gt; {
+    const classes = useStyles();
+    return (
+        &lt;Avatar
+            className={classes.avatar}
+            src=&quot;https://marmelab.com/images/avatars/adrien.jpg&quot;
+        /&gt;
+    )
+};
+
+const MyUserMenu = props =&gt; (&lt;UserMenu {...props} icon={&lt;MyCustomIcon /&gt;} /&gt;);
+
+const MyAppBar = props =&gt; &lt;AppBar {...props} userMenu={&lt;MyUserMenu /&gt;} /&gt;;</code></pre>
+<p>{% endraw %}</p>
+<h3 id="sidebar-customization">Sidebar Customization</h3>
+<p>You can specify the <code>Sidebar</code> width by setting the <code>width</code> and <code>closedWidth</code> property on your custom material-ui theme:</p>
+<pre class="jsx"><code>import { defaultTheme } from &quot;react-admin&quot;;
+import { createMuiTheme } from &#39;@material-ui/core/styles&#39;;
+
+const theme = createMuiTheme({
+    ...defaultTheme,
+    sidebar: {
+        width: 300, // The default value is 240
+        closedWidth: 70, // The default value is 55
+    },
+});
+
+const App = () =&gt; (
+    &lt;Admin theme={theme} dataProvider={simpleRestProvider(&#39;http://path.to.my.api&#39;)}&gt;
+        // ...
+    &lt;/Admin&gt;
+);</code></pre>
+<p>For more advanced sidebar theming, pass your own <code>Sidebar</code> component to a custom <code>Layout</code>:</p>
+<pre class="jsx"><code>import { Sidebar, Layout } from &#39;react-admin&#39;;
+import { makeStyles } from &#39;@material-ui/core/styles&#39;;
+
+const useSidebarStyles = makeStyles({
+    drawerPaper: {
+        backgroundColor: &#39;red&#39;,
+    },
+});
+
+const MySidebar = props =&gt; {
+    const classes = useSidebarStyles();
+    return (
+        &lt;Sidebar classes={classes} {...props} /&gt;
+    );
+};
+
+const MyLayout = props =&gt; &lt;Layout {...props} sidebar={MySidebar} /&gt;</code></pre>
+<h3 id="layout-from-scratch">Layout From Scratch</h3>
+<p>For more custom layouts, write a component from scratch. It must contain a <code>{children}</code> placeholder, where react-admin will render the resources. Use the <a href="https://github.com/marmelab/react-admin/blob/master/packages/ra-ui-materialui/src/layout/Layout.tsx">default layout</a> as a starting point. Here is a simplified version (with no responsive support):</p>
+<pre class="jsx"><code>// in src/MyLayout.js
+import * as React from &#39;react&#39;;
+import { useEffect } from &#39;react&#39;;
+import PropTypes from &#39;prop-types&#39;;
+import { useSelector, useDispatch } from &#39;react-redux&#39;;
+import { makeStyles } from &#39;@material-ui/core/styles&#39;;
+import { ThemeProvider } from &#39;@material-ui/styles&#39;;
+import {
+    AppBar,
+    Menu,
+    Notification,
+    Sidebar,
+    setSidebarVisibility,
+    ComponentPropType,
+} from &#39;react-admin&#39;;
+
+const useStyles = makeStyles(theme =&gt; ({
+    root: {
+        display: &#39;flex&#39;,
+        flexDirection: &#39;column&#39;,
+        zIndex: 1,
+        minHeight: &#39;100vh&#39;,
+        backgroundColor: theme.palette.background.default,
+        position: &#39;relative&#39;,
+    },
+    appFrame: {
+        display: &#39;flex&#39;,
+        flexDirection: &#39;column&#39;,
+        overflowX: &#39;auto&#39;,
+    },
+    contentWithSidebar: {
+        display: &#39;flex&#39;,
+        flexGrow: 1,
+    },
+    content: {
+        display: &#39;flex&#39;,
+        flexDirection: &#39;column&#39;,
+        flexGrow: 2,
+        padding: theme.spacing(3),
+        marginTop: &#39;4em&#39;,
+        paddingLeft: 5,
+    },
+}));
+
+const MyLayout = ({
+    children,
+    dashboard,
+    logout,
+    title,
+}) =&gt; {
+    const classes = useStyles();
+    const dispatch = useDispatch();
+    const open = useSelector(state =&gt; state.admin.ui.sidebarOpen);
+
+    useEffect(() =&gt; {
+        dispatch(setSidebarVisibility(true));
+    }, [setSidebarVisibility]);
+
+    return (
+        &lt;div className={classes.root}&gt;
+            &lt;div className={classes.appFrame}&gt;
+                &lt;AppBar title={title} open={open} logout={logout} /&gt;
+                &lt;main className={classes.contentWithSidebar}&gt;
+                    &lt;Sidebar&gt;
+                        &lt;Menu logout={logout} hasDashboard={!!dashboard} /&gt;
+                    &lt;/Sidebar&gt;
+                    &lt;div className={classes.content}&gt;
+                        {children}
+                    &lt;/div&gt;
+                &lt;/main&gt;
+                &lt;Notification /&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+};
+
+MyLayout.propTypes = {
+    children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+    dashboard: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.string,
+    ]),
+    logout: ComponentPropType,
+    title: PropTypes.string.isRequired,
+};
+
+export default MyLayout;</code></pre>
+<p><strong>Tip</strong>: Don’t forget to render a <code>&lt;Notification&gt;</code> component in your custom layout, otherwise the undoable updates will never be sent to the server. That’s because part of the “undo” logic of react-admin lies in the <code>&lt;Notification&gt;</code> component.</p>
+<h2 id="adding-a-breadcrumb">Adding a Breadcrumb</h2>
+<p>The <code>&lt;Breadcrumb&gt;</code> component is part of <code>ra-navigation</code>, an <a href="https://marmelab.com/ra-enterprise">Enterprise Edition</a><img class="icon" src="./img/premium.svg" /> module. It displays a breadcrumb based on a site structure that you can override at will.</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import {
+    AppLocationContext,
+    Breadcrumb,
+    ResourceBreadcrumbItems,
+} from &#39;@react-admin/ra-navigation&#39;;
+import { Admin, Resource, Layout } from &#39;react-admin&#39;;
+
+import PostList from &#39;./PostList&#39;;
+import PostEdit from &#39;./PostEdit&#39;;
+import PostShow from &#39;./PostShow&#39;;
+import PostCreate from &#39;./PostCreate&#39;;
+
+const MyLayout = ({ children, ...props }) =&gt; (
+    &lt;AppLocationContext&gt;
+        &lt;Layout {...props}&gt;
+            &lt;Breadcrumb {...props}&gt;
+                &lt;ResourceBreadcrumbItems /&gt;
+            &lt;/Breadcrumb&gt;
+            {children}
+        &lt;/Layout&gt;
+    &lt;/AppLocationContext&gt;
+);
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={dataProvider} layout={MyLayout}&gt;
+        &lt;Resource
+            name=&quot;posts&quot;
+            list={PostList}
+            edit={PostEdit}
+            show={PostShow}
+            create={PostCreate}
+        /&gt;
+    &lt;/Admin&gt;
+);</code></pre>
+<p>Check <a href="https://marmelab.com/ra-enterprise/modules/ra-navigation">the <code>ra-navigation</code> documentation</a> for more details.</p>
+<h2 id="customizing-the-appbar-content">Customizing the AppBar Content</h2>
+<p>By default, the react-admin <code>&lt;AppBar&gt;</code> component displays the page title. You can override this default by passing children to <code>&lt;AppBar&gt;</code> - they will replace the default title. And if you still want to include the page title, make sure you include an element with id <code>react-admin-title</code> in the top bar (this uses <a href="https://reactjs.org/docs/portals.html">React Portals</a>).</p>
+<p>Here is an example customization for <code>&lt;AppBar&gt;</code> to include a company logo in the center of the page header:</p>
+<pre class="jsx"><code>// in src/MyAppBar.js
+import * as React from &#39;react&#39;;
+import { AppBar } from &#39;react-admin&#39;;
+import Typography from &#39;@material-ui/core/Typography&#39;;
+import { makeStyles } from &#39;@material-ui/core/styles&#39;;
+
+import Logo from &#39;./Logo&#39;;
+
+const useStyles = makeStyles({
+    title: {
+        flex: 1,
+        textOverflow: &#39;ellipsis&#39;,
+        whiteSpace: &#39;nowrap&#39;,
+        overflow: &#39;hidden&#39;,
+    },
+    spacer: {
+        flex: 1,
+    },
+});
+
+const MyAppBar = props =&gt; {
+    const classes = useStyles();
+    return (
+        &lt;AppBar {...props}&gt;
+            &lt;Typography
+                variant=&quot;h6&quot;
+                color=&quot;inherit&quot;
+                className={classes.title}
+                id=&quot;react-admin-title&quot;
+            /&gt;
+            &lt;Logo /&gt;
+            &lt;span className={classes.spacer} /&gt;
+        &lt;/AppBar&gt;
+    );
+};
+
+export default MyAppBar;</code></pre>
+<p>To use this custom <code>MyAppBar</code> component, pass it as prop to a custom <code>Layout</code>, as shown below:</p>
+<pre class="jsx"><code>// in src/MyLayout.js
+import * as React from &#39;react&#39;;
+import { Layout } from &#39;react-admin&#39;;
+import MyAppBar from &#39;./MyAppBar&#39;;
+
+const MyLayout = (props) =&gt; &lt;Layout {...props} appBar={MyAppBar} /&gt;;
+
+export default MyLayout;</code></pre>
+<p>Then, use this layout in the <code>&lt;Admin&gt;</code> with the <code>layout</code> prop:</p>
+<pre class="jsx"><code>// in src/App.js
+import MyLayout from &#39;./MyLayout&#39;;
+
+const App = () =&gt; (
+    &lt;Admin layout={MyLayout} dataProvider={simpleRestProvider(&#39;http://path.to.my.api&#39;)}&gt;
+        // ...
+    &lt;/Admin&gt;
+);</code></pre>
+<figure>
+<img src="./img/custom_appbar.png" alt="custom AppBar" /><figcaption>custom AppBar</figcaption>
+</figure>
+<p><strong>Tip</strong>: You can change the color of the <code>&lt;AppBar&gt;</code> by setting the <code>color</code> prop to <code>default</code>, <code>inherit</code>, <code>primary</code>, <code>secondary</code> or <code>transparent</code>. The default value is <code>secondary</code>.</p>
+<h2 id="replacing-the-appbar">Replacing The AppBar</h2>
+<p>For more drastic changes of the top component, you will probably want to create an <code>&lt;AppBar&gt;</code> from scratch instead of just passing children to react-admin’s <code>&lt;AppBar&gt;</code>.</p>
+<p>By default, React-admin uses <a href="https://material-ui.com/api/app-bar/">Material-ui’s <code>&lt;AppBar&gt;</code> component</a> together with <a href="https://github.com/KyleAMathews/react-headroom">react-headroom</a> to hide the <code>AppBar</code> on scroll. Here is an example top bar rebuilt from scratch to remove the “headroom” effect:</p>
+<pre class="jsx"><code>// in src/MyAppBar.js
+import * as React from &#39;react&#39;;
+import AppBar from &#39;@material-ui/core/AppBar&#39;;
+import Toolbar from &#39;@material-ui/core/Toolbar&#39;;
+import Typography from &#39;@material-ui/core/Typography&#39;;
+
+const MyAppBar = props =&gt; (
+    &lt;AppBar {...props}&gt;
+        &lt;Toolbar&gt;
+            &lt;Typography variant=&quot;h6&quot; id=&quot;react-admin-title&quot; /&gt;
+        &lt;/Toolbar&gt;
+    &lt;/AppBar&gt;
+);
+
+export default MyAppBar;</code></pre>
+<p>Take note that this uses <em>material-ui’s <code>&lt;AppBar&gt;</code></em> instead of <em>react-admin’s <code>&lt;AppBar&gt;</code></em>. To use this custom <code>AppBar</code> component, pass it as prop to a custom <code>Layout</code>, as explained in the previous section.</p>
+<h2 id="adding-dark-mode-support">Adding Dark Mode Support</h2>
+<p>The <code>&lt;ToggleThemeButton&gt;</code> component is part of <code>ra-preferences</code>, an <a href="https://marmelab.com/ra-enterprise">Enterprise Edition</a><img class="icon" src="./img/premium.svg" /> module. It lets users switch from light to dark mode, and persists that choice in local storage so that users only have to do it once.</p>
+<figure>
+<img src="https://marmelab.com/ra-enterprise/modules/assets/ra-preferences-overview.gif" alt="Dark Mode support" /><figcaption>Dark Mode support</figcaption>
+</figure>
+<p>You can add the <code>&lt;ToggleThemeButton&gt;</code> to a custom App Bar:</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { Layout, AppBar } from &#39;react-admin&#39;;
+import { Box, Typography } from &#39;@material-ui/core&#39;;
+import { ToggleThemeButton } from &#39;@react-admin/ra-preferences&#39;;
+
+const MyAppBar = props =&gt; (
+    &lt;AppBar {...props}&gt;
+        &lt;Box flex=&quot;1&quot;&gt;
+            &lt;Typography variant=&quot;h6&quot; id=&quot;react-admin-title&quot;&gt;&lt;/Typography&gt;
+        &lt;/Box&gt;
+        &lt;ToggleThemeButton /&gt;
+    &lt;/AppBar&gt;
+);
+
+const MyLayout = props =&gt; &lt;Layout {...props} appBar={MyAppBar} /&gt;;</code></pre>
+<p>Check <a href="https://marmelab.com/ra-enterprise/modules/ra-preferences#togglethemebutton-store-the-theme-in-the-preferences">the <code>ra-preferences</code> documentation</a> for more details.</p>
+<h2 id="using-a-custom-menu">Using a Custom Menu</h2>
+<p>By default, React-admin uses the list of <code>&lt;Resource&gt;</code> components passed as children of <code>&lt;Admin&gt;</code> to build a menu to each resource with a <code>list</code> component.</p>
+<p>If you want to add or remove menu items, for instance to link to non-resources pages, you can create your own menu component:</p>
+<pre class="jsx"><code>// in src/Menu.js
+import * as React from &#39;react&#39;;
+import { createElement } from &#39;react&#39;;
+import { useSelector } from &#39;react-redux&#39;;
+import { useMediaQuery } from &#39;@material-ui/core&#39;;
+import { DashboardMenuItem, MenuItemLink, getResources } from &#39;react-admin&#39;;
+import DefaultIcon from &#39;@material-ui/icons/ViewList&#39;;
+import LabelIcon from &#39;@material-ui/icons/Label&#39;;
+
+const Menu = ({ onMenuClick, logout }) =&gt; {
+    const isXSmall = useMediaQuery(theme =&gt; theme.breakpoints.down(&#39;xs&#39;));
+    const open = useSelector(state =&gt; state.admin.ui.sidebarOpen);
+    const resources = useSelector(getResources);
+    return (
+        &lt;div&gt;
+            &lt;DashboardMenuItem onClick={onMenuClick} sidebarIsOpen={open} /&gt;
+            {resources.map(resource =&gt; (
+                &lt;MenuItemLink
+                    key={resource.name}
+                    to={`/${resource.name}`}
+                    primaryText={
+                        (resource.options &amp;&amp; resource.options.label) ||
+                        resource.name
+                    }
+                    leftIcon={
+                        resource.icon ? &lt;resource.icon /&gt; : &lt;DefaultIcon /&gt;
+                    }
+                    onClick={onMenuClick}
+                    sidebarIsOpen={open}
+                /&gt;
+            ))}
+            &lt;MenuItemLink
+                to=&quot;/custom-route&quot;
+                primaryText=&quot;Miscellaneous&quot;
+                leftIcon={&lt;LabelIcon /&gt;}
+                onClick={onMenuClick}
+                sidebarIsOpen={open}
+            /&gt;
+            {isXSmall &amp;&amp; logout}
+        &lt;/div&gt;
+    );
+};
+
+export default Menu;</code></pre>
+<p><strong>Tip</strong>: Note the <code>MenuItemLink</code> component. It must be used to avoid unwanted side effects in mobile views.</p>
+<p><strong>Tip</strong>: Note that we include the <code>logout</code> item only on small devices. Indeed, the <code>logout</code> button is already displayed in the AppBar on larger devices.</p>
+<p><strong>Tip</strong>: The <code>primaryText</code> prop accepts a React node. You can pass a custom element in it. For example:</p>
+<pre class="jsx"><code>    import Badge from &#39;@material-ui/core/Badge&#39;;
+
+    &lt;MenuItemLink to=&quot;/custom-route&quot; primaryText={
+        &lt;Badge badgeContent={4} color=&quot;primary&quot;&gt;
+            Notifications
+        &lt;/Badge&gt;
+    } onClick={onMenuClick} /&gt;</code></pre>
+<p>To use this custom menu component, pass it to a custom Layout, as explained above:</p>
+<pre class="jsx"><code>// in src/MyLayout.js
+import { Layout } from &#39;react-admin&#39;;
+import MyMenu from &#39;./MyMenu&#39;;
+
+const MyLayout = (props) =&gt; &lt;Layout {...props} menu={MyMenu} /&gt;;
+
+export default MyLayout;</code></pre>
+<p>Then, use this layout in the <code>&lt;Admin&gt;</code> <code>layout</code> prop:</p>
+<pre class="jsx"><code>// in src/App.js
+import MyLayout from &#39;./MyLayout&#39;;
+
+const App = () =&gt; (
+    &lt;Admin layout={MyLayout} dataProvider={simpleRestProvider(&#39;http://path.to.my.api&#39;)}&gt;
+        // ...
+    &lt;/Admin&gt;
+);</code></pre>
+<p><strong>Tip</strong>: If you use authentication, don’t forget to render the <code>logout</code> prop in your custom menu component. Also, the <code>onMenuClick</code> function passed as prop is used to close the sidebar on mobile.</p>
+<p>The <code>MenuItemLink</code> component make use of the React Router <a href="https://reacttraining.com/react-router/web/api/NavLink">NavLink</a> component, hence allowing to customize its style when it targets the current page.</p>
+<p><strong>Tip</strong>: If you need a multi-level menu, or a Mega Menu opening panels with custom content, check out <a href="https://marmelab.com/ra-enterprise/modules/ra-navigation">the <code>ra-navigation</code><img class="icon" src="./img/premium.svg" /> module</a> (part of the <a href="https://marmelab.com/ra-enterprise">Enterprise Edition</a>)</p>
+<figure>
+<img src="https://marmelab.com/ra-enterprise/modules/assets/ra-multilevelmenu-item.gif" alt="multi-level menu" /><figcaption>multi-level menu</figcaption>
+</figure>
+<figure>
+<img src="https://marmelab.com/ra-enterprise/modules/assets/ra-multilevelmenu-categories.gif" alt="MegaMenu and Breadcrumb" /><figcaption>MegaMenu and Breadcrumb</figcaption>
+</figure>
+<h2 id="using-a-custom-login-page">Using a Custom Login Page</h2>
+<h3 id="changing-the-background-image">Changing the Background Image</h3>
+<p>By default, the login page displays a gradient background. If you want to change the background, you can use the default Login page component and pass an image URL as the <code>backgroundImage</code> prop.</p>
+<pre class="jsx"><code>import { Admin, Login } from &#39;react-admin&#39;;
+
+const MyLoginPage = () =&gt; (
+    &lt;Login
+        // A random image that changes everyday
+        backgroundImage=&quot;https://source.unsplash.com/random/1600x900/daily&quot;
+    /&gt;
+);
+
+const App = () =&gt; (
+    &lt;Admin loginPage={MyLoginPage}&gt;
+        // ...
+    &lt;/Admin&gt;
+);</code></pre>
+<h2 id="using-a-custom-logout-button">Using a Custom Logout Button</h2>
+<h3 id="changing-the-icon">Changing the Icon</h3>
+<p>It is possible to use a completely <a href="./Admin.md#logoutbutton">custom logout button</a> or you can simply override some properties of the default button. If you want to change the icon, you can use the default <code>&lt;Logout&gt;</code> component and pass a different icon as the <code>icon</code> prop.</p>
+<pre class="jsx"><code>import { Admin, Logout } from &#39;react-admin&#39;;
+import ExitToAppIcon from &#39;@material-ui/icons/ExitToApp&#39;;
+
+const MyLogoutButton = props =&gt; &lt;Logout {...props} icon={&lt;ExitToAppIcon/&gt;} /&gt;;
+
+const App = () =&gt; (
+    &lt;Admin logoutButton={MyLogoutButton}&gt;
+        // ...
+    &lt;/Admin&gt;
+);</code></pre>
+<h2 id="notifications">Notifications</h2>
+<p>You can override the notification component, for instance to change the notification duration. It defaults to 4000, i.e. 4 seconds, and you can override it using the <code>autoHideDuration</code> prop. For instance, to create a custom Notification component with a 5 seconds default:</p>
+<pre class="jsx"><code>// in src/MyNotification.js
+import { Notification } from &#39;react-admin&#39;;
+
+const MyNotification = props =&gt; &lt;Notification {...props} autoHideDuration={5000} /&gt;;
+
+export default MyNotification;</code></pre>
+<p><strong>Tip</strong>: if you use the <code>showNotification</code> action, then you can define <code>autoHideDuration</code> per message as the third parameter of the <code>showNotification</code> action creator.</p>
+<p>To use this custom notification component, pass it to a custom Layout, as explained above:</p>
+<pre class="jsx"><code>// in src/MyLayout.js
+import { Layout } from &#39;react-admin&#39;;
+import MyNotification from &#39;./MyNotification&#39;;
+
+const MyLayout = (props) =&gt; &lt;Layout {...props} notification={MyNotification} /&gt;;
+
+export default MyLayout;</code></pre>
+<p>Then, use this layout in the <code>&lt;Admin&gt;</code> <code>layout</code> prop:</p>
+<pre class="jsx"><code>// in src/App.js
+import MyLayout from &#39;./MyLayout&#39;;
+
+const App = () =&gt; (
+    &lt;Admin layout={MyLayout} dataProvider={simpleRestProvider(&#39;http://path.to.my.api&#39;)}&gt;
+        // ...
+    &lt;/Admin&gt;
+);</code></pre>
+<h2 id="customizing-the-error-page">Customizing The Error Page</h2>
+<p>Whenever a client-side error happens in react-admin, the user sees a default error message. If you want to customize this page, or log the error to a third-party service, create your own <code>&lt;Error&gt;</code> component. The following snippet is a simplified version of the react-admin Error component, that you can use as a base for your own:</p>
+<pre class="jsx"><code>// in src/MyError.js
+import * as React from &#39;react&#39;;
+import Button from &#39;@material-ui/core/Button&#39;;
+import ErrorIcon from &#39;@material-ui/icons/Report&#39;;
+import History from &#39;@material-ui/icons/History&#39;;
+import { Title, useTranslate } from &#39;react-admin&#39;;
+
+const MyError = ({
+    error,
+    errorInfo,
+    ...rest
+}) =&gt; {
+    const translate = useTranslate();
+    return (
+        &lt;div&gt;
+            &lt;Title title=&quot;Error&quot; /&gt;
+            &lt;h1&gt;&lt;ErrorIcon /&gt; Something Went Wrong &lt;/h1&gt;
+            &lt;div&gt;A client error occurred and your request couldn&#39;t be completed.&lt;/div&gt;
+            {process.env.NODE_ENV !== &#39;production&#39; &amp;&amp; (
+                &lt;details&gt;
+                    &lt;h2&gt;{translate(error.toString())}&lt;/h2&gt;
+                    {errorInfo.componentStack}
+                &lt;/details&gt;
+            )}
+            &lt;div&gt;
+                &lt;Button
+                    variant=&quot;contained&quot;
+                    icon={&lt;History /&gt;}
+                    onClick={() =&gt; history.go(-1)}
+                &gt;
+                    Back
+                &lt;/Button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+};
+
+export default MyError;</code></pre>
+<p>To use this custom error component, pass it to a custom Layout, as explained above:</p>
+<pre class="jsx"><code>// in src/MyLayout.js
+import { Layout } from &#39;react-admin&#39;;
+import MyError from &#39;./MyError&#39;;
+
+const MyLayout = (props) =&gt; &lt;Layout {...props} error={MyError} /&gt;;
+
+export default MyLayout;</code></pre>
+<p>Then, use this layout in the <code>&lt;Admin&gt;</code> <code>layout</code> prop:</p>
+<pre class="jsx"><code>// in src/App.js
+import MyLayout from &#39;./MyLayout&#39;;
+
+const App = () =&gt; (
+    &lt;Admin layout={MyLayout} dataProvider={simpleRestProvider(&#39;http://path.to.my.api&#39;)}&gt;
+        // ...
+    &lt;/Admin&gt;
+);</code></pre>
+<h2 id="loading">Loading</h2>
+<p>Display a circular progress component with optional messages. Display the same loading component as <code>react-admin</code> on custom pages for consistency.</p>
+<p>Supported props:</p>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 8%" />
+<col style="width: 9%" />
+<col style="width: 20%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Prop</th>
+<th>Required</th>
+<th>Type</th>
+<th>Default</th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>loadingPrimary</code></td>
+<td>Optional</td>
+<td><code>string</code></td>
+<td><code>ra.page.loading</code></td>
+<td>Label to use for primary loading message</td>
+</tr>
+<tr class="even">
+<td><code>loadingSecondary</code></td>
+<td>Optional</td>
+<td><code>string</code></td>
+<td><code>ra.message.loading</code></td>
+<td>Label to use for secondary loading message</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<pre class="jsx"><code>&lt;Loading loadingPrimary=&quot;app.page.loading&quot; loadingSecondary=&quot;app.message.loading&quot; /&gt;</code></pre>
+<h2 id="linearprogress">LinearProgress</h2>
+<p>Display a linear progress component. Display the same loading component as <code>react-admin</code> on custom inputs for consistency.</p>
+<p>Usage:</p>
+<pre class="jsx"><code>({ data, ...props }) =&gt; !data ?
+        &lt;LinearProgress /&gt; :
+        &lt;MyInput data={data} /&gt;;</code></pre>

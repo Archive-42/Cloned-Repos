@@ -1,0 +1,37 @@
+/*!
+ * Copyright (C) 2020 DS Co., dba dsco - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential.
+ */
+
+$lightText: #EEE;
+$darkText: #4E4E4E;
+
+$mainColor: #49A59C;
+$textOnMain: $lightText;
+
+$background: #ced4da;
+$foreground: $darkText;
+$accentPurple: #AA78A6;
+$accentGreen: #3C896D;
+
+
+$lightBorder: #e8e8e8;
+$darkBorder: #a8a8a8;
+
+$mobileWidth: 600px;
+$smallPadding: 10px;
+$largePadding: 20px;
+
+
+@mixin mobile-only {
+  @media (max-width: $mobileWidth) {
+    @content;
+  }
+}
+
+@mixin desktop-only {
+  @media (min-width: $mobileWidth + 1) {
+    @content;
+  }
+}

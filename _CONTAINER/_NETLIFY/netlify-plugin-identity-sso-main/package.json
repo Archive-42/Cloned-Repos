@@ -1,0 +1,52 @@
+{
+  "name": "netlify-plugin-identity-sso",
+  "version": "0.0.1",
+  "description": "Netlify Build plugin - Protect a site with SSO via identity",
+  "main": "src/index.js",
+  "files": [
+    "src",
+    "static",
+    "manifest.yml",
+    "!*~"
+  ],
+  "keywords": [
+    "netlify-plugin",
+    "netlify"
+  ],
+  "author": "Marcus Weiner <marcus@netlify.com>",
+  "license": "MIT",
+  "repository": "mraerino/build-plugin-identity-sso",
+  "directories": {
+    "lib": "src",
+    "test": "test"
+  },
+  "engines": {
+    "node": ">=11.14.0"
+  },
+  "scripts": {
+    "build": "netlify-build",
+    "test": "npm run lint && npm run ava",
+    "lint": "npm run eslint && npm run prettier",
+    "eslint": "eslint --ignore-path .gitignore --fix --cache --format=codeframe --max-warnings=0 \"{src,init}/**/*.js\"",
+    "prettier": "prettier --ignore-path .gitignore --write --loglevel warn \"{.github,src,init}/**/*.{js,md,yml,json}\" \"*.{js,md,yml,json}\"",
+    "ava": "cross-env FORCE_COLOR=1 ava --verbose",
+    "release": "release-it"
+  },
+  "dependencies": {
+    "@iarna/toml": "^2.2.5"
+  },
+  "devDependencies": {
+    "@netlify/build": "^4.7.2",
+    "ava": "^3.13.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "execa": "^4.0.3",
+    "netlify-cli": "^2.65.0",
+    "prettier": "^2.1.2",
+    "release-it": "^14.0.3"
+  }
+}

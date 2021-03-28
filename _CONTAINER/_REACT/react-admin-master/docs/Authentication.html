@@ -1,0 +1,948 @@
+<h1 id="auth-providers">Auth Providers</h1>
+<figure>
+<img src="./img/login.gif" alt="Login" /><figcaption>Login</figcaption>
+</figure>
+<p>React-admin lets you secure your admin app with the authentication strategy of your choice. Since there are many possible strategies (Basic Auth, JWT, OAuth, etc.), react-admin delegates authentication logic to an <code>authProvider</code>.</p>
+<h2 id="enabling-auth-features">Enabling Auth Features</h2>
+<p>By default, react-admin apps don’t require authentication. To restrict access to the admin, pass an <code>authProvider</code> to the <code>&lt;Admin&gt;</code> component.</p>
+<pre class="jsx"><code>// in src/App.js
+import authProvider from &#39;./authProvider&#39;;
+
+const App = () =&gt; (
+    &lt;Admin authProvider={authProvider}&gt;
+        ...
+    &lt;/Admin&gt;
+);</code></pre>
+<p>React-admin delegates the <a href="#authentication">Authentication</a> and <a href="#authorization">Authorization</a> logic to an object that you must write, the <code>authProvider</code>.</p>
+<ul>
+<li>“Authentication” logic allows to restrict an app to identified users only, and reject anonymous users</li>
+<li>“Authorization” logic allows to tweak the features based on user permissions</li>
+</ul>
+<h2 id="anatomy-of-an-authprovider">Anatomy Of An <code>authProvider</code></h2>
+<p>What’s an <code>authProvider</code>? Just like a <code>dataProvider</code>, an <code>authProvider</code> is an object that handles authentication and authorization logic. It exposes methods that react-admin calls when needed, and that you can call manually through specialized <a href="#hooks">hooks</a>. The <code>authProvider</code> methods must return a Promise. The simplest <code>authProvider</code> is:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">const</span> authProvider <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-2" title="2">    <span class="co">// authentication</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="dt">login</span><span class="op">:</span> params <span class="kw">=&gt;</span> <span class="va">Promise</span>.<span class="at">resolve</span>()<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="dt">checkError</span><span class="op">:</span> error <span class="kw">=&gt;</span> <span class="va">Promise</span>.<span class="at">resolve</span>()<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-5" title="5">    <span class="dt">checkAuth</span><span class="op">:</span> params <span class="kw">=&gt;</span> <span class="va">Promise</span>.<span class="at">resolve</span>()<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-6" title="6">    <span class="dt">logout</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="va">Promise</span>.<span class="at">resolve</span>()<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-7" title="7">    <span class="dt">getIdentity</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="va">Promise</span>.<span class="at">resolve</span>()<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-8" title="8">    <span class="co">// authorization</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    <span class="dt">getPermissions</span><span class="op">:</span> params <span class="kw">=&gt;</span> <span class="va">Promise</span>.<span class="at">resolve</span>()<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="op">};</span></a></code></pre></div>
+<p>You can get more details about input params, response and error formats in the <a href="#building-your-own-auth-provider">Building Your Own Auth Provider section</a> below.</p>
+<p><strong>Tip</strong>: In react-admin version 2.0, the <code>authProvider</code> used to be a function instead of an object. React-admin 3.0 accepts both object and (legacy) function authProviders.</p>
+<h2 id="available-providers">Available Providers</h2>
+<p>It’s very common that your auth logic is so specific that so you’ll need to write your own <code>authProvider</code>. However, the community has built a few open-source Auth Providers that may fit your need:</p>
+<ul>
+<li><strong><a href="https://docs.amplify.aws">AWS Amplify</a></strong>: <a href="https://github.com/MrHertal/react-admin-amplify">MrHertal/react-admin-amplify</a></li>
+<li><strong><a href="https://docs.aws.amazon.com/cognito/latest/developerguide/setting-up-the-javascript-sdk.html">AWS Cognito</a></strong>: <a href="https://github.com/thedistance/ra-cognito">thedistance/ra-cognito</a></li>
+<li><strong><a href="https://firebase.google.com/docs/auth/web/firebaseui">Firebase Auth (Google, Facebook, Github etc)</a></strong>: <a href="https://github.com/benwinding/react-admin-firebase#auth-provider">benwinding/react-admin-firebase</a></li>
+</ul>
+<p>If you have released a reusable <code>authProvider</code> for a standard auth backend, please open a PR to add it to this list!</p>
+<h2 id="authentication">Authentication</h2>
+<p>Let’s see when react-admin calls the <code>authProvider</code>, and how customize it depending on your authentication strategy and backend.</p>
+<h3 id="login-configuration">Login Configuration</h3>
+<p>Once an admin has an <code>authProvider</code>, react-admin enables a new page on the <code>/login</code> route, which displays a login form asking for a username and password.</p>
+<figure>
+<img src="./img/login-form.png" alt="Default Login Form" /><figcaption>Default Login Form</figcaption>
+</figure>
+<p>Upon submission, this form calls the <code>authProvider.login({ login, password })</code> method. React-admin expects this method to return a resolved Promise if the credentials are correct, and a rejected Promise if they’re not.</p>
+<p>For instance, to query an authentication route via HTTPS and store the credentials (a token) in local storage, configure the <code>authProvider</code> as follows:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">// in src/authProvider.js</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw">const</span> authProvider <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="dt">login</span><span class="op">:</span> (<span class="op">{</span> username<span class="op">,</span> password <span class="op">}</span>) <span class="kw">=&gt;</span>  <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">        <span class="kw">const</span> request <span class="op">=</span> <span class="kw">new</span> <span class="at">Request</span>(<span class="st">&#39;https://mydomain.com/authenticate&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-5" title="5">            <span class="dt">method</span><span class="op">:</span> <span class="st">&#39;POST&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-6" title="6">            <span class="dt">body</span><span class="op">:</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span> username<span class="op">,</span> password <span class="op">}</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">            <span class="dt">headers</span><span class="op">:</span> <span class="kw">new</span> <span class="at">Headers</span>(<span class="op">{</span> <span class="st">&#39;Content-Type&#39;</span><span class="op">:</span> <span class="st">&#39;application/json&#39;</span> <span class="op">}</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-8" title="8">        <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">        <span class="cf">return</span> <span class="at">fetch</span>(request)</a>
+<a class="sourceLine" id="cb3-10" title="10">            .<span class="at">then</span>(response <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-11" title="11">                <span class="cf">if</span> (<span class="va">response</span>.<span class="at">status</span> <span class="op">&lt;</span> <span class="dv">200</span> <span class="op">||</span> <span class="va">response</span>.<span class="at">status</span> <span class="op">&gt;=</span> <span class="dv">300</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-12" title="12">                    <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">response</span>.<span class="at">statusText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-13" title="13">                <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-14" title="14">                <span class="cf">return</span> <span class="va">response</span>.<span class="at">json</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-15" title="15">            <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb3-16" title="16">            .<span class="at">then</span>(auth <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-17" title="17">                <span class="va">localStorage</span>.<span class="at">setItem</span>(<span class="st">&#39;auth&#39;</span><span class="op">,</span> <span class="va">JSON</span>.<span class="at">stringify</span>(auth))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-18" title="18">            <span class="op">}</span>)</a>
+<a class="sourceLine" id="cb3-19" title="19">            .<span class="at">catch</span>(() <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-20" title="20">                <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&#39;Network error&#39;</span>)</a>
+<a class="sourceLine" id="cb3-21" title="21">            <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-22" title="22">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-23" title="23">    <span class="co">// ...</span></a>
+<a class="sourceLine" id="cb3-24" title="24"><span class="op">};</span></a>
+<a class="sourceLine" id="cb3-25" title="25"></a>
+<a class="sourceLine" id="cb3-26" title="26"><span class="im">export</span> <span class="im">default</span> authProvider<span class="op">;</span></a></code></pre></div>
+<p>Once the promise resolves, the login form redirects to the previous page, or to the admin index if the user just arrived.</p>
+<p><strong>Tip</strong>: It’s a good idea to store credentials in <code>localStorage</code>, as in this example, to avoid reconnection when opening a new browser tab. But this makes your application <a href="https://www.redotheweb.com/2015/11/09/api-security.html">open to XSS attacks</a>, so you’d better double down on security, and add an <code>httpOnly</code> cookie on the server side, too.</p>
+<p>If the login fails, <code>authProvider.login()</code> should return a rejected Promise with an Error object. React-admin displays the Error message to the user in a notification.</p>
+<h3 id="sending-credentials-to-the-api">Sending Credentials To The API</h3>
+<p>Now the user has logged in, you can use their credentials in the <code>dataProvider</code> to communicate with the data API. As explained in the <a href="DataProviders.md#adding-custom-headers">Data providers documentation</a>, <code>simpleRestProvider</code> and <code>jsonServerProvider</code> take an <code>httpClient</code> as second parameter. That’s the place where you can change request headers, cookies, etc.</p>
+<p>For instance, to pass the token obtained during login as an <code>Authorization</code> header, configure the Data Provider as follows:</p>
+<pre class="jsx"><code>import { fetchUtils, Admin, Resource } from &#39;react-admin&#39;;
+import simpleRestProvider from &#39;ra-data-simple-rest&#39;;
+
+const httpClient = (url, options = {}) =&gt; {
+    if (!options.headers) {
+        options.headers = new Headers({ Accept: &#39;application/json&#39; });
+    }
+    const { token } = JSON.parse(localStorage.getItem(&#39;auth&#39;));
+    options.headers.set(&#39;Authorization&#39;, `Bearer ${token}`);
+    return fetchUtils.fetchJson(url, options);
+};
+const dataProvider = simpleRestProvider(&#39;http://localhost:3000&#39;, httpClient);
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={dataProvider} authProvider={authProvider}&gt;
+        ...
+    &lt;/Admin&gt;
+);</code></pre>
+<p>Now the admin is secured: The user can be authenticated and use their credentials to communicate with a secure API.</p>
+<p>If you have a custom REST client, don’t forget to add credentials yourself.</p>
+<h3 id="catching-authentication-errors-on-the-api">Catching Authentication Errors On The API</h3>
+<p>When the user credentials are missing or become invalid, a secure API usually answers to the <code>dataProvider</code> with an HTTP error code 401 or 403.</p>
+<p>Fortunately, each time the <code>dataProvider</code> returns an error, react-admin calls the <code>authProvider.checkError()</code> method. If it returns a rejected promise, react-admin calls the <code>authProvider.logout()</code> method immediately, and asks the user to log in again.</p>
+<p>So it’s up to you to decide which HTTP status codes should let the user continue (by returning a resolved promise) or log them out (by returning a rejected promise).</p>
+<p>For instance, to log the user out for both 401 and 403 codes:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="co">// in src/authProvider.js</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="im">export</span> <span class="im">default</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="dt">login</span><span class="op">:</span> (<span class="op">{</span> username<span class="op">,</span> password <span class="op">}</span>) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="dt">checkError</span><span class="op">:</span> (error) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-5" title="5">        <span class="kw">const</span> status <span class="op">=</span> <span class="va">error</span>.<span class="at">status</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">        <span class="cf">if</span> (status <span class="op">===</span> <span class="dv">401</span> <span class="op">||</span> status <span class="op">===</span> <span class="dv">403</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-7" title="7">            <span class="va">localStorage</span>.<span class="at">removeItem</span>(<span class="st">&#39;auth&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-8" title="8">            <span class="cf">return</span> <span class="va">Promise</span>.<span class="at">reject</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-10" title="10">        <span class="co">// other error code (404, 500, etc): no need to log out</span></a>
+<a class="sourceLine" id="cb5-11" title="11">        <span class="cf">return</span> <span class="va">Promise</span>.<span class="at">resolve</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-12" title="12">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb5-13" title="13">    <span class="co">// ...</span></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="op">};</span></a></code></pre></div>
+<p>When <code>authProvider.checkError()</code> returns a rejected Promise, react-admin redirects to the <code>/login</code> page, or to the <code>error.redirectTo</code> url. That means you can override the default redirection as follows:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="co">// in src/authProvider.js</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="im">export</span> <span class="im">default</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="dt">login</span><span class="op">:</span> (<span class="op">{</span> username<span class="op">,</span> password <span class="op">}</span>) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="dt">checkError</span><span class="op">:</span> (error) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-5" title="5">        <span class="kw">const</span> status <span class="op">=</span> <span class="va">error</span>.<span class="at">status</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">        <span class="cf">if</span> (status <span class="op">===</span> <span class="dv">401</span> <span class="op">||</span> status <span class="op">===</span> <span class="dv">403</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-7" title="7">            <span class="va">localStorage</span>.<span class="at">removeItem</span>(<span class="st">&#39;auth&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-8" title="8">            <span class="cf">return</span> <span class="va">Promise</span>.<span class="at">reject</span>(<span class="op">{</span> <span class="dt">redirectTo</span><span class="op">:</span> <span class="st">&#39;/credentials-required&#39;</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb6-10" title="10">        <span class="co">// other error code (404, 500, etc): no need to log out</span></a>
+<a class="sourceLine" id="cb6-11" title="11">        <span class="cf">return</span> <span class="va">Promise</span>.<span class="at">resolve</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb6-13" title="13">    <span class="co">// ...</span></a>
+<a class="sourceLine" id="cb6-14" title="14"><span class="op">};</span></a></code></pre></div>
+<p>When <code>authProvider.checkError()</code> returns a rejected Promise, react-admin displays a notification to the end user, unless the <code>error.message</code> is <code>false</code>. That means you can disable the notification on error as follows:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="co">// in src/authProvider.js</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="im">export</span> <span class="im">default</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="dt">login</span><span class="op">:</span> (<span class="op">{</span> username<span class="op">,</span> password <span class="op">}</span>) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb7-4" title="4">    <span class="dt">checkError</span><span class="op">:</span> (error) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-5" title="5">        <span class="kw">const</span> status <span class="op">=</span> <span class="va">error</span>.<span class="at">status</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">        <span class="cf">if</span> (status <span class="op">===</span> <span class="dv">401</span> <span class="op">||</span> status <span class="op">===</span> <span class="dv">403</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-7" title="7">            <span class="va">localStorage</span>.<span class="at">removeItem</span>(<span class="st">&#39;auth&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-8" title="8">            <span class="cf">return</span> <span class="va">Promise</span>.<span class="at">reject</span>(<span class="op">{</span> <span class="dt">message</span><span class="op">:</span> <span class="kw">false</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-9" title="9">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-10" title="10">        <span class="co">// other error code (404, 500, etc): no need to log out</span></a>
+<a class="sourceLine" id="cb7-11" title="11">        <span class="cf">return</span> <span class="va">Promise</span>.<span class="at">resolve</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-12" title="12">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb7-13" title="13">    <span class="co">// ...</span></a>
+<a class="sourceLine" id="cb7-14" title="14"><span class="op">};</span></a></code></pre></div>
+<h3 id="checking-credentials-during-navigation">Checking Credentials During Navigation</h3>
+<p>Redirecting to the login page whenever a REST response uses a 401 status code is usually not enough. React-admin keeps data on the client side, and could briefly display stale data while contacting the server - even after the credentials are no longer valid.</p>
+<p>Fortunately, each time the user navigates to a list, edit, create or show page, react-admin calls the <code>authProvider.checkAuth()</code> method. If this method returns a rejected Promise, react-admin calls <code>authProvider.logout()</code> and redirects the user to the login page. So it’s the ideal place to make sure the credentials are still valid.</p>
+<p>For instance, to check for the existence of the authentication data in local storage:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb8-1" title="1"><span class="co">// in src/authProvider.js</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="im">export</span> <span class="im">default</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb8-3" title="3">    <span class="dt">login</span><span class="op">:</span> (<span class="op">{</span> username<span class="op">,</span> password <span class="op">}</span>) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb8-4" title="4">    <span class="dt">checkError</span><span class="op">:</span> (error) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb8-5" title="5">    <span class="dt">checkAuth</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="va">localStorage</span>.<span class="at">getItem</span>(<span class="st">&#39;auth&#39;</span>)</a>
+<a class="sourceLine" id="cb8-6" title="6">        <span class="op">?</span> <span class="va">Promise</span>.<span class="at">resolve</span>()</a>
+<a class="sourceLine" id="cb8-7" title="7">        : <span class="va">Promise</span>.<span class="at">reject</span>()<span class="op">,</span></a>
+<a class="sourceLine" id="cb8-8" title="8">    <span class="co">// ...</span></a>
+<a class="sourceLine" id="cb8-9" title="9"><span class="op">};</span></a></code></pre></div>
+<p>If the promise is rejected, react-admin redirects by default to the <code>/login</code> page. You can override where to redirect the user in <code>checkAuth()</code>, by rejecting an object with a <code>redirectTo</code> property:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb9-1" title="1"><span class="co">// in src/authProvider.js</span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="im">export</span> <span class="im">default</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb9-3" title="3">    <span class="dt">login</span><span class="op">:</span> (<span class="op">{</span> username<span class="op">,</span> password <span class="op">}</span>) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb9-4" title="4">    <span class="dt">checkError</span><span class="op">:</span> (error) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb9-5" title="5">    <span class="dt">checkAuth</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="va">localStorage</span>.<span class="at">getItem</span>(<span class="st">&#39;auth&#39;</span>)</a>
+<a class="sourceLine" id="cb9-6" title="6">        <span class="op">?</span> <span class="va">Promise</span>.<span class="at">resolve</span>()</a>
+<a class="sourceLine" id="cb9-7" title="7">        : <span class="va">Promise</span>.<span class="at">reject</span>(<span class="op">{</span> <span class="dt">redirectTo</span><span class="op">:</span> <span class="st">&#39;/no-access&#39;</span> <span class="op">}</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb9-8" title="8">    <span class="co">// ...</span></a>
+<a class="sourceLine" id="cb9-9" title="9"><span class="op">}</span></a></code></pre></div>
+<p><strong>Tip</strong>: If both <code>authProvider.checkAuth()</code> and <code>authProvider.logout()</code> return a redirect URL, the one from <code>authProvider.checkAuth()</code> takes precedence.</p>
+<p>If the promise is rejected, react-admin displays a notification to the end user. You can customize this message by rejecting an error with a <code>message</code> property:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb10-1" title="1"><span class="co">// in src/authProvider.js</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="im">export</span> <span class="im">default</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb10-3" title="3">    <span class="dt">login</span><span class="op">:</span> (<span class="op">{</span> username<span class="op">,</span> password <span class="op">}</span>) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb10-4" title="4">    <span class="dt">checkError</span><span class="op">:</span> (error) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb10-5" title="5">    <span class="dt">checkAuth</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="va">localStorage</span>.<span class="at">getItem</span>(<span class="st">&#39;auth&#39;</span>)</a>
+<a class="sourceLine" id="cb10-6" title="6">        <span class="op">?</span> <span class="va">Promise</span>.<span class="at">resolve</span>()</a>
+<a class="sourceLine" id="cb10-7" title="7">        : <span class="va">Promise</span>.<span class="at">reject</span>(<span class="op">{</span> <span class="dt">message</span><span class="op">:</span> <span class="st">&#39;login.required&#39;</span> <span class="op">}</span>)<span class="op">,</span> <span class="co">// react-admin passes the error message to the translation layer</span></a>
+<a class="sourceLine" id="cb10-8" title="8">    <span class="co">// ...</span></a>
+<a class="sourceLine" id="cb10-9" title="9"><span class="op">}</span></a></code></pre></div>
+<p>You can also disable this notification completely by rejecting an error with a <code>message</code> with a <code>false</code> value:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb11-1" title="1"><span class="co">// in src/authProvider.js</span></a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="im">export</span> <span class="im">default</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb11-3" title="3">    <span class="dt">login</span><span class="op">:</span> (<span class="op">{</span> username<span class="op">,</span> password <span class="op">}</span>) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb11-4" title="4">    <span class="dt">checkError</span><span class="op">:</span> (error) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb11-5" title="5">    <span class="dt">checkAuth</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="va">localStorage</span>.<span class="at">getItem</span>(<span class="st">&#39;auth&#39;</span>)</a>
+<a class="sourceLine" id="cb11-6" title="6">        <span class="op">?</span> <span class="va">Promise</span>.<span class="at">resolve</span>()</a>
+<a class="sourceLine" id="cb11-7" title="7">        : <span class="va">Promise</span>.<span class="at">reject</span>(<span class="op">{</span> <span class="dt">message</span><span class="op">:</span> <span class="kw">false</span> <span class="op">}</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb11-8" title="8">    <span class="co">// ...</span></a>
+<a class="sourceLine" id="cb11-9" title="9"><span class="op">}</span></a></code></pre></div>
+<h3 id="logout-configuration">Logout Configuration</h3>
+<p>If you enable authentication, react-admin adds a logout button in the user menu in the top bar (or in the sliding menu on mobile). When the user clicks on the logout button, this calls the <code>authProvider.logout()</code> method, and removes potentially sensitive data from the Redux store. Then the user gets redirected to the login page. The two previous sections also illustrated that react-admin can call <code>authProvider.logout()</code> itself, when the API returns a 403 error or when the local credentials expire.</p>
+<p>It’s the responsibility of the <code>authProvider.logout()</code> method to clean up the current authentication data. For instance, if the authentication was a token stored in local storage, here is the code to remove it:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb12-1" title="1"><span class="co">// in src/authProvider.js</span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="im">export</span> <span class="im">default</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb12-3" title="3">    <span class="dt">login</span><span class="op">:</span> (<span class="op">{</span> username<span class="op">,</span> password <span class="op">}</span>) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb12-4" title="4">    <span class="dt">checkError</span><span class="op">:</span> (error) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb12-5" title="5">    <span class="dt">checkAuth</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb12-6" title="6">    <span class="dt">logout</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb12-7" title="7">        <span class="va">localStorage</span>.<span class="at">removeItem</span>(<span class="st">&#39;auth&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb12-8" title="8">        <span class="cf">return</span> <span class="va">Promise</span>.<span class="at">resolve</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb12-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb12-10" title="10">    <span class="co">// ...</span></a>
+<a class="sourceLine" id="cb12-11" title="11"><span class="op">};</span></a></code></pre></div>
+<figure>
+<img src="./img/logout.gif" alt="Logout button" /><figcaption>Logout button</figcaption>
+</figure>
+<p>The <code>authProvider.logout()</code> method is also a good place to notify the authentication backend that the user credentials are no longer valid after logout.</p>
+<p>After logout, react-admin redirects the user to the string returned by <code>authProvider.logout()</code> - or to the <code>/login</code> url if the method returns nothing. You can customize the redirection url by returning a route string, or <code>false</code> to disable redirection after logout.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb13-1" title="1"><span class="co">// in src/authProvider.js</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="im">export</span> <span class="im">default</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb13-3" title="3">    <span class="dt">login</span><span class="op">:</span> (<span class="op">{</span> username<span class="op">,</span> password <span class="op">}</span>) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb13-4" title="4">    <span class="dt">checkError</span><span class="op">:</span> (error) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb13-5" title="5">    <span class="dt">checkAuth</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb13-6" title="6">    <span class="dt">logout</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb13-7" title="7">        <span class="va">localStorage</span>.<span class="at">removeItem</span>(<span class="st">&#39;auth&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb13-8" title="8">        <span class="cf">return</span> <span class="va">Promise</span>.<span class="at">resolve</span>(<span class="st">&#39;/my-custom-login&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb13-9" title="9">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb13-10" title="10">    <span class="co">// ...</span></a>
+<a class="sourceLine" id="cb13-11" title="11"><span class="op">};</span></a></code></pre></div>
+<h3 id="user-identity">User Identity</h3>
+<p>React-admin can display the current user name and avatar on the top right side of the screen. To enable this feature, implement the <code>authProvider.getIdentity()</code> method:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb14-1" title="1"><span class="co">// in src/authProvider.js</span></a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="kw">const</span> authProvider <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb14-3" title="3">    <span class="dt">login</span><span class="op">:</span> (<span class="op">{</span> username<span class="op">,</span> password <span class="op">}</span>) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb14-4" title="4">    <span class="dt">checkError</span><span class="op">:</span> (error) <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb14-5" title="5">    <span class="dt">checkAuth</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb14-6" title="6">    <span class="dt">logout</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="op">{</span> <span class="co">/* ... */</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb14-7" title="7">    <span class="dt">getIdentity</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb14-8" title="8">        <span class="cf">try</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb14-9" title="9">            <span class="kw">const</span> <span class="op">{</span> id<span class="op">,</span> fullName<span class="op">,</span> avatar <span class="op">}</span> <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(<span class="va">localStorage</span>.<span class="at">getItem</span>(<span class="st">&#39;auth&#39;</span>))<span class="op">;</span></a>
+<a class="sourceLine" id="cb14-10" title="10">            <span class="cf">return</span> <span class="va">Promise</span>.<span class="at">resolve</span>(<span class="op">{</span> id<span class="op">,</span> fullName<span class="op">,</span> avatar <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb14-11" title="11">        <span class="op">}</span> <span class="cf">catch</span> (error) <span class="op">{</span></a>
+<a class="sourceLine" id="cb14-12" title="12">            <span class="cf">return</span> <span class="va">Promise</span>.<span class="at">reject</span>(error)<span class="op">;</span></a>
+<a class="sourceLine" id="cb14-13" title="13">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb14-14" title="14">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb14-15" title="15">    <span class="co">// ...</span></a>
+<a class="sourceLine" id="cb14-16" title="16"><span class="op">};</span></a>
+<a class="sourceLine" id="cb14-17" title="17"></a>
+<a class="sourceLine" id="cb14-18" title="18"><span class="im">export</span> <span class="im">default</span> authProvider<span class="op">;</span></a></code></pre></div>
+<p>React-admin uses the <code>fullName</code> and the <code>avatar</code> (an image source, or a data-uri) in the App Bar:</p>
+<figure>
+<img src="./img/identity.png" alt="User identity" /><figcaption>User identity</figcaption>
+</figure>
+<p><strong>Tip</strong>: You can use the <code>id</code> field to identify the current user in your code, by calling the <code>useGetIdentity</code> hook:</p>
+<pre class="jsx"><code>import { useGetIdentity, useGetOne } from &#39;react-admin&#39;;
+
+const PostDetail = ({ id }) =&gt; {
+    const { data: post, loading: postLoading } = useGetOne(&#39;posts&#39;, id);
+    const { identity, loading: identityLoading } = useGetIdentity();
+    if (postLoading || identityLoading) return &lt;&gt;Loading...&lt;/&gt;;
+    if (!post.lockedBy || post.lockedBy === identity.id) {
+        // post isn&#39;t locked, or is locked by me
+        return &lt;PostEdit post={post} /&gt;
+    } else {
+        // post is locked by someone else and cannot be edited
+        return &lt;PostShow post={post} /&gt;
+    }
+}</code></pre>
+<h2 id="authorization">Authorization</h2>
+<p>Some applications may require fine-grained permissions to enable or disable access to certain features depending on user permissions. Since there are many possible strategies (single role, multiple roles or rights, ACLs, etc.), react-admin delegates the permission logic to <code>autheProvider.getPermissions()</code>.</p>
+<p>By default, a react-admin app doesn’t require any special permission on list, create, edit, and show pages. However, react-admin calls the <code>authProvider.getPermissions()</code> method before navigating to these pages, and passes the result to the main page component (<code>&lt;List&gt;</code>, <code>&lt;Edit&gt;</code>, etc.). You can then tweak the content of these pages based on permissions.</p>
+<p>Additionally, in custom pages, you can call the <code>usePermissions()</code> hook to grab the user permissions.</p>
+<h3 id="user-permissions">User Permissions</h3>
+<p>React-admin calls the <code>authProvider.getPermissions()</code> whenever it needs the user permissions. These permissions can take the shape you want:</p>
+<ul>
+<li>a string (e.g. <code>'admin'</code>),</li>
+<li>an array of roles (e.g. <code>['post_editor', 'comment_moderator', 'super_admin']</code>)</li>
+<li>an object with fine-grained permissions (e.g. <code>{ postList: { read: true, write: false, delete: false } }</code>)</li>
+<li>or even a function</li>
+</ul>
+<p>The format of permissions is free because react-admin never actually uses the permissions itself. It’s up to you to use them in your code to hide or display content, redirect the user to another page, or display warnings.</p>
+<p>Following is an example where the <code>authProvider</code> stores the user’s permissions in <code>localStorage</code> upon authentication, and returns these permissions when called with <code>getPermissions</code>:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>// in src/authProvider.js
+import decodeJwt from &#39;jwt-decode&#39;;
+
+export default {
+    login: ({ username, password }) =&gt; {
+        const request = new Request(&#39;https://mydomain.com/authenticate&#39;, {
+            method: &#39;POST&#39;,
+            body: JSON.stringify({ username, password }),
+            headers: new Headers({ &#39;Content-Type&#39;: &#39;application/json&#39; }),
+        });
+        return fetch(request)
+            .then(response =&gt; {
+                if (response.status &lt; 200 || response.status &gt;= 300) {
+                    throw new Error(response.statusText);
+                }
+                return response.json();
+            })
+            .then(({ token }) =&gt; {
+                const decodedToken = decodeJwt(token);
+                localStorage.setItem(&#39;token&#39;, token);
+                localStorage.setItem(&#39;permissions&#39;, decodedToken.permissions);
+            });
+    },
+    checkError: (error) =&gt; { /* ... */ },
+    checkAuth: () =&gt; {
+        return localStorage.getItem(&#39;token&#39;) ? Promise.resolve() : Promise.reject();
+    },
+    logout: () =&gt; {
+        localStorage.removeItem(&#39;token&#39;);
+        localStorage.removeItem(&#39;permissions&#39;);
+        return Promise.resolve();
+    },
+    getIdentity: () =&gt; { /* ... */ },
+    getPermissions: () =&gt; {
+        const role = localStorage.getItem(&#39;permissions&#39;);
+        return role ? Promise.resolve(role) : Promise.reject();
+    }
+};</code></pre>
+<p>{% endraw %}</p>
+<h3 id="getting-user-permissions-in-crud-pages">Getting User Permissions In CRUD Pages</h3>
+<p>By default, react-admin calls <code>authProvider.getPermissions()</code> for each resource route, and passes the permissions to the <code>list</code>, <code>edit</code>, <code>create</code>, and <code>show</code> view components. So the <code>&lt;List&gt;</code>, <code>&lt;Edit&gt;</code>, <code>&lt;Create&gt;</code> and <code>&lt;Show&gt;</code> components all receive a <code>permissions</code> prop containing what <code>authProvider.getPermissions()</code> returned.</p>
+<p>Here is an example of a <code>Create</code> view with a conditional Input based on permissions:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>export const UserCreate = ({ permissions, ...props }) =&gt;
+    &lt;Create {...props}&gt;
+        &lt;SimpleForm
+            defaultValue={{ role: &#39;user&#39; }}
+        &gt;
+            &lt;TextInput source=&quot;name&quot; validate={[required()]} /&gt;
+            {permissions === &#39;admin&#39; &amp;&amp;
+                &lt;TextInput source=&quot;role&quot; validate={[required()]} /&gt;}
+        &lt;/SimpleForm&gt;
+    &lt;/Create&gt;;</code></pre>
+<p>{% endraw %}</p>
+<h3 id="getting-user-permissions-in-custom-pages">Getting User Permissions In Custom Pages</h3>
+<p>In custom pages, react-admin doesn’t call <code>authProvider.getPermissions()</code>. It’s up to you to call it yourself, using <a href="#usepermissions-hook">the <code>usePermissions()</code> hook</a>:</p>
+<pre class="jsx"><code>// in src/MyPage.js
+import * as React from &quot;react&quot;;
+import Card from &#39;@material-ui/core/Card&#39;;
+import CardContent from &#39;@material-ui/core/CardContent&#39;;
+import { usePermissions } from &#39;react-admin&#39;;
+
+const MyPage = () =&gt; {
+    const { permissions } = usePermissions();
+    return (
+        &lt;Card&gt;
+            &lt;CardContent&gt;Lorem ipsum sic dolor amet...&lt;/CardContent&gt;
+            {permissions === &#39;admin&#39; &amp;&amp;
+                &lt;CardContent&gt;Sensitive data&lt;/CardContent&gt;
+            }
+        &lt;/Card&gt;
+    );
+}</code></pre>
+<h2 id="building-your-own-auth-provider">Building Your Own Auth Provider</h2>
+<p>Here is the interface react-admin expect <code>authProvider</code> objects to implement.</p>
+<p><strong>Tip</strong>: If you’re a TypeScript user, you can check that your <code>authProvider</code> is correct at compile-time using the <code>AuthProvider</code> type:</p>
+<pre class="jsx"><code>import { AuthProvider } from &#39;react-admin&#39;;
+
+const authProvider = {
+    // authentication
+    login: ({ username, password }) =&gt; { /* ... */ },
+    checkError: (error) =&gt; { /* ... */ },
+    checkAuth: () =&gt; { /* ... */ },
+    logout: () =&gt; { /* ... */ },
+    getIdentity: () =&gt; { /* ... */ },
+    // authorization
+    getPermissions: (params) =&gt; { /* ... */ },
+}</code></pre>
+<h3 id="request-format">Request Format</h3>
+<p>React-admin calls the <code>authProvider</code> methods with the following params:</p>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 58%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Usage</th>
+<th>Parameters format</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>login</code></td>
+<td>Log a user in</td>
+<td><code>Object</code> whatever fields the login form contains</td>
+</tr>
+<tr class="even">
+<td><code>checkError</code></td>
+<td>Check if a dataProvider error is an authentication error</td>
+<td><code>{ message: string, status: number, body: Object }</code> the error returned by the <code>dataProvider</code></td>
+</tr>
+<tr class="odd">
+<td><code>checkAuth</code></td>
+<td>Check credentials before moving to a new route</td>
+<td><code>Object</code> whatever params passed to <code>useCheckAuth()</code> - empty for react-admin default routes</td>
+</tr>
+<tr class="even">
+<td><code>logout</code></td>
+<td>Log a user out</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>getIdentity</code></td>
+<td>Get the current user identity</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>getPermissions</code></td>
+<td>Get the current user credentials</td>
+<td><code>Object</code> whatever params passed to <code>usePermissions()</code> - empty for react-admin default routes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="response-format">Response Format</h3>
+<p><code>authProvider</code> methods must return a Promise. In case of success, the Promise should resolve to the following value:</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 51%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Resolve if</th>
+<th>Response format</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>login</code></td>
+<td>Login credentials were accepted</td>
+<td><code>void</code></td>
+</tr>
+<tr class="even">
+<td><code>checkError</code></td>
+<td>Error is not an auth error</td>
+<td><code>void</code></td>
+</tr>
+<tr class="odd">
+<td><code>checkAuth</code></td>
+<td>User is authenticated</td>
+<td><code>void</code></td>
+</tr>
+<tr class="even">
+<td><code>logout</code></td>
+<td>Auth backend acknowledged logout</td>
+<td><code>string | false | void</code> route to redirect to after logout, defaults to <code>/login</code></td>
+</tr>
+<tr class="odd">
+<td><code>getIdentity</code></td>
+<td>Auth backend returned identity</td>
+<td><code>{ id: string | number, fullName?: string, avatar?: string }</code></td>
+</tr>
+<tr class="even">
+<td><code>getPermissions</code></td>
+<td>Auth backend returned permissions</td>
+<td><code>Object | Array</code> free format - the response will be returned when <code>usePermissions()</code> is called</td>
+</tr>
+</tbody>
+</table>
+<h3 id="error-format">Error Format</h3>
+<p>When the auth backend returns an error, the Auth Provider should return a rejected Promise, with the following value:</p>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 56%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Reject if</th>
+<th>Error format</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>login</code></td>
+<td>Login credentials weren’t accepted</td>
+<td><code>string | { message?: string }</code> error message to display</td>
+</tr>
+<tr class="even">
+<td><code>checkError</code></td>
+<td>Error is an auth error</td>
+<td><code>void | { redirectTo?: string, message?: boolean }</code> route to redirect to after logout, and whether to disable error notification</td>
+</tr>
+<tr class="odd">
+<td><code>checkAuth</code></td>
+<td>User is not authenticated</td>
+<td><code>void | { redirectTo?: string, message?: string }</code> route to redirect to after logout, message to notify the user</td>
+</tr>
+<tr class="even">
+<td><code>logout</code></td>
+<td>Auth backend failed to log the user out</td>
+<td><code>void</code></td>
+</tr>
+<tr class="odd">
+<td><code>getIdentity</code></td>
+<td>Auth backend failed to return identity</td>
+<td><code>Object</code> free format - returned as <code>error</code> when <code>useGetIdentity()</code> is called</td>
+</tr>
+<tr class="even">
+<td><code>getPermissions</code></td>
+<td>Auth backend failed to return permissions</td>
+<td><code>Object</code> free format - returned as <code>error</code> when <code>usePermissions()</code> is called</td>
+</tr>
+</tbody>
+</table>
+<h2 id="hooks">Hooks</h2>
+<h3 id="uselogin-hook"><code>useLogin()</code> Hook</h3>
+<p>This hook returns a callback allowing to call <code>authProvider.login()</code>, so it’s used in Login forms.</p>
+<p>For instance, here is how to build a custom Login page based on email rather than login for authentication:</p>
+<pre class="jsx"><code>// in src/MyLoginPage.js
+import * as React from &#39;react&#39;;
+import { useState } from &#39;react&#39;;
+import { useLogin, useNotify, Notification, defaultTheme } from &#39;react-admin&#39;;
+import { ThemeProvider } from &#39;@material-ui/styles&#39;;
+import { createMuiTheme } from &#39;@material-ui/core/styles&#39;;
+
+const MyLoginPage = ({ theme }) =&gt; {
+    const [email, setEmail] = useState(&#39;&#39;);
+    const [password, setPassword] = useState(&#39;&#39;);
+    const login = useLogin();
+    const notify = useNotify();
+    const submit = e =&gt; {
+        e.preventDefault();
+        // will call authProvider.login({ email, password })
+        login({ email, password }).catch(() =&gt;
+            notify(&#39;Invalid email or password&#39;)
+        );
+    };
+
+    return (
+        &lt;ThemeProvider theme={createMuiTheme(defaultTheme)}&gt;
+            &lt;form onSubmit={submit}&gt;
+                &lt;input
+                    name=&quot;email&quot;
+                    type=&quot;email&quot;
+                    value={email}
+                    onChange={e =&gt; setEmail(e.target.value)}
+                /&gt;
+                &lt;input
+                    name=&quot;password&quot;
+                    type=&quot;password&quot;
+                    value={password}
+                    onChange={e =&gt; setPassword(e.target.value)}
+                /&gt;
+            &lt;/form&gt;
+            &lt;Notification /&gt;
+        &lt;/ThemeProvider&gt;
+    );
+};
+
+export default MyLoginPage;</code></pre>
+<p>Then pass the custom Login form to <code>&lt;Admin&gt;</code>, as follows:</p>
+<pre class="jsx"><code>// in src/App.js
+import * as React from &quot;react&quot;;
+import { Admin } from &#39;react-admin&#39;;
+
+import MyLoginPage from &#39;./MyLoginPage&#39;;
+
+const App = () =&gt; (
+    &lt;Admin loginPage={MyLoginPage} authProvider={authProvider}&gt;
+    ...
+    &lt;/Admin&gt;
+);</code></pre>
+<h3 id="useauthenticated-hook"><code>useAuthenticated()</code> Hook</h3>
+<p>If you add <a href="./Actions.md">custom pages</a>, or if you <a href="./CustomApp.md">create an admin app from scratch</a>, you may need to secure access to pages manually. That’s the purpose of the <code>useAuthenticated()</code> hook, which calls the <code>authProvider.checkAuth()</code> method on mount, and redirects to login if it returns a rejected Promise.</p>
+<pre class="jsx"><code>// in src/MyPage.js
+import { useAuthenticated } from &#39;react-admin&#39;;
+
+const MyPage = () =&gt; {
+    useAuthenticated(); // redirects to login if not authenticated
+    return (
+        &lt;div&gt;
+            ...
+        &lt;/div&gt;
+    )
+};
+
+export default MyPage;</code></pre>
+<p>If you call <code>useAuthenticated()</code> with a parameter, this parameter is passed to the <code>authProvider</code> call as second parameter. that allows you to add authentication logic depending on the context of the call:</p>
+<pre class="jsx"><code>const MyPage = () =&gt; {
+    useAuthenticated({ foo: &#39;bar&#39; }); // calls authProvider.checkAuth({ foo: &#39;bar&#39; })
+    return (
+        &lt;div&gt;
+            ...
+        &lt;/div&gt;
+    )
+};</code></pre>
+<p>The <code>useAuthenticated</code> hook is optimistic: it doesn’t block rendering during the <code>authProvider</code> call. In the above example, the <code>MyPage</code> component renders even before getting the response from the <code>authProvider</code>. If the call returns a rejected promise, the hook redirects to the login page, but the user may have seen the content of the <code>MyPage</code> component for a brief moment.</p>
+<h3 id="useauthstate-hook"><code>useAuthState()</code> Hook</h3>
+<p>To avoid rendering a component, and to force waiting for the <code>authProvider</code> response, use <code>useAuthState()</code> instead of <code>useAuthenticated()</code>. It calls <code>authProvider.checkAuth()</code> on mount and returns an object with 3 properties:</p>
+<ul>
+<li><code>loading</code>: <code>true</code> just after mount, while the <code>authProvider</code> is being called. <code>false</code> once the <code>authProvider</code> has answered.</li>
+<li><code>loaded</code>: the opposite of <code>loading</code>.</li>
+<li><code>authenticated</code>: <code>true</code> while loading. then <code>true</code> or <code>false</code> depending on the <code>authProvider</code> response.</li>
+</ul>
+<p>You can render different content depending on the authenticated status.</p>
+<pre class="jsx"><code>import { useAuthState, Loading } from &#39;react-admin&#39;;
+
+const MyPage = () =&gt; {
+    const { loading, authenticated } = useAuthState();
+    if (loading) {
+        return &lt;Loading /&gt;;
+    }
+    if (authenticated) {
+        return &lt;AuthenticatedContent /&gt;;
+    } 
+    return &lt;AnonymousContent /&gt;;
+};</code></pre>
+<h3 id="uselogout-hook"><code>useLogout()</code> Hook</h3>
+<p>Just like <code>useLogin()</code>, <code>useLogout()</code> returns a callback that you can use to call `authProvider.logout()``. Use it to build a custom Logout button, like the following:</p>
+<pre class="jsx"><code>// in src/MyLogoutButton.js
+import * as React from &#39;react&#39;;
+import { forwardRef } from &#39;react&#39;;
+import { useLogout } from &#39;react-admin&#39;;
+import MenuItem from &#39;@material-ui/core/MenuItem&#39;;
+import ExitIcon from &#39;@material-ui/icons/PowerSettingsNew&#39;;
+
+const MyLogoutButton = forwardRef((props, ref) =&gt; {
+    const logout = useLogout();
+    const handleClick = () =&gt; logout();
+    return (
+        &lt;MenuItem
+            onClick={handleClick}
+            ref={ref}
+        &gt;
+            &lt;ExitIcon /&gt; Logout
+        &lt;/MenuItem&gt;
+    );
+});
+
+export default MyLogoutButton;</code></pre>
+<p>Then pass the Logout button to the <code>&lt;Admin&gt;</code> component, as follows:</p>
+<pre class="jsx"><code>// in src/App.js
+import * as React from &quot;react&quot;;
+import { Admin } from &#39;react-admin&#39;;
+
+import MyLogoutButton from &#39;./MyLogoutButton&#39;;
+
+const App = () =&gt; (
+    &lt;Admin logoutButton={MyLogoutButton} authProvider={authProvider}&gt;
+    ...
+    &lt;/Admin&gt;
+);</code></pre>
+<h3 id="usegetidentity-hook"><code>useGetIdentity()</code> Hook</h3>
+<p>You may want to use the current user name, avatar, or id in your code. for that purpose, call the <code>useGetIdentity()</code> hook, which calls <code>authProvider.getIdentity()</code> on mount.</p>
+<p>Here is an example Edit component, which falls back to a Show component is the record is locked for edition by another user:</p>
+<pre class="jsx"><code>import { useGetIdentity, useGetOne } from &#39;react-admin&#39;;
+
+const PostDetail = ({ id }) =&gt; {
+    const { data: post, loading: postLoading } = useGetOne(&#39;posts&#39;, id);
+    const { identity, loading: identityLoading } = useGetIdentity();
+    if (postLoading || identityLoading) return &lt;&gt;Loading...&lt;/&gt;;
+    if (!post.lockedBy || post.lockedBy === identity.id) {
+        // post isn&#39;t locked, or is locked by me
+        return &lt;PostEdit post={post} /&gt;
+    } else {
+        // post is locked by someone else and cannot be edited
+        return &lt;PostShow post={post} /&gt;
+    }
+}</code></pre>
+<h3 id="usepermissions-hook"><code>usePermissions()</code> Hook</h3>
+<p>You might want to check user permissions inside a <a href="./Admin.md#customroutes">custom page</a>. That’s the purpose of the <code>usePermissions()</code> hook, which calls the <code>authProvider.getPermissions()</code> method on mount, and returns the result when available:</p>
+<pre class="jsx"><code>// in src/MyPage.js
+import * as React from &quot;react&quot;;
+import Card from &#39;@material-ui/core/Card&#39;;
+import CardContent from &#39;@material-ui/core/CardContent&#39;;
+import { usePermissions } from &#39;react-admin&#39;;
+
+const MyPage = () =&gt; {
+    const { loading, permissions } = usePermissions();
+    return loading
+        ? (&lt;div&gt;Waiting for permissions...&lt;/div&gt;)
+        : (
+            &lt;Card&gt;
+                &lt;CardContent&gt;Lorem ipsum sic dolor amet...&lt;/CardContent&gt;
+                {permissions === &#39;admin&#39; &amp;&amp;
+                    &lt;CardContent&gt;Sensitive data&lt;/CardContent&gt;
+                }
+            &lt;/Card&gt;
+        );
+}
+
+export default MyPage;
+
+// in src/customRoutes.js
+import * as React from &quot;react&quot;;
+import { Route } from &#39;react-router-dom&#39;;
+import MyPage from &#39;./MyPage&#39;;
+
+export default [
+    &lt;Route exact path=&quot;/baz&quot; component={MyPage} /&gt;,
+];</code></pre>
+<p>The <code>usePermissions</code> hook is optimistic: it doesn’t block rendering during the <code>authProvider</code> call. In the above example, the <code>MyPage</code> component renders even before getting the response from the <code>authProvider</code>. To avoid a blink in the interface while the <code>authProvider</code> is answering, use the <code>loaded</code> return value of <code>usePermissions()</code>:</p>
+<pre class="jsx"><code>const MyPage = () =&gt; {
+    const { loaded, permissions } = usePermissions();
+    return loaded ? (
+        &lt;Card&gt;
+            &lt;CardContent&gt;Lorem ipsum sic dolor amet...&lt;/CardContent&gt;
+            {permissions === &#39;admin&#39; &amp;&amp;
+                &lt;CardContent&gt;Sensitive data&lt;/CardContent&gt;
+            }
+        &lt;/Card&gt;
+    ) : null;
+}</code></pre>
+<h3 id="usegetpermissions-hook"><code>useGetPermissions()</code> Hook</h3>
+<p>React-admin also exposes a <code>useGetPermissions()</code> hook, returning a callback to call <code>authProvider.getPermissions()</code> on demand. In practice, you seldom need this hook - <code>usePermissions</code> covers most authorization needs, and manages the loading state for you.</p>
+<p>Here is an example usage:</p>
+<pre class="jsx"><code> import { useGetPermissions } from &#39;react-admin&#39;;
+ 
+ const Roles = () =&gt; {
+     const [permissions, setPermissions] = useState([]);
+     const getPermissions = useGetPermissions();
+     useEffect(() =&gt; {
+         getPermissions().then(permissions =&gt; setPermissions(permissions))
+     }, [])
+     return (
+         &lt;ul&gt;
+             {permissions.map((permission, key) =&gt; (
+                 &lt;li key={key}&gt;{permission}&lt;/li&gt;
+             ))}
+         &lt;/ul&gt;
+     );
+ }</code></pre>
+<h2 id="components">Components</h2>
+<h3 id="authenticated-component"><code>&lt;Authenticated&gt;</code> Component</h3>
+<p>The <code>&lt;Authenticated&gt;</code> component calls <a href="#useauthenticated-hook">the <code>useAuthenticated()</code> hook</a>, and renders its child component - unless the authentication check fails. Use it as an alternative to the <code>useAuthenticated()</code> hook when you can’t use a hook, e.g. inside a <code>Route</code> <code>render</code> function:</p>
+<pre class="jsx"><code>import { Authenticated } from &#39;react-admin&#39;;
+
+const CustomRoutes = [
+    &lt;Route path=&quot;/foo&quot; render={() =&gt;
+        &lt;Authenticated&gt;
+            &lt;Foo /&gt;
+        &lt;/Authenticated&gt;
+    } /&gt;
+];
+const App = () =&gt; (
+    &lt;Admin customRoutes={customRoutes}&gt;
+        ...
+    &lt;/Admin&gt;
+);</code></pre>
+<h2 id="recipes">Recipes</h2>
+<h3 id="customizing-the-login-and-logout-components">Customizing The Login and Logout Components</h3>
+<p>Using <code>authProvider</code> is enough to implement a full-featured authorization system if the authentication relies on a username and password.</p>
+<p>But what if you want to use an email instead of a username? What if you want to use a Single-Sign-On (SSO) with a third-party authentication service? What if you want to use two-factor authentication?</p>
+<p>For all these cases, it’s up to you to implement your own <code>LoginPage</code> component, which will be displayed under the <code>/login</code> route instead of the default username/password form, and your own <code>LogoutButton</code> component, which will be displayed in the sidebar. Pass both these components to the <code>&lt;Admin&gt;</code> component:</p>
+<pre class="jsx"><code>// in src/App.js
+import * as React from &quot;react&quot;;
+import { Admin } from &#39;react-admin&#39;;
+
+import MyLoginPage from &#39;./MyLoginPage&#39;;
+import MyLogoutButton from &#39;./MyLogoutButton&#39;;
+
+const App = () =&gt; (
+    &lt;Admin loginPage={MyLoginPage} logoutButton={MyLogoutButton} authProvider={authProvider}&gt;
+    ...
+    &lt;/Admin&gt;
+);</code></pre>
+<p>Use the <code>useLogin</code> and <code>useLogout</code> hooks in your custom <code>LoginPage</code> and <code>LogoutButton</code> components.</p>
+<pre class="jsx"><code>// in src/MyLoginPage.js
+import * as React from &#39;react&#39;;
+import { useState } from &#39;react&#39;;
+import { useLogin, useNotify, Notification, defaultTheme } from &#39;react-admin&#39;;
+import { ThemeProvider } from &#39;@material-ui/styles&#39;;
+import { createMuiTheme } from &#39;@material-ui/core/styles&#39;;
+
+const MyLoginPage = ({ theme }) =&gt; {
+    const [email, setEmail] = useState(&#39;&#39;);
+    const [password, setPassword] = useState(&#39;&#39;);
+    const login = useLogin();
+    const notify = useNotify();
+    const submit = e =&gt; {
+        e.preventDefault();
+        login({ email, password }).catch(() =&gt;
+            notify(&#39;Invalid email or password&#39;)
+        );
+    };
+
+    return (
+        &lt;ThemeProvider theme={createMuiTheme(defaultTheme)}&gt;
+            &lt;form onSubmit={submit}&gt;
+                &lt;input
+                    name=&quot;email&quot;
+                    type=&quot;email&quot;
+                    value={email}
+                    onChange={e =&gt; setEmail(e.target.value)}
+                /&gt;
+                &lt;input
+                    name=&quot;password&quot;
+                    type=&quot;password&quot;
+                    value={password}
+                    onChange={e =&gt; setPassword(e.target.value)}
+                /&gt;
+            &lt;/form&gt;
+            &lt;Notification /&gt;
+        &lt;/ThemeProvider&gt;
+    );
+};
+
+export default MyLoginPage;
+
+// in src/MyLogoutButton.js
+import * as React from &#39;react&#39;;
+import { forwardRef } from &#39;react&#39;;
+import { useLogout } from &#39;react-admin&#39;;
+import MenuItem from &#39;@material-ui/core/MenuItem&#39;;
+import ExitIcon from &#39;@material-ui/icons/PowerSettingsNew&#39;;
+
+const MyLogoutButton = forwardRef((props, ref) =&gt; {
+    const logout = useLogout();
+    const handleClick = () =&gt; logout();
+    return (
+        &lt;MenuItem
+            onClick={handleClick}
+            ref={ref}
+        &gt;
+            &lt;ExitIcon /&gt; Logout
+        &lt;/MenuItem&gt;
+    );
+});
+
+export default MyLogoutButton;</code></pre>
+<p><strong>Tip</strong>: By default, react-admin redirects the user to ‘/login’ after they log out. This can be changed by passing the url to redirect to as parameter to the <code>logout()</code> function:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb34-1" title="1">// in src/MyLogoutButton.js</a>
+<a class="sourceLine" id="cb34-2" title="2">// ...</a>
+<a class="sourceLine" id="cb34-3" title="3"><span class="st">-   const handleClick = () =&gt; logout();</span></a>
+<a class="sourceLine" id="cb34-4" title="4"><span class="va">+   const handleClick = () =&gt; logout(&#39;/custom-login&#39;);</span></a></code></pre></div>
+<h3 id="restricting-access-to-resources-or-views">Restricting Access to Resources or Views</h3>
+<p>Permissions can be useful to restrict access to resources or their views. To do so, you must use a function as the <code>&lt;Admin&gt;</code> only child. React-admin will call this function with the permissions returned by the <code>authProvider</code>.</p>
+<pre class="jsx"><code>&lt;Admin
+    dataProvider={dataProvider}
+    authProvider={authProvider}
+&gt;
+    {permissions =&gt; [
+        // Restrict access to the edit and remove views to admin only
+        &lt;Resource
+            name=&quot;customers&quot;
+            list={VisitorList}
+            edit={permissions === &#39;admin&#39; ? VisitorEdit : null}
+            icon={VisitorIcon}
+        /&gt;,
+        // Only include the categories resource for admin users
+        permissions === &#39;admin&#39;
+            ? &lt;Resource name=&quot;categories&quot; list={CategoryList} edit={CategoryEdit} icon={CategoryIcon} /&gt;
+            : null,
+    ]}
+&lt;/Admin&gt;</code></pre>
+<p>Note that the function returns an array of React elements. This is required to avoid having to wrap them in a container element which would prevent the <code>Admin</code> from working.</p>
+<p><strong>Tip</strong>: Even if that’s possible, be careful when completely excluding a resource (like with the <code>categories</code> resource in this example) as it will prevent you to reference this resource in the other resource views, too.</p>
+<h3 id="restricting-access-to-fields-and-inputs">Restricting Access to Fields and Inputs</h3>
+<p>You might want to display some fields or inputs only to users with specific permissions. By default, react-admin calls the <code>authProvider</code> for permissions for each resource routes, and passes them to the <code>list</code>, <code>edit</code>, <code>create</code>, and <code>show</code> components.</p>
+<p>Here is an example of a <code>Create</code> view with a conditional Input based on permissions:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>export const UserCreate = ({ permissions, ...props }) =&gt;
+    &lt;Create {...props}&gt;
+        &lt;SimpleForm
+            defaultValue={{ role: &#39;user&#39; }}
+        &gt;
+            &lt;TextInput source=&quot;name&quot; validate={[required()]} /&gt;
+            {permissions === &#39;admin&#39; &amp;&amp;
+                &lt;TextInput source=&quot;role&quot; validate={[required()]} /&gt;}
+        &lt;/SimpleForm&gt;
+    &lt;/Create&gt;;</code></pre>
+<p>{% endraw %}</p>
+<p>This also works inside an <code>Edition</code> view with a <code>TabbedForm</code>, and you can even hide a <code>FormTab</code> completely:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>export const UserEdit = ({ permissions, ...props }) =&gt;
+    &lt;Edit title={&lt;UserTitle /&gt;} {...props}&gt;
+        &lt;TabbedForm defaultValue={{ role: &#39;user&#39; }}&gt;
+            &lt;FormTab label=&quot;user.form.summary&quot;&gt;
+                {permissions === &#39;admin&#39; &amp;&amp; &lt;TextInput disabled source=&quot;id&quot; /&gt;}
+                &lt;TextInput source=&quot;name&quot; validate={required()} /&gt;
+            &lt;/FormTab&gt;
+            {permissions === &#39;admin&#39; &amp;&amp;
+                &lt;FormTab label=&quot;user.form.security&quot;&gt;
+                    &lt;TextInput source=&quot;role&quot; validate={required()} /&gt;
+                &lt;/FormTab&gt;}
+        &lt;/TabbedForm&gt;
+    &lt;/Edit&gt;;</code></pre>
+<p>{% endraw %}</p>
+<p>What about the <code>List</code> view, the <code>Datagrid</code>, <code>SimpleList</code> and <code>Filter</code> components? It works there, too. And in the next example, the <code>permissions</code> prop is passed down to a custom <code>filters</code> component.</p>
+<pre class="jsx"><code>const UserFilter = ({ permissions, ...props }) =&gt;
+    &lt;Filter {...props}&gt;
+        &lt;TextInput
+            label=&quot;user.list.search&quot;
+            source=&quot;q&quot;
+            alwaysOn
+        /&gt;
+        &lt;TextInput source=&quot;name&quot; /&gt;
+        {permissions === &#39;admin&#39; &amp;&amp; &lt;TextInput source=&quot;role&quot; /&gt;}
+    &lt;/Filter&gt;;
+
+export const UserList = ({ permissions, ...props }) =&gt;
+    &lt;List
+        {...props}
+        filters={props =&gt; &lt;UserFilter permissions={permissions} {...props} /&gt;}
+    &gt;
+        &lt;Datagrid&gt;
+            &lt;TextField source=&quot;id&quot; /&gt;
+            &lt;TextField source=&quot;name&quot; /&gt;
+            {permissions === &#39;admin&#39; &amp;&amp; &lt;TextField source=&quot;role&quot; /&gt;}
+            {permissions === &#39;admin&#39; &amp;&amp; &lt;EditButton /&gt;}
+            &lt;ShowButton /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;;</code></pre>
+<h3 id="restricting-access-to-the-dashboard">Restricting Access to the Dashboard</h3>
+<p>React-admin injects the permissions into the component provided as a <a href="./Admin.md#dashboard"><code>dashboard</code></a>, too:</p>
+<pre class="jsx"><code>// in src/Dashboard.js
+import * as React from &quot;react&quot;;
+import Card from &#39;@material-ui/core/Card&#39;;
+import CardContent from &#39;@material-ui/core/CardContent&#39;;
+import { Title } from &#39;react-admin&#39;;
+
+export default ({ permissions }) =&gt; (
+    &lt;Card&gt;
+        &lt;Title title=&quot;Dashboard&quot; /&gt;
+        &lt;CardContent&gt;Lorem ipsum sic dolor amet...&lt;/CardContent&gt;
+        {permissions === &#39;admin&#39;
+            ? &lt;CardContent&gt;Sensitive data&lt;/CardContent&gt;
+            : null
+        }
+    &lt;/Card&gt;
+);</code></pre>
+<h3 id="restricting-access-to-a-menu">Restricting Access to a Menu</h3>
+<p>What if you want to check the permissions inside a <a href="./Admin.md#menu">custom menu</a>? Much like getting permissions inside a custom page, you’ll have to use the <code>usePermissions</code> hook:</p>
+<pre class="jsx"><code>// in src/myMenu.js
+import * as React from &quot;react&quot;;
+import { MenuItemLink, usePermissions } from &#39;react-admin&#39;;
+
+const Menu = ({ onMenuClick, logout }) =&gt; {
+    const { permissions } = usePermissions();
+    return (
+        &lt;div&gt;
+            &lt;MenuItemLink to=&quot;/posts&quot; primaryText=&quot;Posts&quot; onClick={onMenuClick} /&gt;
+            &lt;MenuItemLink to=&quot;/comments&quot; primaryText=&quot;Comments&quot; onClick={onMenuClick} /&gt;
+            {permissions === &#39;admin&#39; &amp;&amp;
+                &lt;MenuItemLink to=&quot;/custom-route&quot; primaryText=&quot;Miscellaneous&quot; onClick={onMenuClick} /&gt;
+            }
+            {logout}
+        &lt;/div&gt;
+    );
+}</code></pre>

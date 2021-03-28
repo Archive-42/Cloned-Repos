@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        jax: ["input/TeX","output/HTML-CSS"],
+        extensions: ["tex2jax.js"],
+        tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+        },
+     "HTML-CSS": {
+      styles: {
+        ".MathJax .mo, .MathJax .mi": {}
+      }
+    }
+    });
+    </script>
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+    });
+
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+    </script>
+
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <title>
+    
+      December notes &middot; Discrete notes
+    
+  </title>
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/theorems.css">
+
+  <!-- Icons -->
+  <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">-->
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+  <link href='http://semidoc.github.io/feed.xml' rel='alternate' type='application/atom+xml'>
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <div class="masthead">
+        <h3 class="masthead-title">
+          <a href="/" title="Home">Discrete notes</a>
+
+          
+              &nbsp;&nbsp;&nbsp;<small><a href="/about/">About</a></small>
+          
+              &nbsp;&nbsp;&nbsp;<small><a href="/archive/">Archive</a></small>
+          
+
+        </h3>
+      </div>
+
+      <div class="post">
+  <h1 class="post-title">December notes</h1>
+  <span class="post-date">18 Dec 2018</span>
+  <p><img src="assets/arbre.png" alt="" class="center-image" height="500px" /></p>
+
+<hr />
+
+<h2 id="karchmer-wigderson-theorem">Karchmer-Wigderson theorem</h2>
+
+<p>Karchmer-Wigderson theorem makes a precise link between circuit and 
+communication complexity. More precisely it 
+ relates the depth of a boolean
+circuit computing some function $f$, to the communication complexity of a game 
+based on $f$. The game is the following:</p>
+
+<ul>
+  <li>Inputs: Alice has an input $x$ such that $f(x)=1$, 
+and Bob has another input $y$ such that $f(y)=0$.</li>
+  <li>Task: find $i$ such that $x_i \neq y_i$ (such an $i$ must exist).</li>
+</ul>
+
+<p>The way to go from the circuit to a communication protocol is the following. 
+Alice and Bob each run the circuit on their inputs, the usual bottom-up way. 
+Thus each of them knows the 
+evaluation after each gate (“after this gate, this wire holds a 0, after this 
+one it’s a 1” etc.). Now the protocol will go top-down.
+As after the final gate (that is, the top gate), 
+Alice gets a 1 and Bob gets a 0, we know that the two wires 
+entering this gate cannot both have the same value for Alice and Bob. 
+Alice and Bob can communicate to agree on one wire that has different value. 
+This takes constant number of bits. And then you just follow the wire to the 
+next gate and continue. At the end Alice and Bob agree on an input wire that has different 
+value and they win the game. The communication complexity is the circuit depth.</p>
+
+<p>For the other direction, see the Internet.</p>
+
+<p>(I learnt about Karchmer-Wigderson theorem recently by watching parts of an 
+<a href="https://www.youtube.com/watch?v=t1EsRm1dmw0">online talk</a> by 
+<a href="http://www.math.ias.edu/~mika/">Mika Göös</a>.)</p>
+
+<h2 id="counting-crows">Counting crows</h2>
+
+<p>These days I often cross the 
+<a href="https://en.wikipedia.org/wiki/Jardin_des_plantes">Jardin des Plantes</a>
+in Paris, and I saw a sign giving information about the counting of crows in 
+Paris. Basically a large number of crows now have a ring with a specific number. 
+The problem is that the rings tend to fall, disappear etc. To evaluate this 
+loss rate, the birds are rung with two rings. Then 
+by counting the number of crows with zero, one and two rings, one can evaluate 
+the loss rate, and then the population.</p>
+
+<p>This sounded very much like CS to me, for example in networks, 
+sending packets that may disappear, and trying to know the message loss for 
+example.</p>
+
+<h2 id="minimum-degree-spanning-tree">Minimum degree spanning tree</h2>
+<p><a href="https://en.wikipedia.org/wiki/Degree-constrained_spanning_tree">Minimum-degree spanning tree</a>, 
+consists in finding a spanning tree of a graph, 
+with the constraint that the maximum degree of the tree should be as small as 
+possible. This problem is NP-hard, because if the answer is 2 then it means that 
+you have an Hamiltonian path. But one can get an approximation with additive 
+constant 1.
+The algorithm (from 
+<a href="https://doi.org/10.1006%2Fjagm.1994.1042">this paper</a>, explained in 
+<a href="http://pages.cs.wisc.edu/~shuchi/courses/880-S07/scribe-notes/lecture08.pdf">these lecture notes</a>)
+consists in a local search, with swapping of edges to as local moves.</p>
+
+<p>This problems looks very natural and potentially very useful. I’d be curious 
+to know if there are real-world applications.</p>
+
+<p>(I discovered this problem in
+<a href="https://doi.org/10.1109/ICDCS.2015.66">this distributed computing paper</a>.)</p>
+
+<h2 id="cycle-cover">Cycle cover</h2>
+<p>An <a href="https://en.wikipedia.org/wiki/Edge_cycle_cover">(edge) cycle-cover</a>
+is a set of cycles of a graph, such that every edge of the graph 
+is contained in at least one cycle. There are several problems associated with 
+this object, for example related to the total length of the cycles in such a 
+cover. I want to mention a super-cute-super-hard open problem: the 
+<a href="https://en.wikipedia.org/wiki/Cycle_double_cover">cycle double cover conjecture</a>. 
+The conjecture is: in every graph with no 
+<a href="https://en.wikipedia.org/wiki/Bridge_(graph_theory)">bridge</a>, 
+there is a list of cycles so that every edge is 
+contained in exactly two.</p>
+
+<p>If you think “How can this be open?!”, I’ll just add that it is listed in the 
+<a href="http://www.openproblemgarden.org/op/cycle_double_cover_conjecture">open problem garden</a> 
+has of “outstanding importance”. See there, or on the wikipedia page linked above 
+for the details.</p>
+
+<p>(<a href="https://arxiv.org/abs/1812.04492">A paper about cycle covers</a> recently 
+appeared on the arxiv, reminded me this problem.)</p>
+
+<h2 id="mst-algorithms">MST algorithms</h2>
+<p>Consider the following algorithm for finding a minimum weight spanning tree, similar to 
+<a href="https://en.wikipedia.org/wiki/Bor%C5%AFvka%27s_algorithm">Borůvka’s algorithm</a>.</p>
+
+<ul>
+  <li>Every node begins has a so-called fragment.</li>
+  <li>Until there is only one fragment: choose an arbitrary fragment, find the 
+lightest edge linking a node of 
+this fragment to another fragment, merge the two fragments into a new one by 
+adding this edge.</li>
+  <li>Output the final fragment.</li>
+</ul>
+
+<p>This algorithm is actually a generalization of Borůvka, Prim and Kruskal algorithm! 
+For Borůvka’s algorithm, one would basically choose an 
+outgoing edge for all fragments in parallel. For Prim, one would always choose 
+the same fragment to enlarge. F	or Kruskal, one would choose the lightest 
+outgoing edge of all the fragments.</p>
+
+<p>This can probably be explained with red-blue rules, but I like this point of
+view with a kind of scheduler, with different strategies.</p>
+
+<p>(I’m working again on some minimum spanning tree distributed problems, and it 
+reminded me about this fact, that I discovered a few years ago, but that I’ve 
+never seen in undergraduate courses.)</p>
+
+<h2 id="squashed-cube-conjecture-and-distance-labelling">Squashed cube conjecture and distance labelling</h2>
+<p>Distance labelling are labels given to the nodes of a graph such that given the 
+labels of two arbitrary nodes $u$ and $v$, and without seeing the graph, one can compute 
+the distance between $u$ and $v$. One usually tries to minimize the size of 
+the labels.
+A strategy for this is to find some metric embedding of the graph, because then 
+one can 
+simply give the coordinates of the nodes as labels. 
+In this direction, a natural thing to do is to try the embed the graph in an 
+hypercube with the Hamming distance. This cannot be done in general, but the 
+squashed cube conjecture (that is actually a theorem) provides a result close to 
+this.</p>
+
+<p>Consider that instead of two symbols, there are three: 0, 1, and *, and 
+that the “distance” between $x$ and $y$ is the number of indices such that $x=0$ 
+and $y=1$ or $x=1$ and $y=0$. That is * is at distance zero from 0 and 1. 
+(Note that this distance is not a proper distance.)
+Now how many symbols do you need to have a distance preserving embedding? 
+Exactly $n-1$, as proved in <a href="https://doi.org/10.1007/BF02579350">this paper</a>.</p>
+
+<p>(I discovered this in the related works section of 
+<a href="https://doi.org/10.1007/3-540-44676-1_40">this paper</a>.)</p>
+
+<h2 id="jaccard-metric">Jaccard metric</h2>
+<p>Lipton and Regan talk about the 
+<a href="https://en.wikipedia.org/wiki/Jaccard_index">Jaccard metric</a> in 
+<a href="https://rjlipton.wordpress.com/2018/12/14/explaining-the-jaccard-metric/">a post</a>
+of their blog, <em>Gödel’s lost letter</em>, in particular why it is a metric. I didn’t 
+know about this distance over sets, so here is the definition.</p>
+
+<p>Let $A$ and $B$ 
+be two sets, the distance is:
+<script type="math/tex">d(A,B)=1-\frac{|A \cap B|}{|A \cup B|}.</script></p>
+
+<h2 id="preprints">Preprints</h2>
+<p>I have two new preprints this month:</p>
+
+<ul>
+  <li><a href="https://arxiv.org/abs/1812.05913">Graph classes and forbidden patterns on three vertices</a>
+with <a href="https://www.irif.fr/~habib/">Michel Habib</a>.</li>
+  <li><a href="xxx">Lower bounds for text indexing with mismatches and differences</a> with
+<a href="https://www.di.ens.fr/~vcohen/">Vincent Cohen-Addad</a> and 
+<a href="https://starikovskaya.github.io/homepage/">Tatiana Starikoskaya</a>.</li>
+</ul>
+
+<p>I really like both papers, I hope I’ll find some time to blog about it soon.</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/november-2018-notes">
+            November notes
+            <small>30 Nov 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/popular-matchings">
+            Popular matchings
+            <small>13 Nov 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/start">
+            Start
+            <small>24 Sep 2018</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+
+      
+
+
+
+      <div class="footer">
+        <p>
+          &copy; 2018. All rights reserved.
+        </p>
+      </div>
+    </div>
+
+  </body>
+</html>

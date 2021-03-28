@@ -1,0 +1,136 @@
+<h1 id="simple-rest-data-provider-for-react-admin">Simple REST Data Provider For React-Admin</h1>
+<p>Simple REST Data Provider for <a href="https://github.com/marmelab/react-admin">react-admin</a>, the frontend framework for building admin applications on top of REST/GraphQL services.</p>
+<p><a href="https://vimeo.com/268958716"><img src="https://marmelab.com/react-admin/img/react-admin-demo-still.png" alt="react-admin-demo" /></a></p>
+<h2 id="installation">Installation</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="ex">npm</span> install --save ra-data-simple-rest</a></code></pre></div>
+<h2 id="rest-dialect">REST Dialect</h2>
+<p>This Data Provider fits REST APIs using simple GET parameters for filters and sorting. This is the dialect used for instance in <a href="https://github.com/marmelab/FakeRest">FakeRest</a>.</p>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>API calls</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>getList</code></td>
+<td><code>GET http://my.api.url/posts?sort=["title","ASC"]&amp;range=[0, 24]&amp;filter={"title":"bar"}</code></td>
+</tr>
+<tr class="even">
+<td><code>getOne</code></td>
+<td><code>GET http://my.api.url/posts/123</code></td>
+</tr>
+<tr class="odd">
+<td><code>getMany</code></td>
+<td><code>GET http://my.api.url/posts?filter={"id":[123,456,789]}</code></td>
+</tr>
+<tr class="even">
+<td><code>getManyReference</code></td>
+<td><code>GET http://my.api.url/posts?filter={"author_id":345}</code></td>
+</tr>
+<tr class="odd">
+<td><code>create</code></td>
+<td><code>POST http://my.api.url/posts</code></td>
+</tr>
+<tr class="even">
+<td><code>update</code></td>
+<td><code>PUT http://my.api.url/posts/123</code></td>
+</tr>
+<tr class="odd">
+<td><code>updateMany</code></td>
+<td>Multiple calls to <code>PUT http://my.api.url/posts/123</code></td>
+</tr>
+<tr class="even">
+<td><code>delete</code></td>
+<td><code>DELETE http://my.api.url/posts/123</code></td>
+</tr>
+<tr class="odd">
+<td><code>deleteMany</code></td>
+<td>Multiple calls to <code>DELETE http://my.api.url/posts/123</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: The simple REST data provider expects the API to include a <code>Content-Range</code> header in the response to <code>getList</code> calls. The value must be the total number of resources in the collection. This allows react-admin to know how many pages of resources there are in total, and build the pagination controls.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode txt"><code class="sourceCode default"><a class="sourceLine" id="cb2-1" title="1">Content-Range: posts 0-24/319</a></code></pre></div>
+<p>If your API is on another domain as the JS code, you’ll need to whitelist this header with an <code>Access-Control-Expose-Headers</code> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS">CORS</a> header.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode txt"><code class="sourceCode default"><a class="sourceLine" id="cb3-1" title="1">Access-Control-Expose-Headers: Content-Range</a></code></pre></div>
+<h2 id="usage">Usage</h2>
+<pre class="jsx"><code>// in src/App.js
+import * as React from &quot;react&quot;;
+import { Admin, Resource } from &#39;react-admin&#39;;
+import simpleRestProvider from &#39;ra-data-simple-rest&#39;;
+
+import { PostList } from &#39;./posts&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={simpleRestProvider(&#39;http://path.to.my.api/&#39;)}&gt;
+        &lt;Resource name=&quot;posts&quot; list={PostList} /&gt;
+    &lt;/Admin&gt;
+);
+
+export default App;</code></pre>
+<h3 id="adding-custom-headers">Adding Custom Headers</h3>
+<p>The provider function accepts an HTTP client function as second argument. By default, they use react-admin’s <code>fetchUtils.fetchJson()</code> as HTTP client. It’s similar to HTML5 <code>fetch()</code>, except it handles JSON decoding and HTTP error codes automatically.</p>
+<p>That means that if you need to add custom headers to your requests, you just need to <em>wrap</em> the <code>fetchJson()</code> call inside your own function:</p>
+<pre class="jsx"><code>import { fetchUtils, Admin, Resource } from &#39;react-admin&#39;;
+import simpleRestProvider from &#39;ra-data-simple-rest&#39;;
+
+const httpClient = (url, options = {}) =&gt; {
+    if (!options.headers) {
+        options.headers = new Headers({ Accept: &#39;application/json&#39; });
+    }
+    // add your own headers here
+    options.headers.set(&#39;X-Custom-Header&#39;, &#39;foobar&#39;);
+    return fetchUtils.fetchJson(url, options);
+};
+const dataProvider = simpleRestProvider(&#39;http://localhost:3000&#39;, httpClient);
+
+render(
+    &lt;Admin dataProvider={dataProvider} title=&quot;Example Admin&quot;&gt;
+       ...
+    &lt;/Admin&gt;,
+    document.getElementById(&#39;root&#39;)
+);</code></pre>
+<p>Now all the requests to the REST API will contain the <code>X-Custom-Header: foobar</code> header.</p>
+<p><strong>Tip</strong>: The most common usage of custom headers is for authentication. <code>fetchJson</code> has built-on support for the <code>Authorization</code> token header:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">const</span> httpClient <span class="op">=</span> (url<span class="op">,</span> options <span class="op">=</span> <span class="op">{}</span>) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2">    <span class="va">options</span>.<span class="at">user</span> <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-3" title="3">        <span class="dt">authenticated</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb6-4" title="4">        <span class="dt">token</span><span class="op">:</span> <span class="st">&#39;SRTRDFVESGNJYTUKTYTHRG&#39;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">    <span class="op">};</span></a>
+<a class="sourceLine" id="cb6-6" title="6">    <span class="cf">return</span> <span class="va">fetchUtils</span>.<span class="at">fetchJson</span>(url<span class="op">,</span> options)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="op">};</span></a></code></pre></div>
+<p>Now all the requests to the REST API will contain the <code>Authorization: SRTRDFVESGNJYTUKTYTHRG</code> header.</p>
+<h2 id="note-about-content-range">Note about Content-Range</h2>
+<p>Historically, Simple REST Data Provider uses the http <code>Content-Range</code> header to retrieve the number of items in a collection. But this is a <em>hack</em> of the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range">primary role of this header</a>.</p>
+<p>However this can be problematic, for example within an infrastructure using a Varnish that may use, modify or delete this header. We also have feedback indicating that using this header is problematic when you host your application on <a href="https://vercel.com/">Vercel</a>.</p>
+<p>The solution is to use another http header to return the number of collection’s items. The other header commonly used for this is <code>X-Total-Count</code>. So if you use <code>X-Total-Count</code>, you will have to :</p>
+<ul>
+<li>Whitelist this header with an <code>Access-Control-Expose-Headers</code> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS">CORS</a> header.</li>
+</ul>
+<pre><code>Access-Control-Expose-Headers: X-Total-Count</code></pre>
+<ul>
+<li>Use the third parameter of <code>simpleRestProvider</code> to specify the name of the header to use :</li>
+</ul>
+<pre class="jsx"><code>// in src/App.js
+import * as React from &quot;react&quot;;
+import { Admin, Resource } from &#39;react-admin&#39;;
+import { fetchUtils } from &#39;ra-core&#39;;
+import simpleRestProvider from &#39;ra-data-simple-rest&#39;;
+
+import { PostList } from &#39;./posts&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={simpleRestProvider(&#39;http://path.to.my.api/&#39;, fetchUtils.fetchJson, &#39;X-Total-Count&#39;)}&gt;
+        &lt;Resource name=&quot;posts&quot; list={PostList} /&gt;
+    &lt;/Admin&gt;
+);
+
+export default App;</code></pre>
+<h2 id="license">License</h2>
+<p>This data provider is licensed under the MIT License, and sponsored by <a href="https://marmelab.com">marmelab</a>.</p>

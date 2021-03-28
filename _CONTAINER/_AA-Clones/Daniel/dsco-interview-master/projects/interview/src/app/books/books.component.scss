@@ -1,0 +1,25 @@
+/*!
+ * Copyright (C) 2020 DS Co., dba dsco - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential.
+ */
+
+@import "vars";
+
+.content {
+  margin: auto;
+  max-width: 600px;
+}
+
+ds-spinner {
+  position: absolute;
+  right: $smallPadding;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+input.searching {
+  padding-right: 70px;
+}
+

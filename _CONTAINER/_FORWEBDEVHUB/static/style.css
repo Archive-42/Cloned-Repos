@@ -1,0 +1,12 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fdf8ed;
+}
+
+#bigheader {
+  margin-top: 5vh;
+  text-align: center;
+  color: #15ad46;
+}

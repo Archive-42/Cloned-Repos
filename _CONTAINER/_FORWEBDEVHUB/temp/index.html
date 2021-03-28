@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("part/head", {title: "Home"}) %>
+  </head>
+  <body>
+    <%- include("part/nav") %>
+    <main class="main">
+      <%- include("part/page1", {
+        bg: "bg1", title: "Coder100", subtitle: "Crappy Coder",
+        type: 0
+      }) %>
+      <%- include("part/pagel", {
+        bg: "bg2", title: "About", subtitle: "I'm a coder. Click here to learn more about me.",
+        type: 1
+      }); %>
+      <%- include("part/pager", {
+        bg: "bg3", title: "Profile", subtitle: "I use repl.it and discord.",
+        type: 0
+      }); %>
+    </main>
+  </body>
+</html>

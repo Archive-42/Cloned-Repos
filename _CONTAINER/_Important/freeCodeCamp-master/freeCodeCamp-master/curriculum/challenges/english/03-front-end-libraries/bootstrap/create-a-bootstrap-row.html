@@ -1,0 +1,32 @@
+<h1 id="description">–description–</h1>
+<p>Now we’ll create a Bootstrap row for our inline elements.</p>
+<p>Create a <code>div</code> element below the <code>h3</code> tag, with a class of <code>row</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>You should add a <code>div</code> element below your <code>h3</code> element.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="at">$</span>(<span class="st">&#39;div&#39;</span>).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">1</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="at">$</span>(<span class="st">&#39;div.row h3.text-primary&#39;</span>).<span class="at">length</span> <span class="op">==</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="at">$</span>(<span class="st">&#39;div.row + h3.text-primary&#39;</span>).<span class="at">length</span> <span class="op">==</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">    <span class="at">$</span>(<span class="st">&#39;h3.text-primary + div.row&#39;</span>).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb1-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>div</code> element should have the class <code>row</code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;div&#39;</span>).<span class="at">hasClass</span>(<span class="st">&#39;row&#39;</span>))<span class="op">;</span></a></code></pre></div>
+<p>Your <code>row div</code> should be nested inside the <code>container-fluid div</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="at">$</span>(<span class="st">&#39;div.container-fluid div.row&#39;</span>).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>)<span class="op">;</span></a></code></pre></div>
+<p>Your <code>div</code> element should have a closing tag.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">div&gt;/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;div/g</span>) <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;</span><span class="sc">\/</span><span class="ss">div&gt;/g</span>).<span class="at">length</span> <span class="op">===</span> <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/&lt;div/g</span>).<span class="at">length</span></a>
+<a class="sourceLine" id="cb4-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container-fluid&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="kw">&lt;h3</span><span class="ot"> class=</span><span class="st">&quot;text-primary text-center&quot;</span><span class="kw">&gt;</span>jQuery Playground<span class="kw">&lt;/h3&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3"></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;container-fluid&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="kw">&lt;h3</span><span class="ot"> class=</span><span class="st">&quot;text-primary text-center&quot;</span><span class="kw">&gt;</span>jQuery Playground<span class="kw">&lt;/h3&gt;</span></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;row&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="kw">&lt;/div&gt;</span></a></code></pre></div>

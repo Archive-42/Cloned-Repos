@@ -1,0 +1,126 @@
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+p {
+    color: #444;
+}
+
+.button:focus {
+    outline: 0;
+}
+
+.container {
+    display: 'flex';
+    flex-direction: 'column';
+    justify-content: center;
+    align-items: 'center';
+    text-align: 'center';
+}
+
+.container h1 {
+    margin-bottom: 20px;
+}
+
+.pageDescription {
+    font-size: 1.1rem;
+    margin: 0 auto;
+}
+
+.noBrowserSupport {
+    display: none;
+    font-size: 1.2rem;
+    color: #e64427;
+    margin-top: 35px;
+}
+
+.strong,
+.documentation {
+    color: #5f9ea0;
+}
+
+.Speech {
+    margin: 40px auto;
+}
+
+button {
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+    border: none;
+    cursor: pointer;
+}
+
+.saveNote,
+.deleteAll,
+.reset,
+.getStorage,
+.fileSaveButton {
+    background: tomato;
+    padding: 8px;
+    font-size: .8rem;
+    border-radius: 3px;
+    color: AntiqueWhite;
+    letter-spacing: 0.07rem;
+}
+
+.saveNote,
+.fileSaveButton,
+.reset {
+    width: 5.7rem;
+    height: 2.25rem;
+}
+
+.getStorage,
+.deleteAll {
+    width: 7.5rem;
+    height: 2.25rem;
+}
+
+.deleteAll,
+.fileSaveButton,
+.reset {
+    margin-left: 10px;
+}
+
+.download {
+    text-decoration: none;
+}
+
+.storagequotaMsg {
+    color: #5f9ea0;
+}
+
+.button {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: LightBlue;
+    border-radius: 50%;
+    margin: 0 2rem 0;
+    font-size: 1.5rem;
+}
+
+.interim {
+    color: gray;
+    border: #5f9ea0 1px solid;
+    padding: 1em;
+    margin: 1em auto;
+    max-width: 500px;
+    width: 90%;
+    text-align: left;
+}
+
+.final {
+    color: black;
+    border: #5f9ea0 1px solid;
+    padding: 1em;
+    margin: 1em auto;
+    max-width: 500px;
+    width: 90%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+#recording-instructions {
+    margin: 15px auto 60px;
+}

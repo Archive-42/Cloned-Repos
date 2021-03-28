@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>First Mesibo App</title>
+  <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+  <div id="messages"></div>
+
+  <form action="javascript:newMessage()" autocomplete="off">
+    <input type="text" name="message" placeholder="type message here...">
+    <br><br>
+    <input type="submit" value="Submit">
+  </form> 
+
+  <!-- Go to https://mesibo.com/documentation/tutorials/first-app/js/ to get started -->
+  <script type="text/javascript" src="https://api.mesibo.com/mesibo.js"></script>
+  <script src="script.js"></script> 
+</body>
+</html>

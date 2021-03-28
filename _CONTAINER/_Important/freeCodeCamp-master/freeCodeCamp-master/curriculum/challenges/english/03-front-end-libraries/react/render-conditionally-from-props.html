@@ -1,0 +1,242 @@
+<h1 id="description">–description–</h1>
+<p>So far, you’ve seen how to use <code>if/else</code>, <code>&amp;&amp;,</code> <code>null</code> and the ternary operator (<code>condition ? expressionIfTrue : expressionIfFalse</code>) to make conditional decisions about what to render and when. However, there’s one important topic left to discuss that lets you combine any or all of these concepts with another powerful React feature: props. Using props to conditionally render code is very common with React developers — that is, they use the value of a given prop to automatically make decisions about what to render.</p>
+<p>In this challenge, you’ll set up a child component to make rendering decisions based on props. You’ll also use the ternary operator, but you can see how several of the other concepts that were covered in the last few challenges might be just as useful in this context.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>The code editor has two components that are partially defined for you: a parent called <code>GameOfChance</code>, and a child called <code>Results</code>. They are used to create a simple game where the user presses a button to see if they win or lose.</p>
+<p>First, you’ll need a simple expression that randomly returns a different value every time it is run. You can use <code>Math.random()</code>. This method returns a value between <code>0</code> (inclusive) and <code>1</code> (exclusive) each time it is called. So for 50/50 odds, use <code>Math.random() &gt;= .5</code> in your expression. Statistically speaking, this expression will return <code>true</code> 50% of the time, and <code>false</code> the other 50%. In the render method, replace <code>null</code> with the above expression to complete the variable declaration.</p>
+<p>Now you have an expression that you can use to make a randomized decision in the code. Next you need to implement this. Render the <code>Results</code> component as a child of <code>GameOfChance</code>, and pass in <code>expression</code> as a prop called <code>fiftyFifty</code>. In the <code>Results</code> component, write a ternary expression to render the <code>h1</code> element with the text <code>"You Win!"</code> or <code>"You Lose!"</code> based on the <code>fiftyFifty</code> prop that’s being passed in from <code>GameOfChance</code>. Finally, make sure the <code>handleClick()</code> method is correctly counting each turn so the user knows how many times they’ve played. This also serves to let the user know the component has actually updated in case they win or lose twice in a row.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>GameOfChance</code> component should exist and render to the page.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(GameOfChance)).<span class="at">find</span>(<span class="st">&#39;GameOfChance&#39;</span>).<span class="at">length</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="dv">1</span></a>
+<a class="sourceLine" id="cb1-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p><code>GameOfChance</code> should return a single <code>button</code> element.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(GameOfChance)).<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">length</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="dv">1</span></a>
+<a class="sourceLine" id="cb2-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p><code>GameOfChance</code> should return a single instance of the <code>Results</code> component, which has a prop called <code>fiftyFifty</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(GameOfChance)).<span class="at">find</span>(<span class="st">&#39;Results&#39;</span>).<span class="at">length</span> <span class="op">===</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="dv">1</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(GameOfChance))</a>
+<a class="sourceLine" id="cb3-5" title="5">      .<span class="at">find</span>(<span class="st">&#39;Results&#39;</span>)</a>
+<a class="sourceLine" id="cb3-6" title="6">      .<span class="at">props</span>()</a>
+<a class="sourceLine" id="cb3-7" title="7">      .<span class="at">hasOwnProperty</span>(<span class="st">&#39;fiftyFifty&#39;</span>) <span class="op">===</span> <span class="kw">true</span></a>
+<a class="sourceLine" id="cb3-8" title="8">)<span class="op">;</span></a></code></pre></div>
+<p><code>GameOfChance</code> state should be initialized with a property of <code>counter</code> set to a value of <code>1</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(GameOfChance)).<span class="at">state</span>().<span class="at">counter</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb4-3" title="3">  <span class="dv">1</span></a>
+<a class="sourceLine" id="cb4-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>When the <code>GameOfChance</code> component is first rendered to the DOM, a <code>p</code> element should be returned with the inner text of <code>Turn: 1</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="va">assert</span>.<span class="at">strictEqual</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(GameOfChance)).<span class="at">find</span>(<span class="st">&#39;p&#39;</span>).<span class="at">text</span>()<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="st">&#39;Turn: 1&#39;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>Each time the button is clicked, the counter state should be incremented by a value of 1, and a single <code>p</code> element should be rendered to the DOM that contains the text “Turn: N”, where N is the value of the counter state.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1">(() <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="kw">const</span> comp <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(GameOfChance))<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="kw">const</span> simulate <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="va">comp</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;click&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb6-6" title="6">  <span class="kw">const</span> result <span class="op">=</span> () <span class="kw">=&gt;</span> (<span class="op">{</span></a>
+<a class="sourceLine" id="cb6-7" title="7">    <span class="dt">count</span><span class="op">:</span> <span class="va">comp</span>.<span class="at">state</span>(<span class="st">&#39;counter&#39;</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="dt">text</span><span class="op">:</span> <span class="va">comp</span>.<span class="at">find</span>(<span class="st">&#39;p&#39;</span>).<span class="at">text</span>()</a>
+<a class="sourceLine" id="cb6-9" title="9">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">  <span class="kw">const</span> _1 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-11" title="11">    <span class="at">simulate</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">    <span class="cf">return</span> <span class="at">result</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-13" title="13">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb6-14" title="14">  <span class="kw">const</span> _2 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-15" title="15">    <span class="at">simulate</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-16" title="16">    <span class="cf">return</span> <span class="at">result</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-17" title="17">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb6-18" title="18">  <span class="kw">const</span> _3 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-19" title="19">    <span class="at">simulate</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-20" title="20">    <span class="cf">return</span> <span class="at">result</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-21" title="21">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb6-22" title="22">  <span class="kw">const</span> _4 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-23" title="23">    <span class="at">simulate</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-24" title="24">    <span class="cf">return</span> <span class="at">result</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-25" title="25">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb6-26" title="26">  <span class="kw">const</span> _5 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-27" title="27">    <span class="at">simulate</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-28" title="28">    <span class="cf">return</span> <span class="at">result</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-29" title="29">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb6-30" title="30">  <span class="kw">const</span> _1_val <span class="op">=</span> <span class="at">_1</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-31" title="31">  <span class="kw">const</span> _2_val <span class="op">=</span> <span class="at">_2</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-32" title="32">  <span class="kw">const</span> _3_val <span class="op">=</span> <span class="at">_3</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-33" title="33">  <span class="kw">const</span> _4_val <span class="op">=</span> <span class="at">_4</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-34" title="34">  <span class="kw">const</span> _5_val <span class="op">=</span> <span class="at">_5</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-35" title="35">  <span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb6-36" title="36">    <span class="va">_1_val</span>.<span class="at">count</span> <span class="op">===</span> <span class="dv">2</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-37" title="37">      <span class="va">_1_val</span>.<span class="at">text</span> <span class="op">===</span> <span class="st">&#39;Turn: 2&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-38" title="38">      <span class="va">_2_val</span>.<span class="at">count</span> <span class="op">===</span> <span class="dv">3</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-39" title="39">      <span class="va">_2_val</span>.<span class="at">text</span> <span class="op">===</span> <span class="st">&#39;Turn: 3&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-40" title="40">      <span class="va">_3_val</span>.<span class="at">count</span> <span class="op">===</span> <span class="dv">4</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-41" title="41">      <span class="va">_3_val</span>.<span class="at">text</span> <span class="op">===</span> <span class="st">&#39;Turn: 4&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-42" title="42">      <span class="va">_4_val</span>.<span class="at">count</span> <span class="op">===</span> <span class="dv">5</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-43" title="43">      <span class="va">_4_val</span>.<span class="at">text</span> <span class="op">===</span> <span class="st">&#39;Turn: 5&#39;</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-44" title="44">      <span class="va">_5_val</span>.<span class="at">count</span> <span class="op">===</span> <span class="dv">6</span> <span class="op">&amp;&amp;</span></a>
+<a class="sourceLine" id="cb6-45" title="45">      <span class="va">_5_val</span>.<span class="at">text</span> <span class="op">===</span> <span class="st">&#39;Turn: 6&#39;</span></a>
+<a class="sourceLine" id="cb6-46" title="46">  )<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-47" title="47"><span class="op">}</span>)()<span class="op">;</span></a></code></pre></div>
+<p>When the <code>GameOfChance</code> component is first mounted to the DOM and each time the button is clicked thereafter, a single <code>h1</code> element should be returned that randomly renders either <code>You Win!</code> or <code>You Lose!</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1">(() <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="kw">const</span> comp <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(GameOfChance))<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-3" title="3">  <span class="kw">const</span> simulate <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-4" title="4">    <span class="va">comp</span>.<span class="at">find</span>(<span class="st">&#39;button&#39;</span>).<span class="at">simulate</span>(<span class="st">&#39;click&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-5" title="5">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-6" title="6">  <span class="kw">const</span> result <span class="op">=</span> () <span class="kw">=&gt;</span> (<span class="op">{</span></a>
+<a class="sourceLine" id="cb7-7" title="7">    <span class="dt">h1</span><span class="op">:</span> <span class="va">comp</span>.<span class="at">find</span>(<span class="st">&#39;h1&#39;</span>).<span class="at">length</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-8" title="8">    <span class="dt">text</span><span class="op">:</span> <span class="va">comp</span>.<span class="at">find</span>(<span class="st">&#39;h1&#39;</span>).<span class="at">text</span>()</a>
+<a class="sourceLine" id="cb7-9" title="9">  <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-10" title="10">  <span class="kw">const</span> _1 <span class="op">=</span> <span class="at">result</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-11" title="11">  <span class="kw">const</span> _2 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-12" title="12">    <span class="at">simulate</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-13" title="13">    <span class="cf">return</span> <span class="at">result</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-14" title="14">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-15" title="15">  <span class="kw">const</span> _3 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-16" title="16">    <span class="at">simulate</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-17" title="17">    <span class="cf">return</span> <span class="at">result</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-18" title="18">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-19" title="19">  <span class="kw">const</span> _4 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-20" title="20">    <span class="at">simulate</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-21" title="21">    <span class="cf">return</span> <span class="at">result</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-22" title="22">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-23" title="23">  <span class="kw">const</span> _5 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-24" title="24">    <span class="at">simulate</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-25" title="25">    <span class="cf">return</span> <span class="at">result</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-26" title="26">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-27" title="27">  <span class="kw">const</span> _6 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-28" title="28">    <span class="at">simulate</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-29" title="29">    <span class="cf">return</span> <span class="at">result</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-30" title="30">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-31" title="31">  <span class="kw">const</span> _7 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-32" title="32">    <span class="at">simulate</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-33" title="33">    <span class="cf">return</span> <span class="at">result</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-34" title="34">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-35" title="35">  <span class="kw">const</span> _8 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-36" title="36">    <span class="at">simulate</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-37" title="37">    <span class="cf">return</span> <span class="at">result</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-38" title="38">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-39" title="39">  <span class="kw">const</span> _9 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-40" title="40">    <span class="at">simulate</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-41" title="41">    <span class="cf">return</span> <span class="at">result</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-42" title="42">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-43" title="43">  <span class="kw">const</span> _10 <span class="op">=</span> () <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-44" title="44">    <span class="at">simulate</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-45" title="45">    <span class="cf">return</span> <span class="at">result</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-46" title="46">  <span class="op">};</span></a>
+<a class="sourceLine" id="cb7-47" title="47">  <span class="kw">const</span> _2_val <span class="op">=</span> <span class="at">_2</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-48" title="48">  <span class="kw">const</span> _3_val <span class="op">=</span> <span class="at">_3</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-49" title="49">  <span class="kw">const</span> _4_val <span class="op">=</span> <span class="at">_4</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-50" title="50">  <span class="kw">const</span> _5_val <span class="op">=</span> <span class="at">_5</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-51" title="51">  <span class="kw">const</span> _6_val <span class="op">=</span> <span class="at">_6</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-52" title="52">  <span class="kw">const</span> _7_val <span class="op">=</span> <span class="at">_7</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-53" title="53">  <span class="kw">const</span> _8_val <span class="op">=</span> <span class="at">_8</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-54" title="54">  <span class="kw">const</span> _9_val <span class="op">=</span> <span class="at">_9</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-55" title="55">  <span class="kw">const</span> _10_val <span class="op">=</span> <span class="at">_10</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-56" title="56">  <span class="kw">const</span> __text <span class="op">=</span> <span class="kw">new</span> <span class="at">Set</span>([</a>
+<a class="sourceLine" id="cb7-57" title="57">    <span class="va">_1</span>.<span class="at">text</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-58" title="58">    <span class="va">_2_val</span>.<span class="at">text</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-59" title="59">    <span class="va">_3_val</span>.<span class="at">text</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-60" title="60">    <span class="va">_4_val</span>.<span class="at">text</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-61" title="61">    <span class="va">_5_val</span>.<span class="at">text</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-62" title="62">    <span class="va">_6_val</span>.<span class="at">text</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-63" title="63">    <span class="va">_7_val</span>.<span class="at">text</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-64" title="64">    <span class="va">_8_val</span>.<span class="at">text</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-65" title="65">    <span class="va">_9_val</span>.<span class="at">text</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-66" title="66">    <span class="va">_10_val</span>.<span class="at">text</span></a>
+<a class="sourceLine" id="cb7-67" title="67">  ])<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-68" title="68">  <span class="kw">const</span> __h1 <span class="op">=</span> <span class="kw">new</span> <span class="at">Set</span>([</a>
+<a class="sourceLine" id="cb7-69" title="69">    <span class="va">_1</span>.<span class="at">h1</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-70" title="70">    <span class="va">_2_val</span>.<span class="at">h1</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-71" title="71">    <span class="va">_3_val</span>.<span class="at">h1</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-72" title="72">    <span class="va">_4_val</span>.<span class="at">h1</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-73" title="73">    <span class="va">_5_val</span>.<span class="at">h1</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-74" title="74">    <span class="va">_6_val</span>.<span class="at">h1</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-75" title="75">    <span class="va">_7_val</span>.<span class="at">h1</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-76" title="76">    <span class="va">_8_val</span>.<span class="at">h1</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-77" title="77">    <span class="va">_9_val</span>.<span class="at">h1</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb7-78" title="78">    <span class="va">_10_val</span>.<span class="at">h1</span></a>
+<a class="sourceLine" id="cb7-79" title="79">  ])<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-80" title="80">  <span class="at">assert</span>(<span class="va">__text</span>.<span class="at">size</span> <span class="op">===</span> <span class="dv">2</span> <span class="op">&amp;&amp;</span> <span class="va">__h1</span>.<span class="at">size</span> <span class="op">===</span> <span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-81" title="81"><span class="op">}</span>)()<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;GameOfChance /&gt;, document.getElementById(&#39;root&#39;));</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>class Results extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    {/* Change code below this line */}
+    return &lt;h1&gt;&lt;/h1&gt;;
+    {/* Change code above this line */}
+  }
+}
+
+class GameOfChance extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: 1
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick() {
+    this.setState({
+      counter: 0 // Change this line
+    });
+  }
+  render() {
+    const expression = null; // Change this line
+    return (
+      &lt;div&gt;
+        &lt;button onClick={this.handleClick}&gt;Play Again&lt;/button&gt;
+        {/* Change code below this line */}
+
+        {/* Change code above this line */}
+        &lt;p&gt;{&#39;Turn: &#39; + this.state.counter}&lt;/p&gt;
+      &lt;/div&gt;
+    );
+  }
+}</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>class Results extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return &lt;h1&gt;{this.props.fiftyFifty ? &#39;You Win!&#39; : &#39;You Lose!&#39;}&lt;/h1&gt;;
+  }
+}
+
+class GameOfChance extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: 1
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick() {
+    this.setState({
+      counter: this.state.counter + 1
+    });
+  }
+  render() {
+    const expression = Math.random() &gt;= 0.5;
+    return (
+      &lt;div&gt;
+        &lt;button onClick={this.handleClick}&gt;Play Again&lt;/button&gt;
+        &lt;Results fiftyFifty={expression} /&gt;
+        &lt;p&gt;{&#39;Turn: &#39; + this.state.counter}&lt;/p&gt;
+      &lt;/div&gt;
+    );
+  }
+}</code></pre>

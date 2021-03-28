@@ -1,0 +1,54 @@
+<h1 id="ra-data-localstorage">ra-data-localstorage</h1>
+<p>A dataProvider for <a href="https://github.com/marmelab/react-admin">react-admin</a> that uses a local database, persisted in localStorage.</p>
+<p>The provider issues no HTTP requests, every operation happens locally in the browser. User editions are persisted across refreshes and between sessions. This allows local-first apps, and can be useful in tests.</p>
+<h2 id="installation">Installation</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="ex">npm</span> install --save ra-data-localstorage</a></code></pre></div>
+<h2 id="usage">Usage</h2>
+<pre class="jsx"><code>// in src/App.js
+import * as React from &quot;react&quot;;
+import { Admin, Resource } from &#39;react-admin&#39;;
+import localStorageDataProvider from &#39;ra-data-localstorage&#39;;
+
+const dataProvider = localStorageDataProvider();
+import { PostList } from &#39;./posts&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={dataProvider}&gt;
+        &lt;Resource name=&quot;posts&quot; list={PostList} /&gt;
+    &lt;/Admin&gt;
+);
+
+export default App;</code></pre>
+<h3 id="defaultdata">defaultData</h3>
+<p>By default, the data provider starts with no resource. To set default data if the storage is empty, pass a JSON object as the <code>defaultData</code> argument:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">const</span> dataProvider <span class="op">=</span> <span class="at">localStorageDataProvider</span>(<span class="op">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2">    <span class="dt">defaultData</span><span class="op">:</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">        <span class="dt">posts</span><span class="op">:</span> [</a>
+<a class="sourceLine" id="cb3-4" title="4">            <span class="op">{</span> <span class="dt">id</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> <span class="st">&#39;Hello, world!&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-5" title="5">            <span class="op">{</span> <span class="dt">id</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">title</span><span class="op">:</span> <span class="st">&#39;FooBar&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-6" title="6">        ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">        <span class="dt">comments</span><span class="op">:</span> [</a>
+<a class="sourceLine" id="cb3-8" title="8">            <span class="op">{</span> <span class="dt">id</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">post_id</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">author</span><span class="op">:</span> <span class="st">&#39;John Doe&#39;</span><span class="op">,</span> <span class="dt">body</span><span class="op">:</span> <span class="st">&#39;Sensational!&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-9" title="9">            <span class="op">{</span> <span class="dt">id</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">post_id</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">author</span><span class="op">:</span> <span class="st">&#39;Jane Doe&#39;</span><span class="op">,</span> <span class="dt">body</span><span class="op">:</span> <span class="st">&#39;I agree&#39;</span> <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-10" title="10">        ]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-11" title="11">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>defaultData</code> parameter must be an object literal with one key for each resource type. Values are arrays of resources. Resources must be object literals with at least an <code>id</code> key.</p>
+<p>Foreign keys are also supported: just name the field <code>{related_resource_name}_id</code> and give an existing value.</p>
+<h3 id="loggingenabled">loggingEnabled</h3>
+<p>As this data provider doesn’t use the network, you can’t debug it using the network tab of your browser developer tools. However, it can log all calls (input and output) in the console, provided you set the <code>loggingEnabled</code> parameter:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">const</span> dataProvider <span class="op">=</span> <span class="at">localStorageDataProvider</span>(<span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">    <span class="dt">loggingEnabled</span><span class="op">:</span> <span class="kw">true</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="op">}</span>)<span class="op">;</span></a></code></pre></div>
+<h2 id="features">Features</h2>
+<p>This data provider uses <a href="https://github.com/marmelab/FakeRest">FakeRest</a> under the hood. That means that it offers the same features:</p>
+<ul>
+<li>pagination</li>
+<li>sorting</li>
+<li>filtering by column</li>
+<li>filtering by the <code>q</code> full-text search</li>
+<li>filtering numbers and dates greater or less than a value</li>
+<li>embedding related resources</li>
+</ul>
+<h2 id="license">License</h2>
+<p>This data provider is licensed under the MIT License, and sponsored by <a href="https://marmelab.com">marmelab</a>.</p>

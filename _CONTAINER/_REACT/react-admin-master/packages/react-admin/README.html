@@ -1,0 +1,147 @@
+<h1 id="react-admin">react-admin</h1>
+<p>A frontend Framework for building admin applications running in the browser on top of REST/GraphQL services, using ES6, <a href="https://facebook.github.io/react/">React</a> and <a href="https://material.io/">Material Design</a>. Open sourced and maintained by <a href="https://marmelab.com/">marmelab</a>.</p>
+<p><a href="https://marmelab.com/react-admin-demo/">Demo</a> - <a href="https://marmelab.com/react-admin/">Documentation</a> - <a href="https://github.com/marmelab/react-admin/releases">Releases</a> - <a href="https://stackoverflow.com/questions/tagged/react-admin">Support</a></p>
+<p><a href="https://vimeo.com/205118063"><img src="https://marmelab.com/react-admin/img/react-admin-demo-still.png" alt="react-admin-demo" /></a></p>
+<h2 id="features">Features</h2>
+<ul>
+<li>Adapts to any backend (REST, GraphQL, SOAP, etc.)</li>
+<li>Complete documentation</li>
+<li>Optimistic rendering (renders before the server returns)</li>
+<li>Relationships (many to one, one to many)</li>
+<li>Internationalization (i18n)</li>
+<li>Conditional formatting</li>
+<li>Themeable</li>
+<li>Supports any authentication provider (REST API, OAuth, Basic Auth, …)</li>
+<li>Full-featured Datagrid (sort, pagination, filters)</li>
+<li>Filter-as-you-type</li>
+<li>Supports any form layout (simple, tabbed, etc.)</li>
+<li>Data Validation</li>
+<li>Custom actions</li>
+<li>Large library of components for various data types: boolean, number, rich text, etc.</li>
+<li>WYSIWYG editor</li>
+<li>Customize dashboard, menu, layout</li>
+<li>Super easy to extend and override (it’s just React components)</li>
+<li>Highly customizable interface</li>
+<li>Can connect to multiple backends</li>
+<li>Leverages the best libraries in the React ecosystem (Redux, redux-form, redux-saga, material-ui)</li>
+<li>Can be included in another React app</li>
+<li>Inspired by the popular <a href="https://github.com/marmelab/ng-admin">ng-admin</a> library (also by marmelab)</li>
+</ul>
+<h2 id="versions-in-this-repository">Versions In This Repository</h2>
+<ul>
+<li><p><a href="https://github.com/marmelab/react-admin/commits/master">master</a> - commits that will be included in the next <em>patch</em> release</p></li>
+<li><p><a href="https://github.com/marmelab/react-admin/commits/next">next</a> - commits that will be included in the next <em>major</em> or <em>minor</em> release</p></li>
+</ul>
+<p>Bugfix PRs that don’t break BC should be made against <strong>master</strong>. All other PRs (new features, bugfix with BC break) should be made against <strong>next</strong>.</p>
+<h2 id="installation">Installation</h2>
+<p>React-admin is available from npm. You can install it (and its required dependencies) using:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="ex">npm</span> install --save-dev react-admin</a></code></pre></div>
+<h2 id="documentation">Documentation</h2>
+<p>Read the <a href="https://marmelab.com/react-admin/Tutorial.html">Tutorial</a> for a 15 minutes introduction. After that, head to the <a href="https://marmelab.com/react-admin/Readme.html">Documentation</a>, or checkout the <a href="https://github.com/marmelab/react-admin-demo">source code of the demo</a> for an example usage.</p>
+<h2 id="at-a-glance">At a Glance</h2>
+<pre class="jsx"><code>// in app.js
+import * as React from &quot;react&quot;;
+import { render } from &#39;react-dom&#39;;
+import { Admin, Resource } from &#39;react-admin&#39;;
+import restProvider from &#39;ra-data-simple-rest&#39;;
+
+import { PostList, PostEdit, PostCreate, PostIcon } from &#39;./posts&#39;;
+
+render(
+    &lt;Admin dataProvider={restProvider(&#39;http://localhost:3000&#39;)}&gt;
+        &lt;Resource name=&quot;posts&quot; list={PostList} edit={PostEdit} create={PostCreate} icon={PostIcon}/&gt;
+    &lt;/Admin&gt;,
+    document.getElementById(&#39;root&#39;)
+);</code></pre>
+<p>The <code>&lt;Resource&gt;</code> component is a configuration component that allows to define sub components for each of the admin view: <code>list</code>, <code>edit</code>, and <code>create</code>. These components use Material UI and custom components from react-admin:</p>
+<pre class="jsx"><code>// in posts.js
+import * as React from &quot;react&quot;;
+import { List, Datagrid, Edit, Create, SimpleForm, DateField, TextField, EditButton, TextInput, DateInput } from &#39;react-admin&#39;;
+export PostIcon from &#39;@material-ui/core/svg-icons/action/book&#39;;
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid&gt;
+            &lt;TextField source=&quot;id&quot; /&gt;
+            &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;DateField source=&quot;published_at&quot; /&gt;
+            &lt;TextField source=&quot;average_note&quot; /&gt;
+            &lt;TextField source=&quot;views&quot; /&gt;
+            &lt;EditButton basePath=&quot;/posts&quot; /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);
+
+const PostTitle = ({ record }) =&gt; {
+    return &lt;span&gt;Post {record ? `&quot;${record.title}&quot;` : &#39;&#39;}&lt;/span&gt;;
+};
+
+export const PostEdit = (props) =&gt; (
+    &lt;Edit title={&lt;PostTitle /&gt;} {...props}&gt;
+        &lt;SimpleForm&gt;
+            &lt;TextInput disabled source=&quot;id&quot; /&gt;
+            &lt;TextInput source=&quot;title&quot; /&gt;
+            &lt;TextInput source=&quot;teaser&quot; options={{ multiLine: true }} /&gt;
+            &lt;TextInput multiline source=&quot;body&quot; /&gt;
+            &lt;DateInput label=&quot;Publication date&quot; source=&quot;published_at&quot; /&gt;
+            &lt;TextInput source=&quot;average_note&quot; /&gt;
+            &lt;TextInput disabled label=&quot;Nb views&quot; source=&quot;views&quot; /&gt;
+        &lt;/SimpleForm&gt;
+    &lt;/Edit&gt;
+);
+
+export const PostCreate = (props) =&gt; (
+    &lt;Create title=&quot;Create a Post&quot; {...props}&gt;
+        &lt;SimpleForm&gt;
+            &lt;TextInput source=&quot;title&quot; /&gt;
+            &lt;TextInput source=&quot;teaser&quot; options={{ multiLine: true }} /&gt;
+            &lt;TextInput multiline source=&quot;body&quot; /&gt;
+            &lt;TextInput label=&quot;Publication date&quot; source=&quot;published_at&quot; /&gt;
+            &lt;TextInput source=&quot;average_note&quot; /&gt;
+        &lt;/SimpleForm&gt;
+    &lt;/Create&gt;
+);</code></pre>
+<h2 id="does-it-work-with-my-api">Does It Work With My API</h2>
+<p>Yes.</p>
+<p>React-admin uses an adapter approach, with a concept called <em>Data Providers</em>. Existing providers can be used as a blueprint to design your API, or you can write your own Data Provider to query an existing API. Writing a custom Data Provider is a matter of hours.</p>
+<figure>
+<img src="https://marmelab.com/react-admin/img/data-provider.png" alt="Data Provider architecture" /><figcaption>Data Provider architecture</figcaption>
+</figure>
+<p>See the <a href="https://marmelab.com/react-admin/DataProviders.html">Data Providers documentation</a> for details.</p>
+<h2 id="batteries-included-but-removable">Batteries Included But Removable</h2>
+<p>React-admin is designed as a library of loosely coupled React components built on top of <a href="https://www.material-ui.com/#/">material-ui</a>, in addition to controller functions implemented the Redux way. It is very easy to replace one part of react-admin with your own, e.g. to use a custom datagrid, GraphQL instead of REST, or bootstrap instead of Material Design.</p>
+<h2 id="run-the-example">Run the example</h2>
+<p>You can run the example app by calling:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="ex">npm</span> install</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="fu">make</span> run</a></code></pre></div>
+<p>And then browse to <a href="http://localhost:8080/">http://localhost:8080/</a>. The credentials are <strong>login/password</strong></p>
+<h2 id="contributing">Contributing</h2>
+<p>Pull requests are welcome. You must follow the coding style of the existing files (based on <a href="https://github.com/prettier/prettier">prettier</a>), and include unit tests and documentation. Be prepared for a thorough code review, and be patient for the merge - this is an open-source initiative.</p>
+<p>You can run the tests (linting, unit and functional tests) by calling</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" title="1"><span class="fu">make</span> test</a></code></pre></div>
+<p>If you have coding standards problems, you can fix them automatically using <code>prettier</code> by calling</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" title="1"><span class="fu">make</span> prettier</a></code></pre></div>
+<p>If you want to contribute to the documentation, install jekyll, then call</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" title="1"><span class="fu">make</span> doc</a></code></pre></div>
+<p>And then browse to <a href="http://localhost:4000/">http://localhost:4000/</a></p>
+<p><em>Note</em>: if you have added a section with heading to the docs, you also have to add it to <code>docs/_layouts/default.html</code> (the links on the left) manually.</p>
+<p>If you are using react-admin as a dependency, and if you want to try and hack it, here is the advised process:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" title="1"><span class="co"># in myapp</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="co"># install react-admin from GitHub in another directory</span></a>
+<a class="sourceLine" id="cb8-3" title="3">$ <span class="bu">cd</span> ..</a>
+<a class="sourceLine" id="cb8-4" title="4">$ <span class="fu">git</span> clone git@github.com:marmelab/react-admin.git <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> react-admin <span class="kw">&amp;&amp;</span> <span class="fu">make</span> install</a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="co"># replace your node_modules/react-admin by a symbolic link to the github checkout</span></a>
+<a class="sourceLine" id="cb8-6" title="6">$ <span class="bu">cd</span> ../myapp</a>
+<a class="sourceLine" id="cb8-7" title="7">$ <span class="ex">npm</span> link ../react-admin</a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="co"># go back to the checkout, and replace the version of react by the one in your app</span></a>
+<a class="sourceLine" id="cb8-9" title="9">$ <span class="bu">cd</span> ../react-admin</a>
+<a class="sourceLine" id="cb8-10" title="10">$ <span class="ex">npm</span> link ../myapp/node_modules/react</a>
+<a class="sourceLine" id="cb8-11" title="11">$ <span class="fu">make</span> watch</a>
+<a class="sourceLine" id="cb8-12" title="12"><span class="co"># in another terminal, go back to your app, and start it as usual</span></a>
+<a class="sourceLine" id="cb8-13" title="13">$ <span class="bu">cd</span> ../myapp</a>
+<a class="sourceLine" id="cb8-14" title="14">$ <span class="ex">npm</span> run</a></code></pre></div>
+<p><strong>Tip</strong>: If you’re on Windows and can’t use <code>make</code>, try <a href="https://gist.github.com/mantis/bb5d9f7d492f86e94341816321500934">this Gist</a>.</p>
+<h2 id="license">License</h2>
+<p>React-admin is licensed under the <a href="https://github.com/marmelab/react-admin/blob/master/LICENSE.md">MIT License</a>, sponsored and supported by <a href="https://marmelab.com">marmelab</a>.</p>
+<h2 id="donate">Donate</h2>
+<p>This library is free to use, even for commercial purpose. If you want to give back, please talk about it, <a href="https://stackoverflow.com/questions/tagged/react-admin">help newcomers</a>, or contribute code. But the best way to give back is to <strong>donate to a charity</strong>. We recommend <a href="https://www.doctorswithoutborders.org/">Doctors Without Borders</a>.</p>

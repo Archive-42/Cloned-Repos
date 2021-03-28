@@ -1,0 +1,90 @@
+<h1 id="description">–description–</h1>
+<p>A Mersenne number is a number in the form of <code>2<sup>P</sup>-1</code>.</p>
+<p>If <code>P</code> is prime, the Mersenne number may be a Mersenne prime. (If <code>P</code> is not prime, the Mersenne number is also not prime.)</p>
+<p>In the search for Mersenne prime numbers it is advantageous to eliminate exponents by finding a small factor before starting a, potentially lengthy, <a href="https://rosettacode.org/wiki/Lucas-Lehmer%20test" title="Lucas-Lehmer test">Lucas-Lehmer test</a>.</p>
+<p>There are very efficient algorithms for determining if a number divides <code>2<sup>P</sup>-1</code> (or equivalently, if <code>2<sup>P</sup> mod (the number) = 1</code>).</p>
+<p>Some languages already have built-in implementations of this exponent-and-mod operation (called modPow or similar).</p>
+<p>The following is how to implement this modPow yourself:</p>
+<p>For example, let’s compute <code>2<sup>23</sup> mod 47</code>.</p>
+<p>Convert the exponent 23 to binary, you get 10111. Starting with <code><tt>square</tt> = 1</code>, repeatedly square it.</p>
+<p>Remove the top bit of the exponent, and if it’s 1 multiply <code>square</code> by the base of the exponentiation (2), then compute <code><tt>square</tt> modulo 47</code>.</p>
+<p>Use the result of the modulo from the last step as the initial value of <code>square</code> in the next step:</p>
+<pre>Remove   Optional
+square        top bit  multiply by 2  mod 47
+------------  -------  -------------  ------
+1*1 = 1       1  0111  1*2 = 2           2
+2*2 = 4       0   111     no             4
+4*4 = 16      1    11  16*2 = 32        32
+32*32 = 1024  1     1  1024*2 = 2048    27
+27*27 = 729   1        729*2 = 1458      1
+</pre>
+<p>Since <code>2<sup>23</sup> mod 47 = 1</code>, 47 is a factor of <code>2<sup>P</sup>-1</code>.</p>
+<p>(To see this, subtract 1 from both sides: <code>2<sup>23</sup>-1 = 0 mod 47</code>.)</p>
+<p>Since we’ve shown that 47 is a factor, <code>2<sup>23</sup>-1</code> is not prime.</p>
+<p>Further properties of Mersenne numbers allow us to refine the process even more.</p>
+<p>Any factor <code>q</code> of <code>2<sup>P</sup>-1</code> must be of the form <code>2kP+1</code>, <code>k</code> being a positive integer or zero. Furthermore, <code>q</code> must be <code>1</code> or <code>7 mod 8</code>.</p>
+<p>Finally any potential factor <code>q</code> must be <a href="https://rosettacode.org/wiki/Primality%20by%20Trial%20Division" title="Primality by Trial Division">prime</a>.</p>
+<p>As in other trial division algorithms, the algorithm stops when <code>2kP+1 &gt; sqrt(N)</code>.These primarily tests only work on Mersenne numbers where <code>P</code> is prime. For example, <code>M<sub>4</sub>=15</code> yields no factors using these techniques, but factors into 3 and 5, neither of which fit <code>2kP+1</code>.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Using the above method find a factor of <code>2<sup>929</sup>-1</code> (aka M929)</p>
+<h1 id="hints">–hints–</h1>
+<p><code>check_mersenne</code> should be a function.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> check_mersenne <span class="op">===</span> <span class="st">&#39;function&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>check_mersenne(3)</code> should return a string.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="kw">typeof</span> <span class="at">check_mersenne</span>(<span class="dv">3</span>) <span class="op">==</span> <span class="st">&#39;string&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>check_mersenne(3)</code> should return “M3 = 2^3-1 is prime”.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">check_mersenne</span>(<span class="dv">3</span>)<span class="op">,</span> <span class="st">&#39;M3 = 2^3-1 is prime&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>check_mersenne(23)</code> should return “M23 = 2^23-1 is composite with factor 47”.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(<span class="at">check_mersenne</span>(<span class="dv">23</span>)<span class="op">,</span> <span class="st">&#39;M23 = 2^23-1 is composite with factor 47&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p><code>check_mersenne(929)</code> should return "M929 = 2^929-1 is composite with factor 13007</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="va">assert</span>.<span class="at">equal</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="at">check_mersenne</span>(<span class="dv">929</span>)<span class="op">,</span></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="st">&#39;M929 = 2^929-1 is composite with factor 13007&#39;</span></a>
+<a class="sourceLine" id="cb5-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">function</span> <span class="at">check_mersenne</span>(p) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2"></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="op">}</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">function</span> <span class="at">check_mersenne</span>(p)<span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2">    <span class="kw">function</span> <span class="at">isPrime</span>(value)<span class="op">{</span></a>
+<a class="sourceLine" id="cb7-3" title="3">      <span class="cf">for</span> (<span class="kw">let</span> i<span class="op">=</span><span class="dv">2</span><span class="op">;</span> i <span class="op">&lt;</span> value<span class="op">;</span> i<span class="op">++</span>)<span class="op">{</span></a>
+<a class="sourceLine" id="cb7-4" title="4">        <span class="cf">if</span> (value <span class="op">%</span> i <span class="op">==</span> <span class="dv">0</span>)<span class="op">{</span></a>
+<a class="sourceLine" id="cb7-5" title="5">          <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-7" title="7">        <span class="cf">if</span> (value <span class="op">%</span> i <span class="op">!=</span> <span class="dv">0</span>)<span class="op">{</span></a>
+<a class="sourceLine" id="cb7-8" title="8">          <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-9" title="9">         <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-10" title="10">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-11" title="11">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-12" title="12"></a>
+<a class="sourceLine" id="cb7-13" title="13">    <span class="kw">function</span> <span class="at">trial_factor</span>(base<span class="op">,</span> exp<span class="op">,</span> mod)<span class="op">{</span></a>
+<a class="sourceLine" id="cb7-14" title="14">      <span class="kw">let</span> square<span class="op">,</span> bits<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-15" title="15">      square <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-16" title="16">      bits <span class="op">=</span> <span class="va">exp</span>.<span class="at">toString</span>(<span class="dv">2</span>).<span class="at">split</span>(<span class="st">&#39;&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-17" title="17">      <span class="cf">for</span> (<span class="kw">let</span> i<span class="op">=</span><span class="dv">0</span><span class="op">,</span>ln<span class="op">=</span><span class="va">bits</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">&lt;</span>ln<span class="op">;</span> i<span class="op">++</span>)<span class="op">{</span></a>
+<a class="sourceLine" id="cb7-18" title="18">        square <span class="op">=</span> <span class="va">Math</span>.<span class="at">pow</span>(square<span class="op">,</span> <span class="dv">2</span>) <span class="op">*</span> (bits[i] <span class="op">==</span> <span class="dv">1</span> <span class="op">?</span> base : <span class="dv">1</span>) <span class="op">%</span> mod<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-19" title="19">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-20" title="20">      <span class="cf">return</span> (square <span class="op">==</span> <span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-21" title="21">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-22" title="22"></a>
+<a class="sourceLine" id="cb7-23" title="23">    <span class="kw">function</span> <span class="at">mersenne_factor</span>(p)<span class="op">{</span></a>
+<a class="sourceLine" id="cb7-24" title="24">      <span class="kw">let</span> limit<span class="op">,</span> k<span class="op">,</span> q<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-25" title="25">      limit <span class="op">=</span> <span class="va">Math</span>.<span class="at">sqrt</span>(<span class="va">Math</span>.<span class="at">pow</span>(<span class="dv">2</span><span class="op">,</span>p) <span class="op">-</span> <span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-26" title="26">      k <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-27" title="27">      <span class="cf">while</span> ((<span class="dv">2</span><span class="op">*</span>k<span class="op">*</span>p <span class="op">-</span> <span class="dv">1</span>) <span class="op">&lt;</span> limit)<span class="op">{</span></a>
+<a class="sourceLine" id="cb7-28" title="28">        q <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>k<span class="op">*</span>p <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-29" title="29">        <span class="cf">if</span> (<span class="at">isPrime</span>(q) <span class="op">&amp;&amp;</span> (q <span class="op">%</span> <span class="dv">8</span> <span class="op">==</span> <span class="dv">1</span> <span class="op">||</span> q <span class="op">%</span> <span class="dv">8</span> <span class="op">==</span> <span class="dv">7</span>) <span class="op">&amp;&amp;</span> <span class="at">trial_factor</span>(<span class="dv">2</span><span class="op">,</span>p<span class="op">,</span>q))<span class="op">{</span></a>
+<a class="sourceLine" id="cb7-30" title="30">          <span class="cf">return</span> q<span class="op">;</span> <span class="co">// q is a factor of 2**p-1</span></a>
+<a class="sourceLine" id="cb7-31" title="31">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-32" title="32">        k<span class="op">++;</span></a>
+<a class="sourceLine" id="cb7-33" title="33">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-34" title="34">      <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-35" title="35">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-36" title="36">  <span class="kw">let</span> f<span class="op">,</span> result<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-37" title="37">  result<span class="op">=</span><span class="st">&quot;M&quot;</span><span class="op">+</span>p<span class="op">+</span><span class="st">&quot; = 2^&quot;</span><span class="op">+</span>p<span class="op">+</span><span class="st">&quot;-1 is &quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-38" title="38">  f <span class="op">=</span> <span class="at">mersenne_factor</span>(p)<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-39" title="39">  result<span class="op">+=</span>f <span class="op">==</span> <span class="kw">null</span> <span class="op">?</span> <span class="st">&quot;prime&quot;</span> : <span class="st">&quot;composite with factor &quot;</span><span class="op">+</span>f<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-40" title="40">  <span class="cf">return</span> result<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-41" title="41"><span class="op">}</span></a></code></pre></div>

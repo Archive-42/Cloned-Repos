@@ -1,0 +1,42 @@
+<h1 id="richtextinput-for-react-admin"><code>&lt;RichTextInput&gt;</code> for react-admin</h1>
+<p>For editing HTML with <a href="https://github.com/marmelab/react-admin">react-admin</a>, use the <code>&lt;RichTextInput&gt;</code> component. It embarks <a href="https://quilljs.com/">quill</a>, a popular cross-platform Rich Text Editor.</p>
+<figure>
+<img src="https://marmelab.com/react-admin/img/rich-text-input.png" alt="&lt;RichTextInput&gt; example" /><figcaption><code>&lt;RichTextInput&gt;</code> example</figcaption>
+</figure>
+<h2 id="installation">Installation</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="ex">npm</span> install ra-input-rich-text --save-dev</a></code></pre></div>
+<h2 id="usage">Usage</h2>
+<pre class="jsx"><code>import * as React from &quot;react&quot;;
+import {
+    DateInput,
+    Edit,
+    EditButton,
+    TextInput,
+} from &#39;react-admin&#39;;
+import RichTextInput from &#39;ra-input-rich-text&#39;;
+
+const PostTitle = ({ record }) =&gt; {
+    return &lt;span&gt;Post {record ? `&quot;${record.title}&quot;` : &#39;&#39;}&lt;/span&gt;;
+};
+
+export const PostEdit = (props) =&gt; (
+    &lt;Edit title={&lt;PostTitle /&gt;} {...props}&gt;
+        &lt;TextInput disabled label=&quot;Id&quot; source=&quot;id&quot; /&gt;
+        &lt;TextInput source=&quot;title&quot; validation={{ required: true }} /&gt;
+        &lt;TextInput multiline source=&quot;teaser&quot; validation={{ required: true }} /&gt;
+        &lt;RichTextInput source=&quot;body&quot; validation={{ required: true }} /&gt;
+        &lt;DateInput label=&quot;Publication date&quot; source=&quot;published_at&quot; /&gt;
+    &lt;/Edit&gt;
+);</code></pre>
+<p>You can customize the rich text editor toolbar using the <code>toolbar</code> attribute, as described on the <a href="https://quilljs.com/docs/modules/toolbar/">Quill official toolbar documentation</a>.</p>
+<pre class="jsx"><code>&lt;RichTextInput source=&quot;body&quot; toolbar={[ [&#39;bold&#39;, &#39;italic&#39;, &#39;underline&#39;, &#39;link&#39;] ]} /&gt;</code></pre>
+<p>If you need more customization, you can access the quill object through the <code>configureQuill</code> callback that will be called just after its initialization.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">const</span> configureQuill <span class="op">=</span> quill <span class="kw">=&gt;</span> <span class="va">quill</span>.<span class="at">getModule</span>(<span class="st">&#39;toolbar&#39;</span>).<span class="at">addHandler</span>(<span class="st">&#39;bold&#39;</span><span class="op">,</span> <span class="kw">function</span> (value) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-2" title="2">    <span class="kw">this</span>.<span class="va">quill</span>.<span class="at">format</span>(<span class="st">&#39;bold&#39;</span><span class="op">,</span> value)</a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4"></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">// ...</span></a>
+<a class="sourceLine" id="cb4-6" title="6"></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="op">&lt;</span>RichTextInput source<span class="op">=</span><span class="st">&quot;text&quot;</span> configureQuill<span class="op">={</span>configureQuill<span class="op">}</span>/&gt;</a></code></pre></div>
+<h2 id="license">License</h2>
+<p>This library is licensed under the MIT License, and sponsored by <a href="https://marmelab.com">marmelab</a>.</p>

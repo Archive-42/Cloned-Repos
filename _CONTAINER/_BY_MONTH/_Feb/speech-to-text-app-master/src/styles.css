@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css?family=Muli");
+/* Color Variables */
+@import url("https://fonts.googleapis.com/css?family=Muli");
+body {
+  font: 14px 'Muli', sans-serif;
+  margin: 0 auto;
+  background: rgba(255, 127, 36, 0.5); }
+
+li {
+  list-style-type: none; }
+
+/*# sourceMappingURL=styles.css.map */

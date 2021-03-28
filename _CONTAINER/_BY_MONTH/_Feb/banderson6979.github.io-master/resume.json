@@ -1,0 +1,171 @@
+{
+	"name" : "Bryan Anderson",
+	"contact" : "dreamstarter@gmai.com",
+	"title" : "Software Engineer | 317-883-9779",
+	"objective" : "To make high-quality, exciting, applications that people love to use on any device while working with other smart and highly motivated engineers.",
+	"social" : [
+		{
+			"link" : "http://www.linkedin.com/in/bryan-anderson-b646263",
+			"name" : "LinkedIn"
+		},
+		{
+			"link" : "https://github.com/banderson6979",
+			"name" : "GitHub"
+		},
+		{
+			"link" : "https://github.com/banderson6979/banderson.github.io",
+			"name" : "this.source"
+		}
+	],
+	"skills" : [
+		"JavaScript",
+		"Coldfusion",
+		"Ruby 2",
+    "PHP",
+    "RESTful Web Services",
+    "XML",
+    "HTML 4/5",
+    "CSS",
+    "GIT",
+    "Application Architecture",
+    "cXML",
+    "mySQL",
+    "Postgres",
+    "Agile Methodologies"
+	],
+	"frameworks" : [
+		"Rails 4/5",
+    "CFWheels",
+    "Fusebox",
+    "Angular JS",
+    "jQuery",
+    "Sass",
+    "LESS",
+    "HAML",
+    "AJAX"
+	],
+	"projects" : [
+		{
+			"name" : "Nucleus",
+			"technologies" : "Ruby, Ruby on Rails, jQuery, Postgres",
+			"description" : "Full featured Invoicing and Task Tracking application."
+		},
+    {
+			"name" : "Atlas ",
+			"technologies" : "Ruby, Ruby on Rails, jQuery, Postgres",
+			"description" : "A Real Estate property management platform."
+		},
+    {
+			"name" : "Kenji",
+			"technologies" : "Coldfusion, XML, JavaScript, jQuery, mySQL",
+			"description" : "Indiana State owned application to digitize the adoption
+      and foster care process and securly store and manage all correspondence
+      between state and public assets."
+		},
+    {
+			"name" : "Brightstar Foundation",
+			"technologies" : "ColdFusion, mySQL, jQuery, JavaScript",
+			"description" : "Front-end Website with built-in CMS. Full administration
+      backend that also automates the process of coproate donations."
+		},
+    {
+			"name" : "MusicSync DJ",
+			"technologies" : "Javascript, HTML",
+			"description" : "Realtime Music Sync Collaboration Application."
+		},
+    {
+			"name" : "Potential Parent Tracking",
+			"technologies" : "Coldfusion, XML, JavaScript, jQuery, MS-SQL",
+			"description" : "Indiana State owned application to digitize the adoption
+      and foster care process and securly store and manage all correspondence
+      between state and public assets."
+		}
+	],
+	"experience" : [
+		{
+			"company" : "MOBI Wireless Management LLC",
+			"link" : "http://www.mobiwm.com",
+			"title" : "Senior Software Engineer",
+			"startDate" : "2012",
+			"endDate" : "Present",
+			"responsibilities" : "Develop multiple web applications, systems and
+      automation tools using Coldfusion and Ruby languages. Develop and maintain
+      a Rails Web Application/service that makes API calls via Soap to Sprint
+      for data and order retrieval. Develop new websites and enhanced existing
+      applications. Coordinate testing the roll out of automation changes. Research
+      technical issues and provided recommendations. Participate in business
+      requirements analysis, software evaluation and selection and application
+      integration. Develop, enhanced, maintained customer facing and
+      internal web applications."
+		},
+    {
+			"company" : "Bluefish Wireless",
+			"link" : "",
+			"title" : "Safety Inspector",
+			"startDate" : "2012",
+			"endDate" : "2013",
+			"responsibilities" : "Develop multiple web applications, systems and
+      automation tools using a ColdFusion front end. Develop new websites and
+      enhanced existing applications. Coordinate testing the roll out of automation
+      changes. Research technical issues and provided recommendations. Participate
+      in business requirements analysis, software evaluation and selection and
+      application integration. Develop, enhanced, maintained customer facing and
+      internal web applications."
+		},
+    {
+			"company" : "ProVim",
+			"link" : "http://www.provim.net",
+			"title" : "Lead Web Developer",
+			"startDate" : "2011",
+			"endDate" : "2012",
+			"responsibilities" : "Development and ongoing maintenance of php web
+      applications and websites for the ProVim and Today's QR customers and clients."
+		},
+    {
+			"company" : "Indiana Foster Care and Adoption Association",
+			"link" : "",
+			"title" : "Director of Information Technology",
+			"startDate" : "1989",
+			"endDate" : "Present",
+			"responsibilities" : "Manage four custom Joomla websites and
+      two e-commerce web stores. Provide solutions using Coldfusion, jQuery,
+      AJAX, CSS and HTML. Continued support and development of a Coldfusion
+      application and MS-SQL database built for the Department of Child
+      Services for Indiana used to recruit families and track the youth of
+      Indiana in need of adoption or foster care. Also provide network
+      administration, including backups, security, end-user computer support, user accounts,
+      email systems, internet telecommunications and local applications support."
+		},
+    {
+			"company" : "Self Employed",
+			"link" : "",
+			"title" : "Web Application Engineer",
+			"startDate" : "2005",
+			"endDate" : "2011",
+			"responsibilities" : "State contract through Success Technologies Inc. to
+       develop a secure and innovative data solution for the Department of Child
+       Services of Indiana to use for the purpose of recruitment of families and
+       tracking of youth progress. The application was built using Coldfusion,
+       AJAX, jQuery, CSS and HTML with a MS-SQL database. This codebase
+       is audited by the state each year to verify that security and programming
+       standards are current."
+		},
+    {
+			"company" : "allesTEK",
+			"link" : "",
+			"title" : "Consultant",
+			"startDate" : "2004",
+			"endDate" : "2005",
+			"responsibilities" : "Build high quality web applications using JavaScript, Java, ColdFusion for our clients. I also evaluate and educate the development team on new techniques and technologies. High-level application design including technologies, frameworks, and coding practices.",
+			"achievements" : "Introduced unit testing, continuous integration, source control, and development best practices to the team.  Started the Lunch and Learn program where team members teach each other new technologies and techniques. Lead development teams of up to 5 developers on profitable development projects."
+		}
+	],
+	"education" : [
+		{
+			"school" : "Indiana University Kelly School of Business",
+			"startDate" : "2000",
+			"endDate" : "2003",
+			"program" : "Information Science"
+		}
+	]
+}

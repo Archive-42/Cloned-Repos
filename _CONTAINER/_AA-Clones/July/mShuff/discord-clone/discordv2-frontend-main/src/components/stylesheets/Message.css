@@ -1,0 +1,20 @@
+.message {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.message__info {
+  margin-left: 20px;
+}
+
+.message__timestamp {
+  color: gray;
+  margin-left: 20px;
+  font-size: small;
+}
+
+.messageAvatar {
+  color: #ffffff;
+  background-color: rgba(6, 31, 37, 0.8);
+}

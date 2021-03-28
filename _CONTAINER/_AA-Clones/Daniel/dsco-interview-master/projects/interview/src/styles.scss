@@ -1,0 +1,102 @@
+/*!
+ * Copyright (C) 2020 DS Co., dba dsco - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential.
+ */
+
+@import "vars";
+
+body {
+  padding: 0;
+  margin: 0;
+  color: $darkText;
+  background: $background;
+  font-size: 14px;
+  font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+}
+
+// Import some widgets
+@import "styles/header";
+@import "styles/list";
+@import "styles/input";
+@import "styles/card";
+@import "styles/code";
+
+// Position & display classes
+.relative {
+  position: relative;
+}
+
+.inlineBlock {
+  display: inline-block;
+}
+
+// Flexbox classes
+.flex {
+  display: flex;
+
+  &.column {
+    flex-direction: column;
+  }
+}
+
+.flex1 {
+  flex: 1;
+}
+
+// Alignment classes
+.vAlignM {
+  vertical-align: middle;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.floatRight {
+  float: right;
+}
+
+// Padding classes
+.padLarge {
+  padding: $largePadding;
+}
+
+.padSmall {
+  padding: $smallPadding;
+}
+
+// Margin classes
+.mLarge {
+  margin: $largePadding;
+}
+
+.mRightLarge {
+  margin-right: $largePadding;
+}
+
+.mRightSmall {
+  margin-right: $smallPadding;
+}
+
+.mTopSmall {
+  margin-top: $smallPadding;
+}
+
+.mBottomLarge {
+  margin-bottom: $largePadding;
+}
+
+// Screen size classes
+@include desktop-only {
+  .mobile {
+    display: none;
+  }
+}
+
+@include mobile-only {
+  .desktop {
+    display: none;
+  }
+}

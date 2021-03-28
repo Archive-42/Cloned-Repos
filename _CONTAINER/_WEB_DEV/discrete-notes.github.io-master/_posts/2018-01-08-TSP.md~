@@ -1,0 +1,136 @@
+---
+layout: post
+title: Traveling salesman problem on cubic graphs 
+redirect_from: "/2018/01/08/TSP/"
+permalink: cubic-TSP
+---
+
+This is the second post of a series that start with 
+[this post](https://semidoc.github.io/information-communication). 
+
+The second talk I want to "review" is, _Applications and Constructions of cut-covering 
+decompositions for connectivity problems_, by 
+[Alantha Newman](http://www.g-scop.grenoble-inp.fr/membres/newman-alantha--570520.kjsp) from the 
+[GSOP lab](http://www.g-scop.grenoble-inp.fr/welcome/welcome--452610.kjsp) in 
+Grenoble. Her work is partly based on some insight from earlier papers, and what 
+I write about is inspired by
+ _[this paper](http://dare.ubvu.vu.nl/bitstream/handle/1871/34734/274155.pdf?sequence=1)_.
+
+---
+
+[Cubic graphs](https://en.wikipedia.org/wiki/Cubic_graph) are graphs in which 
+every node has degree 3. These graphs have special structures that are useful 
+when designing 
+[approximation algorithms](https://en.wikipedia.org/wiki/Approximation_algorithm)
+for the 
+[travelling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem)
+(TSP for short), 
+and that's what this post is about.  
+
+## Graph-TSP and graphical-TSP
+First, some reader may be confused by the fact the TSP is usually defined on weighted
+complete graphs, and not on some class of unweighted graphs. The first reason 
+for this is that not all the graphs are 
+[eulerian](https://en.wikipedia.org/wiki/Eulerian_path), that is there may not 
+exists a cycle that visits every node only once. 
+
+We actually focus on _graph-TSP_, which is TSP on special natural instances. 
+Graph-TSP on an unweighted graph $G$ with $n$ nodes, means that we are aiming at 
+the shortest tour in the complete graph on $n$ nodes with the following weights: 
+the distance between two arbitrary nodes $u$ and $v$ is the shortest path 
+distance between these nodes. This is known as the metric completion of $G$, and 
+indeed one can check that these distances follow the triangle inequality.
+
+Another problem is interesting to us: _graphical-TSP_. In this new problem, given 
+a graph, one has to find the shortest tour that visits all the nodes, 
+but with the relaxation that it can visit the nodes and edges more than 
+once. 
+
+"Graph-TSP" and "graphical-TSP" are unpleasantly close names, but 
+fortunately, the problems are equivalent! Indeed, suppose you have a tour for 
+graph-TSP, then every edge $(u,v)$ has the weight of the path between $u$ and 
+$v$ in $G$: one can take this path, unfoding every edge, and get a solution of 
+same weight for graphical-TSP. A similar construction works for the other 
+direction.
+
+## Simplified Christofides algorithm
+
+Consider the following simple algorithm for graphical-TSP. Take a minimum 
+spanning tree of the graph $G$, and then consider the path taken if one does a 
+traversal of the tree. This is a tour, because every node is visited. This gives 
+a 2-approximation, because the optimal tour cannot be lighter than the minimum 
+spanning tree, and because every edge is taken exactly twice in our tour.
+
+[Christofides algorithm](https://en.wikipedia.org/wiki/Christofides_algorithm) 
+is a refinment of this idea, and it gives a 3/2-approximation for metric 
+instance of (the general) TSP, thus it gives 3/2 for graph-TSP. 
+The challenge is to go further than this 3/2, and this is possible for 
+cubic graphs.
+
+## A few graph theoretic definitions
+Before we get to why cubic graphs are nice,  
+we need a few definitions from graph theory. 
+* A _[bridge](https://en.wikipedia.org/wiki/Bridge_(graph_theory)#Bridgeless_graphs)_ 
+in a graph, is an edge whose removal disconnects the graph. 
+* A _perfect matching_, is a [matching](https://en.wikipedia.org/wiki/Matching_(graph_theory)), 
+that is a set of vertex-disjoint edges, that matches all vertices in G. 
+* A _[(vertex disjoint) cycle cover](https://en.wikipedia.org/wiki/Vertex_cycle_cover)_
+is a set of vertex-disjoint cycles that span all vertices in G.
+
+Note that the two last definitions are prettty similar, and indeed they are two 
+examples of a more general concept, called 
+[k-factors](https://en.wikipedia.org/wiki/Graph_factorization). But let's go 
+back to cubic graphs. 
+ 
+## Cycle covers from Petersen's theorem
+[Petersen's theorem](https://en.wikipedia.org/wiki/Petersen%27s_theorem) states 
+that every bridgeless cubic graph, has a perfect matching. 
+
+Now, take a bridgeless cubic graph and remove a perfect matching. What is 
+left? A cycle cover of G. 
+Indeed the degree of every node has decreased from three to two, thus the 
+resulting graph must be union of cycles spanning all nodes.
+
+## All together now
+Let's put all the ingredient together to get an approximation algorithm for 
+graphical-TSP with a better ratio than Christofides algorithm.
+
+First find a cycle cover of $G$ as in the previous section. This is visiting 
+every node, but it is not a tour yet, because it is disconnected. We will now 
+link these cycles together. Consider 
+the graph $G'$ made by contracting every cycle into just one node. On this graph 
+$G'$, take the tour
+induced by the spanning tree as in the simplified Chritofides algorithm. 
+This tour corresponds to a set of edges in $G$. 
+Now this set of edges plus the edges of the cycle cover form a tour, and we have 
+a solution for graphical-TSP! 
+
+What is the weight of this tour? The cycle cover contains exactly $n$ edges. 
+Let $c$ be the number of cycles in this cover. Then there are $2c-1$ edges in 
+the tree. The tour has weight $n+2c-1$. What the paper does afterward is to 
+modify a bit the argument[^1] to get $c\leq n/6$. This yields to a tour with 
+less then $4/3n$ edges, thus a 4/3 approximation, as a tour cannot be shorter 
+than $n$. And this improves on the 3/2 ration of Christofides.
+  
+We discussed only cubic graphs, but the approach based on studying the cycle 
+cover is fruitful for more cases, and it led to many improvments.
+
+## Bonus: recent advances on asymmetric TSP
+
+On a related topic, there has been recent advances on asymmetric TSP, that is 
+TSP were the directed edges $(u,v)$ and $(v,u)$ may not have the same weight. 
+[The paper](https://arxiv.org/pdf/1708.04215), by 
+[Ola Svensson](http://theory.epfl.ch/osven/), 
+[Jakub Tarnawski](http://jakub.tarnawski.org/) and
+[László A. Végh](http://personal.lse.ac.uk/veghl/) is on arxiv, and gives the 
+first constant approximation algorithm for the problem. You will find 
+links to summary, and video's on Tarnawski's webpage. It has been covered  
+on [Gödel's lost letter](https://rjlipton.wordpress.com/2017/09/11/a-tsp-breakthrough/)  
+(that we cited in our [blog post](https://semidoc.github.io/blogs) (in French)), 
+ and on [Quanta magazine](https://www.quantamagazine.org/one-way-salesman-finds-fast-path-home-20171005/)
+
+### Footnotes
+[^1]: To make this work one needs a stronger version of Petersen's theorem, to 
+have a better cycle cover. The details are in 
+[this paper](http://dare.ubvu.vu.nl/bitstream/handle/1871/34734/274155.pdf?sequence=1). 
+

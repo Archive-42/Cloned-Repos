@@ -1,0 +1,27 @@
+<div class="page-header">
+    <h1>Authors</h1>
+  </div>
+
+  <div class="textCenter content padLarge">
+
+    <div class="relative mBottomLarge">
+      <input (ngModelChange)="search($event)" [class.searching]="searching$ | async"
+             [ngModel]="searchStr$ | async"
+             placeholder="Search for an Author!" type="text">
+
+      <ds-spinner *ngIf="searching$ | async"></ds-spinner>
+    </div>
+
+    <div *ngIf="numAuthors$ | async" class="list" verticalExpander>
+      <div *ngFor="let author of authors$ | async">
+        <b>{{author.firstName + " " + author.lastName}}</b>
+        <span class="floatRight">{{author.age}}</span>
+      </div>
+    </div>
+
+    <div *ngIf="noAuthorsFound$ | async" class="list" verticalExpander>
+      <div>
+        No authors found.
+      </div>
+    </div>
+  </div>

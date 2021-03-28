@@ -1,0 +1,12 @@
+{
+  "name": "ramda-testing",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "watch": "../node_modules/.bin/webpack --watch"
+  },
+  "dependencies": {
+    "ramda": "^0.26.1"
+  }
+}

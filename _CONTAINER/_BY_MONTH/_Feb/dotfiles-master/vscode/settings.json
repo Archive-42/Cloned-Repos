@@ -1,0 +1,50 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 80,
+    "editor.rulers": [
+        125
+    ],
+    "workbench.colorTheme": "Cobalt2",
+    "workbench.iconTheme": "material-icon-theme",
+    "typescript.check.tscVersion": false,
+    "editor.renderWhitespace": "boundary",
+    "git.autofetch": false,
+    "extensions.ignoreRecommendations": false,
+    "sync.lastUpload": "2018-01-16T17:25:32.938Z",
+    "sync.autoDownload": false,
+    "sync.autoUpload": false,
+    "sync.lastDownload": "",
+    "sync.forceDownload": false,
+    "sync.anonymousGist": false,
+    "sync.host": "",
+    "sync.pathPrefix": "",
+    "sync.quietSync": false,
+    "sync.askGistName": false,
+    "dayNightThemeSwitcher.nightTheme": "Nord",
+    "dayNightThemeSwitcher.dayTheme": "Solarized Light",
+    "extensions.autoUpdate": false,
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "editor.lineHeight": 20,
+
+    "editor.tokenColorCustomizations": {
+        "[Nord]": { // Nord devs really should update the foreground color of comments
+            "comments": {
+                "foreground": "#839aa5",
+            }
+        }
+    },
+    "[html]": {
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": false,
+            "strings": true
+        }
+    },
+    // "terminal.integrated.shell.windows": "C:\\Windows\\sysnative\\bash.exe",
+    "editor.fontSize": 14,
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontFamily": "'Noto Mono for Powerline'",
+    "window.titleBarStyle": "custom"
+}

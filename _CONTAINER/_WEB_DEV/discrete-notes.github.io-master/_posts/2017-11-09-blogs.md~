@@ -1,0 +1,85 @@
+---
+layout: post
+title: Blogs d'informatique théorique 
+redirect_from: "/2017/11/09/blogs/"
+permalink: blogs
+---
+
+Hi everyone, the rest of this post is in French and is basically a list of TCS 
+blogs, some in French, some in English.
+
+---
+
+Bonjour, aujourd'hui un billet sur les blogs d'informatique théorique.  J'ai un 
+peu taté le terrain auprès des doctorants de l'[IRIF](https://www.irif.fr/index),
+pour savoir ce qui était lu et voilà une partie des résultats, avec de courtes 
+descriptions qui n'engagent que moi. Je vous encourage à aller voir vous-même.
+
+N'hésitez pas à m'envoyer des commentaires et suggestions 
+(feuilloley 'at' irif 'point' fr). 
+
+### [The n-Category Café](https://golem.ph.utexas.edu/category/)
+Un blog collectif lu notamment par les catégoriciens. Une dizaines d'auteurs, dont 
+[John Baez](https://fr.wikipedia.org/wiki/John_Baez) 
+(assez présent sur internet, notamment autour de l'open access et du rechauffement 
+climatique, et qui a son propre blog, 
+[Azimut](https://johncarlosbaez.wordpress.com/about/) qui parle de beaucoup 
+d'autres choses). Les contenus techniques sont axés catégories, mais avec des 
+incursions dans d'autres domaines et des commentaires sur l'informatique en général. 
+
+### [Shtetl-Optimized](https://www.scottaaronson.com/blog/)
+Un blog classique en quantique/complexité/nerdisme, par un nerd quantique 
+complexe, [Scott Aaronson](https://fr.wikipedia.org/wiki/Scott_Aaronson). 
+Des discussions techniques, mais 
+surtout le suivi des (non-)avancées des ordinateurs quantiques, une partie de la 
+politique américaine 
+et des avis sur les trous noirs, la calculabilité, la conscience, et les problèmes d'Uber. 
+Entre autres.
+
+### [Gagalium](http://gallium.inria.fr/blog/) 
+Le blog de la communauté [Ocaml](https://fr.wikipedia.org/wiki/OCaml), 
+avec du contenu très pointu, mais aussi des 
+histoires qui peuvent interesser un plus large public, comme 
+*[How I found a bug in Intel Skylake processors](http://gallium.inria.fr/blog/intel-skylake-bug/)*.
+
+### [Windows on Theory](https://windowsontheory.org/)
+Blog à *n* mains, avec *n* grand, mais dont l'auteur principal est aujourd'hui 
+[Boak Barak](http://www.boazbarak.org/). Il y est question de *theoretical 
+computer science* (TCS), selon la compréhension américaine du terme : algorithmes, 
+complexité, crypto. Beaucoup de contenus semi-techniques et de discussions sur la 
+communauté, les conférences, l'enseignement, les nouveaux domaines, les postes.
+
+### [La vie est mal configurée](http://david.monniaux.free.fr/dotclear/index.php/)
+Le blog de [David Monniaux](http://www-verimag.imag.fr/~monniaux/), prof au CNRS 
+à Grenoble. Le plus souvent en français, avec un focus sur l'informatique en 
+France (son enseignement, son image dans les médias etc.), sur la recherche en 
+informatique en générale (processus de publication, vie de chercheur), et 
+parfois de la vulgarisation de contenu technique.
+  
+### [Gödel's lost letter and P=NP](https://rjlipton.wordpress.com/)
+Un autre blog de TCS à l'américaine, généraliste mais avec parfois des billets 
+de vulgarisation de sujets vraiment techniques, avec souvent un nouveau point de vue, 
+des questions ouvertes, des avis personels etc.. Par 
+[Richard Lipton](https://fr.wikipedia.org/wiki/Richard_J._Lipton) et Ken Regan.
+
+### [Lambda the ultimate](http://lambda-the-ultimate.org/)
+Entre le blog et le forum. Contenus techniques sur la théorie des langages de 
+	programmation.
+
+### [Computational complexity](http://blog.computationalcomplexity.org/)
+Et pour finir encore un blog dans le domaine algo/complexité, avec aussi des 
+énigmes, des annonces de postes, des avis sur les technologies en général. 
+Par [Lance Fortnow](https://en.wikipedia.org/wiki/Lance_Fortnow) et 
+[Bill Gasarch](https://en.wikipedia.org/wiki/William_Gasarch). En passant les blogs de ce type sont regroupés dans le 
+[Theory of Computing Blog Aggregator](http://www.feedworld.net/toc/), avec les 
+sections [ArXiv](https://fr.wikipedia.org/wiki/ArXiv) pertinentes.
+
+### Et encore quelques uns
+Deux blogs de groupes de thésards basés aux États-Unis : 
+[Not so Great Ideas in Theoretical Computer Science](https://mittheory.wordpress.com/)
+et [Learning With Errors](http://learningwitherrors.org/).
+
+On finit avec des blogs de doctorants présents ou passés de l'IRIF : [Drup](https://drup.github.io/) 
+de Gabriel Radanne, [FiV0](https://fiv0.github.io/) de Finn Völkel
+(sur lequel la structure de semidoc est basée)
+et le [blog de Théo Zimmermann](https://www.theozimmermann.net/en/blog/).

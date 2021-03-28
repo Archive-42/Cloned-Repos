@@ -1,0 +1,44 @@
+{
+  "name": "@netlify/plugins-list",
+  "version": "2.2.0",
+  "description": "List of Netlify plugins",
+  "main": "site/plugins.json",
+  "files": [],
+  "scripts": {
+    "lint": "eslint 'functions/**/*.js'",
+    "format": "prettier --write 'functions/**/*.js'",
+    "format:ci": "prettier --check 'functions/**/*.js'",
+    "test": "ava"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "keywords": [
+    "netlify-plugin",
+    "netlify"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "ava": "^3.13.0",
+    "babel-eslint": "^10.1.0",
+    "diff": "^4.0.2",
+    "eslint": "^7.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "got": "^11.8.0",
+    "husky": "^4.2.5",
+    "node-fetch": "^2.6.1",
+    "pacote": "^11.1.13",
+    "prettier": "^2.0.5",
+    "upper-case-first": "^2.0.2"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=8.3.0"
+  }
+}

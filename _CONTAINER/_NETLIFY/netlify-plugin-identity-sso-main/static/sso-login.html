@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <meta property="og:title" content="Netlify Rust Docs" />
+    <meta property="og:description" content="Documentation for x" />
+    <meta property="og:type" content="website" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="distribution" content="Global" />
+    <meta name="rating" content="General" />
+
+    <title>Netlify Rust Docs</title>
+  </head>
+
+  <body style="margin: 0; width: 100vw; height: 100vh">
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+      "
+    >
+      <p>This page is protected. Login below to access it.</p>
+      <button id="login">Login with Google</button>
+      <p id="error-msg"></p>
+    </div>
+
+    <script
+      type="text/javascript"
+      src="https://identity.netlify.com/v1/netlify-identity-widget.js"
+    ></script>
+    <script>
+      const loginBtn = document.querySelector('#login')
+      loginBtn.addEventListener('click', () => {
+        const url = netlifyIdentity.gotrue.loginExternalUrl('google')
+        window.open(url, '_self')
+      })
+
+      const errorMessage = document.getElementById('error-msg')
+      const checkToken = () => {
+        const user = netlifyIdentity.gotrue.currentUser() // refresh user object
+        const d = Date.now()
+        const exp = user.token.expires_at
+        if (d > exp) {
+          console.log(
+            "Your identity session has expired and the token couldn't be refreshed!",
+          )
+          errorMessage.textContent =
+            'Your session has expired. Please login again'
+          user.logout()
+          return
+        }
+
+        console.log('the token is valid')
+        window.open('/', '_self')
+      }
+      const ensureFreshToken = (user) => {
+        user
+          .jwt()
+          .then(() => {
+            setTimeout(checkToken, 100)
+          })
+          .catch((err) => {
+            user.logout()
+            console.error(err)
+          })
+      }
+
+      netlifyIdentity.on('login', (user) => {
+        console.log(user)
+        if (
+          user &&
+          user.app_metadata.roles &&
+          user.app_metadata.roles.includes('netlify')
+        ) {
+          ensureFreshToken(user)
+        }
+      })
+    </script>
+  </body>
+</html>

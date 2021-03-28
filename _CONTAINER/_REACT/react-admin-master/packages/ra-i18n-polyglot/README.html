@@ -1,0 +1,88 @@
+<h1 id="polyglot-i18n-provider-for-react-admin">Polyglot i18n provider for react-admin</h1>
+<p>Polyglot i18n provider for <a href="https://github.com/marmelab/react-admin">react-admin</a>, the frontend framework for building admin applications on top of REST/GraphQL services. It relies on <a href="https://airbnb.io/polyglot.js/">polyglot.js</a>, which uses JSON files for translations.</p>
+<p><a href="https://vimeo.com/268958716"><img src="https://marmelab.com/react-admin/img/react-admin-demo-still.png" alt="react-admin-demo" /></a></p>
+<h2 id="installation">Installation</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" title="1"><span class="ex">npm</span> install --save ra-i18n-polyglot</a></code></pre></div>
+<h2 id="usage">Usage</h2>
+<p>Wrap the function exported by this package around a function returning translation messages based on a locale to produce a valid <code>i18nProvider</code>.</p>
+<pre class="jsx"><code>import * as React from &quot;react&quot;;
+import { Admin, Resource } from &#39;react-admin&#39;;
+import polyglotI18nProvider from &#39;ra-i18n-polyglot&#39;;
+import englishMessages from &#39;ra-language-english&#39;;
+import frenchMessages from &#39;ra-language-french&#39;;
+
+const messages = {
+    fr: frenchMessages,
+    en: englishMessages,
+};
+
+const i18nProvider = polyglotI18nProvider(locale =&gt; messages[locale]);
+
+const App = () =&gt; (
+    &lt;Admin locale=&quot;en&quot; i18nProvider={i18nProvider}&gt;
+        ...
+    &lt;/Admin&gt;
+);
+
+export default App;</code></pre>
+<h2 id="translation-messages">Translation Messages</h2>
+<p>The <code>message</code> returned by the function argument should be a dictionary where the keys identify interface components, and values are the translated string. This dictionary is a simple JavaScript object looking like the following:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="op">{</span></a>
+<a class="sourceLine" id="cb3-2" title="2">    <span class="dt">ra</span><span class="op">:</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">        <span class="dt">action</span><span class="op">:</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-4" title="4">            <span class="kw">delete</span><span class="op">:</span> <span class="st">&#39;Delete&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-5" title="5">            <span class="dt">show</span><span class="op">:</span> <span class="st">&#39;Show&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-6" title="6">            <span class="dt">list</span><span class="op">:</span> <span class="st">&#39;List&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">            <span class="dt">save</span><span class="op">:</span> <span class="st">&#39;Save&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-8" title="8">            <span class="dt">create</span><span class="op">:</span> <span class="st">&#39;Create&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-9" title="9">            <span class="dt">edit</span><span class="op">:</span> <span class="st">&#39;Edit&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-10" title="10">            <span class="dt">cancel</span><span class="op">:</span> <span class="st">&#39;Cancel&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-11" title="11">        <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-12" title="12">        ...</a>
+<a class="sourceLine" id="cb3-13" title="13">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-14" title="14"><span class="op">}</span></a></code></pre></div>
+<p>All core translations are in the <code>ra</code> namespace, in order to prevent collisions with your own custom translations. The root key used at runtime is determined by the value of the <code>locale</code> prop.</p>
+<p>The default messages are available <a href="https://github.com/marmelab/react-admin/blob/master/packages/ra-language-english/src/index.ts">here</a>.</p>
+<h2 id="asynchronous-locale-change">Asynchronous Locale Change</h2>
+<p>The function passed as parameter of <code>polyglotI18nProvider</code> can return a <em>Promise</em> for messages instead of a messages object. This lets you lazy load messages upon language change.</p>
+<p>Note that the messages for the default locale (used by react-admin for the initial render) must be returned in a synchronous way.</p>
+<pre class="jsx"><code>import polyglotI18nProvider from &#39;ra-i18n-polyglot&#39;;
+import englishMessages from &#39;ra-language-english&#39;;
+
+const asyncMessages = {
+    fr: () =&gt; import(&#39;ra-language-french&#39;).then(messages =&gt; messages.default),
+    it: () =&gt; import(&#39;ra-language-italian&#39;).then(messages =&gt; messages.default),
+};
+
+const messagesResolver = locale =&gt; {
+    if (locale === &#39;en&#39;) {
+        // initial call, must return synchronously
+        return englishMessages;
+    }
+    // change of locale after initial call returns a promise
+    return asyncMessages[params.locale]();
+}
+
+const i18nProvider = polyglotI18nProvider(messagesResolver);</code></pre>
+<h2 id="using-specific-polyglot-features">Using Specific Polyglot Features</h2>
+<p>Polyglot.js is a fantastic library: in addition to being small, fully maintained, and totally framework agnostic, it provides some nice features such as interpolation and pluralization, that you can use in react-admin.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">const</span> messages <span class="op">=</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-2" title="2">    <span class="st">&#39;hello_name&#39;</span><span class="op">:</span> <span class="st">&#39;Hello, %{name}&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="st">&#39;count_beer&#39;</span><span class="op">:</span> <span class="st">&#39;One beer |||| %{smart_count} beers&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="op">};</span></a>
+<a class="sourceLine" id="cb5-5" title="5"></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="co">// interpolation</span></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="at">translate</span>(<span class="st">&#39;hello_name&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;John Doe&#39;</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="kw">=&gt;</span> <span class="st">&#39;Hello, John Doe.&#39;</span></a>
+<a class="sourceLine" id="cb5-9" title="9"></a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="co">// pluralization</span></a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="at">translate</span>(<span class="st">&#39;count_beer&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">smart_count</span><span class="op">:</span> <span class="dv">1</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-12" title="12"><span class="kw">=&gt;</span> <span class="st">&#39;One beer&#39;</span></a>
+<a class="sourceLine" id="cb5-13" title="13"></a>
+<a class="sourceLine" id="cb5-14" title="14"><span class="at">translate</span>(<span class="st">&#39;count_beer&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">smart_count</span><span class="op">:</span> <span class="dv">2</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-15" title="15"><span class="kw">=&gt;</span> <span class="st">&#39;2 beers&#39;</span></a>
+<a class="sourceLine" id="cb5-16" title="16"></a>
+<a class="sourceLine" id="cb5-17" title="17"><span class="co">// default value</span></a>
+<a class="sourceLine" id="cb5-18" title="18"><span class="at">translate</span>(<span class="st">&#39;not_yet_translated&#39;</span><span class="op">,</span> <span class="op">{</span> <span class="dt">_</span><span class="op">:</span> <span class="st">&#39;Default translation&#39;</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-19" title="19"><span class="kw">=&gt;</span> <span class="st">&#39;Default translation&#39;</span></a></code></pre></div>
+<p>To find more detailed examples, please refer to <a href="https://airbnb.io/polyglot.js/">http://airbnb.io/polyglot.js/</a></p>

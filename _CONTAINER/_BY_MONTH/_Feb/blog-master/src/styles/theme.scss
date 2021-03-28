@@ -1,0 +1,62 @@
+body {
+  --bg: #f8f9fa;
+  --bg-secondary: #fff;
+  --text-normal: #222;
+  --text-title: inherit;
+  --text-subtitle: #888;
+  --text-link: rgba(12, 26, 66, 0.6);
+  --title-link: #222;
+  --link-color: rgba(12, 26, 66, 0.6);
+  --hr: rgb(221, 221, 221);
+  --nav-bg: rgba(255, 255, 255, 0.6);
+  --code: #fdf6e3;
+  --code-text: #906b22;
+  --border-bottom: rgb(225, 225, 225);
+
+  --scrollbar-bg: #fcfdfd;
+  --scrollbar-color: #c5c1b9;
+  --scrollbar-corner-bg: #b7b7b7;
+  --scrollbar-thumb-bg: #dddddd;
+
+  --pagination-hover: rgba(255, 255, 255, 0.07);
+
+  background-color: var(--bg);
+}
+
+body.dark {
+  -webkit-font-smoothing: antialiased;
+
+  --bg: rgb(26, 28, 29);
+  --bg-secondary: #181a1b;
+  --text-normal: rgba(255, 255, 255, 0.88);
+  --text-title: white;
+  --text-subtitle: rgb(186, 181, 171);
+  --text-link: rgba(213, 210, 204, 0.6);
+  --title-link: #424c7d;
+  --link-color: rgba(201, 214, 253, 0.6) !important;
+  --hr: #4d4d4d;
+  --nav-bg: rgba(24, 26, 27, 0.6);
+  --code: rgb(63, 47, 5);
+  --code-text: #bcb7ad;
+  --border-bottom: #393939;
+
+  --scrollbar-bg: #1c1e1f;
+  --scrollbar-color: #c5c1b9;
+  --scrollbar-corner-bg: #181a1b;
+  --scrollbar-thumb-bg: #2a2c2e;
+
+  --pagination-hover: rgba(0, 0, 0, 0.07);
+}
+
+::-webkit-scrollbar {
+    background-color: var(--scrollbar-bg);
+    color: var(--scrollbar-color);
+}
+
+::-webkit-scrollbar-corner {
+    background-color: var(--scrollbar-corner-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-bg);
+}

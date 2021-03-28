@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Making Music In The Browser</title>
+    <link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/css/main.css">
+</head>
+
+<body class="Site">
+    <div class="Site-content">
+        <h1>
+            <div data-text="Making Music In the Browser!" class="title"></div>
+        </h1>
+        <div id="circle"></div>
+    </div>
+    <footer class="site-footer">
+        <script>
+            const theDate = new Date();
+            const footer = document.querySelector(".site-footer");
+            footer.style.fontWeight = "600";
+            footer.style.letterSpacing = "0.07rem";
+            footer.style.fontFamily = "Share Tech Mono, monospace";
+            footer.innerHTML =
+                `&#10013; © ${theDate.getFullYear()} Maria D. Campbell &#10013;`;
+        </script>
+    </footer>
+    <script src="scripts/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>kodeWeave</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta name="description" content="HTML/CSS/JS and Markdown Code Playground For Web Designers and Developers">
+    <meta name="author" content="Michael Schwartz">
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#2882CA">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#2882CA">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="css/style.min.css" />
+    <link rel="icon" type="image/vnd.microsoft.icon" href="favicon.ico">
+    <link rel="SHORTCUT ICON" href="favicon.ico">
+    <script src="../editor/libraries/jquery/jquery.js"></script>
+
+    <script src="../editor/lib/jade.js"></script>
+    <script src="../editor/lib/he.js"></script>
+    <script src="../editor/lib/html2jade.js"></script>
+    <script src="../editor/lib/js2coffee.js"></script>
+    <script src="../editor/lib/stylus.min.js"></script>
+    <script src="../editor/lib/css2stylus.js"></script>t>
+    <script src="../editor/lib/less.min.js"></script>
+    <script src="../editor/lib/sass.js"></script>
+    <script src="../editor/lib/babel.min.js"></script>
+    <script src="../editor/lib/babel-polyfill.min.js"></script>
+
+    <script src="../editor/libraries/alertifyjs/alertify.min.js"></script>
+    <script src="../editor/libraries/showdown/Showdown.min.js"></script>
+
+    <script src="../editor/libraries/codemirror/codemirror.js"></script>
+    <script src="../editor/libraries/codemirror/addon/selection/active-line.js"></script>
+    <script src="../editor/libraries/codemirror/mode/javascript/javascript.js"></script>
+    <script src="../editor/libraries/codemirror/mode/xml/xml.js"></script>
+    <script src="../editor/libraries/codemirror/mode/css/css.js"></script>
+    <script src="../editor/libraries/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="../editor/libraries/codemirror/mode/ruby/ruby.js"></script>
+    <script src="../editor/libraries/codemirror/mode/jade/jade.js"></script>
+    <script src="../editor/libraries/codemirror/addon/fold/foldcode.js"></script>
+    <script src="../editor/libraries/codemirror/addon/fold/foldgutter.js"></script>
+    <script src="../editor/libraries/codemirror/addon/fold/brace-fold.js"></script>
+    <script src="../editor/libraries/codemirror/addon/fold/xml-fold.js"></script>
+    <script src="../editor/libraries/codemirror/addon/fold/comment-fold.js"></script>
+    <script src="../editor/libraries/codemirror/addon/search/search.js"></script>
+    <script src="../editor/libraries/codemirror/addon/search/searchcursor.js"></script>
+    <script src="../editor/libraries/codemirror/addon/dialog/dialog.js"></script>
+    <script src="../editor/libraries/codemirror/addon/palette.js"></script>
+    <script src="../editor/libraries/codemirror/addon/search/searchcursor.js"></script>
+    <script src="../editor/libraries/codemirror/addon/search/jump-to-line.js"></script>
+    <script src="../editor/libraries/codemirror/coffee-script.js"></script>
+    <script src="../editor/libraries/codemirror/mode/coffeescript/coffeescript.js"></script>
+    <script src="../editor/libraries/codemirror/mode/sass/sass.js"></script>
+    <script src="../editor/libraries/codemirror/mode/stylus/stylus.js"></script>
+    <script src="../editor/libraries/codemirror/mode/jade/jade.js"></script>
+    <script src="../editor/libraries/codemirror/markdown.js"></script>
+    <script src="../editor/libraries/codemirror/continuelist.js"></script>
+  </head>
+  <body class="app">
+    <!-- Opening and Closing for final index.html code -->
+    <div class="hide">
+      <div id="openHTML"></div>
+      <div id="closeHTML"></div>
+      <div id="closeFinal"></div>
+      <textarea id="source"></textarea>
+      
+      <input type="checkbox" id="mdeditor" data-check="hash">
+      <input type="checkbox" id="htmleditor" data-check="hash">
+      <input type="checkbox" id="csseditor" data-check="hash">
+      <input type="checkbox" id="jseditor" data-check="hash">
+      <input type="checkbox" id="previeweditor" data-check="hash">
+    </div>
+
+    <!-- Navigation -->
+    <header>
+       <a class="barsmenu hide">
+         <i class="fa fa-bars"></i>
+       </a>
+       <div class="mainmenu">
+         <a data-target="mdEditor">Markdown</a>
+         <a data-target="htmlEditor">HTML</a>
+         <a data-target="cssEditor">CSS</a>
+         <a data-target="jsEditor">JavaScript</a>
+         <a data-target="preview">Result</a>
+       </div>
+       
+       <a class="fr logo">
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <span class="name hu">Edit on kodeWeave</span>
+       </a>
+      <!-- Float Left -->
+      <div class="libraries-dialog dialog fl hide" style="position: absolute; z-index: 9999;">
+        <div class="hide">
+          <div id="closeRefs"></div>
+          <textarea class="hide" data-action="library-code" placeholder="full library code"></textarea>
+          <textarea class="hide" data-action="libstextarea" placeholder="trigger click on library for online storage"></textarea>
+          <textarea class="hide" data-action="ziplibs"></textarea>
+        </div>
+
+        <div class="addlibrary-tablets">
+          <ul class="ldd-menu">
+            <li>
+              <div class="ldd-submenu">
+                <ul style="border-left:none;">
+                  <div class="a">
+                    <li class="ldd-heading">A</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="alertify" />
+                        <label for="alertify">Alertify JS (1.6.1)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;link rel="stylesheet" href="libraries/alertifyjs/css/alertify.min.css" /&gt;
+      &lt;link rel="stylesheet" href="libraries/alertifyjs/css/themes/default.min.css" /&gt;
+      &lt;script src="libraries/alertifyjs/alertify.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="alertifyjs alertifyjs1 hide"></textarea>
+                        <textarea class="alertifyjs alertifyjs2 hide"></textarea>
+                        <textarea class="alertifyjs alertifyjs3 hide"></textarea>
+                        <textarea class="alertifyjs alertifyjs4 hide"></textarea>
+                        <textarea class="alertifyjs alertifyjs5 hide"></textarea>
+                        <textarea class="alertifyjs alertifyjs6 hide"></textarea>
+                        <textarea class="alertifyjs alertifyjs7 hide"></textarea>
+                        <textarea class="alertifyjs alertifyjs8 hide"></textarea>
+                        <textarea class="alertifyjs alertifyjs9 hide"></textarea>
+                        <textarea class="alertifyzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="angular" />
+                        <label for="angular">Angular JS (1.0.1)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/angular/angular.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="angularjs hide"></textarea>
+                        <textarea class="angularzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="angularmaterial" />
+                        <label for="angularmaterial">Angular Material (0.11.2)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">
+      &lt;link rel="stylesheet" href="libraries/angular-material/angular-material.min.css" /&gt;
+      &lt;link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons" /&gt;
+      &lt;link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:500,400,300,100&amp;subset=latin,latin-ext"&gt;
+      &lt;script src="libraries/angular-material/angular.min.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/angular-material/angular-animate.min.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/angular-material/angular-aria.min.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/angular-material/angular-material.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="angularmaterial angularmaterial1 hide"></textarea>
+                        <textarea class="angularmaterial angularmaterial2 hide"></textarea>
+                        <textarea class="angularmaterial angularmaterial3 hide"></textarea>
+                        <textarea class="angularmaterial angularmaterial4 hide"></textarea>
+                        <textarea class="angularmaterial angularmaterial5 hide"></textarea>
+                        <textarea class="angularmaterialzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="animatecss" />
+                        <label for="animatecss">Animate.CSS (3.5.2)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;link rel="stylesheet" href="libraries/animateCSS/animate.min.css"&gt;</textarea>
+                        <textarea class="animatecss hide"></textarea>
+                        <textarea class="animatecsszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="b">
+                    <li class="ldd-heading">B</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="backbone" />
+                        <label for="backbone">Backbone (1.3.3)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/backbone/backbone.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="backbone hide"></textarea>
+                        <textarea class="backbonezip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="bootstrap" />
+                        <label for="bootstrap">Bootstrap (3.3.5)</label>
+                      </a>
+                      <span class="new">&nbsp; Popular !</span>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;link rel="stylesheet" href="libraries/bootstrap/bootstrap.css" /&gt;
+      &lt;script src="libraries/bootstrap/bootstrap.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="bootstrap bootstrap1 hide"></textarea>
+                        <textarea class="bootstrap bootstrap2 hide"></textarea>
+                        <textarea class="bootstrapzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="c">
+                    <li class="ldd-heading">C</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="chartjs" />
+                        <label for="chartjs">Chart JS (0.2)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/chartjs/chart.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="chartjs hide"></textarea>
+                        <textarea class="chartjszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="codemirror" />
+                        <label for="codemirror">Codemirror (5.17.0)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;link rel="stylesheet" href="libraries/codemirror/lib/codemirror.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/codemirror/addon/fold/foldgutter.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/codemirror/inlet.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/codemirror/addon/lint/lint.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/codemirror/addon/dialog/dialog.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/codemirror/addon/hint/show-hint.css"&gt;
+      &lt;script src="libraries/codemirror/lib/codemirror.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/mode/javascript/javascript.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/mode/xml/xml.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/mode/css/css.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/mode/htmlmixed/htmlmixed.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/edit/closetag.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/edit/matchbrackets.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/selection/active-line.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/fold/foldcode.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/fold/foldgutter.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/fold/brace-fold.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/fold/xml-fold.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/fold/comment-fold.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/search/search.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/search/searchcursor.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/dialog/dialog.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/hint/show-hint.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/hint/xml-hint.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/hint/html-hint.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/hint/css-hint.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/hint/javascript-hint.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/search/match-highlighter.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/htmlhint.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/csslint.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/jshint.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/lint/lint.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/lint/html-lint.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/lint/css-lint.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/lint/javascript-lint.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/inlet.min.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/emmet.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/search/jump-to-line.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/markdown.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/continuelist.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/mode/ruby/ruby.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/mode/haml/haml.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/mode/jade/jade.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/mode/sass/sass.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/mode/livescript/livescript.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/mode/coffeescript/coffeescript.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/coffee-script.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/coffeelint.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/addon/lint/coffeescript-lint.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/codemirror/mode/stylus/stylus.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="codemirror1 hide"></textarea>
+                        <textarea class="codemirror2 hide"></textarea>
+                        <textarea class="codemirror3 hide"></textarea>
+                        <textarea class="codemirror4 hide"></textarea>
+                        <textarea class="codemirror5 hide"></textarea>
+                        <textarea class="codemirror6 hide"></textarea>
+                        <textarea class="codemirror7 hide"></textarea>
+                        <textarea class="codemirror8 hide"></textarea>
+                        <textarea class="codemirror9 hide"></textarea>
+                        <textarea class="codemirror10 hide"></textarea>
+                        <textarea class="codemirror11 hide"></textarea>
+                        <textarea class="codemirror12 hide"></textarea>
+                        <textarea class="codemirror13 hide"></textarea>
+                        <textarea class="codemirror14 hide"></textarea>
+                        <textarea class="codemirror15 hide"></textarea>
+                        <textarea class="codemirror16 hide"></textarea>
+                        <textarea class="codemirror17 hide"></textarea>
+                        <textarea class="codemirror18 hide"></textarea>
+                        <textarea class="codemirror19 hide"></textarea>
+                        <textarea class="codemirror20 hide"></textarea>
+                        <textarea class="codemirror21 hide"></textarea>
+                        <textarea class="codemirror22 hide"></textarea>
+                        <textarea class="codemirror23 hide"></textarea>
+                        <textarea class="codemirror24 hide"></textarea>
+                        <textarea class="codemirror25 hide"></textarea>
+                        <textarea class="codemirror26 hide"></textarea>
+                        <textarea class="codemirror27 hide"></textarea>
+                        <textarea class="codemirror28 hide"></textarea>
+                        <textarea class="codemirror29 hide"></textarea>
+                        <textarea class="codemirror30 hide"></textarea>
+                        <textarea class="codemirror31 hide"></textarea>
+                        <textarea class="codemirror32 hide"></textarea>
+                        <textarea class="codemirror33 hide"></textarea>
+                        <textarea class="codemirror34 hide"></textarea>
+                        <textarea class="codemirror35 hide"></textarea>
+                        <textarea class="codemirror36 hide"></textarea>
+                        <textarea class="codemirror37 hide"></textarea>
+                        <textarea class="codemirror38 hide"></textarea>
+                        <textarea class="codemirror39 hide"></textarea>
+                        <textarea class="codemirror40 hide"></textarea>
+                        <textarea class="codemirror41 hide"></textarea>
+                        <textarea class="codemirror42 hide"></textarea>
+                        <textarea class="codemirror43 hide"></textarea>
+                        <textarea class="codemirror44 hide"></textarea>
+                        <textarea class="codemirror45 hide"></textarea>
+                        <textarea class="codemirror46 hide"></textarea>
+                        <textarea class="codemirror47 hide"></textarea>
+                        <textarea class="codemirror48 hide"></textarea>
+                        <textarea class="codemirror49 hide"></textarea>
+                        <textarea class="codemirror50 hide"></textarea>
+                        <textarea class="codemirror51 hide"></textarea>
+                        <textarea class="codemirror52 hide"></textarea>
+                        <textarea class="codemirror53 hide"></textarea>
+                        <textarea class="codemirrorzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="createjs" />
+                        <label for="createjs">Create JS</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/createjs/createjs.min.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/createjs/easeljs.min.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/createjs/tweenjs.min.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/createjs/soundjs.min.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/createjs/preloadjs.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="createjs createjs1 hide"></textarea>
+                        <textarea class="createjs createjs2 hide"></textarea>
+                        <textarea class="createjs createjs3 hide"></textarea>
+                        <textarea class="createjs createjs4 hide"></textarea>
+                        <textarea class="createjs createjs5 hide"></textarea>
+                        <textarea class="createjszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                    </div>
+                  <div class="d">
+                    <li class="ldd-heading">D</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="d3" />
+                        <label for="d3">D3</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/d3/d3.js"&gt;&lt;/script&gt;"&gt;</textarea>
+                        <textarea class="d3 hide"></textarea>
+                        <textarea class="d3zip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="dojo" />
+                        <label for="dojo">Dojo</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/dojo/dojo.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="dojo hide"></textarea>
+                        <textarea class="dojozip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="e">
+                    <li class="ldd-heading">E</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="enhance" />
+                        <label for="enhance">Enhance</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/enhance/enhance.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="enhance hide"></textarea>
+                        <textarea class="enhancezip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="f">
+                    <li class="ldd-heading">F</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="fabricjs" />
+                        <label for="fabricjs">Fabric JS (1.3.0)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/fabric/fabric.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="fabricjs hide"></textarea>
+                        <textarea class="fabricjszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="foundation" />
+                        <label for="foundation">Foundation (6.4.1)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;link rel="stylesheet" href="libraries/foundation/foundation.min.css"&gt;
+      &lt;script src="libraries/foundation/foundation.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="foundation1 hide"></textarea>
+                        <textarea class="foundation2 hide"></textarea>
+                        <textarea class="foundationzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="h">
+                    <li class="ldd-heading">H</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="handlebars" />
+                        <label for="handlebars">Handlebars (4.0.5)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/handlebars/handlebars.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="handlebars hide"></textarea>
+                        <textarea class="handlebarszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="hintcss" />
+                        <label for="hintcss">Hint.CSS (2.5.0)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;link rel="stylesheet" href="libraries/hintCSS/hint.min.css" /&gt;</textarea>
+                        <textarea class="hintcss hide"></textarea>
+                        <textarea class="hintcsszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="i">
+                    <li class="ldd-heading">I</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="immutable" />
+                        <label for="immutable">Immutable</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/immutable/immutable.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="immutable hide"></textarea>
+                        <textarea class="immutablezip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                  </div>
+                </ul>
+                <ul>
+                  <div class="j">
+                    <li class="ldd-heading">J</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="jarallax" />
+                        <label for="jarallax">Jarallax (1.8.0)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/jarallax/jarallax.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="jarallax hide"></textarea>
+                        <textarea class="jarallaxzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="jquery" />
+                        <label for="jquery">jQuery (2.2.2)</label>
+                      </a>
+                      <span class="new">&nbsp; Popular !</span>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/jquery/jquery.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/jquery/jquery-migrate-1.2.1.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="jquery jquery1 hide"></textarea>
+                        <textarea class="jquery jquery2 hide"></textarea>
+                        <textarea class="jqueryzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="jqueryui" />
+                        <label for="jqueryui">jQuery UI (1.10.4)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;link rel="stylesheet" href="libraries/jqueryui/jqueryui.css" /&gt;
+      &lt;script src="libraries/jqueryui/jqueryui.min.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/jqueryui/jquery.ui.touch-punch.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="jqueryui jqueryui1 hide"></textarea>
+                        <textarea class="jqueryui jqueryui2 hide"></textarea>
+                        <textarea class="jqueryui jqueryui3 hide"></textarea>
+                        <textarea class="jqueryuizip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="jquerytools" />
+                        <label for="jquerytools">jQuery Tools (1.2.6)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/jquerytools/jquery.tools.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="jquerytools hide"></textarea>
+                        <textarea class="jquerytoolszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="jqxsplitter" />
+                        <label for="jqxsplitter">jqxSplitter (3.8.2)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.base.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.android.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.arctic.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.black.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.blackberry.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.bootstrap.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.classic.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.darkblue.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.energyblue.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.fresh.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.highcontrast.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.metro.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.metrodark.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.mobile.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.office.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.orange.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.shinyblack.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.summer.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.ui-darkness.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.ui-le-frog.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.ui-lightness.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.ui-overcast.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.ui-redmond.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.ui-smoothness.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.ui-start.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.ui-sunny.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.web.css"&gt;
+      &lt;link rel="stylesheet" href="libraries/jqwidgets/styles/jqx.windowsphone.css"&gt;
+      &lt;script src="libraries/jqwidgets/jqxcore.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/jqwidgets/jqxsplitter.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="jqwidgets1 hide"></textarea>
+                        <textarea class="jqwidgets2 hide"></textarea>
+                        <textarea class="jqwidgets3 hide"></textarea>
+                        <textarea class="jqwidgets4 hide"></textarea>
+                        <textarea class="jqwidgets5 hide"></textarea>
+                        <textarea class="jqwidgets6 hide"></textarea>
+                        <textarea class="jqwidgets7 hide"></textarea>
+                        <textarea class="jqwidgets8 hide"></textarea>
+                        <textarea class="jqwidgets9 hide"></textarea>
+                        <textarea class="jqwidgets10 hide"></textarea>
+                        <textarea class="jqwidgets11 hide"></textarea>
+                        <textarea class="jqwidgets12 hide"></textarea>
+                        <textarea class="jqwidgets13 hide"></textarea>
+                        <textarea class="jqwidgets14 hide"></textarea>
+                        <textarea class="jqwidgets15 hide"></textarea>
+                        <textarea class="jqwidgets16 hide"></textarea>
+                        <textarea class="jqwidgets17 hide"></textarea>
+                        <textarea class="jqwidgets18 hide"></textarea>
+                        <textarea class="jqwidgets19 hide"></textarea>
+                        <textarea class="jqwidgets20 hide"></textarea>
+                        <textarea class="jqwidgets21 hide"></textarea>
+                        <textarea class="jqwidgets22 hide"></textarea>
+                        <textarea class="jqwidgets23 hide"></textarea>
+                        <textarea class="jqwidgets24 hide"></textarea>
+                        <textarea class="jqwidgets25 hide"></textarea>
+                        <textarea class="jqwidgets26 hide"></textarea>
+                        <textarea class="jqwidgets27 hide"></textarea>
+                        <textarea class="jqwidgets28 hide"></textarea>
+                        <textarea class="jqwidgets29 hide"></textarea>
+                        <textarea class="jqwidgets30 hide"></textarea>
+                        <textarea class="jqxsplitterzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="jszip" />
+                        <label for="jszip">JSZip (2.4.0)</label>
+                      </a>
+                      <span class="new">&nbsp; Popular !</span>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/jszip/jszip.min.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/jszip/jszip-utils.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/jszip/FileSaver.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/jszip/Blob.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="jszip jszip1 hide"></textarea>
+                        <textarea class="jszip jszip2 hide"></textarea>
+                        <textarea class="jszip jszip3 hide"></textarea>
+                        <textarea class="jszip jszip4 hide"></textarea>
+                        <textarea class="jszipzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="k">
+                    <li class="ldd-heading no-border">K</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="kinetic" />
+                        <label for="kinetic">Kinetic JS (4.7.3)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/kinetic/kinetic.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="kinetic hide"></textarea>
+                        <textarea class="kineticzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="knockout" />
+                        <label for="knockout">Knockout JS (3.0.0)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/knockout/knockout.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="knockout hide"></textarea>
+                        <textarea class="knockoutzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="l">
+                    <li class="ldd-heading no-border">L</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="lodash" />
+                        <label for="lodash">Lodash (4.17.4)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/lodash/lodash.core.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="lodash hide"></textarea>
+                        <textarea class="lodashzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="m">
+                    <li class="ldd-heading">M</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="mdl" />
+                        <label for="mdl">Material Design Lite (1.3.0)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;link rel="stylesheet" href="libraries/mdl/material.min.css"&gt;
+      &lt;link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons"&gt;
+      &lt;link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:500,400,300,100&amp;subset=latin,latin-ext"&gt;
+      &lt;script src="libraries/mdl/material.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="mdl  mdl1 hide"></textarea>
+                        <textarea class="mdl mdl2 hide"></textarea>
+                        <textarea class="mdlzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="modernizer" />
+                        <label for="modernizer">Modernizer (2.8.3)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/modernizer/modernizer.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="modernizer hide"></textarea>
+                        <textarea class="modernizerzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="moment" />
+                        <label for="moment">Moment (2.18.1)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/moment/moment.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/moment/moment-with-locales.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="moment moment1 hide"></textarea>
+                        <textarea class="moment moment2 hide"></textarea>
+                        <textarea class="momentzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="momenttimezone" />
+                        <label for="momenttimezone">Moment Timezone (0.5.13-2017b)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/moment-timezone/moment-timezone.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/moment-timezone/moment-timezone-with-data.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/moment-timezone/moment-timezone-with-data-2012-2022.js"&gt;&lt;/script&gt;
+      </textarea>
+                        <textarea class="momenttimezone momenttimezone1 hide"></textarea>
+                        <textarea class="momenttimezone momenttimezone2 hide"></textarea>
+                        <textarea class="momenttimezone momenttimezone3 hide"></textarea>
+                        <textarea class="momenttimezonezip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="mootools" />
+                        <label for="mootools">MooTools</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/mootools/mootools-yui-compressed.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="mootools hide"></textarea>
+                        <textarea class="mootoolszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="n">
+                    <li class="ldd-heading">N</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="normalize" />
+                        <label for="normalize">Normalize (3.0.1)</label>
+                      </a>
+                      <span class="new">&nbsp; Popular !</span>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;link rel="stylesheet" href="libraries/normalize/normalize.css" /&gt;</textarea>
+                        <textarea class="normalize hide"></textarea>
+                        <textarea class="normalizezip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="p">
+                    <li class="ldd-heading">P</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="paperjs" />
+                        <label for="paperjs">Paper JS (0.9.9)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/paperjs/paperjs.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="paperjs hide"></textarea>
+                        <textarea class="paperjszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="polyui" />
+                        <label for="polyui">Poly UI Kit</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;link rel="stylesheet" href="libraries/polyui/polyui.css"&gt;</textarea>
+                        <textarea class="polyui hide"></textarea>
+                        <textarea class="polyuizip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="prefixfree" />
+                        <label for="prefixfree">Prefix-free (1.0.7)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/prefixfree/prefixfree.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="prefixfree hide"></textarea>
+                        <textarea class="prefixfreezip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="processingjs" />
+                        <label for="processingjs">Processing JS (1.4.1)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/processingjs/processingjs.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="processingjs hide"></textarea>
+                        <textarea class="processingjsszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="prototypejs" />
+                        <label for="prototypejs">Prototype JS (1.7.1)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/prototypejs/prototypejs.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="prototypejs hide"></textarea>
+                        <textarea class="prototypejszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                  </div>
+                </ul>
+                <ul>
+                  <div class="q">
+                    <li class="ldd-heading">Q</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="qooxdoo" />
+                        <label for="qooxdoo">Qooxdoo (3.0.1)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/qooxdoo/qooxdoo.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="qooxdoo hide"></textarea>
+                        <textarea class="qooxdooszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="r">
+                    <li class="ldd-heading">R</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="react" />
+                        <label for="react">React JS (15.3.2)</label>
+                      </a>
+                      <span class="new">&nbsp; Popular !</span>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/react/react-with-addons.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/react/react-dom.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="react1 hide"></textarea>
+                        <textarea class="react2 hide"></textarea>
+                        <textarea class="reactzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="raphael" />
+                        <label for="raphael">Raphael JS (2.1.0)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/raphael/raphael.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="raphael hide"></textarea>
+                        <textarea class="raphaelzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="requirejs" />
+                        <label for="requirejs">Require JS (2.1.16)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/require/require.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="requirejs hide"></textarea>
+                        <textarea class="requirejszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="s">
+                    <li class="ldd-heading">S</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="showdown" />
+                        <label for="showdown">Showdown (0.4.0)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/showdown/Showdown.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="showdown hide"></textarea>
+                        <textarea class="showdownzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="scriptaculous" />
+                        <label for="scriptaculous">Script.aculo.us (1.9.0)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/scriptaculous/scriptaculous.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="scriptaculous hide"></textarea>
+                        <textarea class="scriptaculouszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="smoothscroll" />
+                        <label for="smoothscroll">SmoothScroll (1.4.5)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/SmoothScroll/SmoothScroll.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="smoothscroll hide"></textarea>
+                        <textarea class="smoothscrollzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="snapsvg" />
+                        <label for="snapsvg">Snap SVG (0.4.1)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/snap-svg/snap-svg.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="snapsvg hide"></textarea>
+                        <textarea class="snapsvgzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="svgjs" />
+                        <label for="svgjs">SVG JS (2.0.5)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/svg-js/svg-js.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="svgjs hide"></textarea>
+                        <textarea class="svgjszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="sweetalert2" />
+                        <label for="sweetalert2">SweetAlert2 (6.6.6)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/sweetalert2/sweetalert2.min.js"&gt;&lt;/script&gt;
+    &lt;link rel="stylesheet" href="libraries/sweetalert2/sweetalert2.min.css"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="sweetalert1 sweetalert hide"></textarea>
+                        <textarea class="sweetalert2 sweetalert hide"></textarea>
+                        <textarea class="sweetalertzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="t">
+                    <li class="ldd-heading">T</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="threejs" />
+                        <label for="threejs">Three JS</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/threejs/three.min.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="threejs hide"></textarea>
+                        <textarea class="threejszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="u">
+                    <li class="ldd-heading">U</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="uikit" />
+                        <label for="uikit">Uikit (3.0.0 beta 25)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;link rel="stylesheet" href="libraries/uikit/css/uikit.css" /&gt;
+      &lt;script src="libraries/uikit/js/uikit.js"&gt;&lt;/script&gt;
+      &lt;script src="libraries/uikit/js/uikit-icons.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="uikit uikit1 hide"></textarea>
+                        <textarea class="uikit uikit2 hide"></textarea>
+                        <textarea class="uikit uikit3 hide"></textarea>
+                        <textarea class="uikitzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="underscorejs" />
+                        <label for="underscorejs">Underscore JS (1.8.3)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/underscore/underscore.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="underscorejs hide"></textarea>
+                        <textarea class="underscorejszip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="v">
+                    <li class="ldd-heading">V</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="vue" />
+                        <label for="vue">Vue.js (2.4.1)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/vue/vue.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="vue hide"></textarea>
+                        <textarea class="vuezip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="w">
+                    <li class="ldd-heading">W</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="webfontloader" />
+                        <label for="webfontloader">Web Font Loader (1.4.10)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/webfont/webfont.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="webfontloader hide"></textarea>
+                        <textarea class="webfontloaderzip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="y">
+                    <li class="ldd-heading">Y</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="yui" />
+                        <label for="yui">YUI (3.13.0)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/yui/yui.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="yui hide"></textarea>
+                        <textarea class="yuizip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                    <li>&nbsp;</li>
+                  </div>
+                  <div class="z">
+                    <li class="ldd-heading">Z</li>
+                    <li>
+                      <a>
+                        <input data-action="check" class="check" type="checkbox" id="zepto" />
+                        <label for="zepto">Zepto (1.1.6)</label>
+                      </a>
+                      <div class="hide">
+                        <textarea class="libsources hide">    &lt;script src="libraries/zepto/zepto.js"&gt;&lt;/script&gt;</textarea>
+                        <textarea class="zepto hide"></textarea>
+                        <textarea class="zeptozip jszipcode hide"></textarea>
+                      </div>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- Editor/Preview -->
+    <form method="post" id="editors">
+      <div id="mdEditor" class="editor"></div>
+      <div id="htmlEditor" class="editor"></div>
+      <div id="cssEditor" class="editor"></div>
+      <div id="jsEditor" class="editor"></div>
+      <div class="preview-editor">
+        <div class="preview-frame"></div>
+        <button class="rerun" data-action="rerun">rerun</button>
+      </div>
+    </form>
+
+    <!-- Preprocessors Dialog -->
+    <div class="dialog-bg column preprocessordialog hide" data-action="preprocessors">
+      <div>
+        <nav>
+          <div class="grid preprocessors">
+            <div class="txtcenter">
+              <h1>Choose your preprocessor!</h1>
+
+              <h4 class="preprocessor html-preprocessor">HTML Preprocessor</h4>
+              <div class="preprocessor html-preprocessor">
+                <select id="html-preprocessor">
+                  <option value="none">None</option>
+                  <option value="jade">Pug</option>
+                </select>
+              </div>
+
+              <h4 class="preprocessor css-preprocessor">CSS Preprocessor</h4>
+              <div class="preprocessor css-preprocessor">
+                <select id="css-preprocessor">
+                  <option value="none">None</option>
+                  <option value="less">LESS</option>
+                  <option value="scss">SCSS</option>
+                  <option value="sass">Sass</option>
+                  <option value="stylus">Stylus</option>
+                </select>
+              </div>
+
+              <h4 class="preprocessor js-preprocessor">JavaScript Preprocessor</h4>
+              <div class="preprocessor js-preprocessor">
+                <select id="js-preprocessor">
+                  <option value="none">None</option>
+                  <option value="coffeescript">CoffeeScript</option>
+                  <option value="typescript">TypeScript</option>
+                  <option value="babel">Babel</option>
+                </select>
+
+                <div class="jsvalidator" style="padding: 0 0 5em 0;">
+                  <h4 class="headtxt iblock fl">
+                    Validator
+                  </h4>
+                  <h4 class="iblock fr">
+                    <div class="jsvalidationswitch iblock tr">
+                      <input type="checkbox" name="jsvalidationswitch" class="jsvalidationswitch-checkbox" id="myjsvalidationswitch" checked>
+                      <label class="jsvalidationswitch-label" for="myjsvalidationswitch">
+                        <span class="jsvalidationswitch-inner"></span>
+                        <span class="jsvalidationswitch-switch"></span>
+                      </label>
+                    </div>
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <script src="../editor/lib/inlet.min.js"></script>
+    <script src="kodeweave.js"></script>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-75970821-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

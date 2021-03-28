@@ -1,0 +1,36 @@
+{
+	"name": "@getify/revocable-queue",
+	"description": "Specialized async queue data structure",
+	"version": "4.0.7",
+	"main": "dist/rq.js",
+	"scripts": {
+		"test": "node node-tests.js",
+		"test:dist": "TEST_DIST=true npm test",
+		"test:package": "TEST_PACKAGE=true npm test",
+		"test:all": "npm test && npm run test:dist && npm run test:package",
+		"coverage": "nyc -t './coverage/.nyc_output' -x 'node-tests.js' -x 'test.js' --reporter=lcov --reporter=html --reporter=text node node-tests.js",
+		"coverage:report": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+		"build-core": "node build-core.js",
+		"build": "npm run build-core",
+		"prepare": "npm run build",
+		"prepublish": "npm run build && npm run test:all",
+		"publish": "npm run coverage:report"
+	},
+	"devDependencies": {
+		"terser": "~4.3.4"
+	},
+	"repository": "getify/revocable-queue",
+	"keywords": [
+		"streams"
+	],
+	"bugs": {
+		"url": "https://github.com/getify/revocable-queue/issues",
+		"email": "getify@gmail.com"
+	},
+	"homepage": "https://github.com/getify/revocable-queue",
+	"author": "Kyle Simpson <getify@gmail.com>",
+	"license": "MIT",
+	"dependencies": {
+		"coveralls": "^3.0.6"
+	}
+}

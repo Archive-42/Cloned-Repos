@@ -1,0 +1,43 @@
+# Dependencies
+markdown:         kramdown
+kramdown:
+  extensions: ["tables"]
+
+highlighter:         rouge
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            Discrete notes
+tagline:          'Blog'
+url:              http://discrete-notes.github.io
+shorturl:         discrete-notes.github.io
+
+author:
+  name:           ''
+
+paginate:         1
+
+# Custom vars
+version:          1.0.0
+
+github:
+  repo:           github.com/discrete-notes/discrete-notes.github.io
+
+# This is the list of pages to include in the header of the website.
+pages_list:
+  About: '/about/'
+  Archive: '/archive/'
+
+# Allow URL Redirects:
+#  * https://help.github.com/articles/redirects-on-github-pages
+gems:
+  - jekyll-redirect-from
+  - jekyll-paginate
+
+#RSS
+name: Discrete notes	
+description: Blog
+url: https://discrete-notes.github.io/
+

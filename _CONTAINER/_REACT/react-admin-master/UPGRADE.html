@@ -1,0 +1,1178 @@
+<h1 id="upgrade-to-3.0">Upgrade to 3.0</h1>
+<p>We took advantage of the major release to fix all the problems in react-admin that required a breaking change. As a consequence, you’ll need to do many small changes in the code of existing react-admin v2 applications. Follow this step-by-step guide to upgrade to react-admin v3.</p>
+<h2 id="upgrade-all-react-admin-packages">Upgrade all react-admin packages</h2>
+<p>In the <code>packages.json</code>, upgrade ALL react-admin related dependencies to 3.0.0. This includes <code>react-admin</code>, <code>ra-language-XXX</code>, <code>ra-data-XXX</code>, etc.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb1-1" title="1">{</a>
+<a class="sourceLine" id="cb1-2" title="2">    &quot;name&quot;: &quot;demo&quot;,</a>
+<a class="sourceLine" id="cb1-3" title="3">    &quot;version&quot;: &quot;0.1.0&quot;,</a>
+<a class="sourceLine" id="cb1-4" title="4">    &quot;private&quot;: true,</a>
+<a class="sourceLine" id="cb1-5" title="5">    &quot;dependencies&quot;: {</a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="st">-       &quot;ra-data-simple-rest&quot;: &quot;^2.9.6&quot;,</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="va">+       &quot;ra-data-simple-rest&quot;: &quot;^3.0.0&quot;,</span></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="st">-       &quot;ra-input-rich-text&quot;: &quot;^2.9.6&quot;,</span></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="va">+       &quot;ra-input-rich-text&quot;: &quot;^3.0.0&quot;,</span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="st">-       &quot;ra-language-english&quot;: &quot;^2.9.6&quot;,</span></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="va">+       &quot;ra-language-english&quot;: &quot;^3.0.0&quot;,</span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="st">-       &quot;ra-language-french&quot;: &quot;^2.9.6&quot;,</span></a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="va">+       &quot;ra-language-french&quot;: &quot;^3.0.0&quot;,</span></a>
+<a class="sourceLine" id="cb1-14" title="14"><span class="st">-       &quot;react-admin&quot;: &quot;^2.9.6&quot;,</span></a>
+<a class="sourceLine" id="cb1-15" title="15"><span class="va">+       &quot;react-admin&quot;: &quot;^3.0.0&quot;,</span></a>
+<a class="sourceLine" id="cb1-16" title="16">        &quot;react&quot;: &quot;^16.9.0&quot;,</a>
+<a class="sourceLine" id="cb1-17" title="17">        &quot;react-dom&quot;: &quot;^16.9.0&quot;,</a>
+<a class="sourceLine" id="cb1-18" title="18">        ...</a>
+<a class="sourceLine" id="cb1-19" title="19">    },</a></code></pre></div>
+<p>Failing to upgrade one of the <code>ra-</code> packages will result in a duplication of the react-admin package in two incompatible versions, and cause hard-to-debug bugs.</p>
+<h2 id="increased-version-requirement-for-key-dependencies">Increased version requirement for key dependencies</h2>
+<ul>
+<li><code>react</code> and <code>react-dom</code> are now required to be &gt;= 16.9. This version is backward compatible with 16.3, which was the minimum requirement in react-admin, and it offers the support for Hooks, on which react-admin v3 relies heavily.</li>
+<li><code>react-redux</code> requires a minimum version of 7.1.0 (instead of 5.0). Check their upgrade guide for <a href="https://github.com/reduxjs/react-redux/releases/tag/v6.0.0">6.0</a> and <a href="https://github.com/reduxjs/react-redux/releases/tag/v7.0.0">7.0</a></li>
+<li><code>redux-saga</code> requires a minimim version of 1.0.0 (instead of ~0.16.0). Check their <a href="https://github.com/redux-saga/redux-saga/releases/tag/v1.0.0">list of breaking changes for redux-saga 1.0</a> on GitHub.</li>
+<li><code>material-ui</code> requires a minimum of 4.0.0 (instead of 1.5). Check their <a href="https://next.material-ui.com/guides/migration-v3/">Upgrade guide</a>.</li>
+</ul>
+<h2 id="react-router-redux-replaced-by-connected-react-router"><code>react-router-redux</code> replaced by <code>connected-react-router</code></h2>
+<p>We’ve replaced the <code>react-router-redux</code> package, which was deprecated and not compatible with the latest version of <code>react-redux</code>, by an equivalent package named <code>connected-react-router</code>. As they share the same API, you can just change the <code>import</code> statement and it should work fine.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb2-1" title="1"><span class="st">-import { push } from &#39;react-router-redux&#39;;</span></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="va">+import { push } from &#39;connected-react-router&#39;;</span></a>
+<a class="sourceLine" id="cb2-3" title="3"></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="st">-import { LOCATION_CHANGE } from &#39;react-router-redux&#39;;</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="va">+import { LOCATION_CHANGE } from &#39;connected-react-router&#39;;</span></a></code></pre></div>
+<p>It’s a bit more work if you’re using a Custom App, as the initialization of <code>connected-react-router</code> requires one more step than <code>react-router-redux</code>.</p>
+<p>If you create a custom reducer, here is how to update your <code>createAdminStore</code> file:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb3-1" title="1">import { applyMiddleware, combineReducers, compose, createStore } from &#39;redux&#39;;</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="st">-import { routerMiddleware, routerReducer } from &#39;react-router-redux&#39;;</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="va">+import { routerMiddleware, connectRouter } from &#39;connected-react-router&#39;;</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="st">-import { reducer as formReducer } from &#39;redux-form&#39;;</span></a>
+<a class="sourceLine" id="cb3-5" title="5"></a>
+<a class="sourceLine" id="cb3-6" title="6">...</a>
+<a class="sourceLine" id="cb3-7" title="7"></a>
+<a class="sourceLine" id="cb3-8" title="8">export default ({</a>
+<a class="sourceLine" id="cb3-9" title="9">    authProvider,</a>
+<a class="sourceLine" id="cb3-10" title="10">    dataProvider,</a>
+<a class="sourceLine" id="cb3-11" title="11">    history,</a>
+<a class="sourceLine" id="cb3-12" title="12">    locale = &#39;en&#39;,</a>
+<a class="sourceLine" id="cb3-13" title="13">}) =&gt; {</a>
+<a class="sourceLine" id="cb3-14" title="14">    const reducer = combineReducers({</a>
+<a class="sourceLine" id="cb3-15" title="15">        admin: adminReducer,</a>
+<a class="sourceLine" id="cb3-16" title="16"><span class="st">-       form: formReducer,</span></a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="st">-       router: routerReducer,</span></a>
+<a class="sourceLine" id="cb3-18" title="18"><span class="va">+       router: connectRouter(history),</span></a>
+<a class="sourceLine" id="cb3-19" title="19">        { /* add your own reducers here */ },</a>
+<a class="sourceLine" id="cb3-20" title="20">    });</a>
+<a class="sourceLine" id="cb3-21" title="21">    ...</a></code></pre></div>
+<p>The syntax of the <code>routerMiddleware</code> doesn’t change.</p>
+<p>And if you don’t use the <code>&lt;Admin&gt;</code> component, change the package for <code>ConnectedRouter</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb4-1" title="1">import * as React from &quot;react&quot;;</a>
+<a class="sourceLine" id="cb4-2" title="2">import { Provider } from &#39;react-redux&#39;;</a>
+<a class="sourceLine" id="cb4-3" title="3">import { createHashHistory } from &#39;history&#39;;</a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="st">-import { ConnectedRouter } from &#39;react-router-redux&#39;;</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="va">+import { ConnectedRouter } from &#39;connected-react-router&#39;;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">import { Switch, Route } from &#39;react-router-dom&#39;;</a>
+<a class="sourceLine" id="cb4-7" title="7">import withContext from &#39;recompose/withContext&#39;;</a>
+<a class="sourceLine" id="cb4-8" title="8">...</a></code></pre></div>
+<h2 id="redux-form-replaced-by-react-final-form"><code>redux-form</code> replaced by <code>react-final-form</code></h2>
+<p>The author of <code>redux-form</code> has written a new Form library for React called <code>react-final-form</code> to fix all the problems that <code>redux-form</code> had by construction. <code>react-final-form</code> no longer stores the form state in Redux. But the two libraries share a similar API. So in many cases, changing the imported package will suffice:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb5-1" title="1"><span class="st">-import { Field } from &#39;redux-form&#39;;</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="va">+import { Field } from &#39;react-final-form&#39;;</span></a></code></pre></div>
+<p>The next sections highlight changes that you must do to your code as a consequence of switching to <code>react-final-form</code>.</p>
+<h2 id="custom-form-toolbar-or-buttons-must-use-new-handlesubmit-signature-or-must-use-onsave">Custom Form Toolbar or Buttons Must Use New <code>handleSubmit</code> Signature or must Use <code>onSave</code></h2>
+<p>If you were using custom buttons (to alter the form values before submit for example), you’ll need to update your code. In <code>react-admin</code> v2, the form toolbar and its buttons used to receive <code>handleSubmit</code> and <code>handleSubmitWithRedirect</code> props. These props accepted functions which were called with the form values.</p>
+<p>The migration to <code>react-final-form</code> changes their signature and behavior to the following:</p>
+<ul>
+<li><code>handleSubmit</code>: accepts no arguments, and will submit the form with its current values immediately</li>
+<li><code>handleSubmitWithRedirect</code> accepts a custom redirect, and will submit the form with its current values immediately</li>
+</ul>
+<p>Here’s how to migrate the <em>Altering the Form Values before Submitting</em> example from the documentation:</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { useCallback } from &#39;react&#39;;
+import { useForm } from &#39;react-final-form&#39;;
+import { SaveButton, Toolbar, useCreate, useRedirect, useNotify } from &#39;react-admin&#39;;
+
+const SaveWithNoteButton = ({ handleSubmit, handleSubmitWithRedirect, ...props }) =&gt; {
+    const [create] = useCreate(&#39;posts&#39;);
+    const redirectTo = useRedirect();
+    const notify = useNotify();
+    const { basePath, redirect } = props;
+
+    const form = useForm();
+
+    const handleClick = useCallback(() =&gt; {
+        form.change(&#39;average_note&#39;, 10);
+
+        handleSubmitWithRedirect(&#39;edit&#39;);
+    }, [form]);
+
+    return &lt;SaveButton {...props} handleSubmitWithRedirect={handleClick} /&gt;;
+};</code></pre>
+<p>The override of these functions has now a huge drawback, which makes it impractical: by skipping the default <code>handleSubmitWithRedirect</code>, the button doesn’t trigger form validation. And unfortunately, react-final-form doesn’t provide a way to trigger form validation manually.</p>
+<p>That’s why react-admin now provides a way to override just the data provider call and its side effect called <code>onSave</code>.</p>
+<p>The <code>onSave</code> value should be a function expecting 2 arguments: the form values to save, and the redirection to perform.</p>
+<p>Here’s how to migrate the <em>Using <code>onSave</code> To Alter the Form Submission Behavior</em> example from the documentation:</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { useCallback } from &#39;react&#39;;
+import {
+    SaveButton,
+    Toolbar,
+    useCreate,
+    useRedirect,
+    useNotify,
+} from &#39;react-admin&#39;;
+
+const SaveWithNoteButton = props =&gt; {
+    const [create] = useCreate(&#39;posts&#39;);
+    const redirectTo = useRedirect();
+    const notify = useNotify();
+    const { basePath } = props;
+
+    const handleSave = useCallback(
+        (values, redirect) =&gt; {
+            create(
+                {
+                    payload: { data: { ...values, average_note: 10 } },
+                },
+                {
+                    onSuccess: ({ data: newRecord }) =&gt; {
+                        notify(&#39;ra.notification.created&#39;, &#39;info&#39;, {
+                            smart_count: 1,
+                        });
+                        redirectTo(redirect, basePath, newRecord.id, newRecord);
+                    },
+                }
+            );
+        },
+        [create, notify, redirectTo, basePath]
+    );
+
+    // set onSave props instead of handleSubmitWithRedirect
+    return &lt;SaveButton {...props} onSave={handleSave} /&gt;;
+};</code></pre>
+<h2 id="formdataconsumer-children-no-longer-receives-dispatch"><code>FormDataConsumer</code> Children No Longer Receives <code>dispatch</code></h2>
+<p>In <code>react-admin</code> v2, you could link two inputs using the <code>FormDataConsumer</code> component. The render prop function received the <code>dispatch</code> function that it could use to trigger form changes.</p>
+<p>The migration to <code>react-final-form</code> changes this render prop signature a little as it will no longer receive a <code>dispatch</code> function. However, it’s possible to use the <code>useForm</code> hook from <code>react-final-form</code> to achieve the same behavior:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb8-1" title="1">import * as React from &#39;react&#39;;</a>
+<a class="sourceLine" id="cb8-2" title="2">import { Fragment } from &#39;react&#39;;</a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="st">-import { change } from &#39;redux-form&#39;;</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="va">+import { useForm } from &#39;react-final-form&#39;;</span></a>
+<a class="sourceLine" id="cb8-5" title="5">import { FormDataConsumer, REDUX_FORM_NAME } from &#39;react-admin&#39;;</a>
+<a class="sourceLine" id="cb8-6" title="6"></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="va">+const OrderOrigin = ({ formData, ...rest }) =&gt; {</span></a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="va">+    const form = useForm();</span></a>
+<a class="sourceLine" id="cb8-9" title="9"><span class="va">+</span></a>
+<a class="sourceLine" id="cb8-10" title="10"><span class="va">+    return (</span></a>
+<a class="sourceLine" id="cb8-11" title="11"><span class="va">+        &lt;Fragment&gt;</span></a>
+<a class="sourceLine" id="cb8-12" title="12"><span class="va">+            &lt;SelectInput</span></a>
+<a class="sourceLine" id="cb8-13" title="13"><span class="va">+                source=&quot;country&quot;</span></a>
+<a class="sourceLine" id="cb8-14" title="14"><span class="va">+                choices={countries}</span></a>
+<a class="sourceLine" id="cb8-15" title="15"><span class="va">+                onChange={value =&gt; form.change(&#39;city&#39;, value)}</span></a>
+<a class="sourceLine" id="cb8-16" title="16"><span class="va">+                {...rest}</span></a>
+<a class="sourceLine" id="cb8-17" title="17"><span class="va">+            /&gt;</span></a>
+<a class="sourceLine" id="cb8-18" title="18"><span class="va">+            &lt;SelectInput</span></a>
+<a class="sourceLine" id="cb8-19" title="19"><span class="va">+                source=&quot;city&quot;</span></a>
+<a class="sourceLine" id="cb8-20" title="20"><span class="va">+                choices={getCitiesFor(formData.country)}</span></a>
+<a class="sourceLine" id="cb8-21" title="21"><span class="va">+                {...rest}</span></a>
+<a class="sourceLine" id="cb8-22" title="22"><span class="va">+            /&gt;</span></a>
+<a class="sourceLine" id="cb8-23" title="23"><span class="va">+        &lt;/Fragment&gt;</span></a>
+<a class="sourceLine" id="cb8-24" title="24"><span class="va">+    );</span></a>
+<a class="sourceLine" id="cb8-25" title="25"><span class="va">+};</span></a>
+<a class="sourceLine" id="cb8-26" title="26"></a>
+<a class="sourceLine" id="cb8-27" title="27">const OrderEdit = (props) =&gt; (</a>
+<a class="sourceLine" id="cb8-28" title="28">    &lt;Edit {...props}&gt;</a>
+<a class="sourceLine" id="cb8-29" title="29">        &lt;SimpleForm&gt;</a>
+<a class="sourceLine" id="cb8-30" title="30">            &lt;FormDataConsumer&gt;</a>
+<a class="sourceLine" id="cb8-31" title="31"><span class="st">-                {({ formData, dispatch, ...rest }) =&gt; (</span></a>
+<a class="sourceLine" id="cb8-32" title="32"><span class="st">-                    &lt;Fragment&gt;</span></a>
+<a class="sourceLine" id="cb8-33" title="33"><span class="st">-                        &lt;SelectInput</span></a>
+<a class="sourceLine" id="cb8-34" title="34"><span class="st">-                            source=&quot;country&quot;</span></a>
+<a class="sourceLine" id="cb8-35" title="35"><span class="st">-                            choices={countries}</span></a>
+<a class="sourceLine" id="cb8-36" title="36"><span class="st">-                            onChange={value =&gt; dispatch(</span></a>
+<a class="sourceLine" id="cb8-37" title="37"><span class="st">-                                change(REDUX_FORM_NAME, &#39;city&#39;, value)</span></a>
+<a class="sourceLine" id="cb8-38" title="38"><span class="st">-                            )}</span></a>
+<a class="sourceLine" id="cb8-39" title="39"><span class="st">-                             {...rest}</span></a>
+<a class="sourceLine" id="cb8-40" title="40"><span class="st">-                        /&gt;</span></a>
+<a class="sourceLine" id="cb8-41" title="41"><span class="st">-                        &lt;SelectInput</span></a>
+<a class="sourceLine" id="cb8-42" title="42"><span class="st">-                            source=&quot;city&quot;</span></a>
+<a class="sourceLine" id="cb8-43" title="43"><span class="st">-                            choices={getCitiesFor(formData.country)}</span></a>
+<a class="sourceLine" id="cb8-44" title="44"><span class="st">-                             {...rest}</span></a>
+<a class="sourceLine" id="cb8-45" title="45"><span class="st">-                        /&gt;</span></a>
+<a class="sourceLine" id="cb8-46" title="46"><span class="st">-                    &lt;/Fragment&gt;</span></a>
+<a class="sourceLine" id="cb8-47" title="47"><span class="st">-                )}</span></a>
+<a class="sourceLine" id="cb8-48" title="48"><span class="va">+                {formDataProps =&gt; </span></a>
+<a class="sourceLine" id="cb8-49" title="49"><span class="va">+                    &lt;OrderOrigin {...formDataProps} /&gt;</span></a>
+<a class="sourceLine" id="cb8-50" title="50"><span class="va">+                }</span></a>
+<a class="sourceLine" id="cb8-51" title="51">            &lt;/FormDataConsumer&gt;</a>
+<a class="sourceLine" id="cb8-52" title="52">        &lt;/SimpleForm&gt;</a>
+<a class="sourceLine" id="cb8-53" title="53">    &lt;/Edit&gt;</a>
+<a class="sourceLine" id="cb8-54" title="54">);</a></code></pre></div>
+<h2 id="validators-should-return-non-translated-messages">Validators Should Return Non-Translated Messages</h2>
+<p>Form validators used to return translated error messages - that’s why they received the field <code>props</code> as argument, including the <code>translate</code> function. They don’t receive these props anymore, and they must return untranslated messages instead - react-admin translates validation messages afterwards.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb9-1" title="1">// in validators/required.js</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="st">-const required = () =&gt; (value, allValues, props) =&gt;</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="va">+const required = () =&gt; (value, allValues) =&gt;</span></a>
+<a class="sourceLine" id="cb9-4" title="4">    value</a>
+<a class="sourceLine" id="cb9-5" title="5">        ? undefined</a>
+<a class="sourceLine" id="cb9-6" title="6"><span class="st">-       : props.translate(&#39;myroot.validation.required&#39;);</span></a>
+<a class="sourceLine" id="cb9-7" title="7"><span class="va">+       : &#39;myroot.validation.required&#39;;</span></a></code></pre></div>
+<p>In case the error message depends on a variable, you can return an object <code>{ message, args }</code> instead of a message string:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb10-1" title="1"><span class="st">-const minLength = (min) =&gt; (value, allValues, props) =&gt; </span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="va">+const minLength = (min) =&gt; (value, allValues) =&gt; </span></a>
+<a class="sourceLine" id="cb10-3" title="3">    value.length &gt;= min</a>
+<a class="sourceLine" id="cb10-4" title="4">        ? undefined</a>
+<a class="sourceLine" id="cb10-5" title="5"><span class="st">-       : props.translate(&#39;myroot.validation.minLength&#39;, { min });</span></a>
+<a class="sourceLine" id="cb10-6" title="6"><span class="va">+       : { message: &#39;myroot.validation.minLength&#39;, args: { min } };</span></a></code></pre></div>
+<p>React-admin core validators have been modified so you don’t have to change anything when using them.</p>
+<pre class="jsx"><code>import {
+    required,
+    minLength,
+    maxLength,
+    minValue,
+    number,
+    email,
+} from &#39;react-admin&#39;;
+
+// no change vs 2.x
+const validateFirstName = [required(), minLength(2), maxLength(15)];
+const validateEmail = email();
+const validateAge = [number(), minValue(18)];
+
+export const UserCreate = (props) =&gt; (
+    &lt;Create {...props}&gt;
+        &lt;SimpleForm&gt;
+            &lt;TextInput label=&quot;First Name&quot; source=&quot;firstName&quot; validate={validateFirstName} /&gt;
+            &lt;TextInput label=&quot;Email&quot; source=&quot;email&quot; validate={validateEmail} /&gt;
+            &lt;TextInput label=&quot;Age&quot; source=&quot;age&quot; validate={validateAge}/&gt;
+        &lt;/SimpleForm&gt;
+    &lt;/Create&gt;
+);</code></pre>
+<h2 id="migration-to-react-final-form-requires-custom-app-modification">Migration to react-final-form Requires Custom App Modification</h2>
+<p>We used to implement some black magic in <code>formMiddleware</code> to handle <code>redux-form</code> correctly. It is no longer necessary now that we migrated to <code>react-final-form</code>. Besides, <code>redux-form</code> required a reducer which is no longer needed as well.</p>
+<p>If you had your own custom Redux store, you can migrate it by following this diff:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb12-1" title="1">// in src/createAdminStore.js</a>
+<a class="sourceLine" id="cb12-2" title="2">import { applyMiddleware, combineReducers, compose, createStore } from &#39;redux&#39;;</a>
+<a class="sourceLine" id="cb12-3" title="3">import { routerMiddleware, connectRouter } from &#39;connected-react-router&#39;;</a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="st">-import { reducer as formReducer } from &#39;redux-form&#39;;</span></a>
+<a class="sourceLine" id="cb12-5" title="5">import createSagaMiddleware from &#39;redux-saga&#39;;</a>
+<a class="sourceLine" id="cb12-6" title="6">import { all, fork } from &#39;redux-saga/effects&#39;;</a>
+<a class="sourceLine" id="cb12-7" title="7">import {</a>
+<a class="sourceLine" id="cb12-8" title="8">    adminReducer,</a>
+<a class="sourceLine" id="cb12-9" title="9">    adminSaga,</a>
+<a class="sourceLine" id="cb12-10" title="10">    createAppReducer,</a>
+<a class="sourceLine" id="cb12-11" title="11">    defaultI18nProvider,</a>
+<a class="sourceLine" id="cb12-12" title="12">    i18nReducer,</a>
+<a class="sourceLine" id="cb12-13" title="13"><span class="st">-   formMiddleware,</span></a>
+<a class="sourceLine" id="cb12-14" title="14">    USER_LOGOUT,</a>
+<a class="sourceLine" id="cb12-15" title="15">} from &#39;react-admin&#39;;</a>
+<a class="sourceLine" id="cb12-16" title="16"></a>
+<a class="sourceLine" id="cb12-17" title="17">export default ({</a>
+<a class="sourceLine" id="cb12-18" title="18">    authProvider,</a>
+<a class="sourceLine" id="cb12-19" title="19">    dataProvider,</a>
+<a class="sourceLine" id="cb12-20" title="20">    i18nProvider = defaultI18nProvider,</a>
+<a class="sourceLine" id="cb12-21" title="21">    history,</a>
+<a class="sourceLine" id="cb12-22" title="22">    locale = &#39;en&#39;,</a>
+<a class="sourceLine" id="cb12-23" title="23">}) =&gt; {</a>
+<a class="sourceLine" id="cb12-24" title="24">    const reducer = combineReducers({</a>
+<a class="sourceLine" id="cb12-25" title="25">        admin: adminReducer,</a>
+<a class="sourceLine" id="cb12-26" title="26">        i18n: i18nReducer(locale, i18nProvider(locale)),</a>
+<a class="sourceLine" id="cb12-27" title="27"><span class="st">-       form: formReducer,</span></a>
+<a class="sourceLine" id="cb12-28" title="28">        router: connectRouter(history),</a>
+<a class="sourceLine" id="cb12-29" title="29">        { /* add your own reducers here */ },</a>
+<a class="sourceLine" id="cb12-30" title="30">    });</a>
+<a class="sourceLine" id="cb12-31" title="31">    const resettableAppReducer = (state, action) =&gt;</a>
+<a class="sourceLine" id="cb12-32" title="32">        reducer(action.type !== USER_LOGOUT ? state : undefined, action);</a>
+<a class="sourceLine" id="cb12-33" title="33"></a>
+<a class="sourceLine" id="cb12-34" title="34">    const saga = function* rootSaga() {</a>
+<a class="sourceLine" id="cb12-35" title="35">        yield all(</a>
+<a class="sourceLine" id="cb12-36" title="36">            [</a>
+<a class="sourceLine" id="cb12-37" title="37">                adminSaga(dataProvider, authProvider, i18nProvider),</a>
+<a class="sourceLine" id="cb12-38" title="38">                // add your own sagas here</a>
+<a class="sourceLine" id="cb12-39" title="39">            ].map(fork)</a>
+<a class="sourceLine" id="cb12-40" title="40">        );</a>
+<a class="sourceLine" id="cb12-41" title="41">    };</a>
+<a class="sourceLine" id="cb12-42" title="42">    const sagaMiddleware = createSagaMiddleware();</a>
+<a class="sourceLine" id="cb12-43" title="43"></a>
+<a class="sourceLine" id="cb12-44" title="44">    const store = createStore(</a>
+<a class="sourceLine" id="cb12-45" title="45">        resettableAppReducer,</a>
+<a class="sourceLine" id="cb12-46" title="46">        { /* set your initial state here */ },</a>
+<a class="sourceLine" id="cb12-47" title="47">        compose(</a>
+<a class="sourceLine" id="cb12-48" title="48">            applyMiddleware(</a>
+<a class="sourceLine" id="cb12-49" title="49">                sagaMiddleware,</a>
+<a class="sourceLine" id="cb12-50" title="50"><span class="st">-               formMiddleware,</span></a>
+<a class="sourceLine" id="cb12-51" title="51">                routerMiddleware(history),</a>
+<a class="sourceLine" id="cb12-52" title="52">                // add your own middlewares here</a>
+<a class="sourceLine" id="cb12-53" title="53">            ),</a>
+<a class="sourceLine" id="cb12-54" title="54">            typeof window !== &#39;undefined&#39; &amp;&amp; window.__REDUX_DEVTOOLS_EXTENSION__</a>
+<a class="sourceLine" id="cb12-55" title="55">                ? window.__REDUX_DEVTOOLS_EXTENSION__()</a>
+<a class="sourceLine" id="cb12-56" title="56">                : f =&gt; f</a>
+<a class="sourceLine" id="cb12-57" title="57">            // add your own enhancers here</a>
+<a class="sourceLine" id="cb12-58" title="58">        )</a>
+<a class="sourceLine" id="cb12-59" title="59">    );</a>
+<a class="sourceLine" id="cb12-60" title="60">    sagaMiddleware.run(saga);</a>
+<a class="sourceLine" id="cb12-61" title="61">    return store;</a>
+<a class="sourceLine" id="cb12-62" title="62">};</a></code></pre></div>
+<h2 id="custom-forms-using-reduxform-must-be-replaced-by-the-form-component">Custom Forms Using <code>reduxForm()</code> Must Be Replaced By The <code>&lt;Form&gt;</code> Component</h2>
+<p>The <a href="https://final-form.org/docs/react-final-form/migration/redux-form">final-form migration documentation here</a> explains the various changes you have to perform in your code.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb13-1" title="1"><span class="st">-import { reduxForm } from &#39;redux-form&#39;</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="va">+import { Form } from &#39;react-final-form&#39;</span></a>
+<a class="sourceLine" id="cb13-3" title="3"></a>
+<a class="sourceLine" id="cb13-4" title="4"><span class="st">-const CustomForm = reduxForm({ form: &#39;record-form&#39;, someOptions: true })(({ record, resource }) =&gt; (</span></a>
+<a class="sourceLine" id="cb13-5" title="5"><span class="va">+const CustomForm = ({ record, resource }) =&gt; (</span></a>
+<a class="sourceLine" id="cb13-6" title="6"><span class="va">+    &lt;Form someOptions={true}&gt;</span></a>
+<a class="sourceLine" id="cb13-7" title="7"><span class="va">+        {({ handleSubmit }) =&gt; (</span></a>
+<a class="sourceLine" id="cb13-8" title="8"><span class="va">+            &lt;form onSubmit={handleSubmit}&gt;</span></a>
+<a class="sourceLine" id="cb13-9" title="9"><span class="st">-            &lt;Fragment&gt;</span></a>
+<a class="sourceLine" id="cb13-10" title="10">                &lt;Typography&gt;Notes&lt;/Typography&gt;</a>
+<a class="sourceLine" id="cb13-11" title="11">                &lt;TextInput source=&quot;note&quot; /&gt;</a>
+<a class="sourceLine" id="cb13-12" title="12"><span class="va">+            &lt;/form&gt;</span></a>
+<a class="sourceLine" id="cb13-13" title="13"><span class="st">-            &lt;/Fragment&gt;</span></a>
+<a class="sourceLine" id="cb13-14" title="14"><span class="va">+        )}</span></a>
+<a class="sourceLine" id="cb13-15" title="15"><span class="va">+    &lt;/Form&gt;</span></a>
+<a class="sourceLine" id="cb13-16" title="16"><span class="va">+);</span></a>
+<a class="sourceLine" id="cb13-17" title="17"><span class="st">-));</span></a></code></pre></div>
+<h2 id="material-ui-icons-have-changed">Material-ui Icons Have Changed</h2>
+<p>If you were using Material-ui icons for your design, be aware that some icons present in 1.X versions were removed from version 4.0.</p>
+<p>Example:</p>
+<ul>
+<li><code>LightbulbOutline</code> is no more available in <code>@Material-ui/icons</code></li>
+</ul>
+<p>But there is a quick fix for this one by using another package instead:</p>
+<ul>
+<li><code>import Lightbulb from '@material-ui/docs/svgIcons/LightbulbOutline';</code></li>
+</ul>
+<h2 id="custom-exporter-functions-must-use-jsonexport-instead-of-papaparse">Custom Exporter Functions Must Use <code>jsonexport</code> Instead Of <code>papaparse</code></h2>
+<p>React-admin used to bundle the <code>papaparse</code> library for converting JSON to CSV, as part of the Export functionality. But 90% of the <code>papaparse</code> code is used to convert CSV to JSON and was useless in react-admin. We decided to replace it by a lighter library: <a href="https://github.com/kauegimenes/jsonexport">jsonexport</a>.</p>
+<p>If you had custom exporter on <code>List</code> components, here’s how to migrate:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb14-1" title="1"><span class="st">-import { unparse as convertToCSV } from &#39;papaparse/papaparse.min&#39;;</span></a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="va">+import jsonExport from &#39;jsonexport/dist&#39;;</span></a>
+<a class="sourceLine" id="cb14-3" title="3"></a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="st">-const csv = convertToCSV({</span></a>
+<a class="sourceLine" id="cb14-5" title="5"><span class="st">-    data: postsForExport,</span></a>
+<a class="sourceLine" id="cb14-6" title="6"><span class="st">-    fields: [&#39;id&#39;, &#39;title&#39;, &#39;author_name&#39;, &#39;body&#39;]</span></a>
+<a class="sourceLine" id="cb14-7" title="7"><span class="st">-});</span></a>
+<a class="sourceLine" id="cb14-8" title="8"><span class="st">-downloadCSV(csv, &#39;posts&#39;);</span></a>
+<a class="sourceLine" id="cb14-9" title="9"><span class="va">+jsonExport(postsForExport, {</span></a>
+<a class="sourceLine" id="cb14-10" title="10"><span class="va">+    headers: [&#39;id&#39;, &#39;title&#39;, &#39;author_name&#39;, &#39;body&#39;]</span></a>
+<a class="sourceLine" id="cb14-11" title="11"><span class="va">+}, (err, csv) =&gt; {</span></a>
+<a class="sourceLine" id="cb14-12" title="12"><span class="va">+    downloadCSV(csv, &#39;posts&#39;);</span></a>
+<a class="sourceLine" id="cb14-13" title="13"><span class="va">+});</span></a></code></pre></div>
+<h2 id="the-exporter-function-has-changed-signature">The <code>exporter</code> Function Has Changed Signature</h2>
+<p>In a <code>List</code>, you can pass a custom <code>exporter</code> function to control the data downloaded by users when they click on the “Export” button.</p>
+<pre class="jsx"><code>const CommentList = props =&gt; (
+    &lt;List {...props} exporter={exportComments}&gt;
+        // ...
+    &lt;/List&gt;
+)</code></pre>
+<p>In react-admin v3, you can still pass an <code>exporter</code> function this way, but its signature has changed:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb16-1" title="1"><span class="st">-const exportComments = (data, fetchRelaterRecords, dispatch) =&gt; {</span></a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="va">+const exportComments = (data, fetchRelaterRecords, dataProvider) =&gt; {</span></a>
+<a class="sourceLine" id="cb16-3" title="3">    // ...</a>
+<a class="sourceLine" id="cb16-4" title="4">}</a></code></pre></div>
+<p>If you used <code>dispatch</code> to call the dataProvider using an action creator with a <code>callback</code> side effect, you will see that the v3 version makes your exporter code much simpler. If you used it to dispatch custom side effects (like notification or redirect), we recommend that you override the <code>&lt;ExportButton&gt;</code> component completely - it’ll be much easier to maintain.</p>
+<p>As a base, here is the simplified <code>ExportButton</code> code:</p>
+<pre class="jsx"><code>import {
+    downloadCSV,
+    useDataProvider,
+    useNotify,
+} from &#39;react-admin&#39;;
+import jsonExport from &#39;jsonexport/dist&#39;;
+
+const ExportButton = ({ sort, filter, maxResults = 1000, resource }) =&gt; {
+    const dataProvider = useDataProvider();
+    const notify = useNotify();
+    const payload = { sort, filter, pagination: { page: 1, perPage: maxResults }}
+    const handleClick = dataProvider.getList(resource, payload)
+        .then(({ data }) =&gt; jsonExport(data, (err, csv) =&gt; downloadCSV(csv, resource)))
+        .catch(error =&gt; notify(&#39;ra.notification.http_error&#39;, &#39;warning&#39;));
+
+    return (
+        &lt;Button
+            label=&quot;Export&quot;
+            onClick={handleClick}
+        /&gt;
+    );
+};</code></pre>
+<h2 id="authprovider-no-longer-uses-legacy-react-context"><code>authProvider</code> No Longer Uses Legacy React Context</h2>
+<p>When you provide an <code>authProvider</code> to the <code>&lt;Admin&gt;</code> component, react-admin creates a React context to make it available everywhere in the application. In version 2.x, this used the <a href="https://reactjs.org/docs/legacy-context.html">legacy React context API</a>. In 3.0, this uses the normal context API. That means that any context consumer will need to use the new context API.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb18-1" title="1"><span class="st">-import * as React from &quot;react&quot;;</span></a>
+<a class="sourceLine" id="cb18-2" title="2"><span class="va">+import * as React from &#39;react&#39;;</span></a>
+<a class="sourceLine" id="cb18-3" title="3">import { useContext } from &#39;react&#39;;</a>
+<a class="sourceLine" id="cb18-4" title="4"><span class="va">+import { AuthContext } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb18-5" title="5"></a>
+<a class="sourceLine" id="cb18-6" title="6"><span class="st">-const MyComponentWithAuthProvider = (props, context) =&gt; {</span></a>
+<a class="sourceLine" id="cb18-7" title="7"><span class="va">+const MyComponentWithAuthProvider = (props) =&gt; {</span></a>
+<a class="sourceLine" id="cb18-8" title="8"><span class="va">+   const authProvider = useContext(AuthContext);</span></a>
+<a class="sourceLine" id="cb18-9" title="9">    authProvider(&#39;AUTH_CHECK&#39;);</a>
+<a class="sourceLine" id="cb18-10" title="10">    return &lt;div&gt;I&#39;m authenticated&lt;/div&gt;;</a>
+<a class="sourceLine" id="cb18-11" title="11">}</a>
+<a class="sourceLine" id="cb18-12" title="12"></a>
+<a class="sourceLine" id="cb18-13" title="13"><span class="st">-MyComponentWithAuthProvider.contextTypes = { authProvider: PropTypes.object }</span></a></code></pre></div>
+<p>If you didn’t access the <code>authProvider</code> context manually, you have nothing to change. All react-admin components have been updated to use the new context API.</p>
+<p>Note that direct access to the <code>authProvider</code> from the context is discouraged (and not documented). If you need to interact with the <code>authProvider</code>, use the new auth hooks:</p>
+<ul>
+<li><code>useLogin</code></li>
+<li><code>useLogout</code></li>
+<li><code>useAuthenticated</code></li>
+<li><code>useAuthState</code></li>
+<li><code>usePermissions</code></li>
+</ul>
+<h2 id="authprovider-no-longer-receives-match-in-params"><code>authProvider</code> No Longer Receives <code>match</code> in Params</h2>
+<p>Whenever it called the <code>authProvider</code>, react-admin used to pass both the <code>location</code> and the <code>match</code> object from react-router. In v3, the <code>match</code> object is no longer passed as argument. There is no legitimate usage of this parameter we can think about, and it forced passing down that object across several components for nothing, so it’s been removed. Upgrade your <code>authProvider</code> to remove that parameter.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb19-1" title="1">// in src/authProvider</a>
+<a class="sourceLine" id="cb19-2" title="2">export default (type, params) =&gt; {</a>
+<a class="sourceLine" id="cb19-3" title="3"><span class="st">-   const { location, match } = params;</span></a>
+<a class="sourceLine" id="cb19-4" title="4"><span class="va">+   const { location } = params;</span></a>
+<a class="sourceLine" id="cb19-5" title="5">    // ...</a>
+<a class="sourceLine" id="cb19-6" title="6">}</a></code></pre></div>
+<h2 id="the-authprovider-must-handle-permissions">The <code>authProvider</code> Must Handle Permissions</h2>
+<p>React-admin calls the <code>authProvider</code> to get the permissions for each page - using the <code>AUTH_GET_PERMISSIONS</code> verb. While in 2.x, implementing this <code>AUTH_GET_PERMISSIONS</code> verb was optional, it becomes compulsory in 3.0 as soon as you provide a custom <code>authProvider</code>. You can simply return a resolved Promise to ignore permissions handling.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb20-1" title="1">// in src/authProvider.js</a>
+<a class="sourceLine" id="cb20-2" title="2"><span class="st">-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb20-3" title="3"><span class="va">+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_CHECK, AUTH_GET_PERMISSIONS } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb20-4" title="4"></a>
+<a class="sourceLine" id="cb20-5" title="5">export default (type, params) =&gt; {</a>
+<a class="sourceLine" id="cb20-6" title="6">    if (type === AUTH_LOGIN) {</a>
+<a class="sourceLine" id="cb20-7" title="7">        // ...</a>
+<a class="sourceLine" id="cb20-8" title="8">    }</a>
+<a class="sourceLine" id="cb20-9" title="9">    if (type === AUTH_LOGOUT) {</a>
+<a class="sourceLine" id="cb20-10" title="10">        // ...</a>
+<a class="sourceLine" id="cb20-11" title="11">    }</a>
+<a class="sourceLine" id="cb20-12" title="12">    if (type === AUTH_ERROR) {</a>
+<a class="sourceLine" id="cb20-13" title="13">        // ...</a>
+<a class="sourceLine" id="cb20-14" title="14">    }</a>
+<a class="sourceLine" id="cb20-15" title="15">    if (type === AUTH_CHECK) {</a>
+<a class="sourceLine" id="cb20-16" title="16">        const { resource } = params;</a>
+<a class="sourceLine" id="cb20-17" title="17">        if (resource === &#39;posts&#39;) {</a>
+<a class="sourceLine" id="cb20-18" title="18">            // check credentials for the posts resource</a>
+<a class="sourceLine" id="cb20-19" title="19">        }</a>
+<a class="sourceLine" id="cb20-20" title="20">        if (resource === &#39;comments&#39;) {</a>
+<a class="sourceLine" id="cb20-21" title="21">            // check credentials for the comments resource</a>
+<a class="sourceLine" id="cb20-22" title="22">        }</a>
+<a class="sourceLine" id="cb20-23" title="23">    }</a>
+<a class="sourceLine" id="cb20-24" title="24"><span class="va">+   if (type === AUTH_GET_PERMISSIONS) {</span></a>
+<a class="sourceLine" id="cb20-25" title="25"><span class="va">+       return Promise.resolve();</span></a>
+<a class="sourceLine" id="cb20-26" title="26"><span class="va">+   }</span></a>
+<a class="sourceLine" id="cb20-27" title="27">    return Promise.reject(&#39;Unknown method&#39;);</a>
+<a class="sourceLine" id="cb20-28" title="28">};</a></code></pre></div>
+<h2 id="the-authprovider-no-longer-receives-default-parameters">The <code>authProvider</code> No Longer Receives Default Parameters</h2>
+<p>When calling the <code>authProvider</code> for permissions (with the <code>AUTH_GET_PERMISSIONS</code> verb), react-admin used to include the <code>pathname</code> as second parameter. That allowed you to return different permissions based on the page. In a similar fashion, for the <code>AUTH_CHECK</code> call, the <code>params</code> argument contained the <code>resource</code> name, allowing different checks for different resources.</p>
+<p>We believe that authentication and permissions should not vary depending on where you are in the application ; it’s up to components to decide to do something or not depending on permissions. So we’ve removed the default parameters from all the <code>authProvider</code> calls.</p>
+<p>If you want to keep location-dependent authentication or permissions logic, read the current location from the <code>window</code> object directly in your <code>authProvider</code>, using <code>window.location.hash</code> (if you use a hash router), or using <code>window.location.pathname</code> (if you use a browser router):</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb21-1" title="1">// in myauthProvider.js</a>
+<a class="sourceLine" id="cb21-2" title="2">import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_ERROR, AUTH_GET_PERMISSIONS } from &#39;react-admin&#39;;</a>
+<a class="sourceLine" id="cb21-3" title="3">import decodeJwt from &#39;jwt-decode&#39;;</a>
+<a class="sourceLine" id="cb21-4" title="4"></a>
+<a class="sourceLine" id="cb21-5" title="5">export default (type, params) =&gt; {</a>
+<a class="sourceLine" id="cb21-6" title="6">    if (type === AUTH_CHECK) {</a>
+<a class="sourceLine" id="cb21-7" title="7"><span class="st">-       const { resource } = params;</span></a>
+<a class="sourceLine" id="cb21-8" title="8"><span class="va">+       const resource = window.location.hash.substring(2, window.location.hash.indexOf(&#39;/&#39;, 2))</span></a>
+<a class="sourceLine" id="cb21-9" title="9">        // resource-dependent logic follows</a>
+<a class="sourceLine" id="cb21-10" title="10">    }</a>
+<a class="sourceLine" id="cb21-11" title="11">    if (type === AUTH_GET_PERMISSIONS) {</a>
+<a class="sourceLine" id="cb21-12" title="12"><span class="st">-       const { pathname } = params;</span></a>
+<a class="sourceLine" id="cb21-13" title="13"><span class="va">+       const pathname = window.location.hash;</span></a>
+<a class="sourceLine" id="cb21-14" title="14">        // pathname-dependent logic follows </a>
+<a class="sourceLine" id="cb21-15" title="15">        // ...</a>
+<a class="sourceLine" id="cb21-16" title="16">    }</a>
+<a class="sourceLine" id="cb21-17" title="17">    return Promise.reject(&#39;Unknown method&#39;);</a>
+<a class="sourceLine" id="cb21-18" title="18">};</a></code></pre></div>
+<h2 id="no-more-redux-actions-for-authentication">No More Redux Actions For Authentication</h2>
+<p>React-admin now uses hooks instead of sagas to handle authentication and authorization. That means that react-admin no longer dispatches the following actions:</p>
+<ul>
+<li><code>USER_LOGIN</code></li>
+<li><code>USER_LOGIN_LOADING</code></li>
+<li><code>USER_LOGIN_FAILURE</code></li>
+<li><code>USER_LOGIN_SUCCESS</code></li>
+<li><code>USER_CHECK</code></li>
+<li><code>USER_CHECK_SUCCESS</code></li>
+<li><code>USER_LOGOUT</code></li>
+</ul>
+<p>If you have custom Login or Logout buttons dispatching these actions, they will still work, but you are encouraged to migrate to the hook equivalents (<code>useLogin</code> and <code>useLogout</code>).</p>
+<p>If you had custom reducer or sagas based on these actions, they will no longer work. You will have to reimplement that custom logic using the new authentication hooks.</p>
+<p><strong>Tip</strong>: If you need to clear the Redux state, you can dispatch the <code>CLEAR_STATE</code> action.</p>
+<h2 id="login-uses-children-instead-of-a-loginform-prop">Login uses children instead of a loginForm prop</h2>
+<p>If you were using <code>Login</code> with a custom login form, you now need to pass that as a child instead of a prop of <code>Login</code>.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb22-1" title="1">import { Login } from &#39;react-admin&#39;;</a>
+<a class="sourceLine" id="cb22-2" title="2">const LoginPage = () =&gt; (</a>
+<a class="sourceLine" id="cb22-3" title="3">     &lt;Login</a>
+<a class="sourceLine" id="cb22-4" title="4"><span class="st">-        loginForm={&lt;LoginForm /&gt;}</span></a>
+<a class="sourceLine" id="cb22-5" title="5">         backgroundImage={backgroundImage}</a>
+<a class="sourceLine" id="cb22-6" title="6"><span class="st">-    /&gt;</span></a>
+<a class="sourceLine" id="cb22-7" title="7"><span class="va">+    &gt;</span></a>
+<a class="sourceLine" id="cb22-8" title="8"><span class="va">+        &lt;LoginForm /&gt;</span></a>
+<a class="sourceLine" id="cb22-9" title="9"><span class="va">+    &lt;/Login&gt;</span></a>
+<a class="sourceLine" id="cb22-10" title="10"> );</a></code></pre></div>
+<h2 id="i18nprovider-signature-changed">i18nProvider Signature Changed</h2>
+<p>The react-admin translation (i18n) layer lets developers provide translations for UI and content, based on Airbnb’s <a href="https://airbnb.io/polyglot.js/">Polyglot</a> library. The <code>i18nProvider</code>, which contains that translation logic, used to be a function. It must now be an object exposing three methods: <code>translate</code>, <code>changeLocale</code> and <code>getLocale</code>.</p>
+<pre class="jsx"><code>// react-admin 2.x
+const i18nProvider = (locale) =&gt; messages[locale];
+
+// react-admin 3.x
+const polyglot = new Polyglot({ locale: &#39;en&#39;, phrases: messages.en });
+let translate = polyglot.t.bind(polyglot);
+let locale = &#39;en&#39;;
+const i18nProvider = {
+    translate: (key, options) =&gt; translate(key, options),
+    changeLocale: newLocale =&gt; {
+        locale = newLocale;
+        return new Promise((resolve, reject) =&gt; {
+            // load new messages and update the translate function
+        })
+    },
+    getLocale: () =&gt; locale
+} </code></pre>
+<p>But don’t worry: react-admin v3 contains a module called <code>ra-i18n-polyglot</code>, that is a wrapper around your old <code>i18nProvider</code> to make it compatible with the new provider signature:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb24-1" title="1">import * as React from &quot;react&quot;;</a>
+<a class="sourceLine" id="cb24-2" title="2">import { Admin, Resource } from &#39;react-admin&#39;;</a>
+<a class="sourceLine" id="cb24-3" title="3"><span class="va">+import polyglotI18nProvider from &#39;ra-i18n-polyglot&#39;;</span></a>
+<a class="sourceLine" id="cb24-4" title="4">import englishMessages from &#39;ra-language-english&#39;;</a>
+<a class="sourceLine" id="cb24-5" title="5">import frenchMessages from &#39;ra-language-french&#39;;</a>
+<a class="sourceLine" id="cb24-6" title="6"></a>
+<a class="sourceLine" id="cb24-7" title="7">const messages = {</a>
+<a class="sourceLine" id="cb24-8" title="8">    fr: frenchMessages,</a>
+<a class="sourceLine" id="cb24-9" title="9">    en: englishMessages,</a>
+<a class="sourceLine" id="cb24-10" title="10">};</a>
+<a class="sourceLine" id="cb24-11" title="11"><span class="st">-const i18nProvider = locale =&gt; messages[locale];</span></a>
+<a class="sourceLine" id="cb24-12" title="12"><span class="va">+const i18nProvider = polyglotI18nProvider(locale =&gt; messages[locale], &#39;fr&#39;);</span></a>
+<a class="sourceLine" id="cb24-13" title="13"></a>
+<a class="sourceLine" id="cb24-14" title="14">const App = () =&gt; (</a>
+<a class="sourceLine" id="cb24-15" title="15"><span class="st">-    &lt;Admin locale=&quot;fr&quot; i18nProvider={i18nProvider}&gt;</span></a>
+<a class="sourceLine" id="cb24-16" title="16"><span class="va">+    &lt;Admin i18nProvider={i18nProvider}&gt;</span></a>
+<a class="sourceLine" id="cb24-17" title="17">        ...</a>
+<a class="sourceLine" id="cb24-18" title="18">    &lt;/Admin&gt;</a>
+<a class="sourceLine" id="cb24-19" title="19">);</a>
+<a class="sourceLine" id="cb24-20" title="20"></a>
+<a class="sourceLine" id="cb24-21" title="21">export default App;</a></code></pre></div>
+<p><strong>Tip</strong>: The <code>Admin</code> component does not accept a <code>locale</code> prop anymore as it is the <code>i18nProvider</code> provider responsibility. Pass the initial locale as second argument to <code>polyglotI18nProvider</code> instead of passing it to <code>Admin</code></p>
+<h2 id="the-translation-layer-no-longer-uses-redux">The Translation Layer No Longer Uses Redux</h2>
+<p>The previous implementation if the i18n layer used Redux and redux-saga. In react-admin 3.0, the translation utilities are implemented using a React context and a set of hooks.</p>
+<p>If you didn’t use translations, or if you passed your <code>i18nProvider</code> to the <code>&lt;Admin&gt;</code> component and used only one language, you have nothing to change. Your app will continue to work just as before. We encourage you to migrate from the <code>withTranslate</code> HOC to the <code>useTranslate</code> hook, but that’s not compulsory.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb25-1" title="1"><span class="st">-import { withTranslate } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="va">+import { useTranslate } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb25-3" title="3"></a>
+<a class="sourceLine" id="cb25-4" title="4"><span class="st">-const SettingsMenu = ({ translate }) =&gt; {</span></a>
+<a class="sourceLine" id="cb25-5" title="5"><span class="va">+const SettingsMenu = () =&gt; {</span></a>
+<a class="sourceLine" id="cb25-6" title="6"><span class="va">+   const translate = useTranslate();</span></a>
+<a class="sourceLine" id="cb25-7" title="7">    return &lt;MenuItem&gt;{translate(&#39;settings&#39;)}&lt;/MenuItem&gt;;</a>
+<a class="sourceLine" id="cb25-8" title="8">}</a>
+<a class="sourceLine" id="cb25-9" title="9"></a>
+<a class="sourceLine" id="cb25-10" title="10"><span class="st">-export default withTranslate(SettingsMenu);</span></a>
+<a class="sourceLine" id="cb25-11" title="11"><span class="va">+export default SettingsMenu;</span></a></code></pre></div>
+<p>However, if your app allowed users to change locale at runtime, you need to update the menu or button that triggers that locale change. Instead of dispatching a <code>CHANGE_LOCALE</code> Redux action (which has no effect in react-admin 3.0), use the <code>useSetLocale</code> hook as follows:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb26-1" title="1">import * as React from &quot;react&quot;;</a>
+<a class="sourceLine" id="cb26-2" title="2"><span class="st">-import { connect } from &#39;react-redux&#39;;</span></a>
+<a class="sourceLine" id="cb26-3" title="3">import Button from &#39;@material-ui/core/Button&#39;;</a>
+<a class="sourceLine" id="cb26-4" title="4"><span class="st">-import { changeLocale } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb26-5" title="5"><span class="va">+import { useSetLocale } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb26-6" title="6"></a>
+<a class="sourceLine" id="cb26-7" title="7"><span class="st">-const localeSwitcher = ({ changeLocale }) =&gt; </span></a>
+<a class="sourceLine" id="cb26-8" title="8"><span class="va">+const LocaleSwitcher = () =&gt; {</span></a>
+<a class="sourceLine" id="cb26-9" title="9"><span class="va">+   const setLocale = useSetLocale();</span></a>
+<a class="sourceLine" id="cb26-10" title="10"><span class="st">-   const switchToFrench = () =&gt; changeLocale(&#39;fr&#39;);</span></a>
+<a class="sourceLine" id="cb26-11" title="11"><span class="va">+   const switchToFrench = () =&gt; setLocale(&#39;fr&#39;);</span></a>
+<a class="sourceLine" id="cb26-12" title="12"><span class="st">-   const switchToEnglish = () =&gt; changeLocale(&#39;en&#39;);</span></a>
+<a class="sourceLine" id="cb26-13" title="13"><span class="va">+   const switchToEnglish = () =&gt; setLocale(&#39;en&#39;);</span></a>
+<a class="sourceLine" id="cb26-14" title="14">    return (</a>
+<a class="sourceLine" id="cb26-15" title="15">        &lt;div&gt;</a>
+<a class="sourceLine" id="cb26-16" title="16">            &lt;div&gt;Language&lt;/div&gt;</a>
+<a class="sourceLine" id="cb26-17" title="17">            &lt;Button onClick={switchToEnglish}&gt;en&lt;/Button&gt;</a>
+<a class="sourceLine" id="cb26-18" title="18">            &lt;Button onClick={switchToFrench}&gt;fr&lt;/Button&gt;</a>
+<a class="sourceLine" id="cb26-19" title="19">        &lt;/div&gt;</a>
+<a class="sourceLine" id="cb26-20" title="20">    );</a>
+<a class="sourceLine" id="cb26-21" title="21">}</a>
+<a class="sourceLine" id="cb26-22" title="22"></a>
+<a class="sourceLine" id="cb26-23" title="23"><span class="st">-export default connect(null, { changeLocale })(LocaleSwitcher);</span></a>
+<a class="sourceLine" id="cb26-24" title="24"><span class="va">+export default LocaleSwitcher;</span></a></code></pre></div>
+<p>Also, if you connected a component to the Redux store to get the current language, you now need to use the <code>useLocale()</code> hook instead.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb27-1" title="1"><span class="st">-import { connect } from &#39;react-redux&#39;;</span></a>
+<a class="sourceLine" id="cb27-2" title="2"><span class="va">+import { useLocale } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb27-3" title="3"></a>
+<a class="sourceLine" id="cb27-4" title="4">const availableLanguages = {</a>
+<a class="sourceLine" id="cb27-5" title="5">    en: &#39;English&#39;,</a>
+<a class="sourceLine" id="cb27-6" title="6">    fr: &#39;Français&#39;,</a>
+<a class="sourceLine" id="cb27-7" title="7">}</a>
+<a class="sourceLine" id="cb27-8" title="8"></a>
+<a class="sourceLine" id="cb27-9" title="9"><span class="st">-const CurrentLanguage = ({ locale }) =&gt; {</span></a>
+<a class="sourceLine" id="cb27-10" title="10"><span class="va">+const CurrentLanguage = () =&gt; {</span></a>
+<a class="sourceLine" id="cb27-11" title="11"><span class="va">+   const locale = useLocale();</span></a>
+<a class="sourceLine" id="cb27-12" title="12">    return &lt;span&gt;{availableLanguages[locale]}&lt;/span&gt;;</a>
+<a class="sourceLine" id="cb27-13" title="13">}</a>
+<a class="sourceLine" id="cb27-14" title="14"></a>
+<a class="sourceLine" id="cb27-15" title="15"><span class="st">- const mapStatetoProps = state =&gt; state.i18n.locale</span></a>
+<a class="sourceLine" id="cb27-16" title="16"></a>
+<a class="sourceLine" id="cb27-17" title="17"><span class="st">-export default connect(mapStateToProps)(CurrentLanguage);</span></a>
+<a class="sourceLine" id="cb27-18" title="18"><span class="va">+export default CurrentLanguage;</span></a></code></pre></div>
+<p>If you used a custom Redux store, you must update the <code>createAdminStore</code> call to omit the i18n details:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb28-1" title="1">const App = () =&gt; (</a>
+<a class="sourceLine" id="cb28-2" title="2">    &lt;Provider</a>
+<a class="sourceLine" id="cb28-3" title="3">        store={createAdminStore({</a>
+<a class="sourceLine" id="cb28-4" title="4">            authProvider,</a>
+<a class="sourceLine" id="cb28-5" title="5">            dataProvider,</a>
+<a class="sourceLine" id="cb28-6" title="6"><span class="st">-           i18nProvider,</span></a>
+<a class="sourceLine" id="cb28-7" title="7">            history,</a>
+<a class="sourceLine" id="cb28-8" title="8">        })}</a>
+<a class="sourceLine" id="cb28-9" title="9">    &gt;</a>
+<a class="sourceLine" id="cb28-10" title="10">        &lt;Admin</a>
+<a class="sourceLine" id="cb28-11" title="11">            authProvider={authProvider}</a>
+<a class="sourceLine" id="cb28-12" title="12">            dataProvider={dataProvider}</a>
+<a class="sourceLine" id="cb28-13" title="13">            history={history}</a>
+<a class="sourceLine" id="cb28-14" title="14">            title=&quot;My Admin&quot;</a>
+<a class="sourceLine" id="cb28-15" title="15">        &gt;</a></code></pre></div>
+<h2 id="withdataprovider-no-longer-injects-dispatch"><code>withDataProvider</code> No Longer Injects <code>dispatch</code></h2>
+<p>The <code>withDataProvider</code> HOC used to inject two props: <code>dataProvider</code>, and Redux’ <code>dispatch</code>. This last prop is now easy to get via the <code>useDispatch</code> hook from Redux, so <code>withDataProvider</code> no longer injects it.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb29-1" title="1">import {</a>
+<a class="sourceLine" id="cb29-2" title="2">   showNotification,</a>
+<a class="sourceLine" id="cb29-3" title="3">   UPDATE,</a>
+<a class="sourceLine" id="cb29-4" title="4">   withDataProvider,</a>
+<a class="sourceLine" id="cb29-5" title="5">} from &#39;react-admin&#39;;</a>
+<a class="sourceLine" id="cb29-6" title="6"><span class="va">+ import { useDispatch } from &#39;react-redux&#39;;</span></a>
+<a class="sourceLine" id="cb29-7" title="7"></a>
+<a class="sourceLine" id="cb29-8" title="8"><span class="st">-const ApproveButton = ({ dataProvider, dispatch, record }) =&gt; {</span></a>
+<a class="sourceLine" id="cb29-9" title="9"><span class="va">+const ApproveButton = ({ dataProvider, record }) =&gt; {</span></a>
+<a class="sourceLine" id="cb29-10" title="10"><span class="va">+   const dispatch = useDispatch();</span></a>
+<a class="sourceLine" id="cb29-11" title="11">    const handleClick = () =&gt; {</a>
+<a class="sourceLine" id="cb29-12" title="12">        const updatedRecord = { ...record, is_approved: true };</a>
+<a class="sourceLine" id="cb29-13" title="13">        dataProvider(UPDATE, &#39;comments&#39;, { id: record.id, data: updatedRecord })</a>
+<a class="sourceLine" id="cb29-14" title="14">            .then(() =&gt; {</a>
+<a class="sourceLine" id="cb29-15" title="15">                dispatch(showNotification(&#39;Comment approved&#39;));</a>
+<a class="sourceLine" id="cb29-16" title="16">                dispatch(push(&#39;/comments&#39;));</a>
+<a class="sourceLine" id="cb29-17" title="17">            })</a>
+<a class="sourceLine" id="cb29-18" title="18">            .catch((e) =&gt; {</a>
+<a class="sourceLine" id="cb29-19" title="19">                dispatch(showNotification(&#39;Error: comment not approved&#39;, &#39;warning&#39;))</a>
+<a class="sourceLine" id="cb29-20" title="20">            });</a>
+<a class="sourceLine" id="cb29-21" title="21">    }</a>
+<a class="sourceLine" id="cb29-22" title="22"></a>
+<a class="sourceLine" id="cb29-23" title="23">    return &lt;Button label=&quot;Approve&quot; onClick={handleClick} /&gt;;</a>
+<a class="sourceLine" id="cb29-24" title="24">}</a>
+<a class="sourceLine" id="cb29-25" title="25"></a>
+<a class="sourceLine" id="cb29-26" title="26">export default withDataProvider(ApproveButton);</a></code></pre></div>
+<h2 id="resource-context-renamed-to-intent">Resource <code>context</code> Renamed to <code>intent</code></h2>
+<p>If you’re using a Custom App, you had to render <code>&lt;Resource&gt;</code> components with the registration <em>context</em> prior to rendering your app routes. The <code>context</code> prop was renamed to <code>intent</code> because it conflicted with a prop injected by <code>react-redux</code>.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb30-1" title="1"><span class="st">-               &lt;Resource name=&quot;posts&quot; context=&quot;registration&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb30-2" title="2"><span class="va">+               &lt;Resource name=&quot;posts&quot; intent=&quot;registration&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb30-3" title="3"><span class="st">-               &lt;Resource name=&quot;comments&quot; context=&quot;registration&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb30-4" title="4"><span class="va">+               &lt;Resource name=&quot;comments&quot; intent=&quot;registration&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb30-5" title="5"><span class="st">-               &lt;Resource name=&quot;users&quot; context=&quot;registration&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb30-6" title="6"><span class="va">+               &lt;Resource name=&quot;users&quot; intent=&quot;registration&quot; /&gt;</span></a></code></pre></div>
+<h2 id="referencefield-linktype-prop-renamed-to-link"><code>&lt;ReferenceField&gt;</code> <code>linkType</code> Prop Renamed to <code>link</code></h2>
+<p>When using the <code>&lt;ReferenceField&gt;</code> component, you should rename the <code>linkType</code> prop to <code>link</code>. This prop now also accepts custom functions to return a link (see the Fields documentation).</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb31-1" title="1"><span class="st">- &lt;ReferenceField resource=&quot;comments&quot; record={data[id]} source=&quot;post_id&quot; reference=&quot;posts&quot; basePath={basePath} linkType=&quot;show&quot;&gt;</span></a>
+<a class="sourceLine" id="cb31-2" title="2"><span class="va">+ &lt;ReferenceField resource=&quot;comments&quot; record={data[id]} source=&quot;post_id&quot; reference=&quot;posts&quot; basePath={basePath} link=&quot;show&quot;&gt;</span></a></code></pre></div>
+<h2 id="cardactions-renamed-to-toptoolbar"><code>&lt;CardActions&gt;</code> Renamed to <code>&lt;TopToolbar&gt;</code></h2>
+<p>The <code>&lt;CardActions&gt;</code> component, which used to wrap the action buttons in the <code>Edit</code>, <code>Show</code> and <code>Create</code> views, is now named <code>&lt;TopToolbar&gt;</code>. That’s because actions aren’t located inside the <code>Card</code> anymore, but above it.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb32-1" title="1">import Button from &#39;@material-ui/core/Button&#39;;</a>
+<a class="sourceLine" id="cb32-2" title="2"><span class="st">-import { CardActions, ShowButton } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb32-3" title="3"><span class="va">+import { TopToolbar, ShowButton } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb32-4" title="4"></a>
+<a class="sourceLine" id="cb32-5" title="5">const PostEditActions = ({ basePath, data, resource }) =&gt; (</a>
+<a class="sourceLine" id="cb32-6" title="6"><span class="st">-   &lt;CardActions&gt;</span></a>
+<a class="sourceLine" id="cb32-7" title="7"><span class="va">+   &lt;TopToolbar&gt;</span></a>
+<a class="sourceLine" id="cb32-8" title="8">        &lt;ShowButton basePath={basePath} record={data} /&gt;</a>
+<a class="sourceLine" id="cb32-9" title="9">        {/* Add your custom actions */}</a>
+<a class="sourceLine" id="cb32-10" title="10">        &lt;Button color=&quot;primary&quot; onClick={customAction}&gt;Custom Action&lt;/Button&gt;</a>
+<a class="sourceLine" id="cb32-11" title="11"><span class="st">-   &lt;/CardActions&gt;</span></a>
+<a class="sourceLine" id="cb32-12" title="12"><span class="va">+   &lt;/TopToolbar&gt;</span></a>
+<a class="sourceLine" id="cb32-13" title="13">);</a>
+<a class="sourceLine" id="cb32-14" title="14"></a>
+<a class="sourceLine" id="cb32-15" title="15">export const PostEdit = (props) =&gt; (</a>
+<a class="sourceLine" id="cb32-16" title="16">    &lt;Edit actions={&lt;PostEditActions /&gt;} {...props}&gt;</a>
+<a class="sourceLine" id="cb32-17" title="17">        ...</a>
+<a class="sourceLine" id="cb32-18" title="18">    &lt;/Edit&gt;</a>
+<a class="sourceLine" id="cb32-19" title="19">);</a></code></pre></div>
+<p>But watch out, you can’t just replace “CardActions” by “TopToolbar” in your entire codebase, because you probably also use material-ui’s <code>&lt;CardActions&gt;</code>, and that component still exists. The fact that react-admin exported a component with the same name but with a different look and feel than the material-ui component was also a motivation to rename it.</p>
+<h2 id="admin-applayout-prop-renamed-to-layout"><code>&lt;Admin&gt;</code> <code>appLayout</code> Prop Renamed To <code>layout</code></h2>
+<p>You can inject a layout component in the <code>&lt;Admin&gt;</code> component to override the default layout. However, this injection used a counterintuitive prop name: <code>appLayout</code>. It has been renamed to the more natural <code>layout</code>.</p>
+<p>You will only have to change your code if you used a custom layout:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb33-1" title="1">const App = () =&gt; (</a>
+<a class="sourceLine" id="cb33-2" title="2"><span class="st">-   &lt;Admin appLayout={MyLayout}&gt;</span></a>
+<a class="sourceLine" id="cb33-3" title="3"><span class="va">+   &lt;Admin layout={MyLayout}&gt;</span></a>
+<a class="sourceLine" id="cb33-4" title="4">        &lt;Resource name=&quot;posts&quot; list={PostList} edit={PostEdit} /&gt;</a>
+<a class="sourceLine" id="cb33-5" title="5">    &lt;/Admin&gt;</a>
+<a class="sourceLine" id="cb33-6" title="6">);</a></code></pre></div>
+<h2 id="prop-isloading-renamed-to-loading">Prop <code>isLoading</code> Renamed To <code>loading</code></h2>
+<p>Most of the react-admin controller components that fetch data used to inject an <code>isLoading</code> boolean prop, set to true whenever a <code>dataProvider</code> call was pending. This prop was renamed to <code>loading</code> everywhere. Use the search and replace feature of your IDE to rename that prop.</p>
+<p>For instance:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb34-1" title="1">  &lt;ReferenceInputController {...props}&gt;</a>
+<a class="sourceLine" id="cb34-2" title="2"><span class="st">-     {({ isLoading, otherProps }) =&gt; (</span></a>
+<a class="sourceLine" id="cb34-3" title="3"><span class="va">+     {({ loading, otherProps }) =&gt; (</span></a>
+<a class="sourceLine" id="cb34-4" title="4">          &lt;CustomReferenceInputView</a>
+<a class="sourceLine" id="cb34-5" title="5">              {...otherProps}</a>
+<a class="sourceLine" id="cb34-6" title="6"><span class="st">-             isLoading={isLoading}</span></a>
+<a class="sourceLine" id="cb34-7" title="7"><span class="va">+             loading={loading}</span></a>
+<a class="sourceLine" id="cb34-8" title="8">          /&gt;</a>
+<a class="sourceLine" id="cb34-9" title="9">      )}</a>
+<a class="sourceLine" id="cb34-10" title="10">  &lt;/ReferenceInputController&gt;</a></code></pre></div>
+<h2 id="prop-loadedonce-renamed-to-loaded">Prop <code>loadedOnce</code> Renamed To <code>loaded</code></h2>
+<p>The <code>List</code>, <code>ReferenceArrayField</code> and <code>ReferenceManyField</code> used to inject a <code>loadedOnce</code> prop to their child. This prop has been renamed to <code>loaded</code>.</p>
+<p>As a consequence, the components usually used as child of these 3 components now accept a <code>loaded</code> prop instead of <code>loadedOnce</code>. This concerns <code>Datagrid</code>, <code>SingleFieldList</code>, and <code>GridList</code>.</p>
+<p>This change is transparent unless you use a custom view component inside a <code>List</code>, <code>ReferenceArrayField</code> or <code>ReferenceManyField</code>.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb35-1" title="1">const PostList = props =&gt; (</a>
+<a class="sourceLine" id="cb35-2" title="2">    &lt;List {...props}&gt;</a>
+<a class="sourceLine" id="cb35-3" title="3">        &lt;MyListView /&gt;</a>
+<a class="sourceLine" id="cb35-4" title="4">    &lt;/List&gt;</a>
+<a class="sourceLine" id="cb35-5" title="5">)</a>
+<a class="sourceLine" id="cb35-6" title="6"></a>
+<a class="sourceLine" id="cb35-7" title="7"><span class="st">-const MyListView = ({ loadedOnce, ...props }) =&gt; (</span></a>
+<a class="sourceLine" id="cb35-8" title="8"><span class="va">+const MyListView = ({ loaded, ...props }) =&gt; (</span></a>
+<a class="sourceLine" id="cb35-9" title="9"><span class="st">-   if (!loadedOnce) return null;</span></a>
+<a class="sourceLine" id="cb35-10" title="10"><span class="va">+   if (!loaded) return null;</span></a>
+<a class="sourceLine" id="cb35-11" title="11">    // rest of the view</a>
+<a class="sourceLine" id="cb35-12" title="12">);</a></code></pre></div>
+<h2 id="deprecated-components-were-removed">Deprecated components were removed</h2>
+<p>Components deprecated in 2.X have been removed in 3.x. This includes:</p>
+<ul>
+<li><code>AppBarMobile</code> (use <code>AppBar</code> instead, which is responsive)</li>
+<li><code>Header</code> (use <code>Title</code> instead)</li>
+<li><code>ViewTitle</code> (use <code>Title</code> instead)</li>
+<li><code>RecordTitle</code> (use <code>TitleForRecord</code> instead)</li>
+<li><code>TitleDeprecated</code> (use <code>Title</code> instead)</li>
+<li><code>Headroom</code> (use <code>HideOnScroll</code> instead)</li>
+<li><code>LongTextInput</code> (use the <code>TextInput</code> instead)</li>
+</ul>
+<div class="sourceCode" id="cb36"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb36-1" title="1"><span class="st">- import { LongTextInput } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb36-2" title="2"><span class="st">- &lt;LongTextInput source=&quot;body&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb36-3" title="3"><span class="va">+ import { TextInput } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb36-4" title="4"><span class="va">+ &lt;TextInput multiline source=&quot;body&quot; /&gt;</span></a></code></pre></div>
+<ul>
+<li><code>BulkActions</code> (use the <a href="https://marmelab.com/react-admin/List.html#bulk-action-buttons"><code>bulkActionButtons</code> prop</a> instead)</li>
+</ul>
+<div class="sourceCode" id="cb37"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb37-1" title="1"><span class="st">- const PostBulkActions = props =&gt; (</span></a>
+<a class="sourceLine" id="cb37-2" title="2"><span class="st">-     &lt;BulkActions {...props}&gt;</span></a>
+<a class="sourceLine" id="cb37-3" title="3"><span class="st">-         &lt;CustomBulkMenuItem /&gt;</span></a>
+<a class="sourceLine" id="cb37-4" title="4"><span class="st">-         {/* Add the default bulk delete action */}</span></a>
+<a class="sourceLine" id="cb37-5" title="5"><span class="st">-         &lt;BulkDeleteMenuItem /&gt;</span></a>
+<a class="sourceLine" id="cb37-6" title="6"><span class="st">-     &lt;/BulkActions&gt;</span></a>
+<a class="sourceLine" id="cb37-7" title="7"><span class="st">- );</span></a>
+<a class="sourceLine" id="cb37-8" title="8"><span class="va">+ const PostBulkActionButtons = props =&gt; (</span></a>
+<a class="sourceLine" id="cb37-9" title="9"><span class="va">+     &lt;Fragment&gt;</span></a>
+<a class="sourceLine" id="cb37-10" title="10"><span class="va">+         &lt;ResetViewsButton label=&quot;Reset Views&quot; {...props} /&gt;</span></a>
+<a class="sourceLine" id="cb37-11" title="11"><span class="va">+         {/* Add the default bulk delete action */}</span></a>
+<a class="sourceLine" id="cb37-12" title="12"><span class="va">+         &lt;BulkDeleteButton {...props} /&gt;</span></a>
+<a class="sourceLine" id="cb37-13" title="13"><span class="va">+     &lt;/Fragment&gt;</span></a>
+<a class="sourceLine" id="cb37-14" title="14"><span class="va">+ );</span></a>
+<a class="sourceLine" id="cb37-15" title="15"></a>
+<a class="sourceLine" id="cb37-16" title="16">export const PostList = (props) =&gt; (</a>
+<a class="sourceLine" id="cb37-17" title="17">    &lt;List </a>
+<a class="sourceLine" id="cb37-18" title="18">        {...props} </a>
+<a class="sourceLine" id="cb37-19" title="19"><span class="st">-       bulkActions={&lt;PostBulkActions /&gt;}</span></a>
+<a class="sourceLine" id="cb37-20" title="20"><span class="va">+       bulkActionButtons={&lt;PostBulkActionButtons /&gt;}&gt;</span></a>
+<a class="sourceLine" id="cb37-21" title="21">        ...</a>
+<a class="sourceLine" id="cb37-22" title="22">    &lt;/List&gt;</a>
+<a class="sourceLine" id="cb37-23" title="23">);</a></code></pre></div>
+<h2 id="the-disabledinput-component-was-removed">The <code>DisabledInput</code> Component Was Removed</h2>
+<p>See <a href="https://github.com/marmelab/react-admin/issues/3518">RFC 3518</a> for the rationale.</p>
+<p>You can replace <code>&lt;DisabledInput&gt;</code> with a disabled or read-only <code>TextInput</code>. For example, the <code>disabled</code> prop:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb38-1" title="1"><span class="st">-import { DisabledInput } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb38-2" title="2"><span class="va">+import { TextInput } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb38-3" title="3"></a>
+<a class="sourceLine" id="cb38-4" title="4"><span class="st">-&lt;DisabledInput source=&quot;id&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb38-5" title="5"><span class="va">+&lt;TextInput source=&quot;id&quot; disabled /&gt;</span></a></code></pre></div>
+<p>See material-ui <a href="https://material-ui.com/components/text-fields/#textfield"><code>TextField</code> documentation</a> for available options.</p>
+<h2 id="the-sidebar-width-must-be-set-through-the-theme">The SideBar Width Must Be Set Through The <code>theme</code></h2>
+<p>The <code>&lt;SideBar&gt;</code> component used to accept <code>size</code> and <code>closedSize</code> prop to control its width.</p>
+<p>You can now customize those values by providing a custom material-ui theme.</p>
+<pre class="jsx"><code>import { createMuiTheme } from &#39;@material-ui/core/styles&#39;;
+
+const theme = createMuiTheme({
+    sidebar: {
+        width: 300, // The default value is 240
+        closedWidth: 70, // The default value is 55
+    },
+});
+
+const App = () =&gt; (
+    &lt;Admin theme={theme} dataProvider={simpleRestProvider(&#39;http://path.to.my.api&#39;)}&gt;
+        // ...
+    &lt;/Admin&gt;
+);</code></pre>
+<h2 id="reference-inputs-no-longer-inject-a-helpertext-field-inside-meta">Reference Inputs No Longer Inject A <code>helperText</code> field Inside <code>meta</code></h2>
+<p><code>&lt;ReferenceInput&gt;</code> used to send a <code>helperText</code> inside the <code>meta</code> prop of its child whenever it was unable to retrieve referenced records. The same goes for <code>&lt;ReferenceArrayInput&gt;</code>.</p>
+<p>These components now use the <code>meta: { error }</code> prop and won’t override their child <code>helperText</code> anymore.</p>
+<p>Furthermore, they don’t support the <code>helperText</code> at all anymore as this is a pure UI concern which should be handled by their child.</p>
+<p>If you’ve implemented a custom child component for <code>&lt;ReferenceInput&gt;</code> of <code>&lt;ReferenceArrayInput&gt;</code>, you must now display the <code>error</code> in your component.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb40-1" title="1">const MySelectIpnut = ({</a>
+<a class="sourceLine" id="cb40-2" title="2">    // ...</a>
+<a class="sourceLine" id="cb40-3" title="3"><span class="st">-   meta: { helperText }</span></a>
+<a class="sourceLine" id="cb40-4" title="4"><span class="va">+   meta: { error }</span></a>
+<a class="sourceLine" id="cb40-5" title="5">}) =&gt; (</a>
+<a class="sourceLine" id="cb40-6" title="6">    if (error) {</a>
+<a class="sourceLine" id="cb40-7" title="7">        // ReferenceInput couldn&#39;t check referenced records, and therefore the choices list is empty</a>
+<a class="sourceLine" id="cb40-8" title="8">        // display a custo merror message here.</a>
+<a class="sourceLine" id="cb40-9" title="9">    }</a>
+<a class="sourceLine" id="cb40-10" title="10">);</a></code></pre></div>
+<h2 id="helpertext-is-handled-the-same-way-in-all-components"><code>helperText</code> Is Handled The Same Way In All Components</h2>
+<p>Somewhat related to the previous point, some components (such as <code>&lt;SelectArrayInput&gt;</code>) used to accept a <code>helperText</code> prop in their <code>meta</code> prop. They now receive it directly in their props.</p>
+<p>Besides, all components now display their error or their helper text, but not both at the same time.</p>
+<p>This has no impact unless you used to set the <code>helperText</code> manually in <code>&lt;SelectArrayInput&gt;</code>:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb41-1" title="1">const Postedit = props =&gt;</a>
+<a class="sourceLine" id="cb41-2" title="2">  &lt;Edit {...props}&gt;</a>
+<a class="sourceLine" id="cb41-3" title="3">      &lt;SimpleForm&gt;</a>
+<a class="sourceLine" id="cb41-4" title="4">          // ...</a>
+<a class="sourceLine" id="cb41-5" title="5">         &lt;SelectArrayInput</a>
+<a class="sourceLine" id="cb41-6" title="6">            label=&quot;Tags&quot;</a>
+<a class="sourceLine" id="cb41-7" title="7">            source=&quot;categories&quot;</a>
+<a class="sourceLine" id="cb41-8" title="8"><span class="st">-           meta={{ helperText: &#39;Select categories&#39; }}</span></a>
+<a class="sourceLine" id="cb41-9" title="9"><span class="va">+           helperText=&quot;Select categories&quot;</span></a>
+<a class="sourceLine" id="cb41-10" title="10">            choices={[</a>
+<a class="sourceLine" id="cb41-11" title="11">             { id: &#39;music&#39;, name: &#39;Music&#39; },</a>
+<a class="sourceLine" id="cb41-12" title="12">             { id: &#39;photography&#39;, name: &#39;Photo&#39; },</a>
+<a class="sourceLine" id="cb41-13" title="13">             { id: &#39;programming&#39;, name: &#39;Code&#39; },</a>
+<a class="sourceLine" id="cb41-14" title="14">             { id: &#39;tech&#39;, name: &#39;Technology&#39; },</a>
+<a class="sourceLine" id="cb41-15" title="15">             { id: &#39;sport&#39;, name: &#39;Sport&#39; },</a>
+<a class="sourceLine" id="cb41-16" title="16">            ]}</a>
+<a class="sourceLine" id="cb41-17" title="17">           /&gt;</a>
+<a class="sourceLine" id="cb41-18" title="18">      &lt;/SimpleForm&gt;</a>
+<a class="sourceLine" id="cb41-19" title="19">  &lt;/Edit&gt;</a></code></pre></div>
+<h2 id="form-inputs-are-now-filled-and-dense-by-default">Form Inputs Are Now <code>filled</code> And <code>dense</code> By Default</h2>
+<p>To better match the <a href="https://material.io/components/text-fields/">Material Design</a> specification, react-admin defaults to the <em>filled</em> variant for form inputs, and uses a <em>dense</em> margin to allow more compact forms. This will change the look and feel of existing forms built with <code>&lt;SimpleForm&gt;</code>, <code>&lt;TabbedForm&gt;</code>, and <code>&lt;Filter&gt;</code>. If you want your forms to look just like before, you need to set the <code>variant</code> and <code>margin</code> props as follows:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb42-1" title="1">// for SimpleForm</a>
+<a class="sourceLine" id="cb42-2" title="2">const PostEdit = props =&gt;</a>
+<a class="sourceLine" id="cb42-3" title="3">    &lt;Edit {...props}&gt;</a>
+<a class="sourceLine" id="cb42-4" title="4">        &lt;SimpleForm</a>
+<a class="sourceLine" id="cb42-5" title="5"><span class="va">+           variant=&quot;standard&quot;</span></a>
+<a class="sourceLine" id="cb42-6" title="6"><span class="va">+           margin=&quot;normal&quot;</span></a>
+<a class="sourceLine" id="cb42-7" title="7">        &gt;</a>
+<a class="sourceLine" id="cb42-8" title="8">            // ...</a>
+<a class="sourceLine" id="cb42-9" title="9">        &lt;/SimpleForm&gt;</a>
+<a class="sourceLine" id="cb42-10" title="10">    &lt;/Edit&gt;;</a>
+<a class="sourceLine" id="cb42-11" title="11">// for TabbedForm</a>
+<a class="sourceLine" id="cb42-12" title="12">const PostEdit = props =&gt;</a>
+<a class="sourceLine" id="cb42-13" title="13">    &lt;Edit {...props}&gt;</a>
+<a class="sourceLine" id="cb42-14" title="14">        &lt;TabbedForm</a>
+<a class="sourceLine" id="cb42-15" title="15"><span class="va">+           variant=&quot;standard&quot;</span></a>
+<a class="sourceLine" id="cb42-16" title="16"><span class="va">+           margin=&quot;normal&quot;</span></a>
+<a class="sourceLine" id="cb42-17" title="17">        &gt;</a>
+<a class="sourceLine" id="cb42-18" title="18">            &lt;FormTab label=&quot;Identity&gt;</a>
+<a class="sourceLine" id="cb42-19" title="19">                // ...</a>
+<a class="sourceLine" id="cb42-20" title="20">            &lt;/FormTab&gt;</a>
+<a class="sourceLine" id="cb42-21" title="21">        &lt;/TabbedForm&gt;</a>
+<a class="sourceLine" id="cb42-22" title="22">    &lt;/Edit&gt;;</a>
+<a class="sourceLine" id="cb42-23" title="23">// for Filter</a>
+<a class="sourceLine" id="cb42-24" title="24">const PostFilter = props =&gt; </a>
+<a class="sourceLine" id="cb42-25" title="25"><span class="st">-   &lt;Filter&gt;</span></a>
+<a class="sourceLine" id="cb42-26" title="26"><span class="va">+   &lt;Filter variant=&quot;standard&quot;&gt;</span></a>
+<a class="sourceLine" id="cb42-27" title="27">        // ...</a>
+<a class="sourceLine" id="cb42-28" title="28">    &lt;/Filter&gt;;</a></code></pre></div>
+<h2 id="form-defaultvalue-prop-was-renamed-to-initialvalues"><code>&lt;Form&gt;</code> <code>defaultValue</code> Prop Was Renamed To <code>initialValues</code></h2>
+<p>This is actually to be consistent with the underlying form library (<a href="https://final-form.org/docs/react-final-form/getting-started">final-form</a>)</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb43-1" title="1">// for SimpleForm</a>
+<a class="sourceLine" id="cb43-2" title="2">const PostEdit = props =&gt;</a>
+<a class="sourceLine" id="cb43-3" title="3">    &lt;Edit {...props}&gt;</a>
+<a class="sourceLine" id="cb43-4" title="4">        &lt;SimpleForm</a>
+<a class="sourceLine" id="cb43-5" title="5"><span class="st">-           defaultValue={{ stock: 0 }}</span></a>
+<a class="sourceLine" id="cb43-6" title="6"><span class="va">+           initialValues={{ stock: 0 }}</span></a>
+<a class="sourceLine" id="cb43-7" title="7">        &gt;</a>
+<a class="sourceLine" id="cb43-8" title="8">            // ...</a>
+<a class="sourceLine" id="cb43-9" title="9">        &lt;/SimpleForm&gt;</a>
+<a class="sourceLine" id="cb43-10" title="10">    &lt;/Edit&gt;;</a>
+<a class="sourceLine" id="cb43-11" title="11">// for TabbedForm</a>
+<a class="sourceLine" id="cb43-12" title="12">const PostEdit = props =&gt;</a>
+<a class="sourceLine" id="cb43-13" title="13">    &lt;Edit {...props}&gt;</a>
+<a class="sourceLine" id="cb43-14" title="14">        &lt;TabbedForm</a>
+<a class="sourceLine" id="cb43-15" title="15"><span class="st">-           defaultValue={{ stock: 0 }}</span></a>
+<a class="sourceLine" id="cb43-16" title="16"><span class="va">+           initialValues={{ stock: 0 }}</span></a>
+<a class="sourceLine" id="cb43-17" title="17">        &gt;</a>
+<a class="sourceLine" id="cb43-18" title="18">            &lt;FormTab label=&quot;Identity&gt;</a>
+<a class="sourceLine" id="cb43-19" title="19">                // ...</a>
+<a class="sourceLine" id="cb43-20" title="20">            &lt;/FormTab&gt;</a>
+<a class="sourceLine" id="cb43-21" title="21">        &lt;/TabbedForm&gt;</a>
+<a class="sourceLine" id="cb43-22" title="22">    &lt;/Edit&gt;;</a></code></pre></div>
+<h2 id="prefilling-some-fields-of-a-create-page-needs-different-url-syntax">Prefilling Some Fields Of A <code>&lt;Create&gt;</code> Page Needs Different URL Syntax</h2>
+<p>We’ve described how to pre-fill some fields in the create form in an <a href="https://marmelab.com/blog/2018/07/09/react-admin-tutorials-form-for-related-records.html">Advanced Tutorial</a>. In v2, you had to pass all the fields to be pre-filled as search parameters. In v3, you have to pass a single <code>source</code> search parameter containing a stringified object:</p>
+<pre class="jsx"><code>const AddNewCommentButton = ({ record }) =&gt; (
+  &lt;Button
+    component={Link}
+    to={{
+      pathname: &quot;/comments/create&quot;,
+-     search: `?post_id=${record.id}`,
++     search: `?source=${JSON.stringify({ post_id: record.id })}`,
+    }}
+    label=&quot;Add a comment&quot;
+  &gt;
+    &lt;ChatBubbleIcon /&gt;
+  &lt;/Button&gt;
+);</code></pre>
+<p>That’s what the <code>&lt;CloneButton&gt;</code> does in react-admin v3:</p>
+<pre class="jsx"><code>export const CloneButton = ({
+    basePath = &#39;&#39;,
+    label = &#39;ra.action.clone&#39;,
+    record = {},
+    icon = &lt;Queue /&gt;,
+    ...rest
+}) =&gt; (
+    &lt;Button
+        component={Link}
+        to={{
+            pathname: `${basePath}/create`,
+            search: stringify({ source: JSON.stringify(omitId(record)) }),
+        }}
+        label={label}
+        onClick={stopPropagation}
+        {...sanitizeRestProps(rest)}
+    &gt;
+        {icon}
+    &lt;/Button&gt;
+);</code></pre>
+<h2 id="the-autocompleteinput-and-autocompletearrayinput-components-no-longer-support-certain-props">The <code>&lt;AutocompleteInput&gt;</code> And <code>&lt;AutocompleteArrayInput&gt;</code> Components No Longer Support Certain Props</h2>
+<p>We rewrote the <code>&lt;AutocompleteInput&gt;</code> and <code>&lt;AutocompleteArrayInput&gt;</code> components from scratch using <a href="https://github.com/downshift-js/downshift">downshift</a>, while the previous version was based on <a href="https://react-autosuggest.js.org/">react-autosuggest</a>. The new components are more robust and more future-proof, and their API didn’t change.</p>
+<p>There are three breaking changes in the new <code>&lt;AutocompleteInput&gt;</code> and <code>&lt;AutocompleteArrayInput&gt;</code> components:</p>
+<ul>
+<li>The <code>inputValueMatcher</code> prop is gone. We removed a feature many found confusing: the auto-selection of an item when it was matched exactly. So react-admin no longer selects anything automatically, therefore the <code>inputValueMatcher</code> prop is obsolete.</li>
+</ul>
+<div class="sourceCode" id="cb46"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb46-1" title="1"><span class="st">&lt;AutocompleteInput</span></a>
+<a class="sourceLine" id="cb46-2" title="2">    source=&quot;role&quot;</a>
+<a class="sourceLine" id="cb46-3" title="3"><span class="st">-   inputValueMatcher={() =&gt; null}</span></a>
+<a class="sourceLine" id="cb46-4" title="4">/&gt;</a>
+<a class="sourceLine" id="cb46-5" title="5"><span class="st">&lt;AutocompleteArrayInput</span></a>
+<a class="sourceLine" id="cb46-6" title="6">    source=&quot;role&quot;</a>
+<a class="sourceLine" id="cb46-7" title="7"><span class="st">-   inputValueMatcher={() =&gt; null}</span></a>
+<a class="sourceLine" id="cb46-8" title="8">/&gt;</a></code></pre></div>
+<ul>
+<li>Specific <a href="https://github.com/moroshko/react-autosuggest#props"><code>react-autosuggest</code> props</a> (like <code>onSuggestionsFetchRequested</code>, <code>theme</code>, or <code>highlightFirstSuggestion</code>) are no longer supported, because the component now passes extra props to a <code>&lt;Downshift&gt;</code> component.</li>
+</ul>
+<div class="sourceCode" id="cb47"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb47-1" title="1"><span class="st">&lt;AutocompleteInput</span></a>
+<a class="sourceLine" id="cb47-2" title="2">    source=&quot;role&quot;</a>
+<a class="sourceLine" id="cb47-3" title="3"><span class="st">-   highlightFirstSuggestion={true}</span></a>
+<a class="sourceLine" id="cb47-4" title="4">/&gt;</a>
+<a class="sourceLine" id="cb47-5" title="5"><span class="st">&lt;AutocompleteArrayInput</span></a>
+<a class="sourceLine" id="cb47-6" title="6">    source=&quot;role&quot;</a>
+<a class="sourceLine" id="cb47-7" title="7"><span class="st">-   highlightFirstSuggestion={true}</span></a>
+<a class="sourceLine" id="cb47-8" title="8">/&gt;</a></code></pre></div>
+<ul>
+<li>The <code>suggestionComponent</code> prop is gone.</li>
+</ul>
+<p>Instead, the new <code>&lt;AutocompleteInput&gt;</code> and <code>&lt;AutocompleteArrayInput&gt;</code> components use the <code>optionText</code> prop, like all other inputs accepting choices. However, if you pass a React element as the <code>optionText</code>, you must now also specify the new <code>matchSuggestion</code> prop. This is required because the inputs use the <code>optionText</code> by default to filter suggestions. This function receives the current filter and a choice, and should return a boolean indicating whether this choice matches the filter.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb48-1" title="1"><span class="st">&lt;AutocompleteInput</span></a>
+<a class="sourceLine" id="cb48-2" title="2">    source=&quot;role&quot;</a>
+<a class="sourceLine" id="cb48-3" title="3"><span class="st">-   suggestionComponent={MyComponent}</span></a>
+<a class="sourceLine" id="cb48-4" title="4"><span class="va">+   optionText={&lt;MyComponent /&gt;}</span></a>
+<a class="sourceLine" id="cb48-5" title="5"><span class="va">+   matchSuggestion={matchSuggestion}</span></a>
+<a class="sourceLine" id="cb48-6" title="6">/&gt;</a>
+<a class="sourceLine" id="cb48-7" title="7"></a>
+<a class="sourceLine" id="cb48-8" title="8"><span class="st">&lt;AutocompleteArrayInput</span></a>
+<a class="sourceLine" id="cb48-9" title="9">    source=&quot;role&quot;</a>
+<a class="sourceLine" id="cb48-10" title="10"><span class="st">-   suggestionComponent={MyComponent}</span></a>
+<a class="sourceLine" id="cb48-11" title="11"><span class="va">+   optionText={&lt;MyComponent /&gt;}</span></a>
+<a class="sourceLine" id="cb48-12" title="12"><span class="va">+   matchSuggestion={matchSuggestion}</span></a>
+<a class="sourceLine" id="cb48-13" title="13">/&gt;</a></code></pre></div>
+<p>Besides, some props which were applicable to both components did not make sense for the <code>&lt;AutocompleteArrayInput&gt;</code> component:</p>
+<ul>
+<li><code>allowEmpty</code>: As the <code>&lt;AutocompleteArrayInput&gt;</code> deals with arrays, it does not make sense to add an empty choice. This prop is no longer accepted and will be ignored.</li>
+<li><code>limitChoicesToValue</code>: As the <code>&lt;AutocompleteArrayInput&gt;</code> deals with arrays and only accepts unique items, it does not make sense to show only the already selected items. This prop is no longer accepted and will be ignored.</li>
+</ul>
+<div class="sourceCode" id="cb49"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb49-1" title="1"><span class="st">&lt;AutocompleteArrayInput</span></a>
+<a class="sourceLine" id="cb49-2" title="2">    source=&quot;role&quot;</a>
+<a class="sourceLine" id="cb49-3" title="3"><span class="st">-   allowEmpty={true}</span></a>
+<a class="sourceLine" id="cb49-4" title="4"><span class="st">-   limitChoicesToValue={true}</span></a>
+<a class="sourceLine" id="cb49-5" title="5">/&gt;</a></code></pre></div>
+<h2 id="new-dataprovidercontext-requires-custom-app-modification">New DataProviderContext Requires Custom App Modification</h2>
+<p>The new dataProvider-related hooks (<code>useQuery</code>, <code>useMutation</code>, <code>useDataProvider</code>, etc.) grab the <code>dataProvider</code> instance from a new React context. If you use the <code>&lt;Admin&gt;</code> component, your app will continue to work and there is nothing to do, as <code>&lt;Admin&gt;</code> now provides that context. But if you use a Custom App, you’ll need to set the value of that new <code>DataProvider</code> context:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb50-1" title="1"><span class="st">-import { TranslationProvider, Resource } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb50-2" title="2"><span class="va">+import { TranslationProvider, DataProviderContext, Resource } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb50-3" title="3"></a>
+<a class="sourceLine" id="cb50-4" title="4">const App = () =&gt; (</a>
+<a class="sourceLine" id="cb50-5" title="5">    &lt;Provider</a>
+<a class="sourceLine" id="cb50-6" title="6">        store={createAdminStore({</a>
+<a class="sourceLine" id="cb50-7" title="7">            authProvider,</a>
+<a class="sourceLine" id="cb50-8" title="8">            dataProvider,</a>
+<a class="sourceLine" id="cb50-9" title="9">            i18nProvider,</a>
+<a class="sourceLine" id="cb50-10" title="10">            history,</a>
+<a class="sourceLine" id="cb50-11" title="11">        })}</a>
+<a class="sourceLine" id="cb50-12" title="12">    &gt;</a>
+<a class="sourceLine" id="cb50-13" title="13">        &lt;TranslationProvider&gt;</a>
+<a class="sourceLine" id="cb50-14" title="14"><span class="va">+           &lt;DataProviderContext.Provider value={dataProvider}&gt;</span></a>
+<a class="sourceLine" id="cb50-15" title="15">                &lt;ThemeProvider&gt;</a>
+<a class="sourceLine" id="cb50-16" title="16">                    &lt;Resource name=&quot;posts&quot; intent=&quot;registration&quot; /&gt;</a>
+<a class="sourceLine" id="cb50-17" title="17">                    ...</a>
+<a class="sourceLine" id="cb50-18" title="18">                    &lt;AppBar position=&quot;static&quot; color=&quot;default&quot;&gt;</a>
+<a class="sourceLine" id="cb50-19" title="19">                        &lt;Toolbar&gt;</a>
+<a class="sourceLine" id="cb50-20" title="20">                            &lt;Typography variant=&quot;h6&quot; color=&quot;inherit&quot;&gt;</a>
+<a class="sourceLine" id="cb50-21" title="21">                                My admin</a>
+<a class="sourceLine" id="cb50-22" title="22">                            &lt;/Typography&gt;</a>
+<a class="sourceLine" id="cb50-23" title="23">                        &lt;/Toolbar&gt;</a>
+<a class="sourceLine" id="cb50-24" title="24">                    &lt;/AppBar&gt;</a>
+<a class="sourceLine" id="cb50-25" title="25">                    &lt;ConnectedRouter history={history}&gt;</a>
+<a class="sourceLine" id="cb50-26" title="26">                        &lt;Switch&gt;</a>
+<a class="sourceLine" id="cb50-27" title="27">                            &lt;Route exact path=&quot;/&quot; component={Dashboard} /&gt;</a>
+<a class="sourceLine" id="cb50-28" title="28">                            &lt;Route exact path=&quot;/posts&quot; render={(routeProps) =&gt; &lt;PostList hasCreate resource=&quot;posts&quot; {...routeProps} /&gt;} /&gt;</a>
+<a class="sourceLine" id="cb50-29" title="29">                            &lt;Route exact path=&quot;/posts/create&quot; render={(routeProps) =&gt; &lt;PostCreate resource=&quot;posts&quot; {...routeProps} /&gt;} /&gt;</a>
+<a class="sourceLine" id="cb50-30" title="30">                            &lt;Route </a>
+<a class="sourceLine" id="cb50-31" title="31">                                exact </a>
+<a class="sourceLine" id="cb50-32" title="32">                                path=&quot;/posts/:id&quot; </a>
+<a class="sourceLine" id="cb50-33" title="33">                                render={(routeProps) =&gt; (</a>
+<a class="sourceLine" id="cb50-34" title="34">                                    &lt;PostEdit </a>
+<a class="sourceLine" id="cb50-35" title="35">                                        hasShow </a>
+<a class="sourceLine" id="cb50-36" title="36">                                        resource=&quot;posts&quot; </a>
+<a class="sourceLine" id="cb50-37" title="37">                                        id={decodeURIComponent((routeProps.match).params.id)}</a>
+<a class="sourceLine" id="cb50-38" title="38">                                        {...routeProps} </a>
+<a class="sourceLine" id="cb50-39" title="39">                                    /&gt;</a>
+<a class="sourceLine" id="cb50-40" title="40">                                )} </a>
+<a class="sourceLine" id="cb50-41" title="41">                            /&gt;</a>
+<a class="sourceLine" id="cb50-42" title="42">                            &lt;Route </a>
+<a class="sourceLine" id="cb50-43" title="43">                                exact </a>
+<a class="sourceLine" id="cb50-44" title="44">                                path=&quot;/posts/:id/show&quot; </a>
+<a class="sourceLine" id="cb50-45" title="45">                                render={(routeProps) =&gt; (</a>
+<a class="sourceLine" id="cb50-46" title="46">                                    &lt;PostShow </a>
+<a class="sourceLine" id="cb50-47" title="47">                                        hasEdit </a>
+<a class="sourceLine" id="cb50-48" title="48">                                        resource=&quot;posts&quot; </a>
+<a class="sourceLine" id="cb50-49" title="49">                                        id={decodeURIComponent((routeProps.match).params.id)}</a>
+<a class="sourceLine" id="cb50-50" title="50">                                        {...routeProps} </a>
+<a class="sourceLine" id="cb50-51" title="51">                                    /&gt;</a>
+<a class="sourceLine" id="cb50-52" title="52">                                )} </a>
+<a class="sourceLine" id="cb50-53" title="53">                            /&gt;</a>
+<a class="sourceLine" id="cb50-54" title="54">                            ...</a>
+<a class="sourceLine" id="cb50-55" title="55">                        &lt;/Switch&gt;</a>
+<a class="sourceLine" id="cb50-56" title="56">                    &lt;/ConnectedRouter&gt;</a>
+<a class="sourceLine" id="cb50-57" title="57">                &lt;/ThemeProvider&gt;</a>
+<a class="sourceLine" id="cb50-58" title="58"><span class="va">+           &lt;/DataProviderContext.Provider&gt;</span></a>
+<a class="sourceLine" id="cb50-59" title="59">        &lt;/TranslationProvider&gt;</a>
+<a class="sourceLine" id="cb50-60" title="60">    &lt;/Provider&gt;</a>
+<a class="sourceLine" id="cb50-61" title="61">);</a></code></pre></div>
+<p>Note that if you were unit testing controller components, you’ll probably need to add a mock <code>dataProvider</code> via <code>&lt;DataProviderContext&gt;</code> in your tests, too.</p>
+<h2 id="custom-notification-components-must-emit-undoevents">Custom <code>&lt;Notification&gt;</code> Components Must Emit UndoEvents</h2>
+<p>The undo feature is partially implemented in the <code>Notification</code> component. If you’ve overridden that component, you’ll have to add a call to <code>undoableEventEmitter</code> in case of confirmation and undo:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb51-1" title="1">// in src/MyNotification.js</a>
+<a class="sourceLine" id="cb51-2" title="2">import * as React from &quot;react&quot;;</a>
+<a class="sourceLine" id="cb51-3" title="3">import { connect } from &#39;react-redux&#39;;</a>
+<a class="sourceLine" id="cb51-4" title="4">import compose from &#39;lodash/flowRight&#39;;</a>
+<a class="sourceLine" id="cb51-5" title="5">import classnames from &#39;classnames&#39;;</a>
+<a class="sourceLine" id="cb51-6" title="6">import Snackbar from &quot;@material-ui/core/Snackbar&quot;;</a>
+<a class="sourceLine" id="cb51-7" title="7">import { withStyles, createStyles } from &quot;@material-ui/core&quot;;</a>
+<a class="sourceLine" id="cb51-8" title="8">import {</a>
+<a class="sourceLine" id="cb51-9" title="9">    complete,</a>
+<a class="sourceLine" id="cb51-10" title="10">    undo,</a>
+<a class="sourceLine" id="cb51-11" title="11">    translate,</a>
+<a class="sourceLine" id="cb51-12" title="12">    getNotification,</a>
+<a class="sourceLine" id="cb51-13" title="13">    hideNotification,</a>
+<a class="sourceLine" id="cb51-14" title="14">    Button,</a>
+<a class="sourceLine" id="cb51-15" title="15"><span class="va">+   undoableEventEmitter,</span></a>
+<a class="sourceLine" id="cb51-16" title="16">} from &#39;react-admin&#39;;</a>
+<a class="sourceLine" id="cb51-17" title="17"></a>
+<a class="sourceLine" id="cb51-18" title="18">const styles = theme =&gt;</a>
+<a class="sourceLine" id="cb51-19" title="19">  createStyles({</a>
+<a class="sourceLine" id="cb51-20" title="20">    confirm: {</a>
+<a class="sourceLine" id="cb51-21" title="21">      backgroundColor: theme.palette.background.default</a>
+<a class="sourceLine" id="cb51-22" title="22">    },</a>
+<a class="sourceLine" id="cb51-23" title="23">    warning: {</a>
+<a class="sourceLine" id="cb51-24" title="24">      backgroundColor: theme.palette.error.light</a>
+<a class="sourceLine" id="cb51-25" title="25">    },</a>
+<a class="sourceLine" id="cb51-26" title="26">    undo: {</a>
+<a class="sourceLine" id="cb51-27" title="27">      color: theme.palette.primary.light</a>
+<a class="sourceLine" id="cb51-28" title="28">    }</a>
+<a class="sourceLine" id="cb51-29" title="29">  });</a>
+<a class="sourceLine" id="cb51-30" title="30"></a>
+<a class="sourceLine" id="cb51-31" title="31">class Notification extends React.Component {</a>
+<a class="sourceLine" id="cb51-32" title="32">    state = {</a>
+<a class="sourceLine" id="cb51-33" title="33">        open: false,</a>
+<a class="sourceLine" id="cb51-34" title="34">    };</a>
+<a class="sourceLine" id="cb51-35" title="35">    componentWillMount = () =&gt; {</a>
+<a class="sourceLine" id="cb51-36" title="36">        this.setOpenState(this.props);</a>
+<a class="sourceLine" id="cb51-37" title="37">    };</a>
+<a class="sourceLine" id="cb51-38" title="38">    componentWillReceiveProps = nextProps =&gt; {</a>
+<a class="sourceLine" id="cb51-39" title="39">        this.setOpenState(nextProps);</a>
+<a class="sourceLine" id="cb51-40" title="40">    };</a>
+<a class="sourceLine" id="cb51-41" title="41"></a>
+<a class="sourceLine" id="cb51-42" title="42">    setOpenState = ({ notification }) =&gt; {</a>
+<a class="sourceLine" id="cb51-43" title="43">        this.setState({</a>
+<a class="sourceLine" id="cb51-44" title="44">            open: !!notification,</a>
+<a class="sourceLine" id="cb51-45" title="45">        });</a>
+<a class="sourceLine" id="cb51-46" title="46">    };</a>
+<a class="sourceLine" id="cb51-47" title="47"></a>
+<a class="sourceLine" id="cb51-48" title="48">    handleRequestClose = () =&gt; {</a>
+<a class="sourceLine" id="cb51-49" title="49">        this.setState({</a>
+<a class="sourceLine" id="cb51-50" title="50">            open: false,</a>
+<a class="sourceLine" id="cb51-51" title="51">        });</a>
+<a class="sourceLine" id="cb51-52" title="52">    };</a>
+<a class="sourceLine" id="cb51-53" title="53"></a>
+<a class="sourceLine" id="cb51-54" title="54">    handleExited = () =&gt; {</a>
+<a class="sourceLine" id="cb51-55" title="55">        const { notification, hideNotification, complete } = this.props;</a>
+<a class="sourceLine" id="cb51-56" title="56">        if (notification &amp;&amp; notification.undoable) {</a>
+<a class="sourceLine" id="cb51-57" title="57">            complete();</a>
+<a class="sourceLine" id="cb51-58" title="58"><span class="va">+           undoableEventEmitter.emit(&#39;end&#39;, { isUndo: false });</span></a>
+<a class="sourceLine" id="cb51-59" title="59">        }</a>
+<a class="sourceLine" id="cb51-60" title="60">        hideNotification();</a>
+<a class="sourceLine" id="cb51-61" title="61">    };</a>
+<a class="sourceLine" id="cb51-62" title="62"></a>
+<a class="sourceLine" id="cb51-63" title="63">    handleUndo = () =&gt; {</a>
+<a class="sourceLine" id="cb51-64" title="64">        const { undo } = this.props;</a>
+<a class="sourceLine" id="cb51-65" title="65">        undo();</a>
+<a class="sourceLine" id="cb51-66" title="66"><span class="va">+       undoableEventEmitter.emit(&#39;end&#39;, { isUndo: true });</span></a>
+<a class="sourceLine" id="cb51-67" title="67">    };</a>
+<a class="sourceLine" id="cb51-68" title="68"></a>
+<a class="sourceLine" id="cb51-69" title="69">    render() {</a>
+<a class="sourceLine" id="cb51-70" title="70">        const {</a>
+<a class="sourceLine" id="cb51-71" title="71">            undo,</a>
+<a class="sourceLine" id="cb51-72" title="72">            complete,</a>
+<a class="sourceLine" id="cb51-73" title="73">            classes,</a>
+<a class="sourceLine" id="cb51-74" title="74">            className,</a>
+<a class="sourceLine" id="cb51-75" title="75">            type,</a>
+<a class="sourceLine" id="cb51-76" title="76">            translate,</a>
+<a class="sourceLine" id="cb51-77" title="77">            notification,</a>
+<a class="sourceLine" id="cb51-78" title="78">            autoHideDuration,</a>
+<a class="sourceLine" id="cb51-79" title="79">            hideNotification,</a>
+<a class="sourceLine" id="cb51-80" title="80">            ...rest</a>
+<a class="sourceLine" id="cb51-81" title="81">        } = this.props;</a>
+<a class="sourceLine" id="cb51-82" title="82">        const {</a>
+<a class="sourceLine" id="cb51-83" title="83">            warning,</a>
+<a class="sourceLine" id="cb51-84" title="84">            confirm,</a>
+<a class="sourceLine" id="cb51-85" title="85">            undo: undoClass, // Rename classes.undo to undoClass in this scope to avoid name conflicts</a>
+<a class="sourceLine" id="cb51-86" title="86">            ...snackbarClasses</a>
+<a class="sourceLine" id="cb51-87" title="87">        } = classes;</a>
+<a class="sourceLine" id="cb51-88" title="88">        return (</a>
+<a class="sourceLine" id="cb51-89" title="89">            &lt;Snackbar</a>
+<a class="sourceLine" id="cb51-90" title="90">                open={this.state.open}</a>
+<a class="sourceLine" id="cb51-91" title="91">                message={</a>
+<a class="sourceLine" id="cb51-92" title="92">                    notification &amp;&amp;</a>
+<a class="sourceLine" id="cb51-93" title="93">                    notification.message &amp;&amp;</a>
+<a class="sourceLine" id="cb51-94" title="94">                    translate(notification.message, notification.messageArgs)</a>
+<a class="sourceLine" id="cb51-95" title="95">                }</a>
+<a class="sourceLine" id="cb51-96" title="96">                autoHideDuration={</a>
+<a class="sourceLine" id="cb51-97" title="97">                    (notification &amp;&amp; notification.autoHideDuration) ||</a>
+<a class="sourceLine" id="cb51-98" title="98">                    autoHideDuration</a>
+<a class="sourceLine" id="cb51-99" title="99">                }</a>
+<a class="sourceLine" id="cb51-100" title="100">                disableWindowBlurListener={</a>
+<a class="sourceLine" id="cb51-101" title="101">                    notification &amp;&amp; notification.undoable</a>
+<a class="sourceLine" id="cb51-102" title="102">                }</a>
+<a class="sourceLine" id="cb51-103" title="103">                onExited={this.handleExited}</a>
+<a class="sourceLine" id="cb51-104" title="104">                onClose={this.handleRequestClose}</a>
+<a class="sourceLine" id="cb51-105" title="105">                ContentProps={{</a>
+<a class="sourceLine" id="cb51-106" title="106">                    className: classnames(</a>
+<a class="sourceLine" id="cb51-107" title="107">                        classes[(notification &amp;&amp; notification.type) || type],</a>
+<a class="sourceLine" id="cb51-108" title="108">                        className</a>
+<a class="sourceLine" id="cb51-109" title="109">                    ),</a>
+<a class="sourceLine" id="cb51-110" title="110">                }}</a>
+<a class="sourceLine" id="cb51-111" title="111">                action={</a>
+<a class="sourceLine" id="cb51-112" title="112">                    notification &amp;&amp; notification.undoable ? (</a>
+<a class="sourceLine" id="cb51-113" title="113">                        &lt;Button</a>
+<a class="sourceLine" id="cb51-114" title="114">                            color=&quot;primary&quot;</a>
+<a class="sourceLine" id="cb51-115" title="115">                            className={undoClass}</a>
+<a class="sourceLine" id="cb51-116" title="116">                            size=&quot;small&quot;</a>
+<a class="sourceLine" id="cb51-117" title="117"><span class="st">-                           onClick={undo}</span></a>
+<a class="sourceLine" id="cb51-118" title="118"><span class="va">+                           onClick={this.handleUndo}</span></a>
+<a class="sourceLine" id="cb51-119" title="119">                        &gt;</a>
+<a class="sourceLine" id="cb51-120" title="120">                            {translate(&#39;ra.action.undo&#39;)}</a>
+<a class="sourceLine" id="cb51-121" title="121">                        &lt;/Button&gt;</a>
+<a class="sourceLine" id="cb51-122" title="122">                    ) : null</a>
+<a class="sourceLine" id="cb51-123" title="123">                }</a>
+<a class="sourceLine" id="cb51-124" title="124">                classes={snackbarClasses}</a>
+<a class="sourceLine" id="cb51-125" title="125">                {...rest}</a>
+<a class="sourceLine" id="cb51-126" title="126">            /&gt;</a>
+<a class="sourceLine" id="cb51-127" title="127">        );</a>
+<a class="sourceLine" id="cb51-128" title="128">    }</a>
+<a class="sourceLine" id="cb51-129" title="129">}</a>
+<a class="sourceLine" id="cb51-130" title="130"></a>
+<a class="sourceLine" id="cb51-131" title="131">const mapStateToProps = state =&gt; ({</a>
+<a class="sourceLine" id="cb51-132" title="132">  notification: getNotification(state)</a>
+<a class="sourceLine" id="cb51-133" title="133">});</a>
+<a class="sourceLine" id="cb51-134" title="134"></a>
+<a class="sourceLine" id="cb51-135" title="135">export default compose(</a>
+<a class="sourceLine" id="cb51-136" title="136">  translate,</a>
+<a class="sourceLine" id="cb51-137" title="137">  withStyles(styles),</a>
+<a class="sourceLine" id="cb51-138" title="138">  connect(</a>
+<a class="sourceLine" id="cb51-139" title="139">    mapStateToProps,</a>
+<a class="sourceLine" id="cb51-140" title="140">    {</a>
+<a class="sourceLine" id="cb51-141" title="141">      complete,</a>
+<a class="sourceLine" id="cb51-142" title="142">      hideNotification,</a>
+<a class="sourceLine" id="cb51-143" title="143">      undo</a>
+<a class="sourceLine" id="cb51-144" title="144">    }</a>
+<a class="sourceLine" id="cb51-145" title="145">  )</a>
+<a class="sourceLine" id="cb51-146" title="146">)(Notification);</a></code></pre></div>
+<h2 id="no-more-tree-packages-in-core">No More Tree Packages in Core</h2>
+<p>The <code>ra-tree</code> and <code>ra-tree-ui-material-ui</code> packages were removed in v3. The v2 version performed poorly, and we don’t want to delay v3 to reimplement the Tree packages.</p>
+<p>If you were using these packages just for displaying a tree, you’ll have to reimplement a basic tree widget, taking the Tags list from the Simple example as an inspiration. If you were using these packages for creating and updating a tree, we recommend that you wait until the core team or another community member publishes a Tree package compatible with v3.</p>

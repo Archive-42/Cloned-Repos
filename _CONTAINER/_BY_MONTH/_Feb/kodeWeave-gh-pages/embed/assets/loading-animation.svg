@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <svg version="1.1" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" onload="initialize(evt)">
+    <!--SVG SMIL Animation Export (c) 2017 Animatron INC-->
+    <!--Version 1.0 by squared9-->
+    <rect fill="transparent" stroke="none" x="0" y="0" width="300px" height="300px" />
+    <g id="id9ccd88dd73f94654cb041202">
+      <g id="ide3e315cb24ed79ba89b65338" visibility="hidden">
+        <set attributeName="visibility" attributeType="CSS" to="visible" begin="0s" fill="none" />
+        <animateTransform attributeName="transform" type="translate" additive="replace" begin="0s" dur="4s" repeatCount="indefinite" fill="none" from="22.0 44.0" to="22.0 44.0" calcMode="discrete" />
+        <animateTransform attributeName="transform" type="scale" additive="sum" begin="0s" dur="4s" repeatCount="indefinite" fill="none" from="2.3338286641565853 2.3338286641565853" to="2.3338286641565853 2.3338286641565853" calcMode="discrete" />
+        <animateTransform attributeName="transform" type="translate" additive="sum" begin="0s" dur="4s" repeatCount="indefinite" fill="none" from="54.8489 47.5289" to="54.8489 47.5289" calcMode="discrete" />
+        <g id="idc1a6c567017eef9186eb33ee" visibility="hidden">
+          <set attributeName="visibility" attributeType="CSS" to="visible" begin="0s" fill="none" />
+          <animateTransform attributeName="transform" type="translate" additive="replace" begin="0s" dur="1.5s" repeatCount="indefinite" fill="none" from="0.0 0.0" to="0.0 0.0" calcMode="discrete" />
+          <animateTransform attributeName="transform" type="rotate" additive="sum" begin="0s" dur="1.5s" repeatCount="indefinite" fill="none" from="0.0 0.0 0.0" to="360.0 0.0 0.0" calcMode="spline" keyTimes="0;1" keySplines="0.81 0.06 0.19 0.94" />
+          <animateTransform attributeName="transform" type="translate" additive="sum" begin="0s" dur="1.5s" repeatCount="indefinite" fill="none" from="-0.0 -0.0" to="-0.0 -0.0" calcMode="discrete" />
+          <path id="idf16a840210a6b74690aaf76c" d="M -627.9,933.099 L -613.801,946.698 L -621.599,946.698 C -621.599,946.698 -621.599,946.898 -621.599,946.997 C -621.599,962.096 -609.301,974.394 -594.201,974.394 C -583.302,974.394 -573.903,968.096 -569.504,958.896 L -559.905,968.295 C -567.004,979.694 -579.704,987.391 -594.204,987.391 C -616.502,987.391 -634.502,969.292 -634.502,947.092 L -634.502,946.794 L -641.901,946.794 L -627.901,933.094 M -627.901,928.094 C -629.199,928.094 -630.399,928.594 -631.399,929.493 L -645.498,943.092 C -646.998,944.491 -647.397,946.688 -646.697,948.587 C -645.899,950.486 -644.101,951.683 -642.101,951.683 L -639.502,951.683 C -637.103,974.481 -617.805,992.279 -594.406,992.279 C -578.608,992.279 -564.209,984.279 -555.911,970.88 C -554.711,968.88 -555.009,966.281 -556.609,964.681 L -566.208,955.282 C -567.107,954.383 -568.405,953.883 -569.703,953.883 C -570.001,953.883 -570.299,953.883 -570.597,953.982 C -572.196,954.28 -573.494,955.28 -574.191,956.78 C -577.891,964.48 -585.79,969.48 -594.39,969.48 C -605.09,969.48 -614.09,961.881 -616.29,951.781 L -613.992,951.781 C -611.992,951.781 -610.093,950.581 -609.396,948.682 C -608.598,946.783 -609.098,944.684 -610.598,943.184 L -624.697,929.585 C -625.394,928.586 -626.692,928.086 -627.892,928.086 L -627.892,928.086 L -627.892,928.086 M -627.892,933.086 " style="fill: #639ba7; fill-opacity: 1.0; stroke: none" visibility="hidden">
+            <set attributeName="visibility" attributeType="CSS" to="visible" begin="0s" fill="none" />
+            <animateTransform attributeName="transform" type="translate" additive="replace" begin="0s" dur="10s" repeatCount="indefinite" fill="none" from="-7.65 13.947" to="-7.65 13.947" calcMode="discrete" />
+            <animateTransform attributeName="transform" type="translate" additive="sum" begin="0s" dur="10s" repeatCount="indefinite" fill="none" from="601.1027 -960.195" to="601.1027 -960.195" calcMode="discrete" />
+          </path>
+          <path id="id99a5c1d1d42a661df46fb006" d="M -592.799,905.2 C -570.501,905.2 -552.501,923.299 -552.501,945.499 L -552.501,945.797 L -545.102,945.797 L -559.201,959.396 L -573.3,945.797 L -565.502,945.797 C -565.502,945.797 -565.502,945.597 -565.502,945.498 C -565.502,930.399 -577.8,918.101 -592.9,918.101 C -603.799,918.101 -613.198,924.399 -617.597,933.599 L -627.196,924.2 C -619.999,912.801 -607.299,905.202 -592.799,905.202 M -592.799,900.202 C -608.597,900.202 -622.996,908.202 -631.294,921.601 C -632.494,923.601 -632.196,926.2 -630.596,927.8 L -620.997,937.199 C -620.098,938.098 -618.8,938.598 -617.502,938.598 C -617.204,938.598 -616.906,938.598 -616.608,938.499 C -615.009,938.201 -613.711,937.201 -613.014,935.701 C -609.314,928.001 -601.415,923.001 -592.815,923.001 C -582.115,923.001 -573.115,930.6 -570.915,940.7 L -573.213,940.7 C -575.213,940.7 -577.112,941.9 -577.809,943.799 C -578.607,945.698 -578.107,947.797 -576.607,949.297 L -562.508,962.896 C -561.508,963.795 -560.308,964.295 -559.01,964.295 C -557.712,964.295 -556.512,963.795 -555.512,962.896 L -541.413,949.297 C -539.913,947.898 -539.514,945.701 -540.214,943.802 C -541.012,941.903 -542.81,940.706 -544.81,940.706 L -547.409,940.706 C -550.109,918.006 -569.407,900.208 -592.806,900.208 L -592.806,900.208 L -592.806,900.208 M -592.806,905.208 " style="fill: #639ba7; fill-opacity: 1.0; stroke: none" visibility="hidden">
+            <set attributeName="visibility" attributeType="CSS" to="visible" begin="0s" fill="none" />
+            <animateTransform attributeName="transform" type="translate" additive="replace" begin="0s" dur="10s" repeatCount="indefinite" fill="none" from="7.502 -13.997" to="7.502 -13.997" calcMode="discrete" />
+            <animateTransform attributeName="transform" type="translate" additive="sum" begin="0s" dur="10s" repeatCount="indefinite" fill="none" from="585.9498 -932.2495" to="585.9498 -932.2495" calcMode="discrete" />
+          </path>
+        </g>
+      </g>
+    </g>
+  </svg>

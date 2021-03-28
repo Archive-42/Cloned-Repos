@@ -1,0 +1,78 @@
+:root {
+  --light1: #ff7a7a;
+  --light2: #ffd7d7;
+  --dark1: #003686;
+  --dark2: #060055;
+}
+
+body {
+  font-family: 'Ubuntu', sans-serif;
+  background: black;
+  color: white;
+  margin: 0;
+}
+
+nav {
+  background: rgba(255, 255, 255, 0.5);
+  color: white;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.eptitle {
+  text-shadow: 0 0 8px #fff;
+  font-weight: bolder;
+  font-size: 250%;
+}
+
+.estitle {
+  font-size: 100%;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
+}
+
+.prititle {
+  text-shadow: 0 0 8px #fff;
+  font-weight: bolder;
+  font-size: 500%;
+}
+
+.subtitle {
+  font-size: 200%;
+}
+
+.main {
+  height: 100vh;
+  margin-top: 40px;
+}
+
+nav a {
+  float: left;
+  padding: 10px 10px;
+  height: 20px;
+  border-bottom: 4px solid var(--light1);
+  transition: background .2s;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+nav a:hover {
+  background: var(--light2);
+}
+
+nav a:active {
+  background: var(--light1);
+}
+
+.nav-logo {
+  width: 20px;
+  vertical-align: middle;
+}

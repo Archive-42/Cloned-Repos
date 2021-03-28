@@ -1,0 +1,115 @@
+<h1 id="caching">Caching</h1>
+<p>Not hitting the server is the best way to improve a web app performance - and its ecological footprint, too (network and datacenter usage account for about 40% of the CO2 emissions in IT). React-admin comes with a built-in cache-first approach called <em>optimistic rendering</em>, and it supports caching both at the HTTP level and the application level.</p>
+<h2 id="optimistic-rendering">Optimistic Rendering</h2>
+<p>By default, react-admin stores all the responses from the dataProvider in the Redux store. This allows displaying the cached result first while fetching for the fresh data. <strong>This behavior is automatic and requires no configuration</strong>.</p>
+<p>The Redux store is like a local replica of the API, organized by resource, and shared between all the data provider methods of a given resource. That means that if the <code>getList('posts')</code> response contains a record of id 123, a call to <code>getOne('posts', { id: 123 })</code> will use that record immediately.</p>
+<p>For instance, if the end-user displays a list of posts, then clicks on a post in the list to display the list details, here is what react-admin does:</p>
+<ol type="1">
+<li>Display the empty List</li>
+<li>Call <code>dataProvider.getList('posts')</code>, and store the result in the Redux store</li>
+<li>Re-render the List with the data from the Redux store</li>
+<li>When the user clicks on a post, display immediately the post from the Redux store</li>
+<li>Call <code>dataProvider.getOne('posts', { id: 123 })</code>, and store the result in the Redux store</li>
+<li>Re-render the detail with the data from the Redux store</li>
+</ol>
+<p>In step 4, react-admin displays the post <em>before</em> fetching it, because it’s already in the Redux store from the previous <code>getList()</code> call. In most cases, the post from the <code>getOne()</code> response is the same as the one from the <code>getList()</code> response, so the re-render of step 6 is invisible to the end-user. If the post was modified on the server side between the <code>getList()</code> and the <code>getOne</code> calls, the end-user will briefly see the outdated version (at step 4), then the up to date version (at step 6).</p>
+<p>Optimistic rendering improves user experience by displaying stale data while getting fresh data from the API, but it does not reduce the ecological footprint of an app, as the web app still makes API requests on every page.</p>
+<p><strong>Tip</strong>: This design choice explains why react-admin requires that all data provider methods return records of the same shape for a given resource. Otherwise, if the posts returned by <code>getList()</code> contain fewer fields than the posts returned by <code>getOne()</code>, in the previous scenario, the user will see an incomplete post at step 4.</p>
+<h2 id="http-cache">HTTP Cache</h2>
+<p>React-admin supports HTTP cache headers by default, provided your API sends them.</p>
+<p>Data providers almost always rely on <code>window.fetch()</code> to call the HTTP API. React-admin’s <code>fetchJSON()</code>, and third-party libraries like <code>axios</code> use <code>window.fetch()</code>, too. Fortunately, the <code>window.fetch()</code> HTTP client behaves just like your browser and follows the <a href="https://tools.ietf.org/html/rfc7234">RFC 7234</a> about HTTP cache headers. So if your API includes one of the following cache headers, all data providers support them:</p>
+<ul>
+<li><code>Cache-Control</code></li>
+<li><code>Expires</code></li>
+<li><code>ETag</code></li>
+<li><code>Last-Modified</code></li>
+</ul>
+<p>In other terms, enabling the HTTP cache is entirely a server-side action - <strong>nothing is necessary on the react-admin side</strong>.</p>
+<p>For instance, let’s imagine that your data provider translates a <code>getOne('posts', { id: 123 })</code> call into a <code>GET https://api.acme.com/posts/123</code>, and that the server returns the following response:</p>
+<pre><code>HTTP/1.1 200 OK
+Content-Type: application/json;charset=utf-8
+Cache-Control: max-age=120
+Age: 0
+{
+    &quot;id&quot;: 123,
+    &quot;title&quot;: &quot;Hello, world&quot;
+}</code></pre>
+<p>The browser HTTP client knows that the response is valid for the next 2 minutes. If a component makes a new call to <code>getOne('posts', { id: 123 })</code> within 2 minutes, <code>window.fetch()</code> will return the response from the first call without even calling the API.</p>
+<p>Refer to your backend framework or CDN documentation to enable cache headers - and don’t forget to whitelist these headers in the <code>Access-Control-Allow-Headers</code> CORS header if the API lives in another domain than the web app itself.</p>
+<p>HTTP cache can help improve the performance and reduce the ecological footprint of a web app. The main drawback is that responses are cached based on their request signature. The cached responses for <code>GET https://api.acme.com/posts</code> and <code>GET https://api.acme.com/posts/123</code> live in separate buckets on the client-side, and cannot be shared. As a consequence, the browser still makes a lot of useless requests to the API. HTTP cache also has another drawback: browser caches ignore the REST semantics. That means that a call to <code>DELETE https://api.acme.com/posts/123</code> can’t invalidate the cache of the <code>GET https://api.acme.com/posts</code> request, and therefore the cache is sometimes wrong.</p>
+<p>These shortcomings explain why most APIs adopt short expiration or use “validation caching” (based on <code>Etag</code> or <code>Last-Modified</code> headers) instead of “expiration caching” (based on the <code>Cache-Control</code> or <code>Expires</code> headers). But with validation caching, the client must send <em>every request</em> to the server (sometimes the server returns an empty response, letting the client know that it can use its cache). Validation caching reduces network traffic a lot less than expiration caching and has less impact on performance.</p>
+<p>Finally, if your API uses GraphQL, it probably doesn’t offer HTTP caching.</p>
+<h2 id="application-cache">Application Cache</h2>
+<p>React-admin comes with its caching system, called <em>application cache</em>, to overcome the limitations if the HTTP cache. <strong>This cache is opt-in</strong> - you have to enable it by including validity information in the <code>dataProvider</code> response. But before explaining how to configure it, let’s see how it works.</p>
+<p>React-admin already stores responses from the <code>dataProvider</code> in the Redux store, for the <a href="#optimistic-rendering">optimistic rendering</a>. The application cache checks if this data is valid, and <em>skips the call to the <code>dataProvider</code> altogether</em> if it’s the case.</p>
+<p>For instance, if the end-user displays a list of posts, then clicks on a post in the list to display the list details, here is what react-admin does:</p>
+<ol type="1">
+<li>Display the empty List</li>
+<li>Call <code>dataProvider.getList('posts')</code>, and store the result in the Redux store</li>
+<li>Re-render the List with the data from the Redux store</li>
+<li>When the user clicks on a post, display immediately the post from the Redux store (optimistic rendering)</li>
+<li>Check the post of id 123 is still valid, and as it’s the case, end here</li>
+</ol>
+<p>The application cache uses the semantics of the <code>dataProvider</code> verb. That means that requests for a list (<code>getList</code>) also populate the cache for individual records (<code>getOne</code>, <code>getMany</code>). That also means that write requests (<code>create</code>, <code>udpate</code>, <code>updateMany</code>, <code>delete</code>, <code>deleteMany</code>) invalidate the list cache - because after an update, for instance, the ordering of items can be changed.</p>
+<p>So the application cache uses expiration caching together with a deeper knowledge of the data model, to allow longer expirations without the risk of displaying stale data. It especially fits admins for API backends with a small number of users (because with a large number of users, there is a high chance that a record kept in the client-side cache for a few minutes may be updated on the backend by another user). It also works with GraphQL APIs.</p>
+<p>To enable it, the <code>dataProvider</code> response must include a <code>validUntil</code> key, containing the date until which the record(s) is (are) valid.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb2-1" title="1">// response to getOne(&#39;posts&#39;, { id: 123 })</a>
+<a class="sourceLine" id="cb2-2" title="2">{</a>
+<a class="sourceLine" id="cb2-3" title="3">    &quot;data&quot;: { &quot;id&quot;: 123, &quot;title&quot;: &quot;Hello, world&quot; }</a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="va">+   &quot;validUntil&quot;: new Date(&#39;2020-03-02T13:24:05&#39;)</span></a>
+<a class="sourceLine" id="cb2-5" title="5">}</a>
+<a class="sourceLine" id="cb2-6" title="6"></a>
+<a class="sourceLine" id="cb2-7" title="7">// response to getMany(&#39;posts&#39;, { ids: [123, 124] }</a>
+<a class="sourceLine" id="cb2-8" title="8">{</a>
+<a class="sourceLine" id="cb2-9" title="9">    &quot;data&quot;: [</a>
+<a class="sourceLine" id="cb2-10" title="10">        { &quot;id&quot;: 123, &quot;title&quot;: &quot;Hello, world&quot; },</a>
+<a class="sourceLine" id="cb2-11" title="11">        { &quot;id&quot;: 124, &quot;title&quot;: &quot;Post title 2&quot; },</a>
+<a class="sourceLine" id="cb2-12" title="12">    ],</a>
+<a class="sourceLine" id="cb2-13" title="13"><span class="va">+   &quot;validUntil&quot;: new Date(&#39;2020-03-02T13:24:05&#39;)</span></a>
+<a class="sourceLine" id="cb2-14" title="14">}</a>
+<a class="sourceLine" id="cb2-15" title="15"></a>
+<a class="sourceLine" id="cb2-16" title="16">// response to getList(&#39;posts&#39;)</a>
+<a class="sourceLine" id="cb2-17" title="17">{</a>
+<a class="sourceLine" id="cb2-18" title="18">    &quot;data&quot;: [</a>
+<a class="sourceLine" id="cb2-19" title="19">        { &quot;id&quot;: 123, &quot;title&quot;: &quot;Hello, world&quot; },</a>
+<a class="sourceLine" id="cb2-20" title="20">        { &quot;id&quot;: 124, &quot;title&quot;: &quot;Post title 2&quot; },</a>
+<a class="sourceLine" id="cb2-21" title="21">        ...</a>
+<a class="sourceLine" id="cb2-22" title="22"></a>
+<a class="sourceLine" id="cb2-23" title="23">    ],</a>
+<a class="sourceLine" id="cb2-24" title="24">    &quot;total&quot;: 45,</a>
+<a class="sourceLine" id="cb2-25" title="25"><span class="va">+   &quot;validUntil&quot;: new Date(&#39;2020-03-02T13:24:05&#39;)</span></a>
+<a class="sourceLine" id="cb2-26" title="26">}</a></code></pre></div>
+<p>To empty the cache, the <code>dataProvider</code> can simply omit the <code>validUntil</code> key in the response.</p>
+<p><strong>Tip</strong>: As of writing, the <code>validUntil</code> key is only taken into account for <code>getOne</code>, <code>getMany</code>, and <code>getList</code>.</p>
+<p>It’s your responsibility to determine the validity date based on the API response, or based on a fixed time policy.</p>
+<p>For instance, to have a <code>dataProvider</code> declare responses for <code>getOne</code>, <code>getMany</code>, and <code>getList</code> valid for 5 minutes, you can wrap it in the following proxy:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="co">// in src/dataProvider.js</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="im">import</span> simpleRestProvider <span class="im">from</span> <span class="st">&#39;ra-data-simple-rest&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-3" title="3"></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="kw">const</span> dataProvider <span class="op">=</span> <span class="at">simpleRestProvider</span>(<span class="st">&#39;http://path.to.my.api/&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-5" title="5"></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="kw">const</span> cacheDataProviderProxy <span class="op">=</span> (dataProvider<span class="op">,</span> duration <span class="op">=</span>  <span class="dv">5</span> <span class="op">*</span> <span class="dv">60</span> <span class="op">*</span> <span class="dv">1000</span>) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-7" title="7">    <span class="kw">new</span> <span class="at">Proxy</span>(dataProvider<span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-8" title="8">        <span class="dt">get</span><span class="op">:</span> (target<span class="op">,</span> name) <span class="kw">=&gt;</span> (resource<span class="op">,</span> params) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-9" title="9">            <span class="cf">if</span> (name <span class="op">===</span> <span class="st">&#39;getOne&#39;</span> <span class="op">||</span> name <span class="op">===</span> <span class="st">&#39;getMany&#39;</span> <span class="op">||</span> name <span class="op">===</span> <span class="st">&#39;getList&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-10" title="10">                <span class="cf">return</span> dataProvider[name](resource<span class="op">,</span> params).<span class="at">then</span>(response <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-11" title="11">                    <span class="kw">const</span> validUntil <span class="op">=</span> <span class="kw">new</span> <span class="at">Date</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-12" title="12">                    <span class="va">validUntil</span>.<span class="at">setTime</span>(<span class="va">validUntil</span>.<span class="at">getTime</span>() <span class="op">+</span> duration)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-13" title="13">                    <span class="va">response</span>.<span class="at">validUntil</span> <span class="op">=</span> validUntil<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-14" title="14">                    <span class="cf">return</span> response<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-15" title="15">                <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-16" title="16">            <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-17" title="17">            <span class="cf">return</span> dataProvider[name](resource<span class="op">,</span> params)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-18" title="18">        <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-19" title="19">    <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-20" title="20"></a>
+<a class="sourceLine" id="cb3-21" title="21"><span class="im">export</span> <span class="im">default</span> <span class="at">cacheDataProviderProxy</span>(dataProvider)<span class="op">;</span></a></code></pre></div>
+<p><strong>Tip</strong>: As caching responses for a fixed period is a common pattern, react-admin exports this <code>cacheDataProviderProxy</code> wrapper, so you can write the following instead:</p>
+<pre class="jsx"><code>// in src/dataProvider.js
+import simpleRestProvider from &#39;ra-data-simple-rest&#39;;
+import { cacheDataProviderProxy } from &#39;react-admin&#39;; 
+
+const dataProvider = simpleRestProvider(&#39;http://path.to.my.api/&#39;);
+
+export default cacheDataProviderProxy(dataProvider);</code></pre>
+<p>Application cache provides a very significant boost for the end-user and saves a large portion of the network traffic. Even a short expiration date (30 seconds or one minute) can speed up a complex admin with a low risk of displaying stale data. Adding an application cache is, therefore, a warmly recommended practice!</p>

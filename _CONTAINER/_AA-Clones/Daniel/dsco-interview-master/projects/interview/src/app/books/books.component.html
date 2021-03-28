@@ -1,0 +1,36 @@
+<!--
+  ~ Copyright (C) 2020 DS Co., dba dsco - All Rights Reserved
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited.
+  ~ Proprietary and confidential.
+  -->
+
+<div class="page-header">
+  <h1>Books</h1>
+</div>
+
+<div class="textCenter content padLarge">
+
+  <div class="relative mBottomLarge">
+    <input (ngModelChange)="search($event)" [class.searching]="searching$ | async"
+           [ngModel]="searchStr$ | async"
+           placeholder="Search for a Book!" type="text">
+
+    <ds-spinner *ngIf="searching$ | async"></ds-spinner>
+  </div>
+
+  <div *ngIf="numBooks$ | async" class="list" verticalExpander>
+    <!--    TODO: Allow clicking on books to show a details view, allowing you to see the Author and what other books the Author has written -->
+    <div *ngFor="let book of books$ | async">
+      <b>{{book.title}}</b>
+      <span class="floatRight">{{book.year}}</span>
+
+      <div *ngIf="book.subtitle" class="mTopSmall">{{book.subtitle}}</div>
+    </div>
+  </div>
+
+  <div *ngIf="noBooksFound$ | async" class="list" verticalExpander>
+    <div>
+      No books found.
+    </div>
+  </div>
+</div>

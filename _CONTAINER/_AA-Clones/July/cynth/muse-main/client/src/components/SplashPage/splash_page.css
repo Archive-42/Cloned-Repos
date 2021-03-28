@@ -1,0 +1,26 @@
+.splash_page {
+    display: flex;
+}
+
+.feature {
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-image: url(./open_landscape.jpg);
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: column;
+}
+
+.feature__title {
+    margin-top: 150px;
+    font-size: 6rem;
+    font-weight: bold;
+    font-family: var(--font-header);
+}
+
+.feature__subtitle {
+    font-size: 2.5rem;
+    font-family: var(--font-header);
+}

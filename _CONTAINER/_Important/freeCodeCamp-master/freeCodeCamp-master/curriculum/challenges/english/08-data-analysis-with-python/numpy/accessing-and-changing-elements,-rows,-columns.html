@@ -1,0 +1,18 @@
+<h1 id="question">–question–</h1>
+<h2 id="text">–text–</h2>
+<p>What code would change the values in the 3rd column of both of the following Numpy arrays to 20?</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" title="1">a <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>], [<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>]])</a>
+<a class="sourceLine" id="cb1-2" title="2"></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co"># Output:</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="co"># [[ 1  2  20  4  5]</span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="co"># [ 6  7 20  9 10]]</span></a></code></pre></div>
+<h2 id="answers">–answers–</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" title="1">a[:, <span class="dv">3</span>] <span class="op">=</span> <span class="dv">20</span></a></code></pre></div>
+<hr />
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" title="1">a[<span class="dv">2</span>, :] <span class="op">=</span> <span class="dv">20</span></a></code></pre></div>
+<hr />
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" title="1">a[:, <span class="dv">2</span>] <span class="op">=</span> <span class="dv">20</span></a></code></pre></div>
+<hr />
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" title="1">a[<span class="dv">1</span>, <span class="dv">2</span>] <span class="op">=</span> <span class="dv">20</span></a></code></pre></div>
+<h2 id="video-solution">–video-solution–</h2>
+<p>3</p>

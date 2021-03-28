@@ -1,0 +1,2556 @@
+<h1 id="the-list-view">The List View</h1>
+<p>The List view displays a list of records fetched from the API, and allows users to filter, sort, select, and paginate the records. You can display the list as a Datagrid, a list of images, a calendar, or using a component of your own.</p>
+<figure>
+<img src="./img/list-view.jpg" alt="The List View" /><figcaption>The List View</figcaption>
+</figure>
+<p>The entry point for this view is the <code>&lt;List&gt;</code> component, which takes care of fetching the data. Then, it puts that data in a <code>ListContext</code> so that it’s available for its descendants - usually <code>&lt;Datagrid&gt;</code>, which then delegates the rendering of each record property to <a href="./Fields.md"><code>&lt;Field&gt;</code></a> components.</p>
+<h2 id="the-list-component">The <code>&lt;List&gt;</code> Component</h2>
+<p>The <code>&lt;List&gt;</code> component fetches the list of records from the data provider, and renders the default list layout (title, buttons, filters, pagination). It delegates the rendering of the list of records to its child component. Usually, it’s a <code>&lt;Datagrid&gt;</code>, responsible for displaying a table with one row for each record.</p>
+<p>Here is the minimal code necessary to display a list of posts using a <code>&lt;Datagrid&gt;</code>:</p>
+<pre class="jsx"><code>// in src/posts.js
+import * as React from &quot;react&quot;;
+import { List, Datagrid, TextField, DateField, BooleanField } from &#39;react-admin&#39;;
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid&gt;
+            &lt;TextField source=&quot;id&quot; /&gt;
+            &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;DateField source=&quot;published_at&quot; /&gt;
+            &lt;TextField source=&quot;category&quot; /&gt;
+            &lt;BooleanField source=&quot;commentable&quot; /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);
+
+// in src/App.js
+import * as React from &quot;react&quot;;
+import { Admin, Resource } from &#39;react-admin&#39;;
+import jsonServerProvider from &#39;ra-data-json-server&#39;;
+
+import { PostList } from &#39;./posts&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={jsonServerProvider(&#39;https://jsonplaceholder.typicode.com&#39;)}&gt;
+        &lt;Resource name=&quot;posts&quot; list={PostList} /&gt;
+    &lt;/Admin&gt;
+);
+
+export default App;</code></pre>
+<p>That’s enough to display a basic post list, with functional sort and pagination:</p>
+<figure>
+<img src="./img/simple-post-list.png" alt="Simple posts list" /><figcaption>Simple posts list</figcaption>
+</figure>
+<p>Here are all the props accepted by the <code>&lt;List&gt;</code> component:</p>
+<ul>
+<li><a href="#actions"><code>actions</code></a></li>
+<li><a href="#aside-aside-component"><code>aside</code></a></li>
+<li><a href="#bulkactionbuttons"><code>bulkActionButtons</code></a></li>
+<li><a href="#component"><code>component</code></a></li>
+<li><a href="#empty-empty-page-component"><code>empty</code></a></li>
+<li><a href="#exporter"><code>exporter</code></a></li>
+<li><a href="#filter-permanent-filter"><code>filter</code></a> (the permanent filter used in the REST request)</li>
+<li><a href="#filterdefaultvalues"><code>filterDefaultValues</code></a> (the default values for <code>alwaysOn</code> filters)</li>
+<li><a href="#filters-filter-inputs"><code>filters</code></a> (a React element used to display the filter form)</li>
+<li><a href="#pagination-pagination-component"><code>pagination</code></a></li>
+<li><a href="#perpage-pagination-size"><code>perPage</code></a></li>
+<li><a href="#sort-default-sort-field--order"><code>sort</code></a></li>
+<li><a href="#title"><code>title</code></a></li>
+<li><a href="#synchronize-with-url"><code>syncWithLocation</code></a></li>
+</ul>
+<h3 id="title"><code>title</code></h3>
+<p>The default title for a list view is “[resource] list” (e.g. “Posts list”). Use the <code>title</code> prop to customize the List view title:</p>
+<pre class="jsx"><code>// in src/posts.js
+export const PostList = (props) =&gt; (
+    &lt;List {...props} title=&quot;List of posts&quot;&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<p>The title can be either a string or an element of your own.</p>
+<h3 id="actions"><code>actions</code></h3>
+<figure>
+<img src="./img/actions-toolbar.png" alt="Actions Toolbar" /><figcaption>Actions Toolbar</figcaption>
+</figure>
+<p>You can replace the list of default actions by your own element using the <code>actions</code> prop:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { cloneElement, useMemo } from &#39;react&#39;;
+import PropTypes from &#39;prop-types&#39;;
+import {
+    useListContext,
+    TopToolbar,
+    CreateButton,
+    ExportButton,
+    Button,
+    sanitizeListRestProps,
+} from &#39;react-admin&#39;;
+import IconEvent from &#39;@material-ui/icons/Event&#39;;
+
+const ListActions = (props) =&gt; {
+    const {
+        className,
+        exporter,
+        filters,
+        maxResults,
+        ...rest
+    } = props;
+    const {
+        currentSort,
+        resource,
+        displayedFilters,
+        filterValues,
+        hasCreate,
+        basePath,
+        selectedIds,
+        showFilter,
+        total,
+    } = useListContext();
+    return (
+        &lt;TopToolbar className={className} {...sanitizeListRestProps(rest)}&gt;
+            {filters &amp;&amp; cloneElement(filters, {
+                resource,
+                showFilter,
+                displayedFilters,
+                filterValues,
+                context: &#39;button&#39;,
+            })}
+            &lt;CreateButton basePath={basePath} /&gt;
+            &lt;ExportButton
+                disabled={total === 0}
+                resource={resource}
+                sort={currentSort}
+                filterValues={filterValues}
+                maxResults={maxResults}
+            /&gt;
+            {/* Add your custom actions */}
+            &lt;Button
+                onClick={() =&gt; { alert(&#39;Your custom action&#39;); }}
+                label=&quot;Show calendar&quot;
+            &gt;
+                &lt;IconEvent /&gt;
+            &lt;/Button&gt;
+        &lt;/TopToolbar&gt;
+    );
+};
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props} actions={&lt;ListActions /&gt;}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p>You can also use such a custom <code>&lt;ListActions&gt;</code> component to omit or reorder buttons based on permissions. Just pass the <code>permissions</code> down from the <code>List</code> component:</p>
+<pre class="jsx"><code>export const PostList = ({ permissions, ...props }) =&gt; (
+    &lt;List {...props} actions={&lt;PostActions permissions={permissions} {...props} /&gt;}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<h3 id="exporter"><code>exporter</code></h3>
+<figure>
+<img src="./img/export-button.gif" alt="Export Button" /><figcaption>Export Button</figcaption>
+</figure>
+<p>Among the default list actions, react-admin includes an <code>&lt;ExportButton&gt;</code>. This button is disabled when there is no record in the current <code>&lt;List&gt;</code>.</p>
+<p>By default, clicking this button will:</p>
+<ol type="1">
+<li>Call the <code>dataProvider</code> with the current sort and filter (but without pagination),</li>
+<li>Transform the result into a CSV string,</li>
+<li>Download the CSV file.</li>
+</ol>
+<p>The columns of the CSV file match all the fields of the records in the <code>dataProvider</code> response. That means that the export doesn’t take into account the selection and ordering of fields in your <code>&lt;List&gt;</code> via <code>Field</code> components. If you want to customize the result, pass a custom <code>exporter</code> function to the <code>&lt;List&gt;</code>. This function will receive the data from the <code>dataProvider</code> (after step 1) and replace steps 2-3 (i.e. it’s in charge of transforming, converting, and downloading the file).</p>
+<p><strong>Tip</strong>: For CSV conversion, you can import <a href="https://github.com/kauegimenes/jsonexport#browser-import-examples">jsonexport</a>, a CSV to JSON converter which is already a react-admin dependency. And for CSV download, take advantage of react-admin’s <code>downloadCSV</code> function.</p>
+<p>Here is an example for a Posts exporter, omitting, adding, and reordering fields:</p>
+<pre class="jsx"><code>// in PostList.js
+import { List, downloadCSV } from &#39;react-admin&#39;;
+import jsonExport from &#39;jsonexport/dist&#39;;
+
+const exporter = posts =&gt; {
+    const postsForExport = posts.map(post =&gt; {
+        const { backlinks, author, ...postForExport } = post; // omit backlinks and author
+        postForExport.author_name = post.author.name; // add a field
+        return postForExport;
+    });
+    jsonExport(postsForExport, {
+        headers: [&#39;id&#39;, &#39;title&#39;, &#39;author_name&#39;, &#39;body&#39;] // order fields in the export
+    }, (err, csv) =&gt; {
+        downloadCSV(csv, &#39;posts&#39;); // download as &#39;posts.csv` file
+    });
+};
+
+const PostList = props =&gt; (
+    &lt;List {...props} exporter={exporter}&gt;
+        ...
+    &lt;/List&gt;
+)</code></pre>
+<p>In many cases, you’ll need more than simple object manipulation. You’ll need to <em>augment</em> your objects based on relationships. For instance, the export for comments should include the title of the related post - but the export only exposes a <code>post_id</code> by default. For that purpose, the exporter receives a <code>fetchRelatedRecords</code> function as the second parameter. It fetches related records using your <code>dataProvider.getMany()</code> method and returns a promise.</p>
+<p>Here is an example for a Comments exporter, fetching related Posts:</p>
+<pre class="jsx"><code>// in CommentList.js
+import { List, downloadCSV } from &#39;react-admin&#39;;
+import jsonExport from &#39;jsonexport/dist&#39;;
+
+const exporter = (records, fetchRelatedRecords) =&gt; {
+    // will call dataProvider.getMany(&#39;posts&#39;, { ids: records.map(record =&gt; record.post_id) }), ignoring duplicate and empty post_id
+    fetchRelatedRecords(records, &#39;post_id&#39;, &#39;posts&#39;).then(posts =&gt; {
+        const data = records.map(record =&gt; ({
+                ...record,
+                post_title: posts[record.post_id].title,
+        }));
+        jsonExport(data, {
+            headers: [&#39;id&#39;, &#39;post_id&#39;, &#39;post_title&#39;, &#39;body&#39;],
+        }, (err, csv) =&gt; {
+            downloadCSV(csv, &#39;comments&#39;);
+        });
+    });
+};
+
+const CommentList = props =&gt; (
+    &lt;List {...props} exporter={exporter}&gt;
+        ...
+    &lt;/List&gt;
+)</code></pre>
+<p><strong>Tip</strong>: If you need to call another verb in the exporter, take advantage of the third parameter passed to the function: it’s the <code>dataProvider</code> function.</p>
+<p><strong>Tip</strong>: The <code>&lt;ExportButton&gt;</code> limits the main request to the <code>dataProvider</code> to 1,000 records. If you want to increase or decrease this limit, pass a <code>maxResults</code> prop to the <code>&lt;ExportButton&gt;</code> in a custom <code>&lt;ListActions&gt;</code> component, as explained in the previous section.</p>
+<p><strong>Tip</strong>: React-admin also provides a <code>&lt;BulkExportButton&gt;</code> component that depends on the <code>exporter</code>, and that you can use in the <code>bulkActionButtons</code> prop of the <code>&lt;List&gt;</code> component.</p>
+<p><strong>Tip</strong>: For complex (or large) exports, fetching all the related records and assembling them client-side can be slow. In that case, create the CSV on the server side, and replace the <code>&lt;ExportButton&gt;</code> component by a custom one, fetching the CSV route.</p>
+<p><strong>Tip</strong>: You may also remove the <code>&lt;ExportButton&gt;</code> by passing <code>false</code> to the <code>exporter</code> prop: <code>exporter={false}</code></p>
+<p><strong>Tip</strong>: Looking for an <code>&lt;ImportButton&gt;</code>? React-admin doesn’t provide this feature, but the community has an excellent third-party module for CSV import: <a href="https://github.com/benwinding/react-admin-import-csv">benwinding/react-admin-import-csv</a>.</p>
+<h3 id="bulkactionbuttons"><code>bulkActionButtons</code></h3>
+<figure>
+<img src="./img/bulk-actions-toolbar.gif" alt="Bulk Action Buttons" /><figcaption>Bulk Action Buttons</figcaption>
+</figure>
+<p>Bulk action buttons are buttons that affect several records at once, like mass deletion for instance. In the <code>&lt;Datagrid&gt;</code> component, the bulk actions toolbar appears when a user ticks the checkboxes in the first column of the table. The user can then choose a button from the bulk actions toolbar. By default, all list views have a single bulk action button, the bulk delete button. You can add other bulk action buttons by passing a custom element as the <code>bulkActionButtons</code> prop of the <code>&lt;List&gt;</code> component:</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { Fragment } from &#39;react&#39;;
+import Button from &#39;@material-ui/core/Button&#39;;
+import { BulkDeleteButton } from &#39;react-admin&#39;;
+import ResetViewsButton from &#39;./ResetViewsButton&#39;;
+
+const PostBulkActionButtons = props =&gt; (
+    &lt;Fragment&gt;
+        &lt;ResetViewsButton label=&quot;Reset Views&quot; {...props} /&gt;
+        {/* default bulk delete action */}
+        &lt;BulkDeleteButton {...props} /&gt;
+    &lt;/Fragment&gt;
+);
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props} bulkActionButtons={&lt;PostBulkActionButtons /&gt;}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<p><strong>Tip</strong>: React-admin provides 2 components that you can use in <code>bulkActionButtons</code>: <code>&lt;BulkDeleteButton&gt;</code>, and <code>&lt;BulkExportButton&gt;</code>.</p>
+<p><strong>Tip</strong>: You can also disable bulk actions altogether by passing <code>false</code> to the <code>bulkActionButtons</code> prop. When using a <code>Datagrid</code> inside a <code>List</code> with disabled bulk actions, the checkboxes column won’t be added.</p>
+<p>Bulk action button components receive several props allowing them to perform their job:</p>
+<ul>
+<li><code>resource</code>: the currently displayed resource (eg <code>posts</code>, <code>comments</code>, etc.)</li>
+<li><code>basePath</code>: the current router base path for the resource (eg <code>/posts</code>, <code>/comments</code>, etc.)</li>
+<li><code>filterValues</code>: the filter values. This can be useful if you want to apply your action on all items matching the filter.</li>
+<li><code>selectedIds</code>: the identifiers of the currently selected items.</li>
+</ul>
+<p>Here is an example leveraging the <code>useUpdateMany</code> hook, which sets the <code>views</code> property of all posts to <code>0</code>:</p>
+<pre class="jsx"><code>// in ./ResetViewsButton.js
+import * as React from &quot;react&quot;;
+import {
+    Button,
+    useUpdateMany,
+    useRefresh,
+    useNotify,
+    useUnselectAll,
+} from &#39;react-admin&#39;;
+import { VisibilityOff } from &#39;@material-ui/icons&#39;;
+
+const ResetViewsButton = ({ selectedIds }) =&gt; {
+    const refresh = useRefresh();
+    const notify = useNotify();
+    const unselectAll = useUnselectAll();
+    const [updateMany, { loading }] = useUpdateMany(
+        &#39;posts&#39;,
+        selectedIds,
+        { views: 0 },
+        {
+            onSuccess: () =&gt; {
+                refresh();
+                notify(&#39;Posts updated&#39;);
+                unselectAll(&#39;posts&#39;);
+            },
+            onFailure: error =&gt; notify(&#39;Error: posts not updated&#39;, &#39;warning&#39;),
+        }
+    );
+
+    return (
+        &lt;Button
+            label=&quot;simple.action.resetViews&quot;
+            disabled={loading}
+            onClick={updateMany}
+        &gt;
+            &lt;VisibilityOff /&gt;
+        &lt;/Button&gt;
+    );
+};
+
+export default ResetViewsButton;</code></pre>
+<p>But most of the time, bulk actions are mini-applications with a standalone user interface (in a Dialog). Here is the same <code>ResetViewsAction</code> implemented behind a confirmation dialog:</p>
+<pre class="jsx"><code>// in ./ResetViewsButton.js
+import * as React from &#39;react&#39;;
+import { Fragment, useState } from &#39;react&#39;;
+import {
+    Button,
+    Confirm,
+    useUpdateMany,
+    useRefresh,
+    useNotify,
+    useUnselectAll,
+} from &#39;react-admin&#39;;
+
+const ResetViewsButton = ({ selectedIds }) =&gt; {
+    const [open, setOpen] = useState(false);
+    const refresh = useRefresh();
+    const notify = useNotify();
+    const unselectAll = useUnselectAll();
+    const [updateMany, { loading }] = useUpdateMany(
+        &#39;posts&#39;,
+        selectedIds,
+        { views: 0 },
+        {
+            onSuccess: () =&gt; {
+                refresh();
+                notify(&#39;Posts updated&#39;);
+                unselectAll(&#39;posts&#39;);
+            },
+            onFailure: error =&gt; notify(&#39;Error: posts not updated&#39;, &#39;warning&#39;),
+        }
+    );
+    const handleClick = () =&gt; setOpen(true);
+    const handleDialogClose = () =&gt; setOpen(false);
+
+    const handleConfirm = () =&gt; {
+        updateMany();
+        setOpen(false);
+    };
+
+    return (
+        &lt;Fragment&gt;
+            &lt;Button label=&quot;Reset Views&quot; onClick={handleClick} /&gt;
+            &lt;Confirm
+                isOpen={open}
+                loading={loading}
+                title=&quot;Update View Count&quot;
+                content=&quot;Are you sure you want to reset the views for these items?&quot;
+                onConfirm={handleConfirm}
+                onClose={handleDialogClose}
+            /&gt;
+        &lt;/Fragment&gt;
+    );
+}
+
+export default ResetViewsButton;</code></pre>
+<p><strong>Tip</strong>: <code>&lt;Confirm&gt;</code> leverages material-ui’s <code>&lt;Dialog&gt;</code> component to implement a confirmation popup. Feel free to use it in your admins!</p>
+<p><strong>Tip</strong>: <code>&lt;Confirm&gt;</code> text props such as <code>title</code> and <code>content</code> are translatable. You can pass use translation keys in these props.</p>
+<p><strong>Tip</strong>: You can customize the text of the two <code>&lt;Confirm&gt;</code> component buttons using the <code>cancel</code> and <code>confirm</code> props which accept translation keys. You can customize the icons by setting the <code>ConfirmIcon</code> and <code>CancelIcon</code> props, which accept a SvgIcon type.</p>
+<p><strong>Tip</strong>: React-admin doesn’t use the <code>&lt;Confirm&gt;</code> component internally, because deletes and updates are applied locally immediately, then dispatched to the server after a few seconds, unless the user chooses to undo the modification. That’s what we call optimistic rendering. You can do the same for the <code>ResetViewsButton</code> by setting <code>undoable: true</code> in the last argument of <code>useUpdateMany()</code>, as follows:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb10-1" title="1">// in ./ResetViewsButton.js</a>
+<a class="sourceLine" id="cb10-2" title="2">import * as React from &quot;react&quot;;</a>
+<a class="sourceLine" id="cb10-3" title="3">import {</a>
+<a class="sourceLine" id="cb10-4" title="4">    Button,</a>
+<a class="sourceLine" id="cb10-5" title="5">    Confirm,</a>
+<a class="sourceLine" id="cb10-6" title="6">    useUpdateMany,</a>
+<a class="sourceLine" id="cb10-7" title="7">    useRefresh,</a>
+<a class="sourceLine" id="cb10-8" title="8">    useNotify,</a>
+<a class="sourceLine" id="cb10-9" title="9">    useUnselectAll,</a>
+<a class="sourceLine" id="cb10-10" title="10">} from &#39;react-admin&#39;;</a>
+<a class="sourceLine" id="cb10-11" title="11">import { VisibilityOff } from &#39;@material-ui/icons&#39;;</a>
+<a class="sourceLine" id="cb10-12" title="12"></a>
+<a class="sourceLine" id="cb10-13" title="13">const ResetViewsButton = ({ selectedIds }) =&gt; {</a>
+<a class="sourceLine" id="cb10-14" title="14">    const refresh = useRefresh();</a>
+<a class="sourceLine" id="cb10-15" title="15">    const notify = useNotify();</a>
+<a class="sourceLine" id="cb10-16" title="16">    const unselectAll = useUnselectAll();</a>
+<a class="sourceLine" id="cb10-17" title="17">    const [updateMany, { loading }] = useUpdateMany(</a>
+<a class="sourceLine" id="cb10-18" title="18">        &#39;posts&#39;,</a>
+<a class="sourceLine" id="cb10-19" title="19">        selectedIds,</a>
+<a class="sourceLine" id="cb10-20" title="20">        { views: 0 },</a>
+<a class="sourceLine" id="cb10-21" title="21">        {</a>
+<a class="sourceLine" id="cb10-22" title="22">            onSuccess: () =&gt; {</a>
+<a class="sourceLine" id="cb10-23" title="23">                refresh();</a>
+<a class="sourceLine" id="cb10-24" title="24"><span class="st">-               notify(&#39;Posts updated&#39;);</span></a>
+<a class="sourceLine" id="cb10-25" title="25"><span class="va">+               notify(&#39;Posts updated&#39;, &#39;info&#39;, &#39;{}, true); // the last argument forces the display of &#39;undo&#39; in the notification</span></a>
+<a class="sourceLine" id="cb10-26" title="26">                unselectAll(&#39;posts&#39;);</a>
+<a class="sourceLine" id="cb10-27" title="27">            },</a>
+<a class="sourceLine" id="cb10-28" title="28">            onFailure: error =&gt; notify(&#39;Error: posts not updated&#39;, &#39;warning&#39;),</a>
+<a class="sourceLine" id="cb10-29" title="29"><span class="va">+           undoable: true</span></a>
+<a class="sourceLine" id="cb10-30" title="30">        }</a>
+<a class="sourceLine" id="cb10-31" title="31">    );</a>
+<a class="sourceLine" id="cb10-32" title="32"></a>
+<a class="sourceLine" id="cb10-33" title="33">    return (</a>
+<a class="sourceLine" id="cb10-34" title="34">        &lt;Button</a>
+<a class="sourceLine" id="cb10-35" title="35">            label=&quot;simple.action.resetViews&quot;</a>
+<a class="sourceLine" id="cb10-36" title="36">            disabled={loading}</a>
+<a class="sourceLine" id="cb10-37" title="37">            onClick={updateMany}</a>
+<a class="sourceLine" id="cb10-38" title="38">        &gt;</a>
+<a class="sourceLine" id="cb10-39" title="39">            &lt;VisibilityOff /&gt;</a>
+<a class="sourceLine" id="cb10-40" title="40">        &lt;/Button&gt;</a>
+<a class="sourceLine" id="cb10-41" title="41">    );</a>
+<a class="sourceLine" id="cb10-42" title="42">};</a></code></pre></div>
+<h3 id="filters-filter-inputs"><code>filters</code>: Filter Inputs</h3>
+<figure>
+<img src="./img/list_filter.gif" alt="List Filters" /><figcaption>List Filters</figcaption>
+</figure>
+<p>You can add a filter component to the List using the <code>filters</code> prop:</p>
+<pre class="jsx"><code>const PostFilter = (props) =&gt; (
+    &lt;Filter {...props}&gt;
+        &lt;TextInput label=&quot;Search&quot; source=&quot;q&quot; alwaysOn /&gt;
+        &lt;TextInput label=&quot;Title&quot; source=&quot;title&quot; defaultValue=&quot;Hello, World!&quot; /&gt;
+    &lt;/Filter&gt;
+);
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props} filters={&lt;PostFilter /&gt;}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<p>The filter component must be a <code>&lt;Filter&gt;</code> with <code>&lt;Input&gt;</code> children.</p>
+<p><strong>Tip</strong>: Don’t mix up this <code>filters</code> prop, expecting a React element, with the <code>filter</code> props, which expects an object to define permanent filters (see below).</p>
+<p>Children of the <code>&lt;Filter&gt;</code> form are regular inputs. <code>&lt;Filter&gt;</code> hides them all by default, except those that have the <code>alwaysOn</code> prop.</p>
+<p>You can also display filters as a sidebar:</p>
+<figure>
+<img src="./img/filter-sidebar.gif" alt="&lt;FilterList&gt; sidebar" /><figcaption><code>&lt;FilterList&gt;</code> sidebar</figcaption>
+</figure>
+<p>For more details about customizing filters, see the <a href="#filtering-the-list">Filtering the List</a> section.</p>
+<h3 id="filter-permanent-filter"><code>filter</code>: Permanent Filter</h3>
+<p>You can choose to always filter the list, without letting the user disable this filter - for instance to display only published posts. Write the filter to be passed to the data provider in the <code>filter</code> props:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>// in src/posts.js
+export const PostList = (props) =&gt; (
+    &lt;List {...props} filter={{ is_published: true }}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p>The actual filter parameter sent to the data provider is the result of the combination of the <em>user</em> filters (the ones set through the <code>filters</code> component form), and the <em>permanent</em> filter. The user cannot override the permanent filters set by way of <code>filter</code>.</p>
+<h3 id="filterdefaultvalues"><code>filterDefaultValues</code></h3>
+<p>To set default values to filters, you can either pass an object literal as the <code>filterDefaultValues</code> prop of the <code>&lt;List&gt;</code> element, or use the <code>defaultValue</code> prop of any input component.</p>
+<p>There is one exception: inputs with <code>alwaysOn</code> don’t accept <code>defaultValue</code>. You have to use the <code>filterDefaultValues</code> for those.</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>// in src/posts.js
+const PostFilter = (props) =&gt; (
+    &lt;Filter {...props}&gt;
+        &lt;TextInput label=&quot;Search&quot; source=&quot;q&quot; alwaysOn /&gt;
+        &lt;BooleanInput source=&quot;is_published&quot; alwaysOn /&gt;
+        &lt;TextInput source=&quot;title&quot; defaultValue=&quot;Hello, World!&quot; /&gt;
+    &lt;/Filter&gt;
+);
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props} filters={&lt;PostFilter /&gt;} filterDefaultValues={{ is_published: true }}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p><strong>Tip</strong>: The <code>filter</code> and <code>filterDefaultValues</code> props have one key difference: the <code>filterDefaultValues</code> can be overridden by the user, while the <code>filter</code> values are always sent to the data provider. Or, to put it otherwise:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">const</span> filterSentToDataProvider <span class="op">=</span> <span class="op">{</span> ...<span class="at">filterDefaultValues</span><span class="op">,</span> ...<span class="at">filterChosenByUser</span><span class="op">,</span> ...<span class="at">filter</span> <span class="op">};</span></a></code></pre></div>
+<h3 id="perpage-pagination-size"><code>perPage</code>: Pagination Size</h3>
+<p>By default, the list paginates results by groups of 10. You can override this setting by specifying the <code>perPage</code> prop:</p>
+<pre class="jsx"><code>// in src/posts.js
+export const PostList = (props) =&gt; (
+    &lt;List {...props} perPage={25}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<h3 id="sort-default-sort-field-order"><code>sort</code>: Default Sort Field &amp; Order</h3>
+<p>Pass an object literal as the <code>sort</code> prop to determine the default <code>field</code> and <code>order</code> used for sorting:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>// in src/posts.js
+export const PostList = (props) =&gt; (
+    &lt;List {...props} sort={{ field: &#39;published_at&#39;, order: &#39;DESC&#39; }}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p><code>sort</code> defines the <em>default</em> sort order ; the list remains sortable by clicking on column headers.</p>
+<p>For more details on list sort, see the <a href="#sorting-the-list">Sorting The List</a> section below.</p>
+<h3 id="pagination-pagination-component"><code>pagination</code>: Pagination Component</h3>
+<p>The <code>pagination</code> prop allows to replace the default pagination controls by your own.</p>
+<pre class="jsx"><code>// in src/MyPagination.js
+import { Pagination, List } from &#39;react-admin&#39;;
+
+const PostPagination = props =&gt; &lt;Pagination rowsPerPageOptions={[10, 25, 50, 100]} {...props} /&gt;;
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props} pagination={&lt;PostPagination /&gt;}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<p>See <a href="#paginating-the-list">Paginating the List</a> below for details.</p>
+<h3 id="aside-aside-component"><code>aside</code>: Aside Component</h3>
+<p>You may want to display additional information on the side of the list. Use the <code>aside</code> prop for that, passing the component of your choice:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>const Aside = () =&gt; (
+    &lt;div style={{ width: 200, margin: &#39;1em&#39; }}&gt;
+        &lt;Typography variant=&quot;h6&quot;&gt;Post details&lt;/Typography&gt;
+        &lt;Typography variant=&quot;body2&quot;&gt;
+            Posts will only be published once an editor approves them
+        &lt;/Typography&gt;
+    &lt;/div&gt;
+);
+
+const PostList = props =&gt; (
+    &lt;List aside={&lt;Aside /&gt;} {...props}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p>The <code>aside</code> component can call the <code>useListContext()</code> hook to receive the same props as the <code>List</code> child component, including the following:</p>
+<ul>
+<li><code>basePath</code>,</li>
+<li><code>currentSort</code>,</li>
+<li><code>data</code>,</li>
+<li><code>defaultTitle</code>,</li>
+<li><code>filterValues</code>,</li>
+<li><code>ids</code>,</li>
+<li><code>page</code>,</li>
+<li><code>perPage</code>,</li>
+<li><code>resource</code>,</li>
+<li><code>selectedIds</code>,</li>
+<li><code>total</code>,</li>
+<li><code>version</code>,</li>
+</ul>
+<p>That means you can display additional details of the current list in the aside component:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>const Aside = () =&gt; {
+    const { data, ids } = useListContext();
+    return (
+        &lt;div style={{ width: 200, margin: &#39;1em&#39; }}&gt;
+            &lt;Typography variant=&quot;h6&quot;&gt;Posts stats&lt;/Typography&gt;
+            &lt;Typography variant=&quot;body2&quot;&gt;
+                Total views: {ids.map(id =&gt; data[id]).reduce((sum, post) =&gt; sum + post.views, 0)}
+            &lt;/Typography&gt;
+        &lt;/div&gt;
+    );
+};</code></pre>
+<p>{% endraw %}</p>
+<h3 id="empty-empty-page-component"><code>empty</code>: Empty Page Component</h3>
+<p>When there is no result, and there is no active filter, and the resource has a create page, react-admin displays a special page inviting the user to create the first record.</p>
+<p>You can use the <code>empty</code> prop to replace that page by a custom component:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import Box from &#39;@material-ui/core/Box&#39;;
+import Button from &#39;@material-ui/core/Button&#39;;
+import Typography from &#39;@material-ui/core/Typography&#39;;
+import { CreateButton, List, useListContext } from &#39;react-admin&#39;;
+
+const Empty = () =&gt; {
+    const { basePath, resource } = useListContext();
+    return (
+        &lt;Box textAlign=&quot;center&quot; m={1}&gt;
+            &lt;Typography variant=&quot;h4&quot; paragraph&gt;
+                No products available
+            &lt;/Typography&gt;
+            &lt;Typography variant=&quot;body1&quot;&gt;
+                Create one or import from a file
+            &lt;/Typography&gt;
+            &lt;CreateButton basePath={basePath} /&gt;
+            &lt;Button onClick={/* ... */}&gt;Import&lt;/Button&gt;
+        &lt;/Box&gt;
+    );
+};
+
+const ProductList = props =&gt; (
+    &lt;List empty={&lt;Empty /&gt;} {...props}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p>The <code>empty</code> component can call the <code>useListContext()</code> hook to receive the same props as the <code>List</code> child component, including the following:</p>
+<ul>
+<li><code>basePath</code>,</li>
+<li><code>currentSort</code>,</li>
+<li><code>data</code>,</li>
+<li><code>defaultTitle</code>,</li>
+<li><code>filterValues</code>,</li>
+<li><code>ids</code>,</li>
+<li><code>page</code>,</li>
+<li><code>perPage</code>,</li>
+<li><code>resource</code>,</li>
+<li><code>selectedIds</code>,</li>
+<li><code>total</code>,</li>
+<li><code>version</code>,</li>
+</ul>
+<p>You can also set the <code>empty</code> props value to <code>false</code> to bypass the empty page display and render an empty list instead.</p>
+<pre><code>import { List } from &#39;react-admin&#39;;
+
+const ProductList = props =&gt; (
+    &lt;List empty={false} {...props}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<h3 id="component"><code>component</code></h3>
+<p>By default, the List view renders the main content area inside a material-ui <code>&lt;Card&gt;</code> element. The actual layout of the list depends on the child component you’re using (<code>&lt;Datagrid&gt;</code>, <code>&lt;SimpleList&gt;</code>, or a custom layout component).</p>
+<p>Some List layouts display each record in a <code>&lt;Card&gt;</code>, in which case the user ends up seeing a card inside a card, which is bad UI. To avoid that, you can override the main area container by passing a <code>component</code> prop:</p>
+<pre class="jsx"><code>// use a div as root component
+const PostList = props =&gt; (
+    &lt;List component=&quot;div&quot; {...props}&gt;
+        ...
+    &lt;/List&gt;
+);
+
+// use a custom component as root component 
+const PostList = props =&gt; (
+    &lt;List component={MyComponent} {...props}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<p>The default value for the <code>component</code> prop is <code>Card</code>.</p>
+<h2 id="synchronize-with-url">Synchronize With URL</h2>
+<p>When a List based component (eg: <code>PostList</code>) is passed to the <code>list</code> prop of a <code>&lt;Resource&gt;</code>, it will automatically synchronize its parameters with the browser URL (using react-router location). However, when used anywhere outside of a <code>&lt;Resource&gt;</code>, it won’t synchronize, which can be useful when you have multiple lists on a single page for example.</p>
+<p>In order to enable the synchronization with the URL, you can set the <code>syncWithLocation</code> prop. For example, adding a <code>List</code> to an <code>Edit</code> page:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>const TagsEdit = (props) =&gt; (
+    &lt;&gt;
+        &lt;Edit {...props}&gt;
+            // ...
+        &lt;/Edit&gt;
+        &lt;ResourceContextProvider value=&quot;posts&quot;&gt;
+            &lt;List syncWithLocation basePath=&quot;/posts&quot; filter={{ tags: [id]}}&gt;
+                &lt;Datagrid&gt;
+                    &lt;TextField source=&quot;title&quot; /&gt;
+                &lt;/Datagrid&gt;
+            &lt;/List&gt;
+        &lt;/ResourceContextProvider&gt;
+    &lt;/&gt;
+)</code></pre>
+<p>{% endraw %}</p>
+<h3 id="css-api">CSS API</h3>
+<p>The <code>List</code> component accepts the usual <code>className</code> prop but you can override many class names injected to the inner components by React-admin thanks to the <code>classes</code> property (as most Material UI components, see their <a href="https://material-ui.com/customization/components/#overriding-styles-with-classes">documentation about it</a>). This property accepts the following keys:</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rule name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>root</code></td>
+<td>Alternative to using <code>className</code>. Applied to the root element</td>
+</tr>
+<tr class="even">
+<td><code>actions</code></td>
+<td>Applied to the actions container</td>
+</tr>
+<tr class="odd">
+<td><code>main</code></td>
+<td>Applied to the main container</td>
+</tr>
+<tr class="even">
+<td><code>content</code></td>
+<td>Applied to the child component inside the main container</td>
+</tr>
+<tr class="odd">
+<td><code>bulkActionsDisplayed</code></td>
+<td>Applied to the child component inside the main container when there are selected records</td>
+</tr>
+<tr class="even">
+<td><code>noResults</code></td>
+<td>Applied to the component shown when there is no result</td>
+</tr>
+</tbody>
+</table>
+<p>You can customize the <code>&lt;List&gt;</code> styles by passing a <code>classes</code> object as prop, through <code>useStyles()</code>. Here is an example:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { makeStyles } from &#39;@material-ui/core&#39;;
+
+const useStyles = makeStyles({
+    actions: {
+        backgroundColor: &#39;#ccc&#39;,
+    },
+});
+
+const PostList = props =&gt; {
+    const classes = useStyles(props);
+    return (
+        &lt;List {...props} classes={{ actions: classes.actions }}&gt;
+            &lt;Datagrid&gt;
+                ...
+            &lt;/Datagrid&gt;
+        &lt;/List&gt;
+    );
+}
+
+export default PostList;</code></pre>
+<p>{% endraw %}</p>
+<p><strong>Tip</strong>: The <code>List</code> component <code>classes</code> can also be customized for all instances of the component with its global css name <code>"RaList"</code> as <a href="https://marmelab.com/blog/2019/12/18/react-admin-3-1.html#theme-overrides">describe here</a></p>
+<h2 id="filtering-the-list">Filtering The List</h2>
+<table>
+<tbody>
+<tr style="border:none">
+<td style="width:50%;border:none;">
+<a title="<Filter> Button/Form Combo" href="./img/list_filter.gif"><img src="./img/list_filter.gif" /></a>
+</td>
+<td style="width:50%;border:none;">
+<a title="<FilterList> Sidebar" href="./img/filter-sidebar.gif"><img src="./img/filter-sidebar.gif" /></a>
+</td>
+</tr>
+</tbody>
+</table>
+<p>One of the most important features of the List page is the ability to filter the results. React-admin does its best to offer a powerful filter functionality, and to get out of the way when you want to go further.</p>
+<p>The next sections explain how to use the filter functionality. And first, a few explanations about the inner workings of filters:</p>
+<ul>
+<li><a href="#filter-query-parameter">Filter Query Parameter</a></li>
+<li><a href="#linking-to-a-pre-filtered-list">Linking To A Pre-Filtered List</a></li>
+</ul>
+<p>React-admin proposes several UI components to let users see and modify filters, and gives you the tools to build custom ones.</p>
+<ul>
+<li>The <code>&lt;Filter&gt;</code> Button/Form Combo
+<ul>
+<li><a href="#the-filter-buttonform-combo">Usage</a></li>
+<li><a href="#full-text-search">Full-Text Search</a></li>
+<li><a href="#quick-filters">Quick Filters</a></li>
+</ul></li>
+<li>The <code>&lt;FilterList&gt;</code> Sidebar
+<ul>
+<li><a href="#the-filterlist-sidebar">Usage</a></li>
+<li><a href="#live-search">Full-Text Search</a></li>
+</ul></li>
+<li><a href="#saved-queries-let-users-save-filter-and-sort">Saved Queries: Let Users Save Filter And Sort</a></li>
+<li><a href="#building-a-custom-filter">Building A Custom Filter</a></li>
+</ul>
+<h3 id="filter-query-parameter">Filter Query Parameter</h3>
+<p>React-admin uses the <code>filter</code> query parameter from the URL to determine the filters to apply to the list. To change the filters, react-admin simply changes this <code>filter</code> query parameter, and the <code>&lt;List&gt;</code> components fetches <code>dataProvider.getList()</code> again with the new filters.</p>
+<p>Here is a typical List URL:</p>
+<blockquote>
+<p>https://myadmin.dev/#/posts?displayedFilters=%7B%22commentable%22%3Atrue%7D&amp;filter=%7B%22commentable%22%3Atrue%2C%22q%22%3A%22lorem%20%22%7D&amp;order=DESC&amp;page=1&amp;perPage=10&amp;sort=published_at</p>
+</blockquote>
+<p>Once decoded, the <code>filter</code> query parameter reveals as a JSON value:</p>
+<pre><code>filter={&quot;commentable&quot;:true,&quot;q&quot;:&quot;lorem &quot;}</code></pre>
+<p>You can change the filters by updating the query parameter, e.g. using the <code>&lt;Link&gt;</code> component or the <code>history.push()</code> method from <code>react-router</code>.</p>
+<p><strong>Tip</strong>: Once a user sets a filter, react-admin persists the filter value in the application state, so that when the user comes back to the list, they should see the filtered list. That’s a design choice.</p>
+<h3 id="linking-to-a-pre-filtered-list">Linking To A Pre-Filtered List</h3>
+<p>As the filter values are taken from the URL, you can link to a pre-filtered list by setting the <code>filter</code> query parameter.</p>
+<p>For instance, if you have a list of tags, you can display a button for each category to link to the list of posts filtered by that tag:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import * as React from &quot;react&quot;;
+import Button from &#39;@material-ui/core/Button&#39;;
+import { Link } from &#39;react-router-dom&#39;;
+
+const LinkToRelatedProducts = ({ record }) =&gt; {
+    const translate = useTranslate();
+    return record ? (
+        &lt;Button
+            color=&quot;primary&quot;
+            component={Link}
+            to={{
+                pathname: &#39;/posts&#39;,
+                search: `filter=${JSON.stringify({ category_id: record.id })}`,
+            }}
+        &gt;
+            All posts with the category {record.name} ; 
+        &lt;/Button&gt;
+    ) : null;
+};</code></pre>
+<p>{% endraw %}</p>
+<p>You can use this button e.g. as a child of <code>&lt;Datagrid&gt;</code>. You can also create a custom Menu button with that technique to link to the unfiltered list by setting the filter value to <code>{}</code>.</p>
+<h3 id="the-filter-buttonform-combo">The <code>&lt;Filter&gt;</code> Button/Form Combo</h3>
+<figure>
+<img src="./img/list_filter.gif" alt="List Filters" /><figcaption>List Filters</figcaption>
+</figure>
+<p>The default appearance for filters is an inline form displayed on top of the list. Users also see a dropdown button allowing to add more inputs to that form. This functionality relies on the <code>&lt;Filter&gt;</code> component:</p>
+<pre class="jsx"><code>import { Filter, TextInput } from &#39;react-admin&#39;;
+
+const PostFilter = (props) =&gt; (
+    &lt;Filter {...props}&gt;
+        &lt;TextInput label=&quot;Search&quot; source=&quot;q&quot; alwaysOn /&gt;
+        &lt;TextInput label=&quot;Title&quot; source=&quot;title&quot; defaultValue=&quot;Hello, World!&quot; /&gt;
+    &lt;/Filter&gt;
+);</code></pre>
+<p>Children of the <code>&lt;Filter&gt;</code> component are regular inputs. That means you can build sophisticated filters based on references, array values, etc. <code>&lt;Filter&gt;</code> hides all inputs in the filter form by default, except those that have the <code>alwaysOn</code> prop.</p>
+<p><strong>Tip</strong>: For technical reasons, react-admin does not accept children of <code>&lt;Filter&gt;</code> having both a <code>defaultValue</code> and <code>alwaysOn</code>. To set default values for always on filters, use the <a href="#filterdefaultvalues"><code>filterDefaultValues</code></a> prop of the <List> component instead.</p>
+<p>To inject the filter form in a <code>&lt;List&gt;</code>, use the <code>filters</code> prop:</p>
+<pre class="jsx"><code>export const PostList = (props) =&gt; (
+    &lt;List {...props} filters={&lt;PostFilter /&gt;}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<p><code>&lt;List&gt;</code> clones the component passed as <code>filters</code> twice:</p>
+<ul>
+<li>once with the prop <code>context="form"</code>, to render the filter <em>form</em></li>
+<li>once with the prop <code>context="button"</code>, to render the filter <em>button</em></li>
+</ul>
+<p>The component passed as <code>filters</code> should know how to render differently according to the <code>context</code> prop.</p>
+<p>That’s the case of the react-admin <code>&lt;Filter&gt;</code> component:</p>
+<ul>
+<li><code>&lt;Filter context="form"&gt;</code> renders an inline form based on its children which must be <code>&lt;Input&gt;</code> components</li>
+<li><code>&lt;Filter context="button"&gt;</code> renders a dropdown allowing enabling filters based on the <code>source</code> prop of its children.</li>
+</ul>
+<h4 id="full-text-search">Full-Text Search</h4>
+<figure>
+<img src="./img/search_input.gif" alt="&lt;SearchInput&gt;" /><figcaption><code>&lt;SearchInput&gt;</code></figcaption>
+</figure>
+<p>In addition to <a href="./Inputs.md">the usual input types</a> (<code>&lt;TextInput&gt;</code>, <code>&lt;SelectInput&gt;</code>, <code>&lt;ReferenceInput&gt;</code>, etc.), you can use the <code>&lt;SearchInput&gt;</code>, which is designed especially for the filter form. It’s like a <code>&lt;TextInput resettable&gt;</code> with a magnifier glass icon - exactly the type of input users look for when they want to do a full-text search.</p>
+<pre class="jsx"><code>import { Filter, SearchInput, TextInput } from &#39;react-admin&#39;;
+
+const PostFilter = props =&gt; (
+    &lt;Filter {...props}&gt;
+        &lt;SearchInput source=&quot;q&quot; alwaysOn /&gt;
+    &lt;/Filter&gt;
+);</code></pre>
+<p>In the example given above, the <code>q</code> filter triggers a full-text search on all fields. It’s your responsibility to implement the full-text filtering capabilities in your <code>dataProvider</code>, or in your API.</p>
+<h4 id="quick-filters">Quick Filters</h4>
+<figure>
+<img src="./img/quick_filters.gif" alt="&lt;QuickFilter&gt;" /><figcaption><code>&lt;QuickFilter&gt;</code></figcaption>
+</figure>
+<p>Users usually dislike using their keyboard to filter a list (especially on mobile). A good way to satisfy this user requirement is to turn filters into <em>quick filter</em>. A Quick filter is a filter with a non-editable <code>defaultValue</code>. Users can only enable or disable them.</p>
+<p>Here is how to implement a generic <code>&lt;QuickFilter&gt;</code> component:</p>
+<pre class="jsx"><code>import { Filter, SearchInput } from &#39;react-admin&#39;;
+import { makeStyles, Chip } from &#39;@material-ui/core&#39;;
+
+const useQuickFilterStyles = makeStyles(theme =&gt; ({
+    chip: {
+        marginBottom: theme.spacing(1),
+    },
+}));
+const QuickFilter = ({ label }) =&gt; {
+    const translate = useTranslate();
+    const classes = useQuickFilterStyles();
+    return &lt;Chip className={classes.chip} label={translate(label)} /&gt;;
+};
+
+const PostFilter = props =&gt; (
+    &lt;Filter {...props}&gt;
+        &lt;SearchInput source=&quot;q&quot; alwaysOn /&gt;
+        &lt;QuickFilter source=&quot;commentable&quot; label=&quot;Commentable&quot; defaultValue={true} /&gt;
+        &lt;QuickFilter source=&quot;views_lte&quot; label=&quot;Low views&quot; defaultValue={150} /&gt;
+        &lt;QuickFilter source=&quot;tags&quot; label=&quot;Tagged Code&quot; defaultValue={[3]} /&gt;
+    &lt;/Filter&gt;
+);</code></pre>
+<p><strong>Tip</strong>: It’s currently not possible to use two quick filters for the same source.</p>
+<h3 id="the-filterlist-sidebar">The <code>&lt;FilterList&gt;</code> Sidebar</h3>
+<figure>
+<img src="./img/filter-sidebar.gif" alt="Filter Sidebar" /><figcaption>Filter Sidebar</figcaption>
+</figure>
+<p>An alternative UI to the <code>&lt;Filter&gt;</code> Button/Form Combo is the FilterList Sidebar. Similar to what users usually see on e-commerce websites, it’s a panel with many simple filters that can be enabled and combined using the mouse. The user experience is better than the Button/Form Combo, because the filter values are explicit, and it doesn’t require typing anything in a form. But it’s a bit less powerful, as only filters with a finite set of values (or intervals) can be used in the <code>&lt;FilterList&gt;</code>.</p>
+<h4 id="basic-usage">Basic usage</h4>
+<p>The <code>&lt;FilterList&gt;</code> component expects a list of <code>&lt;FilterListItem&gt;</code> as children. Each <code>&lt;FilterListItem&gt;</code> defines a filter <code>label</code> and a <code>value</code>, which is merged with the current filter value when enabled by the user. Here is an example usage for a list of customers:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import AccessTimeIcon from &#39;@material-ui/icons/AccessTime&#39;;
+import MonetizationOnIcon from &#39;@material-ui/icons/MonetizationOnOutlined&#39;;
+import MailIcon from &#39;@material-ui/icons/MailOutline&#39;;
+import LocalOfferIcon from &#39;@material-ui/icons/LocalOfferOutlined&#39;;
+import { FilterList, FilterListItem } from &#39;react-admin&#39;;
+import {
+    endOfYesterday,
+    startOfWeek,
+    subWeeks,
+    startOfMonth,
+    subMonths,
+} from &#39;date-fns&#39;;
+
+import segments from &#39;../segments/data&#39;;
+
+const LastVisitedFilter = () =&gt; (
+    &lt;FilterList label=&quot;Last visited&quot; icon={&lt;AccessTimeIcon /&gt;}&gt;
+        &lt;FilterListItem
+            label=&quot;Today&quot;
+            value={{
+                last_seen_gte: endOfYesterday().toISOString(),
+                last_seen_lte: undefined,
+            }}
+        /&gt;
+        &lt;FilterListItem
+            label=&quot;This week&quot;
+            value={{
+                last_seen_gte: startOfWeek(new Date()).toISOString(),
+                last_seen_lte: undefined,
+            }}
+        /&gt;
+        &lt;FilterListItem
+            label=&quot;Last week&quot;
+            value={{
+                last_seen_gte: subWeeks(startOfWeek(new Date()), 1).toISOString(),
+                last_seen_lte: startOfWeek(new Date()).toISOString(),
+            }}
+        /&gt;
+        &lt;FilterListItem
+            label=&quot;This month&quot;
+            value={{
+                last_seen_gte: startOfMonth(new Date()).toISOString(),
+                last_seen_lte: undefined,
+            }}
+        /&gt;
+        &lt;FilterListItem
+            label=&quot;Last month&quot;
+            value={{
+                last_seen_gte: subMonths(startOfMonth(new Date()),1).toISOString(),
+                last_seen_lte: startOfMonth(new Date()).toISOString(),
+            }}
+        /&gt;
+        &lt;FilterListItem
+            label=&quot;Earlier&quot;
+            value={{
+                last_seen_gte: undefined,
+                last_seen_lte: subMonths(startOfMonth(new Date()),1).toISOString(),
+            }}
+        /&gt;
+    &lt;/FilterList&gt;
+);
+const HasOrderedFilter = () =&gt; (
+    &lt;FilterList
+        label=&quot;Has ordered&quot;
+        icon={&lt;MonetizationOnIcon /&gt;}
+    &gt;
+        &lt;FilterListItem
+            label=&quot;True&quot;
+            value={{
+                nb_commands_gte: 1,
+                nb_commands_lte: undefined,
+            }}
+        /&gt;
+        &lt;FilterListItem
+            label=&quot;False&quot;
+            value={{
+                nb_commands_gte: undefined,
+                nb_commands_lte: 0,
+            }}
+        /&gt;
+    &lt;/FilterList&gt;
+);
+const HasNewsletterFilter = () =&gt; (
+    &lt;FilterList
+        label=&quot;Has newsletter&quot;
+        icon={&lt;MailIcon /&gt;}
+    &gt;
+        &lt;FilterListItem
+            label=&quot;True&quot;
+            value={{ has_newsletter: true }}
+        /&gt;
+        &lt;FilterListItem
+            label=&quot;False&quot;
+            value={{ has_newsletter: false }}
+        /&gt;
+    &lt;/FilterList&gt;
+);
+const SegmentFilter = () =&gt; (
+    &lt;FilterList
+        label=&quot;Segment&quot;
+        icon={&lt;LocalOfferIcon /&gt;}
+    &gt;
+        {segments.map(segment =&gt; (
+            &lt;FilterListItem
+                label={segment.name}
+                key={segment.id}
+                value={{ groups: segment.id }}
+            /&gt;
+        ))}
+    &lt;/FilterList&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<h4 id="placing-filters-in-a-sidebar">Placing Filters In A Sidebar</h4>
+<p>You can place these <code>&lt;FilterList&gt;</code> anywhere inside a <code>&lt;List&gt;</code>. The most common case is to put them in a sidebar that is on the left hand side of the datagrid. You can use the <code>aside</code> property for that:</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { Card as MuiCard, CardContent, withStyles } from &#39;@material-ui/core&#39;;
+
+import { LastVisitedFilter, HasOrderedFilter, HasNewsletterFilter, SegmentFilter } from &#39;./filters&#39;;
+
+const Card = withStyles(theme =&gt; ({
+    root: {
+        [theme.breakpoints.up(&#39;sm&#39;)]: {
+            order: -1, // display on the left rather than on the right of the list
+            width: &#39;15em&#39;,
+            marginRight: &#39;1em&#39;,
+        },
+        [theme.breakpoints.down(&#39;sm&#39;)]: {
+            display: &#39;none&#39;,
+        },
+    },
+}))(MuiCard);
+
+const FilterSidebar = () =&gt; (
+    &lt;Card&gt;
+        &lt;CardContent&gt;
+            &lt;LastVisitedFilter /&gt;
+            &lt;HasOrderedFilter /&gt;
+            &lt;HasNewsletterFilter /&gt;
+            &lt;SegmentFilter /&gt;
+        &lt;/CardContent&gt;
+    &lt;/Card&gt;
+);
+
+const CustomerList = props =&gt; (
+    &lt;List aside={&lt;FilterSidebar /&gt;}&gt;
+        // ...
+    &lt;/List&gt;
+)</code></pre>
+<p><strong>Tip</strong>: The <code>&lt;FilterList&gt;</code> Sidebar is not a good UI for small screens. You can choose to hide it on small screens (as in the previous example). A good tradeoff is to use <code>&lt;FilterList&gt;</code> on large screens, and the <code>&lt;Filter&gt;</code> Button/Form combo on Mobile.</p>
+<h4 id="live-search">Live Search</h4>
+<figure>
+<img src="./img/filter-live-search.gif" alt="Filter Live Search" /><figcaption>Filter Live Search</figcaption>
+</figure>
+<p>The filter sidebar is not a form. Therefore, if your users need to enter complex filters, you’ll have to recreate a filter form using react-final-form (see the <a href="#building-a-custom-filter">Building a custom filter</a> section below for an example). However, if you only need one text input with a filter-as-you-type behavior, you’ll find the <code>&lt;FilterLiveSearch&gt;</code> component convenient.</p>
+<p>It outputs a form containing a single <code>&lt;SearchInput&gt;</code>, which modifies the page filter on change. That’s usually what users expect for a full-text filter. <code>&lt;FilterLiveSearch&gt;</code> only needs a <code>source</code> field.</p>
+<p>So for instance, to add a search filter on the customer full name, add the following line to the Sidebar:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb33-1" title="1"><span class="va">+import { FilterLiveSearch } from &#39;react-admin&#39;;</span></a>
+<a class="sourceLine" id="cb33-2" title="2"></a>
+<a class="sourceLine" id="cb33-3" title="3">const FilterSidebar = () =&gt; (</a>
+<a class="sourceLine" id="cb33-4" title="4">    &lt;Card&gt;</a>
+<a class="sourceLine" id="cb33-5" title="5">        &lt;CardContent&gt;</a>
+<a class="sourceLine" id="cb33-6" title="6"><span class="va">+           &lt;FilterLiveSearch source=&quot;full_name&quot; /&gt;</span></a>
+<a class="sourceLine" id="cb33-7" title="7">            &lt;LastVisitedFilter /&gt;</a>
+<a class="sourceLine" id="cb33-8" title="8">            &lt;HasOrderedFilter /&gt;</a>
+<a class="sourceLine" id="cb33-9" title="9">            &lt;HasNewsletterFilter /&gt;</a>
+<a class="sourceLine" id="cb33-10" title="10">            &lt;SegmentFilter /&gt;</a>
+<a class="sourceLine" id="cb33-11" title="11">        &lt;/CardContent&gt;</a>
+<a class="sourceLine" id="cb33-12" title="12">    &lt;/Card&gt;</a>
+<a class="sourceLine" id="cb33-13" title="13">);</a></code></pre></div>
+<h3 id="saved-queries-let-users-save-filter-and-sort">Saved Queries: Let Users Save Filter And Sort</h3>
+<p><a href="https://marmelab.com/ra-enterprise/modules/assets/ra-preferences-SavedQueriesList.gif"><img src="https://marmelab.com/ra-enterprise/modules/assets/ra-preferences-SavedQueriesList.gif" alt="Saved Queries in FilterList" /></a></p>
+<p>Saved Queries are an <a href="https://marmelab.com/ra-enterprise">Enterprise Edition</a><img class="icon" src="./img/premium.svg" /> feature letting users save a combination of filters and sort parameters into a new, personal filter. Saved queries persist between sessions, so users can find their custom queries even after closing and reopening the admin. Saved queries are available both for the <code>&lt;Filter&gt;</code> Button/Form combo and for the <code>&lt;FilterList&gt;</code> Sidebar:</p>
+<ul>
+<li><code>&lt;FilterWithSave&gt;</code> is a drop-in replacement for react-admin’s <code>&lt;Filter&gt;</code> component</li>
+</ul>
+<div class="sourceCode" id="cb34"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb34-1" title="1">import {</a>
+<a class="sourceLine" id="cb34-2" title="2"><span class="st">-   Filter,</span></a>
+<a class="sourceLine" id="cb34-3" title="3">    SelectInput,</a>
+<a class="sourceLine" id="cb34-4" title="4">    DateInput,</a>
+<a class="sourceLine" id="cb34-5" title="5">    List,</a>
+<a class="sourceLine" id="cb34-6" title="6">    Datagrid,</a>
+<a class="sourceLine" id="cb34-7" title="7">    TextField,</a>
+<a class="sourceLine" id="cb34-8" title="8">    NumberField,</a>
+<a class="sourceLine" id="cb34-9" title="9">    DateField</a>
+<a class="sourceLine" id="cb34-10" title="10">} from &#39;react-admin&#39;;</a>
+<a class="sourceLine" id="cb34-11" title="11"><span class="va">+import { FilterWithSave } from &#39;@react-admin/ra-preferences&#39;;</span></a>
+<a class="sourceLine" id="cb34-12" title="12"></a>
+<a class="sourceLine" id="cb34-13" title="13">const SongFilter: FC = props =&gt; (</a>
+<a class="sourceLine" id="cb34-14" title="14"><span class="st">-   &lt;Filter {...props}&gt;</span></a>
+<a class="sourceLine" id="cb34-15" title="15"><span class="va">+   &lt;FilterWithSave {...props}&gt;</span></a>
+<a class="sourceLine" id="cb34-16" title="16">        &lt;SelectInput</a>
+<a class="sourceLine" id="cb34-17" title="17">            choices={[</a>
+<a class="sourceLine" id="cb34-18" title="18">                { id: &#39;Apple&#39;, name: &#39;Apple&#39; },</a>
+<a class="sourceLine" id="cb34-19" title="19">                { id: &#39;Atlantic&#39;, name: &#39;Atlantic&#39; },</a>
+<a class="sourceLine" id="cb34-20" title="20">                { id: &#39;Capitol&#39;, name: &#39;Capitol&#39; },</a>
+<a class="sourceLine" id="cb34-21" title="21">                { id: &#39;Chess&#39;, name: &#39;Chess&#39; },</a>
+<a class="sourceLine" id="cb34-22" title="22">                { id: &#39;Columbia&#39;, name: &#39;Columbia&#39; },</a>
+<a class="sourceLine" id="cb34-23" title="23">                { id: &#39;DGC&#39;, name: &#39;DGC&#39; },</a>
+<a class="sourceLine" id="cb34-24" title="24">                { id: &#39;London&#39;, name: &#39;London&#39; },</a>
+<a class="sourceLine" id="cb34-25" title="25">                { id: &#39;Tamla&#39;, name: &#39;Tamla&#39; },</a>
+<a class="sourceLine" id="cb34-26" title="26">            ]}</a>
+<a class="sourceLine" id="cb34-27" title="27">            source=&quot;recordCompany&quot;</a>
+<a class="sourceLine" id="cb34-28" title="28">        /&gt;</a>
+<a class="sourceLine" id="cb34-29" title="29">        &lt;DateInput source=&quot;released_gte&quot; label=&quot;Released after&quot; /&gt;</a>
+<a class="sourceLine" id="cb34-30" title="30">        &lt;DateInput source=&quot;released_lte&quot; label=&quot;Released before&quot; /&gt;</a>
+<a class="sourceLine" id="cb34-31" title="31"><span class="st">-   &lt;/Filter&gt;</span></a>
+<a class="sourceLine" id="cb34-32" title="32"><span class="va">+   &lt;/FilterWithSave&gt;</span></a>
+<a class="sourceLine" id="cb34-33" title="33">);</a>
+<a class="sourceLine" id="cb34-34" title="34"></a>
+<a class="sourceLine" id="cb34-35" title="35">const SongList: FC&lt;Props&gt; = props =&gt; (</a>
+<a class="sourceLine" id="cb34-36" title="36">    &lt;List {...props} filters={&lt;SongFilter /&gt;}&gt;</a>
+<a class="sourceLine" id="cb34-37" title="37">        &lt;Datagrid rowClick=&quot;edit&quot;&gt;</a>
+<a class="sourceLine" id="cb34-38" title="38">            &lt;TextField source=&quot;title&quot; /&gt;</a>
+<a class="sourceLine" id="cb34-39" title="39">            &lt;TextField source=&quot;artist&quot; /&gt;</a>
+<a class="sourceLine" id="cb34-40" title="40">            &lt;TextField source=&quot;writer&quot; /&gt;</a>
+<a class="sourceLine" id="cb34-41" title="41">            &lt;TextField source=&quot;producer&quot; /&gt;</a>
+<a class="sourceLine" id="cb34-42" title="42">            &lt;TextField source=&quot;recordCompany&quot; /&gt;</a>
+<a class="sourceLine" id="cb34-43" title="43">            &lt;NumberField source=&quot;rank&quot; /&gt;</a>
+<a class="sourceLine" id="cb34-44" title="44">            &lt;DateField source=&quot;released&quot; /&gt;</a>
+<a class="sourceLine" id="cb34-45" title="45">        &lt;/Datagrid&gt;</a>
+<a class="sourceLine" id="cb34-46" title="46">    &lt;/List&gt;</a>
+<a class="sourceLine" id="cb34-47" title="47">);</a></code></pre></div>
+<ul>
+<li><code>&lt;SavedFilterList&gt;</code> is a complement to <code>&lt;FilterList&gt;</code> sections for the filter sidebar</li>
+</ul>
+<div class="sourceCode" id="cb35"><pre class="sourceCode diff"><code class="sourceCode diff"><a class="sourceLine" id="cb35-1" title="1">import { FilterList, FilterListItem, List, Datagrid } from &#39;react-admin&#39;;</a>
+<a class="sourceLine" id="cb35-2" title="2">import { Card, CardContent } from &#39;@material-ui/core&#39;;</a>
+<a class="sourceLine" id="cb35-3" title="3"></a>
+<a class="sourceLine" id="cb35-4" title="4"><span class="va">+import { SavedQueriesList } from &#39;@react-admin/ra-preferences&#39;;</span></a>
+<a class="sourceLine" id="cb35-5" title="5"></a>
+<a class="sourceLine" id="cb35-6" title="6">const SongFilterSidebar: FC = () =&gt; (</a>
+<a class="sourceLine" id="cb35-7" title="7">    &lt;Card&gt;</a>
+<a class="sourceLine" id="cb35-8" title="8">        &lt;CardContent&gt;</a>
+<a class="sourceLine" id="cb35-9" title="9"><span class="va">+           &lt;SavedQueriesList /&gt;</span></a>
+<a class="sourceLine" id="cb35-10" title="10">            &lt;FilterList label=&quot;Record Company&quot; icon={&lt;BusinessIcon /&gt;}&gt;</a>
+<a class="sourceLine" id="cb35-11" title="11">                ...</a>
+<a class="sourceLine" id="cb35-12" title="12">            &lt;/FilterList&gt;</a>
+<a class="sourceLine" id="cb35-13" title="13">            &lt;FilterList label=&quot;Released&quot; icon={&lt;DateRangeeIcon /&gt;}&gt;</a>
+<a class="sourceLine" id="cb35-14" title="14">               ...</a>
+<a class="sourceLine" id="cb35-15" title="15">            &lt;/FilterList&gt;</a>
+<a class="sourceLine" id="cb35-16" title="16">        &lt;/CardContent&gt;</a>
+<a class="sourceLine" id="cb35-17" title="17">    &lt;/Card&gt;</a>
+<a class="sourceLine" id="cb35-18" title="18">);</a>
+<a class="sourceLine" id="cb35-19" title="19"></a>
+<a class="sourceLine" id="cb35-20" title="20">const SongList: FC&lt;Props&gt; = props =&gt; (</a>
+<a class="sourceLine" id="cb35-21" title="21">    &lt;List {...props} aside={&lt;SongFilterSidebar /&gt;}&gt;</a>
+<a class="sourceLine" id="cb35-22" title="22">        &lt;Datagrid&gt;</a>
+<a class="sourceLine" id="cb35-23" title="23">            ...</a>
+<a class="sourceLine" id="cb35-24" title="24">        &lt;/Datagrid&gt;</a>
+<a class="sourceLine" id="cb35-25" title="25">    &lt;/List&gt;</a>
+<a class="sourceLine" id="cb35-26" title="26">);</a></code></pre></div>
+<p>For mode details about Saved Queries, check the <a href="https://marmelab.com/ra-enterprise/modules/ra-preferences#savedquerieslist-and-filterwithsave-store-user-queries-in-preferences"><code>ra-preferences</code> module</a> in React-Admin Enterprise Edition.</p>
+<h3 id="building-a-custom-filter">Building a Custom Filter</h3>
+<figure>
+<img src="./img/filter_with_submit.gif" alt="Filters with submit button" /><figcaption>Filters with submit button</figcaption>
+</figure>
+<p>If neither the <code>&lt;Filter&gt;</code> button/form combo or the <code>&lt;FilterList&gt;</code> sidebar match your need, you can always build your own. React-admin provides shortcuts to facilitate the development of custom filters.</p>
+<p>For instance, by default, the filter button/form combo doesn’t provide a submit button, and submits automatically after the user has finished interacting with the form. This provides a smooth user experience, but for some APIs, it can cause too many calls.</p>
+<p>In that case, the solution is to process the filter when users click on a submit button, rather than when they type values in form inputs. React-admin doesn’t provide any component for that, but it’s a good opportunity to illustrate the internals of the filter functionality. We’ll actually provide an alternative implementation to the <code>&lt;Filter&gt;</code> button/form combo.</p>
+<h4 id="filter-callbacks">Filter Callbacks</h4>
+<p>The new filter element can use the <code>useListContext()</code> hook to interact with the URI query parameter more easily. The hook returns the following constants:</p>
+<ul>
+<li><code>filterValues</code>: Value of the filters based on the URI, e.g. <code>{"commentable":true,"q":"lorem "}</code></li>
+<li><code>setFilters()</code>: Callback to set the filter values, e.g. <code>setFilters({"commentable":true})</code></li>
+<li><code>displayedFilters</code>: Names of the filters displayed in the form, e.g. <code>['commentable','title']</code></li>
+<li><code>showFilter()</code>: Callback to display an additional filter in the form, e.g. <code>showFilter('views')</code></li>
+<li><code>hideFilter()</code>: Callback to hide a filter in the form, e.g. <code>hideFilter('title')</code></li>
+</ul>
+<p>Let’s use this knowledge to write a custom <code>&lt;Filter&gt;</code> component that filters on submit.</p>
+<h4 id="double-rendering">Double Rendering</h4>
+<p>As explained earlier, <code>&lt;List&gt;</code> clones the element passed as <code>filters</code> prop twice - once to display the filter <em>button</em>, and once to display the filter <em>form</em>. So first, let’s create a <code>&lt;Filter&gt;</code> component rendering either a button or a form depending on the <code>context</code>:</p>
+<pre class="jsx"><code>const PostFilter = props =&gt; {
+  return props.context === &quot;button&quot; ? (
+    &lt;PostFilterButton {...props} /&gt;
+  ) : (
+    &lt;PostFilterForm {...props} /&gt;
+  );
+};</code></pre>
+<h4 id="custom-filter-button">Custom Filter Button</h4>
+<p>The <code>&lt;PostListFilterButton&gt;</code> simply shows the filter form on click. We’ll take advantage of the <code>showFilter</code> function:</p>
+<pre class="jsx"><code>import { useListContext } from &#39;react-admin&#39;;
+import { Button } from &quot;@material-ui/core&quot;;
+import ContentFilter from &quot;@material-ui/icons/FilterList&quot;;
+
+const PostFilterButton = () =&gt; {
+    const { showFilter } = useListContext();
+    return (
+        &lt;Button
+            size=&quot;small&quot;
+            color=&quot;primary&quot;
+            onClick={() =&gt; showFilter(&quot;main&quot;)}
+            startIcon={&lt;ContentFilter /&gt;}
+        &gt;
+            Filter
+        &lt;/Button&gt;
+    );
+};</code></pre>
+<p>Normally, <code>showFilter()</code> adds one input to the <code>displayedFilters</code> list. As the filter form will be entirely hidden or shown, we use <code>showFilter()</code> with a virtual “main” input, which represents the entire form.</p>
+<h4 id="custom-form-component">Custom Form Component</h4>
+<p>Next is the form component, based on <code>react-final-form</code>. The form inputs appear directly in the form, and the form submission triggers the <code>setFilters()</code> callback passed as parameter:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { Form } from &#39;react-final-form&#39;;
+import { Box, Button, InputAdornment } from &#39;@material-ui/core&#39;;
+import SearchIcon from &#39;@material-ui/icons/Search&#39;;
+import { TextInput, NullableBooleanInput, useListContext } from &#39;react-admin&#39;;
+
+const PostFilterForm = ({ open }) =&gt; {
+    const {
+        displayedFilters,
+        filterValues,
+        setFilters,
+        hideFilter,
+    } = useListContext();
+
+    if (!displayedFilters.main) return null;
+
+    const onSubmit = values =&gt; {
+        if (Object.keys(values).length &gt; 0) {
+            setFilters(values);
+        } else {
+            hideFilter(&quot;main&quot;);
+        }
+    };
+
+    const resetFilter = () =&gt; {
+        setFilters({}, []);
+    };
+
+    return (
+        &lt;div&gt;
+        &lt;Form onSubmit={onSubmit} initialValues={filterValues}&gt;
+            {({ handleSubmit }) =&gt; (
+            &lt;form onSubmit={handleSubmit}&gt;
+                &lt;Box mt={8} /&gt;
+                &lt;Box display=&quot;flex&quot; alignItems=&quot;flex-end&quot; mb={1}&gt;
+                &lt;Box component=&quot;span&quot; mr={2}&gt;
+                    {/* Full-text search filter. We don&#39;t use &lt;SearchFilter&gt; to force a large form input */}
+                    &lt;TextInput
+                    resettable
+                    helperText={false}
+                    source=&quot;q&quot;
+                    label=&quot;Search&quot;
+                    InputProps={{
+                        endAdornment: (
+                        &lt;InputAdornment&gt;
+                            &lt;SearchIcon color=&quot;disabled&quot; /&gt;
+                        &lt;/InputAdornment&gt;
+                        )
+                    }}
+                    /&gt;
+                &lt;/Box&gt;
+                &lt;Box component=&quot;span&quot; mr={2}&gt;
+                    {/* Commentable filter */}
+                    &lt;NullableBooleanInput helperText={false} source=&quot;commentable&quot; /&gt;
+                &lt;/Box&gt;
+                &lt;Box component=&quot;span&quot; mr={2} mb={1.5}&gt;
+                    &lt;Button variant=&quot;outlined&quot; color=&quot;primary&quot; type=&quot;submit&quot;&gt;
+                    Filter
+                    &lt;/Button&gt;
+                &lt;/Box&gt;
+                &lt;Box component=&quot;span&quot; mb={1.5}&gt;
+                    &lt;Button variant=&quot;outlined&quot; onClick={resetFilter}&gt;
+                    Close
+                    &lt;/Button&gt;
+                &lt;/Box&gt;
+                &lt;/Box&gt;
+            &lt;/form&gt;
+            )}
+        &lt;/Form&gt;
+        &lt;/div&gt;
+    );
+};</code></pre>
+<p>{% endraw %}</p>
+<h4 id="using-the-custom-form">Using The Custom Form</h4>
+<p>To finish, we pass the <code>&lt;PostFilter&gt;</code> component to the <code>&lt;List&gt;</code> component using the <code>filters</code> prop:</p>
+<pre class="jsx"><code>export const PostList = (props) =&gt; (
+    &lt;List {...props} filters={&lt;PostFilter /&gt;}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<p>You can use a similar approach to customize the list filter completely, e.g. to display the filters in a sidebar, or as a line in the datagrid, etc.</p>
+<h3 id="global-search">Global Search</h3>
+<p>Although list filters allow to make precise queries using per-field criteria, users often prefer simpler interfaces like full-text search. After all, that’s what they use every day on search engines, email clients, and in their file explorer.</p>
+<p>If you want to display a full-text search allowing to look for any record in the admin using a single form input, check out <a href="https://marmelab.com/ra-enterprise/modules/ra-search">ra-search</a>, an <a href="https://marmelab.com/ra-enterprise">Enterprise Edition</a><img class="icon" src="./img/premium.svg" /> module.</p>
+<figure>
+<img src="https://marmelab.com/ra-enterprise/modules/assets/ra-search-overview.gif" alt="ra-search basic" /><figcaption>ra-search basic</figcaption>
+</figure>
+<p><code>ra-search</code> can plug to any existing search engine (ElasticSearch, Lucene, or custom search engine), and lets you customize the search results to provide quick navigation to related items, turning the search engine into an “Omnibox”:</p>
+<figure>
+<img src="https://marmelab.com/ra-enterprise/modules/assets/ra-search-demo.gif" alt="ra-search demo" /><figcaption>ra-search demo</figcaption>
+</figure>
+<p>For mode details about the global search, check the <a href="https://marmelab.com/ra-enterprise/modules/ra-search"><code>ra-search</code> module</a> in React-Admin Enterprise Edition.</p>
+<h2 id="sorting-the-list">Sorting The List</h2>
+<table>
+<tbody>
+<tr style="border:none">
+<td style="width:55%;border:none;">
+<a title="<Datagrid> column sort" href="./img/sort-column-header.gif"><img src="./img/sort-column-header.gif" /></a>
+</td>
+<td style="width:45%;border:none;">
+<a title="<SortButton> Component" href="./img/sort-button.gif"><img src="./img/sort-button.gif" /></a>
+</td>
+</tr>
+</tbody>
+</table>
+<p>React-admin does its best to offer a powerful sort functionality, and to get out of the way when you want to go further.</p>
+<p>The next sections explain how to use the sort functionality. And first, a few explanations about the inner workings of sorting in react-admin:</p>
+<ul>
+<li><a href="#sort-query-parameter">Sort Query Parameter</a></li>
+<li><a href="#linking-to-a-pre-sorted-list">Linking To A Pre-Sorted List</a></li>
+</ul>
+<p>React-admin proposes several UI components to let users to see and modify sort parameters, and gives you the tools to build custom ones.</p>
+<ul>
+<li>The <code>&lt;Datagrid&gt;</code> Column Headers
+<ul>
+<li><a href="#using-datagrid-headers-to-modify-list-sort">Usage</a></li>
+<li><a href="#disabling-sorting">Disabling Sorting</a></li>
+<li><a href="#specifying-a-sort-field">Specifying A Sort Field</a></li>
+<li><a href="#specifying-the-sort-order">Specifying The Sort Order</a></li>
+</ul></li>
+<li>The <code>&lt;SortButton&gt;</code> Component
+<ul>
+<li><a href="#the-sortbutton-component">Usage</a></li>
+</ul></li>
+<li><a href="#building-a-custom-sort-control">Building A Custom Sort Control</a></li>
+</ul>
+<h3 id="sort-query-parameter">Sort Query Parameter</h3>
+<p>Just like for the filters, the List view uses the <code>sort</code> and <code>order</code> query parameters to determine the sort field and order passed to <code>dataProvider.getList()</code>.</p>
+<p>Here is a typical List URL:</p>
+<blockquote>
+<p>https://myadmin.dev/#/posts?displayedFilters=%7B%22commentable%22%3Atrue%7D&amp;filter=%7B%22commentable%22%3Atrue%2C%22q%22%3A%22lorem%20%22%7D&amp;order=DESC&amp;page=1&amp;perPage=10&amp;sort=published_at</p>
+</blockquote>
+<p>Once decoded, this URL reveals the intended sort:</p>
+<pre><code>sort=published_at
+order=DESC</code></pre>
+<h3 id="linking-to-a-pre-sorted-list">Linking to a Pre-Sorted List</h3>
+<p>As the sort values are taken from the URL, you can link to a pre-sorted list by setting the <code>sort</code> and <code>order</code> query parameters.</p>
+<p>For instance, if you have a list of posts ordered by publication date, and you want to provide a button to sort the list by number of views descendent:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import * as React from &quot;react&quot;;
+import Button from &#39;@material-ui/core/Button&#39;;
+import { Link } from &#39;react-router-dom&#39;;
+import { stringify } from &#39;query-string&#39;;
+
+const SortByViews = () =&gt; (
+    &lt;Button
+        color=&quot;primary&quot;
+        component={Link}
+        to={{
+            pathname: &#39;/posts&#39;,
+            search: stringify({
+                page: 1,
+                perPage: 25,
+                sort: &#39;nb_views&#39;,
+                order: &#39;DESC&#39;,
+                filter: {},
+            }),
+        }}
+    &gt;
+        Sort by views 
+    &lt;/Button&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p><strong>Tip</strong>: You have to pass <em>all</em> the query string parameters - not just <code>sort</code> and <code>order</code>. That’s a current limitation of react-admin.</p>
+<h3 id="using-datagrid-headers-to-modify-list-sort">Using Datagrid Headers To Modify List Sort</h3>
+<figure>
+<img src="./img/sort-column-header.gif" alt="Sort Column Header" /><figcaption>Sort Column Header</figcaption>
+</figure>
+<p>If you’re using a <code>&lt;Datagrid&gt;</code> inside the List view, then the column headers are buttons allowing users to change the list sort field and order. This feature requires no configuration and works out fo the box. The next sections explain how you can disable or modify the field used for sorting on a particular column.</p>
+<h3 id="disabling-sorting">Disabling Sorting</h3>
+<p>It is possible to disable sorting for a specific <code>&lt;Field&gt;</code> by passing a <code>sortable</code> property set to <code>false</code>:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>// in src/posts.js
+import * as React from &quot;react&quot;;
+import { List, Datagrid, TextField } from &#39;react-admin&#39;;
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid&gt;
+            &lt;TextField source=&quot;id&quot; sortable={false} /&gt;
+            &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;TextField source=&quot;body&quot; /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<h3 id="specifying-a-sort-field">Specifying A Sort Field</h3>
+<p>By default, a column is sorted by the <code>source</code> property. To define another attribute to sort by, set it via the <code>&lt;Field sortBy&gt;</code> property:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>// in src/posts.js
+import * as React from &quot;react&quot;;
+import { List, Datagrid, TextField } from &#39;react-admin&#39;;
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid&gt;
+            &lt;ReferenceField label=&quot;Post&quot; source=&quot;id&quot; reference=&quot;posts&quot; sortBy=&quot;title&quot;&gt;
+                &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;/ReferenceField&gt;
+            &lt;FunctionField
+                label=&quot;Author&quot;
+                sortBy=&quot;last_name&quot;
+                render={record =&gt; `${record.author.first_name} ${record.author.last_name}`}
+            /&gt;
+            &lt;TextField source=&quot;body&quot; /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<h3 id="specifying-the-sort-order">Specifying The Sort Order</h3>
+<p>By default, when the user clicks on a column header, the list becomes sorted in the ascending order. You change this behavior by setting the <code>sortByOrder</code> prop to <code>"DESC"</code> in a <code>&lt;Datagrid&gt;</code> <code>&lt;Field&gt;</code>:</p>
+<pre class="jsx"><code>// in src/posts.js
+import * as React from &#39;react&#39;;
+import { List, Datagrid, TextField } from &#39;react-admin&#39;;
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid&gt;
+            &lt;ReferenceField label=&quot;Post&quot; source=&quot;id&quot; reference=&quot;posts&quot; sortByOrder=&quot;DESC&quot;&gt;
+                &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;/ReferenceField&gt;
+            &lt;FunctionField
+                label=&quot;Author&quot;
+                sortBy=&quot;last_name&quot;
+                sortByOrder=&quot;DESC&quot;
+                render={record =&gt; `${record.author.first_name} ${record.author.last_name}`}
+            /&gt;
+            &lt;TextField source=&quot;body&quot; /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);</code></pre>
+<h3 id="the-sortbutton-component">The <code>&lt;SortButton&gt;</code> Component</h3>
+<figure>
+<img src="./img/sort-button.gif" alt="Sort Button" /><figcaption>Sort Button</figcaption>
+</figure>
+<p>Some List views don’t have a natural UI for sorting - e.g. the <code>&lt;SimpleList&gt;</code>, or a list of images, don’t have column headers like the <code>&lt;Datagrid&gt;</code>. For these cases, react-admin offers the <code>&lt;SortButton&gt;</code>, which displays a dropdown list of fields that the user can choose to sort on.</p>
+<p><code>&lt;SortButton&gt;</code> expects one prop: <code>fields</code>, the list of fields it should allow to sort on. For instance, here is how to offer a button to sort on the <code>reference</code>, <code>sales</code>, and <code>stock</code> fields:</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { TopToolbar, SortButton, CreateButton, ExportButton } from &#39;react-admin&#39;;
+
+const ListActions = () =&gt; (
+    &lt;TopToolbar&gt;
+        &lt;SortButton fields={[&#39;reference&#39;, &#39;sales&#39;, &#39;stock&#39;]} /&gt;
+        &lt;CreateButton basePath=&quot;/products&quot; /&gt;
+        &lt;ExportButton /&gt;
+    &lt;/TopToolbar&gt;
+);</code></pre>
+<h3 id="building-a-custom-sort-control">Building a Custom Sort Control</h3>
+<p>When neither the <code>&lt;Datagrid&gt;</code> or the <code>&lt;SortButton&gt;</code> fit your UI needs, you have to write a custom sort control. As with custom filters, this boils down to grabbing the required data and callbacks from the <code>ListContext</code>. Let’s use the <code>&lt;SortButton&gt;</code> source as an example usage of <code>currentSort</code> and <code>setSort</code>:</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { Button, Menu, MenuItem, Tooltip, IconButton } from &#39;@material-ui/core&#39;;
+import SortIcon from &#39;@material-ui/icons/Sort&#39;;
+import ArrowDropDownIcon from &#39;@material-ui/icons/ArrowDropDown&#39;;
+import { useListSortContext, useTranslate } from &#39;react-admin&#39;;
+
+const SortButton = ({ fields }) =&gt; {
+    // currentSort is an object { field, order } containing the current sort
+    // setSort is a callback (field, order) =&gt; void allowing to change the sort field and order
+    const { currentSort, setSort } = useListSortContext();
+    // rely on the translations to display labels like &#39;Sort by sales descending&#39;
+    const translate = useTranslate();
+    // open/closed state for dropdown
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    // mouse handlers
+    const handleClick = (event) =&gt; {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () =&gt; {
+        setAnchorEl(null);
+    };
+    const handleChangeSort = (event) =&gt; {
+        const field = event.currentTarget.dataset.sort;
+        setSort(
+            field,
+            field === currentSort.field
+                ? inverseOrder(currentSort.order)
+                : &#39;ASC&#39;
+        );
+        setAnchorEl(null);
+    };
+
+    // English stranslation is &#39;Sort by %{field} %{order}&#39;
+    const buttonLabel = translate(&#39;ra.sort.sort_by&#39;, {
+        field: translate(`resources.products.fields.${currentSort.field}`),
+        order: translate(`ra.sort.${currentSort.order}`),
+    });
+
+    return (&lt;&gt;
+        &lt;Button
+            aria-controls=&quot;simple-menu&quot;
+            aria-haspopup=&quot;true&quot;
+            color=&quot;primary&quot;
+            onClick={handleClick}
+            startIcon={&lt;SortIcon /&gt;}
+            endIcon={&lt;ArrowDropDownIcon /&gt;}
+            size=&quot;small&quot;
+        &gt;
+            {buttonLabel}
+        &lt;/Button&gt;
+        &lt;Menu
+            id=&quot;simple-menu&quot;
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+        &gt;
+            {fields.map(field =&gt; (
+                &lt;MenuItem
+                    onClick={handleChangeSort}
+                    // store the sort field in the element dataset to avoid creating a new click handler for each item (better for performance)
+                    data-sort={field}
+                    key={field}
+                &gt;
+                    {translate(`resources.products.fields.${field}`)}{&#39; &#39;}
+                    {translate(
+                        `ra.sort.${
+                            currentSort.field === field
+                                ? inverseOrder(currentSort.order)
+                                : &#39;ASC&#39;
+                        }`
+                    )}
+                &lt;/MenuItem&gt;
+            ))}
+        &lt;/Menu&gt;
+    &lt;/&gt;);
+};
+
+const inverseOrder = sort =&gt; (sort === &#39;ASC&#39; ? &#39;DESC&#39; : &#39;ASC&#39;);
+
+export default SortButton;</code></pre>
+<h2 id="paginating-the-list">Paginating the List</h2>
+<h3 id="the-pagination-component">The <code>&lt;Pagination&gt;</code> Component</h3>
+<figure>
+<img src="./img/pagination-buttons.gif" alt="Pagination buttons" /><figcaption>Pagination buttons</figcaption>
+</figure>
+<p>By default, the <code>&lt;List&gt;</code> uses the <code>&lt;Pagination&gt;</code> component for pagination. This component displays buttons to navigate between pages, including buttons for the surrounding pages.</p>
+<p>By decorating this component, you can create your own variant with a different set of perPage options.</p>
+<pre class="jsx"><code>// in src/MyPagination.js
+import { Pagination } from &#39;react-admin&#39;;
+
+const PostPagination = props =&gt; &lt;Pagination rowsPerPageOptions={[10, 25, 50, 100]} {...props} /&gt;;</code></pre>
+<p>Then, to use this component instead of the default <code>&lt;Pagination&gt;</code>, use the <code>&lt;List pagination&gt;</code> prop:</p>
+<pre class="jsx"><code>import { List } from &#39;react-admin&#39;;
+import PostPagination from &#39;./PostPagination&#39;;
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props} pagination={&lt;PostPagination /&gt;}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<p><strong>Tip</strong>: Pass an empty array to <code>rowsPerPageOptions</code> to disable the rows per page selection.</p>
+<h3 id="building-a-custom-pagination-control">Building a Custom Pagination Control</h3>
+<p>The <code>&lt;Pagination&gt;</code> component gets the following constants from <a href="#uselistcontext">the <code>useListContext</code> hook</a>:</p>
+<ul>
+<li><code>page</code>: The current page number (integer). First page is <code>1</code>.</li>
+<li><code>perPage</code>: The number of records per page.</li>
+<li><code>setPage</code>: <code>Function(page: number) =&gt; void</code>. A function that set the current page number.</li>
+<li><code>total</code>: The total number of records.</li>
+<li><code>actions</code>: A component that displays the pagination buttons (default: <code>&lt;PaginationActions&gt;</code>)</li>
+<li><code>limit</code>: An element that is displayed if there is no data to show (default: <code>&lt;PaginationLimit&gt;</code>)</li>
+</ul>
+<p>If you want to replace the default pagination by a “&lt;previous - next&gt;” pagination, create a pagination component like the following:</p>
+<pre class="jsx"><code>import { useListContext } from &#39;react-admin&#39;;
+import { Button, Toolbar } from &#39;@material-ui/core&#39;;
+import ChevronLeft from &#39;@material-ui/icons/ChevronLeft&#39;;
+import ChevronRight from &#39;@material-ui/icons/ChevronRight&#39;;
+
+const PostPagination = () =&gt; {
+    const { page, perPage, total, setPage } = useListContext();
+    const nbPages = Math.ceil(total / perPage) || 1;
+    return (
+        nbPages &gt; 1 &amp;&amp;
+            &lt;Toolbar&gt;
+                {page &gt; 1 &amp;&amp;
+                    &lt;Button color=&quot;primary&quot; key=&quot;prev&quot; onClick={() =&gt; setPage(page - 1)}&gt;
+                        &lt;ChevronLeft /&gt;
+                        Prev
+                    &lt;/Button&gt;
+                }
+                {page !== nbPages &amp;&amp;
+                    &lt;Button color=&quot;primary&quot; key=&quot;next&quot; onClick={() =&gt; setPage(page + 1)}&gt;
+                        Next
+                        &lt;ChevronRight /&gt;
+                    &lt;/Button&gt;
+                }
+            &lt;/Toolbar&gt;
+    );
+}
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props} pagination={&lt;PostPagination /&gt;}&gt;
+        ...
+    &lt;/List&gt;
+);</code></pre>
+<p>But if you just want to change the color property of the pagination button, you can extend the existing components:</p>
+<pre class="jsx"><code>import {
+    List,
+    Pagination as RaPagination,
+    PaginationActions as RaPaginationActions,
+} from &#39;react-admin&#39;;
+
+export const PaginationActions = props =&gt; &lt;RaPaginationActions {...props} color=&quot;secondary&quot; /&gt;;
+
+export const Pagination = props =&gt; &lt;RaPagination {...props} ActionsComponent={PaginationActions} /&gt;;
+
+export const UserList = props =&gt; (
+    &lt;List {...props} pagination={&lt;Pagination /&gt;} &gt;
+        //...
+    &lt;/List&gt;
+);</code></pre>
+<h2 id="the-listguesser-component">The <code>&lt;ListGuesser&gt;</code> Component</h2>
+<p>Instead of a custom <code>List</code>, you can use the <code>ListGuesser</code> to determine which fields to use based on the data returned by the API.</p>
+<pre class="jsx"><code>// in src/App.js
+import * as React from &quot;react&quot;;
+import { Admin, Resource, ListGuesser } from &#39;react-admin&#39;;
+import jsonServerProvider from &#39;ra-data-json-server&#39;;
+
+const App = () =&gt; (
+    &lt;Admin dataProvider={jsonServerProvider(&#39;https://jsonplaceholder.typicode.com&#39;)}&gt;
+        &lt;Resource name=&quot;posts&quot; list={ListGuesser} /&gt;
+    &lt;/Admin&gt;
+);</code></pre>
+<p>Just like <code>&lt;List&gt;</code>, <code>&lt;ListGuesser&gt;</code> fetches the data. It then analyzes the response, and guesses the fields it should use to display a basic <code>&lt;Datagrid&gt;</code> with the data. It also dumps the components it has guessed in the console, so you can copy it into your own code. Use this feature to quickly bootstrap a <code>&lt;List&gt;</code> on top of an existing API, without adding the fields one by one.</p>
+<figure>
+<img src="./img/guessed-list.png" alt="Guessed List" /><figcaption>Guessed List</figcaption>
+</figure>
+<p>React-admin provides guessers for the List view (<code>&lt;ListGuesser&gt;</code>), the Edit view (<a href="./CreateEdit.md#the-editguesser-component"><code>&lt;EditGuesser&gt;</code></a>), and the Show view (<a href="./Show.md#the-showguesser-component"><code>&lt;ShowGuesser&gt;</code></a>).</p>
+<p><strong>Tip</strong>: Do not use the guessers in production. They are slower than manually-defined components, because they have to infer types based on the content. Besides, the guessers are not always perfect.</p>
+<h2 id="the-listbase-component">The <code>&lt;ListBase&gt;</code> Component</h2>
+<p>In addition to fetching the list data, the <code>&lt;List&gt;</code> component renders the page title, the actions, the content and aside areas. You may want to display a record list in an entirely different layout, i.e. use only the data fetching part of <code>&lt;List&gt;</code> and not the view layout. In that case, you should use <code>&lt;ListBase&gt;</code>.</p>
+<p><code>&lt;ListBase&gt;</code> fetches the data and puts it in a <code>ListContext</code>, then renders its child.</p>
+<p>You can use <code>ListBase</code> to create your own custom List component, like this one:</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { cloneElement } from &#39;react&#39;;
+import { 
+    Datagrid,
+    ListBase,
+    ListToolbar,
+    BulkActionsToolbar,
+    Pagination,
+    useListContext,
+} from &#39;react-admin&#39;;
+import Card from &#39;@material-ui/core/Card&#39;;
+
+const PostList = props =&gt; (
+    &lt;MyList {...props}&gt;
+        &lt;Datagrid&gt;
+            ...
+        &lt;/Datagrid&gt;
+    &lt;/MyList&gt;
+);
+
+const MyList = ({children, ...props}) =&gt; (
+    &lt;ListBase {...props}&gt;
+        &lt;h1&gt;{props.title}&lt;/h1&gt;
+        &lt;ListToolbar
+            filters={props.filters}
+            actions={props.actions}
+        /&gt;
+        &lt;Card&gt;
+            &lt;BulkActionsToolbar&gt;
+                {props.bulkActionButtons}
+            &lt;/BulkActionsToolbar&gt;
+            {cloneElement(children, {
+                hasBulkActions: props.bulkActionButtons !== false,
+            })}
+            &lt;Pagination /&gt;
+        &lt;/Card&gt;
+    &lt;/ListBase&gt;
+);</code></pre>
+<p>This custom List component has no aside component - it’s up to you to add it in pure React.</p>
+<p><strong>Tip</strong>: You don’t have to clone the child element. If you can’t reuse an existing list view component like <code>&lt;Datagrid&gt;</code> or <code>&lt;SimpleList&gt;</code>, feel free to write the form code inside your custom <code>MyList</code> component.</p>
+<p>The <code>&lt;ListBase&gt;</code> component accepts a subset of the props accepted by <code>&lt;List&gt;</code> - only the props that change data fetching, and not the props related to the user interface:</p>
+<ul>
+<li><a href="#exporter"><code>exporter</code></a></li>
+<li><a href="#filter-permanent-filter"><code>filter</code></a> (the permanent filter used in the REST request)</li>
+<li><a href="#filterdefaultvalues"><code>filterDefaultValues</code></a> (the default values for <code>alwaysOn</code> filters)</li>
+<li><a href="#perpage-pagination-size"><code>perPage</code></a></li>
+<li><a href="#sort-default-sort-field--order"><code>sort</code></a></li>
+<li><a href="#pagination-pagination-component"><code>pagination</code></a></li>
+</ul>
+<h2 id="uselistcontext"><code>useListContext</code></h2>
+<p>The List components (<code>&lt;List&gt;</code>, <code>&lt;ListGuesser&gt;</code>, <code>&lt;ListBase&gt;</code>) take care of fetching the data, and put that data in a context called <code>ListContext</code> so that it’s available for their descendants. This context also stores filters, pagination, sort state, and provides callbacks to update them.</p>
+<p>Any component can grab information from the <code>ListContext</code> using the <code>useListContext</code> hook. As a matter of fact, react-admin’s <code>&lt;Datagrid&gt;</code>, <code>&lt;Filter&gt;</code>, and <code>&lt;Pagination&gt;</code> components all use the <code>useListContext</code> hook. Here is what it returns:</p>
+<pre class="jsx"><code>const {
+    // fetched data
+    data, // an id-based dictionary of the list data, e.g. { 123: { id: 123, title: &#39;hello world&#39; }, 456: { ... } }
+    ids, // an array listing the ids of the records in the list, e.g [123, 456, ...]
+    total, // the total number of results for the current filters, excluding pagination. Useful to build the pagination controls. e.g. 23 
+    loaded, // boolean that is false until the data is available
+    loading, // boolean that is true on mount, and false once the data was fetched
+    // pagination
+    page, // the current page. Starts at 1
+    setPage, // a callback to change the current page, e.g. setPage(3)
+    perPage, // the number of results per page. Defaults to 25
+    setPerPage, // a callback to change the number of results per page, e.g. setPerPage(25)
+    // sorting
+    currentSort, // a sort object { field, order }, e.g. { field: &#39;date&#39;, order: &#39;DESC&#39; } 
+    setSort, // a callback to change the sort, e.g. setSort(&#39;name&#39;, &#39;ASC&#39;)
+    // filtering
+    filterValues, // a dictionary of filter values, e.g. { title: &#39;lorem&#39;, nationality: &#39;fr&#39; }
+    setFilters, // a callback to update the filters, e.g. setFilters(filters, displayedFilters)
+    displayedFilters, // a dictionary of the displayed filters, e.g. { title: true, nationality: true }
+    showFilter, // a callback to show one of the filters, e.g. showFilter(&#39;title&#39;, defaultValue)
+    hideFilter, // a callback to hide one of the filters, e.g. hidefilter(&#39;title&#39;)
+    // row selection
+    selectedIds, // an array listing the ids of the selected rows, e.g. [123, 456]
+    onSelect, // callback to change the list of selected rows, e.g onSelect([456, 789])
+    onToggleItem, // callback to toggle the selection of a given record based on its id, e.g. onToggleItem(456)
+    onUnselectItems, // callback to clear the selection, e.g. onUnselectItems();
+    // misc
+    basePath, // deduced from the location, useful for action buttons
+    defaultTitle, // the translated title based on the resource, e.g. &#39;Posts&#39;
+    resource, // the resource name, deduced from the location. e.g. &#39;posts&#39;
+} = useListContext();</code></pre>
+<p>You can find many usage examples of <code>useListContext</code> in this page, including:</p>
+<ul>
+<li><a href="#actions">Building a Custom Actions Bar</a></li>
+<li><a href="#aside-aside-component">Building an Aside Component</a></li>
+<li><a href="#empty-empty-page-component">Building a Custom Empty Page</a></li>
+<li><a href="#building-a-custom-filter">Building a Custom Filter</a></li>
+<li><a href="#building-a-custom-sort-control">Building a Custom Sort Control</a></li>
+<li><a href="#building-a-custom-pagination-control">Building a Custom Pagination Control</a></li>
+<li><a href="#using-a-custom-iterator">Building a Custom Iterator</a></li>
+</ul>
+<p><strong>Tip</strong>: <a href="./Fields.md#referencemanyfield"><code>&lt;ReferenceManyField&gt;</code></a>, as well as other relationship-related components, also implement a <code>ListContext</code>. That means you can use a <code>&lt;Datagrid&gt;</code> of a <code>&lt;Pagination&gt;</code> inside these components!</p>
+<h2 id="uselistcontroller"><code>useListController</code></h2>
+<p>As explained above, <code>&lt;ListBase&gt;</code> fetches the data and puts it in a <code>ListContext</code>, then renders its child. In fact, the <code>&lt;ListBase&gt;</code> code is super simple:</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { useListController, ListContextProvider } from &#39;react-admin&#39;;
+
+const ListBase = ({ children, ...props }) =&gt; (
+    &lt;ListContextProvider value={useListController(props)}&gt;
+        {children}
+    &lt;/ListContextProvider&gt;
+);
+
+export default ListBase;</code></pre>
+<p>As you can see, the controller part of the List view is handled by a hook called <code>useListController</code>. If you don’t want to use the <code>ListContext</code> in your custom List view, you can call <code>useListController</code> directly to access the list data. It returns the same object as the one documented in <a href="#uselistcontext"><code>useListContext</code></a> above.</p>
+<p><strong>Tip</strong>: If your custom List view doesn’t use a <code>ListContextProvider</code>, you can’t use <code>&lt;Datagrid&gt;</code>, <code>&lt;SimpleList&gt;</code>, <code>&lt;Pagination&gt;</code>, etc. All these components rely on the <code>ListContext</code>.</p>
+<h2 id="the-datagrid-component">The <code>&lt;Datagrid&gt;</code> component</h2>
+<figure>
+<img src="./img/tutorial_post_list_less_columns.png" alt="The &lt;Datagrid&gt; component" /><figcaption>The <code>&lt;Datagrid&gt;</code> component</figcaption>
+</figure>
+<p>The <code>Datagrid</code> component renders a list of records as a table. It is usually used as a descendant of the <a href="#the-list-component"><code>&lt;List&gt;</code></a> and <a href="./Fields.md#referencemanyfield"><code>&lt;ReferenceManyField&gt;</code></a> components. Outside of these components, it must be used inside a <code>ListContext</code>.</p>
+<p>Here are all the props accepted by the component:</p>
+<ul>
+<li><a href="#body-element"><code>body</code></a></li>
+<li><a href="#row-style-function"><code>rowStyle</code></a></li>
+<li><a href="#rowclick"><code>rowClick</code></a></li>
+<li><a href="#expand"><code>expand</code></a></li>
+<li><a href="#isrowselectable"><code>isRowSelectable</code></a></li>
+<li><a href="#performance"><code>optimized</code></a></li>
+</ul>
+<p>Additional props are passed down to <a href="https://material-ui.com/api/table/">the material-ui <code>&lt;Table&gt;</code> element</a>.</p>
+<p><code>&lt;Datagrid&gt;</code> renders as many columns as it receives <code>&lt;Field&gt;</code> children. It uses the field <code>label</code> as column header (or, for fields with no <code>label</code>, the field <code>source</code>).</p>
+<pre class="jsx"><code>// in src/posts.js
+import * as React from &quot;react&quot;;
+import { List, Datagrid, TextField, EditButton } from &#39;react-admin&#39;;
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid&gt;
+            &lt;TextField source=&quot;id&quot; /&gt;
+            &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;TextField source=&quot;body&quot; /&gt;
+            &lt;EditButton /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);</code></pre>
+<p><strong>Tip</strong>: To let users hide or show columns at will, check the <a href="https://marmelab.com/ra-enterprise/modules/ra-preferences#selectcolumnsbutton-store-datagrid-columns-in-preferences"><code>&lt;SelectColumnsButton&gt;</code></a><img class="icon" src="./img/premium.svg" />, an <a href="https://marmelab.com/ra-enterprise">Enterprise Edition</a> component.</p>
+<p>The <code>&lt;Datagrid&gt;</code> is an <strong>iterator</strong> component: it gets an array of ids and a data store from the <code>ListContext</code>, and iterates over the ids to display each record. Another example of iterator component is <a href="#the-singlefieldlist-component"><code>&lt;SingleFieldList&gt;</code></a>.</p>
+<h3 id="body-element">Body element</h3>
+<p>By default, <code>&lt;Datagrid&gt;</code> renders its body using <code>&lt;DatagridBody&gt;</code>, an internal react-admin component. You can pass a custom component as the <code>body</code> prop to override that default. And by the way, <code>&lt;DatagridBody&gt;</code> has a <code>row</code> prop set to <code>&lt;DatagridRow&gt;</code> by default for the same purpose. <code>&lt;DatagridRow&gt;</code> receives the row <code>record</code>, the <code>resource</code>, and a copy of the <code>&lt;Datagrid&gt;</code> children. That means you can create custom <code>&lt;Datagrid&gt;</code> logic without copying several components from the react-admin source.</p>
+<p>For instance, the <code>&lt;Datagrid isRowSelectable&gt;</code> prop allows to hide the selection checkbox for some records. To show a <em>disabled</em> checkbox instead of hiding it, you can override <code>&lt;DatagridRow&gt;</code> and <code>&lt;DatagridBody&gt;</code> as follows:</p>
+<pre class="jsx"><code>// in src/PostList.js
+import * as React from &quot;react&quot;;
+import { Datagrid, DatagridBody, List, TextField } from &#39;react-admin&#39;;
+import TableCell from &#39;@material-ui/core/TableCell&#39;;
+import TableRow from &#39;@material-ui/core/TableRow&#39;;
+import Checkbox from &#39;@material-ui/core/Checkbox&#39;;
+
+const MyDatagridRow = ({ record, resource, id, onToggleItem, children, selected, basePath }) =&gt; (
+    &lt;TableRow key={id}&gt;
+        {/* first column: selection checkbox */}
+        &lt;TableCell padding=&quot;none&quot;&gt;
+            &lt;Checkbox
+                disabled={record.selectable}
+                checked={selected}
+                onClick={() =&gt; onToggleItem(id)}
+            /&gt;
+        &lt;/TableCell&gt;
+        {/* data columns based on children */}
+        {React.Children.map(children, field =&gt; (
+            &lt;TableCell key={`${id}-${field.props.source}`}&gt;
+                {React.cloneElement(field, {
+                    record,
+                    basePath,
+                    resource,
+                })}
+            &lt;/TableCell&gt;
+        ))}
+    &lt;/TableRow&gt;
+);
+
+const MyDatagridBody = props =&gt; &lt;DatagridBody {...props} row={&lt;MyDatagridRow /&gt;} /&gt;;
+const MyDatagrid = props =&gt; &lt;Datagrid {...props} body={&lt;MyDatagridBody /&gt;} /&gt;;
+
+const PostList = props =&gt; (
+    &lt;List {...props}&gt;
+        &lt;MyDatagrid&gt;
+            &lt;TextField source=&quot;title&quot; /&gt;
+            ...
+        &lt;/MyDatagrid&gt;
+    &lt;/List&gt;
+)
+
+export default PostList;</code></pre>
+<h3 id="row-style-function">Row Style Function</h3>
+<p>You can customize the <code>&lt;Datagrid&gt;</code> row style (applied to the <code>&lt;tr&gt;</code> element) based on the record, thanks to the <code>rowStyle</code> prop, which expects a function. React-admin calls this function for each row, passing the current record and index as arguments. The function should return a style object, which react-admin uses as a <code>&lt;tr style&gt;</code> prop.</p>
+<p>For instance, this allows to apply a custom background to the entire row if one value of the record - like its number of views - passes a certain threshold.</p>
+<pre class="jsx"><code>const postRowStyle = (record, index) =&gt; ({
+    backgroundColor: record.nb_views &gt;= 500 ? &#39;#efe&#39; : &#39;white&#39;,
+});
+export const PostList = (props) =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid rowStyle={postRowStyle}&gt;
+            ...
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);</code></pre>
+<h3 id="rowclick"><code>rowClick</code></h3>
+<p>You can catch clicks on rows to redirect to the show or edit view by setting the <code>rowClick</code> prop:</p>
+<pre class="jsx"><code>export const PostList = (props) =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid rowClick=&quot;edit&quot;&gt;
+            ...
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);</code></pre>
+<p><code>rowClick</code> accepts the following values:</p>
+<ul>
+<li>“edit” to redirect to the edition vue</li>
+<li>“show” to redirect to the show vue</li>
+<li>“expand” to open the <code>expand</code> panel</li>
+<li>“toggleSelection” to trigger the <code>onToggleItem</code> function</li>
+<li>a function <code>(id, basePath, record) =&gt; path</code> to redirect to a custom path</li>
+</ul>
+<p><strong>Tip</strong>: If you pass a function, it can return <code>edit</code>, <code>show</code> or a router path. This allows to redirect to either <code>edit</code> or <code>show</code> after checking a condition on the record. For example:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb59-1" title="1"><span class="kw">const</span> postRowClick <span class="op">=</span> (id<span class="op">,</span> basePath<span class="op">,</span> record) <span class="kw">=&gt;</span> <span class="va">record</span>.<span class="at">editable</span> <span class="op">?</span> <span class="st">&#39;edit&#39;</span> : <span class="st">&#39;show&#39;</span><span class="op">;</span></a></code></pre></div>
+<p><strong>Tip</strong>: If you pass a function, it can also return a promise allowing you to check an external API before returning a path. For example:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb60-1" title="1"><span class="im">import</span> fetchUserRights <span class="im">from</span> <span class="st">&#39;./fetchUserRights&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb60-2" title="2"></a>
+<a class="sourceLine" id="cb60-3" title="3"><span class="kw">const</span> postRowClick <span class="op">=</span> (id<span class="op">,</span> basePath<span class="op">,</span> record) <span class="kw">=&gt;</span> <span class="at">fetchUserRights</span>().<span class="at">then</span>((<span class="op">{</span> canEdit <span class="op">}</span>) <span class="kw">=&gt;</span> canEdit <span class="op">?</span> <span class="st">&#39;edit&#39;</span> : <span class="st">&#39;show&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<h3 id="expand"><code>expand</code></h3>
+<figure>
+<img src="./img/datagrid_expand.gif" alt="expandable panel" /><figcaption>expandable panel</figcaption>
+</figure>
+<p>To show more data from the resource without adding too many columns, you can show data in an expandable panel below the row on demand, using the <code>expand</code> prop. For instance, this code shows the <code>body</code> of a post in an expandable panel:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>const PostPanel = ({ id, record, resource }) =&gt; (
+    &lt;div dangerouslySetInnerHTML={{ __html: record.body }} /&gt;
+);
+
+const PostList = props =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid expand={&lt;PostPanel /&gt;}&gt;
+            &lt;TextField source=&quot;id&quot; /&gt;
+            &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;DateField source=&quot;published_at&quot; /&gt;
+            &lt;BooleanField source=&quot;commentable&quot; /&gt;
+            &lt;EditButton /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+)</code></pre>
+<p>The <code>expand</code> prop expects a component as value. When the user chooses to expand the row, the Datagrid renders the component and passes the current <code>record</code>, <code>id</code>, and <code>resource</code>.</p>
+<p><strong>Tip</strong>: Since the <code>expand</code> element receives the same props as a detail view, you can actually use a <code>&lt;Show&gt;</code> view as component for the <code>expand</code> prop:</p>
+<pre class="jsx"><code>const PostShow = props =&gt; (
+    &lt;Show
+        {...props}
+        /* disable the app title change when shown */
+        title=&quot; &quot;
+    &gt;
+        &lt;SimpleShowLayout&gt;
+            &lt;RichTextField source=&quot;body&quot; /&gt;
+        &lt;/SimpleShowLayout&gt;
+    &lt;/Show&gt;
+);
+
+const PostList = props =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid expand={&lt;PostShow /&gt;}&gt;
+            &lt;TextField source=&quot;id&quot; /&gt;
+            &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;DateField source=&quot;published_at&quot; /&gt;
+            &lt;BooleanField source=&quot;commentable&quot; /&gt;
+            &lt;EditButton /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+)</code></pre>
+<p>The result will be the same as in the previous snippet, except that <code>&lt;Show&gt;</code> encloses the content inside a material-ui <code>&lt;Card&gt;</code>.</p>
+<p><strong>Tip</strong>: You can go one step further and use an <code>&lt;Edit&gt;</code> view as <code>expand</code> component:</p>
+<pre class="jsx"><code>const PostEdit = props =&gt; (
+    &lt;Edit
+        {...props}
+        /* disable the app title change when shown */
+        title=&quot; &quot;
+    &gt;
+        &lt;SimpleForm&gt;
+            &lt;RichTextInput source=&quot;body&quot; /&gt;
+        &lt;/SimpleForm&gt;
+    &lt;/Edit&gt;
+);
+
+const PostList = props =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid expand={&lt;PostEdit /&gt;}&gt;
+            &lt;TextField source=&quot;id&quot; /&gt;
+            &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;DateField source=&quot;published_at&quot; /&gt;
+            &lt;BooleanField source=&quot;commentable&quot; /&gt;
+            &lt;EditButton /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+)</code></pre>
+<h3 id="isrowselectable"><code>isRowSelectable</code></h3>
+<p>You can customize which rows will show a selection checkbox using the <code>isRowSelectable</code> prop. It expects a function that will receive the record of each <code>&lt;DatagridRow&gt;</code> and returns a boolean expression. For instance, this code shows a checkbox only for rows with an id greater than 300:</p>
+<pre class="jsx"><code>export const PostList = props =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid isRowSelectable={ record =&gt; record.id &gt; 300 }&gt;
+            ...
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<h3 id="css-api-1">CSS API</h3>
+<p>The <code>Datagrid</code> component accepts the usual <code>className</code> prop but you can override many class names injected to the inner components by React-admin thanks to the <code>classes</code> property (as most Material UI components, see their <a href="https://material-ui.com/customization/components/#overriding-styles-with-classes">documentation about it</a>). This property accepts the following keys:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Rule name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>table</code></td>
+<td>Alternative to using <code>className</code>. Applied to the root element</td>
+</tr>
+<tr class="even">
+<td><code>thead</code></td>
+<td>Applied to the header of the <code>Datagrid</code></td>
+</tr>
+<tr class="odd">
+<td><code>tbody</code></td>
+<td>Applied to the tbody</td>
+</tr>
+<tr class="even">
+<td><code>headerCell</code></td>
+<td>Applied to each header cell</td>
+</tr>
+<tr class="odd">
+<td><code>headerRow</code></td>
+<td>Applied to each header row</td>
+</tr>
+<tr class="even">
+<td><code>row</code></td>
+<td>Applied to each row</td>
+</tr>
+<tr class="odd">
+<td><code>rowEven</code></td>
+<td>Applied to each even row</td>
+</tr>
+<tr class="even">
+<td><code>rowOdd</code></td>
+<td>Applied to each odd row</td>
+</tr>
+<tr class="odd">
+<td><code>rowCell</code></td>
+<td>Applied to each row cell</td>
+</tr>
+<tr class="even">
+<td><code>expandHeader</code></td>
+<td>Applied to each expandable header cell</td>
+</tr>
+<tr class="odd">
+<td><code>clickableRow</code></td>
+<td>Applied to each row if <code>rowClick</code> prop is truthy</td>
+</tr>
+<tr class="even">
+<td><code>expandIconCell</code></td>
+<td>Applied to each expandable cell</td>
+</tr>
+<tr class="odd">
+<td><code>expandIcon</code></td>
+<td>Applied to each expand icon</td>
+</tr>
+<tr class="even">
+<td><code>expanded</code></td>
+<td>Applied to each expanded icon</td>
+</tr>
+<tr class="odd">
+<td><code>checkbox</code></td>
+<td>Applied to each checkbox cell</td>
+</tr>
+</tbody>
+</table>
+<p>You can customize the <code>&lt;Datagrid&gt;</code> styles by passing a <code>classes</code> object as prop, through <code>useStyles()</code>. Here is an example:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import { makeStyles } from &#39;@material-ui/core&#39;;
+
+const useStyles = makeStyles({
+    row: {
+        backgroundColor: &#39;#ccc&#39;,
+    },
+});
+
+const PostList = props =&gt; {
+    const classes = useStyles();
+    return (
+        &lt;List {...props}&gt;
+            &lt;Datagrid classes={{ row: classes.row }}&gt;
+                ...
+            &lt;/Datagrid&gt;
+        &lt;/List&gt;
+    );
+}
+
+export default PostList;</code></pre>
+<p>{% endraw %}</p>
+<p><strong>Tip</strong>: The <code>Datagrid</code> component <code>classes</code> can also be customized for all instances of the component with its global css name <code>"RaDatagrid"</code> as <a href="https://marmelab.com/blog/2019/12/18/react-admin-3-1.html#theme-overrides">describe here</a></p>
+<p><strong>Tip</strong>: If you want to override the <code>header</code> and <code>cell</code> styles independently for each column, use the <code>headerClassName</code> and <code>cellClassName</code> props in <code>&lt;Field&gt;</code> components. For instance, to hide a certain column on small screens:</p>
+<pre class="jsx"><code>import * as React from &quot;react&quot;;
+import { makeStyles } from &#39;@material-ui/core&#39;;
+
+const useStyles = makeStyles(theme =&gt; ({
+    hiddenOnSmallScreens: {
+        [theme.breakpoints.down(&#39;md&#39;)]: {
+            display: &#39;none&#39;,
+        },
+    },
+}));
+
+const PostList = props =&gt; {
+    const classes = useStyles();
+    return (
+        &lt;List {...props}&gt;
+            &lt;Datagrid&gt;
+                &lt;TextField source=&quot;id&quot; /&gt;
+                &lt;TextField source=&quot;title&quot; /&gt;
+                &lt;TextField
+                    source=&quot;views&quot;
+                    headerClassName={classes.hiddenOnSmallScreens}
+                    cellClassName={classes.hiddenOnSmallScreens}
+                /&gt;
+            &lt;/Datagrid&gt;
+        &lt;/List&gt;
+    );
+};
+
+export default PostList;</code></pre>
+<p>This feature has a limit, though. <code>Datagrid</code> inspects its children for <code>headerClassName</code> and <code>cellClassName</code> props. This means you can’t use these props in a <em>wrapped</em> component:</p>
+<pre class="jsx"><code>const useStyles = makeStyles({
+    priceCell: { backgroundColor: &#39;blue&#39; },
+});
+
+const PriceField = props =&gt; {
+    const classes = useStyles();
+    return &lt;TextField cellClassName={classes.priceCell} {...props} /&gt;;
+};
+
+// the cell class name won&#39;t be applied here because Datagrid doesn&#39;t see it in its children
+export const ProductList = (props) =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid&gt;
+            &lt;PriceField source=&quot;price&quot; /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);</code></pre>
+<p>For this kind of use case, you need to use a <a href="#body-element">custom datagrid body component</a>.</p>
+<h3 id="performance">Performance</h3>
+<p>When displaying large pages of data, you might experience some performance issues. This is mostly due to the fact that we iterate over the <code>&lt;Datagrid&gt;</code> children and clone them.</p>
+<p>In such cases, you can opt-in for an optimized version of the <code>&lt;Datagrid&gt;</code> by setting its <code>optimized</code> prop to <code>true</code>. Be aware that you can’t have dynamic children, such as those displayed or hidden by checking permissions, when using this mode.</p>
+<pre class="jsx"><code>const PostList = props =&gt; (
+    &lt;List {...props}&gt;
+        &lt;Datagrid optimized&gt;
+            &lt;TextField source=&quot;id&quot; /&gt;
+            &lt;TextField source=&quot;title&quot; /&gt;
+            &lt;TextField source=&quot;views&quot; /&gt;
+        &lt;/Datagrid&gt;
+    &lt;/List&gt;
+);
+
+export default withStyles(styles)(PostList);</code></pre>
+<h3 id="with-custom-query">With Custom Query</h3>
+<p>You can use the <code>&lt;Datagrid&gt;</code> component with <a href="./Actions.md#usequery-hook">custom queries</a>, provided you pass the result to a <code>&lt;ListContextProvider&gt;</code>:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>import keyBy from &#39;lodash/keyBy&#39;
+import {
+    useQuery,
+    ResourceContextProvider,
+    ListContextProvider,
+    Datagrid,
+    TextField,
+    Pagination,
+    Loading,
+} from &#39;react-admin&#39;
+
+const CustomList = () =&gt; {
+    const [page, setPage] = useState(1);
+    const perPage = 50;
+    const { data, total, loading, error } = useQuery({
+        type: &#39;GET_LIST&#39;,
+        resource: &#39;posts&#39;,
+        payload: {
+            pagination: { page, perPage },
+            sort: { field: &#39;id&#39;, order: &#39;ASC&#39; },
+            filter: {},
+        }
+    });
+
+    if (loading) {
+        return &lt;Loading /&gt;
+    }
+    if (error) {
+        return &lt;p&gt;ERROR: {error}&lt;/p&gt;
+    }
+    return (
+        &lt;ResourceContextProvider value=&quot;posts&quot;&gt;
+            &lt;ListContextProvider
+                value={{
+                    basePath: &#39;/posts&#39;,
+                    data: keyBy(data, &#39;id&#39;),
+                    ids: data.map(({ id }) =&gt; id),
+                    currentSort: { field: &#39;id&#39;, order: &#39;ASC&#39; },
+                    selectedIds: [],
+                }}
+            &gt;
+                &lt;Datagrid rowClick=&quot;edit&quot;&gt;
+                    &lt;TextField source=&quot;id&quot; /&gt;
+                    &lt;TextField source=&quot;title&quot; /&gt;
+                &lt;/Datagrid&gt;
+                &lt;Pagination
+                    page={page}
+                    perPage={perPage}
+                    setPage={setPage}
+                    total={total}
+                /&gt;
+            &lt;/ListContextProvider&gt;
+        &lt;/ResourceContextProvider&gt;
+    );
+}</code></pre>
+<p>{% endraw %}</p>
+<h2 id="the-simplelist-component">The <code>&lt;SimpleList&gt;</code> component</h2>
+<p><a href="./img/simple-list.gif"><img src="./img/simple-list.gif" style="height:300px" alt="The `<SimpleList>` component"></a></p>
+<p>For mobile devices, a <code>&lt;Datagrid&gt;</code> is often unusable - there is simply not enough space to display several columns. The convention in that case is to use a simple list, with only one column per row. The <code>&lt;SimpleList&gt;</code> component serves that purpose, leveraging <a href="https://material-ui.com/components/lists/">material-ui’s <code>&lt;List&gt;</code> and <code>&lt;ListItem&gt;</code> components</a>. <code>&lt;SimpleList&gt;</code> is an <strong>iterator</strong> component: it gets an array of ids and a data store from the <code>ListContext</code>, and iterates over the ids to display each record.</p>
+<h3 id="properties">Properties</h3>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 3%" />
+<col style="width: 17%" />
+<col style="width: 2%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Prop</th>
+<th>Required</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>primaryText</code></td>
+<td>Required</td>
+<td><code>Function</code></td>
+<td>-</td>
+<td>Passed as <code>&lt;ListItemText primary&gt;</code> prop</td>
+</tr>
+<tr class="even">
+<td><code>secondaryText</code></td>
+<td>Optional</td>
+<td><code>Function</code></td>
+<td>-</td>
+<td>Passed as <code>&lt;ListItemText secondary&gt;</code> prop</td>
+</tr>
+<tr class="odd">
+<td><code>tertiaryText</code></td>
+<td>Optional</td>
+<td><code>Function</code></td>
+<td>-</td>
+<td>Passed as a complement to <code>&lt;ListItemText primary&gt;</code> with a custom style</td>
+</tr>
+<tr class="even">
+<td><code>linkType</code></td>
+<td>Optional</td>
+<td><code>string</code> | <code>Function</code> | <code>false</code></td>
+<td><code>edit</code></td>
+<td>Target of the <code>&lt;ListItem&gt;</code> link. Set to <code>false</code> to disable the link. Set to a function <code>(record, id) =&gt; string</code> to have the link target vary per record.</td>
+</tr>
+<tr class="odd">
+<td><code>leftAvatar</code></td>
+<td>Optional</td>
+<td><code>Function</code></td>
+<td>-</td>
+<td>When present, the <code>&lt;ListItem&gt;</code> renders a <code>&lt;ListItemAvatar&gt;</code> before the <code>&lt;ListItemText&gt;</code></td>
+</tr>
+<tr class="even">
+<td><code>leftIcon</code></td>
+<td>Optional</td>
+<td><code>Function</code></td>
+<td>-</td>
+<td>When present, the <code>&lt;ListItem&gt;</code> renders a <code>&lt;ListIcon&gt;</code> before the <code>&lt;ListItemText&gt;</code></td>
+</tr>
+<tr class="odd">
+<td><code>rightAvatar</code></td>
+<td>Optional</td>
+<td><code>Function</code></td>
+<td>-</td>
+<td>When present, the <code>&lt;ListItem&gt;</code> renders a <code>&lt;ListItemAvatar&gt;</code> after the <code>&lt;ListItemText&gt;</code></td>
+</tr>
+<tr class="even">
+<td><code>rightIcon</code></td>
+<td>Optional</td>
+<td><code>Function</code></td>
+<td>-</td>
+<td>When present, the <code>&lt;ListItem&gt;</code> renders a <code>&lt;ListIcon&gt;</code> after the <code>&lt;ListItemText&gt;</code></td>
+</tr>
+<tr class="odd">
+<td><code>className</code></td>
+<td>Optional</td>
+<td><code>string</code></td>
+<td>-</td>
+<td>Applied to the root element</td>
+</tr>
+<tr class="even">
+<td><code>rowStyle</code></td>
+<td>Optional</td>
+<td><code>Function</code></td>
+<td>-</td>
+<td>Applied to the <code>&lt;ListItem&gt;</code> styles prop. The function gets called for each row. Receives the current record and index as arguments and should return a style object.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="usage">Usage</h3>
+<p>You can use <code>&lt;SimpleList&gt;</code> as <code>&lt;List&gt;</code> or <code>&lt;ReferenceManyField&gt;</code> child:</p>
+<pre class="jsx"><code>// in src/posts.js
+import * as React from &quot;react&quot;;
+import { List, SimpleList } from &#39;react-admin&#39;;
+
+const postRowStyle = (record, index) =&gt; ({
+    backgroundColor: record.nb_views &gt;= 500 ? &#39;#efe&#39; : &#39;white&#39;,
+});
+
+export const PostList = (props) =&gt; (
+    &lt;List {...props}&gt;
+        &lt;SimpleList
+            primaryText={record =&gt; record.title}
+            secondaryText={record =&gt; `${record.views} views`}
+            tertiaryText={record =&gt; new Date(record.published_at).toLocaleDateString()}
+            linkType={record =&gt; record.canEdit ? &quot;edit&quot; : &quot;show&quot;}
+            rowStyle={postRowStyle}
+        /&gt;
+    &lt;/List&gt;
+);</code></pre>
+<p>For each record, <code>&lt;SimpleList&gt;</code> executes the <code>primaryText</code>, <code>secondaryText</code>, <code>linkType</code>, <code>rowStyle</code>, <code>leftAvatar</code>, <code>leftIcon</code>, <code>rightAvatar</code>, and <code>rightIcon</code> props functions, and creates a <code>&lt;ListItem&gt;</code> with the result.</p>
+<p><strong>Tip</strong>: To use a <code>&lt;SimpleList&gt;</code> on small screens and a <code>&lt;Datagrid&gt;</code> on larger screens, use material-ui’s <code>useMediaQuery</code> hook:</p>
+<pre class="jsx"><code>// in src/posts.js
+import * as React from &quot;react&quot;;
+import { useMediaQuery } from &#39;@material-ui/core&#39;;
+import { List, SimpleList, Datagrid, TextField, ReferenceField, EditButton } from &#39;react-admin&#39;;
+
+export const PostList = props =&gt; {
+    const isSmall = useMediaQuery(theme =&gt; theme.breakpoints.down(&#39;sm&#39;));
+    return (
+        &lt;List {...props}&gt;
+            {isSmall ? (
+                &lt;SimpleList
+                    primaryText={record =&gt; record.title}
+                    secondaryText={record =&gt; `${record.views} views`}
+                    tertiaryText={record =&gt; new Date(record.published_at).toLocaleDateString()}
+                    linkType={record =&gt; record.canEdit ? &quot;edit&quot; : &quot;show&quot;}   
+                /&gt;
+            ) : (
+                &lt;Datagrid&gt;
+                    //...
+                &lt;/Datagrid&gt;
+            )}
+        &lt;/List&gt;
+    );
+}</code></pre>
+<p><strong>Tip</strong>: The <code>&lt;SimpleList&gt;</code> items link to the edition page by default. You can also set the <code>linkType</code> prop to <code>show</code> directly to link to the <code>&lt;Show&gt;</code> page instead.</p>
+<pre class="jsx"><code>// in src/posts.js
+import * as React from &quot;react&quot;;
+import { List, SimpleList } from &#39;react-admin&#39;;
+
+export const PostList = props =&gt; (
+    &lt;List {...props}&gt;
+        &lt;SimpleList
+            primaryText={record =&gt; record.title}
+            secondaryText={record =&gt; `${record.views} views`}
+            tertiaryText={record =&gt; new Date(record.published_at).toLocaleDateString()}
+            linkType=&quot;show&quot;
+        /&gt;
+    &lt;/List&gt;
+);</code></pre>
+<p>Setting the <code>linkType</code> prop to <code>false</code> (boolean, not string) removes the link in all list items.</p>
+<h2 id="the-singlefieldlist-component">The <code>&lt;SingleFieldList&gt;</code> component</h2>
+<p>When you want to display only one property of a list of records, instead of using a <code>&lt;Datagrid&gt;</code>, use the <code>&lt;SingleFieldList&gt;</code>. It expects a single <code>&lt;Field&gt;</code> as child. <code>&lt;SingleFieldList&gt;</code> is an <strong>iterator</strong> component: it gets an array of ids and a data store from the <code>ListContext</code>, and iterates over the ids to display each record.</p>
+<p>It’s especially useful for <code>&lt;ReferenceManyField&gt;</code> or <code>&lt;ReferenceArrayField&gt;</code> components:</p>
+<pre class="jsx"><code>// Display all the tags for the current post
+&lt;ReferenceArrayField
+    label=&quot;Tags&quot;
+    reference=&quot;tags&quot;
+    source=&quot;tags&quot;
+&gt;
+    &lt;SingleFieldList&gt;
+        &lt;ChipField source=&quot;name&quot; /&gt;
+    &lt;/SingleFieldList&gt;
+&lt;/ReferenceArrayField&gt;</code></pre>
+<figure>
+<img src="./img/reference-many-field-single-field-list.png" alt="ReferenceManyFieldSingleFieldList" /><figcaption>ReferenceManyFieldSingleFieldList</figcaption>
+</figure>
+<p><strong>Tip</strong>: The <code>&lt;SingleFieldList&gt;</code> items link to the edition page by default. You can set the <code>linkType</code> prop to <code>show</code> to link to the <code>&lt;Show&gt;</code> page instead.</p>
+<pre class="jsx"><code>// Display all the tags for the current post
+&lt;ReferenceArrayField
+    label=&quot;Tags&quot;
+    reference=&quot;tags&quot;
+    source=&quot;tags&quot;
+&gt;
+    &lt;SingleFieldList linkType=&quot;show&quot;&gt;
+        &lt;ChipField source=&quot;name&quot; /&gt;
+    &lt;/SingleFieldList&gt;
+&lt;/ReferenceArrayField&gt;</code></pre>
+<h2 id="the-editabledatagrid-component">The <code>&lt;EditableDatagrid&gt;</code> Component</h2>
+<p>This <a href="https://marmelab.com/ra-enterprise">Enterprise Edition</a><img class="icon" src="./img/premium.svg" /> component offers an “edit-in-place” experience in a <code>&lt;Datagrid&gt;</code>.</p>
+<figure>
+<img src="https://marmelab.com/ra-enterprise/modules/assets/ra-editable-datagrid-overview.gif" alt="Editable Datagrid" /><figcaption>Editable Datagrid</figcaption>
+</figure>
+<pre class="jsx"><code>import * as React from &#39;react&#39;;
+import {
+    List,
+    TextField,
+    TextInput,
+    DateField,
+    DateInput,
+    SelectField,
+    SelectInput,
+    required,
+} from &#39;react-admin&#39;;
+import { EditableDatagrid, RowForm } from &#39;@react-admin/ra-editable-datagrid&#39;;
+
+const ArtistList = props =&gt; (
+    &lt;List {...props} hasCreate empty={false}&gt;
+        &lt;EditableDatagrid
+            undoable
+            createForm={&lt;ArtistForm /&gt;}
+            editForm={&lt;ArtistForm /&gt;}
+        &gt;
+            &lt;TextField source=&quot;id&quot; /&gt;
+            &lt;TextField source=&quot;firstname&quot; /&gt;
+            &lt;TextField source=&quot;name&quot; /&gt;
+            &lt;DateField source=&quot;dob&quot; label=&quot;born&quot; /&gt;
+            &lt;SelectField
+                source=&quot;prof&quot;
+                label=&quot;Profession&quot;
+                choices={professionChoices}
+            /&gt;
+        &lt;/EditableDatagrid&gt;
+    &lt;/List&gt;
+);
+
+const ArtistForm = props =&gt; (
+    &lt;RowForm {...props}&gt;
+        &lt;TextField source=&quot;id&quot; /&gt;
+        &lt;TextInput source=&quot;firstname&quot; validate={required()} /&gt;
+        &lt;TextInput source=&quot;name&quot; validate={required()} /&gt;
+        &lt;DateInput source=&quot;dob&quot; label=&quot;born&quot; validate={required()} /&gt;
+        &lt;SelectInput
+            source=&quot;prof&quot;
+            label=&quot;Profession&quot;
+            choices={professionChoices}
+        /&gt;
+    &lt;/RowForm&gt;
+);</code></pre>
+<p>Check <a href="https://marmelab.com/ra-enterprise/modules/ra-editable-datagrid">the <code>ra-editable-datagrid</code> documentation</a> for more details.</p>
+<h2 id="the-treewithdetails-component">The <code>&lt;TreeWithDetails&gt;</code> Component</h2>
+<p>This <a href="https://marmelab.com/ra-enterprise">Enterprise Edition</a><img class="icon" src="./img/premium.svg" /> component offers a replacement for the <code>&lt;List&gt;</code> component when the records form <strong>tree structures</strong> like directories, categories, etc. <code>&lt;TreeWithDetails&gt;</code> allows to display, edit, and rearrange trees.</p>
+<pre class="jsx"><code>// in src/category.js
+import * as React from &#39;react&#39;;
+import {
+    Admin,
+    Resource,
+    Create,
+    Edit,
+    TextInput,
+} from &#39;react-admin&#39;;
+import { CreateNode, EditNode, SimpleForm, TreeWithDetails } from &#39;@react-admin/ra-tree&#39;;
+
+// a Create view for a tree uses &lt;CreateNode&gt; instead of the standard &lt;Create&gt;
+const CategoriesCreate = props =&gt; (
+    &lt;CreateNode {...props}&gt;
+        &lt;SimpleForm&gt;
+            &lt;TextInput source=&quot;name&quot; /&gt;
+        &lt;/SimpleForm&gt;
+    &lt;/CreateNode&gt;
+);
+
+// an Edit view for a tree uses &lt;EditNode&gt; instead of the standard &lt;Edit&gt;
+const CategoriesEdit = props =&gt; (
+    &lt;EditNode {...props}&gt;
+        &lt;SimpleForm&gt;
+            &lt;TextInput source=&quot;title&quot; /&gt;
+        &lt;/SimpleForm&gt;
+    &lt;/EditNode&gt;
+)
+
+// a List view for a tree uses &lt;TreeWithDetails&gt;
+export const CategoriesList = props =&gt; (
+    &lt;TreeWithDetails 
+        create={CategoriesCreate}
+        edit={CategoriesEdit}
+        {...props}
+    /&gt;
+);
+
+// in src/App.js
+import { CategoriesList } from &#39;./category&#39;;
+
+const App = () =&gt; (
+    &lt;Admin
+        dataProvider={dataProvider}
+        i18nProvider={i18nProvider}
+        locale=&quot;en&quot;
+        customReducers={{ tree }}
+    &gt;
+        &lt;Resource list={CategoriesList} /&gt;
+    &lt;/Admin&gt;
+)</code></pre>
+<p>Check <a href="https://marmelab.com/ra-enterprise/modules/ra-tree">the <code>ra-tree</code> documentation</a> for more details.</p>
+<h2 id="the-calendar-component">The <code>&lt;Calendar&gt;</code> Component</h2>
+<p>This <a href="https://marmelab.com/ra-enterprise">Enterprise Edition</a><img class="icon" src="./img/premium.svg" /> component, part of <a href="https://marmelab.com/ra-enterprise/modules/ra-calendar">the <code>ra-calendar</code> module</a>, renders a list of events as a calendar.</p>
+<figure>
+<img src="https://marmelab.com/ra-enterprise/modules/assets/ra-calendar.gif" alt="the &lt;Calendar&gt; component" /><figcaption>the <code>&lt;Calendar&gt;</code> component</figcaption>
+</figure>
+<p>The user interface offers everything you expect:</p>
+<ul>
+<li>month, week, day views</li>
+<li>list view</li>
+<li>drag and resize events</li>
+<li>whole-day events</li>
+<li>creating an event by clicking in the calendar</li>
+<li>edition of event title, and metadata</li>
+<li>events spanning on multiple days</li>
+<li>recurring events</li>
+<li>background events</li>
+<li>theming</li>
+<li>locales and timezones</li>
+<li>resource time grid (e.g. rooms) (requires additional licence from Full Calendar)</li>
+</ul>
+<p>Use <code>&lt;Calendar&gt;</code> as a child of <code>&lt;List&gt;</code>:</p>
+<pre class="jsx"><code>import { Calendar, getFilterValuesFromInterval } from &#39;@react-admin/ra-calendar&#39;;
+import { List } from &#39;react-admin&#39;;
+
+const EventList = props =&gt; (
+    &lt;List
+        {...props}
+        filterDefaultValues={getFilterValuesFromInterval()}
+        perPage={1000}
+        pagination={false}
+    &gt;
+        &lt;Calendar /&gt;
+    &lt;/List&gt;
+);</code></pre>
+<p>The <code>ra-calendar</code> module also offers a full replacement for the <code>&lt;List&gt;</code> component, complete with show and edit views for events, called <code>&lt;CompleteCalendar&gt;</code>:</p>
+<pre class="jsx"><code>import React, { FC } from &#39;react&#39;;
+import {
+    Admin,
+    Resource,
+    List,
+    ListProps,
+    SimpleForm,
+    TextInput,
+    DateTimeInput,
+} from &#39;react-admin&#39;;
+import { CompleteCalendar } from &#39;@react-admin/ra-calendar&#39;;
+
+import dataProvider from &#39;./dataProvider&#39;;
+
+const EventList = props =&gt; (
+    &lt;CompleteCalendar {...props}&gt;
+        &lt;SimpleForm&gt;
+            &lt;TextInput source=&quot;title&quot; autoFocus /&gt;
+            &lt;DateTimeInput source=&quot;start&quot; /&gt;
+            &lt;DateTimeInput source=&quot;end&quot; /&gt;
+        &lt;/SimpleForm&gt;
+    &lt;/CompleteCalendar&gt;
+);
+
+export const Basic = () =&gt; (
+    &lt;Admin dataProvider={dataProvider}&gt;
+        &lt;Resource name=&quot;events&quot; list={EventList} /&gt;
+    &lt;/Admin&gt;
+);</code></pre>
+<p>Check <a href="https://marmelab.com/ra-enterprise/modules/ra-calendar">the <code>ra-calendar</code> documentation</a> for more details.</p>
+<h2 id="using-a-custom-iterator">Using a Custom Iterator</h2>
+<p>A <code>&lt;List&gt;</code> can delegate to any iterator component - <code>&lt;Datagrid&gt;</code> is just one example. An iterator component can get the data to display from <a href="#uselistcontext">the <code>useListContext</code> hook</a>. The data comes in two constants:</p>
+<ul>
+<li><code>ids</code> is an array of the ids currently displayed in the list</li>
+<li><code>data</code> is an object of all the fetched data for this resource, indexed by id.</li>
+</ul>
+<p>For instance, what if you prefer to show a list of cards rather than a datagrid?</p>
+<figure>
+<img src="./img/custom-iterator.png" alt="Custom iterator" /><figcaption>Custom iterator</figcaption>
+</figure>
+<p>You’ll need to create your own iterator component as follows:</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>// in src/comments.js
+import * as React from &#39;react&#39;;
+import { useListContext, List, TextField, DateField, ReferenceField, EditButton } from &#39;react-admin&#39;;
+import { Card, CardActions, CardContent, CardHeader, Avatar } from &#39;@material-ui/core&#39;;
+import PersonIcon from &#39;@material-ui/icons/Person&#39;;
+
+const cardStyle = {
+    width: 300,
+    minHeight: 300,
+    margin: &#39;0.5em&#39;,
+    display: &#39;inline-block&#39;,
+    verticalAlign: &#39;top&#39;
+};
+const CommentGrid = () =&gt; {
+    const { ids, data, basePath } = useListContext();
+    return (
+        &lt;div style={{ margin: &#39;1em&#39; }}&gt;
+        {ids.map(id =&gt;
+            &lt;Card key={id} style={cardStyle}&gt;
+                &lt;CardHeader
+                    title={&lt;TextField record={data[id]} source=&quot;author.name&quot; /&gt;}
+                    subheader={&lt;DateField record={data[id]} source=&quot;created_at&quot; /&gt;}
+                    avatar={&lt;Avatar icon={&lt;PersonIcon /&gt;} /&gt;}
+                /&gt;
+                &lt;CardContent&gt;
+                    &lt;TextField record={data[id]} source=&quot;body&quot; /&gt;
+                &lt;/CardContent&gt;
+                &lt;CardContent&gt;
+                    about&amp;nbsp;
+                    &lt;ReferenceField label=&quot;Post&quot; resource=&quot;comments&quot; record={data[id]} source=&quot;post_id&quot; reference=&quot;posts&quot; basePath={basePath}&gt;
+                        &lt;TextField source=&quot;title&quot; /&gt;
+                    &lt;/ReferenceField&gt;
+                &lt;/CardContent&gt;
+                &lt;CardActions style={{ textAlign: &#39;right&#39; }}&gt;
+                    &lt;EditButton resource=&quot;posts&quot; basePath={basePath} record={data[id]} /&gt;
+                &lt;/CardActions&gt;
+            &lt;/Card&gt;
+        )}
+        &lt;/div&gt;
+    );
+};
+
+export const CommentList = (props) =&gt; (
+    &lt;List title=&quot;All comments&quot; {...props}&gt;
+        &lt;CommentGrid /&gt;
+    &lt;/List&gt;
+);</code></pre>
+<p>{% endraw %}</p>
+<p>As you can see, nothing prevents you from using <code>&lt;Field&gt;</code> components inside your own components… provided you inject the current <code>record</code>. Also, notice that components building links require the <code>basePath</code> component, which is also available from <code>useListContext</code>.</p>
+<h2 id="third-party-components">Third-Party Components</h2>
+<p>You can find components for react-admin in third-party repositories.</p>
+<ul>
+<li><a href="https://github.com/fizix-io/ra-customizable-datagrid">ra-customizable-datagrid</a>: plugin that allows to hide / show columns dynamically.</li>
+</ul>
+<h2 id="displaying-fields-depending-on-the-user-permissions">Displaying Fields Depending On The User Permissions</h2>
+<p>You might want to display some fields or filters only to users with specific permissions.</p>
+<p>Before rendering the <code>List</code>, react-admin calls the <code>authProvider.getPermissions()</code> method, and passes the result to the component as the <code>permissions</code> prop. It’s up to your <code>authProvider</code> to return whatever you need to check roles and permissions inside your component.</p>
+<p>{% raw %}</p>
+<pre class="jsx"><code>const UserFilter = ({ permissions, ...props }) =&gt;
+    &lt;Filter {...props}&gt;
+        &lt;TextInput
+            label=&quot;user.list.search&quot;
+            source=&quot;q&quot;
+            alwaysOn
+        /&gt;
+        &lt;TextInput source=&quot;name&quot; /&gt;
+        {permissions === &#39;admin&#39; ? &lt;TextInput source=&quot;role&quot; /&gt; : null}
+    &lt;/Filter&gt;;
+
+export const UserList = ({ permissions, ...props }) =&gt; {
+    const isSmall = useMediaQuery(theme =&gt; theme.breakpoints.down(&#39;sm&#39;));
+    return (
+        &lt;List
+            {...props}
+            filters={&lt;UserFilter permissions={permissions} {...props} /&gt;}
+            sort={{ field: &#39;name&#39;, order: &#39;ASC&#39; }}
+        &gt;
+            {isSmall ? (
+                &lt;SimpleList
+                    primaryText={record =&gt; record.name}
+                    secondaryText={record =&gt;
+                        permissions === &#39;admin&#39; ? record.role : null}
+                /&gt;
+            ): (
+                &lt;Datagrid&gt;
+                    &lt;TextField source=&quot;id&quot; /&gt;
+                    &lt;TextField source=&quot;name&quot; /&gt;
+                    {permissions === &#39;admin&#39; &amp;&amp; &lt;TextField source=&quot;role&quot; /&gt;}
+                    {permissions === &#39;admin&#39; &amp;&amp; &lt;EditButton /&gt;}
+                    &lt;ShowButton /&gt;
+                &lt;/Datagrid&gt;
+            )}
+        &lt;/List&gt;
+    )
+};</code></pre>
+<p>{% endraw %}</p>
+<p><strong>Tip</strong>: Note how the <code>permissions</code> prop is passed down to the custom <code>filters</code> component.</p>

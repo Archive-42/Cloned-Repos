@@ -1,0 +1,56 @@
+<h1 id="description">–description–</h1>
+<p>There are other complex concepts that add powerful capabilities to your React code. But you may be wondering about the more simple problem of how to style those JSX elements you create in React. You likely know that it won’t be exactly the same as working with HTML because of <a href="/learn/front-end-libraries/react/define-an-html-class-in-jsx">the way you apply classes to JSX elements</a>.</p>
+<p>If you import styles from a stylesheet, it isn’t much different at all. You apply a class to your JSX element using the <code>className</code> attribute, and apply styles to the class in your stylesheet. Another option is to apply inline styles, which are very common in ReactJS development.</p>
+<p>You apply inline styles to JSX elements similar to how you do it in HTML, but with a few JSX differences. Here’s an example of an inline style in HTML:</p>
+<p><code>&lt;div style="color: yellow; font-size: 16px"&gt;Mellow Yellow&lt;/div&gt;</code></p>
+<p>JSX elements use the <code>style</code> attribute, but because of the way JSX is transpiled, you can’t set the value to a <code>string</code>. Instead, you set it equal to a JavaScript <code>object</code>. Here’s an example:</p>
+<p><code>&lt;div style={{color: "yellow", fontSize: 16}}&gt;Mellow Yellow&lt;/div&gt;</code></p>
+<p>Notice how we camelCase the “fontSize” property? This is because React will not accept kebab-case keys in the style object. React will apply the correct property name for us in the HTML.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Add a <code>style</code> attribute to the <code>div</code> in the code editor to give the text a color of red and font size of 72px.</p>
+<p>Note that you can optionally set the font size to be a number, omitting the units “px”, or write it as “72px”.</p>
+<h1 id="hints">–hints–</h1>
+<p>The component should render a <code>div</code> element.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(Colorful))<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">children</span>().<span class="at">type</span>() <span class="op">===</span> <span class="st">&#39;div&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>div</code> element should have a color of <code>red</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(Colorful))<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-4" title="4">    <span class="cf">return</span> <span class="va">mockedComponent</span>.<span class="at">children</span>().<span class="at">props</span>().<span class="va">style</span>.<span class="at">color</span> <span class="op">===</span> <span class="st">&#39;red&#39;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb2-5" title="5">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-6" title="6">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>div</code> element should have a font size of <code>72px</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">const</span> mockedComponent <span class="op">=</span> <span class="va">Enzyme</span>.<span class="at">mount</span>(<span class="va">React</span>.<span class="at">createElement</span>(Colorful))<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="cf">return</span> (</a>
+<a class="sourceLine" id="cb3-5" title="5">      <span class="va">mockedComponent</span>.<span class="at">children</span>().<span class="at">props</span>().<span class="va">style</span>.<span class="at">fontSize</span> <span class="op">===</span> <span class="dv">72</span> <span class="op">||</span></a>
+<a class="sourceLine" id="cb3-6" title="6">      <span class="va">mockedComponent</span>.<span class="at">children</span>().<span class="at">props</span>().<span class="va">style</span>.<span class="at">fontSize</span> <span class="op">===</span> <span class="st">&#39;72&#39;</span> <span class="op">||</span></a>
+<a class="sourceLine" id="cb3-7" title="7">      <span class="va">mockedComponent</span>.<span class="at">children</span>().<span class="at">props</span>().<span class="va">style</span>.<span class="at">fontSize</span> <span class="op">===</span> <span class="st">&#39;72px&#39;</span></a>
+<a class="sourceLine" id="cb3-8" title="8">    )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;Colorful /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>class Colorful extends React.Component {
+  render() {
+    return (
+      &lt;div&gt;Big Red&lt;/div&gt;
+    );
+  }
+};</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>class Colorful extends React.Component {
+  render() {
+    return (
+      &lt;div style={{color: &quot;red&quot;, fontSize: 72}}&gt;Big Red&lt;/div&gt;
+    );
+  }
+};</code></pre>

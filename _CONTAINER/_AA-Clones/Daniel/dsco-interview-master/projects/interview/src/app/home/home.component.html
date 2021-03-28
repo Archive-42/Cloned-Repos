@@ -1,0 +1,101 @@
+<!--
+  ~ Copyright (C) 2020 DS Co., dba dsco - All Rights Reserved
+  ~ Unauthorized copying of this file, via any medium is strictly prohibited.
+  ~ Proprietary and confidential.
+  -->
+
+<div class="page-header">
+  <h1>Welcome Future Dsconian!</h1>
+</div>
+
+<div class="card">
+  <div class="card-title">
+    Is this my interview?
+  </div>
+
+  <p>Yes it is! In-person interviews can be stressful, lead to snap judgements, and often fail to show your competence at coding. </p>
+  <p>Who the heck knows the space complexity of the radix sort algorithm off the top of their head anyway???</p>
+  <p>Here at Dsco, we are trying something a little different.</p>
+  <p><a (click)="showWhyTakeTime = true" routerLink="home#">Why should I take the time to do this interview?</a></p>
+</div>
+
+<div *ngIf="showWhyTakeTime" class="card" id="whyTakeTime" verticalExpander>
+  <div class="card-title">Why should I take the time to do this interview?</div>
+
+  <ul>
+    <li>Dsco is absolutely killing it in the retail supply chain marketplace.</li>
+    <li>You'll get to work with amazing customers - Nordstrom, Nike, Luxottica, Neiman Marcus,
+      Bass Pro Shops, and Kohl's, just to name a few!
+    </li>
+    <li>
+      You will be exposed to the latest tech patterns and approaches:
+      big data computation in the cloud, serverless development, varied databases (relational, document, hybrid, etc.),
+      and more!
+    </li>
+    <li>
+      Dsco has a very relaxed policy around working from home and out-of-state work.
+      We also have a great office stocked with food, treats, and some of the best coworkers you can find.
+    </li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="card-title">
+    What is my quest?
+  </div>
+
+  <p>You seek to add a new <code>Authors</code> feature to sit aside the existing <code>Books</code> feature.</p>
+</div>
+
+<div class="card">
+  <div class="card-title">
+    What will my quest require?
+  </div>
+
+  <ul>
+    <li>A new lazy-loaded <code>AuthorsModule</code> to contain the Authors feature.</li>
+    <li>A new <code>AuthorsComponent</code> page that allows you to search for authors, displaying both their name &
+      age.
+    </li>
+    <li>A new <a href="https://ngrx.io/">ngrx</a> <code>Store</code> to maintain the state for the feature.</li>
+    <li>A new <code>AuthorsMocks</code> class to mock out the <code>AuthorSearchRequest</code>.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="card-title">Where should I begin?</div>
+  <ul>
+    <li>
+      First, play around with the <code>Books</code> feature using the navbar on the left.
+      <i>Note: It's generated data, so the search is pretty terrible. Try short words like "the", "he", "she".</i>
+    </li>
+    <li>
+      To see how the books search request is mocked, go here:
+      <code>projects/interview/src/app/mock/books.mocks.ts</code>
+    </li>
+    <li>
+      The <a href="https://ngrx.io/">ngrx</a> <code>Store</code> for the <code>Books</code> feature is here:
+      <code>projects/interview/src/app/books/store</code>
+    </li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="card-title">What if I wish to reach the Holy Grail?</div>
+  <p>Although the main quest is treacherous, an experienced Angular/ngrx developer should be able to complete it in
+    about 30 minutes.</p>
+
+  <p>After this, to truly prove worthy of the Holy Grail, you may choose to embark on some side quests:</p>
+  <ul>
+    <li>Dazzle the realm at the Knights Tourney with your html/css prowess!</li>
+    <li>Protect the villagers by conquering the evil TODOs.</li>
+    <li>Build a bridge between <code>Authors</code> and <code>Books</code>, allowing viewing books for specific authors
+      and vice-versa.
+    </li>
+    <li>
+      Win the hearts of the kingdom by showing your character!
+      Use the Holy Hand Grenade to randomly make the page blow up, leave a funny comment, brush off a few flesh wounds,
+      and have fun!
+    </li>
+  </ul>
+</div>

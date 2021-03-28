@@ -1,0 +1,66 @@
+---
+layout: post
+title: Magazines, rubriques et cie.
+redirect_from: "/2018/01/15/mags/"
+permalink: mags
+---
+
+Hi, this post is in French (except this paragraph, as you may
+have noticed) and is a list of magazines or websites related to TCS.
+Some of these are written in French, others in English.
+
+---
+
+Bonjour, en complément au [billet sur les blogs](https://semidoc.github.io/blogs) 
+publié ici il y a quelques mois,
+un billet sur des initiatives plus structurées qui traitent (entre autres) d'informatique
+théorique : des magazines, des rubriques dans des journaux, 
+des blogs d'institutions.
+
+### [Quanta magazine](https://www.quantamagazine.org/)
+Un magazine en ligne parlant de sciences en générale, mais assez souvent
+d'informatique théorique, et le plus souvent plutôt bien[^1], malgré des titres 
+un peu sensationnels parfois[^2]. La plupart des
+sujets sont reliés au quantique ou à l'apprentissage, mais pas tous. Le
+magazine est financé par la fondation Simons, qui est aussi à l'origine
+du [Simons Institute for the Theory of Computing](https://simons.berkeley.edu/).
+
+### [Images des maths](http://images.math.cnrs.fr/?lang=fr)
+_Images des maths_ est une plate-forme de vulgarisation des mathématiques
+(au sens large) soutenue par le CNRS. Les articles sont écrits par des
+profs et chercheurs, et sont de difficulté variable (celle-ci étant annoncée par 
+un code couleur). Il y est question d'informatique théorique relativement
+souvent, et il y aussi un bonne revue de presse tous les mois.
+
+### [Binaire](http://binaire.blog.lemonde.fr/)
+Le blog du _Monde_ sur l'informatique, soutenue par la Société
+Informatique de France. Le blog suit l'actualité de l'informatique en 
+donnant un point de vue un peu plus axé « recherche » que dans les médias et 
+blogs généralistes. Et 
+aussi : des podcasts, de l'histoire de l'informatique, des rubriques
+récurrentes
+(notamment 
+« [Il était une fois ma thèse...](http://binaire.blog.lemonde.fr/il-etait-une-fois-ma-these/) »). 
+
+### [Interstices](https://interstices.info/)
+Magazine en ligne du numérique, soutenu par Inria. Des articles rédigés 
+par des chercheurs, là encore sur les sujets du moment, l'histoire de 
+l'informatique etc. mais aussi des billets de vulgarisation sur des 
+sujets peu plus pointus, dans la section 
+« [Approfondir](https://interstices.info/jcms/mf_46683/approfondir) ».
+
+### Et sur papier...
+Plusieurs journaux scientifiques francophones ont des rubriques
+pertinentes pour ce post. Notamment :
+
+* [Logique et calcul](http://www.pourlascience.fr/ewb_pages/l/logique_et_calcul.php)
+de [Jean-Paul Delahaye](https://fr.wikipedia.org/wiki/Jean-Paul_Delahaye)
+dans _[Pour la science](https://fr.wikipedia.org/wiki/Pour_la_science)_.
+* la chronique « Numériques »  tenues par 
+Serge Abiteboul et Gerard Berry, et la chronique « Mathématiques » de 
+Roger Mansuy, dans _[La Recherche](http://www.larecherche.fr/)_.
+
+#### Notes
+[^1]: Voir par exemple [l'article](https://www.quantamagazine.org/one-way-salesman-finds-fast-path-home-20171005/) sur les récentes avancées sur le problème du voyageur de commerce que l'on citait dans le [billet précédent](https://semidoc.github.io/cubic-TSP).
+
+[^2]: Comme « _[A Grand Vision for the Impossible](https://www.quantamagazine.org/subhash-khot-unique-games-conjecturer-is-awarded-rolf-nevanlinna-prize-20140812/)_ » pour un article sur la [conjecture des jeux uniques](https://fr.wikipedia.org/wiki/Conjecture_des_jeux_uniques).

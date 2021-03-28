@@ -1,0 +1,30 @@
+/*!
+ * Copyright (C) 2020 DS Co., dba dsco - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential.
+ */
+
+$headerHeight: 68px;
+
+.page-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+
+  box-sizing: border-box;
+  height: $headerHeight;
+  padding: 15px 20px;
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  background: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .45);
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 300;
+  margin: 0;
+}
