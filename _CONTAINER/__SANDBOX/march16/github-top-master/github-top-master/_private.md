@@ -1,0 +1,1 @@
+---\ntype: location\nlocation: \nmode: all\n---

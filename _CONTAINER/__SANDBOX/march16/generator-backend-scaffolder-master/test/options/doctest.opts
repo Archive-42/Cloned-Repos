@@ -1,0 +1,4 @@
+generators/
+--recursive
+--require jsdoctest
+--reporter spec

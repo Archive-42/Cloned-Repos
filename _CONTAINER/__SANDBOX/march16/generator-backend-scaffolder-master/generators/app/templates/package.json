@@ -1,0 +1,50 @@
+{
+  "name": "<%- moduleName %>",
+  "description": "<%- description %>",
+  "version": "0.0.0",
+  "homepage": "<%- homepage %>",
+  "author": {
+    "name": "<%- authorName %>",
+    "email": "<%- authorEmail %>",
+    "url": "<%- authorUrl %>"
+  },
+  "repository": {
+    "type": "git",
+    "url": "<%- homepage %>"
+  },
+  "bugs": {
+    "url": "<%- homepage %>"
+  },
+  "files": [],
+  "main": "<%- projectRoot %>index.js",
+  "license": "<%- license %>",
+  "keywords": [],
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 2.0.0"
+  },
+  "scripts": {
+    "check-coverage": "istanbul check-coverage",
+    "coverage": "istanbul cover _mocha -- --opts test/options/default.opts",
+    "doctest": "mocha --opts test/options/doctest.opts",
+    "lint": "eslint .",
+    "prepush": "npm test",
+    "security-check": "nsp check --output summary",
+    "start": "ntl",
+    "test": "npm run lint && npm run doctest && npm run coverage && npm run check-coverage"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^3.0.0",
+    "eslint-config-suddi": "^3.0.0",
+    "husky": "^0.12.0",
+    "istanbul": "^0.4.0",
+    "jsdoctest": "^1.0.0",
+    "mocha": "^3.0.0",
+    "nsp": "^2.0.0",
+    "ntl": "^1.0.0"
+  },
+  "eslintConfig": {
+    "extends": "suddi/backend"
+  }
+}

@@ -1,0 +1,4 @@
+test
+--timeout 5000
+--recursive
+--reporter spec
