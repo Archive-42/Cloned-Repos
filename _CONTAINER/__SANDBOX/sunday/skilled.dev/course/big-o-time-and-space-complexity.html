@@ -1,0 +1,609 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><meta name="theme-color" content="#040405"/><link rel="manifest" href="../manifest.json"/><link rel="shortcut icon" href="../icons/favicon-32x32.png"/><meta name="application-name" content="Skilled.dev"/><meta name="apple-mobile-web-app-title" content="Skilled.dev"/><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-KC7MM25');</script><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KC7MM25" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><link rel="icon" type="image/png" sizes="192x192" href="../icons/android-icon-192x192.png"/><link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="96x96" href="../icons/favicon-96x96.png"/><link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png"/><link rel="apple-touch-icon" href="../icons/apple-icon.png"/><link rel="apple-touch-icon" sizes="57x57" href="../icons/apple-icon-57x57.png"/><link rel="apple-touch-icon" sizes="60x60" href="../icons/apple-icon-60x60.png"/><link rel="apple-touch-icon" sizes="72x72" href="../icons/apple-icon-72x72.png"/><link rel="apple-touch-icon" sizes="76x76" href="../icons/apple-icon-76x76.png"/><link rel="apple-touch-icon" sizes="114x114" href="../icons/apple-icon-114x114.png"/><link rel="apple-touch-icon" sizes="120x120" href="../icons/apple-icon-120x120.png"/><link rel="apple-touch-icon" sizes="144x144" href="../icons/apple-icon-144x144.png"/><link rel="apple-touch-icon" sizes="152x152" href="../icons/apple-icon-152x152.png"/><link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-icon-180x180.png"/><meta name="msapplication-TileColor" content="#040405"/><meta name="msapplication-config" content="https://skilled.dev/browserconfig.xml"/><meta name="msapplication-TileImage" content="https://skilled.dev/icons/ms-icon-144x144.png"/><meta property="og:site_name" content="Skilled.dev"/><meta property="og:type" content="website"/><meta property="fb:app_id" content="217904672988985"/><meta name="twitter:site" content="@skilled_dev"/><meta name="twitter:creator" content="@skilled_dev"/><link rel="preconnect" href="https://fonts.gstatic.com/"/><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Big O Notation | Skilled.dev</title><meta name="description" content="Practice essential concepts and ace your coding interview"/><meta property="og:url" content="https://skilled.dev/course/big-o-time-and-space-complexity"/><meta property="og:title" content="Big O Notation | Skilled.dev"/><meta property="og:description" content="Practice essential concepts and ace your coding interview"/><meta property="og:image" content="https://skilled.dev/social-share.png"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta name="twitter:title" content="Big O Notation | Skilled.dev"/><meta name="twitter:description" content="Practice essential concepts and ace your coding interview"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:image" content="https://skilled.dev/social-share.png"/><link rel="preload" href="../_next/static/css/3cf5553b6087a90c2e6f.css" as="style"/><link rel="stylesheet" href="../_next/static/css/3cf5553b6087a90c2e6f.css" data-n-g=""/><noscript data-n-css="true"></noscript><link rel="preload" href="../_next/static/chunks/main-9fc28bb8db8fa96b66bd.js" as="script"/><link rel="preload" href="../_next/static/chunks/webpack-74ec4feb2f24b3bd66ef.js" as="script"/><link rel="preload" href="../_next/static/chunks/framework.fff3fbeb3af15920a486.js" as="script"/><link rel="preload" href="../_next/static/chunks/62cc7e9c9a3e1f629d6465da6b5c3c24307ba956.1397755d27136c8e5e87.js" as="script"/><link rel="preload" href="../_next/static/chunks/6f96d2670548cc2e56ddd61f5cad26e2ff6b9887.e1ef8f161934e411f3ca.js" as="script"/><link rel="preload" href="../_next/static/chunks/pages/_app-35f1753f3b3230448c1a.js" as="script"/><link rel="preload" href="../_next/static/chunks/1bfc9850.63e063b67c6abef35dc4.js" as="script"/><link rel="preload" href="../_next/static/chunks/761cb607.284fb34f48444a82e6e8.js" as="script"/><link rel="preload" href="../_next/static/chunks/6e2d9d0a.ec66e3094e258e384e3a.js" as="script"/><link rel="preload" href="../_next/static/chunks/2f37a77d.d1ad562897c4e94f4bef.js" as="script"/><link rel="preload" href="../_next/static/chunks/ea683af8.2d212fcbed7b88970881.js" as="script"/><link rel="preload" href="../_next/static/chunks/8edc3fe5.38db3dbbcb79c21f82fb.js" as="script"/><link rel="preload" href="../_next/static/chunks/1c920f04.c9a1d24149a75d4f1512.js" as="script"/><link rel="preload" href="../_next/static/chunks/2fb713ed.04818228c14a16edc0f8.js" as="script"/><link rel="preload" href="../_next/static/chunks/3c128e86.54e390ccdd375e3d8ad3.js" as="script"/><link rel="preload" href="../_next/static/chunks/9a679482.2c6dcfd1bfb3230b5b2d.js" as="script"/><link rel="preload" href="../_next/static/chunks/5f6bb6fb.213c7cafca73f95cc5b6.js" as="script"/><link rel="preload" href="../_next/static/chunks/e301390aaeb655a7c46d3a98e1b7f0801d0265e5.57eddd77c9513532f59b.js" as="script"/><link rel="preload" href="../_next/static/chunks/7e56f788575e89f8e7fe02ce953cbf6b79d05ace.0c55ad45b7791ec1e567.js" as="script"/><link rel="preload" href="../_next/static/chunks/4a78e8a6d8242f8b651c6e6a4bce4ea63b9318d3.9487ad6269b0e36893f8.js" as="script"/><link rel="preload" href="../_next/static/chunks/6cd0218634a0fb2d8c1ff419044d067f0b6760d3.82961c8370fbb2320208.js" as="script"/><link rel="preload" href="../_next/static/chunks/b98fec12833bb202b4631ea51b77337c0135e853.beb527db176a876c2a20.js" as="script"/><link rel="preload" href="../_next/static/chunks/b1ded82f8b195b7f3485e43ba6b33630764eb60a.ab422021aefae0182188.js" as="script"/><link rel="preload" href="../_next/static/chunks/pages/course/big-o-time-and-space-complexity-5e9e2dccd139e4f47237.js" as="script"/><link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700" rel="stylesheet"/><style data-styled="" data-styled-version="5.2.1">html,body{background:#18191C;color:#FFFFFF;padding:0;margin:0;min-height:100%;font-family:'Open Sans','Helvetica Neue',Arial,Helvetica,sans-serif;overflow-anchor:none;}/*!sc*/
+.smoothscroll{-webkit-scroll-behavior:smooth;-moz-scroll-behavior:smooth;-ms-scroll-behavior:smooth;scroll-behavior:smooth;}/*!sc*/
+.freeze{overflow-y:hidden;}/*!sc*/
+::selection{background-color:#fff300;color:#040405;}/*!sc*/
+body{overflow-x:hidden;max-width:100vw;min-width:320px;}/*!sc*/
+*{box-sizing:border-box;}/*!sc*/
+h1,h2,h3,h4,h5,h6,p{margin:0;line-height:1.425;}/*!sc*/
+pre{font-family:monospace,monospace;font-size:1em;border-radius:4px;}/*!sc*/
+sup{font-size:x-small;}/*!sc*/
+a{color:#FFFFFF;-webkit-text-decoration:none;text-decoration:none;}/*!sc*/
+a:visited{color:#FFFFFF;-webkit-text-decoration:none;text-decoration:none;}/*!sc*/
+svg{fill:#FFFFFF;}/*!sc*/
+code[class*='language-'],pre[class*='language-']{color:#ccc;background:none;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;font-size:12px;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none;}/*!sc*/
+pre[class*='language-']{padding:1em 1.5em;padding-top:1.1em;overflow:auto;}/*!sc*/
+:not(pre) > code[class*='language-'],pre[class*='language-']{background:#2F3136;}/*!sc*/
+:not(pre) > code[class*='language-']{padding:0.1em;border-radius:0.3em;white-space:normal;}/*!sc*/
+.token.comment,.token.block-comment,.token.prolog,.token.doctype,.token.cdata{color:#999;}/*!sc*/
+.token.punctuation{color:#ccc;}/*!sc*/
+.token.tag,.token.attr-name,.token.namespace,.token.deleted{color:#e2777a;}/*!sc*/
+.token.function-name{color:#6196cc;}/*!sc*/
+.token.boolean,.token.number,.token.function{color:#f08d49;}/*!sc*/
+.token.property,.token.class-name,.token.constant,.token.symbol{color:#f8c555;}/*!sc*/
+.token.selector,.token.important,.token.atrule,.token.keyword,.token.builtin{color:#cc99cd;}/*!sc*/
+.token.string,.token.char,.token.attr-value,.token.regex,.token.variable{color:#7ec699;}/*!sc*/
+.token.operator,.token.entity,.token.url{color:#67cdcc;}/*!sc*/
+.token.important,.token.bold{font-weight:bold;}/*!sc*/
+.token.italic{font-style:italic;}/*!sc*/
+.token.entity{cursor:help;}/*!sc*/
+.token.inserted{color:green;}/*!sc*/
+data-styled.g1[id="sc-global-bkBUYu1"]{content:"sc-global-bkBUYu1,"}/*!sc*/
+.dOTRW{width:100%;margin:0 auto;max-width:736px;padding:0 16px;}/*!sc*/
+data-styled.g3[id="sc-1n9wzr6-0"]{content:"dOTRW,"}/*!sc*/
+.hHRjlc{display:inline-block;position:relative;border:none;margin:0;padding:0;-webkit-text-decoration:none;text-decoration:none;background:none;cursor:pointer;text-align:center;-webkit-appearance:none;-moz-appearance:none;font-family:'Open Sans','Helvetica Neue',Arial,Helvetica,sans-serif;font-size:1em;color:#FFFFFF;line-height:1;border-radius:2px;}/*!sc*/
+.hHRjlc:disabled{opacity:0.5;cursor:default;}/*!sc*/
+data-styled.g5[id="sc-1n9wzr6-2"]{content:"hHRjlc,"}/*!sc*/
+.ffjFkw{padding:1rem 2rem;background:#0069ed;color:#ffffff;-webkit-transition:background-color 250ms ease-in-out;transition:background-color 250ms ease-in-out;font-weight:600;display:-webkit-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}/*!sc*/
+.ffjFkw:hover{background:#0053ba;}/*!sc*/
+.ffjFkw:disabled,.ffjFkw[disabled]{opacity:0.8;cursor:default;}/*!sc*/
+.ffjFkw:disabled:hover,.ffjFkw[disabled]:hover{background:#0069ed;}/*!sc*/
+data-styled.g6[id="sc-1n9wzr6-3"]{content:"ffjFkw,"}/*!sc*/
+.eHMGuj{-webkit-transition:background 150ms ease;transition:background 150ms ease;background:transparent;padding:8px;border-radius:4px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;outline-offset:-2px;}/*!sc*/
+.eHMGuj:hover{background:rgba(80,80,80,0.25);}/*!sc*/
+data-styled.g8[id="sc-1n9wzr6-5"]{content:"eHMGuj,"}/*!sc*/
+.tnDki{position:fixed;top:-80px;left:0;z-index:800;height:56px;padding:0 2rem;font-weight:400;}/*!sc*/
+.tnDki:focus{top:0;outline-offset:-2px;}/*!sc*/
+data-styled.g16[id="sc-1myjfyz-0"]{content:"tnDki,"}/*!sc*/
+.byxBNT{height:100%;position:relative;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}/*!sc*/
+data-styled.g53[id="sc-1fgnyor-0"]{content:"byxBNT,"}/*!sc*/
+.eVDbww{min-height:100vh;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;overflow-x:hidden;max-width:100vw;}/*!sc*/
+data-styled.g88[id="du1acr-0"]{content:"eVDbww,"}/*!sc*/
+.ggaNfl{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;}/*!sc*/
+.ggaNfl:focus{outline:none;}/*!sc*/
+data-styled.g89[id="du1acr-1"]{content:"ggaNfl,"}/*!sc*/
+.ceeCaK{-webkit-flex-shrink:1;-ms-flex-negative:1;flex-shrink:1;overflow:auto;padding-bottom:24px;}/*!sc*/
+data-styled.g141[id="sc-1b7i7vy-2"]{content:"ceeCaK,"}/*!sc*/
+.iobjrb{margin:32px 0;margin-bottom:8px;padding:0 16px;-webkit-flex-shrink:0;-ms-flex-negative:0;flex-shrink:0;}/*!sc*/
+data-styled.g142[id="sc-1b7i7vy-3"]{content:"iobjrb,"}/*!sc*/
+.CISgQ{list-style:none;padding:4px 16px;margin:0;}/*!sc*/
+data-styled.g143[id="sc-1b7i7vy-4"]{content:"CISgQ,"}/*!sc*/
+.bqisje{background-color:#202225;color:#B9BBBE;border-radius:4px;margin-bottom:12px;font-size:14px;}/*!sc*/
+data-styled.g144[id="sc-1b7i7vy-5"]{content:"bqisje,"}/*!sc*/
+.dojxVe{color:#B9BBBE;box-shadow:0 0 0 1px rgba(6,6,7,0.08),0 1px 0 rgba(6,6,7,0.1),0 1.5px 0 rgba(6,6,7,0.1),0 2px 0 rgba(6,6,7,0.1);padding:16px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;width:100%;-webkit-transition:all 300ms ease 0s;transition:all 300ms ease 0s;text-align:left;}/*!sc*/
+.dojxVe:hover,.dojxVe:focus{color:#FFFFFF;box-shadow:0 0 0 1px rgba(6,6,7,0.08),0 8px 16px rgba(0,0,0,0.26);}/*!sc*/
+data-styled.g145[id="sc-1b7i7vy-6"]{content:"dojxVe,"}/*!sc*/
+.lfDZXA{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;word-wrap:break-word;line-height:1.85;font-size:16px;font-weight:300;}/*!sc*/
+.lfDZXA h1,.lfDZXA h2,.lfDZXA h3,.lfDZXA h4,.lfDZXA h5,.lfDZXA h6{margin-bottom:0;margin-top:0;width:100%;margin:0 auto;max-width:736px;padding:0 16px;}/*!sc*/
+.lfDZXA h1,.lfDZXA h2,.lfDZXA h3,.lfDZXA h4,.lfDZXA h5,.lfDZXA h6,.lfDZXA p{line-height:1.85;}/*!sc*/
+.lfDZXA dl,.lfDZXA ol,.lfDZXA p,.lfDZXA pre,.lfDZXA ul{width:100%;margin:0 auto;max-width:736px;padding:0 16px;}/*!sc*/
+.lfDZXA blockquote{width:100%;margin:0 auto;max-width:736px;padding:0 16px;max-width:704px;border-left:0.25em solid #B9BBBE;color:#B9BBBE;margin-bottom:0;margin-top:24px;padding:0;}/*!sc*/
+.lfDZXA blockquote p{margin:0;}/*!sc*/
+.lfDZXA blockquote a,.lfDZXA blockquote a:visited,.lfDZXA blockquote a:focus{color:inherit;}/*!sc*/
+.lfDZXA pre{width:100%;margin:0 auto;max-width:736px;padding:0 16px;margin-top:24px;}/*!sc*/
+.lfDZXA p{width:100%;margin:0 auto;max-width:736px;padding:0 16px;margin-bottom:0;margin-top:24px;}/*!sc*/
+.lfDZXA ol,.lfDZXA ul{width:100%;margin:0 auto;max-width:736px;padding:0 16px;margin-bottom:0;margin-top:24px;}/*!sc*/
+.lfDZXA ol li,.lfDZXA ul li{padding:0 8px;margin-left:48px;}/*!sc*/
+@media only screen and (max-width:767px){.lfDZXA ol li,.lfDZXA ul li{margin-left:16px;}}/*!sc*/
+.lfDZXA .octicon{display:inline-block;fill:currentColor;vertical-align:text-bottom;}/*!sc*/
+.lfDZXA .anchor{float:left;line-height:1;margin-left:-20px;padding-right:4px;}/*!sc*/
+.lfDZXA .anchor:focus{outline:none;}/*!sc*/
+.lfDZXA h1:hover .anchor,.lfDZXA h2:hover .anchor,.lfDZXA h3:hover .anchor,.lfDZXA h4:hover .anchor,.lfDZXA h5:hover .anchor,.lfDZXA h6:hover .anchor{-webkit-text-decoration:none;text-decoration:none;}/*!sc*/
+.lfDZXA .pl-c{color:#6a737d;}/*!sc*/
+.lfDZXA .pl-c1,.lfDZXA .pl-s .pl-v{color:#005cc5;}/*!sc*/
+.lfDZXA .pl-e,.lfDZXA .pl-en{color:#6f42c1;}/*!sc*/
+.lfDZXA .pl-s .pl-s1,.lfDZXA .pl-smi{color:#24292e;}/*!sc*/
+.lfDZXA .pl-ent{color:#22863a;}/*!sc*/
+.lfDZXA .pl-k{color:#d73a49;}/*!sc*/
+.lfDZXA .pl-pds,.lfDZXA .pl-s,.lfDZXA .pl-s .pl-pse .pl-s1,.lfDZXA .pl-sr,.lfDZXA .pl-sr .pl-cce,.lfDZXA .pl-sr .pl-sra,.lfDZXA .pl-sr .pl-sre{color:#032f62;}/*!sc*/
+.lfDZXA .pl-smw,.lfDZXA .pl-v{color:#e36209;}/*!sc*/
+.lfDZXA .pl-bu{color:#b31d28;}/*!sc*/
+.lfDZXA .pl-ii{background-color:#b31d28;color:#fafbfc;}/*!sc*/
+.lfDZXA .pl-c2{background-color:#d73a49;color:#fafbfc;}/*!sc*/
+.lfDZXA .pl-c2:before{content:'^M';}/*!sc*/
+.lfDZXA .pl-sr .pl-cce{color:#22863a;font-weight:700;}/*!sc*/
+.lfDZXA .pl-ml{color:#735c0f;}/*!sc*/
+.lfDZXA .pl-mh,.lfDZXA .pl-mh .pl-en,.lfDZXA .pl-ms{color:#005cc5;font-weight:700;}/*!sc*/
+.lfDZXA .pl-mi{color:#24292e;font-style:italic;}/*!sc*/
+.lfDZXA .pl-mb{color:#24292e;font-weight:700;}/*!sc*/
+.lfDZXA .pl-md{background-color:#ffeef0;color:#b31d28;}/*!sc*/
+.lfDZXA .pl-mi1{background-color:#f0fff4;color:#22863a;}/*!sc*/
+.lfDZXA .pl-mc{background-color:#ffebda;color:#e36209;}/*!sc*/
+.lfDZXA .pl-mi2{background-color:#005cc5;color:#f6f8fa;}/*!sc*/
+.lfDZXA .pl-mdr{color:#6f42c1;font-weight:700;}/*!sc*/
+.lfDZXA .pl-ba{color:#586069;}/*!sc*/
+.lfDZXA .pl-sg{color:#959da5;}/*!sc*/
+.lfDZXA .pl-corl{color:#032f62;-webkit-text-decoration:underline;text-decoration:underline;}/*!sc*/
+.lfDZXA details{display:block;}/*!sc*/
+.lfDZXA summary{display:list-item;}/*!sc*/
+.lfDZXA a{background-color:transparent;}/*!sc*/
+.lfDZXA a:active,.lfDZXA a:hover{outline-width:0;}/*!sc*/
+.lfDZXA strong{font-weight:inherit;font-weight:bolder;}/*!sc*/
+.lfDZXA h1{font-size:2em;}/*!sc*/
+.lfDZXA img{border-style:none;}/*!sc*/
+.lfDZXA code,.lfDZXA kbd,.lfDZXA pre{font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:1em;}/*!sc*/
+.lfDZXA hr{box-sizing:content-box;height:0;overflow:visible;}/*!sc*/
+.lfDZXA input{font:inherit;margin:0;}/*!sc*/
+.lfDZXA input{overflow:visible;}/*!sc*/
+.lfDZXA [type='checkbox']{box-sizing:border-box;padding:0;}/*!sc*/
+.lfDZXA *{box-sizing:border-box;}/*!sc*/
+.lfDZXA input{font-family:inherit;font-size:inherit;line-height:inherit;}/*!sc*/
+.lfDZXA a{-webkit-text-decoration:underline;text-decoration:underline;}/*!sc*/
+.lfDZXA a:hover,.lfDZXA a:visited{-webkit-text-decoration:underline;text-decoration:underline;}/*!sc*/
+.lfDZXA strong{font-weight:700;}/*!sc*/
+.lfDZXA hr{background:transparent;border:0;border-bottom:1px solid #36393F;overflow:hidden;}/*!sc*/
+.lfDZXA hr:before{content:'';display:table;}/*!sc*/
+.lfDZXA hr:after{clear:both;content:'';display:table;}/*!sc*/
+.lfDZXA table{border-collapse:collapse;border-spacing:0;}/*!sc*/
+.lfDZXA td,.lfDZXA th{padding:0;}/*!sc*/
+.lfDZXA details summary{cursor:pointer;}/*!sc*/
+.lfDZXA h1{font-size:28px;}/*!sc*/
+.lfDZXA h1,.lfDZXA h2{font-weight:600;}/*!sc*/
+.lfDZXA h2{color:#EED639;font-size:24px;}/*!sc*/
+.lfDZXA h2 em{color:#FFFFFF;}/*!sc*/
+.lfDZXA h3{color:#FFFFFF;font-size:20px;margin-top:32px;}/*!sc*/
+.lfDZXA h3,.lfDZXA h4{font-weight:600;}/*!sc*/
+.lfDZXA h4{font-size:20px;}/*!sc*/
+.lfDZXA h5{font-size:16px;}/*!sc*/
+.lfDZXA h5,.lfDZXA h6{font-weight:600;}/*!sc*/
+.lfDZXA h6{font-size:12px;}/*!sc*/
+.lfDZXA ol ol,.lfDZXA ul ol{list-style-type:lower-roman;}/*!sc*/
+.lfDZXA ol ol ol,.lfDZXA ol ul ol,.lfDZXA ul ol ol,.lfDZXA ul ul ol{list-style-type:lower-alpha;}/*!sc*/
+.lfDZXA dd{margin-left:0;}/*!sc*/
+.lfDZXA code,.lfDZXA pre{font-size:12px;}/*!sc*/
+.lfDZXA input::-webkit-inner-spin-button,.lfDZXA input::-webkit-outer-spin-button{-webkit-appearance:none;-webkit-appearance:none;-moz-appearance:none;appearance:none;margin:0;}/*!sc*/
+.lfDZXA .border{border:1px solid #e1e4e8 !important;}/*!sc*/
+.lfDZXA .border-0{border:0 !important;}/*!sc*/
+.lfDZXA .border-bottom{border-bottom:1px solid #e1e4e8 !important;}/*!sc*/
+.lfDZXA .rounded-1{border-radius:3px !important;}/*!sc*/
+.lfDZXA .bg-white{background-color:#fff !important;}/*!sc*/
+.lfDZXA .bg-gray-light{background-color:#fafbfc !important;}/*!sc*/
+.lfDZXA .text-gray-light{color:#6a737d !important;}/*!sc*/
+.lfDZXA .mb-0{margin-bottom:0 !important;}/*!sc*/
+.lfDZXA .my-2{margin-bottom:8px !important;margin-top:8px !important;}/*!sc*/
+.lfDZXA .pl-0{padding-left:0 !important;}/*!sc*/
+.lfDZXA .py-0{padding-bottom:0 !important;padding-top:0 !important;}/*!sc*/
+.lfDZXA .pl-1{padding-left:4px !important;}/*!sc*/
+.lfDZXA .pl-2{padding-left:8px !important;}/*!sc*/
+.lfDZXA .py-2{padding-bottom:8px !important;padding-top:8px !important;}/*!sc*/
+.lfDZXA .pl-3,.lfDZXA .px-3{padding-left:16px !important;}/*!sc*/
+.lfDZXA .px-3{padding-right:16px !important;}/*!sc*/
+.lfDZXA .pl-4{padding-left:24px !important;}/*!sc*/
+.lfDZXA .pl-5{padding-left:32px !important;}/*!sc*/
+.lfDZXA .pl-6{padding-left:40px !important;}/*!sc*/
+.lfDZXA .f6{font-size:12px !important;}/*!sc*/
+.lfDZXA .lh-condensed{line-height:1.25 !important;}/*!sc*/
+.lfDZXA .text-bold{font-weight:600 !important;}/*!sc*/
+.lfDZXA .markdown-body:before{content:'';display:table;}/*!sc*/
+.lfDZXA .markdown-body:after{clear:both;content:'';display:table;}/*!sc*/
+.lfDZXA >:first-child{margin-top:0 !important;}/*!sc*/
+.lfDZXA >:last-child{margin-bottom:0 !important;}/*!sc*/
+.lfDZXA a:not([href]){color:inherit;-webkit-text-decoration:none;text-decoration:none;}/*!sc*/
+.lfDZXA hr{background-color:#36393F;border:0;height:1px;padding:0;}/*!sc*/
+.lfDZXA kbd{background-color:#fafbfc;border:1px solid #c6cbd1;border-bottom-color:#959da5;border-radius:3px;box-shadow:inset 0 -1px 0 #959da5;color:#444d56;display:inline-block;font-size:11px;line-height:10px;padding:3px 5px;vertical-align:middle;}/*!sc*/
+.lfDZXA h1,.lfDZXA h2,.lfDZXA h3,.lfDZXA h4,.lfDZXA h5,.lfDZXA h6{font-weight:600;line-height:1.25;margin-bottom:16px;padding-bottom:2px;}/*!sc*/
+.lfDZXA h1{font-size:1.8em;}/*!sc*/
+.lfDZXA h2{font-size:1.6em;}/*!sc*/
+.lfDZXA h3{font-size:1.4em;}/*!sc*/
+.lfDZXA h4{font-size:1.25em;}/*!sc*/
+.lfDZXA h5{font-size:0.875em;}/*!sc*/
+.lfDZXA h6{color:#6a737d;font-size:0.85em;}/*!sc*/
+.lfDZXA ol ol,.lfDZXA ol ul,.lfDZXA ul ol,.lfDZXA ul ul{margin-bottom:0;margin-top:0;}/*!sc*/
+.lfDZXA li{word-wrap:break-all;}/*!sc*/
+.lfDZXA li > p{margin-top:16px;}/*!sc*/
+.lfDZXA li + li{margin-top:0.25em;}/*!sc*/
+.lfDZXA dl{padding:0;}/*!sc*/
+.lfDZXA dl dt{font-size:1em;font-style:italic;font-weight:600;margin-top:16px;padding:0;}/*!sc*/
+.lfDZXA dl dd{margin-bottom:16px;padding:0 16px;}/*!sc*/
+.lfDZXA table{overflow:auto;}/*!sc*/
+.lfDZXA table th{font-weight:600;}/*!sc*/
+.lfDZXA table td,.lfDZXA table th{padding:6px 13px;}/*!sc*/
+.lfDZXA img{background-color:#fff;box-sizing:content-box;max-width:100%;}/*!sc*/
+.lfDZXA img[align='right']{padding-left:20px;}/*!sc*/
+.lfDZXA img[align='left']{padding-right:20px;}/*!sc*/
+.lfDZXA code{background-color:rgba(255,255,255,0.1);border-radius:2px;font-size:80%;margin:0;padding:0.2em 0.35em;padding-top:0.3em;margin-left:1px;margin-right:1px;vertical-align:middle;}/*!sc*/
+.lfDZXA pre{word-wrap:normal;}/*!sc*/
+.lfDZXA pre > code{background:transparent;border:0;font-size:100%;margin:0;padding:0;white-space:pre;word-break:normal;}/*!sc*/
+.lfDZXA .highlight{margin-bottom:16px;}/*!sc*/
+.lfDZXA .highlight pre{margin-bottom:0;word-break:normal;}/*!sc*/
+.lfDZXA .highlight pre,.lfDZXA pre{font-size:85%;line-height:1.45;overflow:auto;padding:16px;}/*!sc*/
+.lfDZXA pre code{background-color:transparent;border:0;display:inline;line-height:inherit;margin:0;max-width:auto;overflow:visible;padding:0;word-wrap:normal;}/*!sc*/
+.lfDZXA .commit-tease-sha{color:#444d56;display:inline-block;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:90%;}/*!sc*/
+.lfDZXA .blob-wrapper{border-bottom-left-radius:3px;border-bottom-right-radius:3px;overflow-x:auto;overflow-y:hidden;}/*!sc*/
+.lfDZXA .blob-wrapper-embedded{max-height:240px;overflow-y:auto;}/*!sc*/
+.lfDZXA .blob-num{-moz-user-select:none;-ms-user-select:none;-webkit-user-select:none;color:rgba(27,31,35,0.3);cursor:pointer;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:12px;line-height:20px;min-width:50px;padding-left:10px;padding-right:10px;text-align:right;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;vertical-align:top;white-space:nowrap;width:1%;}/*!sc*/
+.lfDZXA .blob-num:hover{color:rgba(27,31,35,0.6);}/*!sc*/
+.lfDZXA .blob-num:before{content:attr(data-line-number);}/*!sc*/
+.lfDZXA .blob-code{line-height:20px;padding-left:10px;padding-right:10px;position:relative;vertical-align:top;}/*!sc*/
+.lfDZXA .blob-code-inner{color:#24292e;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:12px;overflow:visible;white-space:pre;word-wrap:normal;}/*!sc*/
+.lfDZXA .pl-token.active,.lfDZXA .pl-token:hover{background:#ffea7f;cursor:pointer;}/*!sc*/
+.lfDZXA kbd{background-color:#fafbfc;border:1px solid #d1d5da;border-bottom-color:#c6cbd1;border-radius:3px;box-shadow:inset 0 -1px 0 #c6cbd1;color:#444d56;display:inline-block;font:11px Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;line-height:10px;padding:3px 5px;vertical-align:middle;}/*!sc*/
+.lfDZXA:checked + .radio-label{border-color:#0366d6;position:relative;z-index:1;}/*!sc*/
+.lfDZXA .tab-size[data-tab-size='1']{-moz-tab-size:1;tab-size:1;}/*!sc*/
+.lfDZXA .tab-size[data-tab-size='2']{-moz-tab-size:2;tab-size:2;}/*!sc*/
+.lfDZXA .tab-size[data-tab-size='3']{-moz-tab-size:3;tab-size:3;}/*!sc*/
+.lfDZXA .tab-size[data-tab-size='4']{-moz-tab-size:4;tab-size:4;}/*!sc*/
+.lfDZXA .tab-size[data-tab-size='5']{-moz-tab-size:5;tab-size:5;}/*!sc*/
+.lfDZXA .tab-size[data-tab-size='6']{-moz-tab-size:6;tab-size:6;}/*!sc*/
+.lfDZXA .tab-size[data-tab-size='7']{-moz-tab-size:7;tab-size:7;}/*!sc*/
+.lfDZXA .tab-size[data-tab-size='8']{-moz-tab-size:8;tab-size:8;}/*!sc*/
+.lfDZXA .tab-size[data-tab-size='9']{-moz-tab-size:9;tab-size:9;}/*!sc*/
+.lfDZXA .tab-size[data-tab-size='10']{-moz-tab-size:10;tab-size:10;}/*!sc*/
+.lfDZXA .tab-size[data-tab-size='11']{-moz-tab-size:11;tab-size:11;}/*!sc*/
+.lfDZXA .tab-size[data-tab-size='12']{-moz-tab-size:12;tab-size:12;}/*!sc*/
+.lfDZXA .task-list-item{list-style-type:none;}/*!sc*/
+.lfDZXA .task-list-item + .task-list-item{margin-top:3px;}/*!sc*/
+.lfDZXA .task-list-item input{margin:0 0.2em 0.25em -1.6em;vertical-align:middle;}/*!sc*/
+.lfDZXA .pl-0{padding-left:0 !important;}/*!sc*/
+.lfDZXA .pl-1{padding-left:4px !important;}/*!sc*/
+.lfDZXA .pl-2{padding-left:8px !important;}/*!sc*/
+.lfDZXA .pl-3{padding-left:16px !important;}/*!sc*/
+.lfDZXA .pl-4{padding-left:24px !important;}/*!sc*/
+.lfDZXA .pl-5{padding-left:32px !important;}/*!sc*/
+.lfDZXA .pl-6{padding-left:40px !important;}/*!sc*/
+.lfDZXA .pl-7{padding-left:48px !important;}/*!sc*/
+.lfDZXA .pl-8{padding-left:64px !important;}/*!sc*/
+.lfDZXA .pl-9{padding-left:80px !important;}/*!sc*/
+.lfDZXA .pl-10{padding-left:96px !important;}/*!sc*/
+.lfDZXA .pl-11{padding-left:112px !important;}/*!sc*/
+.lfDZXA .pl-12{padding-left:128px !important;}/*!sc*/
+data-styled.g147[id="sc-1ge69lj-0"]{content:"lfDZXA,"}/*!sc*/
+.jSLGes{margin-top:24px;}/*!sc*/
+data-styled.g148[id="sc-16wjbcj-0"]{content:"jSLGes,"}/*!sc*/
+.gfSlYR{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}/*!sc*/
+data-styled.g149[id="sc-16wjbcj-1"]{content:"gfSlYR,"}/*!sc*/
+.dqdrn{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}/*!sc*/
+data-styled.g151[id="sc-1u1nk7e-0"]{content:"dqdrn,"}/*!sc*/
+.dFHqIT{border-radius:6px;max-width:100%;}/*!sc*/
+@media only screen and (max-width:767px){.dFHqIT{max-width:100% !important;}}/*!sc*/
+data-styled.g152[id="sc-1u1nk7e-1"]{content:"dFHqIT,"}/*!sc*/
+.htwsLP{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}/*!sc*/
+data-styled.g179[id="sc-1u42vx2-0"]{content:"htwsLP,"}/*!sc*/
+.cjKQPa{width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}/*!sc*/
+.bKJGVW{width:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}/*!sc*/
+data-styled.g182[id="sc-1u42vx2-3"]{content:"cjKQPa,bKJGVW,"}/*!sc*/
+.kiNdR{padding:10px 18px;border:1px solid #36393F;display:-webkit-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;line-height:1;-webkit-transition:border 150ms ease,background-color 150ms ease;transition:border 150ms ease,background-color 150ms ease;outline-offset:-2px;border-radius:0;position:relative;z-index:100;}/*!sc*/
+.kiNdR svg{width:14px;height:14px;fill:#FFFFFF;-webkit-transition:fill 150ms ease;transition:fill 150ms ease;}/*!sc*/
+.kiNdR:hover,.kiNdR:focus{border:1px solid #0069ed;background-color:#0069ed;color:#FFFFFF;}/*!sc*/
+.kiNdR:hover svg,.kiNdR:focus svg{fill:#FFFFFF;}/*!sc*/
+.kiNdR:hover .sc-1u42vx2-4,.kiNdR:focus .sc-1u42vx2-4{color:#FFFFFF;}/*!sc*/
+.kiNdR:hover .sc-1u42vx2-2,.kiNdR:focus .sc-1u42vx2-2{visibility:visible;}/*!sc*/
+.kiNdR:hover .sc-1u42vx2-2:after,.kiNdR:focus .sc-1u42vx2-2:after{visibility:visible;}/*!sc*/
+data-styled.g184[id="sc-1u42vx2-5"]{content:"kiNdR,"}/*!sc*/
+.gsa-DSf{padding:10px 18px;border:1px solid #36393F;display:-webkit-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;line-height:1;-webkit-transition:border 150ms ease,background-color 150ms ease;transition:border 150ms ease,background-color 150ms ease;outline-offset:-2px;border-radius:0;border-top-left-radius:3px;border-bottom-left-radius:3px;}/*!sc*/
+.gsa-DSf svg{width:14px;height:14px;fill:#FFFFFF;-webkit-transition:fill 150ms ease;transition:fill 150ms ease;}/*!sc*/
+.izRoFz{padding:10px 18px;border:1px solid #36393F;display:-webkit-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;line-height:1;-webkit-transition:border 150ms ease,background-color 150ms ease;transition:border 150ms ease,background-color 150ms ease;outline-offset:-2px;border-radius:0;border-top-right-radius:3px;border-bottom-right-radius:3px;}/*!sc*/
+.izRoFz svg{width:14px;height:14px;fill:#FFFFFF;-webkit-transition:fill 150ms ease;transition:fill 150ms ease;}/*!sc*/
+.ijESGo{padding:10px 18px;border:1px solid #36393F;display:-webkit-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;line-height:1;-webkit-transition:border 150ms ease,background-color 150ms ease;transition:border 150ms ease,background-color 150ms ease;outline-offset:-2px;border-radius:3px;border-top-left-radius:3px;border-bottom-left-radius:3px;}/*!sc*/
+.ijESGo svg{width:14px;height:14px;fill:#FFFFFF;-webkit-transition:fill 150ms ease;transition:fill 150ms ease;}/*!sc*/
+.cjegpI{padding:10px 18px;border:1px solid #36393F;display:-webkit-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;line-height:1;-webkit-transition:border 150ms ease,background-color 150ms ease;transition:border 150ms ease,background-color 150ms ease;outline-offset:-2px;border-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;}/*!sc*/
+.cjegpI svg{width:14px;height:14px;fill:#FFFFFF;-webkit-transition:fill 150ms ease;transition:fill 150ms ease;}/*!sc*/
+data-styled.g185[id="sc-1u42vx2-6"]{content:"gsa-DSf,izRoFz,ijESGo,cjegpI,"}/*!sc*/
+.daRzrG{color:#B9BBBE;font-size:14px;margin-top:16px;}/*!sc*/
+data-styled.g186[id="sc-1u42vx2-7"]{content:"daRzrG,"}/*!sc*/
+.hfYjfB{text-align:left;}/*!sc*/
+.iSzNpy{text-align:right;}/*!sc*/
+data-styled.g187[id="sc-1u42vx2-8"]{content:"hfYjfB,iSzNpy,"}/*!sc*/
+.coxxcN{padding-top:30px;padding-bottom:36px;}/*!sc*/
+data-styled.g208[id="aowvvh-0"]{content:"coxxcN,"}/*!sc*/
+.bcOBKk:first-of-type{padding-top:0;}/*!sc*/
+.bcOBKk:nth-of-type(2n){background-color:#202225;}/*!sc*/
+.bcOBKk:nth-of-type(2n - 1){background-color:#18191C;}/*!sc*/
+data-styled.g209[id="aowvvh-1"]{content:"bcOBKk,"}/*!sc*/
+.kLXgup{color:#EED639;font-weight:bold;font-size:2em;line-height:1;}/*!sc*/
+@media only screen and (max-width:767px){.kLXgup{font-size:2em;}}/*!sc*/
+data-styled.g310[id="acuo4w-0"]{content:"kLXgup,"}/*!sc*/
+.ficmHG{width:100%;margin:0 auto;max-width:736px;padding:0 16px;}/*!sc*/
+data-styled.g311[id="acuo4w-1"]{content:"ficmHG,"}/*!sc*/
+.chFzo{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}/*!sc*/
+data-styled.g317[id="acuo4w-7"]{content:"chFzo,"}/*!sc*/
+.lbudrz{-webkit-box-flex:1;-webkit-flex-grow:1;-ms-flex-positive:1;flex-grow:1;}/*!sc*/
+data-styled.g318[id="acuo4w-8"]{content:"lbudrz,"}/*!sc*/
+.ffHaLc{text-transform:uppercase;font-weight:600;margin-bottom:8px;}/*!sc*/
+data-styled.g322[id="acuo4w-12"]{content:"ffHaLc,"}/*!sc*/
+.ggNYgF{height:56px;border-bottom:1px solid #36393F;-webkit-flex-shrink:0;-ms-flex-negative:0;flex-shrink:0;padding:0 20px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}/*!sc*/
+data-styled.g324[id="sc-108o6s8-0"]{content:"ggNYgF,"}/*!sc*/
+.TWuYr{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;height:100%;-webkit-flex-shrink:0;-ms-flex-negative:0;flex-shrink:0;}/*!sc*/
+data-styled.g325[id="sc-108o6s8-1"]{content:"TWuYr,"}/*!sc*/
+.eKwqAp{height:56px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}/*!sc*/
+@media only screen and (max-width:767px){.eKwqAp{display:none;}}/*!sc*/
+data-styled.g326[id="sc-108o6s8-2"]{content:"eKwqAp,"}/*!sc*/
+.jaJFkQ .sc-108o6s8-2{margin-left:16px;}/*!sc*/
+.jaJFkQ .sc-108o6s8-2:first-of-type{margin-left:0;}/*!sc*/
+@media only screen and (max-width:767px){.jaJFkQ{width:auto;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}}/*!sc*/
+data-styled.g327[id="sc-108o6s8-3"]{content:"jaJFkQ,"}/*!sc*/
+.etnCem .sc-108o6s8-2{margin-right:16px;}/*!sc*/
+.etnCem .sc-108o6s8-2:last-of-type{margin-right:0;}/*!sc*/
+data-styled.g328[id="sc-108o6s8-4"]{content:"etnCem,"}/*!sc*/
+.htDuZH{height:100%;line-height:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin-right:32px;}/*!sc*/
+data-styled.g329[id="sc-108o6s8-5"]{content:"htDuZH,"}/*!sc*/
+.ldYbZS{height:36px;padding:0 24px;border:1px solid #36393F;display:-webkit-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;line-height:1;-webkit-transition:border 150ms ease,background-color 150ms ease;transition:border 150ms ease,background-color 150ms ease;border-radius:3px;font-size:12px;}/*!sc*/
+.ldYbZS svg{margin-left:10px;}/*!sc*/
+.ldYbZS:hover,.ldYbZS:focus{border:1px solid #0069ed;background-color:#0069ed;color:#FFFFFF;}/*!sc*/
+.ldYbZS:hover svg,.ldYbZS:focus svg{fill:#FFFFFF;}/*!sc*/
+data-styled.g330[id="sc-108o6s8-6"]{content:"ldYbZS,"}/*!sc*/
+.jixliH svg{will-change:transform;-webkit-transition:-webkit-transform 80ms linear;-webkit-transition:transform 80ms linear;transition:transform 80ms linear;-webkit-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg);}/*!sc*/
+data-styled.g332[id="sc-108o6s8-8"]{content:"jixliH,"}/*!sc*/
+.eHHAWj{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}/*!sc*/
+data-styled.g334[id="sc-108o6s8-10"]{content:"eHHAWj,"}/*!sc*/
+.chNLUa{font-size:14px;}/*!sc*/
+data-styled.g335[id="sc-108o6s8-11"]{content:"chNLUa,"}/*!sc*/
+.bubTmR{width:36px;height:36px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}/*!sc*/
+data-styled.g336[id="sc-108o6s8-12"]{content:"bubTmR,"}/*!sc*/
+.ksxdvL{width:82px;overflow:hidden;-webkit-transition:width 200ms ease,background 150ms ease;transition:width 200ms ease,background 150ms ease;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding-left:9px;padding-right:11px;margin-left:4px;}/*!sc*/
+.ksxdvL:hover{width:82px;}/*!sc*/
+.ksxdvL svg{margin-right:14px;margin-left:0;-webkit-flex-shrink:0;-ms-flex-negative:0;flex-shrink:0;}/*!sc*/
+data-styled.g337[id="sc-108o6s8-13"]{content:"ksxdvL,"}/*!sc*/
+.cpmXEz{margin-top:40px;margin-bottom:40px;}/*!sc*/
+data-styled.g339[id="sc-80cco5-0"]{content:"cpmXEz,"}/*!sc*/
+.gMcxnS{height:100vh;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}/*!sc*/
+@media only screen and (max-width:767px){.gMcxnS{height:auto;}}/*!sc*/
+data-styled.g340[id="sc-80cco5-1"]{content:"gMcxnS,"}/*!sc*/
+.hqYGxx{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;height:100%;max-width:100vw;-webkit-flex:1;-ms-flex:1;flex:1;overflow-y:auto;}/*!sc*/
+@media only screen and (max-width:767px){.hqYGxx{width:100vw;overflow:visible;}}/*!sc*/
+data-styled.g341[id="sc-80cco5-2"]{content:"hqYGxx,"}/*!sc*/
+.izwhtu{overflow:auto;width:55%;max-width:55%;padding-top:32px;}/*!sc*/
+@media only screen and (max-width:767px){.izwhtu{width:100vw;max-width:100vw;overflow:visible;}}/*!sc*/
+data-styled.g342[id="sc-80cco5-3"]{content:"izwhtu,"}/*!sc*/
+.fdcTGB{border-left:1px solid #36393F;width:45%;max-width:45%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}/*!sc*/
+@media only screen and (max-width:767px){.fdcTGB{display:none;}}/*!sc*/
+data-styled.g343[id="sc-80cco5-4"]{content:"fdcTGB,"}/*!sc*/
+.jiheli{display:none;width:100%;margin:0 auto;max-width:736px;padding:0 16px;margin-bottom:0;margin-top:48px;}/*!sc*/
+@media only screen and (max-width:767px){.jiheli{display:block;}}/*!sc*/
+data-styled.g344[id="sc-80cco5-5"]{content:"jiheli,"}/*!sc*/
+.iaizBe td,.iaizBe th{border:1px solid #FFFFFF;border-collapse:collapse;font-size:0.75em;text-align:center;}/*!sc*/
+@media only screen and (max-width:1059px){.iaizBe td,.iaizBe th{font-size:8px;padding:2px 4px !important;}.iaizBe td sup,.iaizBe th sup{font-size:8px;}}/*!sc*/
+.iaizBe th{background-color:#36393F;}/*!sc*/
+.iaizBe tr td:first-child{background-color:#72767D;text-align:right;}/*!sc*/
+.iaizBe .best{background-color:#2f8f3a;}/*!sc*/
+.iaizBe .good{background-color:#84c916;}/*!sc*/
+.iaizBe .okay{background-color:#dbc21a;}/*!sc*/
+.iaizBe .medium{background-color:#ee6a14;}/*!sc*/
+.iaizBe .bad{background-color:#e14042;}/*!sc*/
+data-styled.g361[id="sc-1j07s7f-0"]{content:"iaizBe,"}/*!sc*/
+.bQUyG{width:100%;max-width:360px;margin-left:auto;margin-right:auto;}/*!sc*/
+data-styled.g362[id="x0z8s7-0"]{content:"bQUyG,"}/*!sc*/
+</style></head><body><div id="__next"><div class="du1acr-0 eVDbww"><button class="sc-1n9wzr6-2 sc-1n9wzr6-3 sc-1myjfyz-0 hHRjlc ffjFkw tnDki">Skip to content</button><main tabindex="-1" class="du1acr-1 ggaNfl"><div class="sc-80cco5-1 gMcxnS"><div class="sc-108o6s8-0 ggNYgF"><div class="sc-108o6s8-1 sc-108o6s8-3 TWuYr jaJFkQ"><a href="../index.html" class="sc-108o6s8-5 htDuZH"><svg width="100" height="16.58" viewBox="0 0 100 16.58" xmlns="http://www.w3.org/2000/svg"><path d="M4.687 6.1h2.897q.989 0 1.848.377a4.431 4.431 0 0 1 1.484 1.048q.624.671.966 1.601a5.611 5.611 0 0 1 .317 1.462 6.749 6.749 0 0 1 .024.575 5.96 5.96 0 0 1-.157 1.388 5.293 5.293 0 0 1-.161.544 4.677 4.677 0 0 1-.581 1.136 4.208 4.208 0 0 1-.325.406 4.378 4.378 0 0 1-1.39 1.025 3.974 3.974 0 0 1-1.307.353 4.851 4.851 0 0 1-.483.024H.518v-2.968h6.453a3.46 3.46 0 0 0 .907-.118 2.371 2.371 0 0 0 .415-.152 1.87 1.87 0 0 0 .327-.201q.306-.235.494-.589a1.55 1.55 0 0 0 .153-.442q.036-.189.036-.406a2.261 2.261 0 0 0-.078-.608 1.657 1.657 0 0 0-.523-.828 2.117 2.117 0 0 0-1.157-.499 2.819 2.819 0 0 0-.338-.019H5.299a9.662 9.662 0 0 1-1.25-.078 7.582 7.582 0 0 1-.94-.181 4.786 4.786 0 0 1-.958-.359 3.851 3.851 0 0 1-.714-.466A3.647 3.647 0 0 1 .509 6.95a4.395 4.395 0 0 1-.132-.285Q.03 5.84.002 4.716A7.999 7.999 0 0 1 0 4.522a4.833 4.833 0 0 1 .306-1.696A4.728 4.728 0 0 1 .99 1.578a4.422 4.422 0 0 1 .164-.2A4.081 4.081 0 0 1 2.473.377Q3.25 0 4.192 0h6.618v3.132H5.417q-.471 0-.872.059a2.638 2.638 0 0 0-.393.088 2.047 2.047 0 0 0-.313.124 1.065 1.065 0 0 0-.471.459q-.122.226-.154.567a2.766 2.766 0 0 0-.011.258 1.383 1.383 0 0 0 .4 1.001 1.33 1.33 0 0 0 .731.381 1.925 1.925 0 0 0 .353.031zm13.377 3.485l5.841 6.454h-3.109l-4.051-4.569v4.569h-2.779V0h2.779v7.843l3.815-3.792h3.274l-5.77 5.534zm21.62 2.379v-3.65q0-.872.33-1.637a4.769 4.769 0 0 1 .871-1.354q.542-.589 1.249-.931a3.457 3.457 0 0 1 .839-.285 2.973 2.973 0 0 1 .574-.056h2.685a3.707 3.707 0 0 1 .944.116 3.108 3.108 0 0 1 .692.272 3.943 3.943 0 0 1 1.069.834 3.742 3.742 0 0 1 .133.156 4.697 4.697 0 0 1 .753 1.342 4.494 4.494 0 0 1 .233.914 3.824 3.824 0 0 1 .038.534v3.039h-7.631v.636a2.389 2.389 0 0 0 .037.437q.096.51.434.764a1.668 1.668 0 0 0 .582.274q.299.079.667.079h5.487v2.638h-6.1a3.631 3.631 0 0 1-1.507-.318 4.021 4.021 0 0 1-1.236-.86 3.912 3.912 0 0 1-.772-1.144 4.517 4.517 0 0 1-.065-.151 4.208 4.208 0 0 1-.293-1.291 4.995 4.995 0 0 1-.013-.358zm39.049 0v-3.65q0-.872.329-1.637a4.769 4.769 0 0 1 .872-1.354q.541-.589 1.248-.931a3.457 3.457 0 0 1 .839-.285 2.973 2.973 0 0 1 .574-.056h2.685a3.707 3.707 0 0 1 .945.116 3.108 3.108 0 0 1 .692.272 3.943 3.943 0 0 1 1.069.834 3.742 3.742 0 0 1 .132.156 4.697 4.697 0 0 1 .754 1.342 4.494 4.494 0 0 1 .232.914 3.824 3.824 0 0 1 .038.534v3.039h-7.63v.636a2.389 2.389 0 0 0 .037.437q.095.51.434.764a1.668 1.668 0 0 0 .582.274q.299.079.666.079h5.488v2.638h-6.1a3.631 3.631 0 0 1-1.508-.318 4.021 4.021 0 0 1-1.236-.86 3.912 3.912 0 0 1-.772-1.144 4.517 4.517 0 0 1-.064-.151 4.208 4.208 0 0 1-.294-1.291 4.995 4.995 0 0 1-.012-.358zM100 4.051l-3.533 11.988h-2.638L90.202 4.051h2.614l2.309 7.607 2.237-7.607H100zM61.352 16.039h-5.37a6 6 0 0 1-.98-.077 4.579 4.579 0 0 1-.869-.23q-.812-.306-1.389-.883a3.835 3.835 0 0 1-.844-1.289 4.422 4.422 0 0 1-.04-.1 4.769 4.769 0 0 1-.276-1.201 5.896 5.896 0 0 1-.03-.601V8.431a5.763 5.763 0 0 1 .077-.959 4.467 4.467 0 0 1 .229-.854 3.827 3.827 0 0 1 .677-1.146 3.622 3.622 0 0 1 .207-.22 4.02 4.02 0 0 1 1.19-.8 4.689 4.689 0 0 1 .199-.083 4.542 4.542 0 0 1 1.044-.266 5.947 5.947 0 0 1 .805-.052h.942a5.99 5.99 0 0 1 .998.08 4.754 4.754 0 0 1 .792.202V0h2.638v16.039zm15.92 0h-5.369a6 6 0 0 1-.981-.077 4.579 4.579 0 0 1-.868-.23q-.813-.306-1.39-.883a3.835 3.835 0 0 1-.843-1.289 4.422 4.422 0 0 1-.04-.1 4.769 4.769 0 0 1-.276-1.201 5.896 5.896 0 0 1-.03-.601V8.431a5.763 5.763 0 0 1 .077-.959 4.467 4.467 0 0 1 .229-.854 3.827 3.827 0 0 1 .677-1.146 3.622 3.622 0 0 1 .206-.22 4.02 4.02 0 0 1 1.19-.8 4.689 4.689 0 0 1 .2-.083 4.542 4.542 0 0 1 1.044-.266 5.947 5.947 0 0 1 .805-.052h.942a5.99 5.99 0 0 1 .998.08 4.754 4.754 0 0 1 .792.202V0h2.637v16.039zm-47.409 0V0h2.779v16.039h-2.779zm5.087 0V0h2.78v16.039h-2.78zM27.72 4.051v11.988h-2.779V4.051h2.779zm28.262 9.279h2.732V8.502a1.894 1.894 0 0 0-.091-.598 1.565 1.565 0 0 0-.427-.662 1.782 1.782 0 0 0-1.202-.482 2.303 2.303 0 0 0-.07-.001h-.942a1.951 1.951 0 0 0-.738.137 1.818 1.818 0 0 0-.546.346q-.53.483-.53 1.26v3.062q0 .777.53 1.272a1.813 1.813 0 0 0 1.284.494zm15.921 0h2.732V8.502a1.894 1.894 0 0 0-.091-.598 1.565 1.565 0 0 0-.427-.662 1.782 1.782 0 0 0-1.202-.482 2.303 2.303 0 0 0-.07-.001h-.942a1.951 1.951 0 0 0-.738.137 1.818 1.818 0 0 0-.546.346q-.53.483-.53 1.26v3.062q0 .777.53 1.272a1.813 1.813 0 0 0 1.284.494zM42.487 8.902v.118h4.875v-.118a2.943 2.943 0 0 0-.077-.69 2.134 2.134 0 0 0-.394-.829 1.506 1.506 0 0 0-1.1-.593 2 2 0 0 0-.172-.007h-1.46a1.386 1.386 0 0 0-.485.083 1.296 1.296 0 0 0-.198.093q-.306.177-.518.46a2.158 2.158 0 0 0-.233.394 2.72 2.72 0 0 0-.109.277 2.552 2.552 0 0 0-.129.812zm39.048 0v.118h4.875v-.118a2.943 2.943 0 0 0-.077-.69 2.134 2.134 0 0 0-.394-.829 1.506 1.506 0 0 0-1.099-.593 2 2 0 0 0-.172-.007h-1.461a1.386 1.386 0 0 0-.484.083 1.296 1.296 0 0 0-.199.093q-.306.177-.518.46a2.158 2.158 0 0 0-.232.394 2.72 2.72 0 0 0-.109.277 2.552 2.552 0 0 0-.13.812zM27.72 0v2.756h-2.779V0h2.779zm38.248 16.58h-2.803v-2.708h2.803v2.708z" vector-effect="non-scaling-stroke" stroke-linecap="round" fill-rule="evenodd" font-size="12" fill="currentColor"></path></svg></a><div class="sc-108o6s8-2 eKwqAp"><div class="sc-1u42vx2-0 htwsLP"><div class="sc-1u42vx2-3 cjKQPa"><div class="sc-1u42vx2-8 hfYjfB"><span class="sc-1u42vx2-6 gsa-DSf"><svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6.7 12.3L2.9 8.5 15 8.5 15 7.5 2.9 7.5 6.7 3.7 6 3 1 8 6 13z"></path></svg> </span></div><a href="../course.html" class="sc-1u42vx2-5 kiNdR"><svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16" height="16" viewBox="0 0 32 32" aria-hidden="true"><path d="M16.6123,2.2138a1.01,1.01,0,0,0-1.2427,0L1,13.4194l1.2427,1.5717L4,13.6209V26a2.0041,2.0041,0,0,0,2,2H26a2.0037,2.0037,0,0,0,2-2V13.63L29.7573,15,31,13.4282ZM18,26H14V18h4Zm2,0V18a2.0023,2.0023,0,0,0-2-2H14a2.002,2.002,0,0,0-2,2v8H6V12.0615l10-7.79,10,7.8005V26Z"></path></svg></a><div class="sc-1u42vx2-8 iSzNpy"><span class="sc-1u42vx2-6 izRoFz"> <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.3 3.7L13.1 7.5 1 7.5 1 8.5 13.1 8.5 9.3 12.3 10 13 15 8 10 3z"></path></svg></span></div></div></div></div><div class="sc-108o6s8-2 eKwqAp"><div class="sc-1fgnyor-0 byxBNT"><button aria-haspopup="true" aria-expanded="false" class="sc-1n9wzr6-2 sc-108o6s8-6 sc-108o6s8-8 hHRjlc ldYbZS jixliH">Loading...<!-- --> <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" style="margin-right:-2px" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"></path></svg></button></div></div></div><div class="sc-108o6s8-1 sc-108o6s8-4 TWuYr etnCem"><div class="sc-108o6s8-2 eKwqAp"><div class="sc-108o6s8-10 eHHAWj"><button aria-label="show or hide timer" class="sc-1n9wzr6-2 sc-1n9wzr6-5 sc-108o6s8-11 sc-108o6s8-12 hHRjlc eHMGuj chNLUa bubTmR"><svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M15.5,7.8C14.3,4.7,11.3,2.6,8,2.5C4.7,2.6,1.7,4.7,0.5,7.8c0,0.1,0,0.2,0,0.3c1.2,3.1,4.1,5.2,7.5,5.3	c3.3-0.1,6.3-2.2,7.5-5.3C15.5,8.1,15.5,7.9,15.5,7.8z M8,12.5c-2.7,0-5.4-2-6.5-4.5c1-2.5,3.8-4.5,6.5-4.5s5.4,2,6.5,4.5	C13.4,10.5,10.6,12.5,8,12.5z"></path><path d="M8,5C6.3,5,5,6.3,5,8s1.3,3,3,3s3-1.3,3-3S9.7,5,8,5z M8,10c-1.1,0-2-0.9-2-2s0.9-2,2-2s2,0.9,2,2S9.1,10,8,10z"></path></svg></button><button aria-label="start or stop timer" class="sc-1n9wzr6-2 sc-108o6s8-6 sc-108o6s8-13 hHRjlc ldYbZS ksxdvL"><svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16" height="16" viewBox="0 0 32 32" aria-hidden="true"><path d="M15 11H17V20H15zM13 2H19V4H13z"></path><path d="M28,9,26.58,7.59,24.33,9.84a10.94,10.94,0,1,0,1.18,1.65ZM16,26a9,9,0,1,1,9-9A9,9,0,0,1,16,26Z"></path></svg> <span>00:00</span></button></div></div><div class="sc-108o6s8-2 eKwqAp"><button class="sc-1n9wzr6-2 sc-108o6s8-6 hHRjlc ldYbZS">Submit Feedback <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16" height="16" viewBox="0 0 32 32" aria-hidden="true"><path d="M17.74,30,16,29l4-7h6a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2H6A2,2,0,0,0,4,8V20a2,2,0,0,0,2,2h9v2H6a4,4,0,0,1-4-4V8A4,4,0,0,1,6,4H26a4,4,0,0,1,4,4V20a4,4,0,0,1-4,4H21.16Z"></path><path d="M17 9L15 9 15 13 11 13 11 15 15 15 15 19 17 19 17 15 21 15 21 13 17 13 17 9z"></path></svg></button></div></div></div><div class="sc-80cco5-2 hqYGxx"><div width="55" class="sc-80cco5-3 izwhtu"><div class="acuo4w-1 ficmHG"><div class="acuo4w-7 chFzo"><div class="acuo4w-8 lbudrz"><div class="acuo4w-12 ffHaLc"><span>Learn</span></div><h1 class="acuo4w-0 kLXgup">Big O Notation Time and Space Complexity</h1></div></div></div><div class="sc-80cco5-5 jiheli"><div class="sc-1b7i7vy-0 btsxQU"><svg aria-labelledby="e84e5b82-f8ec-45d5-9315-7ed606bac6f3-mobile-aria" role="img" style="display:block" viewBox="0 0 426 232" width="100%" height="100%"><title id="e84e5b82-f8ec-45d5-9315-7ed606bac6f3-mobile-aria">Loading...</title><rect role="presentation" x="0" y="0" width="100%" height="100%" clip-path="url(#e84e5b82-f8ec-45d5-9315-7ed606bac6f3-mobile-diff)" style="fill:url(big-o-time-and-space-complexity.html)"></rect><defs role="presentation"><clipPath id="e84e5b82-f8ec-45d5-9315-7ed606bac6f3-mobile-diff"><rect x="0" y="0" width="426" height="232"></rect></clipPath><linearGradient id="e84e5b82-f8ec-45d5-9315-7ed606bac6f3-mobile-animated-diff"><stop offset="0%" stop-color="#202225" stop-opacity="1"><animate attributeName="offset" values="-2; -2; 1" keyTimes="0; 0.25; 1" dur="1s" repeatCount="indefinite"></animate></stop><stop offset="50%" stop-color="#36393F" stop-opacity="1"><animate attributeName="offset" values="-1; -1; 2" keyTimes="0; 0.25; 1" dur="1s" repeatCount="indefinite"></animate></stop><stop offset="100%" stop-color="#202225" stop-opacity="1"><animate attributeName="offset" values="0; 0; 3" keyTimes="0; 0.25; 1" dur="1s" repeatCount="indefinite"></animate></stop></linearGradient></defs></svg></div></div><div class="sc-1ge69lj-0 lfDZXA"><section class="aowvvh-0 aowvvh-1 coxxcN bcOBKk"><blockquote><p><u>A note for those who feel lost with Big O</u>: If Big O feels too complex at the moment, you shouldn&#x27;t let this block you from studying for interviews, <strong>especially if you are looking for your first job</strong>. If you focus on writing clean, well-structured code and practice learning the intuition to solve data structure and algorithm interview questions, you&#x27;ll still set yourself up to succeed in many interviews. Not learning Big O may disqualify from a subset of companies, but there are still many job opportunities available at companies that don&#x27;t ask about this concept.</p></blockquote><p><strong>Big O measures how long an algorithm takes to run.</strong></p><p>We&#x27;re going to fully understand Big O, but let&#x27;s first define it without all the math before we dive in.</p><p>We measure the speed of an algorithm based on the approximate number of steps that it takes to run.
+I say &quot;approximate&quot; because Big O is actually meant to be simple and provide a high-level explanation.
+With Big O, we ignore the line-by-line details of the code and don&#x27;t care about every single calculation.</p><p>We calculate Big O relative to the size of the input which we denote by <code>n</code>.
+So if we are given an array, <code>array.length == n</code>.
+We use the letter <code>n</code> because we&#x27;re just saying we want to know approximately how many operations the algorithm would require for <em>any</em> <code>array.length</code>.</p><div class="sc-1n9wzr6-0 sc-16wjbcj-0 sc-16wjbcj-1 dOTRW jSLGes gfSlYR"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">myAlgorithm</span><span class="token punctuation">(</span><span class="token parameter">inputArray</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> n <span class="token operator">=</span> inputArray<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// We touch all n items, requiring O(n) operations</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// We don&#x27;t care what happens in here as long as it&#x27;s not another loop</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// myAlgorithm([1])  --&gt;  input size = n = 1  --&gt;  O(1) operations</span>
+<span class="token comment">// myAlgorithm([1, 2])  --&gt;  input size = n = 2  --&gt;  O(2) operations</span>
+<span class="token comment">// myAlgorithm([1, 2, 3])  --&gt;  input size = n = 3  --&gt;  O(3) operations</span>
+<span class="token comment">// ...</span>
+<span class="token comment">// myAlgorithm([1, 2, 3, ..., n])  --&gt;  input size = n  --&gt;  O(n) operations</span>
+</code></pre></div><p>If we iterate through the array once with a <code>for</code> loop, we touch every item - or all <code>n</code> items.
+With this single loop, we say that for the input array length <code>n</code>, our function takes <em>O(<!-- -->n<!-- -->)</em> operations.
+We don&#x27;t care about any of the other calculations happening inside the <code>for</code> loop.</p><p>Big O can be an intimidating topic, especially for new developers.
+This lesson will break it down and walk you through it step-by-step to make sure you feel completely comfortable with Big O&#x27;s concepts and how to apply them to a programming interview.</p></section><section class="aowvvh-0 aowvvh-1 coxxcN bcOBKk"><h2>How Candidates are Graded for Hiring</h2><p>To understand why we need Big O, we first need to understand how candidates are graded in their coding interviews.</p><p>Determining if someone will be hired is essentially based on 3 general metrics:</p><ol><li>Experience (work background or personal projects)</li><li>Soft skills (will you be a good teammate and enthusiastic about the product)</li><li>Code (can you solve problems effectively)</li></ol><p>Experience and soft skills are aspects you can work on, but for now we will look closer at how coding is measured.
+Being able to solve the problem is obviously important.
+However, what you are actually judged on in an interview is <strong>how good the code is</strong> that you write to solve the problem.</p><p>Code will be judged by two factors:</p><ol><li>Scalable (objective)</li><li>Readable (subjective)</li></ol><p><strong>When we talk about scalability, we are referring to the Big O complexity of an algorithm and the number of operations it will take to run.</strong></p><p>The reason we put so much effort into Big O is that it&#x27;s objective and can be taught academically.
+This means that if two algorithms solve the same interview question but have different Big O complexities,
+we can say the one with the better Big O is the better solution (in terms of scalability).</p><p>For example, if we have two algorithms that solve a problem at <em>O(<!-- -->n<!-- -->)</em> and <em>O(<!-- -->n<sup>2</sup>)</em>,
+we can objectively say that the <em>O(<!-- -->n<!-- -->)</em> is better because we know it will require fewer operations.
+The <em>O(<!-- -->n<!-- -->)</em> solution would touch each item in the input for a total of <code>n</code> times, and the <em>O(<!-- -->n<sup>2</sup>)</em> solution will touch the input items <code>n x n</code> times.</p><div class="sc-1n9wzr6-0 sc-16wjbcj-0 sc-16wjbcj-1 dOTRW jSLGes gfSlYR"><pre class="language-javascript"><code class="language-javascript">input size    <span class="token operator">|</span>         <span class="token maybe-class-name">Operations</span>
+     n        <span class="token operator">|</span>      <span class="token constant">O</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span>        <span class="token constant">O</span><span class="token punctuation">(</span>n<span class="token operator">^</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>
+     <span class="token number">1</span>        <span class="token operator">|</span>      <span class="token number">1</span>           <span class="token number">1</span>
+     <span class="token number">2</span>        <span class="token operator">|</span>      <span class="token number">2</span>           <span class="token number">4</span>
+     <span class="token number">3</span>        <span class="token operator">|</span>      <span class="token number">3</span>           <span class="token number">9</span>
+    <span class="token spread operator">...</span>       <span class="token operator">|</span>
+    <span class="token number">100</span>       <span class="token operator">|</span>      <span class="token number">100</span>         <span class="token number">10000</span>
+    <span class="token spread operator">...</span>       <span class="token operator">|</span>
+    <span class="token number">1000</span>      <span class="token operator">|</span>      <span class="token number">1000</span>        <span class="token number">1000000</span>
+    <span class="token spread operator">...</span>       <span class="token operator">|</span>
+     n        <span class="token operator">|</span>      n           n<span class="token operator">^</span><span class="token number">2</span>
+</code></pre></div><p>Readable code, while equally important, can encompass many traits.
+Your interviewer&#x27;s opinion is ultimately the judge of your code readability.
+As you work through this course, you will learn to write better code.
+This comes with practice and repetition to understand what clean code looks like
+and is not as easily taught in a single lesson.</p></section><section class="aowvvh-0 aowvvh-1 coxxcN bcOBKk"><h2>Advice if Big O is New to You</h2><p>If this concept is new and intimidating to you, my biggest piece of advice is to try not to overthink it.
+Big O is a general and high-level representation of an algorithm.
+You are not expected to analyze a program line-by-line and account for every single operation.</p><p>What you do is find the block of code in the algorithm that requires the most iterations through the input data structure.
+Then all you need is an understanding of the approximate time complexity for common scenarios — <em>O(<!-- -->n<!-- -->)</em> for single loops, <em>O(<!-- -->n<sup>2</sup>)</em> for nested loops, <em>O(<!-- -->n<!-- --> log <!-- -->n<!-- -->)</em> for sorting, etc.</p><p>As long as you can recognize and locate the most expensive block of code based on these general rules,
+you will have figured out 90%+ of what you need to know about Big O for interviews,
+and the remaining 10% you will gain through experience as you work through the course.</p></section><section class="aowvvh-0 aowvvh-1 coxxcN bcOBKk"><h2>What Big O Means</h2><p>Big O determines how an algorithm scales.</p><p>Another way of saying this — Big O judges how fast our algorithm handles a very large number of items.</p><ol><li>We judge speed based on the number of steps and not calculated time (ie. seconds or minutes).</li><li>We only care about the steps that increase based on the input size.</li></ol><blockquote><p><code>n</code> isn&#x27;t an exact number.
+It just means when the input gets &quot;very large&quot;.
+For me, I just imagine <code>n = 1000000</code> to put it in real terms.
+It&#x27;s large enough to be significant but not so large you get lost in all the 0&#x27;s.</p></blockquote><p>In production software, our code may need to handle millions or even billions of items.
+We need to make sure our algorithm stays fast as the amount of data it needs to handle grows.</p><p>As the amount of data increases, the difference between a good and bad solution becomes more exaggerated.
+Bad solutions tend to get even worse relative to a good solution as you add more data.</p><p>So how does Big O actually determine this?</p><p>Let&#x27;s do a thought experiment. Say we have the following functions:</p><div class="sc-1n9wzr6-0 dOTRW"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">// #1</span>
+<span class="token keyword">const</span> <span class="token function-variable function">printHello</span> <span class="token operator">=</span> <span class="token parameter">input</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> ten <span class="token operator">=</span> <span class="token number">5</span> <span class="token operator">+</span> <span class="token number">5</span><span class="token punctuation">;</span>
+  <span class="token keyword">let</span> twenty <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">*</span> ten<span class="token punctuation">;</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> twenty<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">&#x27;Hello, world!&#x27;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// #2</span>
+<span class="token keyword">const</span> <span class="token function-variable function">printInput</span> <span class="token operator">=</span> <span class="token parameter">input</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> n <span class="token operator">=</span> input<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// #3</span>
+<span class="token keyword">const</span> <span class="token function-variable function">printNestedInput</span> <span class="token operator">=</span> <span class="token parameter">input</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> n <span class="token operator">=</span> input<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>i <span class="token operator">*</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p>If they are given the same <code>input</code>, how will we know which one takes more time to run?</p><ul><li>What if the input size <code>n</code> is just 1 item?</li><li>What if the input size <code>n</code> is 1,000,000 items?</li><li>What if #2 is executed on your cell phone and #3 is executed on a super computer?</li><li>What if we execute #2 locally and #3 by calling an API on a remote server?</li></ul><p>If we try to time which algorithm is faster, it is entirely dependent on the environment and amount of data.
+For <code>n = 1</code> item in the <code>input</code>, they will all finish nearly instantaneously.</p><p>However, if we ran the functions on the same computer for 1,000,000 items,
+#1 will still finish instantly, and then #2 will finish much faster than #3.</p><p>#1 has no dependence on the input. No matter the data size, it will always perform the same number of operations, so we call this constant time <em>O(1)</em>.
+It performs the same number of operations each time because the loop <em>always</em> goes from 0 to 20, regardless of the value used for <code>input</code>.</p><p>Since #2 uses one <code>for</code> loop, it will iterate the input for all 1,000,000 items once, and this is what we call <em>O(<!-- -->n<!-- -->)</em>.</p><p>#3 has <em>nested</em> <code>for</code> loops, so it will iterate the input 1,000,000 times <code>for</code> all the 1,000,000 elements
+for a total of 1,000,000,000,000, and this makes it an <em>O(<!-- -->n<sup>2</sup>)</em> algorithm.
+That is 1 million vs. 1 trillion operations for #2 vs. #3.</p><p>If we graph the time complexities, we can see that the <em>O(<!-- -->n<sup>2</sup>)</em> separates from the <em>O(<!-- -->n<!-- -->)</em> and the operations get drastically larger for a given input size.
+The <em>O(1)</em> stays flat and doesn&#x27;t change with input size.</p><div class="x0z8s7-0 bQUyG"><div class="sc-1n9wzr6-0 sc-16wjbcj-0 sc-1u1nk7e-0 dOTRW jSLGes dqdrn"><img src="../images/big-o-simple.png" class="sc-1u1nk7e-1 dFHqIT"/></div></div><p>This is why we care about scalability and how a solution grows with input size.
+We can judge how a solution will perform with concrete metrics and irrespective of the environment that the code is executed in.
+When the input size is large, the number of required operations blows up for the slower algorithm.</p><p>Although this won&#x27;t be asked in interviews,
+let&#x27;s see how the varying Big O complexities would approximately translate to the time required to complete an algorithm when we normalize an <em>O(<!-- -->n<!-- -->)</em> operation with 1 billion items to take 1 second.
+In our thought experiment, the time difference <em>O(<!-- -->n<!-- -->)</em> and <em>O(<!-- -->n<sup>2</sup>)</em> at 1 million items would be 1ms vs. 16.7 minutes.
+That&#x27;s the difference between blazing fast and &quot;broken&quot; from a user&#x27;s perspective.</p><div class="sc-1n9wzr6-0 sc-16wjbcj-0 sc-16wjbcj-1 dOTRW jSLGes gfSlYR"><table class="sc-1j07s7f-0 iaizBe"><thead><tr><th>Input size</th><th>log n</th><th>n</th><th>n log n</th><th>n<sup>2</sup></th><th>2<sup>n</sup></th><th>n!</th></tr></thead><tbody><tr><td>10</td><td class="best">0.003ns</td><td class="best">0.01ns</td><td class="best">0.033ns</td><td class="best">0.1ns</td><td class="best">1ns</td><td class="good">3.65ms</td></tr><tr><td>20</td><td class="best">0.004ns</td><td class="best">0.02ns</td><td class="best">0.086ns</td><td class="best">0.4ns</td><td class="good">1ms</td><td class="bad">77years</td></tr><tr><td>30</td><td class="best">0.005ns</td><td class="best">0.03ns</td><td class="best">0.147ns</td><td class="best">0.9ns</td><td class="good">1sec</td><td class="bad">8.4x10<sup>15</sup>years</td></tr><tr><td>40</td><td class="best">0.005ns</td><td class="best">0.04ns</td><td class="best">0.213ns</td><td class="best">1.6ns</td><td class="medium">18.3min</td><td class="bad">--</td></tr><tr><td>50</td><td class="best">0.006ns</td><td class="best">0.05ns</td><td class="best">0.282ns</td><td class="best">2.5ns</td><td class="bad">13days</td><td class="bad">--</td></tr><tr><td>100</td><td class="best">0.07</td><td class="best">0.1ns</td><td class="best">0.644ns</td><td class="best">0.10ns</td><td class="bad">4x10<sup>13</sup>years</td><td class="bad">--</td></tr><tr><td>1,000</td><td class="best">0.010ns</td><td class="best">1.00ns</td><td class="best">9.966ns</td><td class="good">1ms</td><td class="bad">--</td><td class="bad">--</td></tr><tr><td>10,000</td><td class="best">0.013ns</td><td class="best">10ns</td><td class="best">130ns</td><td class="good">100ms</td><td class="bad">--</td><td class="bad">--</td></tr><tr><td>100,000</td><td class="best">0.017ns</td><td class="good">0.10ms</td><td class="good">1.67ms</td><td class="okay">10sec</td><td class="bad">--</td><td class="bad">--</td></tr><tr><td>1&#x27;000,000</td><td class="best">0.020ns</td><td class="good">1ms</td><td class="good">19.93ms</td><td class="medium">16.7min</td><td class="bad">--</td><td class="bad">--</td></tr><tr><td>10&#x27;000,000</td><td class="best">0.023ns</td><td class="good">0.01sec</td><td class="good">0.23ms</td><td class="bad">1.16days</td><td class="bad">--</td><td class="bad">--</td></tr><tr><td>100&#x27;000,000</td><td class="best">0.027ns</td><td class="good">0.10sec</td><td class="good">2.66sec</td><td class="bad">115.7days</td><td class="bad">--</td><td class="bad">--</td></tr><tr><td>1,000&#x27;000,000</td><td class="best">0.030ns</td><td class="good">1sec</td><td class="okay">29.90sec</td><td class="bad">31.7years</td><td class="bad">--</td><td class="bad">--</td></tr></tbody></table></div></section><section class="aowvvh-0 aowvvh-1 coxxcN bcOBKk"><h2>4 Steps to Calculate Big O</h2><p>We explored that Big O means we want to understand how the number of operations required by an algorithm increases as the input size gets very large.
+Let&#x27;s see how we can use this knowledge practically to be able to calculate the Big O of an algorithm.</p><p>There are 4 steps we follow:</p><ol><li>Worst case</li><li>Drop constants</li><li>Drop less significant terms</li><li>Account for all input</li></ol><h3>Step 1. Worst case</h3><p>When we&#x27;re calculating the Big O time complexity of an algorithm,
+we base it off the <em>worst case</em> possibility.</p><p>We want our Big O to describe the tightest upper bound of our function.</p><p>Consider this simple example:</p><div class="sc-1n9wzr6-0 dOTRW"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Best Case: find 4 at the 0th index - iterate 1 item</span>
+<span class="token keyword">const</span> <span class="token function-variable function">findFour</span> <span class="token operator">=</span> <span class="token parameter">input</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> input<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>input<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token number">4</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> i<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Average Case: find 6 in the middle at index 3 - iterate 4 items</span>
+<span class="token keyword">const</span> <span class="token function-variable function">findSix</span> <span class="token operator">=</span> <span class="token parameter">input</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> input<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>input<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token number">6</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> i<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Worst Case: find 3 at the last index - iterate all `n` items</span>
+<span class="token keyword">const</span> <span class="token function-variable function">findThree</span> <span class="token operator">=</span> <span class="token parameter">input</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> input<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>input<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token number">3</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> i<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p>In the best case, we only iterate 1 item so we actually found the item in O(1) time — the input size didn&#x27;t matter, and <strong>this is an edge case</strong>.
+This is a very rare scenario and doesn&#x27;t provide much meaning.</p><p>In the average case, we will iterate half the items array which is <em>O(<!-- -->0.5 n<!-- -->)</em>.
+(But we also drop constants which you&#x27;ll see in step 2).</p><p>In the worst case, we would have to iterate the entire array to find the last item which is <em>O(<!-- -->n<!-- -->)</em>.</p><p>Imagine this was in production, and we wanted to search in an array of 1,000,000,000 items.
+25% of the time, we would expect to iterate through <em>at least</em> 750,000,000 items.
+This is still a lot of people that would have a bad experience.</p><p>Therefore, we view Big O as a bound on our problem.
+For our code to be reliable, we need to make sure all reasonable scenarios are within the bounds.</p><p><strong>We say our Big O complexity is the worst case scenario which allows us to confidently account for any outcome.</strong></p><h3>Step 2. Drop constants</h3><p>You may have noticed when we talk about Big O, we only refer to <code>n</code> and don&#x27;t say things like <code>5n</code> or <code>O(2n + 3n)</code>.
+We allow ourselves to ignore constants because it would require too much knowledge of what&#x27;s happening in the compiler or how the system optimizes our code and converts it to machine language.</p><p>As we said earlier, Big O is meant to be simple.
+Trying to account for all the operations adds a ton of difficulty without really providing any new information.
+Take a look at the example below to see why.</p><div class="sc-1n9wzr6-0 dOTRW"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">case1</span> <span class="token operator">=</span> <span class="token parameter">input</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> input<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>i <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// O(n)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> input<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>i <span class="token operator">*</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// O(n)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> input<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>i <span class="token operator">*</span> <span class="token number">42</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// O(n)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">case2</span> <span class="token operator">=</span> <span class="token parameter">input</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> input<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>i <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// O(n)</span>
+    <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>i <span class="token operator">*</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// O(n)</span>
+    <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>i <span class="token operator">*</span> <span class="token number">42</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// O(n)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">case3</span> <span class="token operator">=</span> <span class="token parameter">input</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> input<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> input<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p>So what is this Big O? You may be tempted to say the <code>case1</code> function is <em>O(<!-- -->3n<!-- -->)</em> because we have 3 separate loops.
+However, in <code>case2</code> we still call our print function the same number of times.
+We also have no idea how our programming language will interpret this code and execute underneath the hood.</p><p>Now let&#x27;s think about what happens if we pass 1,000,000 items to all 3 functions.
+We believe <code>case1</code> and <code>case2</code> may perform between 1 to 3 million operations.
+However, <code>case3</code> performs 1,000,000<sup>2</sup> or 1,000,000,000,000 operations.
+The difference between 1 and 3 million becomes insignificant when compared either to 1 trillion operations.</p><p>We allow ourselves to accept the fact that we only care about the trend of the algorithm as it scales with large input size
+and only compare runtimes of different order complexity, ie. <em>O(<!-- -->n<!-- -->)</em> vs. <em>O(<!-- -->n<sup>2</sup>)</em>.</p><p>This leads to another learning outcome. Since we drop constants, back-to-back iterations through an input are all still <em>O(<!-- -->n<!-- -->)</em>.
+Nested loop iterations always lead to <em>O(<!-- -->n<sup>2</sup>)</em> or worse runtimes, depending on the level of nesting.
+<strong>Always try to find a way to run your loops sequentially instead of nested to improve runtime</strong>.</p><h3>Step 3. Drop less significant terms</h3><p>In step 2, we saw that we drop constants, and when we have a sufficiently large input, the difference between <code>n</code> and <code>3n</code> loses significance.</p><p>We can take this one step further and say that if we have operations within an algorithm that utilize different Big O time complexities, we only consider the slowest Big O.
+For example, if we have <em>O(<!-- -->n<sup>2</sup>)</em> and <em>O(<!-- -->n<!-- -->)</em> within a function, we simply say the function operates in <em>O(<!-- -->n<sup>2</sup>)</em> time.</p><div class="sc-1n9wzr6-0 dOTRW"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">multipleTimeComplexities</span> <span class="token operator">=</span> <span class="token parameter">input</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// O(n)</span>
+  input<span class="token punctuation">.</span><span class="token method function property-access">forEach</span><span class="token punctuation">(</span><span class="token parameter">item</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">/* do something */</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// O(n^2)</span>
+  input<span class="token punctuation">.</span><span class="token method function property-access">forEach</span><span class="token punctuation">(</span><span class="token parameter">item</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+    input<span class="token punctuation">.</span><span class="token method function property-access">forEach</span><span class="token punctuation">(</span><span class="token parameter">item</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token comment">/* do something */</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p>With an input size of 1,000,000, we would have <code>1000000 + 1000000000000 = 1000001000000</code> operations.
+Using our table above, that would be 16.7 minutes + 1 millisecond, which makes the millisecond meaningless.
+The larger term is so overpowering that we allow ourselves to reduce the solution to simply <em>O(<!-- -->n<sup>2</sup>)</em>.</p><h3>Step 4. Account for all input</h3><p>There are problems where we receive multiple input data structures.
+If we can&#x27;t make any assumptions about the size of them, we need to account for both of them when calculating our Big O complexity.
+The most common syntax is to refer to one input as <code>n</code> items and the other input as <code>m</code> items.</p><div class="sc-1n9wzr6-0 dOTRW"><pre class="language-javascript"><code class="language-javascript"><span class="token comment">// O(n + m) - we add sequential operations together</span>
+<span class="token keyword">const</span> <span class="token function-variable function">multipleInput</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">input1<span class="token punctuation">,</span> input2</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> n <span class="token operator">=</span> input1<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> m <span class="token operator">=</span> input2<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// O(n)</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">/* do something */</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// O(m)</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">/* do something */</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// O(nm) - we multiply nested input</span>
+<span class="token keyword">const</span> <span class="token function-variable function">multipleInput</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">input1<span class="token punctuation">,</span> input2</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> n <span class="token operator">=</span> input1<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> m <span class="token operator">=</span> input2<span class="token punctuation">.</span><span class="token property-access">length</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// O(n)</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// O(m)</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> m<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">/* do something */</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div></section><section class="aowvvh-0 aowvvh-1 coxxcN bcOBKk"><h2>Common Big O</h2><h3>Big O Visualized</h3><div style="max-width:1000px" class="sc-1n9wzr6-0 sc-16wjbcj-0 sc-16wjbcj-1 dOTRW jSLGes gfSlYR"><svg width="800" height="500" xmlns="http://www.w3.org/2000/svg"><path d="M50 450V0h750v450z" fill="#ff8989"></path><path d="M50 450L800 0v450z" fill="#FFC543"></path><path d="M50 450h750V330z" fill="#ff0"></path><path d="M50 450h750v-40z" fill="#C8EA00"></path><path d="M50 450h750v-10z" fill="#53d000"></path><path d="M50 0v450h750M50 448h750" fill="transparent" stroke="#000" stroke-width="2"></path><text x="640" y="438" stroke="#000">O(log n), O(1)</text><path d="M50 450l750-50" fill="transparent" stroke="#000" stroke-width="2"></path><text x="760" y="390" stroke="#000">O(n)</text><path d="M50 450q350-100 750-300" fill="transparent" stroke="#000" stroke-width="2"></path><text x="630" y="190" stroke="#000">O(n log n)</text><path d="M50 450Q180 380 250 0" fill="transparent" stroke="#000" stroke-width="2"></path><text x="260" y="30" stroke="#000">O(n^2)</text><path d="M50 450c50-20 70-100 70-450" fill="transparent" stroke="#000" stroke-width="2"></path><text x="125" y="20" stroke="#000">O(2^n)</text><path d="M50 450c30 0 30-100 30-450" fill="transparent" stroke="#000" stroke-width="2"></path><text x="80" y="20" stroke="#000">O(n!)</text><text transform="rotate(-90 130 100)" fill="currentColor" dominant-baseline="middle" text-anchor="middle" font-size="18" color="currentColor">Operations</text><text transform="translate(420 470)" fill="currentColor" dominant-baseline="middle" text-anchor="middle" font-size="18" color="currentColor">Input Size</text></svg></div><p>These are some of the most common time complexity from fastest to slowest.</p><h3><em>O(1)</em> - constant time</h3><p>Constant time or <em>O(1)</em> means that we don&#x27;t iterate through our data structure.
+The operations that occur never increase, regardless of how our large our input gets.</p><p>Examples of constant time operations include: accessing a hash table by key, popping the last item of an array, or any normal arithmetic.</p><h3><em>O(log <!-- -->n<!-- -->)</em> - log time</h3><p>The most common example of log time is a binary search.
+Log time happens when you repeatedly divide the input.
+You can think of this in contrast to quadratic time which multiplies the input and explodes.</p><p>The repeated division shrinks our solution so quickly that <em>O(log <!-- -->n<!-- -->)</em> is blazing fast, even for very large <code>n</code>.</p><h3><em>O(<!-- -->n<!-- -->)</em> - linear time</h3><p>This happens where we iterate through our input data structure once (or sequentially).
+As long as we don&#x27;t nest loops, we will operate in linear time.</p><p>If we have an input array with length 1,000,000, our <code>for</code> loop would iterate through one million items.
+If we have an input array with length 1,000,000,000, our <code>for</code> loop would iterate through one billion items.
+An <em>O(<!-- -->n<!-- -->)</em> time just means that the operations required is simply the length of the input.
+The operations and input size increase 1-for-1, or <em>linearly</em>.</p><blockquote><p>This applies to other iteration methods such as <code>forEach</code>, <code>map</code>, <code>filter</code>, <code>reduce</code>.
+They all iterate through our input data structure once, just like a <code>for</code> loop.</p></blockquote><h3><em>O(<!-- -->n<!-- --> log <!-- -->n<!-- -->)</em> - log-linear</h3><p>This is between linear and quadratic time where you perform <code>n x log n</code> operations.
+This is most commonly seen in sorting algorithms, and you can assume a native sort function will operate in <em>O(<!-- -->n<!-- --> log <!-- -->n<!-- -->)</em> time.</p><p>The reason <code><em>O(<!-- -->n<!-- -->)</em> &lt; <em>O(<!-- -->n<!-- --> log <!-- -->n<!-- -->)</em> &lt; <em>O(<!-- -->n<sup>2</sup>)</em></code> is that <code>log(n)</code> is greater than 1 and less than <code>n</code>.
+So for <em>O(<!-- -->n<!-- --> log <!-- -->n<!-- -->)</em>, we multiply <code>n</code> times a number that is <code>1 &lt; log(n) &lt; n</code>.</p><h3><em>O(<!-- -->n<sup>2</sup>)</em> - quadratic time</h3><p>This happens when we nest loops.
+Brute force solutions are often quadratic time and are rarely acceptable as a final answer.</p><p>The more nesting you have, the more the exponent increases.
+If you have three nested loops, then the complexity becomes <em>O(<!-- -->n<sup>3</sup>)</em>.</p><p>The general name for when we raise <code>n</code> to a power is known as <strong>polynomial time</strong>.
+Quadratic time means we have polynomial time where we know the exponent is 2.</p><p>Be careful with hidden quadratic time.
+You may think you are doing a single loop but may perform another <em>O(<!-- -->n<!-- -->)</em> inside it.
+An example of this is when you slice array which is also linear time.</p><div class="sc-1n9wzr6-0 dOTRW"><pre class="language-javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">hiddenQuadratic</span> <span class="token operator">=</span> <span class="token parameter">input</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  input<span class="token punctuation">.</span><span class="token method function property-access">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item<span class="token punctuation">,</span> i</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>item<span class="token punctuation">.</span><span class="token method function property-access">slice</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><h3><em>O(<!-- -->2<sup>n</sup>)</em> and <em>O(<!-- -->n!<!-- -->)</em></h3><p>The cases that are worse than <em>O(<!-- -->n<sup>2</sup>)</em> are a little more rare and specific.
+We&#x27;ll visit these as needed in the course, but both scenarios are very bad and should be avoided at all costs.</p><p>An example of <em>O(<!-- -->2<sup>n</sup>)</em> is a brute force recursive algorithm to calculate a Fibonacci number.
+This is explored further in the recursion module and the dynamic programming module.</p><p>The worst complexity is <em>O(<!-- -->n!<!-- -->)</em>, and this occurs when you calculate all the permutations of an input.</p></section><section class="aowvvh-0 aowvvh-1 coxxcN bcOBKk"><h2>Space Complexity</h2><p>Up to this point, we have been talking about how long algorithms run by describing their time complexity in terms of the number of operations.
+There is another factor we should consider which is space complexity.
+Space complexity is represented using the same notation, but it refers to the amount of additional space in memory our algorithm must use.</p><p>With the increased importance of fast software and the decreasing price in memory, time complexity has become the dominant consideration.
+However, we can&#x27;t ignore space.
+Running out of memory is a real issue in software engineering, and it can cause our program to crash.
+Memory (the space we have available for our program to execute) is a limited resource that we need to account for.</p><p>The most common scenario to add to the space complexity of an algorithm is when we utilize an auxiliary data structure in our solution algorithm.
+The way we calculate space complexity is nearly identical to time complexity.
+For example, if we need fast key-value access, we can add a hash table.
+We put all <code>n</code> items in the hash table, so it requires <em>O(<!-- -->n<!-- -->)</em> space.
+This means we&#x27;ve stored <code>n</code> items in memory.</p></section><section class="aowvvh-0 aowvvh-1 coxxcN bcOBKk"><h2>Amortized Time</h2><blockquote><p>This is an advanced topic, so ignore it for now if your head is still spinning. You will see it later in the course.</p></blockquote><p>When we calculate the Big O of an algorithm, we do so by considering the worst case scenario, which is the slowest time complexity.
+There is an exception to this rule known as amortized time.</p><p>When we have numerous operations that occur with a fast time complexity and then on a very rare occasion have a slow operation,
+we actually ignore the slower operation.
+The fast operations overpower the slow one because they happen in nearly all the cases.</p><p>An example of this is a dynamic array that resizes and doubles its capacity each time it becomes filled.
+A <code>push</code> to the array takes <em>O(1)</em> time.
+If we have 1,000,000 items in the array and a capacity to hold 2,000,000, we could push 999,999 times at <em>O(1)</em> time
+before it is resized once at <em>O(<!-- -->n<!-- -->)</em> time.</p><p>A simple way to think about it mathematically is that we have 1 operation that requires <em>O(<!-- -->n<!-- -->)</em> time.
+We have <code>n - 1</code> operations that use <em>O(1)</em> time.
+Since it takes nearly <code>n</code> operations before our <em>O(<!-- -->n<!-- -->)</em> occurs again,
+we say that the frequent fast operations pay for the cost of the very rare and slow operation.</p><p>Typically for Big O we like to look at the worst case we can expect per <em>algorithm</em>.
+With amortization, we consider the complexity per <em>operation</em> since they are so unevenly distributed.</p></section></div><div class="sc-1n9wzr6-0 sc-80cco5-0 dOTRW cpmXEz"><div class="sc-1u42vx2-0 htwsLP"><div class="sc-1u42vx2-3 bKJGVW"><div class="sc-1u42vx2-8 hfYjfB"><span class="sc-1u42vx2-6 ijESGo"><svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6.7 12.3L2.9 8.5 15 8.5 15 7.5 2.9 7.5 6.7 3.7 6 3 1 8 6 13z"></path></svg> </span><div class="sc-1u42vx2-7 daRzrG"></div></div><div class="sc-1u42vx2-8 iSzNpy"><span class="sc-1u42vx2-6 cjegpI"> <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M9.3 3.7L13.1 7.5 1 7.5 1 8.5 13.1 8.5 9.3 12.3 10 13 15 8 10 3z"></path></svg></span><div class="sc-1u42vx2-7 daRzrG"></div></div></div></div></div></div><div width="45" class="sc-80cco5-4 fdcTGB"><div class="sc-1b7i7vy-0 btsxQU"><svg aria-labelledby="e84e5b82-f8ec-45d5-9315-7ed606bac6f3-desktop-aria" role="img" style="display:block" viewBox="0 0 426 232" width="100%" height="100%"><title id="e84e5b82-f8ec-45d5-9315-7ed606bac6f3-desktop-aria">Loading...</title><rect role="presentation" x="0" y="0" width="100%" height="100%" clip-path="url(#e84e5b82-f8ec-45d5-9315-7ed606bac6f3-desktop-diff)" style="fill:url(big-o-time-and-space-complexity.html)"></rect><defs role="presentation"><clipPath id="e84e5b82-f8ec-45d5-9315-7ed606bac6f3-desktop-diff"><rect x="0" y="0" width="426" height="232"></rect></clipPath><linearGradient id="e84e5b82-f8ec-45d5-9315-7ed606bac6f3-desktop-animated-diff"><stop offset="0%" stop-color="#202225" stop-opacity="1"><animate attributeName="offset" values="-2; -2; 1" keyTimes="0; 0.25; 1" dur="1s" repeatCount="indefinite"></animate></stop><stop offset="50%" stop-color="#36393F" stop-opacity="1"><animate attributeName="offset" values="-1; -1; 2" keyTimes="0; 0.25; 1" dur="1s" repeatCount="indefinite"></animate></stop><stop offset="100%" stop-color="#202225" stop-opacity="1"><animate attributeName="offset" values="0; 0; 3" keyTimes="0; 0.25; 1" dur="1s" repeatCount="indefinite"></animate></stop></linearGradient></defs></svg></div><div class="sc-1b7i7vy-2 ceeCaK"><p class="sc-1b7i7vy-3 iobjrb">Table of Contents</p><ul class="sc-1b7i7vy-4 CISgQ"><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>Introduction (long but it includes memes)</span><span>0:00<!-- --> - <!-- -->2:17</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>How Interview Candidates are Graded (Why Big O)</span><span>2:17<!-- --> - <!-- -->5:46</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>Intuition for How and Why Big O Best Measures Algorithms</span><span>5:46<!-- --> - <!-- -->14:22</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>Big O Terms Defined</span><span>14:22<!-- --> - <!-- -->15:44</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>Why We Care About Large Input</span><span>15:44<!-- --> - <!-- -->18:00</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>Data Structures, Algorithms, and Big O</span><span>18:00<!-- --> - <!-- -->20:05</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>Data Structures, Algorithms, and Big O</span><span>18:00<!-- --> - <!-- -->20:05</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>Real-World Big O Example</span><span>20:05<!-- --> - <!-- -->21:15</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>4 Steps for Calculating Big O</span><span>21:15<!-- --> - <!-- -->23:24</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>Step 1: Worst Case</span><span>23:24<!-- --> - <!-- -->25:55</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>Step 2: Drop Constants</span><span>25:55<!-- --> - <!-- -->28:06</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>Step 3: Drop Less Significant Terms</span><span>28:06<!-- --> - <!-- -->29:57</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>Step 4: Account for All Input</span><span>29:57<!-- --> - <!-- -->31:18</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>O(n)</span><span>31:18<!-- --> - <!-- -->32:22</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>O(n^2)</span><span>32:22<!-- --> - <!-- -->33:32</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>O(1)</span><span>33:32<!-- --> - <!-- -->34:44</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>O(log n)</span><span>34:44<!-- --> - <!-- -->36:14</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>O(n log n)</span><span>36:14<!-- --> - <!-- -->36:53</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>O(2^n) and O(n!)</span><span>36:53<!-- --> - <!-- -->37:26</span></button></li><li class="sc-1b7i7vy-5 bqisje"><button class="sc-1n9wzr6-2 sc-1b7i7vy-6 hHRjlc dojxVe"><span>Space Complexity</span><span>37:26<!-- --> - <!-- -->39:20</span></button></li></ul></div></div></div></div></main></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"slug":"big-o-time-and-space-complexity","lesson":{"title":"Big O Notation Time and Space Complexity","slug":"big-o-time-and-space-complexity","position":1,"id":"e84e5b82-f8ec-45d5-9315-7ed606bac6f3","description":"","accessLevel":"SUBSCRIPTION","introductionVideoUrl":null,"type":"INSTRUCTIONAL","metaTitle":"Big O Notation","metaDescription":null,"status":"ACTIVE","category":{"id":"2eebdcbb-a56c-4d13-95f4-a0cebb4d3c75","title":"Essential Concepts","slug":"essential-concepts"}}},"__N_SSG":true},"page":"/course/big-o-time-and-space-complexity","query":{},"buildId":"DnextCng75Ofup2sE1icy","runtimeConfig":{},"nextExport":false,"isFallback":false,"gsp":true,"head":[["meta",{"charSet":"utf-8"}],["meta",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["title",{"children":"Big O Notation | Skilled.dev"}],["meta",{"name":"description","content":"Practice essential concepts and ace your coding interview"}],["meta",{"property":"og:url","content":"https://skilled.dev/course/big-o-time-and-space-complexity"}],["meta",{"property":"og:title","content":"Big O Notation | Skilled.dev"}],["meta",{"property":"og:description","content":"Practice essential concepts and ace your coding interview"}],["meta",{"property":"og:image","content":"https://skilled.dev/social-share.png"}],["meta",{"property":"og:image:width","content":"1200"}],["meta",{"property":"og:image:height","content":"630"}],["meta",{"name":"twitter:title","content":"Big O Notation | Skilled.dev"}],["meta",{"name":"twitter:description","content":"Practice essential concepts and ace your coding interview"}],["meta",{"name":"twitter:card","content":"summary_large_image"}],["meta",{"name":"twitter:image","content":"https://skilled.dev/social-share.png"}]]}</script><script nomodule="" src="../_next/static/chunks/polyfills-29e37ad3636f4323b3b1.js"></script><script src="../_next/static/chunks/main-9fc28bb8db8fa96b66bd.js" async=""></script><script src="../_next/static/chunks/webpack-74ec4feb2f24b3bd66ef.js" async=""></script><script src="../_next/static/chunks/framework.fff3fbeb3af15920a486.js" async=""></script><script src="../_next/static/chunks/62cc7e9c9a3e1f629d6465da6b5c3c24307ba956.1397755d27136c8e5e87.js" async=""></script><script src="../_next/static/chunks/6f96d2670548cc2e56ddd61f5cad26e2ff6b9887.e1ef8f161934e411f3ca.js" async=""></script><script src="../_next/static/chunks/pages/_app-35f1753f3b3230448c1a.js" async=""></script><script src="../_next/static/chunks/1bfc9850.63e063b67c6abef35dc4.js" async=""></script><script src="../_next/static/chunks/761cb607.284fb34f48444a82e6e8.js" async=""></script><script src="../_next/static/chunks/6e2d9d0a.ec66e3094e258e384e3a.js" async=""></script><script src="../_next/static/chunks/2f37a77d.d1ad562897c4e94f4bef.js" async=""></script><script src="../_next/static/chunks/ea683af8.2d212fcbed7b88970881.js" async=""></script><script src="../_next/static/chunks/8edc3fe5.38db3dbbcb79c21f82fb.js" async=""></script><script src="../_next/static/chunks/1c920f04.c9a1d24149a75d4f1512.js" async=""></script><script src="../_next/static/chunks/2fb713ed.04818228c14a16edc0f8.js" async=""></script><script src="../_next/static/chunks/3c128e86.54e390ccdd375e3d8ad3.js" async=""></script><script src="../_next/static/chunks/9a679482.2c6dcfd1bfb3230b5b2d.js" async=""></script><script src="../_next/static/chunks/5f6bb6fb.213c7cafca73f95cc5b6.js" async=""></script><script src="../_next/static/chunks/e301390aaeb655a7c46d3a98e1b7f0801d0265e5.57eddd77c9513532f59b.js" async=""></script><script src="../_next/static/chunks/7e56f788575e89f8e7fe02ce953cbf6b79d05ace.0c55ad45b7791ec1e567.js" async=""></script><script src="../_next/static/chunks/4a78e8a6d8242f8b651c6e6a4bce4ea63b9318d3.9487ad6269b0e36893f8.js" async=""></script><script src="../_next/static/chunks/6cd0218634a0fb2d8c1ff419044d067f0b6760d3.82961c8370fbb2320208.js" async=""></script><script src="../_next/static/chunks/b98fec12833bb202b4631ea51b77337c0135e853.beb527db176a876c2a20.js" async=""></script><script src="../_next/static/chunks/b1ded82f8b195b7f3485e43ba6b33630764eb60a.ab422021aefae0182188.js" async=""></script><script src="../_next/static/chunks/pages/course/big-o-time-and-space-complexity-5e9e2dccd139e4f47237.js" async=""></script><script src="../_next/static/DnextCng75Ofup2sE1icy/_buildManifest.js" async=""></script><script src="../_next/static/DnextCng75Ofup2sE1icy/_ssgManifest.js" async=""></script><script type="application/ld+json">{"@context":"https://schema.org/","@type":"WebSite","name":"Skilled.dev","url":"https://skilled.dev"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Skilled.dev","alternateName":"Skilled","url":"https://skilled.dev","logo":"https://skilled.dev/logo-square.png","sameAs":["https://www.facebook.com/skilled.dev","https://twitter.com/Skilled_dev","https://www.instagram.com/skilled.dev/","https://www.youtube.com/channel/UC3v9kBR_ab4UHXXdknz8Fbg","https://www.linkedin.com/company/skilled-dev","https://skilled.dev","https://github.com/skilled-dev/"]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Coding Interview Course + Programming Interview Questions","description":"Master the technical interview and land your next job as a software engineer.","provider":{"@type":"Organization","name":"Skilled.dev","sameAs":"https://skilled.dev"}}</script></body></html>
