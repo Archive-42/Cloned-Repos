@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    "**/.rts2_cache*": true,
+    "**/packages/typescriptlang-org/public/*": true,
+    "**/packages/typescriptlang-org/.cache/*": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.formatOnSave": true,
+  "deno.enable": false
+}

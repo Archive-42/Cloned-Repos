@@ -1,0 +1,21 @@
+{
+  "name": "handbook-epub",
+  "private": true,
+  "license": "MIT",
+  "version": "1.0.0",
+  "scripts": {
+    "bootstrap": "yarn workspace typescriptlang-org update-versions",
+    "build": "ts-node script/createEpub.ts && ts-node script/createPDF.ts",
+    "test": "echo 'NOOP'"
+  },
+  "prettier": {
+    "semi": true
+  },
+  "dependencies": {
+    "fs-jetpack": "^2.4.0",
+    "playwright": "^1.9.1",
+    "sass": "*",
+    "streampub": "https://github.com/orta/streampub-1.git#ibooks",
+    "ts-node": "*"
+  }
+}

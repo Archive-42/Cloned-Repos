@@ -1,0 +1,26 @@
+{
+  "name": "@typescript/playground",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "private": true,
+  "types": "../../typescriptlang-org/static/js/playground/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "bootstrap": "node scripts/getListOfPluginsFromNPM.js",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@typescript/sandbox": "0.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.1.3",
+    "jest": "*",
+    "monaco-editor": "~0.20.0",
+    "monaco-typescript": "^3.7.0",
+    "typescript": "*"
+  }
+}
