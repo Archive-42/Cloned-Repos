@@ -1,0 +1,8 @@
+{
+  "name": "lastmodified-tracking-functions",
+  "description": "Track Lastmodified date of nodes Firebase Functions sample",
+  "dependencies": {
+    "firebase-admin": "^4.1.1",
+    "firebase-functions": "^0.5.1"
+  }
+}

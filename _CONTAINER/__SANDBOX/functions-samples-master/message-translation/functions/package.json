@@ -1,0 +1,9 @@
+{
+  "name": "message-translation-functions",
+  "description": "Transalte Messages Firebase Functions sample",
+  "dependencies": {
+    "firebase-admin": "^4.1.1",
+    "firebase-functions": "^0.5.1",
+    "request-promise": "^2.0.0"
+  }
+}
