@@ -1,0 +1,25 @@
+{
+    "name": "tui-pagination",
+    "authors": [
+        "NHN. FE Dev Lab.<dl_javascript@nhn.com>"
+    ],
+    "main": [
+        "dist/tui-pagination.js",
+        "dist/tui-pagination.css"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "examples",
+        "src",
+        "test",
+        "karma.conf.js",
+        "package-lock.json",
+        "package.json",
+        "tui-note.config.js",
+        "tuidoc.config.json",
+        "webpack.config.js"
+    ]
+}

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "locate-path": "^6.0.0"
+  }
+}
