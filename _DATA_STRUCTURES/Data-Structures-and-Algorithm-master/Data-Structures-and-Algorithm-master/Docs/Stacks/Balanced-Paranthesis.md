@@ -5,12 +5,12 @@
 in which operations are carried out. This order of operation is popularly known as LIFO (Last In, First Out) operation.
 
 Parenthesis or Bracket is considered to be any of the following characters: 
-1. ( small opened bracket
+_**1. ( small opened bracket
 2. ) small closed bracket
 3. {  opened curly brace
 4. }  closed curly brace
 5. [  opened big bracket
-6. ]  closed big bracket 
+6. ]  closed big bracket**_
 
 The task is to check whether the given string of these characters combined in any form is balanced or not.
 
@@ -21,7 +21,7 @@ The given string is balanced if:
 1. Open brackets are closed by the same type of brackets.
 2. Open brackets are closed in the correct order.
 
-
+```txt
         Example
             1. Input: "()"
                Output: true
@@ -37,7 +37,7 @@ The given string is balanced if:
 
 _Note that an empty string is also considered valid._
 
-
+```
 
 ### **Problem solving approach**
 This problem is solved by implementing Stack Principle. This approach includes pushing and popping of element to and from the stack.
@@ -45,7 +45,7 @@ This problem is solved by implementing Stack Principle. This approach includes p
 If the character we are reading is opening parenthesis then we push the character onto the stack and if we encounter a closing parenthesis then we check if the top element on the stack is corresponding opening parenthesis. If we find that it is the case then we pop the element from the stack. At the end, if the stack is empty, we return valid, else invalid.
 
 The problem solving approach can be formally described by the following algorithm:
-
+```js
       function BalancedParenthesis(string):
          
          initialize stack object as s
@@ -68,19 +68,18 @@ The problem solving approach can be formally described by the following algorith
          else:
             return false
                   
-
+```
 
 At first let's define two sets of array:
-        1. Array that contains opening brackets i.e ( , { and [
-        2. Array that contains closing brackets i.e ) , } and ]
+ >       1. Array that contains opening brackets i.e ( , { and [
+ >       2. Array that contains closing brackets i.e ) , } and ]
    ![Push](Array.jpg)
 
-Now lets consider Example. 2 as our Input String.
+**Now lets consider Example. 2 as our Input String.**
 
-        Input = "({[]})"
+       ` Input = "({[]})"`
        
-The input is read in linear fashion from start to end. Whenever character of given input string
-is in array that contains only opening parenthesis, the character is pushed onto the stack. This process of pushing character into the stack continues till condition is met.
+>The input is read in linear fashion from start to end. Whenever character of given input string is in array that contains only opening parenthesis, the character is pushed onto the stack. This process of pushing character into the stack continues till condition is met.
 
 For example in our given string, '(' is the first character and since it falls arr1. It is pushed into the stack as shown in figure below:
 
