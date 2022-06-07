@@ -1,0 +1,47 @@
+
+.message-input-container-outer {
+    position: fixed;
+    right: 0;
+    left: 230px;
+    bottom: 0;
+    background-color: white;
+}
+
+.message-input-container-inner {
+    display: flex;
+    margin: 0 10px 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    align-items: center;
+}
+.message-input {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    outline: 0;
+    border: none;
+    background-color: transparent;
+}
+
+
+.message-form {
+    display: flex;
+    width: 100%;
+}
+
+.emojiButton {
+    border: none;
+    color: gray;
+    border-left: 1px solid gray;
+    padding: 5px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.emojiButton:hover {
+    color: black;
+}
+
+.fa-laugh {
+    font-size: 23px;
+}

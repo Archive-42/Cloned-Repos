@@ -1,1 +1,0 @@
----\ntype: location\nlocation: \nmode: contributions\n---

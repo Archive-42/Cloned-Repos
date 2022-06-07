@@ -1,0 +1,61 @@
+<h1 id="description">–description–</h1>
+<p>The other way to define a React component is with the ES6 <code>class</code> syntax. In the following example, <code>Kitten</code> extends <code>React.Component</code>:</p>
+<pre class="jsx"><code>class Kitten extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      &lt;h1&gt;Hi&lt;/h1&gt;
+    );
+  }
+}</code></pre>
+<p>This creates an ES6 class <code>Kitten</code> which extends the <code>React.Component</code> class. So the <code>Kitten</code> class now has access to many useful React features, such as local state and lifecycle hooks. Don’t worry if you aren’t familiar with these terms yet, they will be covered in greater detail in later challenges. Also notice the <code>Kitten</code> class has a <code>constructor</code> defined within it that calls <code>super()</code>. It uses <code>super()</code> to call the constructor of the parent class, in this case <code>React.Component</code>. The constructor is a special method used during the initialization of objects that are created with the <code>class</code> keyword. It is best practice to call a component’s <code>constructor</code> with <code>super</code>, and pass <code>props</code> to both. This makes sure the component is initialized properly. For now, know that it is standard for this code to be included. Soon you will see other uses for the constructor as well as <code>props</code>.</p>
+<h1 id="instructions">–instructions–</h1>
+<p><code>MyComponent</code> is defined in the code editor using class syntax. Finish writing the <code>render</code> method so it returns a <code>div</code> element that contains an <code>h1</code> with the text <code>Hello React!</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>The React component should return a <code>div</code> element.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(<span class="va">Enzyme</span>.<span class="at">shallow</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyComponent)).<span class="at">type</span>() <span class="op">===</span> <span class="st">&#39;div&#39;</span>)<span class="op">;</span></a></code></pre></div>
+<p>The returned <code>div</code> should render an <code>h1</code> header within it.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="ss">/&lt;div&gt;&lt;h1&gt;.</span><span class="sc">*</span><span class="ss">&lt;</span><span class="sc">\/</span><span class="ss">h1&gt;&lt;</span><span class="sc">\/</span><span class="ss">div&gt;/</span>.<span class="at">test</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="va">Enzyme</span>.<span class="at">shallow</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyComponent)).<span class="at">html</span>()</a>
+<a class="sourceLine" id="cb3-4" title="4">  )</a>
+<a class="sourceLine" id="cb3-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>h1</code> header should contain the string <code>Hello React!</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="va">Enzyme</span>.<span class="at">shallow</span>(<span class="va">React</span>.<span class="at">createElement</span>(MyComponent)).<span class="at">html</span>() <span class="op">===</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="st">&#39;&lt;div&gt;&lt;h1&gt;Hello React!&lt;/h1&gt;&lt;/div&gt;&#39;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<pre class="jsx"><code>ReactDOM.render(&lt;MyComponent /&gt;, document.getElementById(&#39;root&#39;))</code></pre>
+<h2 id="seed-contents">–seed-contents–</h2>
+<pre class="jsx"><code>class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    // Change code below this line
+
+
+
+    // Change code above this line
+  }
+};</code></pre>
+<h1 id="solutions">–solutions–</h1>
+<pre class="jsx"><code>class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    // Change code below this line
+    return (
+      &lt;div&gt;
+        &lt;h1&gt;Hello React!&lt;/h1&gt;
+      &lt;/div&gt;
+    );
+    // Change code above this line
+  }
+};</code></pre>

@@ -1,0 +1,26 @@
+div(class="add-list-form-holder")
+  div(class="add-list-form-content")
+    span(class="close-add") &times
+    h3 List Name 
+    form(class="" id="add-list-form")
+      div
+        label(for="listName") List
+        input(class="listNameField" type='text' name="listName" placeholder='')
+      button(class="add-list-form-button" type="submit") Add
+      
+
+
+script(type="text/javascript").
+
+  const addListForm = document.querySelector(".add-list-form-holder");
+
+    window.onclick = function(event) {
+    if (event.target === addListForm) {
+      addListForm.style.display = "none";
+    }
+  }
+  const closeAddButton = document.getElementsByClassName("close-add")[0];
+
+   closeAddButton.onclick = function() {
+      addListForm.style.display = "none";
+  }

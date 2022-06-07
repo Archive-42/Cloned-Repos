@@ -1,0 +1,171 @@
+<h1 id="description">–description–</h1>
+<p>You have been adding <code>id</code> or <code>class</code> attributes to elements that you wish to specifically style. These are known as ID and class selectors. There are other CSS Selectors you can use to select custom groups of elements to style.</p>
+<p>Let’s bring out CatPhotoApp again to practice using CSS Selectors.</p>
+<p>For this challenge, you will use the <code>[attr=value]</code> attribute selector to style the checkboxes in CatPhotoApp. This selector matches and styles elements with a specific attribute value. For example, the below code changes the margins of all elements with the attribute <code>type</code> and a corresponding value of <code>radio</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode css"><code class="sourceCode css"><a class="sourceLine" id="cb1-1" title="1"><span class="ex">[type</span><span class="op">=</span><span class="st">&#39;radio&#39;</span><span class="ex">]</span> {</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="kw">margin</span>: <span class="dv">20</span><span class="dt">px</span> <span class="dv">0</span><span class="dt">px</span> <span class="dv">20</span><span class="dt">px</span> <span class="dv">0</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">}</a></code></pre></div>
+<h1 id="instructions">–instructions–</h1>
+<p>Using the <code>type</code> attribute selector, try to give the checkboxes in CatPhotoApp a top margin of 10px and a bottom margin of 15px.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>type</code> attribute selector should be used to select the checkboxes.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(</a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="ss">/&lt;style&gt;</span><span class="sc">[\s\S]*?\[\s*?</span><span class="ss">type</span><span class="sc">\s*?</span><span class="ss">=</span><span class="sc">\s*?(</span><span class="ss">&quot;</span><span class="sc">|</span><span class="ss">&#39;</span><span class="sc">)</span><span class="ss">checkbox</span><span class="sc">\1\s*?\]\s*?</span><span class="ss">{</span><span class="sc">[\s\S]*?</span><span class="ss">}</span><span class="sc">[\s\S]*?</span><span class="ss">&lt;</span><span class="sc">\/</span><span class="ss">style&gt;/gi</span></a>
+<a class="sourceLine" id="cb2-4" title="4">  )</a>
+<a class="sourceLine" id="cb2-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>The top margins of the checkboxes should be 10px.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">var</span> count <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="at">$</span>(<span class="st">&quot;[type=&#39;checkbox&#39;]&quot;</span>).<span class="at">each</span>(<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      <span class="cf">if</span> (<span class="at">$</span>(<span class="kw">this</span>).<span class="at">css</span>(<span class="st">&#39;marginTop&#39;</span>) <span class="op">===</span> <span class="st">&#39;10px&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-6" title="6">        count<span class="op">++;</span></a>
+<a class="sourceLine" id="cb3-7" title="7">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-8" title="8">    <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="cf">return</span> count <span class="op">===</span> <span class="dv">3</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb3-10" title="10">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-11" title="11">)<span class="op">;</span></a></code></pre></div>
+<p>The bottom margins of the checkboxes should be 15px.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">var</span> count <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">    <span class="at">$</span>(<span class="st">&quot;[type=&#39;checkbox&#39;]&quot;</span>).<span class="at">each</span>(<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-5" title="5">      <span class="cf">if</span> (<span class="at">$</span>(<span class="kw">this</span>).<span class="at">css</span>(<span class="st">&#39;marginBottom&#39;</span>) <span class="op">===</span> <span class="st">&#39;15px&#39;</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-6" title="6">        count<span class="op">++;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">    <span class="cf">return</span> count <span class="op">===</span> <span class="dv">3</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb4-11" title="11">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">&lt;link</span><span class="ot"> href=</span><span class="st">&quot;https://fonts.googleapis.com/css?family=Lobster&quot;</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/css&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="fu">.red-text</span> {</a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">color</span>: <span class="cn">red</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">  }</a>
+<a class="sourceLine" id="cb5-6" title="6"></a>
+<a class="sourceLine" id="cb5-7" title="7">  h2 {</a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="kw">font-family</span>: Lobster<span class="op">,</span> <span class="dv">monospace</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-9" title="9">  }</a>
+<a class="sourceLine" id="cb5-10" title="10"></a>
+<a class="sourceLine" id="cb5-11" title="11">  p {</a>
+<a class="sourceLine" id="cb5-12" title="12">    <span class="kw">font-size</span>: <span class="dv">16</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-13" title="13">    <span class="kw">font-family</span>: <span class="dv">monospace</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-14" title="14">  }</a>
+<a class="sourceLine" id="cb5-15" title="15"></a>
+<a class="sourceLine" id="cb5-16" title="16">  <span class="fu">.thick-green-border</span> {</a>
+<a class="sourceLine" id="cb5-17" title="17">    <span class="kw">border-color</span>: <span class="cn">green</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-18" title="18">    <span class="kw">border-width</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-19" title="19">    <span class="kw">border-style</span>: <span class="dv">solid</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-20" title="20">    <span class="kw">border-radius</span>: <span class="dv">50</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-21" title="21">  }</a>
+<a class="sourceLine" id="cb5-22" title="22"></a>
+<a class="sourceLine" id="cb5-23" title="23">  <span class="fu">.smaller-image</span> {</a>
+<a class="sourceLine" id="cb5-24" title="24">    <span class="kw">width</span>: <span class="dv">100</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-25" title="25">  }</a>
+<a class="sourceLine" id="cb5-26" title="26"></a>
+<a class="sourceLine" id="cb5-27" title="27">  <span class="fu">.silver-background</span> {</a>
+<a class="sourceLine" id="cb5-28" title="28">    <span class="kw">background-color</span>: <span class="cn">silver</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-29" title="29">  }</a>
+<a class="sourceLine" id="cb5-30" title="30"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb5-31" title="31"></a>
+<a class="sourceLine" id="cb5-32" title="32"><span class="kw">&lt;h2</span><span class="ot"> class=</span><span class="st">&quot;red-text&quot;</span><span class="kw">&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb5-33" title="33"><span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb5-34" title="34">  <span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&quot;red-text&quot;</span><span class="kw">&gt;</span>Click here to view more <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>cat photos<span class="kw">&lt;/a&gt;</span>.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-35" title="35"></a>
+<a class="sourceLine" id="cb5-36" title="36">  <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;&lt;img</span><span class="ot"> class=</span><span class="st">&quot;smaller-image thick-green-border&quot;</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-relaxing-cat&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A cute orange cat lying on its back.&quot;</span><span class="kw">&gt;&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb5-37" title="37"></a>
+<a class="sourceLine" id="cb5-38" title="38">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;silver-background&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-39" title="39">    <span class="kw">&lt;p&gt;</span>Things cats love:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-40" title="40">    <span class="kw">&lt;ul&gt;</span></a>
+<a class="sourceLine" id="cb5-41" title="41">      <span class="kw">&lt;li&gt;</span>cat nip<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-42" title="42">      <span class="kw">&lt;li&gt;</span>laser pointers<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-43" title="43">      <span class="kw">&lt;li&gt;</span>lasagna<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-44" title="44">    <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb5-45" title="45">    <span class="kw">&lt;p&gt;</span>Top 3 things cats hate:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb5-46" title="46">    <span class="kw">&lt;ol&gt;</span></a>
+<a class="sourceLine" id="cb5-47" title="47">      <span class="kw">&lt;li&gt;</span>flea treatment<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-48" title="48">      <span class="kw">&lt;li&gt;</span>thunder<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-49" title="49">      <span class="kw">&lt;li&gt;</span>other cats<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb5-50" title="50">    <span class="kw">&lt;/ol&gt;</span></a>
+<a class="sourceLine" id="cb5-51" title="51">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb5-52" title="52"></a>
+<a class="sourceLine" id="cb5-53" title="53">  <span class="kw">&lt;form</span><span class="ot"> action=</span><span class="st">&quot;https://freecatphotoapp.com/submit-cat-photo&quot;</span><span class="ot"> id=</span><span class="st">&quot;cat-photo-form&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-54" title="54">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="ot"> checked</span><span class="kw">&gt;</span> Indoor<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb5-55" title="55">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="kw">&gt;</span> Outdoor<span class="kw">&lt;/label&gt;&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb5-56" title="56">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="ot"> checked</span><span class="kw">&gt;</span> Loving<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb5-57" title="57">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Lazy<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb5-58" title="58">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Energetic<span class="kw">&lt;/label&gt;&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb5-59" title="59">    <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="ot"> placeholder=</span><span class="st">&quot;cat photo URL&quot;</span><span class="ot"> required</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb5-60" title="60">    <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span>Submit<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb5-61" title="61">  <span class="kw">&lt;/form&gt;</span></a>
+<a class="sourceLine" id="cb5-62" title="62"><span class="kw">&lt;/main&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;link</span><span class="ot"> href=</span><span class="st">&quot;https://fonts.googleapis.com/css?family=Lobster&quot;</span><span class="ot"> rel=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> type=</span><span class="st">&quot;text/css&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb6-3" title="3">  <span class="fu">.red-text</span> {</a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="kw">color</span>: <span class="cn">red</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">  }</a>
+<a class="sourceLine" id="cb6-6" title="6"></a>
+<a class="sourceLine" id="cb6-7" title="7">  h2 {</a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="kw">font-family</span>: Lobster<span class="op">,</span> <span class="dv">monospace</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">  }</a>
+<a class="sourceLine" id="cb6-10" title="10"></a>
+<a class="sourceLine" id="cb6-11" title="11">  p {</a>
+<a class="sourceLine" id="cb6-12" title="12">    <span class="kw">font-size</span>: <span class="dv">16</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-13" title="13">    <span class="kw">font-family</span>: <span class="dv">monospace</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-14" title="14">  }</a>
+<a class="sourceLine" id="cb6-15" title="15"></a>
+<a class="sourceLine" id="cb6-16" title="16">  <span class="fu">.thick-green-border</span> {</a>
+<a class="sourceLine" id="cb6-17" title="17">    <span class="kw">border-color</span>: <span class="cn">green</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-18" title="18">    <span class="kw">border-width</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-19" title="19">    <span class="kw">border-style</span>: <span class="dv">solid</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-20" title="20">    <span class="kw">border-radius</span>: <span class="dv">50</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-21" title="21">  }</a>
+<a class="sourceLine" id="cb6-22" title="22"></a>
+<a class="sourceLine" id="cb6-23" title="23">  <span class="fu">.smaller-image</span> {</a>
+<a class="sourceLine" id="cb6-24" title="24">    <span class="kw">width</span>: <span class="dv">100</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-25" title="25">  }</a>
+<a class="sourceLine" id="cb6-26" title="26"></a>
+<a class="sourceLine" id="cb6-27" title="27">  <span class="fu">.silver-background</span> {</a>
+<a class="sourceLine" id="cb6-28" title="28">    <span class="kw">background-color</span>: <span class="cn">silver</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-29" title="29">  }</a>
+<a class="sourceLine" id="cb6-30" title="30">  <span class="ex">[type</span><span class="op">=</span><span class="st">&#39;checkbox&#39;</span><span class="ex">]</span> {</a>
+<a class="sourceLine" id="cb6-31" title="31">    <span class="kw">margin-top</span>: <span class="dv">10</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-32" title="32">    <span class="kw">margin-bottom</span>: <span class="dv">15</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-33" title="33">  }</a>
+<a class="sourceLine" id="cb6-34" title="34"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb6-35" title="35"></a>
+<a class="sourceLine" id="cb6-36" title="36"><span class="kw">&lt;h2</span><span class="ot"> class=</span><span class="st">&quot;red-text&quot;</span><span class="kw">&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb6-37" title="37"><span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb6-38" title="38">  <span class="kw">&lt;p</span><span class="ot"> class=</span><span class="st">&quot;red-text&quot;</span><span class="kw">&gt;</span>Click here to view more <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>cat photos<span class="kw">&lt;/a&gt;</span>.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb6-39" title="39">  </a>
+<a class="sourceLine" id="cb6-40" title="40">  <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;&lt;img</span><span class="ot"> class=</span><span class="st">&quot;smaller-image thick-green-border&quot;</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-relaxing-cat&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A cute orange cat lying on its back.&quot;</span><span class="kw">&gt;&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb6-41" title="41">  </a>
+<a class="sourceLine" id="cb6-42" title="42">  <span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;silver-background&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-43" title="43">    <span class="kw">&lt;p&gt;</span>Things cats love:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb6-44" title="44">    <span class="kw">&lt;ul&gt;</span></a>
+<a class="sourceLine" id="cb6-45" title="45">      <span class="kw">&lt;li&gt;</span>cat nip<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-46" title="46">      <span class="kw">&lt;li&gt;</span>laser pointers<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-47" title="47">      <span class="kw">&lt;li&gt;</span>lasagna<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-48" title="48">    <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb6-49" title="49">    <span class="kw">&lt;p&gt;</span>Top 3 things cats hate:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb6-50" title="50">    <span class="kw">&lt;ol&gt;</span></a>
+<a class="sourceLine" id="cb6-51" title="51">      <span class="kw">&lt;li&gt;</span>flea treatment<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-52" title="52">      <span class="kw">&lt;li&gt;</span>thunder<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-53" title="53">      <span class="kw">&lt;li&gt;</span>other cats<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb6-54" title="54">    <span class="kw">&lt;/ol&gt;</span></a>
+<a class="sourceLine" id="cb6-55" title="55">  <span class="kw">&lt;/div&gt;</span></a>
+<a class="sourceLine" id="cb6-56" title="56">  </a>
+<a class="sourceLine" id="cb6-57" title="57">  <span class="kw">&lt;form</span><span class="ot"> action=</span><span class="st">&quot;https://freecatphotoapp.com/submit-cat-photo&quot;</span><span class="ot"> id=</span><span class="st">&quot;cat-photo-form&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-58" title="58">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="ot"> checked</span><span class="kw">&gt;</span> Indoor<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb6-59" title="59">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="kw">&gt;</span> Outdoor<span class="kw">&lt;/label&gt;&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb6-60" title="60">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="ot"> checked</span><span class="kw">&gt;</span> Loving<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb6-61" title="61">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Lazy<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb6-62" title="62">    <span class="kw">&lt;label&gt;&lt;input</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Energetic<span class="kw">&lt;/label&gt;&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb6-63" title="63">    <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="ot"> placeholder=</span><span class="st">&quot;cat photo URL&quot;</span><span class="ot"> required</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb6-64" title="64">    <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span>Submit<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb6-65" title="65">  <span class="kw">&lt;/form&gt;</span></a>
+<a class="sourceLine" id="cb6-66" title="66"><span class="kw">&lt;/main&gt;</span></a></code></pre></div>

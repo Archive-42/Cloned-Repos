@@ -1,0 +1,101 @@
+<h1 id="description">–description–</h1>
+<p>When a form gets submitted, the data is sent to the server and includes entries for the options selected. Inputs of type <code>radio</code> and <code>checkbox</code> report their values from the <code>value</code> attribute.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;indoor&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="kw">&lt;input</span><span class="ot"> id=</span><span class="st">&quot;indoor&quot;</span><span class="ot"> value=</span><span class="st">&quot;indoor&quot;</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="kw">&gt;</span>Indoor</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;outdoor&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="kw">&lt;input</span><span class="ot"> id=</span><span class="st">&quot;outdoor&quot;</span><span class="ot"> value=</span><span class="st">&quot;outdoor&quot;</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="kw">&gt;</span>Outdoor</a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="kw">&lt;/label&gt;</span></a></code></pre></div>
+<p>Here, you have two <code>radio</code> inputs. When the user submits the form with the <code>indoor</code> option selected, the form data will include the line: <code>indoor-outdoor=indoor</code>. This is from the <code>name</code> and <code>value</code> attributes of the “indoor” input.</p>
+<p>If you omit the <code>value</code> attribute, the submitted form data uses the default value, which is <code>on</code>. In this scenario, if the user clicked the “indoor” option and submitted the form, the resulting form data would be <code>indoor-outdoor=on</code>, which is not useful. So the <code>value</code> attribute needs to be set to something to identify the option.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Give each of the <code>radio</code> and <code>checkbox</code> inputs the <code>value</code> attribute. Use the input label text, in lowercase, as the value for the attribute.</p>
+<h1 id="hints">–hints–</h1>
+<p>One of your radio buttons should have the <code>value</code> attribute of <code>indoor</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="at">$</span>(<span class="st">&#39;label:contains(&quot;Indoor&quot;) &gt; input[type=&quot;radio&quot;]&#39;</span>).<span class="at">filter</span>(<span class="st">&quot;[value=&#39;indoor&#39;]&quot;</span>)</a>
+<a class="sourceLine" id="cb2-3" title="3">    .<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb2-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>One of your radio buttons should have the <code>value</code> attribute of <code>outdoor</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="at">$</span>(<span class="st">&#39;label:contains(&quot;Outdoor&quot;) &gt; input[type=&quot;radio&quot;]&#39;</span>).<span class="at">filter</span>(</a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="st">&quot;[value=&#39;outdoor&#39;]&quot;</span></a>
+<a class="sourceLine" id="cb3-4" title="4">  ).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb3-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>One of your checkboxes should have the <code>value</code> attribute of <code>loving</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="at">$</span>(<span class="st">&#39;label:contains(&quot;Loving&quot;) &gt; input[type=&quot;checkbox&quot;]&#39;</span>).<span class="at">filter</span>(</a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="st">&quot;[value=&#39;loving&#39;]&quot;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">  ).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb4-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<p>One of your checkboxes should have the <code>value</code> attribute of <code>lazy</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb5-2" title="2">  <span class="at">$</span>(<span class="st">&#39;label:contains(&quot;Lazy&quot;) &gt; input[type=&quot;checkbox&quot;]&#39;</span>).<span class="at">filter</span>(<span class="st">&quot;[value=&#39;lazy&#39;]&quot;</span>)</a>
+<a class="sourceLine" id="cb5-3" title="3">    .<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb5-4" title="4">)<span class="op">;</span></a></code></pre></div>
+<p>One of your checkboxes should have the <code>value</code> attribute of <code>energetic</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="at">$</span>(<span class="st">&#39;label:contains(&quot;Energetic&quot;) &gt; input[type=&quot;checkbox&quot;]&#39;</span>).<span class="at">filter</span>(</a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="st">&quot;[value=&#39;energetic&#39;]&quot;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">  ).<span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb6-5" title="5">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb7-3" title="3">  <span class="kw">&lt;p&gt;</span>Click here to view more <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>cat photos<span class="kw">&lt;/a&gt;</span>.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb7-4" title="4"></a>
+<a class="sourceLine" id="cb7-5" title="5">  <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-relaxing-cat&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A cute orange cat lying on its back.&quot;</span><span class="kw">&gt;&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb7-6" title="6"></a>
+<a class="sourceLine" id="cb7-7" title="7">  <span class="kw">&lt;p&gt;</span>Things cats love:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb7-8" title="8">  <span class="kw">&lt;ul&gt;</span></a>
+<a class="sourceLine" id="cb7-9" title="9">    <span class="kw">&lt;li&gt;</span>cat nip<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb7-10" title="10">    <span class="kw">&lt;li&gt;</span>laser pointers<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb7-11" title="11">    <span class="kw">&lt;li&gt;</span>lasagna<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb7-12" title="12">  <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb7-13" title="13">  <span class="kw">&lt;p&gt;</span>Top 3 things cats hate:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb7-14" title="14">  <span class="kw">&lt;ol&gt;</span></a>
+<a class="sourceLine" id="cb7-15" title="15">    <span class="kw">&lt;li&gt;</span>flea treatment<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb7-16" title="16">    <span class="kw">&lt;li&gt;</span>thunder<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb7-17" title="17">    <span class="kw">&lt;li&gt;</span>other cats<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb7-18" title="18">  <span class="kw">&lt;/ol&gt;</span></a>
+<a class="sourceLine" id="cb7-19" title="19">  <span class="kw">&lt;form</span><span class="ot"> action=</span><span class="st">&quot;https://freecatphotoapp.com/submit-cat-photo&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb7-20" title="20">    <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;indoor&quot;</span><span class="kw">&gt;&lt;input</span><span class="ot"> id=</span><span class="st">&quot;indoor&quot;</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="kw">&gt;</span> Indoor<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb7-21" title="21">    <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;outdoor&quot;</span><span class="kw">&gt;&lt;input</span><span class="ot"> id=</span><span class="st">&quot;outdoor&quot;</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="kw">&gt;</span> Outdoor<span class="kw">&lt;/label&gt;&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb7-22" title="22">    <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;loving&quot;</span><span class="kw">&gt;&lt;input</span><span class="ot"> id=</span><span class="st">&quot;loving&quot;</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Loving<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb7-23" title="23">    <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;lazy&quot;</span><span class="kw">&gt;&lt;input</span><span class="ot"> id=</span><span class="st">&quot;lazy&quot;</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Lazy<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb7-24" title="24">    <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;energetic&quot;</span><span class="kw">&gt;&lt;input</span><span class="ot"> id=</span><span class="st">&quot;energetic&quot;</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="kw">&gt;</span> Energetic<span class="kw">&lt;/label&gt;&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb7-25" title="25">    <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="ot"> placeholder=</span><span class="st">&quot;cat photo URL&quot;</span><span class="ot"> required</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb7-26" title="26">    <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span>Submit<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb7-27" title="27">  <span class="kw">&lt;/form&gt;</span></a>
+<a class="sourceLine" id="cb7-28" title="28"><span class="kw">&lt;/main&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb8"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">&lt;h2&gt;</span>CatPhotoApp<span class="kw">&lt;/h2&gt;</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="kw">&lt;main&gt;</span></a>
+<a class="sourceLine" id="cb8-3" title="3">  <span class="kw">&lt;p&gt;</span>Click here to view more <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>cat photos<span class="kw">&lt;/a&gt;</span>.<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb8-4" title="4"></a>
+<a class="sourceLine" id="cb8-5" title="5">  <span class="kw">&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;&lt;img</span><span class="ot"> src=</span><span class="st">&quot;https://bit.ly/fcc-relaxing-cat&quot;</span><span class="ot"> alt=</span><span class="st">&quot;A cute orange cat lying on its back.&quot;</span><span class="kw">&gt;&lt;/a&gt;</span></a>
+<a class="sourceLine" id="cb8-6" title="6"></a>
+<a class="sourceLine" id="cb8-7" title="7">  <span class="kw">&lt;p&gt;</span>Things cats love:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb8-8" title="8">  <span class="kw">&lt;ul&gt;</span></a>
+<a class="sourceLine" id="cb8-9" title="9">    <span class="kw">&lt;li&gt;</span>cat nip<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb8-10" title="10">    <span class="kw">&lt;li&gt;</span>laser pointers<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb8-11" title="11">    <span class="kw">&lt;li&gt;</span>lasagna<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb8-12" title="12">  <span class="kw">&lt;/ul&gt;</span></a>
+<a class="sourceLine" id="cb8-13" title="13">  <span class="kw">&lt;p&gt;</span>Top 3 things cats hate:<span class="kw">&lt;/p&gt;</span></a>
+<a class="sourceLine" id="cb8-14" title="14">  <span class="kw">&lt;ol&gt;</span></a>
+<a class="sourceLine" id="cb8-15" title="15">    <span class="kw">&lt;li&gt;</span>flea treatment<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb8-16" title="16">    <span class="kw">&lt;li&gt;</span>thunder<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb8-17" title="17">    <span class="kw">&lt;li&gt;</span>other cats<span class="kw">&lt;/li&gt;</span></a>
+<a class="sourceLine" id="cb8-18" title="18">  <span class="kw">&lt;/ol&gt;</span></a>
+<a class="sourceLine" id="cb8-19" title="19">  <span class="kw">&lt;form</span><span class="ot"> action=</span><span class="st">&quot;https://freecatphotoapp.com/submit-cat-photo&quot;</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb8-20" title="20">    <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;indoor&quot;</span><span class="kw">&gt;&lt;input</span><span class="ot"> id=</span><span class="st">&quot;indoor&quot;</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="ot"> value=</span><span class="st">&quot;indoor&quot;</span><span class="kw">&gt;</span> Indoor<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb8-21" title="21">    <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;outdoor&quot;</span><span class="kw">&gt;&lt;input</span><span class="ot"> id=</span><span class="st">&quot;outdoor&quot;</span><span class="ot"> type=</span><span class="st">&quot;radio&quot;</span><span class="ot"> name=</span><span class="st">&quot;indoor-outdoor&quot;</span><span class="ot"> value=</span><span class="st">&quot;outdoor&quot;</span><span class="kw">&gt;</span> Outdoor<span class="kw">&lt;/label&gt;&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb8-22" title="22">    <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;loving&quot;</span><span class="kw">&gt;&lt;input</span><span class="ot"> id=</span><span class="st">&quot;loving&quot;</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="ot"> value=</span><span class="st">&quot;loving&quot;</span><span class="kw">&gt;</span> Loving<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb8-23" title="23">    <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;lazy&quot;</span><span class="kw">&gt;&lt;input</span><span class="ot"> id=</span><span class="st">&quot;lazy&quot;</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="ot"> value=</span><span class="st">&quot;lazy&quot;</span><span class="kw">&gt;</span> Lazy<span class="kw">&lt;/label&gt;</span></a>
+<a class="sourceLine" id="cb8-24" title="24">    <span class="kw">&lt;label</span><span class="ot"> for=</span><span class="st">&quot;energetic&quot;</span><span class="kw">&gt;&lt;input</span><span class="ot"> id=</span><span class="st">&quot;energetic&quot;</span><span class="ot"> type=</span><span class="st">&quot;checkbox&quot;</span><span class="ot"> name=</span><span class="st">&quot;personality&quot;</span><span class="ot"> value=</span><span class="st">&quot;energetic&quot;</span><span class="kw">&gt;</span> Energetic<span class="kw">&lt;/label&gt;&lt;br&gt;</span></a>
+<a class="sourceLine" id="cb8-25" title="25">    <span class="kw">&lt;input</span><span class="ot"> type=</span><span class="st">&quot;text&quot;</span><span class="ot"> placeholder=</span><span class="st">&quot;cat photo URL&quot;</span><span class="ot"> required</span><span class="kw">&gt;</span></a>
+<a class="sourceLine" id="cb8-26" title="26">    <span class="kw">&lt;button</span><span class="ot"> type=</span><span class="st">&quot;submit&quot;</span><span class="kw">&gt;</span>Submit<span class="kw">&lt;/button&gt;</span></a>
+<a class="sourceLine" id="cb8-27" title="27">  <span class="kw">&lt;/form&gt;</span></a>
+<a class="sourceLine" id="cb8-28" title="28"><span class="kw">&lt;/main&gt;</span></a></code></pre></div>

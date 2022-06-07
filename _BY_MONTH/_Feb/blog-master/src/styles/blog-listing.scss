@@ -1,0 +1,35 @@
+@import 'cirrus-ui/src/core/spacing.scss';
+
+/* Tag Filter */
+
+.tag {
+  color: #888;
+  &.selected {
+    color: var(--text-normal);
+    font-weight: 700;
+  }
+}
+
+/* Blog Posts */
+
+.blog-post-preview {
+  @extend .py-4;
+  @extend .mb-4;
+}
+
+h1 > * {
+  font-size: 1.2rem;
+  text-decoration-line: none;
+}
+
+@media screen and (min-width: 848px) {
+  .prologue-component {
+    padding: 2rem 4rem;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .header-nav {
+    padding: 1rem 0;
+  }
+}

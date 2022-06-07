@@ -1,1 +1,0 @@
-DigitalOcean spaces is a solid choice and perhaps the easiest to setup.

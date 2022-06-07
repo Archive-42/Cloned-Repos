@@ -1,0 +1,461 @@
+<!doctype html>
+<!--[if IE 7 ]>		 <html class="no-js ie ie7 lte7 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 8 ]>		 <html class="no-js ie ie8 lte8 lte9"> lang="en-US"> <![endif]-->
+<!--[if IE 9 ]>		 <html class="no-js ie ie9 lte9"> lang="en-US"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="en-US"> <!--<![endif]-->
+<head data-live-domain="learn.jquery.com">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>jQuery Deferreds | jQuery Learning Center</title>
+
+	<meta name="author" content="JS Foundation - js.foundation">
+	<meta name="description" content="">
+
+	<meta name="viewport" content="width=device-width">
+
+	<link rel="shortcut icon" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/i/favicon.ico">
+
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/base.css?v=2">
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/learn.jquery.com/style.css">
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/modernizr.custom.2.8.3.min.js"></script>
+
+	<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/plugins.js"></script>
+	<script src="//learn.jquery.com/jquery-wp-content/themes/jquery/js/main.js"></script>
+
+	<script src="https://use.typekit.net/wde1aof.js"></script>
+	<script>try{Typekit.load();}catch(e){}</script>
+	<!-- at the end of the HEAD -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+	<link rel="stylesheet" href="//learn.jquery.com/jquery-wp-content/themes/jquery/css/docsearch.css">
+
+<link rel='https://api.w.org/' href='//learn.jquery.com/wp-json/' />
+<meta name="generator" content="WordPress 4.5.2" />
+<link rel="alternate" type="application/json+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fcode-organization%2Fdeferreds%2Fjquery-deferreds%2F" />
+<link rel="alternate" type="text/xml+oembed" href="//learn.jquery.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Flearn.jquery.com%2Fcode-organization%2Fdeferreds%2Fjquery-deferreds%2F&#038;format=xml" />
+
+</head>
+<body class="jquery-learn page page-id-229 page-child parent-pageid-227 page-template-default page-slug-jquery-deferreds single-author singular">
+
+<header>
+	<section id="global-nav">
+		<nav>
+			<div class="constrain">
+				<ul class="projects">
+					<li class="project jquery"><a href="https://jquery.com/" title="jQuery">jQuery</a></li>
+					<li class="project jquery-ui"><a href="https://jqueryui.com/" title="jQuery UI">jQuery UI</a></li>
+					<li class="project jquery-mobile"><a href="https://jquerymobile.com/" title="jQuery Mobile">jQuery Mobile</a></li>
+					<li class="project sizzlejs"><a href="https://sizzlejs.com/" title="Sizzle">Sizzle</a></li>
+					<li class="project qunitjs"><a href="https://qunitjs.com/" title="QUnit">QUnit</a></li>
+				</ul>
+				<ul class="links">
+					<li><a href="https://plugins.jquery.com/">Plugins</a></li>
+					<li class="dropdown"><a href="https://contribute.jquery.org/">Contribute</a>
+						<ul>
+							<li><a href="https://js.foundation/CLA">CLA</a></li>
+							<li><a href="https://contribute.jquery.org/style-guide/">Style Guides</a></li>
+							<li><a href="https://contribute.jquery.org/triage/">Bug Triage</a></li>
+							<li><a href="https://contribute.jquery.org/code/">Code</a></li>
+							<li><a href="https://contribute.jquery.org/documentation/">Documentation</a></li>
+							<li><a href="https://contribute.jquery.org/web-sites/">Web Sites</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/events">Events</a>
+						<ul class="wide">
+																		</ul>
+					</li>
+					<li class="dropdown"><a href="https://jquery.org/support/">Support</a>
+						<ul>
+							<li><a href="https://learn.jquery.com/">Learning Center</a></li>
+							<li><a href="https://irc.jquery.org/">IRC/Chat</a></li>
+							<li><a href="https://forum.jquery.com/">Forums</a></li>
+							<li><a href="https://stackoverflow.com/tags/jquery/info">Stack Overflow</a></li>
+							<li><a href="https://jquery.org/support/">Commercial Support</a></li>
+						</ul>
+					</li>
+					<li class="dropdown"><a href="https://js.foundation/">JS Foundation</a>
+						<ul>
+							<li><a href="https://js.foundation/about/join">Join</a></li>
+							<li><a href="https://js.foundation/about/members">Members</a></li>
+							<li><a href="https://js.foundation/about/leadership">Leadership</a></li>
+							<li><a href="https://js.foundation/community/code-of-conduct">Conduct</a></li>
+							<li><a href="https://js.foundation/about/donate">Donate</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</section>
+</header>
+
+<div id="banner-blm">
+	<h2>#BlackLivesMatter</h2>
+	<p>To Donate, see this <a href="https://bit.ly/fundthecommunity">list of organizations to support</a> from <a href="https://www.reclaimtheblock.org/">Reclaim the Block</a> 
+</div>
+
+<div id="container">
+	<div id="logo-events" class="constrain clearfix">
+		<h2 class="logo"><a href="/" title="jQuery Learning Center">jQuery Learning Center</a></h2>
+
+		<aside>
+			<div id="broadcast">
+				<a href="https://js.foundation/about/donate" title="Support the JS Foundation"><img src="/jquery-wp-content/themes/jquery/content/donate.png" title="Support the JS Foundation" alt="Support the JS Foundation" border="0" width="400" height="100"></a>
+			</div>
+		</aside>
+	</div>
+
+	<nav id="main" class="constrain clearfix">
+		<div class="menu-top-container">
+	<ul id="menu-top" class="menu">
+<li class="menu-item"><a href="https://learn.jquery.com">Home</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/about/">About</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/contributing/">Contributing</a></li>
+<li class="menu-item"><a href="https://learn.jquery.com/style-guide/">Style Guide</a></li>
+	</ul>
+</div>
+
+		<form method="get" class="searchform" action="//learn.jquery.com/">
+	<button type="submit" class="icon-search"><span class="visuallyhidden">search</span></button>
+	<label>
+		<span class="visuallyhidden">Search jQuery Learning Center</span>
+		<input type="text" name="s" value=""
+			placeholder="Search">
+	</label>
+</form>
+	</nav>
+
+	<div id="content-wrapper" class="clearfix row">
+
+<div class="beta-ribbon-wrapper"><div class="beta-ribbon"><a href="/about/#beta">Beta</a></div></div>
+<div class="content-right twelve columns">
+	<div id="content">
+		<div class="post-heirarchy">Posted in: <a href="https://learn.jquery.com/code-organization/">Code Organization</a> > <a href="https://learn.jquery.com/code-organization/deferreds/">Deferreds</a></div><article id="post-229" class="post-229 page type-page status-publish hentry">
+	<header class="entry-header">
+		<h1 class="entry-title">jQuery Deferreds</h1>
+	</header>
+
+	<div class="entry-content">
+		<h2 class="toc-linked"><a href="#jquery-deferreds" id="jquery-deferreds" class="icon-link toc-link"><span class="visuallyhidden">link</span></a> jQuery Deferreds</h2><p>Deferreds were added as a part of a large rewrite of the Ajax module, led by Julian Aubourg following the CommonJS Promises/A design. Whilst 1.5 and above include deferred capabilities, former versions of jQuery had <code>jQuery.ajax()</code> accept callbacks that would be invoked upon completion or error of the request, but suffered from heavy coupling &#x2014; the same principle that would drive developers using other languages or toolkits to opt for deferred execution.</p>
+<p>In practice what jQuery&apos;s version provides you with are several enhancements to the way callbacks are managed, giving you significantly more flexible ways to provide callbacks that can be invoked whether the original callback dispatch has already fired or not. It is also worth noting that jQuery&apos;s Deferred object supports having multiple callbacks bound to the outcome of particular tasks (and not just one) where the task itself can either be synchronous or asynchronous.</p>
+<p>At the heart of jQuery&apos;s implementation is <code>jQuery.Deferred</code> &#x2014; a chainable constructor which is able to create new deferred objects that can check for the existence of a promise to establish whether the object can be observed. It can also invoke callback queues and pass on the success of synchronous and asynchronous functions. It&apos;s quite essential to note that the default state of any Deferred object is unresolved. Callbacks which may be added to it through <code>.then()</code> or <code>.fail()</code> are queued up and get executed later on in the process.</p>
+<p>You are able to use Deferred objects in conjunction with the promise concept of when(), implemented in jQuery as <code>$.when()</code> to wait for all of the Deferred object&apos;s requests to complete executing (i.e. for all of the promises to be fulfilled). In technical terms, <code>$.when()</code> is effectively a way to execute callbacks based on any number of promises that represent asynchronous events.</p>
+<p>An example of <code>$.when()</code> accepting multiple arguments can be seen below in conjunction with <code>.then()</code>:</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="function"><span class="keyword">function</span> <span class="title">successFunc</span><span class="params">()</span> {</span></code></div></div><div class="container"><div class="line"><code>    console.log( <span class="string">&quot;success!&quot;</span> );</code></div></div><div class="container"><div class="line"><code>}</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="function"><span class="keyword">function</span> <span class="title">failureFunc</span><span class="params">()</span> {</span></code></div></div><div class="container"><div class="line"><code>    console.log( <span class="string">&quot;failure!&quot;</span> );</code></div></div><div class="container"><div class="line"><code>}</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>$.when(</code></div></div><div class="container"><div class="line"><code>    $.ajax( <span class="string">&quot;/main.php&quot;</span> ),</code></div></div><div class="container"><div class="line"><code>    $.ajax( <span class="string">&quot;/modules.php&quot;</span> ),</code></div></div><div class="container"><div class="line"><code>    $.ajax( <span class="string">&quot;/lists.php&quot;</span> )</code></div></div><div class="container"><div class="line"><code>).then( successFunc, failureFunc );</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p>The <code>$.when()</code> implementation offered in jQuery is quite interesting as it not only interprets deferred objects, but when passed arguments that are not deferreds, it treats these as if they were resolved deferreds and executes any callbacks (<code>doneCallbacks</code>) right away. It is also worth noting that jQuery&apos;s deferred implementation, in addition to exposing <code>deferred.then()</code>, also supports the <code>deferred.done()</code> and <code>deferred.fail()</code> methods which can also be used to add callbacks to the deferred&apos;s queues.</p>
+<p>We will now take a look at a code example that uses many deferred features. This very basic script begins by consuming (1) an external news feed and (2) a reactions feed for pulling in the latest comments via <code>$.get()</code> (which will return a promise-like object). When both requests are received, the <code>showAjaxedContent()</code> function is called. The <code>showAjaxedContent()</code> function returns a promise that is resolved when animating both containers has completed. When the <code>showAjaxedContent()</code> promise is resolved, <code>removeActiveClass()</code> is called. The <code>removeActiveClass()</code> returns a promise that is resolved inside a <code>setTimeout()</code> after 4 seconds have elapsed. Finally, after the <code>removeActiveClass()</code> promise is resolved, the last <code>then()</code> callback is called, provided no errors occurred along the way.</p>
+<div class="syntaxhighlighter javascript">
+	<table>
+		<tbody>
+			<tr>
+				
+				<td class="gutter">
+					
+						<div class="line n1">1</div>
+					
+						<div class="line n2">2</div>
+					
+						<div class="line n3">3</div>
+					
+						<div class="line n4">4</div>
+					
+						<div class="line n5">5</div>
+					
+						<div class="line n6">6</div>
+					
+						<div class="line n7">7</div>
+					
+						<div class="line n8">8</div>
+					
+						<div class="line n9">9</div>
+					
+						<div class="line n10">10</div>
+					
+						<div class="line n11">11</div>
+					
+						<div class="line n12">12</div>
+					
+						<div class="line n13">13</div>
+					
+						<div class="line n14">14</div>
+					
+						<div class="line n15">15</div>
+					
+						<div class="line n16">16</div>
+					
+						<div class="line n17">17</div>
+					
+						<div class="line n18">18</div>
+					
+						<div class="line n19">19</div>
+					
+						<div class="line n20">20</div>
+					
+						<div class="line n21">21</div>
+					
+						<div class="line n22">22</div>
+					
+						<div class="line n23">23</div>
+					
+						<div class="line n24">24</div>
+					
+						<div class="line n25">25</div>
+					
+						<div class="line n26">26</div>
+					
+						<div class="line n27">27</div>
+					
+						<div class="line n28">28</div>
+					
+						<div class="line n29">29</div>
+					
+						<div class="line n30">30</div>
+					
+						<div class="line n31">31</div>
+					
+						<div class="line n32">32</div>
+					
+						<div class="line n33">33</div>
+					
+						<div class="line n34">34</div>
+					
+						<div class="line n35">35</div>
+					
+						<div class="line n36">36</div>
+					
+						<div class="line n37">37</div>
+					
+						<div class="line n38">38</div>
+					
+						<div class="line n39">39</div>
+					
+						<div class="line n40">40</div>
+					
+						<div class="line n41">41</div>
+					
+						<div class="line n42">42</div>
+					
+				</td>
+				
+				<td class="code">
+					<pre><div class="container"><div class="line"><code><span class="function"><span class="keyword">function</span> <span class="title">getLatestNews</span><span class="params">()</span> {</span></code></div></div><div class="container"><div class="line"><code>    <span class="keyword">return</span> $.get( <span class="string">&quot;latestNews.php&quot;</span>, <span class="keyword">function</span>( data ) {</code></div></div><div class="container"><div class="line"><code>        console.log( <span class="string">&quot;news data received&quot;</span> );</code></div></div><div class="container"><div class="line"><code>        $( <span class="string">&quot;.news&quot;</span> ).html( data );</code></div></div><div class="container"><div class="line"><code>    });</code></div></div><div class="container"><div class="line"><code>}</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="function"><span class="keyword">function</span> <span class="title">getLatestReactions</span><span class="params">()</span> {</span></code></div></div><div class="container"><div class="line"><code>    <span class="keyword">return</span> $.get( <span class="string">&quot;latestReactions.php&quot;</span>, <span class="keyword">function</span>( data ) {</code></div></div><div class="container"><div class="line"><code>        console.log( <span class="string">&quot;reactions data received&quot;</span> );</code></div></div><div class="container"><div class="line"><code>        $( <span class="string">&quot;.reactions&quot;</span> ).html( data );</code></div></div><div class="container"><div class="line"><code>    });</code></div></div><div class="container"><div class="line"><code>}</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="function"><span class="keyword">function</span> <span class="title">showAjaxedContent</span><span class="params">()</span> {</span></code></div></div><div class="container"><div class="line"><code>    <span class="comment">// The .promise() is resolved *once*, after all animations complete</span></code></div></div><div class="container"><div class="line"><code>    <span class="keyword">return</span> $( <span class="string">&quot;.news, .reactions&quot;</span> ).slideDown( <span class="number">500</span>, <span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>        <span class="comment">// Called once *for each element* when animation completes</span></code></div></div><div class="container"><div class="line"><code>        $(<span class="keyword">this</span>).addClass( <span class="string">&quot;active&quot;</span> );</code></div></div><div class="container"><div class="line"><code>    }).promise();</code></div></div><div class="container"><div class="line"><code>}</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code><span class="function"><span class="keyword">function</span> <span class="title">removeActiveClass</span><span class="params">()</span> {</span></code></div></div><div class="container"><div class="line"><code>    <span class="keyword">return</span> $.Deferred(<span class="keyword">function</span>( dfd ) {</code></div></div><div class="container"><div class="line"><code>        setTimeout(<span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span></code></div></div><div class="container"><div class="line"><code>            $( <span class="string">&quot;.news, .reactions&quot;</span> ).removeClass( <span class="string">&quot;active&quot;</span> );</code></div></div><div class="container"><div class="line"><code>            dfd.resolve();</code></div></div><div class="container"><div class="line"><code>        }, <span class="number">4000</span>);</code></div></div><div class="container"><div class="line"><code>    }).promise();</code></div></div><div class="container"><div class="line"><code>}</code></div></div><div class="container"><div class="line"><code> </code></div></div><div class="container"><div class="line"><code>$.when(</code></div></div><div class="container"><div class="line"><code>    getLatestNews(),</code></div></div><div class="container"><div class="line"><code>    getLatestReactions()</code></div></div><div class="container"><div class="line"><code>)</code></div></div><div class="container"><div class="line"><code>.then(showAjaxedContent)</code></div></div><div class="container"><div class="line"><code>.then(removeActiveClass)</code></div></div><div class="container"><div class="line"><code>.then(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>    console.log( <span class="string">&quot;Requests succeeded and animations completed&quot;</span> );</code></div></div><div class="container"><div class="line"><code>}).fail(<span class="keyword">function</span>() {</code></div></div><div class="container"><div class="line"><code>    console.log( <span class="string">&quot;something went wrong!&quot;</span> );</code></div></div><div class="container"><div class="line"><code>});</code></div></div></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>					</div>
+
+	<div class="entry-meta row">
+				<div class="bottom-links row">
+										<div class="next six columns">
+					<a href="https://learn.jquery.com/code-organization/deferreds/examples/">
+					Deferred examples					<i class="icon-chevron-right"></i>
+					</a>
+				</div>
+					</div>
+		
+		<aside class="meta-details six columns">
+			<h3>Last Updated</h3>
+			<ul>
+				<li class="icon-calendar icon-large" title="Last Updated"><span>March 14, 2016</span></li>
+			</ul>
+		</aside>
+		<aside class="github-feedback six columns">
+			<h3>Suggestions, Problems, Feedback?</h3>
+			<a class="button dark" href="https://github.com/jquery/learn.jquery.com/tree/master/page/code-organization/deferreds/jquery-deferreds.md"><i class="icon-github"></i> Open an Issue or Submit a Pull Request on GitHub</a>
+		</aside>
+
+	</div>
+</article>
+	</div>
+
+	<div id="sidebar" class="widget-area" role="complementary">
+		
+		<aside id="chapter-listing" class="widget">
+			<h3 class="widget-title">Chapters</h3>
+			<ul>
+																		<li >
+						<a href="//learn.jquery.com/about-jquery/">
+															<i class="icon-certificate"></i>
+														About jQuery						</a>
+																																																																									</li>
+														<li >
+						<a href="//learn.jquery.com/using-jquery-core/">
+															<i class="icon-star-empty"></i>
+														Using jQuery Core						</a>
+																																																																																																																																																																																																																																																																																										<ul class="sub-chapter">
+																																																																																																																																																																																																																																																																																	<li >
+										<a href="//learn.jquery.com/using-jquery-core/faq/">
+											Frequently Asked Questions										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/events/">
+															<i class="icon-tasks"></i>
+														Events						</a>
+																																																																																																																																																																																																	</li>
+														<li >
+						<a href="//learn.jquery.com/effects/">
+															<i class="icon-picture"></i>
+														Effects						</a>
+																																																																																								</li>
+														<li >
+						<a href="//learn.jquery.com/ajax/">
+															<i class="icon-refresh"></i>
+														Ajax						</a>
+																																																																																																																						</li>
+														<li >
+						<a href="//learn.jquery.com/plugins/">
+															<i class="icon-bolt"></i>
+														Plugins						</a>
+																																																																																																							</li>
+														<li >
+						<a href="//learn.jquery.com/performance/">
+															<i class="icon-dashboard"></i>
+														Performance						</a>
+																																																																																																																																																				</li>
+														<li >
+						<a href="//learn.jquery.com/code-organization/">
+															<i class="icon-sitemap"></i>
+														Code Organization						</a>
+																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li class='active'>
+										<a href="//learn.jquery.com/code-organization/deferreds/">
+											Deferreds										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-ui/">
+															<i class="icon-magnet"></i>
+														jQuery UI						</a>
+																																																																																																																																																																				<ul class="sub-chapter">
+																																																																																																							<li >
+										<a href="//learn.jquery.com/jquery-ui/widget-factory/">
+											Widget Factory										</a>
+									</li>
+																																												<li >
+										<a href="//learn.jquery.com/jquery-ui/environments/">
+											Using jQuery UI										</a>
+									</li>
+																									</ul>
+																		</li>
+														<li >
+						<a href="//learn.jquery.com/jquery-mobile/">
+															<i class="icon-th-large"></i>
+														jQuery Mobile						</a>
+																																																																									</li>
+							</ul>
+		</aside>
+
+
+	</div><!-- #sidebar .widget-area -->
+</div>
+
+	</div>
+</div>
+
+<footer class="clearfix simple">
+	<div class="constrain">
+		<div class="row">
+			<div class="six columns offset-by-three">
+				<h3><span>Books</span></h3>
+				<ul class="books">
+					<li>
+						<a href="https://www.packtpub.com/web-development/learning-jquery-fourth-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/learning-jquery-4th-ed.jpg" alt="Learning jQuery 4th Edition by Karl Swedberg and Jonathan Chaffer" width="92" height="114">
+							Learning jQuery Fourth Edition
+							<cite>Karl Swedberg and Jonathan Chaffer</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.manning.com/books/jquery-in-action-third-edition">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-in-action.jpg" alt="jQuery in Action by Bear Bibeault, Yehuda Katz, and Aurelio De Rosa" width="92" height="114">
+							jQuery in Action
+							<cite>Bear Bibeault, Yehuda Katz, and Aurelio De Rosa</cite>
+						</a>
+					</li>
+					<li>
+						<a href="https://www.syncfusion.com/ebooks/jquery">
+							<img src="//learn.jquery.com/jquery-wp-content/themes/jquery/content/books/jquery-succinctly.jpg" alt="jQuery Succinctly by Cody Lindley" width="92" height="114">
+							jQuery Succinctly
+							<cite>Cody Lindley</cite>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		
+<div id="legal">
+	<ul class="footer-site-links">
+			<li><a class="icon-pencil" href="https://learn.jquery.com/">Learning Center</a></li>
+			<li><a class="icon-group" href="https://forum.jquery.com/">Forum</a></li>
+			<li><a class="icon-wrench" href="https://api.jquery.com/">API</a></li>
+			<li><a class="icon-twitter" href="https://twitter.com/jquery">Twitter</a></li>
+			<li><a class="icon-comments" href="https://irc.jquery.org/">IRC</a></li>
+			<li><a class="icon-github" href="https://github.com/jquery">GitHub</a></li>
+	</ul>
+	<p class="copyright">
+		Copyright 2021 <a href="https://openjsf.org/">OpenJS Foundation</a> and jQuery contributors. All rights reserved. See <a href="https://jquery.org/license/">jQuery License</a> for more information. The <a href="https://openjsf.org/">OpenJS Foundation</a> has registered trademarks and uses trademarks. For a list of trademarks of the <a href="https://openjsf.org/">OpenJS Foundation</a>, please see our <a href="https://trademark-policy.openjsf.org/">Trademark Policy</a> and <a href="https://trademark-list.openjsf.org/">Trademark List</a>. Trademarks and logos not indicated on the <a href="https://trademark-list.openjsf.org/">list of OpenJS Foundation trademarks</a> are trademarks™ or registered® trademarks of their respective holders. Use of them does not imply any affiliation with or endorsement by them. OpenJS Foundation <a href="https://terms-of-use.openjsf.org/">Terms of Use</a>, <a href="https://privacy-policy.openjsf.org/">Privacy</a>, and <a href="https://www.linuxfoundation.org/cookies">Cookie</a> Policies also apply.
+		<span class="sponsor-line"><a href="https://www.digitalocean.com" class="do-link">Web hosting by Digital Ocean</a> | <a href="https://www.stackpath.com" class="sp-link">CDN by StackPath</a></span>
+	</p>
+</div>
+
+	</div>
+</footer>
+
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/comment-reply.min.js?ver=4.5.2'></script>
+<script type='text/javascript' src='//learn.jquery.com/wp-includes/js/wp-embed.min.js?ver=4.5.2'></script>
+	<!-- at the end of the BODY -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"  onload="document.querySelector('input[name=\'s\']') && docsearch({apiKey: '3cfde9aca378c8aab554d5bf1b23489b',
+		indexName: 'jquery',
+		inputSelector: 'input[name=\'s\']',
+		debug: true // Set debug to true if you want to inspect the dropdown
+	})" async></script>
+</body>
+</html>

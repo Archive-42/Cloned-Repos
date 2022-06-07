@@ -1,7 +1,0 @@
-{
-  "lerna": "2.8.0",
-  "packages": [
-    "firestore"
-  ],
-  "version": "1.0.0"
-}

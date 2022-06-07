@@ -1,0 +1,15 @@
+<div id="product-details" class="col-md-12 listing product-details">
+  <h2 class="title">{{listing.title}}</h2>
+  <div class="col-sm-3 pull-left">
+    <div class="thumbnail">
+
+      <img src="{{listing.photoUrl}}" alt="">
+      <div class="caption">
+        <h3 class="price">{{listing.price|currency}}</h3>
+      </div>
+    </div>
+  </div>
+  <p class="description">{{listing.description | limitTo:letterLimit }}</p>
+</div>
+<div ng-show="isLoggedIn"><a>Leave a review</a></div>
+<!-- could use a nested view to show review form or a new state -->

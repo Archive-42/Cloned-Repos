@@ -1,0 +1,101 @@
+<h1 id="description">–description–</h1>
+<p>One of the most popular shapes in the world is the heart shape, and in this challenge you’ll create one using pure CSS. But first, you need to understand the <code>::before</code> and <code>::after</code> pseudo-elements. These pseudo-elements are used to add something before or after a selected element. In the following example, a <code>::before</code> pseudo-element is used to add a rectangle to an element with the class <code>heart</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode css"><code class="sourceCode css"><a class="sourceLine" id="cb1-1" title="1"><span class="fu">.heart</span><span class="in">::before</span> {</a>
+<a class="sourceLine" id="cb1-2" title="2">  <span class="kw">content</span>: <span class="st">&quot;&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="kw">background-color</span>: <span class="cn">yellow</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">  <span class="kw">border-radius</span>: <span class="dv">25</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="kw">position</span>: <span class="dv">absolute</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-6" title="6">  <span class="kw">height</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-7" title="7">  <span class="kw">width</span>: <span class="dv">70</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-8" title="8">  <span class="kw">top</span>: <span class="dv">-50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-9" title="9">  <span class="kw">left</span>: <span class="dv">5</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb1-10" title="10">}</a></code></pre></div>
+<p>For the <code>::before</code> and <code>::after</code> pseudo-elements to function properly, they must have a defined <code>content</code> property. This property is usually used to add things like a photo or text to the selected element. When the <code>::before</code> and <code>::after</code> pseudo-elements are used to make shapes, the <code>content</code> property is still required, but it’s set to an empty string. In the above example, the element with the class of <code>heart</code> has a <code>::before</code> pseudo-element that produces a yellow rectangle with <code>height</code> and <code>width</code> of 50px and 70px, respectively. This rectangle has round corners due to its 25% border radius and is positioned absolutely at 5px from the <code>left</code> and 50px above the <code>top</code> of the element.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Transform the element on the screen to a heart. In the <code>heart::after</code> selector, change the <code>background-color</code> to pink and the <code>border-radius</code> to 50%.</p>
+<p>Next, target the element with the class <code>heart</code> (just <code>heart</code>) and fill in the <code>transform</code> property. Use the <code>rotate()</code> function with -45 degrees.</p>
+<p>Finally, in the <code>heart::before</code> selector, set its <code>content</code> property to an empty string.</p>
+<h1 id="hints">–hints–</h1>
+<p>The <code>background-color</code> property of the <code>heart::after</code> selector should be pink.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  <span class="va">code</span>.<span class="at">match</span>(<span class="ss">/</span><span class="sc">\.</span><span class="ss">heart::after</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">background-color</span><span class="sc">\s*?</span><span class="ss">:</span><span class="sc">\s*?</span><span class="ss">pink</span><span class="sc">\s*?</span><span class="ss">;/gi</span>)</a>
+<a class="sourceLine" id="cb2-3" title="3">)<span class="op">;</span></a></code></pre></div>
+<p>The <code>border-radius</code> of the <code>heart::after</code> selector should be 50%.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/border-radius</span><span class="sc">\s*?</span><span class="ss">:</span><span class="sc">\s*?</span><span class="ss">50%/gi</span>).<span class="at">length</span> <span class="op">==</span> <span class="dv">2</span>)<span class="op">;</span></a></code></pre></div>
+<p>The <code>transform</code> property for the <code>heart</code> class should use a <code>rotate()</code> function set to -45 degrees.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/transform</span><span class="sc">\s*?</span><span class="ss">:</span><span class="sc">\s*?</span><span class="ss">rotate</span><span class="sc">\(\s*?</span><span class="ss">-45deg</span><span class="sc">\s*?\)</span><span class="ss">/gi</span>))<span class="op">;</span></a></code></pre></div>
+<p>The <code>content</code> of the <code>heart::before</code> selector should be an empty string.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="at">assert</span>(<span class="va">code</span>.<span class="at">match</span>(<span class="ss">/</span><span class="sc">\.</span><span class="ss">heart::before</span><span class="sc">\s*?</span><span class="ss">{</span><span class="sc">\s*?</span><span class="ss">content</span><span class="sc">\s*?</span><span class="ss">:</span><span class="sc">\s*?(</span><span class="ss">&quot;</span><span class="sc">|</span><span class="ss">&#39;</span><span class="sc">)\1\s*?</span><span class="ss">;/gi</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="fu">.heart</span> {</a>
+<a class="sourceLine" id="cb6-3" title="3">    <span class="kw">position</span>: <span class="dv">absolute</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-4" title="4">    <span class="kw">margin</span>: <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5">    <span class="kw">top</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-6" title="6">    <span class="kw">right</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-7" title="7">    <span class="kw">bottom</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-8" title="8">    <span class="kw">left</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-9" title="9">    <span class="kw">background-color</span>: <span class="cn">pink</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-10" title="10">    <span class="kw">height</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-11" title="11">    <span class="kw">width</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-12" title="12">    <span class="kw">transform</span>: <span class="op">;</span></a>
+<a class="sourceLine" id="cb6-13" title="13">  }</a>
+<a class="sourceLine" id="cb6-14" title="14">  <span class="fu">.heart</span><span class="in">::after</span> {</a>
+<a class="sourceLine" id="cb6-15" title="15">    <span class="kw">background-color</span>: <span class="cn">blue</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-16" title="16">    <span class="kw">content</span>: <span class="st">&quot;&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-17" title="17">    <span class="kw">border-radius</span>: <span class="dv">25</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-18" title="18">    <span class="kw">position</span>: <span class="dv">absolute</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-19" title="19">    <span class="kw">width</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-20" title="20">    <span class="kw">height</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-21" title="21">    <span class="kw">top</span>: <span class="dv">0</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-22" title="22">    <span class="kw">left</span>: <span class="dv">25</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-23" title="23">  }</a>
+<a class="sourceLine" id="cb6-24" title="24">  <span class="fu">.heart</span><span class="in">::before</span> {</a>
+<a class="sourceLine" id="cb6-25" title="25">    <span class="kw">content</span>: <span class="op">;</span></a>
+<a class="sourceLine" id="cb6-26" title="26">    <span class="kw">background-color</span>: <span class="cn">pink</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-27" title="27">    <span class="kw">border-radius</span>: <span class="dv">50</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-28" title="28">    <span class="kw">position</span>: <span class="dv">absolute</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-29" title="29">    <span class="kw">width</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-30" title="30">    <span class="kw">height</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-31" title="31">    <span class="kw">top</span>: <span class="dv">-25</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-32" title="32">    <span class="kw">left</span>: <span class="dv">0</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb6-33" title="33">  }</a>
+<a class="sourceLine" id="cb6-34" title="34"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb6-35" title="35"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;heart&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode html"><code class="sourceCode html"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">&lt;style&gt;</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="fu">.heart</span> {</a>
+<a class="sourceLine" id="cb7-3" title="3">    <span class="kw">position</span>: <span class="dv">absolute</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-4" title="4">    <span class="kw">margin</span>: <span class="bu">auto</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-5" title="5">    <span class="kw">top</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">    <span class="kw">right</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-7" title="7">    <span class="kw">bottom</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-8" title="8">    <span class="kw">left</span>: <span class="dv">0</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-9" title="9">    <span class="kw">background-color</span>: <span class="cn">pink</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-10" title="10">    <span class="kw">height</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-11" title="11">    <span class="kw">width</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-12" title="12">    <span class="kw">transform</span>: <span class="fu">rotate(</span><span class="dv">-45</span><span class="dt">deg</span><span class="fu">)</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-13" title="13">  }</a>
+<a class="sourceLine" id="cb7-14" title="14">  <span class="fu">.heart</span><span class="in">::after</span> {</a>
+<a class="sourceLine" id="cb7-15" title="15">    <span class="kw">background-color</span>: <span class="cn">pink</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-16" title="16">    <span class="kw">content</span>: <span class="st">&quot;&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-17" title="17">    <span class="kw">border-radius</span>: <span class="dv">50</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-18" title="18">    <span class="kw">position</span>: <span class="dv">absolute</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-19" title="19">    <span class="kw">width</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-20" title="20">    <span class="kw">height</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-21" title="21">    <span class="kw">top</span>: <span class="dv">0</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-22" title="22">    <span class="kw">left</span>: <span class="dv">25</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-23" title="23">  }</a>
+<a class="sourceLine" id="cb7-24" title="24">  <span class="fu">.heart</span><span class="in">::before</span> {</a>
+<a class="sourceLine" id="cb7-25" title="25">    <span class="kw">content</span>: <span class="st">&quot;&quot;</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-26" title="26">    <span class="kw">background-color</span>: <span class="cn">pink</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-27" title="27">    <span class="kw">border-radius</span>: <span class="dv">50</span><span class="dt">%</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-28" title="28">    <span class="kw">position</span>: <span class="dv">absolute</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-29" title="29">    <span class="kw">width</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-30" title="30">    <span class="kw">height</span>: <span class="dv">50</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-31" title="31">    <span class="kw">top</span>: <span class="dv">-25</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-32" title="32">    <span class="kw">left</span>: <span class="dv">0</span><span class="dt">px</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-33" title="33">  }</a>
+<a class="sourceLine" id="cb7-34" title="34"><span class="kw">&lt;/style&gt;</span></a>
+<a class="sourceLine" id="cb7-35" title="35"><span class="kw">&lt;div</span><span class="ot"> class=</span><span class="st">&quot;heart&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></a></code></pre></div>

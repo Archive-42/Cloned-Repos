@@ -1,0 +1,57 @@
+<h1 id="description">–description–</h1>
+<p><strong>C</strong>RUD Part I - CREATE</p>
+<p>First of all we need a Schema. Each schema maps to a MongoDB collection. It defines the shape of the documents within that collection. Schemas are building block for Models. They can be nested to create complex models, but in this case we’ll keep things simple. A model allows you to create instances of your objects, called documents.</p>
+<p>Repl.it is a real server, and in real servers the interactions with the database happen in handler functions. These functions are executed when some event happens (e.g. someone hits an endpoint on your API). We’ll follow the same approach in these exercises. The <code>done()</code> function is a callback that tells us that we can proceed after completing an asynchronous operation such as inserting, searching, updating, or deleting. It’s following the Node convention, and should be called as <code>done(null, data)</code> on success, or <code>done(err)</code> on error.</p>
+<p>Warning - When interacting with remote services, errors may occur!</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="co">/* Example */</span></a>
+<a class="sourceLine" id="cb1-2" title="2"></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">const</span> someFunc <span class="op">=</span> <span class="kw">function</span>(done) <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-4" title="4">  <span class="co">//... do something (risky) ...</span></a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="cf">if</span> (error) <span class="cf">return</span> <span class="at">done</span>(error)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-6" title="6">  <span class="at">done</span>(<span class="kw">null</span><span class="op">,</span> result)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="op">};</span></a></code></pre></div>
+<h1 id="instructions">–instructions–</h1>
+<p>Create a person schema called <code>personSchema</code> having this prototype:</p>
+<pre class="markup"><code>- Person Prototype -
+--------------------
+name : string [required]
+age :  number
+favoriteFoods : array of strings (*)</code></pre>
+<p>Use the Mongoose basic schema types. If you want you can also add more fields, use simple validators like required or unique, and set default values. See the <a href="http://mongoosejs.com/docs/guide.html">Mongoose docs</a>.</p>
+<p>Now, create a model called <code>Person</code> from the <code>personSchema</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>Creating an instance from a mongoose schema should succeed</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1">(getUserInput) <span class="kw">=&gt;</span></a>
+<a class="sourceLine" id="cb3-2" title="2">  <span class="va">$</span>.<span class="at">post</span>(<span class="at">getUserInput</span>(<span class="st">&#39;url&#39;</span>) <span class="op">+</span> <span class="st">&#39;/_api/mongoose-model&#39;</span><span class="op">,</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="dt">name</span><span class="op">:</span> <span class="st">&#39;Mike&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-4" title="4">    <span class="dt">age</span><span class="op">:</span> <span class="dv">28</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-5" title="5">    <span class="dt">favoriteFoods</span><span class="op">:</span> [<span class="st">&#39;pizza&#39;</span><span class="op">,</span> <span class="st">&#39;cheese&#39;</span>]</a>
+<a class="sourceLine" id="cb3-6" title="6">  <span class="op">}</span>).<span class="at">then</span>(</a>
+<a class="sourceLine" id="cb3-7" title="7">    (data) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-8" title="8">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">name</span><span class="op">,</span> <span class="st">&#39;Mike&#39;</span><span class="op">,</span> <span class="st">&#39;&quot;model.name&quot; is not what expected&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">      <span class="va">assert</span>.<span class="at">equal</span>(<span class="va">data</span>.<span class="at">age</span><span class="op">,</span> <span class="st">&#39;28&#39;</span><span class="op">,</span> <span class="st">&#39;&quot;model.age&quot; is not what expected&#39;</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-10" title="10">      <span class="va">assert</span>.<span class="at">isArray</span>(</a>
+<a class="sourceLine" id="cb3-11" title="11">        <span class="va">data</span>.<span class="at">favoriteFoods</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-12" title="12">        <span class="st">&#39;&quot;model.favoriteFoods&quot; is not an Array&#39;</span></a>
+<a class="sourceLine" id="cb3-13" title="13">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-14" title="14">      <span class="va">assert</span>.<span class="at">include</span>(</a>
+<a class="sourceLine" id="cb3-15" title="15">        <span class="va">data</span>.<span class="at">favoriteFoods</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-16" title="16">        <span class="st">&#39;pizza&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-17" title="17">        <span class="st">&#39;&quot;model.favoriteFoods&quot; does not include the expected items&#39;</span></a>
+<a class="sourceLine" id="cb3-18" title="18">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-19" title="19">      <span class="va">assert</span>.<span class="at">include</span>(</a>
+<a class="sourceLine" id="cb3-20" title="20">        <span class="va">data</span>.<span class="at">favoriteFoods</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-21" title="21">        <span class="st">&#39;cheese&#39;</span><span class="op">,</span></a>
+<a class="sourceLine" id="cb3-22" title="22">        <span class="st">&#39;&quot;model.favoriteFoods&quot; does not include the expected items&#39;</span></a>
+<a class="sourceLine" id="cb3-23" title="23">      )<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-24" title="24">    <span class="op">},</span></a>
+<a class="sourceLine" id="cb3-25" title="25">    (xhr) <span class="kw">=&gt;</span> <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-26" title="26">      <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="va">xhr</span>.<span class="at">responseText</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-27" title="27">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb3-28" title="28">  )<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="co">/**</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co">  Backend challenges don&#39;t need solutions, </span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co">  because they would need to be tested against a full working project. </span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">  Please check our contributing guidelines to learn more.</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">*/</span></a></code></pre></div>

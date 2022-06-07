@@ -1,0 +1,44 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="description" content="Core Dump")
+    meta(name="title" property="og:title" content="Core Dump" )
+    meta(name="image" property="og:image" content="https://i.imgur.com/rtfDskW.jpg")
+    link(href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" rel="stylesheet")
+    link(rel="stylesheet" type='text/css' href="/style.css")
+    link(rel="icon" type="image/png" href="https://img.icons8.com/fluent/48/000000/monitor.png")
+    script(src='../js/logout.js')
+    script(src='../js/sidebar.js')
+    title= title
+  body.gradient2
+    div.wrapper
+      include sideBar.pug
+      div.center
+        span.search
+          img(src='/images/Hamburger_icon.svg.png').burger
+          form(method='post' action='/search')
+            label(for='search')
+            input(type='text' class='input-search' placeholder='search coredump' name='search' required)
+            //- input(type='submit' name='searchBtn').btn-search
+          if !signedIn
+            div.auth-btns
+              a(href='/login').login Login
+              a(href='/signup').signup Sign Up
+          else
+            div.avatar-container
+              span.navbar-text Welcome #{signedIn.dataValues.userName}!
+              a(href='/postQuestion' style='text-decoration:none; color:white').main-btn-question Ask a question
+              span.logout Log Out
+              a(href=`/users/${signedIn.dataValues.id}`)
+                img.avatar(src=`${signedIn.dataValues.avatar}`)
+              a(href='/')
+        div.main-box
+        //- position absolutely the error messages and centered.
+        block content
+        div.footer
+          p © Copyright: App Academy Group Project - July Cohort 2020
+
+//- img.avatar2(src=`${user.avatar}` height="50")
+//- div.userName2: a(href=`/users/${user.id}`) #{user.userName}

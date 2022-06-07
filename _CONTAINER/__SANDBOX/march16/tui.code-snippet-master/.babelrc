@@ -1,5 +1,0 @@
-{
-  "presets": [["@babel/preset-env", { "loose": true }]],
-  "plugins": ["add-module-exports"],
-  "comments": false
-}

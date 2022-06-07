@@ -1,0 +1,133 @@
+<h1 id="description">–description–</h1>
+<p>So far, we’ve learned different ways of creating representations of graphs. What now? One natural question to have is what are the distances between any two nodes in the graph? Enter <dfn>graph traversal algorithms</dfn>.</p>
+<p><dfn>Traversal algorithms</dfn> are algorithms to traverse or visit nodes in a graph. One type of traversal algorithm is the breadth-first search algorithm.</p>
+<p>This algorithm starts at one node and visits all its neighbors that are one edge away. It then goes on to visit each of their neighbors and so on until all nodes have been reached.</p>
+<p>An important data structure that will help implement the breadth-first search algorithm is the queue. This is an array where you can add elements to one end and remove elements from the other end. This is also known as a <dfn>FIFO</dfn> or <dfn>First-In-First-Out</dfn> data structure.</p>
+<p>Visually, this is what the algorithm is doing. <img src="https://camo.githubusercontent.com/2f57e6239884a1a03402912f13c49555dec76d06/68747470733a2f2f75706c6f61642e77696b696d656469612e6f72672f77696b6970656469612f636f6d6d6f6e732f342f34362f416e696d617465645f4246532e676966" alt="Breadth first search algorithm moving through a tree" /></p>
+<p>The grey shading represents a node getting added into the queue and the black shading represents a node getting removed from the queue. See how every time a node gets removed from the queue (node turns black), all their neighbors get added into the queue (node turns grey).</p>
+<p>To implement this algorithm, you’ll need to input a graph structure and a node you want to start at.</p>
+<p>First, you’ll want to be aware of the distances from, or number of edges away from, the start node. You’ll want to start all your distances with some large number, like <code>Infinity</code>. This prevents counting issues for when a node may not be reachable from your start node. Next, you’ll want to go from the start node to its neighbors. These neighbors are one edge away and at this point you should add one unit of distance to the distances you’re keeping track of.</p>
+<h1 id="instructions">–instructions–</h1>
+<p>Write a function <code>bfs()</code> that takes an adjacency matrix graph (a two-dimensional array) and a node label root as parameters. The node label will just be the integer value of the node between <code>0</code> and <code>n - 1</code>, where <code>n</code> is the total number of nodes in the graph.</p>
+<p>Your function will output a JavaScript object key-value pairs with the node and its distance from the root. If the node could not be reached, it should have a distance of <code>Infinity</code>.</p>
+<h1 id="hints">–hints–</h1>
+<p>The input graph <code>[[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]]</code> with a start node of <code>1</code> should return <code>{0: 1, 1: 0, 2: 1, 3: 2}</code></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb1-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb1-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb1-3" title="3">    <span class="kw">var</span> graph <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb1-4" title="4">      [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-5" title="5">      [<span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-6" title="6">      [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb1-7" title="7">      [<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb1-8" title="8">    ]<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-9" title="9">    <span class="kw">var</span> results <span class="op">=</span> <span class="at">bfs</span>(graph<span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-10" title="10">    <span class="cf">return</span> <span class="at">isEquivalent</span>(results<span class="op">,</span> <span class="op">{</span> <span class="dv">0</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">2</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">:</span> <span class="dv">2</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb1-11" title="11">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb1-12" title="12">)<span class="op">;</span></a></code></pre></div>
+<p>The input graph <code>[[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]]</code> with a start node of <code>1</code> should return <code>{0: 1, 1: 0, 2: 1, 3: Infinity}</code></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb2-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb2-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb2-3" title="3">    <span class="kw">var</span> graph <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb2-4" title="4">      [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-5" title="5">      [<span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-6" title="6">      [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb2-7" title="7">      [<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb2-8" title="8">    ]<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-9" title="9">    <span class="kw">var</span> results <span class="op">=</span> <span class="at">bfs</span>(graph<span class="op">,</span> <span class="dv">1</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-10" title="10">    <span class="cf">return</span> <span class="at">isEquivalent</span>(results<span class="op">,</span> <span class="op">{</span> <span class="dv">0</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">2</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">3</span><span class="op">:</span> <span class="kw">Infinity</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb2-11" title="11">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb2-12" title="12">)<span class="op">;</span></a></code></pre></div>
+<p>The input graph <code>[[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]]</code> with a start node of <code>0</code> should return <code>{0: 0, 1: 1, 2: 2, 3: 3}</code></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb3-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb3-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb3-3" title="3">    <span class="kw">var</span> graph <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb3-4" title="4">      [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-5" title="5">      [<span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-6" title="6">      [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb3-7" title="7">      [<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb3-8" title="8">    ]<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-9" title="9">    <span class="kw">var</span> results <span class="op">=</span> <span class="at">bfs</span>(graph<span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-10" title="10">    <span class="cf">return</span> <span class="at">isEquivalent</span>(results<span class="op">,</span> <span class="op">{</span> <span class="dv">0</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">:</span> <span class="dv">3</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb3-11" title="11">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb3-12" title="12">)<span class="op">;</span></a></code></pre></div>
+<p>The input graph <code>[[0, 1], [1, 0]]</code> with a start node of <code>0</code> should return <code>{0: 0, 1: 1}</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb4-1" title="1"><span class="at">assert</span>(</a>
+<a class="sourceLine" id="cb4-2" title="2">  (<span class="kw">function</span> () <span class="op">{</span></a>
+<a class="sourceLine" id="cb4-3" title="3">    <span class="kw">var</span> graph <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb4-4" title="4">      [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb4-5" title="5">      [<span class="dv">1</span><span class="op">,</span> <span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb4-6" title="6">    ]<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">    <span class="kw">var</span> results <span class="op">=</span> <span class="at">bfs</span>(graph<span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">    <span class="cf">return</span> <span class="at">isEquivalent</span>(results<span class="op">,</span> <span class="op">{</span> <span class="dv">0</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">:</span> <span class="dv">1</span> <span class="op">}</span>)<span class="op">;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">  <span class="op">}</span>)()</a>
+<a class="sourceLine" id="cb4-10" title="10">)<span class="op">;</span></a></code></pre></div>
+<h1 id="seed">–seed–</h1>
+<h2 id="after-user-code">–after-user-code–</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb5-1" title="1"><span class="co">// Source: http://adripofjavascript.com/blog/drips/object-equality-in-javascript.html</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw">function</span> <span class="at">isEquivalent</span>(a<span class="op">,</span> b) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-3" title="3">    <span class="co">// Create arrays of property names</span></a>
+<a class="sourceLine" id="cb5-4" title="4">    <span class="kw">var</span> aProps <span class="op">=</span> <span class="va">Object</span>.<span class="at">getOwnPropertyNames</span>(a)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-5" title="5">    <span class="kw">var</span> bProps <span class="op">=</span> <span class="va">Object</span>.<span class="at">getOwnPropertyNames</span>(b)<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-6" title="6">    <span class="co">// If number of properties is different,</span></a>
+<a class="sourceLine" id="cb5-7" title="7">    <span class="co">// objects are not equivalent</span></a>
+<a class="sourceLine" id="cb5-8" title="8">    <span class="cf">if</span> (<span class="va">aProps</span>.<span class="at">length</span> <span class="op">!=</span> <span class="va">bProps</span>.<span class="at">length</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-9" title="9">        <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-10" title="10">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-11" title="11">    <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">aProps</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-12" title="12">        <span class="kw">var</span> propName <span class="op">=</span> aProps[i]<span class="op">;</span></a>
+<a class="sourceLine" id="cb5-13" title="13">        <span class="co">// If values of same property are not equal,</span></a>
+<a class="sourceLine" id="cb5-14" title="14">        <span class="co">// objects are not equivalent</span></a>
+<a class="sourceLine" id="cb5-15" title="15">        <span class="cf">if</span> (a[propName] <span class="op">!==</span> b[propName]) <span class="op">{</span></a>
+<a class="sourceLine" id="cb5-16" title="16">            <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-17" title="17">        <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-18" title="18">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb5-19" title="19">    <span class="co">// If we made it this far, objects</span></a>
+<a class="sourceLine" id="cb5-20" title="20">    <span class="co">// are considered equivalent</span></a>
+<a class="sourceLine" id="cb5-21" title="21">    <span class="cf">return</span> <span class="kw">true</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb5-22" title="22"><span class="op">}</span></a></code></pre></div>
+<h2 id="seed-contents">–seed-contents–</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">function</span> <span class="at">bfs</span>(graph<span class="op">,</span> root) <span class="op">{</span></a>
+<a class="sourceLine" id="cb6-2" title="2">  <span class="kw">var</span> nodesLen <span class="op">=</span> <span class="op">{};</span></a>
+<a class="sourceLine" id="cb6-3" title="3"></a>
+<a class="sourceLine" id="cb6-4" title="4">  <span class="cf">return</span> nodesLen<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="op">};</span></a>
+<a class="sourceLine" id="cb6-6" title="6"></a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="kw">var</span> exBFSGraph <span class="op">=</span> [</a>
+<a class="sourceLine" id="cb6-8" title="8">  [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-9" title="9">  [<span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-10" title="10">  [<span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span>]<span class="op">,</span></a>
+<a class="sourceLine" id="cb6-11" title="11">  [<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb6-12" title="12">]<span class="op">;</span></a>
+<a class="sourceLine" id="cb6-13" title="13"><span class="va">console</span>.<span class="at">log</span>(<span class="at">bfs</span>(exBFSGraph<span class="op">,</span> <span class="dv">3</span>))<span class="op">;</span></a></code></pre></div>
+<h1 id="solutions">–solutions–</h1>
+<div class="sourceCode" id="cb7"><pre class="sourceCode js"><code class="sourceCode javascript"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">function</span> <span class="at">bfs</span>(graph<span class="op">,</span> root) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-2" title="2">  <span class="kw">var</span> nodesLen <span class="op">=</span> <span class="op">{};</span></a>
+<a class="sourceLine" id="cb7-3" title="3">  <span class="co">// Set all distances to infinity</span></a>
+<a class="sourceLine" id="cb7-4" title="4">  <span class="cf">for</span> (<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">graph</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-5" title="5">    nodesLen[i] <span class="op">=</span> <span class="kw">Infinity</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-6" title="6">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-7" title="7">  nodesLen[root] <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> <span class="co">// ...except root node</span></a>
+<a class="sourceLine" id="cb7-8" title="8">  <span class="kw">var</span> queue <span class="op">=</span> [root]<span class="op">;</span> <span class="co">// Keep track of nodes to visit</span></a>
+<a class="sourceLine" id="cb7-9" title="9">  <span class="kw">var</span> current<span class="op">;</span> <span class="co">// Current node traversing</span></a>
+<a class="sourceLine" id="cb7-10" title="10">  <span class="co">// Keep on going until no more nodes to traverse</span></a>
+<a class="sourceLine" id="cb7-11" title="11">  <span class="cf">while</span> (<span class="va">queue</span>.<span class="at">length</span> <span class="op">!==</span> <span class="dv">0</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-12" title="12">    current <span class="op">=</span> <span class="va">queue</span>.<span class="at">shift</span>()<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-13" title="13">    <span class="co">// Get adjacent nodes from current node</span></a>
+<a class="sourceLine" id="cb7-14" title="14">    <span class="kw">var</span> curConnected <span class="op">=</span> graph[current]<span class="op">;</span> <span class="co">// Get layer of edges from current</span></a>
+<a class="sourceLine" id="cb7-15" title="15">    <span class="kw">var</span> neighborIdx <span class="op">=</span> []<span class="op">;</span> <span class="co">// List of nodes with edges</span></a>
+<a class="sourceLine" id="cb7-16" title="16">    <span class="kw">var</span> idx <span class="op">=</span> <span class="va">curConnected</span>.<span class="at">indexOf</span>(<span class="dv">1</span>)<span class="op">;</span> <span class="co">// Get first edge connection</span></a>
+<a class="sourceLine" id="cb7-17" title="17">    <span class="cf">while</span> (idx <span class="op">!==</span> <span class="dv">-1</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-18" title="18">      <span class="va">neighborIdx</span>.<span class="at">push</span>(idx)<span class="op">;</span> <span class="co">// Add to list of neighbors</span></a>
+<a class="sourceLine" id="cb7-19" title="19">      idx <span class="op">=</span> <span class="va">curConnected</span>.<span class="at">indexOf</span>(<span class="dv">1</span><span class="op">,</span> idx <span class="op">+</span> <span class="dv">1</span>)<span class="op">;</span> <span class="co">// Keep on searching</span></a>
+<a class="sourceLine" id="cb7-20" title="20">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-21" title="21">    <span class="co">// Loop through neighbors and get lengths</span></a>
+<a class="sourceLine" id="cb7-22" title="22">    <span class="cf">for</span> (<span class="kw">var</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> <span class="va">neighborIdx</span>.<span class="at">length</span><span class="op">;</span> j<span class="op">++</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-23" title="23">      <span class="co">// Increment distance for nodes traversed</span></a>
+<a class="sourceLine" id="cb7-24" title="24">      <span class="cf">if</span> (nodesLen[neighborIdx[j]] <span class="op">===</span> <span class="kw">Infinity</span>) <span class="op">{</span></a>
+<a class="sourceLine" id="cb7-25" title="25">        nodesLen[neighborIdx[j]] <span class="op">=</span> nodesLen[current] <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></a>
+<a class="sourceLine" id="cb7-26" title="26">        <span class="va">queue</span>.<span class="at">push</span>(neighborIdx[j])<span class="op">;</span> <span class="co">// Add new neighbors to queue</span></a>
+<a class="sourceLine" id="cb7-27" title="27">      <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-28" title="28">    <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-29" title="29">  <span class="op">}</span></a>
+<a class="sourceLine" id="cb7-30" title="30">  <span class="cf">return</span> nodesLen<span class="op">;</span></a>
+<a class="sourceLine" id="cb7-31" title="31"><span class="op">}</span></a></code></pre></div>
