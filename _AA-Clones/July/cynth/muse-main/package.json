@@ -42,7 +42,7 @@
     "uuid": "^8.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.3",
+    "nodemon": "^2.0.20",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "dotenv-cli": "^3.1.0"
