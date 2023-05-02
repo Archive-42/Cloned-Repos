@@ -6,7 +6,7 @@ authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-flask = "^1.1.2"
+flask = "^2.3.2"
 repltalk = "^0.8.12"
 
 [tool.poetry.dev-dependencies]
