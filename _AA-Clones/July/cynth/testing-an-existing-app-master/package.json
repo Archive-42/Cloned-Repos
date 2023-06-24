@@ -13,6 +13,6 @@
     "chai": "^4.2.0",
     "handlebars": "^4.7.6",
     "handlebars-helpers": "^0.10.0",
-    "mocha": "^7.1.1"
+    "mocha": "^10.2.0"
   }
 }
