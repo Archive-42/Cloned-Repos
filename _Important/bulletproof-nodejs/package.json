@@ -41,7 +41,7 @@
     "errorhandler": "^1.5.1",
     "event-dispatch": "^0.4.1",
     "eventemitter3": "^4.0.7",
-    "express": "^4.17.1",
+    "express": "^4.19.2",
     "express-basic-auth": "^1.2.0",
     "express-jwt": "^6.0.0",
     "jsonwebtoken": "^8.5.1",
