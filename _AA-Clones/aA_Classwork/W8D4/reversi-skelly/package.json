@@ -16,6 +16,6 @@
     "url": "https://github.com/appacademy/js-reversi/issues"
   },
   "devDependencies": {
-    "mocha": "~1.13.0"
+    "mocha": "~11.7.5"
   }
 }
