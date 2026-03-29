@@ -53,10 +53,10 @@
     "mini-css-extract-plugin": "^0.8.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "prettier": "^1.18.2",
-    "terser-webpack-plugin": "^2.3.0",
+    "terser-webpack-plugin": "^5.4.0",
     "tui-code-snippet": "^2.3.1",
     "url-loader": "^0.5.7",
-    "webpack": "^4.39.3",
+    "webpack": "^5.105.4",
     "webpack-cli": "^3.3.7",
     "webpack-dev-server": "^3.8.0"
   },
