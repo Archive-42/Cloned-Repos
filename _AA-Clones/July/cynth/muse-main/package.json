@@ -39,7 +39,7 @@
     "react-shepherd": "^3.3.3",
     "sequelize": "^5.21.7",
     "sequelize-cli": "^5.5.1",
-    "uuid": "^8.0.0"
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.3",
