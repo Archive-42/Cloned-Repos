@@ -27,7 +27,7 @@
     "proxyquire": "2.1.0",
     "sinon": "7.2.3",
     "@google-cloud/storage": "^2.3.3",
-    "uuid": "3.3.2"
+    "uuid": "14.0.0"
   },
   "cloud-repo-tools": {
     "requiresKeyFile": true,
