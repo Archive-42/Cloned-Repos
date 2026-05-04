@@ -130,7 +130,7 @@
     "universal-analytics": "^0.4.16",
     "unzipper": "^0.10.10",
     "update-notifier": "^4.1.0",
-    "uuid": "^3.0.0",
+    "uuid": "^14.0.0",
     "winston": "^3.0.0",
     "ws": "^7.2.3"
   },
