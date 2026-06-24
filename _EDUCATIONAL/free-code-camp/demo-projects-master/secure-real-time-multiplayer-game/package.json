@@ -8,7 +8,7 @@
     "test": "PORT=3005 mocha --require @babel/register --recursive --exit --ui tdd tests/"
   },
   "dependencies": {
-    "@babel/core": "^7.7.5",
+    "@babel/core": "^7.29.6",
     "@babel/preset-env": "^7.7.6",
     "@babel/register": "^7.7.4",
     "body-parser": "^1.19.0",
