@@ -58,7 +58,7 @@
     "url-loader": "^0.5.7",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7",
-    "webpack-dev-server": "^3.8.0"
+    "webpack-dev-server": "^5.2.6"
   },
   "dependencies": {
     "tui-context-menu": "^2.1.6"
