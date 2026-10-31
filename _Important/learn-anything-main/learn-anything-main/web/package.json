@@ -42,7 +42,7 @@
     "react-final-form": "6.5.1",
     "secure-password": "4.0.0",
     "tailwindcss": "1",
-    "zod": "1.11.8"
+    "zod": "4.6.6"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "5.11.4",
